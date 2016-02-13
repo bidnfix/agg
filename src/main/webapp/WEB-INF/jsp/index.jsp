@@ -23,7 +23,7 @@
 	<script src="/assets/js/respond.min.js"></script>
 	<![endif]-->
 </head>
-<body>
+<body ng-app="aggApp">
 <!-- Fixed navbar -->
 <div class="navbar navbar-inverse navbar-fixed-top headroom" >
   <div class="container">
@@ -91,20 +91,19 @@
                     </div><!--sub nav-->
                     
                 </div>            
-                <div class="col-md-6 col-sm-12  ">
-                 	 <form class="form-signin">       
-      <h2 class="form-signin-heading">Please login</h2>
-      <input type="text" class="form-control" name="username" placeholder="Email Address" required="" autofocus="" />
-      <input type="password" class="form-control" name="password" placeholder="Password" required=""/>      
-      <label class="checkbox">
-        <input type="checkbox" value="remember-me" id="rememberMe" name="rememberMe"> Remember me
-      </label>
-      <button class="btn btn-lg btn-primary btn-block wobble" type="submit">Login</button>   
-    </form>		
-        
+                <div class="col-md-6 col-sm-12" ng-controller="LoginController as ctrl">
+                 	 <form class="form-signin" ng-submit="ctrl.submit()">       
+					      <h2 class="form-signin-heading">Please login</h2>
+					      <input type="text" class="form-control" name="username" ng-model="ctrl.user.username" placeholder="Email Address" required="" autofocus="" />
+					      <input type="password" class="form-control" name="password" ng-model="ctrl.user.password" placeholder="Password" required=""/>      
+					      <label class="checkbox">
+					        <input type="checkbox" value="remember-me" id="rememberMe" name="rememberMe"> Remember me
+					      </label>
+					      <button class="btn btn-lg btn-primary btn-block wobble" type="submit">Login</button>   
+					  </form>		
                 </div>
             </div>
-            </div>
+          </div>
 </section>
 <!-- /Intro--> 
 
@@ -198,5 +197,9 @@ Thank you for helping us make our new website more powerful and user friendly.</
 <script src="/assets/js/headroom.min.js"></script> 
 <script src="/assets/js/jQuery.headroom.min.js"></script> 
 <script src="/assets/js/custom.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.js"></script>
+<script src="/assets/js/app.js"></script>
+<script src="/assets/js/service/loginService.js"></script>
+<script src="/assets/js/controller/loginController.js"></script>
 </body>
 </html>
