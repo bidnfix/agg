@@ -4,7 +4,7 @@ App.factory('LoginService', ['$http', '$q', '$window', function($http, $q, $wind
 
 	return {
 			loginUser: function(user){
-					return $http.post('http://localhost:8080/agg/login', user).success(function(data){
+					return $http.post('/agg/login', user).success(function(data){
 						$window.location='/login/homepage';
 				    });
 							/*.then(
