@@ -2,15 +2,15 @@ package com.agg.application.controller;
 
 import java.util.Map;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.agg.application.model.LoginForm;
 import com.agg.application.model.Result;
@@ -23,9 +23,10 @@ public class LoginController {
 	@Autowired
 	private LoginService loginService;
 	
-	@RequestMapping(value = "/login", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public Result login(@Valid @RequestBody LoginForm loginForm) {
-		return new Result("success", null, "logged in");
+	@RequestMapping(value = "/login", method = RequestMethod.POST, consumes = MediaType.ALL_VALUE)
+	public @ResponseBody Result login(@RequestBody LoginForm loginForm,
+            BindingResult result, Model model) throws Exception {
+		return new Result("success", null, loginService.authenticateUser(loginForm));
 	}
 	
 	@RequestMapping(value = "/welcome", method = RequestMethod.GET)
