@@ -17,7 +17,7 @@ import com.agg.application.model.Result;
 import com.agg.application.service.LoginService;
 
 @Controller
-@RequestMapping("/agg/api/v1")
+@RequestMapping("/agg")
 public class LoginController {
 
 	@Autowired
@@ -26,6 +26,7 @@ public class LoginController {
 	@RequestMapping(value = "/login", method = RequestMethod.POST, consumes = MediaType.ALL_VALUE)
 	public @ResponseBody Result login(@RequestBody LoginForm loginForm,
             BindingResult result, Model model) throws Exception {
+		System.out.println("LoginForm username: "+loginForm.getUsername());
 		return new Result("success", null, loginService.authenticateUser(loginForm));
 	}
 	
