@@ -4,7 +4,7 @@ public class LoginForm {
 
 	private String username;
 
-	private char[] password;
+	private String password;
 
 	/**
 	 * @return the username
@@ -24,7 +24,7 @@ public class LoginForm {
 	/**
 	 * @return the password
 	 */
-	public char[] getPassword() {
+	public String getPassword() {
 		return password;
 	}
 
@@ -32,7 +32,7 @@ public class LoginForm {
 	 * @param password
 	 *            the password to set
 	 */
-	public void setPassword(char[] password) {
+	public void setPassword(String password) {
 		this.password = password;
 	}
 

@@ -1,5 +1,7 @@
 package com.agg.application.dao;
 
+import java.util.Optional;
+
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Component;
 
@@ -10,6 +12,6 @@ public interface UserDAO extends CrudRepository<Account, Long> {
 
 	Account findByUserName(String username);
 
-	Account findByUserNameAndPassword(String username, char[] password);
+	Optional<Account> findByUserNameAndPassword(String username, String password);
 
 }

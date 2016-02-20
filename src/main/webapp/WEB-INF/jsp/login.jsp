@@ -94,6 +94,7 @@
                 <div class="col-md-6 col-sm-12" ng-controller="LoginController as ctrl">
                  	 <form class="form-signin" ng-submit="ctrl.submit()">       
 					      <h2 class="form-signin-heading">Please login</h2>
+					      <p style="color: #BB1818;padding-bottom: 12px;" id="errMsg"></p>
 					      <input type="text" class="form-control" name="username" ng-model="ctrl.user.username" placeholder="Email Address" required="" autofocus="" />
 					      <input type="password" class="form-control" name="password" ng-model="ctrl.user.password" placeholder="Password" required=""/>      
 					      <label class="checkbox">
