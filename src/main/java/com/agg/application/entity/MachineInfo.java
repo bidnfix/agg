@@ -52,6 +52,10 @@ public class MachineInfo implements Serializable {
 	@JoinColumn(name="manf_id")
 	private Manufacturer manufacturer;
 
+	//bi-directional many-to-one association to MachineModel
+	@OneToMany(mappedBy="machineInfo")
+	private List<MachineModel> machineModels;
+
 	//bi-directional many-to-one association to MachineNote
 	@OneToMany(mappedBy="machineInfo")
 	private List<MachineNote> machineNotes;
@@ -145,6 +149,28 @@ public class MachineInfo implements Serializable {
 
 	public void setManufacturer(Manufacturer manufacturer) {
 		this.manufacturer = manufacturer;
+	}
+
+	public List<MachineModel> getMachineModels() {
+		return this.machineModels;
+	}
+
+	public void setMachineModels(List<MachineModel> machineModels) {
+		this.machineModels = machineModels;
+	}
+
+	public MachineModel addMachineModel(MachineModel machineModel) {
+		getMachineModels().add(machineModel);
+		machineModel.setMachineInfo(this);
+
+		return machineModel;
+	}
+
+	public MachineModel removeMachineModel(MachineModel machineModel) {
+		getMachineModels().remove(machineModel);
+		machineModel.setMachineInfo(null);
+
+		return machineModel;
 	}
 
 	public List<MachineNote> getMachineNotes() {
