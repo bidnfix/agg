@@ -9,6 +9,7 @@
             <li class="animated fadeInLeft"><a href="#">Service Drive</a></li>
             <li class="animated fadeInLeftBig"><a href="#">Edit Profile</a></li>
             <li class="animated fadeInLeft"><a href="#">Claims</a></li>
+            <li class="animated fadeInLeft"><a href="/agg/machineInfo">Machine Search</a></li>
             <li class="animated fadeInLeftBig"><a href="#">Terms & Conditions</a></li>
             <li class="animated fadeInLeft"><a href="#">Support</a></li>
             <li class="animated fadeInLeftBig"><a href="#">Quotes</a></li>
