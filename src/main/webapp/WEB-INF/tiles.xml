@@ -23,5 +23,9 @@
 	<definition name="machineInfo" extends="layout.basic">
 		<put-attribute name="body" value="/WEB-INF/jsp/machineInfo.jsp" />
 	</definition>
+	
+	<definition name="addDealer" extends="layout.basic">
+		<put-attribute name="body" value="/WEB-INF/jsp/addDealer.jsp" />
+	</definition>
 
 </tiles-definitions>

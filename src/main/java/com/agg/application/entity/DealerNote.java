@@ -16,10 +16,11 @@ public class DealerNote implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue
 	private int id;
 
-	@Column(name="dealer_id")
-	private int dealerId;
+	/*@Column(name="dealer_id")
+	private int dealerId;*/
 
 	@Column(name="last_update")
 	private Timestamp lastUpdate;
@@ -28,8 +29,8 @@ public class DealerNote implements Serializable {
 	private String notes;
 
 	//bi-directional one-to-one association to Dealer
-	@OneToOne
-	@JoinColumn(name="id")
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="dealer_id")
 	private Dealer dealer;
 
 	public DealerNote() {
@@ -43,13 +44,13 @@ public class DealerNote implements Serializable {
 		this.id = id;
 	}
 
-	public int getDealerId() {
+	/*public int getDealerId() {
 		return this.dealerId;
 	}
 
 	public void setDealerId(int dealerId) {
 		this.dealerId = dealerId;
-	}
+	}*/
 
 	public Timestamp getLastUpdate() {
 		return this.lastUpdate;

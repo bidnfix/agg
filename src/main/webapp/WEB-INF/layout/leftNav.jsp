@@ -16,13 +16,13 @@
             <li class="animated fadeInLeft"><a href="/agg/logout">Logout</a></li>
             <li class="animated fadeInLeftBig"><a href="#">Recommendation Box</a></li>
             <li class=" gree animated fadeInLeft"><a href="#">Help</a></li>
-			<li class="animated fadeInLeftBig"><a>Accordion step one </a>
+			<li class="animated fadeInLeftBig"><a>Dealer Management</a>
 				<ul>
-					<li><a href="#">Sub Link 1</a></li>
-					<li><a href="#">Sub Link 2</a></li>
-					<li><a href="#">Sub Link 3</a></li>
-					<li><a href="#">Sub Link 4</a></li>
-					<li><a href="#">Sub Link 5</a></li>
+					<li><a href="#">Manage Locations</a></li>
+					<li><a href="#">Manage Users</a></li>
+					<li><a href="/agg/addDealer">Manage Dealers</a></li>
+					<li><a href="#">Pending Dealers</a></li>
+					<li><a href="#">Dealer Search</a></li>
 				</ul>
 			</li>
 			<li class="animated fadeInLeft"><a href="#">Link 3</a></li>

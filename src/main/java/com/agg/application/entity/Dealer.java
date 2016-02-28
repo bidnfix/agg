@@ -18,6 +18,7 @@ public class Dealer implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue
 	private int id;
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -69,7 +70,7 @@ public class Dealer implements Serializable {
 	private String zip;
 
 	//bi-directional one-to-one association to DealerNote
-	@OneToOne(mappedBy="dealer")
+	@OneToOne(mappedBy="dealer", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	private DealerNote dealerNote;
 
 	//bi-directional many-to-one association to Notification
