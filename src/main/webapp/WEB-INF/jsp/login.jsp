@@ -198,7 +198,7 @@ Thank you for helping us make our new website more powerful and user friendly.</
 <script src="/assets/js/headroom.min.js"></script> 
 <script src="/assets/js/jQuery.headroom.min.js"></script> 
 <script src="/assets/js/custom.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.js"></script>
+<script src="/assets/js/angular.min.js"></script>
 <script src="/assets/js/app.js"></script>
 <script src="/assets/js/service/loginService.js"></script>
 <script src="/assets/js/controller/loginController.js"></script>
