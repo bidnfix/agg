@@ -28,13 +28,15 @@
 	<script src="/assets/js/html5shiv.js"></script>
 	<script src="/assets/js/respond.min.js"></script>
 	<![endif]-->
+<script src="/assets/js/angular.min.js"></script>
 </head>
-<body>
+<body ng-app="aggRoutingApp">
 	<tiles:insertAttribute name="header" />
 	<div class="container"> 
 	<div class="row">
 	<tiles:insertAttribute name="leftNav" />
 	<tiles:insertAttribute name="body" />
+	<div ng-view></div>
 	</div>
 	</div>
 	<tiles:insertAttribute name="footer" />
@@ -74,5 +76,6 @@
 	<script src="/assets/js/headroom.min.js"></script>
 	<script src="/assets/js/jQuery.headroom.min.js"></script>
 	<script src="/assets/js/custom.js"></script>
+	<script src="/assets/js/leftNav.js"></script>
 </body>
 </html>
