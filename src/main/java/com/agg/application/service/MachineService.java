@@ -1,9 +1,11 @@
 package com.agg.application.service;
 
-import com.agg.application.entity.Manufacturer;
+import java.util.List;
+
+import com.agg.application.model.ManufacturerDO;
 
 public interface MachineService {
 
-	Iterable<Manufacturer> getManufacturerDetails();
+	List<ManufacturerDO> getManufacturerDetails();
 
 }

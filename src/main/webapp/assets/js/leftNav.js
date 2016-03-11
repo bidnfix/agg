@@ -1,12 +1,12 @@
 'use strict';
 
-var routingApp = angular.module('aggRoutingApp',[]);
+var routingApp = angular.module('aggRoutingApp',['ngRoute']);
 
-/*routingApp.config(['$routeProvider',
+routingApp.config(['$routeProvider',
                   function($routeProvider) {
                     $routeProvider.
                       when('/agg/addDealer', {
-                    	  templateUrl: '/WEB-INF/jsp/addDealer.jsp',
+                    	  templateUrl: 'WEB-INF/jsp/addDealer.jsp',
                     	  controller: 'AddDealerController'
                       }).
                       otherwise({
@@ -16,7 +16,7 @@ var routingApp = angular.module('aggRoutingApp',[]);
 
 routingApp.controller('AddDealerController', function($scope) {
 	alert(1);
-});*/
+});
 
 routingApp.controller("activateTabCtrl", function($scope) {
     $scope.activateTab = function ($event) {

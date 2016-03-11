@@ -29,6 +29,7 @@
 	<script src="/assets/js/respond.min.js"></script>
 	<![endif]-->
 <script src="/assets/js/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular-route.min.js"></script>
 </head>
 <body ng-app="aggRoutingApp">
 	<tiles:insertAttribute name="header" />
