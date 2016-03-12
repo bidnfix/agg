@@ -6,11 +6,14 @@ routingApp.config(['$routeProvider',
                   function($routeProvider) {
                     $routeProvider.
                       when('/agg/addDealer', {
-                    	  templateUrl: 'WEB-INF/jsp/addDealer.jsp',
+                    	  templateUrl: '../../jsp/addDealer.jsp',
                     	  controller: 'AddDealerController'
                       }).
+                      when('/agg/home', {
+                    	  templateUrl: '../../jsp/home.jsp'
+                      }).
                       otherwise({
-                	redirectTo: '/agg/home'
+                    	  redirectTo: '/agg/home'
                       });
                 }]);
 

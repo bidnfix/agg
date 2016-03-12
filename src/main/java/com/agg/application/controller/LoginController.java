@@ -54,7 +54,7 @@ public class LoginController extends BaseController {
 		AccountDO account = (AccountDO) request.getSession().getAttribute("user");
 		if (account == null)
 			return "login";
-		return "home";
+		return "basic";
 	}
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)

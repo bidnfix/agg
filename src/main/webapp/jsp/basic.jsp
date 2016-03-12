@@ -1,5 +1,3 @@
-
-<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +6,7 @@
 	<meta name="description" content="">
 	<meta name="author"      content="AgGuard">
 	
-	<title><tiles:getAsString name="title" /></title>
+	<title>Agguard</title>
 <link rel="favicon" href="/assets/images/favicon.png">
 <link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
 <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
@@ -29,18 +27,17 @@
 	<script src="/assets/js/respond.min.js"></script>
 	<![endif]-->
 <script src="/assets/js/angular.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular-route.min.js"></script>
+<script src="/assets/js/angular-route.min.js"></script>
 </head>
 <body ng-app="aggRoutingApp">
-	<tiles:insertAttribute name="header" />
+	<jsp:include page="header.jsp"></jsp:include>
 	<div class="container"> 
-	<div class="row">
-	<tiles:insertAttribute name="leftNav" />
-	<tiles:insertAttribute name="body" />
-	<div ng-view></div>
+		<div class="row">
+			<jsp:include page="leftNav.jsp"></jsp:include>
+			<div ng-view></div>
+		</div>
 	</div>
-	</div>
-	<tiles:insertAttribute name="footer" />
+	<jsp:include page="footer.jsp"></jsp:include>
 	<!-- JavaScript libs are placed at the end of the document so the pages load faster -->
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
