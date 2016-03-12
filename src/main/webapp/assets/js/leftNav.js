@@ -28,8 +28,8 @@ routingApp.controller('AddDealerController', function($scope) {
 routingApp.controller('AddMachineController', function($scope, $http) {
 	 $http.get("/agg/machineInfo")
 	    .then(function(response) {
-	    	alert(response.data.manufacturerList);
-	        $scope.manufacturerList = response.data.manufacturerList;
+	    	alert(response.data.data.manufacturerList);
+	        $scope.manufacturerList = response.data.data.manufacturerList;
 	    });
 });
 
