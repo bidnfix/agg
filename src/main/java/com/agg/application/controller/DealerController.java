@@ -8,19 +8,22 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.agg.application.model.DealerDO;
+import com.agg.application.model.Result;
 import com.agg.application.service.DealerService;
 
-@Controller
+@RestController
 @RequestMapping("/agg")
 public class DealerController extends BaseController {
 
@@ -48,17 +51,25 @@ public class DealerController extends BaseController {
 	}
 
 	@RequestMapping(value = "/addDealer", method = RequestMethod.POST)
-	public String saveOrEditDealer(@Validated @ModelAttribute DealerDO dealerDO, BindingResult result,
+	public @ResponseBody Result saveOrEditDealer(@RequestBody DealerDO dealerDO, BindingResult result,
 			HttpServletRequest request, HttpServletResponse response) {
-		logger.debug("In addPrograms ");
-		if (!sessionExists(request))
-			return "login";
-
-		if (result.hasErrors())
-			return "redirect:/addDealer";
-
-		long id = dealerService.saveDealer(dealerDO);
-		return "redirect:/dealer/" + id;
+		logger.debug("In saveOrEditDealer user: "+dealerDO.getUserName());
+		Result opResult = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			if (result.hasErrors()){
+				opResult = new Result("failure", "Invalid dealer form field values", null);
+			}
+	
+			long id = dealerService.saveDealer(dealerDO);
+			if(id > 0){
+				opResult = new Result("success", "Invalid dealer form field values", null);
+			}
+			
+		}
+		
+		return opResult;
 	}
 	
 	@RequestMapping(value = "/dealer/{id}", method = RequestMethod.GET)

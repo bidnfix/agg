@@ -75,5 +75,7 @@
 	<script src="/assets/js/jQuery.headroom.min.js"></script>
 	<script src="/assets/js/custom.js"></script>
 	<script src="/assets/js/leftNav.js"></script>
+	<script src="/assets/js/service/dealerService.js"></script>
+	<script src="/assets/js/controller/dealerController.js"></script>
 </body>
 </html>
