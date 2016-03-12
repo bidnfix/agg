@@ -10,7 +10,7 @@
             <li class="animated fadeInLeft"><a id="userTrack" href="#" ng-click="activateTab($event);">User Track</a></li>
             <li class="animated fadeInLeft"><a id="archivedQuotes" href="#" ng-click="activateTab($event);">Archived Quotes</a></li>
             <li class="animated fadeInLeft"><a id="adminSearch" href="#" ng-click="activateTab($event);">Admin Search</a></li>
-            <li class="animated fadeInLeft"><a id="machineSearch" href="/agg/machineInfo" ng-click="activateTab($event);">Machine Search</a></li>
+            <li class="animated fadeInLeft"><a id="machineSearch" href="#/agg/machineInfo" ng-click="activateTab($event);">Machine Search</a></li>
             <li class="animated fadeInLeft"><a id="quoteSearch" href="#" ng-click="activateTab($event);">Quote Search</a></li>
             <li class="animated fadeInLeftBig"><a id="dealerManagement" href="#" ng-click="activateTab($event);">Dealer Management</a>
 				<ul>

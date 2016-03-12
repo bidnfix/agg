@@ -1,6 +1,5 @@
 package com.agg.application.controller;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +19,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.agg.application.model.AccountDO;
 import com.agg.application.model.LoginForm;
-import com.agg.application.model.ManufacturerDO;
 import com.agg.application.model.Result;
 import com.agg.application.service.LoginService;
 import com.agg.application.service.MachineService;
@@ -74,15 +71,5 @@ public class LoginController extends BaseController {
 		removeSession(request);
 		return "login";
 	}
-	
-	@RequestMapping(value = "/machineInfo", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
-	public String machineIfo(ModelMap model, HttpServletResponse response) {
-		
-		List<ManufacturerDO> manufacturers = machineService.getManufacturerDetails();
-		model.put("manufacturerList", manufacturers);
-		
-		return "machineInfo";
-	}
-	
 	
 }

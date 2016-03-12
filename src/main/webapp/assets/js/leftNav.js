@@ -9,6 +9,10 @@ routingApp.config(['$routeProvider',
                     	  templateUrl: '../../jsp/addDealer.jsp',
                     	  controller: 'AddDealerController'
                       }).
+                      when('/agg/machineInfo', {
+                    	  templateUrl: '../../jsp/machineInfo.jsp',
+                    	  controller: 'AddMachineController'
+                      }).
                       when('/agg/home', {
                     	  templateUrl: '../../jsp/home.jsp'
                       }).
@@ -19,6 +23,14 @@ routingApp.config(['$routeProvider',
 
 routingApp.controller('AddDealerController', function($scope) {
 	alert(1);
+});
+
+routingApp.controller('AddMachineController', function($scope, $http) {
+	 $http.get("/agg/machineInfo")
+	    .then(function(response) {
+	    	alert(response.data.manufacturerList);
+	        $scope.manufacturerList = response.data.manufacturerList;
+	    });
 });
 
 routingApp.controller("activateTabCtrl", function($scope) {
