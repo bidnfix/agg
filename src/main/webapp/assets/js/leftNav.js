@@ -28,9 +28,12 @@ routingApp.controller('AddDealerController', function($scope) {
 routingApp.controller('AddMachineController', function($scope, $http) {
 	 $http.get("/agg/machineInfo")
 	    .then(function(response) {
-	    	alert(response.data.data.manufacturerList);
 	        $scope.manufacturerList = response.data.data.manufacturerList;
 	    });
+	 $scope.getMachineType = function (machineName)
+	 {
+		 alert(machineName);
+	 }
 });
 
 routingApp.controller("activateTabCtrl", function($scope) {

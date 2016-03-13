@@ -18,25 +18,19 @@
 		</div>
 	</header>
 
-
 	<!-- data table section -->
-
 	<div class="inner-main">
 		<form class="form-horizontal" role="form">
 		<!-- 	<h2>Registration Form</h2> -->
 			<div class="form-group">
 				<label for="firstName" class="col-sm-3 control-label">Manufacturer</label>
 				<div class="col-sm-9">
-					<select id="country" class="form-control">
-						<option>Alabama</option>
-						<option>Bahamas</option>
-						<option>Cambodia</option>
-						<option>Denmark</option>
-						<option>Ecuador</option>
-						<option>Fiji</option>
-						<option>Gabon</option>
-						<option>Haiti</option>
-					</select>
+					<select name="machine" ng-model="manufacturer" ng-change="getMachineType(machine.name)" 
+						ng-options="machine.name for machine in manufacturerList">
+         				<!--  <option ng:repeat="machine in manufacturerList" value="{{machine.id}}">{{machine.name}}</option>-->
+         				
+         					
+     				</select> 
 				</div>
 			</div>
 			<div class="form-group">
