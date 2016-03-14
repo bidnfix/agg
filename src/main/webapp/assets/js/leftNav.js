@@ -30,9 +30,13 @@ routingApp.controller('AddMachineController', function($scope, $http) {
 	    .then(function(response) {
 	        $scope.manufacturerList = response.data.data.manufacturerList;
 	    });
-	 $scope.getMachineType = function (machineName)
+	 $scope.getMachineType = function ()
 	 {
-		 alert(machineName);
+		 alert($scope.manufacturer.id);
+		 $http.get("/agg/machineType/"+$scope.manufacturer.id)
+		    .then(function(response) {
+		        $scope.machineTypeList = response.data.data.machineTypeList;
+		    });
 	 }
 });
 
