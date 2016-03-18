@@ -14,7 +14,7 @@ routingApp.factory('dealerService', function($http, $q, $window) {
 								}
 								
 							}, function(errResponse) {
-								console.error('Error while creating dealer');
+								alert('Error while creating dealer');
 								return $q.reject(errResponse);
 							});
 				}
@@ -22,3 +22,27 @@ routingApp.factory('dealerService', function($http, $q, $window) {
 			};
 
 		});
+
+
+routingApp.factory('locationService', function($http, $q, $window) {
+	return {
+		saveLocation : function(location) {
+			return $http.post('/agg/addLocation', location).then(
+					function(response) {
+						alert(response.data.status);
+						if (response.data.status == 'success') {
+							$window.location = '/agg/home';
+						} else {
+							alert('error in adding location: '+response.data.errMessage)
+							//$('#errMsg').html(response.data.errMessage);
+						}
+						
+					}, function(errResponse) {
+						alert('Error while creating location');
+						return $q.reject(errResponse);
+					});
+		}
+
+	};
+
+});

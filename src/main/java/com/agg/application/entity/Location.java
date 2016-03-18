@@ -39,7 +39,7 @@ public class Location implements Serializable {
 
 	@Column(name="l_is_archived")
 	private byte lIsArchived;
-
+	
 	@Column(name="l_last_update")
 	private Timestamp lLastUpdate;
 

@@ -1,6 +1,7 @@
 package com.agg.application.service.impl;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -13,9 +14,12 @@ import org.springframework.stereotype.Service;
 
 import com.agg.application.dao.DealerDAO;
 import com.agg.application.dao.DealerNoteDAO;
+import com.agg.application.dao.LocationDAO;
 import com.agg.application.entity.Dealer;
 import com.agg.application.entity.DealerNote;
+import com.agg.application.entity.Location;
 import com.agg.application.model.DealerDO;
+import com.agg.application.model.LocationDO;
 import com.agg.application.service.DealerService;
 import com.agg.application.utils.Util;
 
@@ -29,11 +33,25 @@ public class DealerServiceImpl implements DealerService {
 	@Autowired
 	DealerNoteDAO dealerNoteDAO;
 	
+	@Autowired
+	LocationDAO locationDAO;
+	
 	@Override
 	public List<DealerDO> getDealers() {
 		logger.debug("In getPrograms");
 		List<DealerDO> dealerDOList = null;
 		List<Dealer> dealerList = Util.toList(dealerDAO.findAll());
+		if(dealerList != null && !dealerList.isEmpty()){
+			dealerDOList = new ArrayList<DealerDO>();
+			DealerDO dealerDO = null;
+			for(Dealer dealer : dealerList){
+				dealerDO = new DealerDO();
+				dealerDO.setId(dealer.getId());
+				dealerDO.setUserName(dealer.getUsername());
+				
+				dealerDOList.add(dealerDO);
+			}
+		}
 		return dealerDOList;
 	}
 
@@ -48,6 +66,7 @@ public class DealerServiceImpl implements DealerService {
 		dealer.setContact(dealerDO.getContact());
 		
 		dealer.setInvoiceEmail(dealerDO.getInvoiceEmail());
+		//TODO
 		dealer.setLastUpdate(date);
 		//TODO
 		dealer.setLId(1);
@@ -89,6 +108,35 @@ public class DealerServiceImpl implements DealerService {
 		DealerDO dealerDO = new DealerDO();
 		
 		return dealerDO;
+	}
+
+	@Override
+	public long saveLocation(LocationDO locationDO) {
+		logger.debug("In saveLocation");
+		Location location = new Location();
+		//TODO
+		location.setCreatedBy(Long.valueOf(locationDO.getDealerDO().getId()).intValue());
+		location.setIsHead((locationDO.isHeadQuarter())?(byte)1:(byte)0);
+		//TODO
+		location.setLAddress(locationDO.getAddress1());
+		location.setLCity(locationDO.getCity());
+		//TODO
+		location.setLCountry("");
+		location.setLEmail(locationDO.getEmail());
+		location.setLIsArchived((byte)0);
+		//TODO
+		location.setLLastUpdate(new Timestamp(new Date().getTime()));
+		//TODO
+		location.setLParent(Long.valueOf(locationDO.getDealerDO().getId()).intValue());
+		location.setLPhone(locationDO.getPhone());
+		location.setLState(locationDO.getState());
+		location.setLTitle(locationDO.getTitle());
+		location.setLUrl(locationDO.getLocationUrl());
+		location.setLZip(locationDO.getZip());
+		
+		location = locationDAO.save(location);
+		
+		return location.getLId();
 	}
 	
 

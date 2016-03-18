@@ -1,6 +1,8 @@
 package com.agg.application.model;
 
 public class DealerDO {
+	
+	private long id;
 
 	private String userName;
 	
@@ -33,6 +35,20 @@ public class DealerDO {
 	private String notes;
 	
 	private String zip;
+	
+	/**
+	 * @return the id
+	 */
+	public long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(long id) {
+		this.id = id;
+	}
 
 	/**
 	 * @return the userName

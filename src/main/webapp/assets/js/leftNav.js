@@ -6,12 +6,15 @@ routingApp.config(['$routeProvider',
                   function($routeProvider) {
                     $routeProvider.
                       when('/agg/addDealer', {
-                    	  templateUrl: '../../jsp/addDealer.jsp',
-                    	  controller: 'AddDealerController'
+                    	  templateUrl: '../../jsp/addDealer.jsp'
                       }).
                       when('/agg/machineInfo', {
                     	  templateUrl: '../../jsp/machineInfo.jsp',
                     	  controller: 'AddMachineController'
+                      }).
+                      when('/agg/addLocation', {
+                    	  templateUrl: '../../jsp/addLocation.jsp',
+                    	  controller: 'AddLocationController'
                       }).
                       when('/agg/home', {
                     	  templateUrl: '../../jsp/home.jsp'
@@ -21,8 +24,11 @@ routingApp.config(['$routeProvider',
                       });
                 }]);
 
-routingApp.controller('AddDealerController', function($scope) {
-	alert(1);
+routingApp.controller('AddLocationController', function($scope, $http) {
+	$http.get("/agg/dealerInfo")
+    .then(function(response) {
+        $scope.dealerList = response.data.data;
+    });
 });
 
 routingApp.controller('AddMachineController', function($scope, $http) {

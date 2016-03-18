@@ -8,3 +8,12 @@ routingApp.controller('dealerController', function($scope, dealerService, $locat
     };
         
 });
+
+routingApp.controller('locationController', function($scope, locationService, $location) {
+	$scope.location={};
+	$scope.submitLocation = function() {
+		alert("in submitLocation");
+		locationService.saveLocation($scope.location);
+    };
+        
+});
