@@ -1,6 +1,9 @@
 package com.agg.application.entity;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
+import java.util.Date;
+
 import javax.persistence.*;
 
 
@@ -20,11 +23,34 @@ public class MachineModel implements Serializable {
 
 	@Column(name="model_name")
 	private String modelName;
+	
+	@Temporal(TemporalType.DATE)
+	@Column(name="model_year")
+	private Date modelYear;
+	
+	@Column(name="base_price")
+	private double basePrice;
+
+	@Column(name="e_power")
+	private double ePower;
+
+	@Column(name="group_id")
+	private int groupId;
+
+	@Column(name="last_update")
+	private Timestamp lastUpdate;
+
+	private String model;
+
+	private double power;
+
+	@Column(name="retail_price")
+	private double retailPrice;
 
 	//bi-directional many-to-one association to MachineInfo
 	@ManyToOne
-	@JoinColumn(name="machine_id")
-	private MachineInfo machineInfo;
+	@JoinColumn(name="machine_type_id")
+	private MachineType machineType;
 
 	public MachineModel() {
 	}
@@ -45,12 +71,130 @@ public class MachineModel implements Serializable {
 		this.modelName = modelName;
 	}
 
-	public MachineInfo getMachineInfo() {
-		return this.machineInfo;
+	/**
+	 * @return the machineType
+	 */
+	public MachineType getMachineType() {
+		return machineType;
 	}
 
-	public void setMachineInfo(MachineInfo machineInfo) {
-		this.machineInfo = machineInfo;
+	/**
+	 * @param machineType the machineType to set
+	 */
+	public void setMachineType(MachineType machineType) {
+		this.machineType = machineType;
 	}
 
+	/**
+	 * @return the modelYear
+	 */
+	public Date getModelYear() {
+		return modelYear;
+	}
+
+	/**
+	 * @param modelYear the modelYear to set
+	 */
+	public void setModelYear(Date modelYear) {
+		this.modelYear = modelYear;
+	}
+
+	/**
+	 * @return the basePrice
+	 */
+	public double getBasePrice() {
+		return basePrice;
+	}
+
+	/**
+	 * @param basePrice the basePrice to set
+	 */
+	public void setBasePrice(double basePrice) {
+		this.basePrice = basePrice;
+	}
+
+	/**
+	 * @return the ePower
+	 */
+	public double getePower() {
+		return ePower;
+	}
+
+	/**
+	 * @param ePower the ePower to set
+	 */
+	public void setePower(double ePower) {
+		this.ePower = ePower;
+	}
+
+	/**
+	 * @return the groupId
+	 */
+	public int getGroupId() {
+		return groupId;
+	}
+
+	/**
+	 * @param groupId the groupId to set
+	 */
+	public void setGroupId(int groupId) {
+		this.groupId = groupId;
+	}
+
+	/**
+	 * @return the lastUpdate
+	 */
+	public Timestamp getLastUpdate() {
+		return lastUpdate;
+	}
+
+	/**
+	 * @param lastUpdate the lastUpdate to set
+	 */
+	public void setLastUpdate(Timestamp lastUpdate) {
+		this.lastUpdate = lastUpdate;
+	}
+
+	/**
+	 * @return the model
+	 */
+	public String getModel() {
+		return model;
+	}
+
+	/**
+	 * @param model the model to set
+	 */
+	public void setModel(String model) {
+		this.model = model;
+	}
+
+	/**
+	 * @return the power
+	 */
+	public double getPower() {
+		return power;
+	}
+
+	/**
+	 * @param power the power to set
+	 */
+	public void setPower(double power) {
+		this.power = power;
+	}
+
+	/**
+	 * @return the retailPrice
+	 */
+	public double getRetailPrice() {
+		return retailPrice;
+	}
+
+	/**
+	 * @param retailPrice the retailPrice to set
+	 */
+	public void setRetailPrice(double retailPrice) {
+		this.retailPrice = retailPrice;
+	}
+	
 }
