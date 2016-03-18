@@ -161,14 +161,14 @@ public class MachineInfo implements Serializable {
 
 	public MachineModel addMachineModel(MachineModel machineModel) {
 		getMachineModels().add(machineModel);
-		machineModel.setMachineInfo(this);
+		//machineModel.setMachineInfo(this);
 
 		return machineModel;
 	}
 
 	public MachineModel removeMachineModel(MachineModel machineModel) {
 		getMachineModels().remove(machineModel);
-		machineModel.setMachineInfo(null);
+		//machineModel.setMachineInfo(null);
 
 		return machineModel;
 	}
