@@ -136,6 +136,8 @@ public class DealerServiceImpl implements DealerService {
 		
 		location = locationDAO.save(location);
 		
+		logger.info("locationId: "+location.getLId());
+		
 		return location.getLId();
 	}
 	

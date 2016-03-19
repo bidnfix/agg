@@ -111,6 +111,7 @@ public class DealerController extends BaseController {
 			}
 	
 			long id = dealerService.saveLocation(locationDO);
+			logger.info("locationId: "+id);
 			if(id > 0){
 				opResult = new Result("success", "Invalid Location form field values", null);
 			}

@@ -28,7 +28,7 @@
 				<label class="control-label col-sm-3"></label>
 				<div class="col-sm-9">
 					<div class="checkbox">
-						<label> <input type="checkbox" id="calorieCheckbox" value="headquarter" ng-model="location.headquarter">
+						<label> <input type="checkbox" id="calorieCheckbox" ng-model="location.headQuarter">
 								Check here if this location is a headquarters
 						</label>
 					</div>
