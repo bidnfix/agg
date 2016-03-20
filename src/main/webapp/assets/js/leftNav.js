@@ -44,6 +44,14 @@ routingApp.controller('AddMachineController', function($scope, $http) {
 		        $scope.machineTypeList = response.data.data.machineTypeList;
 		    });
 	 }
+	 $scope.getMachineModel = function ()
+	 {
+		 alert($scope.machineType.id);
+		 $http.get("/agg/machineModel/"+$scope.machineType.id)
+		    .then(function(response) {
+		        $scope.machineModelList = response.data.data.machineModelList;
+		    });
+	 }
 });
 
 routingApp.controller("activateTabCtrl", function($scope) {

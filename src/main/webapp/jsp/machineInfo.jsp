@@ -27,8 +27,6 @@
 				<div class="col-sm-9">
 					<select name="machine" ng-model="manufacturer" ng-options="machine.name for machine in manufacturerList" ng-change="getMachineType()">
          				<!--  <option ng:repeat="machine in manufacturerList" value="{{machine.id}}">{{machine.name}}</option>-->
-         				
-         					
      				</select> 
 				</div>
 			</div>
@@ -42,8 +40,8 @@
 			<div class="form-group">
 				<label for="password" class="col-sm-3 control-label">Model</label>
 				<div class="col-sm-9">
-					<input type="text" id="model" placeholder="Model"
-						class="form-control">
+					<select name="machineModel" ng-model="machineModel" ng-options="machineModel.modelName for machineModel in machineModelList" 
+					ng-change="getEngineModel()"></select> 
 				</div>
 			</div>
 			<div class="form-group">
@@ -56,14 +54,13 @@
 				<label for="country" class="col-sm-3 control-label">Group ID</label>
 				<div class="col-sm-9">
 					<select id="groupId" class="form-control">
-						<option>Afghanistan</option>
-						<option>Bahamas</option>
-						<option>Cambodia</option>
-						<option>Denmark</option>
-						<option>Ecuador</option>
-						<option>Fiji</option>
-						<option>Gabon</option>
-						<option>Haiti</option>
+						<option>1</option>
+						<option>2</option>
+						<option>3</option>
+						<option>4</option>
+						<option>5</option>
+						<option>6</option>
+						<option>7</option>
 					</select>
 				</div>
 			</div>

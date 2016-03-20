@@ -2,6 +2,7 @@ package com.agg.application.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
@@ -9,12 +10,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.agg.application.model.DealerDO;
+import com.agg.application.model.MachineModelDO;
 import com.agg.application.model.ManufacturerDO;
 import com.agg.application.model.Result;
 import com.agg.application.service.MachineService;
@@ -45,4 +50,37 @@ public class MachineController extends BaseController {
 		}
 		return new Result("success", null, model);	
 	}
+	
+	@RequestMapping(value = "/machineModel/{typeId}", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+	public @ResponseBody Result machineModel(ModelMap model, HttpServletResponse response, @PathVariable String typeId) {
+		logger.info("Inside machineType() with typeId: "+typeId);
+		if(typeId != null && !typeId.isEmpty()){
+			List<MachineModelDO> machineModels = machineService.getMachineModelById(Integer.valueOf(typeId));
+			model.put("machineModelList", machineModels);
+		}
+		return new Result("success", null, model);	
+	}
+	
+	@RequestMapping(value = "/addMachine", method = RequestMethod.POST)
+	public @ResponseBody Result saveOrEditMachine(@RequestBody MachineModelDO machineModelDO, BindingResult result,
+			HttpServletRequest request, HttpServletResponse response) {
+		logger.debug("In saveOrEditMachine : "+machineModelDO.getModelName());
+		Result opResult = null;
+		/*if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			if (result.hasErrors()){
+				opResult = new Result("failure", "Invalid dealer form field values", null);
+			}*/
+	
+			long id = machineService.saveMachineInfo(machineModelDO);
+			if(id > 0){
+				opResult = new Result("success", "Invalid Machine form field values", null);
+			}
+			
+		//}
+		
+		return opResult;
+	}
+	
 }
