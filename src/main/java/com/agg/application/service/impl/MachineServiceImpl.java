@@ -14,12 +14,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.agg.application.dao.MachineDAO;
+import com.agg.application.dao.MachineInfoDAO;
 import com.agg.application.dao.MachineModelDAO;
 import com.agg.application.dao.MachineTypeDAO;
 import com.agg.application.entity.MachineInfo;
 import com.agg.application.entity.MachineModel;
 import com.agg.application.entity.MachineType;
 import com.agg.application.entity.Manufacturer;
+import com.agg.application.model.MachineDO;
 import com.agg.application.model.MachineModelDO;
 import com.agg.application.model.ManufacturerDO;
 import com.agg.application.service.MachineService;
@@ -38,6 +40,9 @@ public class MachineServiceImpl implements MachineService {
 	
 	@Autowired
 	private MachineModelDAO machineModelDAO;
+	
+	@Autowired
+	private MachineInfoDAO machineInfoDAO;
 
 	@Override
 	public List<ManufacturerDO> getManufacturerDetails() {
@@ -114,31 +119,26 @@ public class MachineServiceImpl implements MachineService {
 
 	@Override
 	@Transactional
-	public long saveMachineInfo(MachineModelDO machineModelDO) {
+	public long saveMachineInfo(MachineDO machineDO) {
 		logger.debug("In saveMachineInfo");
 		MachineInfo macineInfo = new MachineInfo();
 		Timestamp date = new Timestamp(new Date().getTime());
 		
-		
 		//macineInfo.setModelId(machineModelDO.getModelId());
-		macineInfo.setModel(machineModelDO.getModelName());
-		macineInfo.setModelYear(machineModelDO.getModelYear());
-		macineInfo.setPower(machineModelDO.getPower());
+		//macineInfo.setModel(machineDO.getModelName());
+		//macineInfo.setModelYear(machineDO.getModelYear());
+		macineInfo.setPower(machineDO.getEnginePower());
 		//macineInfo.setePower(machineModelDO.getePower());
-		macineInfo.setRetailPrice(machineModelDO.getRetailPrice());
-		macineInfo.setBasePrice(machineModelDO.getBasePrice());
-		macineInfo.setGroupId(machineModelDO.getGroupId());
+		//macineInfo.setRetailPrice(machineDO.getRetailPrice());
+		//macineInfo.setBasePrice(machineDO.getBasePrice());
+		macineInfo.setGroupId(machineDO.getGroupId());
 		
 		
 		macineInfo.setLastUpdate(date);
-		//TODO
 		
+		macineInfo = machineInfoDAO.save(macineInfo);
 		
-		
-		//dealerNote = dealerNoteDAO.save(dealerNote);
-		
-		//return dealer.getDealerId();
-		return 1;
+		return macineInfo.getMachineId();
 	}
 	
 

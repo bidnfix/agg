@@ -36,22 +36,6 @@ routingApp.controller('AddMachineController', function($scope, $http) {
 	    .then(function(response) {
 	        $scope.manufacturerList = response.data.data.manufacturerList;
 	    });
-	 $scope.getMachineType = function ()
-	 {
-		 alert($scope.manufacturer.id);
-		 $http.get("/agg/machineType/"+$scope.manufacturer.id)
-		    .then(function(response) {
-		        $scope.machineTypeList = response.data.data.machineTypeList;
-		    });
-	 }
-	 $scope.getMachineModel = function ()
-	 {
-		 alert($scope.machineType.id);
-		 $http.get("/agg/machineModel/"+$scope.machineType.id)
-		    .then(function(response) {
-		        $scope.machineModelList = response.data.data.machineModelList;
-		    });
-	 }
 });
 
 routingApp.controller("activateTabCtrl", function($scope) {

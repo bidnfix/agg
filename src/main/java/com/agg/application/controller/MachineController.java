@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.agg.application.model.DealerDO;
+import com.agg.application.model.MachineDO;
 import com.agg.application.model.MachineModelDO;
 import com.agg.application.model.ManufacturerDO;
 import com.agg.application.model.Result;
@@ -53,7 +54,7 @@ public class MachineController extends BaseController {
 	
 	@RequestMapping(value = "/machineModel/{typeId}", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
 	public @ResponseBody Result machineModel(ModelMap model, HttpServletResponse response, @PathVariable String typeId) {
-		logger.info("Inside machineType() with typeId: "+typeId);
+		logger.info("Inside machineModel() with typeId: "+typeId);
 		if(typeId != null && !typeId.isEmpty()){
 			List<MachineModelDO> machineModels = machineService.getMachineModelById(Integer.valueOf(typeId));
 			model.put("machineModelList", machineModels);
@@ -62,9 +63,9 @@ public class MachineController extends BaseController {
 	}
 	
 	@RequestMapping(value = "/addMachine", method = RequestMethod.POST)
-	public @ResponseBody Result saveOrEditMachine(@RequestBody MachineModelDO machineModelDO, BindingResult result,
+	public @ResponseBody Result saveOrEditMachine(@RequestBody MachineDO machineDO, BindingResult result,
 			HttpServletRequest request, HttpServletResponse response) {
-		logger.debug("In saveOrEditMachine : "+machineModelDO.getModelName());
+		logger.debug("In saveOrEditMachine with groupId: "+machineDO.getGroupId());
 		Result opResult = null;
 		/*if (!sessionExists(request)){
 			opResult = new Result("failure", "Invalid Login", null);
@@ -73,7 +74,7 @@ public class MachineController extends BaseController {
 				opResult = new Result("failure", "Invalid dealer form field values", null);
 			}*/
 	
-			long id = machineService.saveMachineInfo(machineModelDO);
+			long id = machineService.saveMachineInfo(machineDO);
 			if(id > 0){
 				opResult = new Result("success", "Invalid Machine form field values", null);
 			}
