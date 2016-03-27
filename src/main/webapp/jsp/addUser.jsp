@@ -5,7 +5,7 @@
 		<div class="col-md-6 col-sm-12">
 			<div class="sec-title">
 
-				<h2 class="wow animated bounceInLeft">Dealer Management</h2>
+				<h2 class="wow animated bounceInLeft">Add User</h2>
 				<p class="wow animated bounceInRight">&nbsp;</p>
 			</div>
 		</div>
@@ -21,61 +21,70 @@
 
 	<!-- data table section -->
 
-	<div class="inner-main" ng-controller="dealerController">
-		<form class="form-horizontal" role="form" ng-submit="submitDealer()">
-			<h2>Add Dealer</h2>
+	<div class="inner-main" ng-controller="userController">
+		<form class="form-horizontal" role="form" ng-submit="submitUser()">
+			<h2>Add User</h2>
 			<div class="form-group">
-				<label for="userName" class="col-sm-3 control-label">Username</label>
+				<label for="dealer" class="col-sm-3 control-label">Dealer</label>
 				<div class="col-sm-9">
-					<input type="text" id="userName" name="userName" ng-model="dealer.userName" placeholder="User Name" class="form-control" required="required">
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="password" class="col-sm-3 control-label">Password</label>
-				<div class="col-sm-9">
-					<input type="text" id="password" name="password" ng-model="dealer.password" placeholder="password" class="form-control" required="required">
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="companyName" class="col-sm-3 control-label">Company Name</label>
-				<div class="col-sm-9">
-					<input type="text" id="companyName" name="companyName" ng-model="dealer.companyName" placeholder="companyName" class="form-control" required="required">
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="contact" class="col-sm-3 control-label">Contact</label>
-				<div class="col-sm-9">
-					<input type="text" id="contact" name="contact" ng-model="dealer.contact" class="form-control" required="required">
+					<select class="form-control" name="dealer" ng-model="user.dealerDO" id="dealer" ng-options="dealer.userName for dealer in dealerList" required="required" ng-change="getLocation(this.id)">
+						<option value="">Select Dealer</option>
+					</select>
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="location" class="col-sm-3 control-label">Location</label>
 				<div class="col-sm-9">
-					<input type="text" id="location" name="location" ng-model="dealer.location" class="form-control" required="required">
+					<select class="form-control" name="location" ng-model="user.locationDO" id="location" ng-options="location.title for location in locationList" required="required">
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="userName" class="col-sm-3 control-label">Username</label>
+				<div class="col-sm-9">
+					<input type="text" id="userName" name="userName" ng-model="user.userName" placeholder="Username" class="form-control" required="required">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="password" class="col-sm-3 control-label">Password</label>
+				<div class="col-sm-9">
+					<input type="text" id="password" name="password" ng-model="user.password" placeholder="Password" class="form-control" required="required">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="firstName" class="col-sm-3 control-label">First Name</label>
+				<div class="col-sm-9">
+					<input type="text" id="firstName" name="firstName" ng-model="user.firstName" placeholder="First Name" class="form-control" required="required">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="lastName" class="col-sm-3 control-label">Last Name</label>
+				<div class="col-sm-9">
+					<input type="text" id="lastName" name="lastName" ng-model="user.lastName" placeholder="Last Name" class="form-control" required="required">
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="address1" class="col-sm-3 control-label">Address1</label>
 				<div class="col-sm-9">
-					<input type="text" id="address1" name="address1" ng-model="dealer.address1" class="form-control" required="required">
+					<input type="text" id="address1" name="address1" ng-model="user.address1" placeholder="address1" class="form-control" required="required">
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="address2" class="col-sm-3 control-label">Address2</label>
 				<div class="col-sm-9">
-					<input type="text" id="address2" name="address2" ng-model="dealer.address2" class="form-control" required="required">
+					<input type="text" id="address2" name="address2" ng-model="user.address2" placeholder="address2" class="form-control" required="required">
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="city" class="col-sm-3 control-label">City</label>
 				<div class="col-sm-9">
-					<input type="text" id="city" name="city" ng-model="dealer.city" class="form-control" required="required">
+					<input type="text" id="city" name="city" ng-model="user.city" class="form-control" required="required">
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="country" class="col-sm-3 control-label">State/Province</label>
+				<label for="country" class="col-sm-3 control-label">State</label>
 				<div class="col-sm-9">
-					<select class="form-control" name="state" ng-model="dealer.state" id="state" required="required">
+					<select class="form-control" name="state" ng-model="user.state" id="state" required="required">
 						<option value="">Select State/Province</option>
 						<option value="AL">Alabama</option>
 						<option value="AK">Alaska</option>
@@ -147,50 +156,38 @@
 			<div class="form-group">
 				<label for="zip" class="col-sm-3 control-label">Zip</label>
 				<div class="col-sm-9">
-					<input type="text" id="zip" name="zip" ng-model="dealer.zip" class="form-control" required="required">
+					<input type="text" id="zip" name="zip" ng-model="user.zip" class="form-control" required="required">
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="marketEmail" class="col-sm-3 control-label">Market Email</label>
+				<label for="email" class="col-sm-3 control-label">Email</label>
 				<div class="col-sm-9">
-					<input type="text" id="marketEmail" name="marketEmail" ng-model="dealer.marketEmail" class="form-control" required="required">
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="invoiceEmail" class="col-sm-3 control-label">Invoice Email</label>
-				<div class="col-sm-9">
-					<input type="text" id="invoiceEmail" name="invoiceEmail" ng-model="dealer.invoiceEmail" class="form-control" required="required">
+					<input type="text" id="email" name="email" ng-model="user.email" class="form-control" required="required">
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="phone" class="col-sm-3 control-label">Phone</label>
 				<div class="col-sm-9">
-					<input type="text" id="phone" name="phone" ng-model="dealer.phone" class="form-control" required="required">
+					<input type="text" id="phone" name="phone" ng-model="user.phone" class="form-control" required="required">
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="dealerUrl" class="col-sm-3 control-label">URL</label>
+				<label for="userUrl" class="col-sm-3 control-label">URL</label>
 				<div class="col-sm-9">
-					<input type="text" id="dealerUrl" name="dealerUrl" ng-model="dealer.dealerUrl" class="form-control" required="required">
+					<input type="text" id="userUrl" name="userUrl" ng-model="user.userUrl" class="form-control" required="required">
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="role" class="col-sm-3 control-label">Role</label>
 				<div class="col-sm-9">
-					<select class="form-control" name="role" ng-model="dealer.roleDO" id="role" ng-options="role.name for role in roleList" required="required">
+					<select class="form-control" name="role" ng-model="user.role" id="role" ng-options="role.name for role in roleList" required="required">
 						<option value="">Select Role</option>
 					</select>
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="notes" class="col-sm-3 control-label">Notes</label>
-				<div class="col-sm-9">
-					<textarea id="notes" name="notes" ng-model="dealer.notes" class="form-control" rows="5" cols="5" required="required"></textarea>
-				</div>
-			</div>
-			<div class="form-group">
 				<div class="col-sm-9 col-sm-offset-3">
-					<button type="submit" class="btn btn-primary btn-block">Add Dealer</button>
+					<button type="submit" class="btn btn-primary btn-block">Add User</button>
 				</div>
 			</div>
 		</form>

@@ -14,4 +14,13 @@ public class BaseController {
 	public void removeSession(HttpServletRequest request) {
 		request.getSession().invalidate();
 	}
+	
+	public AccountDO getAccountDetails(HttpServletRequest request){
+		AccountDO account = null;
+		if(sessionExists(request)){
+			account = (AccountDO) request.getSession().getAttribute("user");
+		}
+		
+		return account;
+	}
 }

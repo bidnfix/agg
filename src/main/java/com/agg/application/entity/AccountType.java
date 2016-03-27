@@ -17,7 +17,7 @@ public class AccountType implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	private String id;
+	private long id;
 
 	@Column(name="account_type")
 	private String accountType;
@@ -43,11 +43,11 @@ public class AccountType implements Serializable {
 	public AccountType() {
 	}
 
-	public String getId() {
+	public long getId() {
 		return this.id;
 	}
 
-	public void setId(String id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

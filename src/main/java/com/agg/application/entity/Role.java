@@ -1,7 +1,9 @@
 package com.agg.application.entity;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -18,10 +20,7 @@ public class Role implements Serializable {
 
 	@Id
 	@Column(name="r_id")
-	private int rId;
-
-	@Column(name="dealer_id")
-	private int dealerId;
+	private long rId;
 
 	@Column(name="last_update")
 	private Timestamp lastUpdate;
@@ -39,24 +38,20 @@ public class Role implements Serializable {
 	//bi-directional many-to-one association to Account
 	@OneToMany(mappedBy="role")
 	private List<Account> accounts;
+	
+	@ManyToOne
+	@JoinColumn(name="account_type_id")
+	private AccountType accountType;
 
 	public Role() {
 	}
 
-	public int getRId() {
+	public long getRId() {
 		return this.rId;
 	}
 
-	public void setRId(int rId) {
+	public void setRId(long rId) {
 		this.rId = rId;
-	}
-
-	public int getDealerId() {
-		return this.dealerId;
-	}
-
-	public void setDealerId(int dealerId) {
-		this.dealerId = dealerId;
 	}
 
 	public Timestamp getLastUpdate() {
@@ -113,4 +108,18 @@ public class Role implements Serializable {
 		return account;
 	}
 
+	/**
+	 * @return the accountType
+	 */
+	public AccountType getAccountType() {
+		return accountType;
+	}
+
+	/**
+	 * @param accountType the accountType to set
+	 */
+	public void setAccountType(AccountType accountType) {
+		this.accountType = accountType;
+	}
+	
 }

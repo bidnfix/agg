@@ -1,7 +1,9 @@
 package com.agg.application.entity;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.util.Date;
 import java.sql.Timestamp;
 import java.util.List;
@@ -19,7 +21,7 @@ public class Dealer implements Serializable {
 
 	@Id
 	@GeneratedValue
-	private int id;
+	private long id;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="active_date")
@@ -31,14 +33,8 @@ public class Dealer implements Serializable {
 
 	private String contact;
 
-	@Column(name="dealer_id")
-	private int dealerId;
-
 	@Column(name="invoice_email")
 	private String invoiceEmail;
-
-	@Column(name="l_id")
-	private int lId;
 
 	@Column(name="last_update")
 	private Timestamp lastUpdate;
@@ -50,14 +46,7 @@ public class Dealer implements Serializable {
 
 	private String name;
 
-	private String password;
-
 	private String phone;
-
-	@Column(name="r_id")
-	private int rId;
-
-	private String role;
 
 	private String state;
 
@@ -65,13 +54,10 @@ public class Dealer implements Serializable {
 
 	private String url;
 
-	private String username;
-
 	private String zip;
 
-	//bi-directional one-to-one association to DealerNote
-	@OneToOne(mappedBy="dealer", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
-	private DealerNote dealerNote;
+	@Lob
+	private String notes;
 
 	//bi-directional many-to-one association to Notification
 	@OneToMany(mappedBy="dealer")
@@ -84,15 +70,18 @@ public class Dealer implements Serializable {
 	//bi-directional many-to-one association to Sprogram
 	@OneToMany(mappedBy="dealer")
 	private List<Sprogram> sprograms;
+	
+	@OneToOne(mappedBy="dealer", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	private Account account;
 
 	public Dealer() {
 	}
 
-	public int getId() {
+	public long getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -128,28 +117,12 @@ public class Dealer implements Serializable {
 		this.contact = contact;
 	}
 
-	public int getDealerId() {
-		return this.dealerId;
-	}
-
-	public void setDealerId(int dealerId) {
-		this.dealerId = dealerId;
-	}
-
 	public String getInvoiceEmail() {
 		return this.invoiceEmail;
 	}
 
 	public void setInvoiceEmail(String invoiceEmail) {
 		this.invoiceEmail = invoiceEmail;
-	}
-
-	public int getLId() {
-		return this.lId;
-	}
-
-	public void setLId(int lId) {
-		this.lId = lId;
 	}
 
 	public Timestamp getLastUpdate() {
@@ -184,36 +157,12 @@ public class Dealer implements Serializable {
 		this.name = name;
 	}
 
-	public String getPassword() {
-		return this.password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
 	public String getPhone() {
 		return this.phone;
 	}
 
 	public void setPhone(String phone) {
 		this.phone = phone;
-	}
-
-	public int getRId() {
-		return this.rId;
-	}
-
-	public void setRId(int rId) {
-		this.rId = rId;
-	}
-
-	public String getRole() {
-		return this.role;
-	}
-
-	public void setRole(String role) {
-		this.role = role;
 	}
 
 	public String getState() {
@@ -240,14 +189,6 @@ public class Dealer implements Serializable {
 		this.url = url;
 	}
 
-	public String getUsername() {
-		return this.username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
 	public String getZip() {
 		return this.zip;
 	}
@@ -255,13 +196,19 @@ public class Dealer implements Serializable {
 	public void setZip(String zip) {
 		this.zip = zip;
 	}
-
-	public DealerNote getDealerNote() {
-		return this.dealerNote;
+	
+	/**
+	 * @return the notes
+	 */
+	public String getNotes() {
+		return notes;
 	}
 
-	public void setDealerNote(DealerNote dealerNote) {
-		this.dealerNote = dealerNote;
+	/**
+	 * @param notes the notes to set
+	 */
+	public void setNotes(String notes) {
+		this.notes = notes;
 	}
 
 	public List<Notification> getNotifications() {
@@ -330,4 +277,18 @@ public class Dealer implements Serializable {
 		return sprogram;
 	}
 
+	/**
+	 * @return the account
+	 */
+	public Account getAccount() {
+		return account;
+	}
+
+	/**
+	 * @param account the account to set
+	 */
+	public void setAccount(Account account) {
+		this.account = account;
+	}
+	
 }

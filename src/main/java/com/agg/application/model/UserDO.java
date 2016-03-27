@@ -1,18 +1,18 @@
 package com.agg.application.model;
 
-public class DealerDO {
+public class UserDO {
 	
-	private long id;
-
+	private DealerDO dealerDO;
+	
+	private LocationDO locationDO;
+	
 	private String userName;
 	
 	private String password;
 	
-	private String companyName;
+	private String firstName;
 	
-	private String contact;
-	
-	private String location;
+	private String lastName;
 	
 	private String address1;
 	
@@ -22,32 +22,42 @@ public class DealerDO {
 	
 	private String state;
 	
-	private String marketEmail;
+	private String zip;
 	
-	private String invoiceEmail;
+	private String email;
 	
 	private String phone;
 	
-	private String dealerUrl;
+	private String url;
 	
 	private RoleDO roleDO;
-	
-	private String notes;
-	
-	private String zip;
-	
+
 	/**
-	 * @return the id
+	 * @return the dealerDO
 	 */
-	public long getId() {
-		return id;
+	public DealerDO getDealerDO() {
+		return dealerDO;
 	}
 
 	/**
-	 * @param id the id to set
+	 * @param dealerDO the dealerDO to set
 	 */
-	public void setId(long id) {
-		this.id = id;
+	public void setDealerDO(DealerDO dealerDO) {
+		this.dealerDO = dealerDO;
+	}
+
+	/**
+	 * @return the locationDO
+	 */
+	public LocationDO getLocationDO() {
+		return locationDO;
+	}
+
+	/**
+	 * @param locationDO the locationDO to set
+	 */
+	public void setLocationDO(LocationDO locationDO) {
+		this.locationDO = locationDO;
 	}
 
 	/**
@@ -79,45 +89,31 @@ public class DealerDO {
 	}
 
 	/**
-	 * @return the companyName
+	 * @return the firstName
 	 */
-	public String getCompanyName() {
-		return companyName;
+	public String getFirstName() {
+		return firstName;
 	}
 
 	/**
-	 * @param companyName the companyName to set
+	 * @param firstName the firstName to set
 	 */
-	public void setCompanyName(String companyName) {
-		this.companyName = companyName;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
 	/**
-	 * @return the contact
+	 * @return the lastName
 	 */
-	public String getContact() {
-		return contact;
+	public String getLastName() {
+		return lastName;
 	}
 
 	/**
-	 * @param contact the contact to set
+	 * @param lastName the lastName to set
 	 */
-	public void setContact(String contact) {
-		this.contact = contact;
-	}
-
-	/**
-	 * @return the location
-	 */
-	public String getLocation() {
-		return location;
-	}
-
-	/**
-	 * @param location the location to set
-	 */
-	public void setLocation(String location) {
-		this.location = location;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	/**
@@ -177,31 +173,31 @@ public class DealerDO {
 	}
 
 	/**
-	 * @return the marketEmail
+	 * @return the zip
 	 */
-	public String getMarketEmail() {
-		return marketEmail;
+	public String getZip() {
+		return zip;
 	}
 
 	/**
-	 * @param marketEmail the marketEmail to set
+	 * @param zip the zip to set
 	 */
-	public void setMarketEmail(String marketEmail) {
-		this.marketEmail = marketEmail;
+	public void setZip(String zip) {
+		this.zip = zip;
 	}
 
 	/**
-	 * @return the invoiceEmail
+	 * @return the email
 	 */
-	public String getInvoiceEmail() {
-		return invoiceEmail;
+	public String getEmail() {
+		return email;
 	}
 
 	/**
-	 * @param invoiceEmail the invoiceEmail to set
+	 * @param email the email to set
 	 */
-	public void setInvoiceEmail(String invoiceEmail) {
-		this.invoiceEmail = invoiceEmail;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	/**
@@ -219,17 +215,17 @@ public class DealerDO {
 	}
 
 	/**
-	 * @return the dealerUrl
+	 * @return the url
 	 */
-	public String getDealerUrl() {
-		return dealerUrl;
+	public String getUrl() {
+		return url;
 	}
 
 	/**
-	 * @param dealerUrl the dealerUrl to set
+	 * @param url the url to set
 	 */
-	public void setDealerUrl(String dealerUrl) {
-		this.dealerUrl = dealerUrl;
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 	/**
@@ -245,34 +241,5 @@ public class DealerDO {
 	public void setRoleDO(RoleDO roleDO) {
 		this.roleDO = roleDO;
 	}
-
-	/**
-	 * @return the notes
-	 */
-	public String getNotes() {
-		return notes;
-	}
-
-	/**
-	 * @param notes the notes to set
-	 */
-	public void setNotes(String notes) {
-		this.notes = notes;
-	}
-
-	/**
-	 * @return the zip
-	 */
-	public String getZip() {
-		return zip;
-	}
-
-	/**
-	 * @param zip the zip to set
-	 */
-	public void setZip(String zip) {
-		this.zip = zip;
-	}
-	
 	
 }

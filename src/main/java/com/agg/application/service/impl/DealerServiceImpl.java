@@ -12,14 +12,19 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.agg.application.dao.AccountDAO;
 import com.agg.application.dao.DealerDAO;
-import com.agg.application.dao.DealerNoteDAO;
 import com.agg.application.dao.LocationDAO;
+import com.agg.application.dao.RoleDAO;
+import com.agg.application.entity.Account;
 import com.agg.application.entity.Dealer;
-import com.agg.application.entity.DealerNote;
 import com.agg.application.entity.Location;
+import com.agg.application.entity.Role;
+import com.agg.application.model.AccountDO;
 import com.agg.application.model.DealerDO;
 import com.agg.application.model.LocationDO;
+import com.agg.application.model.RoleDO;
+import com.agg.application.model.UserDO;
 import com.agg.application.service.DealerService;
 import com.agg.application.utils.Util;
 
@@ -27,14 +32,21 @@ import com.agg.application.utils.Util;
 public class DealerServiceImpl implements DealerService {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
+	private static final String DEALER_ADMIN = "Dealer Admin";
+	
+	private static final String ACCOUNT_TYPE_DEALER = "dealer";
+	
 	@Autowired
 	DealerDAO dealerDAO;
 	
 	@Autowired
-	DealerNoteDAO dealerNoteDAO;
+	LocationDAO locationDAO;
 	
 	@Autowired
-	LocationDAO locationDAO;
+	RoleDAO roleDAO;
+	
+	@Autowired
+	AccountDAO accountDAO;
 	
 	@Override
 	public List<DealerDO> getDealers() {
@@ -47,7 +59,7 @@ public class DealerServiceImpl implements DealerService {
 			for(Dealer dealer : dealerList){
 				dealerDO = new DealerDO();
 				dealerDO.setId(dealer.getId());
-				dealerDO.setUserName(dealer.getUsername());
+				dealerDO.setUserName(dealer.getAccount().getUserName());
 				
 				dealerDOList.add(dealerDO);
 			}
@@ -57,7 +69,7 @@ public class DealerServiceImpl implements DealerService {
 
 	@Override
 	@Transactional
-	public long saveDealer(DealerDO dealerDO) {
+	public long saveDealer(DealerDO dealerDO, AccountDO accountDO) {
 		logger.debug("In saveDealer");
 		Dealer dealer = new Dealer();
 		Timestamp date = new Timestamp(new Date().getTime());
@@ -68,38 +80,38 @@ public class DealerServiceImpl implements DealerService {
 		dealer.setInvoiceEmail(dealerDO.getInvoiceEmail());
 		//TODO
 		dealer.setLastUpdate(date);
-		//TODO
-		dealer.setLId(1);
 		dealer.setLocation(dealerDO.getLocation());
 		dealer.setMarketEmail(dealerDO.getMarketEmail());
 		//TODO
 		dealer.setName(dealerDO.getUserName());
-		dealer.setPassword(dealerDO.getPassword());
+		dealer.setNotes(dealerDO.getNotes());
 		dealer.setPhone(dealerDO.getPhone());
-		//TODO
-		dealer.setRId(1);
-		//TODO
-		dealer.setRole("Admin");
+		
 		dealer.setStatus(1);
 		dealer.setState(dealerDO.getState());
 		dealer.setUrl(dealerDO.getDealerUrl());
-		dealer.setUsername(dealerDO.getUserName());
 		dealer.setZip(dealerDO.getZip());
-		//TODO
-		dealer.setDealerId(1);
 		dealer.setActiveDate(date);
 		dealer.setLastUpdate(date);
 		
+		Role role = roleDAO.findOne(dealerDO.getRoleDO().getId());
+		Account account = new Account();
+		account.setUserName(dealerDO.getUserName());
+		account.setPassword(dealerDO.getPassword());
+		account.setAccountType(role.getAccountType());
+		account.setRole(role);
+		account.setCreatedDate(date);
+		account.setCreatedBy(accountDO.getUsername());
+		account.setUpdatedDate(date);
+		account.setLastLoginDate(date);
+		account.setStatus((byte)1);
+		account.setUpdatedBy(accountDO.getUsername());
 		
-		DealerNote dealerNote = new DealerNote();
-		dealerNote.setLastUpdate(date);
-		dealerNote.setNotes(dealerDO.getNotes());
-		dealerNote.setDealer(dealer);
+		account.setDealer(dealer);
 		
+		account = accountDAO.save(account);
 		
-		dealerNote = dealerNoteDAO.save(dealerNote);
-		
-		return dealer.getDealerId();
+		return dealer.getId();
 	}
 
 	@Override
@@ -114,20 +126,16 @@ public class DealerServiceImpl implements DealerService {
 	public long saveLocation(LocationDO locationDO) {
 		logger.debug("In saveLocation");
 		Location location = new Location();
-		//TODO
-		location.setCreatedBy(Long.valueOf(locationDO.getDealerDO().getId()).intValue());
+		location.setCreatedBy(locationDO.getDealerDO().getUserName());
 		location.setIsHead((locationDO.isHeadQuarter())?(byte)1:(byte)0);
-		//TODO
-		location.setLAddress(locationDO.getAddress1());
+		location.setlAddress1(locationDO.getAddress1());
+		location.setlAddress2(locationDO.getAddress1());
 		location.setLCity(locationDO.getCity());
-		//TODO
-		location.setLCountry("");
+		location.setLCountry("USA");
 		location.setLEmail(locationDO.getEmail());
 		location.setLIsArchived((byte)0);
-		//TODO
 		location.setLLastUpdate(new Timestamp(new Date().getTime()));
-		//TODO
-		location.setLParent(Long.valueOf(locationDO.getDealerDO().getId()).intValue());
+		location.setDealer(dealerDAO.findOne(locationDO.getDealerDO().getId()));
 		location.setLPhone(locationDO.getPhone());
 		location.setLState(locationDO.getState());
 		location.setLTitle(locationDO.getTitle());
@@ -140,7 +148,115 @@ public class DealerServiceImpl implements DealerService {
 		
 		return location.getLId();
 	}
-	
+
+	@Override
+	public List<RoleDO> getDealerAdminRoles() {
+		logger.debug("Inside getDealerAdminRoles");
+		List<Role> roleList = roleDAO.findByRTitle(DEALER_ADMIN);
+		List<RoleDO> roleDOList = null;
+		if(roleList != null && !roleList.isEmpty()){
+			RoleDO roleDO = null;
+			roleDOList = new ArrayList<RoleDO>();
+			for(Role role : roleList){
+				roleDO = new RoleDO();
+				roleDO.setAccountTypeId(role.getAccountType().getId());
+				roleDO.setId(role.getRId());
+				roleDO.setName(role.getRTitle());
+				
+				roleDOList.add(roleDO);
+			}
+			
+			logger.info("roleDOList size: "+roleDOList.size());
+		}
+		return roleDOList;
+	}
+
+	@Override
+	public List<RoleDO> getDealerRoles() {
+		logger.debug("Inside getDealerAdminRoles");
+		List<Role> roleList = roleDAO.findByAccountTypeAccountType(ACCOUNT_TYPE_DEALER);
+		List<RoleDO> roleDOList = null;
+		if(roleList != null && !roleList.isEmpty()){
+			RoleDO roleDO = null;
+			roleDOList = new ArrayList<RoleDO>();
+			for(Role role : roleList){
+				if(!role.getRTitle().equalsIgnoreCase(DEALER_ADMIN)){
+					roleDO = new RoleDO();
+					roleDO.setAccountTypeId(role.getAccountType().getId());
+					roleDO.setId(role.getRId());
+					roleDO.setName(role.getRTitle());
+					
+					roleDOList.add(roleDO);
+				}
+			}
+			
+			logger.info("roleDOList size: "+roleDOList.size());
+		}
+		return roleDOList;
+	}
+
+	@Override
+	public List<LocationDO> getDealerLocations(long dealerId) {
+		logger.debug("In getDealerLocations with dealerId: "+dealerId);
+		List<Location> locationList = locationDAO.findByDealerId(dealerId);
+		List<LocationDO> locationDOList = null;
+		if(locationList != null && !locationList.isEmpty()){
+			locationDOList = new ArrayList<LocationDO>();
+			LocationDO locationDO = null;
+			for(Location location : locationList){
+				locationDO = new LocationDO();
+				locationDO.setId(location.getLId());
+				locationDO.setTitle(location.getLTitle());
+				
+				locationDOList.add(locationDO);
+			}
+		}
+		
+		return locationDOList;
+	}
+
+	@Override
+	public long saveDealerUser(UserDO userDO, AccountDO accountDO) {
+		logger.debug("In saveDealerUser method");
+		
+		Dealer dealer = new Dealer();
+		Timestamp date = new Timestamp(new Date().getTime());
+		dealer.setAddress(userDO.getAddress1());
+		dealer.setCity(userDO.getCity());
+		
+		dealer.setInvoiceEmail(userDO.getEmail());
+		dealer.setLastUpdate(date);
+		dealer.setLocation(userDO.getLocationDO().getId()+"");
+		dealer.setMarketEmail(userDO.getEmail());
+		dealer.setName(userDO.getFirstName()+" "+userDO.getLastName());
+		dealer.setPhone(userDO.getPhone());
+		
+		dealer.setStatus(1);
+		dealer.setState(userDO.getState());
+		dealer.setUrl(userDO.getUrl());
+		dealer.setZip(userDO.getZip());
+		dealer.setActiveDate(date);
+		dealer.setLastUpdate(date);
+		
+		Role role = roleDAO.findOne(userDO.getRoleDO().getId());
+		Account account = new Account();
+		account.setUserName(userDO.getUserName());
+		account.setPassword(userDO.getPassword());
+		account.setAccountType(role.getAccountType());
+		account.setRole(role);
+		account.setCreatedDate(date);
+		account.setCreatedBy(accountDO.getUsername());
+		account.setUpdatedDate(date);
+		account.setLastLoginDate(date);
+		account.setStatus((byte)1);
+		account.setUpdatedBy(accountDO.getUsername());
+		
+		account.setDealer(dealer);
+		
+		account = accountDAO.save(account);
+		
+		return dealer.getId();
+	}
 
 }
 

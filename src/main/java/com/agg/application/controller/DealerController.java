@@ -11,8 +11,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.agg.application.model.DealerDO;
 import com.agg.application.model.LocationDO;
 import com.agg.application.model.Result;
+import com.agg.application.model.RoleDO;
+import com.agg.application.model.UserDO;
 import com.agg.application.service.DealerService;
 
 @RestController
@@ -51,6 +51,21 @@ public class DealerController extends BaseController {
 
 		return "addDealer";
 	}
+	
+	@RequestMapping(value = "/dealerRoleInfo", method = RequestMethod.GET)
+	public @ResponseBody Result getDealerAdminRoles(HttpServletRequest request, HttpServletResponse response) {
+		logger.debug("In getDealerAdminRoles");
+		Result opResult = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			List<RoleDO> roleDOList = dealerService.getDealerAdminRoles();
+			opResult = new Result("success", "Dealer Role Info", roleDOList);
+		}
+		
+		return opResult;
+	}
+	
 
 	@RequestMapping(value = "/addDealer", method = RequestMethod.POST)
 	public @ResponseBody Result saveOrEditDealer(@RequestBody DealerDO dealerDO, BindingResult result,
@@ -64,7 +79,7 @@ public class DealerController extends BaseController {
 				opResult = new Result("failure", "Invalid dealer form field values", null);
 			}
 	
-			long id = dealerService.saveDealer(dealerDO);
+			long id = dealerService.saveDealer(dealerDO, getAccountDetails(request));
 			if(id > 0){
 				opResult = new Result("success", "Invalid dealer form field values", null);
 			}
@@ -114,6 +129,58 @@ public class DealerController extends BaseController {
 			logger.info("locationId: "+id);
 			if(id > 0){
 				opResult = new Result("success", "Invalid Location form field values", null);
+			}
+			
+		}
+		
+		return opResult;
+	}
+	
+	@RequestMapping(value = "/dealerAndRoleInfo", method = RequestMethod.GET)
+	public @ResponseBody Result getDealersAndRoles(HttpServletRequest request, HttpServletResponse response, Model model) {
+		logger.debug("In getDealersAndRoles");
+		Result opResult = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			model.addAttribute("dealerList", dealerService.getDealers());
+			model.addAttribute("roleList", dealerService.getDealerRoles());
+			opResult = new Result("success", "Dealer and Role Info", model);
+		}
+		
+		return opResult;
+	}
+	
+	@RequestMapping(value = "/locationInfo/{dealerId}", method = RequestMethod.GET)
+	public @ResponseBody Result getDealerLocations(HttpServletRequest request, HttpServletResponse response, @PathVariable long dealerId) {
+		logger.debug("In getDealerLocations with dealerId: "+dealerId);
+		Result opResult = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			List<LocationDO> locationDOList = dealerService.getDealerLocations(dealerId);
+			opResult = new Result("success", "Dealer Role Info", locationDOList);
+		}
+		
+		return opResult;
+	}
+	
+	@RequestMapping(value = "/addUser", method = RequestMethod.POST)
+	public @ResponseBody Result saveOrEditDealerUser(@RequestBody UserDO userDO, BindingResult result,
+			HttpServletRequest request, HttpServletResponse response) {
+		logger.debug("In saveOrEditDealerUser userName: "+userDO.getUserName());
+		Result opResult = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			if (result.hasErrors()){
+				opResult = new Result("failure", "Invalid User form field values", null);
+			}
+	
+			long id = dealerService.saveDealerUser(userDO, getAccountDetails(request));
+			logger.info("locationId: "+id);
+			if(id > 0){
+				opResult = new Result("success", "Dealer User created successfully", null);
 			}
 			
 		}

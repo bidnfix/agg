@@ -1,7 +1,9 @@
 package com.agg.application.entity;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.util.Date;
 
 
@@ -16,7 +18,7 @@ public class Account implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	private String id;
+	private long id;
 
 	@Column(name="created_by")
 	private String createdBy;
@@ -52,15 +54,19 @@ public class Account implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="role_id")
 	private Role role;
+	
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="dealer_id")
+	private Dealer dealer;
 
 	public Account() {
 	}
 
-	public String getId() {
+	public long getId() {
 		return this.id;
 	}
 
-	public void setId(String id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -144,4 +150,18 @@ public class Account implements Serializable {
 		this.role = role;
 	}
 
+	/**
+	 * @return the dealer
+	 */
+	public Dealer getDealer() {
+		return dealer;
+	}
+
+	/**
+	 * @param dealer the dealer to set
+	 */
+	public void setDealer(Dealer dealer) {
+		this.dealer = dealer;
+	}
+	
 }

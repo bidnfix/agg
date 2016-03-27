@@ -17,3 +17,19 @@ routingApp.controller('locationController', function($scope, locationService, $l
     };
         
 });
+
+routingApp.controller('userController', function($scope, userService, $location, $http) {
+	$scope.user={};
+	$scope.submitUser = function() {
+		alert("in submitUser");
+		userService.saveUser($scope.user);
+    };
+    
+    $scope.getLocation = function() {
+    	 $http.get("/agg/locationInfo/"+$scope.user.dealerDO.id)
+ 	    .then(function(response) {
+ 	        $scope.locationList = response.data.data;
+ 	    });
+    };
+        
+});

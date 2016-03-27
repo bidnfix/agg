@@ -20,16 +20,19 @@ public class Location implements Serializable {
 	@Id
 	@GeneratedValue
 	@Column(name="l_id")
-	private int lId;
+	private long lId;
 
 	@Column(name="created_by")
-	private int createdBy;
+	private String createdBy;
 
 	@Column(name="is_head")
 	private byte isHead;
 
-	@Column(name="l_address")
-	private String lAddress;
+	@Column(name="l_address1")
+	private String lAddress1;
+	
+	@Column(name="l_address2")
+	private String lAddress2;
 
 	@Column(name="l_city")
 	private String lCity;
@@ -46,9 +49,6 @@ public class Location implements Serializable {
 	@Column(name="l_last_update")
 	private Timestamp lLastUpdate;
 
-	@Column(name="l_parent")
-	private int lParent;
-
 	@Column(name="l_phone")
 	private String lPhone;
 
@@ -63,23 +63,27 @@ public class Location implements Serializable {
 
 	@Column(name="l_zip")
 	private String lZip;
+	
+	@ManyToOne
+	@JoinColumn(name="dealer_id")
+	private Dealer dealer;
 
 	public Location() {
 	}
 
-	public int getLId() {
+	public long getLId() {
 		return this.lId;
 	}
 
-	public void setLId(int lId) {
+	public void setLId(long lId) {
 		this.lId = lId;
 	}
 
-	public int getCreatedBy() {
+	public String getCreatedBy() {
 		return this.createdBy;
 	}
 
-	public void setCreatedBy(int createdBy) {
+	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
 	}
 
@@ -91,12 +95,32 @@ public class Location implements Serializable {
 		this.isHead = isHead;
 	}
 
-	public String getLAddress() {
-		return this.lAddress;
+	/**
+	 * @return the lAddress1
+	 */
+	public String getlAddress1() {
+		return lAddress1;
 	}
 
-	public void setLAddress(String lAddress) {
-		this.lAddress = lAddress;
+	/**
+	 * @param lAddress1 the lAddress1 to set
+	 */
+	public void setlAddress1(String lAddress1) {
+		this.lAddress1 = lAddress1;
+	}
+
+	/**
+	 * @return the lAddress2
+	 */
+	public String getlAddress2() {
+		return lAddress2;
+	}
+
+	/**
+	 * @param lAddress2 the lAddress2 to set
+	 */
+	public void setlAddress2(String lAddress2) {
+		this.lAddress2 = lAddress2;
 	}
 
 	public String getLCity() {
@@ -139,14 +163,6 @@ public class Location implements Serializable {
 		this.lLastUpdate = lLastUpdate;
 	}
 
-	public int getLParent() {
-		return this.lParent;
-	}
-
-	public void setLParent(int lParent) {
-		this.lParent = lParent;
-	}
-
 	public String getLPhone() {
 		return this.lPhone;
 	}
@@ -187,4 +203,18 @@ public class Location implements Serializable {
 		this.lZip = lZip;
 	}
 
+	/**
+	 * @return the dealer
+	 */
+	public Dealer getDealer() {
+		return dealer;
+	}
+
+	/**
+	 * @param dealer the dealer to set
+	 */
+	public void setDealer(Dealer dealer) {
+		this.dealer = dealer;
+	}
+	
 }

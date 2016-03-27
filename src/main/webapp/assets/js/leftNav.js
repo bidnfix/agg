@@ -6,7 +6,8 @@ routingApp.config(['$routeProvider',
                   function($routeProvider) {
                     $routeProvider.
                       when('/agg/addDealer', {
-                    	  templateUrl: '../../jsp/addDealer.jsp'
+                    	  templateUrl: '../../jsp/addDealer.jsp',
+                    	  controller: 'AddDealerController'	  
                       }).
                       when('/agg/machineInfo', {
                     	  templateUrl: '../../jsp/machineInfo.jsp',
@@ -16,6 +17,10 @@ routingApp.config(['$routeProvider',
                     	  templateUrl: '../../jsp/addLocation.jsp',
                     	  controller: 'AddLocationController'
                       }).
+                      when('/agg/addUser', {
+                    	  templateUrl: '../../jsp/addUser.jsp',
+                    	  controller: 'AddUserController'
+                      }).
                       when('/agg/home', {
                     	  templateUrl: '../../jsp/home.jsp'
                       }).
@@ -23,6 +28,14 @@ routingApp.config(['$routeProvider',
                     	  redirectTo: '/agg/home'
                       });
                 }]);
+
+routingApp.controller('AddUserController', function($scope, $http) {
+	$http.get("/agg/dealerAndRoleInfo")
+    .then(function(response) {
+        $scope.dealerList = response.data.data.dealerList;
+        $scope.roleList = response.data.data.roleList;
+    });
+});
 
 routingApp.controller('AddLocationController', function($scope, $http) {
 	$http.get("/agg/dealerInfo")
@@ -35,6 +48,13 @@ routingApp.controller('AddMachineController', function($scope, $http) {
 	 $http.get("/agg/machineInfo")
 	    .then(function(response) {
 	        $scope.manufacturerList = response.data.data.manufacturerList;
+	    });
+});
+
+routingApp.controller('AddDealerController', function($scope, $http) {
+	 $http.get("/agg/dealerRoleInfo")
+	    .then(function(response) {
+	        $scope.roleList = response.data.data;
 	    });
 });
 

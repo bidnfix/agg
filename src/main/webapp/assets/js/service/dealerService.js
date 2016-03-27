@@ -46,3 +46,26 @@ routingApp.factory('locationService', function($http, $q, $window) {
 	};
 
 });
+
+routingApp.factory('userService', function($http, $q, $window) {
+	return {
+		saveUser : function(user) {
+			return $http.post('/agg/addUser', user).then(
+					function(response) {
+						alert(response.data.status);
+						if (response.data.status == 'success') {
+							$window.location = '/agg/home';
+						} else {
+							alert('error in adding user: '+response.data.errMessage)
+							//$('#errMsg').html(response.data.errMessage);
+						}
+						
+					}, function(errResponse) {
+						alert('Error while creating user');
+						return $q.reject(errResponse);
+					});
+		}
+
+	};
+
+});

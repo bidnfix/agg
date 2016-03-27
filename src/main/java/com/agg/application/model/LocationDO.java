@@ -2,6 +2,8 @@ package com.agg.application.model;
 
 public class LocationDO {
 	
+	private long id;
+	
 	private boolean headQuarter;
 	
 	private DealerDO dealerDO;
@@ -177,6 +179,20 @@ public class LocationDO {
 	 */
 	public void setLocationUrl(String locationUrl) {
 		this.locationUrl = locationUrl;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(long id) {
+		this.id = id;
 	}
 	
 }
