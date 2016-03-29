@@ -133,7 +133,6 @@ public class MachineServiceImpl implements MachineService {
 		//macineInfo.setBasePrice(machineDO.getBasePrice());
 		macineInfo.setGroupId(machineDO.getGroupId());
 		
-		
 		macineInfo.setLastUpdate(date);
 		
 		macineInfo = machineInfoDAO.save(macineInfo);
