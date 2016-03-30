@@ -15,7 +15,8 @@ routingApp.controller('machineController', function($scope, machineService, $loc
 		        $scope.machineTypeList = response.data.data.machineTypeList;
 		    });
 	 }
-	 $scope.getMachineModel = function ()
+     
+    $scope.getMachineModel = function ()
 	 {
 		 alert($scope.machine.machineTypeDO.id);
 		 $http.get("/agg/machineModel/"+$scope.machine.machineTypeDO.id)
@@ -23,5 +24,4 @@ routingApp.controller('machineController', function($scope, machineService, $loc
 		        $scope.machineModelList = response.data.data.machineModelList;
 		    });
 	 }
-        
 });

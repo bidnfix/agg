@@ -124,10 +124,18 @@ public class MachineServiceImpl implements MachineService {
 		MachineInfo macineInfo = new MachineInfo();
 		Timestamp date = new Timestamp(new Date().getTime());
 		
+		java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+		
+		
 		//macineInfo.setModel((machineDO.getMachineModelDO().getModelId());
-		macineInfo.setModel(machineDO.getMachineModelDO().getModelName());
-		macineInfo.setModelYear(machineDO.getMachineModelDO().getModelYear());
+		macineInfo.setModel(machineDO.getModelName());
+		macineInfo.setMachineType(machineDO.getMachineTypeDO().getName());
+		logger.debug(machineDO.getMachineTypeDO().getName());
+		logger.debug(machineDO.getModelName());
+		//macineInfo.setModelYear(sqlDate);
+		logger.debug(date.toString());
 		macineInfo.setPower(machineDO.getEnginePower());
+		logger.debug("Engne power "+machineDO.getEnginePower());
 		//macineInfo.setePower(machineModelDO.getePower());
 		//macineInfo.setRetailPrice(machineDO.getRetailPrice());
 		//macineInfo.setBasePrice(machineDO.getBasePrice());

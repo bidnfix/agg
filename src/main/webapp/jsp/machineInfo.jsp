@@ -23,7 +23,7 @@
 		<form class="form-horizontal" role="form" ng-submit="submitMachine()">
 		<!-- 	<h2>Registration Form</h2> -->
 			<div class="form-group">
-				<label for="firstName" class="col-sm-3 control-label">Manufacturer</label>
+				<label for="manufacturer" class="col-sm-3 control-label">Manufacturer</label>
 				<div class="col-sm-9">
 					<select name="machine" ng-model="machine.manufacturerDO" ng-options="machine.name for machine in manufacturerList" ng-change="getMachineType()">
          				<!--  <option ng:repeat="machine in manufacturerList" value="{{machine.id}}">{{machine.name}}</option>-->
@@ -31,28 +31,27 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="email" class="col-sm-3 control-label">Machine Type</label>
+				<label for="machine type" class="col-sm-3 control-label">Machine Type</label>
 				<div class="col-sm-9">
-					<select name="machineType" ng-model="machine.machineTypeDO" ng-options="machineType.name for machineType in machineTypeList" 
-					ng-change="getMachineModel()"></select> 
+					<select name="machineType" ng-model="machine.machineTypeDO" ng-options="machineType.name for machineType in machineTypeList"></select> 
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="password" class="col-sm-3 control-label">Model</label>
+				<label for="model" class="col-sm-3 control-label">Model</label>
 				<div class="col-sm-9">
-					<select name="machineModel" ng-model="machine.machineModelDO" ng-options="machineModel.modelName for machineModel in machineModelList"></select> 
+					<input type="text" id="model" ng-model="machine.modelName" placeholder="Model Name" class="form-control">
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="birthDate" class="col-sm-3 control-label">Engine Power</label>
+				<label for="engne power" class="col-sm-3 control-label">Engine Power</label>
 				<div class="col-sm-9">
-					<input type="text" id="enginePower" ng-model="enginePower" placeholder="Engine Power" class="form-control">
+					<input type="text" id="enginePower" ng-model="machine.enginePower" placeholder="Engine Power" class="form-control">
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="country" class="col-sm-3 control-label">Group ID</label>
+				<label for="group id" class="col-sm-3 control-label">Group ID</label>
 				<div class="col-sm-9">
-					<select id="groupId" class="form-control" ng-model="groupId">
+					<select id="groupId" class="form-control" ng-model="machine.groupId">
 						<option>1</option>
 						<option>2</option>
 						<option>3</option>
