@@ -77,5 +77,7 @@
 	<script src="/assets/js/leftNav.js"></script>
 	<script src="/assets/js/service/dealerService.js"></script>
 	<script src="/assets/js/controller/dealerController.js"></script>
+	<script src="/assets/js/service/machineService.js"></script>
+	<script src="/assets/js/controller/machineController.js"></script>
 </body>
 </html>

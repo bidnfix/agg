@@ -40,7 +40,6 @@ public class MachineModel implements Serializable {
 	@Column(name="last_update")
 	private Timestamp lastUpdate;
 
-	private String model;
 
 	private double power;
 
@@ -155,20 +154,7 @@ public class MachineModel implements Serializable {
 		this.lastUpdate = lastUpdate;
 	}
 
-	/**
-	 * @return the model
-	 */
-	public String getModel() {
-		return model;
-	}
-
-	/**
-	 * @param model the model to set
-	 */
-	public void setModel(String model) {
-		this.model = model;
-	}
-
+	
 	/**
 	 * @return the power
 	 */

@@ -124,9 +124,9 @@ public class MachineServiceImpl implements MachineService {
 		MachineInfo macineInfo = new MachineInfo();
 		Timestamp date = new Timestamp(new Date().getTime());
 		
-		//macineInfo.setModelId(machineModelDO.getModelId());
-		//macineInfo.setModel(machineDO.getModelName());
-		//macineInfo.setModelYear(machineDO.getModelYear());
+		//macineInfo.setModel((machineDO.getMachineModelDO().getModelId());
+		macineInfo.setModel(machineDO.getMachineModelDO().getModelName());
+		macineInfo.setModelYear(machineDO.getMachineModelDO().getModelYear());
 		macineInfo.setPower(machineDO.getEnginePower());
 		//macineInfo.setePower(machineModelDO.getePower());
 		//macineInfo.setRetailPrice(machineDO.getRetailPrice());

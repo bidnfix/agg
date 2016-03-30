@@ -1,6 +1,6 @@
 'use strict';
 
-routingApp.controller('machineController', function($scope, machineService, $location) {
+routingApp.controller('machineController', function($scope, machineService, $location, $http) {
 	$scope.machine={};
 	$scope.submitMachine = function() {
 		alert("in submitMachine");
@@ -9,16 +9,16 @@ routingApp.controller('machineController', function($scope, machineService, $loc
     
     $scope.getMachineType = function ()
 	 {
-		 alert($scope.manufacturerDO.id);
-		 $http.get("/agg/machineType/"+$scope.manufacturerDO.id)
+		 alert($scope.machine.manufacturerDO.id);
+		 $http.get("/agg/machineType/"+$scope.machine.manufacturerDO.id)
 		    .then(function(response) {
 		        $scope.machineTypeList = response.data.data.machineTypeList;
 		    });
 	 }
 	 $scope.getMachineModel = function ()
 	 {
-		 alert($scope.machineTypeDO.id);
-		 $http.get("/agg/machineModel/"+$scope.machineTypeDO.id)
+		 alert($scope.machine.machineTypeDO.id);
+		 $http.get("/agg/machineModel/"+$scope.machine.machineTypeDO.id)
 		    .then(function(response) {
 		        $scope.machineModelList = response.data.data.machineModelList;
 		    });

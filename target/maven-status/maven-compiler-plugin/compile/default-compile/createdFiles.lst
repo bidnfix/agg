@@ -8,6 +8,10 @@ com\agg\application\controller\BaseController.class
 com\agg\application\controller\ExceptionAdvice.class
 com\agg\application\service\impl\LoginServiceImpl.class
 com\agg\application\entity\UserTrack.class
+com\agg\application\dao\RoleDAO.class
+com\agg\application\model\RoleDO.class
+com\agg\application\dao\AccountDAO.class
+com\agg\application\model\MachineDO.class
 com\agg\application\entity\Pricing.class
 com\agg\application\entity\Role.class
 com\agg\application\service\DealerService.class
@@ -42,9 +46,11 @@ com\agg\application\AGGApplication.class
 com\agg\application\service\LoginService.class
 com\agg\application\entity\Manufacturer.class
 com\agg\application\dao\MachineModelDAO.class
+com\agg\application\dao\AccountTypeDAO.class
 com\agg\application\entity\Dealer.class
 com\agg\application\entity\Sclass.class
 com\agg\application\entity\Sprogram.class
+com\agg\application\dao\MachineInfoDAO.class
 com\agg\application\entity\AdminAdjustment.class
 com\agg\application\model\DealerDO.class
 com\agg\application\utils\Util.class
@@ -52,11 +58,10 @@ com\agg\application\service\impl\MachineServiceImpl.class
 com\agg\application\entity\Location.class
 com\agg\application\entity\ClaimEvent.class
 com\agg\application\service\impl\ProgramServiceImpl.class
-com\agg\application\dao\DealerNoteDAO.class
 com\agg\application\entity\Account.class
 com\agg\application\entity\MachineModel.class
 com\agg\application\dao\LocationDAO.class
 com\agg\application\entity\QuotePK.class
+com\agg\application\model\UserDO.class
 com\agg\application\entity\MachineNote.class
 com\agg\application\entity\ClaimNote.class
-com\agg\application\entity\DealerNote.class
