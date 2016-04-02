@@ -11,6 +11,12 @@
             <li class="animated fadeInLeft"><a id="archivedQuotes" href="#" ng-click="activateTab($event);">Archived Quotes</a></li>
             <li class="animated fadeInLeft"><a id="adminSearch" href="#" ng-click="activateTab($event);">Admin Search</a></li>
             <li class="animated fadeInLeft"><a id="machineSearch" href="#/agg/machineInfo" ng-click="activateTab($event);">Machine Search</a></li>
+            <li class="animated fadeInLeftBig"><a id="machineSearch" href="#" ng-click="activateTab($event);">Machine Management</a>
+				<ul>
+					<li><a id="manageLocations" href="#/agg/machineInfo" ng-click="activateTab($event);">Add Machine</a></li>
+					<li><a id="manageUsers" href="#/agg/editMachine" ng-click="activateTab($event);">Edit Machine</a></li>
+				</ul>
+			</li>
             <li class="animated fadeInLeft"><a id="quoteSearch" href="#" ng-click="activateTab($event);">Quote Search</a></li>
             <li class="animated fadeInLeftBig"><a id="dealerManagement" href="#" ng-click="activateTab($event);">Dealer Management</a>
 				<ul>

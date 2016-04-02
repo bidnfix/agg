@@ -89,23 +89,23 @@ public class MachineServiceImpl implements MachineService {
 	}
 	
 	@Override
-	public List<MachineModelDO> getMachineModelById(int typeId) {
+	public List<MachineModelDO> getMachineModel(String typeId) {
 		logger.debug("Inside getMachineModelById()");
-		List<MachineModel>  machineModelList =  machineModelDAO.findByMachineTypeMachineTypeId(typeId);
+		List<MachineInfo>  machineModelList =  machineModelDAO.findByModelMachineType(typeId);
 		List<MachineModelDO> machineModelDOList = null;
 		if(machineModelList != null && !machineModelList.isEmpty()){
 			machineModelDOList = new ArrayList<MachineModelDO>();
 			MachineModelDO machineModelDO = null;
-			MachineModel machineModel = null;
-			Iterator<MachineModel> it = machineModelList.iterator();
+			MachineInfo machineModel = null;
+			Iterator<MachineInfo> it = machineModelList.iterator();
 			while(it.hasNext()){
 				machineModelDO = new MachineModelDO();
 				machineModel = it.next();
-				machineModelDO.setModelId(machineModel.getModelId());
-				machineModelDO.setModelName(machineModel.getModelName());
+				//machineModelDO.setModelId(machineModel.getModel());
+				machineModelDO.setModelName(machineModel.getModel());
 				machineModelDO.setModelYear(machineModel.getModelYear());
 				machineModelDO.setPower(machineModel.getPower());
-				machineModelDO.setePower(machineModel.getePower());
+				//machineModelDO.setePower(machineModel.getePower());
 				machineModelDO.setRetailPrice(machineModel.getRetailPrice());
 				machineModelDO.setBasePrice(machineModel.getBasePrice());
 				machineModelDO.setGroupId(machineModel.getGroupId());

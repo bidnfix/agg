@@ -13,6 +13,10 @@ routingApp.config(['$routeProvider',
                     	  templateUrl: '../../jsp/machineInfo.jsp',
                     	  controller: 'AddMachineController'
                       }).
+                      when('/agg/editMachine', {
+                    	  templateUrl: '../../jsp/editMachine.jsp',
+                    	  controller: 'AddMachineController'
+                      }).
                       when('/agg/addLocation', {
                     	  templateUrl: '../../jsp/addLocation.jsp',
                     	  controller: 'AddLocationController'
