@@ -174,13 +174,13 @@
 			<div class="form-group">
 				<label for="userUrl" class="col-sm-3 control-label">URL</label>
 				<div class="col-sm-9">
-					<input type="text" id="userUrl" name="userUrl" ng-model="user.userUrl" class="form-control" required="required">
+					<input type="text" id="userUrl" name="userUrl" ng-model="user.url" class="form-control" required="required">
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="role" class="col-sm-3 control-label">Role</label>
 				<div class="col-sm-9">
-					<select class="form-control" name="role" ng-model="user.role" id="role" ng-options="role.name for role in roleList" required="required">
+					<select class="form-control" name="role" ng-model="user.roleDO" id="role" ng-options="role.name for role in roleList" required="required">
 						<option value="">Select Role</option>
 					</select>
 				</div>

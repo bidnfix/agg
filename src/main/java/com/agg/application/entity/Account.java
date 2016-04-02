@@ -58,6 +58,10 @@ public class Account implements Serializable {
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="dealer_id")
 	private Dealer dealer;
+	
+	@ManyToOne
+	@JoinColumn(name="location_id")
+	private Location location;
 
 	public Account() {
 	}
@@ -162,6 +166,20 @@ public class Account implements Serializable {
 	 */
 	public void setDealer(Dealer dealer) {
 		this.dealer = dealer;
+	}
+
+	/**
+	 * @return the location
+	 */
+	public Location getLocation() {
+		return location;
+	}
+
+	/**
+	 * @param location the location to set
+	 */
+	public void setLocation(Location location) {
+		this.location = location;
 	}
 	
 }

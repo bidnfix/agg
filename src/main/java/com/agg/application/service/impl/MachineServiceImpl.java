@@ -15,10 +15,8 @@ import org.springframework.stereotype.Service;
 
 import com.agg.application.dao.MachineDAO;
 import com.agg.application.dao.MachineInfoDAO;
-import com.agg.application.dao.MachineModelDAO;
 import com.agg.application.dao.MachineTypeDAO;
 import com.agg.application.entity.MachineInfo;
-import com.agg.application.entity.MachineModel;
 import com.agg.application.entity.MachineType;
 import com.agg.application.entity.Manufacturer;
 import com.agg.application.model.MachineDO;
@@ -37,9 +35,6 @@ public class MachineServiceImpl implements MachineService {
 	
 	@Autowired
 	private MachineTypeDAO machineTypeDAO;
-	
-	@Autowired
-	private MachineModelDAO machineModelDAO;
 	
 	@Autowired
 	private MachineInfoDAO machineInfoDAO;
@@ -91,7 +86,7 @@ public class MachineServiceImpl implements MachineService {
 	@Override
 	public List<MachineModelDO> getMachineModel(String typeId) {
 		logger.debug("Inside getMachineModelById()");
-		List<MachineInfo>  machineModelList =  machineModelDAO.findByModelMachineType(typeId);
+		List<MachineInfo>  machineModelList =  machineInfoDAO.findByMachineType(typeId);
 		List<MachineModelDO> machineModelDOList = null;
 		if(machineModelList != null && !machineModelList.isEmpty()){
 			machineModelDOList = new ArrayList<MachineModelDO>();

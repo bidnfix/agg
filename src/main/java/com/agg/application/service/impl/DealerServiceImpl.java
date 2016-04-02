@@ -60,6 +60,15 @@ public class DealerServiceImpl implements DealerService {
 				dealerDO = new DealerDO();
 				dealerDO.setId(dealer.getId());
 				dealerDO.setUserName(dealer.getAccount().getUserName());
+				dealerDO.setAddress1(dealer.getAddress());
+				dealerDO.setCity(dealer.getCity());
+				dealerDO.setInvoiceEmail(dealer.getInvoiceEmail());
+				dealerDO.setLocation(dealer.getLocation());
+				dealerDO.setMarketEmail(dealer.getMarketEmail());
+				dealerDO.setPhone(dealer.getPhone());
+				dealerDO.setState(dealer.getState());
+				dealerDO.setZip(dealer.getZip());
+				dealerDO.setStatus(dealer.getStatus());
 				
 				dealerDOList.add(dealerDO);
 			}
@@ -226,7 +235,7 @@ public class DealerServiceImpl implements DealerService {
 		
 		dealer.setInvoiceEmail(userDO.getEmail());
 		dealer.setLastUpdate(date);
-		dealer.setLocation(userDO.getLocationDO().getId()+"");
+		//dealer.setLocation(userDO.getLocationDO().getId()+"");
 		dealer.setMarketEmail(userDO.getEmail());
 		dealer.setName(userDO.getFirstName()+" "+userDO.getLastName());
 		dealer.setPhone(userDO.getPhone());
@@ -239,6 +248,7 @@ public class DealerServiceImpl implements DealerService {
 		dealer.setLastUpdate(date);
 		
 		Role role = roleDAO.findOne(userDO.getRoleDO().getId());
+		Location location = locationDAO.findOne(userDO.getLocationDO().getId());
 		Account account = new Account();
 		account.setUserName(userDO.getUserName());
 		account.setPassword(userDO.getPassword());
@@ -250,7 +260,7 @@ public class DealerServiceImpl implements DealerService {
 		account.setLastLoginDate(date);
 		account.setStatus((byte)1);
 		account.setUpdatedBy(accountDO.getUsername());
-		
+		account.setLocation(location);
 		account.setDealer(dealer);
 		
 		account = accountDAO.save(account);

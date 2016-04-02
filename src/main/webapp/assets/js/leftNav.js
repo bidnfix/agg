@@ -5,6 +5,10 @@ var routingApp = angular.module('aggRoutingApp',['ngRoute']);
 routingApp.config(['$routeProvider',
                   function($routeProvider) {
                     $routeProvider.
+                      when('/agg/dealers', {
+	                  	  templateUrl: '../../jsp/dealers.jsp',
+	                  	  controller: 'GetDealerController'	  
+	                  }).
                       when('/agg/addDealer', {
                     	  templateUrl: '../../jsp/addDealer.jsp',
                     	  controller: 'AddDealerController'	  
@@ -32,6 +36,16 @@ routingApp.config(['$routeProvider',
                     	  redirectTo: '/agg/home'
                       });
                 }]);
+
+routingApp.controller('GetDealerController', function($scope, $http, $timeout) {
+	$http.get("/agg/dealerInfo")
+    .then(function(response) {
+        $scope.dealerList = response.data.data;
+        $timeout(function () {
+        	$('#table1').DataTable();
+        }, 300);
+    });
+});
 
 routingApp.controller('AddUserController', function($scope, $http) {
 	$http.get("/agg/dealerAndRoleInfo")

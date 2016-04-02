@@ -36,6 +36,8 @@ public class DealerDO {
 	
 	private String zip;
 	
+	private int status;
+	
 	/**
 	 * @return the id
 	 */
@@ -273,6 +275,19 @@ public class DealerDO {
 	public void setZip(String zip) {
 		this.zip = zip;
 	}
-	
+
+	/**
+	 * @return the status
+	 */
+	public int getStatus() {
+		return status;
+	}
+
+	/**
+	 * @param status the status to set
+	 */
+	public void setStatus(int status) {
+		this.status = status;
+	}
 	
 }
