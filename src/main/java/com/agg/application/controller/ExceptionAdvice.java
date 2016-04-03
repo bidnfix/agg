@@ -1,5 +1,7 @@
 package com.agg.application.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -10,10 +12,12 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 @ControllerAdvice
 public class ExceptionAdvice {
 
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+	
 	@ExceptionHandler(value = Exception.class)
 	@ResponseBody
 	public Result fieldValidation(Exception exception) throws JsonProcessingException {
-		System.out.println("Exception " + exception.getMessage());
+		logger.error("Exception: ", exception);
 		return new Result("failure", exception.getMessage(), null);
 	}
 
