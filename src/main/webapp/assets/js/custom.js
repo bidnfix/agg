@@ -13,10 +13,10 @@ jQuery(document).ready(function ($) {
 		bgincrement: 0
 	});*/
 //Set the carousel options
-	$('#quote-carousel').carousel({
+	/*$('#quote-carousel').carousel({
 		pause: true,
 		interval: 4000,
-	});
+	});*/
 // fancybox
     //$(".fancybox").fancybox();
 //isotope
