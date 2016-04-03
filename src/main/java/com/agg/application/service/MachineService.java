@@ -12,7 +12,7 @@ public interface MachineService {
 	
 	List<ManufacturerDO> getMachineTypeById(int typeId);
 	
-	List<MachineModelDO> getMachineModel(String typeId);
+	List<MachineModelDO> getMachineModel(int typeId);
 	
 	public long saveMachineInfo(MachineDO machineDO);
 

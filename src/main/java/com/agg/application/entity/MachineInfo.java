@@ -33,8 +33,8 @@ public class MachineInfo implements Serializable {
 	@Column(name="last_update")
 	private Timestamp lastUpdate;
 
-	@Column(name="machine_type")
-	private String machineType;
+	@Column(name="machine_type_id")
+	private int machineTypeId;
 
 	private String model;
 
@@ -103,12 +103,12 @@ public class MachineInfo implements Serializable {
 		this.lastUpdate = lastUpdate;
 	}
 
-	public String getMachineType() {
-		return this.machineType;
+	public int getMachineTypeId() {
+		return this.machineTypeId;
 	}
 
-	public void setMachineType(String machineType) {
-		this.machineType = machineType;
+	public void setMachineTypeId(int machineTypeId) {
+		this.machineTypeId = machineTypeId;
 	}
 
 	public String getModel() {

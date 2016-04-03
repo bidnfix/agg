@@ -19,7 +19,7 @@ routingApp.controller('machineController', function($scope, machineService, $loc
     $scope.getMachineModel = function ()
 	 {
 		 alert($scope.machine.machineTypeDO.id);
-		 $http.get("/agg/machineModel/"+$scope.machine.machineTypeDO.name)
+		 $http.get("/agg/machineModel/"+$scope.machine.machineTypeDO.id)
 		    .then(function(response) {
 		        $scope.machineModelList = response.data.data.machineModelList;
 		    });

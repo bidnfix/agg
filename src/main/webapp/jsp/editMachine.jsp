@@ -18,7 +18,8 @@
 			<div class="form-group">
 				<label for="manufacturer" class="col-sm-3 control-label">Manufacturer</label>
 				<div class="col-sm-9">
-					<select name="machine" ng-model="machine.manufacturerDO" ng-options="machine.name for machine in manufacturerList" ng-change="getMachineType()">
+					<select name="machine" ng-model="machine.manufacturerDO" 
+					ng-options="machine.name for machine in manufacturerList" ng-change="getMachineType()">
          				<!--  <option ng:repeat="machine in manufacturerList" value="{{machine.id}}">{{machine.name}}</option>-->
      				</select> 
 				</div>
@@ -26,7 +27,8 @@
 			<div class="form-group">
 				<label for="machine type" class="col-sm-3 control-label">Machine Type</label>
 				<div class="col-sm-9">
-					<select name="machineType" ng-model="machine.machineTypeDO" ng-options="machineType.name for machineType in machineTypeList"></select> 
+					<select name="machineType" ng-model="machine.machineTypeDO" 
+					ng-options="machineType.name for machineType in machineTypeList" ng-change="getMachineModel()"></select> 
 				</div>
 			</div>
 			<div class="form-group">

@@ -56,7 +56,7 @@ public class MachineController extends BaseController {
 	public @ResponseBody Result machineModel(ModelMap model, HttpServletResponse response, @PathVariable String typeId) {
 		logger.info("Inside machineModel() with typeId: "+typeId);
 		if(typeId != null && !typeId.isEmpty()){
-			List<MachineModelDO> machineModels = machineService.getMachineModel(typeId);
+			List<MachineModelDO> machineModels = machineService.getMachineModel(Integer.valueOf(typeId));
 			model.put("machineModelList", machineModels);
 		}
 		return new Result("success", null, model);	

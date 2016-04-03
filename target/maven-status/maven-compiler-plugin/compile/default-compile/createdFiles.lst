@@ -45,7 +45,6 @@ com\agg\application\entity\ClaimNotesAdmin.class
 com\agg\application\AGGApplication.class
 com\agg\application\service\LoginService.class
 com\agg\application\entity\Manufacturer.class
-com\agg\application\dao\MachineModelDAO.class
 com\agg\application\dao\AccountTypeDAO.class
 com\agg\application\entity\Dealer.class
 com\agg\application\entity\Sclass.class
