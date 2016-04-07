@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.agg.application.model.DealerDO;
 import com.agg.application.model.MachineDO;
+import com.agg.application.model.MachineInfoDO;
 import com.agg.application.model.MachineModelDO;
 import com.agg.application.model.ManufacturerDO;
 import com.agg.application.model.Result;
@@ -36,7 +37,15 @@ public class MachineController extends BaseController {
 
 	@RequestMapping(value = "/machineInfo", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
 	public @ResponseBody Result machineInfo(ModelMap model, HttpServletResponse response) {
-		logger.info("Inside machineIfo()");
+		logger.info("Inside machineInfo()");
+		List<MachineInfoDO> machineInfoList = machineService.getmachineInfo();
+		model.put("machineInfoList", machineInfoList);
+		return new Result("success", null, model);	
+	}
+	
+	@RequestMapping(value = "/addMachine", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+	public @ResponseBody Result addMachine(ModelMap model, HttpServletResponse response) {
+		logger.info("Inside addMachine()");
 		List<ManufacturerDO> manufacturers = machineService.getManufacturerDetails();
 		model.put("manufacturerList", manufacturers);
 		return new Result("success", null, model);	

@@ -3,11 +3,14 @@ package com.agg.application.service;
 import java.util.List;
 
 import com.agg.application.model.MachineDO;
+import com.agg.application.model.MachineInfoDO;
 import com.agg.application.model.MachineModelDO;
 import com.agg.application.model.ManufacturerDO;
 
 public interface MachineService {
 
+	List<MachineInfoDO> getmachineInfo();
+	
 	List<ManufacturerDO> getManufacturerDetails();
 	
 	List<ManufacturerDO> getMachineTypeById(int typeId);

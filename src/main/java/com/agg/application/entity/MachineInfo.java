@@ -1,10 +1,22 @@
 package com.agg.application.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.util.Date;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 
 /**
@@ -33,9 +45,6 @@ public class MachineInfo implements Serializable {
 	@Column(name="last_update")
 	private Timestamp lastUpdate;
 
-	@Column(name="machine_type_id")
-	private int machineTypeId;
-
 	private String model;
 
 	@Temporal(TemporalType.DATE)
@@ -48,17 +57,37 @@ public class MachineInfo implements Serializable {
 	private double retailPrice;
 
 	//bi-directional many-to-one association to Manufacturer
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	@JoinColumn(name="manf_id")
 	private Manufacturer manufacturer;
 
+	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	@JoinColumn(name="machine_type_id")
+	private MachineType machineType;
+
+	//bi-directional many-to-one association to MachineNote
+	 @OneToMany(mappedBy="machineInfo")
+	 private List<MachineNote> machineNotes;
+		
 	/*//bi-directional many-to-one association to MachineModel
 	@OneToMany(mappedBy="machineInfo")
 	private List<MachineModel> machineModels;*/
 
-	//bi-directional many-to-one association to MachineNote
-	@OneToMany(mappedBy="machineInfo")
-	private List<MachineNote> machineNotes;
+	public double getePower() {
+		return ePower;
+	}
+
+	public void setePower(double ePower) {
+		this.ePower = ePower;
+	}
+
+	public MachineType getMachineType() {
+		return machineType;
+	}
+
+	public void setMachineType(MachineType machineType) {
+		this.machineType = machineType;
+	}
 
 	public MachineInfo() {
 	}
@@ -101,14 +130,6 @@ public class MachineInfo implements Serializable {
 
 	public void setLastUpdate(Timestamp lastUpdate) {
 		this.lastUpdate = lastUpdate;
-	}
-
-	public int getMachineTypeId() {
-		return this.machineTypeId;
-	}
-
-	public void setMachineTypeId(int machineTypeId) {
-		this.machineTypeId = machineTypeId;
 	}
 
 	public String getModel() {

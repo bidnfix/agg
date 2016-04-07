@@ -15,6 +15,10 @@ routingApp.config(['$routeProvider',
                       }).
                       when('/agg/machineInfo', {
                     	  templateUrl: '../../jsp/machineInfo.jsp',
+                    	  controller: 'GetMachineInfoController'
+                      }).
+                      when('/agg/addMachine', {
+                    	  templateUrl: '../../jsp/addMachine.jsp',
                     	  controller: 'AddMachineController'
                       }).
                       when('/agg/editMachine', {
@@ -41,6 +45,17 @@ routingApp.controller('GetDealerController', function($scope, $http, $timeout) {
 	$http.get("/agg/dealerInfo")
     .then(function(response) {
         $scope.dealerList = response.data.data;
+        $timeout(function () {
+        	$('#table1').DataTable();
+        }, 300);
+    });
+});
+
+routingApp.controller('GetMachineInfoController', function($scope, $http, $timeout) {
+	$http.get("/agg/machineInfo")
+    .then(function(response) {
+        $scope.machineInfoList = response.data.data.machineInfoList;
+        alert($scope.machineInfoList);
         $timeout(function () {
         	$('#table1').DataTable();
         }, 300);
@@ -79,13 +94,11 @@ routingApp.controller('AddDealerController', function($scope, $http) {
 routingApp.controller("activateTabCtrl", function($scope) {
     $scope.activateTab = function ($event) {
     	$('#leftTabs li a').each(function($event, $this){
-    		//alert("#"+$this.id+"--"+$event.target);
     		if($this.id != null && $this.id !=""){
     			$("#"+$this.id).css({"background":"#fff", "color":"#205f9f"});
     		}
         });
     	var tabId = $event.target.id;
-    	//alert(tabId);
     	$('#'+tabId).css({"background":"#205f9f", "color":"#fff"});
     }    
 });

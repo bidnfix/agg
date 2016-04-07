@@ -43,6 +43,7 @@ com\agg\application\entity\CustomerInfo.class
 com\agg\application\service\MachineService.class
 com\agg\application\entity\ClaimNotesAdmin.class
 com\agg\application\AGGApplication.class
+com\agg\application\model\MachineInfoDO.class
 com\agg\application\service\LoginService.class
 com\agg\application\entity\Manufacturer.class
 com\agg\application\dao\AccountTypeDAO.class
