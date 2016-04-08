@@ -91,6 +91,18 @@ routingApp.controller('AddDealerController', function($scope, $http) {
 	    });
 });
 
+routingApp.controller('EditDealerController', function($scope, $http) {
+	$scope.editDealer = function(dealerId) {
+		//alert(dealerId);
+		var x = screen.width/4;
+	    var y = screen.height/9;
+	    showMask('popup_mask');
+	    $('#dealerEditPopup').css("left", x+"px");
+	    $('#dealerEditPopup').css("top", y+"px");
+	    $('#dealerEditPopup').show();
+    };
+});
+
 routingApp.controller("activateTabCtrl", function($scope) {
     $scope.activateTab = function ($event) {
     	$('#leftTabs li a').each(function($event, $this){

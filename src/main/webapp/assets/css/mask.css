@@ -1,0 +1,13 @@
+/*---------- for popup ---------------*/
+
+/* #popupbase_03 { float:left; width:450px; position:relative; border:2px solid #084e86; background:#f4f7e9; z-index:9999; text-align:left; vertical-align:middle; }
+#popupbase_04 { float:left; width:500px; position:relative; border:2px solid #084e86; background:#f4f7e9; z-index:9999; text-align:left; vertical-align:middle; }
+.popup_base_titletext { float:left; width:80%; padding:6px 0px 0px 10px; }
+.popup_base_title { width:auto; font-weight:bold; font-size:13px; height:30px; background:url(../images/header_top_bg_01.gif) top left repeat-x; border-bottom:1px solid #084e86; }
+.popup_content_scrollerbase_01 { float:left; width:436px; height:300px; position:relative; overflow:hidden; overflow-y:scroll; margin:5px 0px 0px 5px; -margin:5px 0px 0px 3px; background-color:#FFFFFF; border:1px solid #cccccc; }
+.popup_content_scrollerbase_02 { float:left; width:436px; height:400px; position:relative; overflow:hidden; overflow-y:scroll; margin:5px 0px 0px 5px; -margin:5px 0px 0px 3px; background-color:#FFFFFF; border:1px solid #cccccc; }
+.popup_content_scroller_01 { float:left; width:100%; height:auto; padding:0px; }
+.popup_content_row01_buttons { float:left; width:98%; height:45px; text-align:center; }
+.popup_content_field02_buttons { margin:10px 0px 10px 43%; text-align:center; } */
+.agg_popup{width: 70%;}
+.mask {z-index: 10000; display:none; position:absolute; top:0; left:0; -moz-opacity: 0.5; opacity:.50; filter: alpha(opacity=50); background-color:#CCC; }

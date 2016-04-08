@@ -17,6 +17,7 @@
 <link rel="stylesheet" href="/assets/css/style.css">
 <link href="/assets/css/animate.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="/assets/css/hover.css">
+<link rel="stylesheet" href="/assets/css/mask.css">
 
 <!--data table css-->
 <link href="https://cdn.datatables.net/1.10.9/css/dataTables.bootstrap.min.css" rel="stylesheet">
@@ -30,6 +31,7 @@
 <script src="/assets/js/angular-route.min.js"></script>
 </head>
 <body ng-app="aggRoutingApp">
+	<div class="mask" id="popup_mask" style="z-index: 10001; display: none;"> </div>
 	<jsp:include page="header.jsp"></jsp:include>
 	<div class="container"> 
 		<div class="row">
@@ -64,13 +66,6 @@
 	<script src="https://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
 	<script src="https://cdn.datatables.net/1.10.9/js/dataTables.bootstrap.min.js"></script>
     
-    <!--data table plugin-->
-    <script>
-	$(document).ready(function() {
-    $('#table1').DataTable();
-} );
-</script><!--data table plugin end-->
-    
 	<script src="/assets/js/headroom.min.js"></script>
 	<script src="/assets/js/jQuery.headroom.min.js"></script>
 	<script src="/assets/js/custom.js"></script>
@@ -79,5 +74,7 @@
 	<script src="/assets/js/controller/dealerController.js"></script>
 	<script src="/assets/js/service/machineService.js"></script>
 	<script src="/assets/js/controller/machineController.js"></script>
+	<script src="/assets/js/mask.js"></script>
+	<script src="/assets/js/popup.js"></script>
 </body>
 </html>

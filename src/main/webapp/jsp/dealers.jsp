@@ -1,4 +1,5 @@
 <!-- Article main content -->
+<%@include file="dealerPopup.jsp" %>
 <article class="col-md-9 maincontent">
 	<header class="page-header">
              	<div class="col-md-8 col-sm-12">
@@ -14,7 +15,7 @@
              
 	 <!-- data table section -->
              
-     <table id="table1" class="table table-striped table-bordered" cellspacing="0" width="100%">
+     <table ng-controller="EditDealerController" id="table1" class="table table-striped table-bordered" cellspacing="0" width="100%">
         <thead>
             <tr>
             	<th>User Name</th>
@@ -56,8 +57,8 @@
                 <td>{{dealer.phone}}</td>
                 <td></td>
                 <td>{{(dealer.status === 0)?"In-Active":"Active"}}</td>
-                <td><div class="manage-sec"><a href="#"><img src="../assets/images/delete-icon.png" alt="Delete" title="Delete"/></a>
-                		<a href="#"><img src="../assets/images/edit-icon.png" alt="Edit" title="Edit"/></a>
+                <td><div class="manage-sec"><!-- <a href="#"><img src="../assets/images/delete-icon.png" alt="Delete" title="Delete"/></a> -->
+                		<a ng-click="editDealer(dealer.id)"><img src="../assets/images/edit-icon.png" alt="Edit" title="Edit"/></a>
                 	</div>
                 </td>
             </tr>
