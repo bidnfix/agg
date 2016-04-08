@@ -90,13 +90,16 @@ public class DealerController extends BaseController {
 	}
 	
 	@RequestMapping(value = "/dealer/{id}", method = RequestMethod.GET)
-	public String getOneProgram(@PathVariable long id, Map<String, Object> model, HttpServletRequest request, HttpServletResponse response) {
-		logger.debug("In getOneProgram ");
-		if (!sessionExists(request))
-			return "login";
-
-		model.put("dealer", dealerService.getDealer(id));
-		return "redirect:/dealers";
+	public @ResponseBody Result getDealer(@PathVariable long id, HttpServletRequest request, HttpServletResponse response) {
+		logger.debug("In getDealer");
+		Result opResult = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			opResult = new Result("success", "Dealer Info", dealerService.getDealer(id));
+		}
+		
+		return opResult;
 	}
 	
 	@RequestMapping(value = "/dealerInfo", method = RequestMethod.GET)

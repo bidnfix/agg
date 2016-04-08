@@ -126,7 +126,21 @@ public class DealerServiceImpl implements DealerService {
 	@Override
 	public DealerDO getDealer(long id) {
 		Dealer dealer = dealerDAO.findOne((long)id);
-		DealerDO dealerDO = new DealerDO();
+		DealerDO dealerDO = null;
+		if(dealer != null){
+			dealerDO = new DealerDO();
+			dealerDO.setId(dealer.getId());
+			dealerDO.setUserName(dealer.getAccount().getUserName());
+			dealerDO.setAddress1(dealer.getAddress());
+			dealerDO.setCity(dealer.getCity());
+			dealerDO.setInvoiceEmail(dealer.getInvoiceEmail());
+			dealerDO.setLocation(dealer.getLocation());
+			dealerDO.setMarketEmail(dealer.getMarketEmail());
+			dealerDO.setPhone(dealer.getPhone());
+			dealerDO.setState(dealer.getState());
+			dealerDO.setZip(dealer.getZip());
+			dealerDO.setStatus(dealer.getStatus());
+		}
 		
 		return dealerDO;
 	}

@@ -49,6 +49,26 @@ routingApp.controller('GetDealerController', function($scope, $http, $timeout) {
         	$('#table1').DataTable();
         }, 300);
     });
+	
+	$scope.editDealer = function(dealerId) {
+		//alert(dealerId);
+		$http.get("/agg/dealer/"+dealerId)
+	    .then(function(response) {
+	        $scope.dealer = response.data.data;
+	        //$scope.userName = $scope.dealerr.userName;
+	        $scope.dealer = {
+	        	userName: $scope.dealerr.userName,	
+	        	state: $scope.dealerr.state
+	        };
+	    });
+		
+		var x = screen.width/4;
+	    var y = screen.height/9;
+	    showMask('popup_mask');
+	    $('#dealerEditPopup').css("left", x+"px");
+	    $('#dealerEditPopup').css("top", y+"px");
+	    $('#dealerEditPopup').show();
+    };
 });
 
 routingApp.controller('GetMachineInfoController', function($scope, $http, $timeout) {
@@ -89,18 +109,6 @@ routingApp.controller('AddDealerController', function($scope, $http) {
 	    .then(function(response) {
 	        $scope.roleList = response.data.data;
 	    });
-});
-
-routingApp.controller('EditDealerController', function($scope, $http) {
-	$scope.editDealer = function(dealerId) {
-		//alert(dealerId);
-		var x = screen.width/4;
-	    var y = screen.height/9;
-	    showMask('popup_mask');
-	    $('#dealerEditPopup').css("left", x+"px");
-	    $('#dealerEditPopup').css("top", y+"px");
-	    $('#dealerEditPopup').show();
-    };
 });
 
 routingApp.controller("activateTabCtrl", function($scope) {

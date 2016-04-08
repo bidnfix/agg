@@ -4,56 +4,56 @@
 
 	<!-- data table section -->
 
-	<div class="inner-main" ng-controller="dealerController">
+	<div class="inner-main">
 		<a class="btn btn-primary pull-right fadeInLeftBig  hvr-pulse mar-right" onclick="closePopup('dealerEditPopup')">CLOSE</a>
-		<form class="form-horizontal" role="form" ng-submit="submitDealer()">
+		<form class="form-horizontal" role="form">
 			<h2>Edit Dealer</h2>
 			<div class="form-group">
 				<label for="userName" class="col-sm-3 control-label">Username</label>
 				<div class="col-sm-9">
-					<input type="text" id="userName" name="userName" ng-model="dealer.userName" placeholder="User Name" class="form-control" required="required">
+					<input type="text" id="userName" name="userName" ng-model="dealer.userName" placeholder="User Name" class="form-control" required="required" value="{{dealer.userName}}" readonly="readonly">
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="password" class="col-sm-3 control-label">Password</label>
 				<div class="col-sm-9">
-					<input type="text" id="password" name="password" ng-model="dealer.password" placeholder="password" class="form-control" required="required">
+					<input type="text" id="password" name="password" ng-model="dealer.password" placeholder="password" class="form-control" required="required" value="{{dealer.password}}">
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="companyName" class="col-sm-3 control-label">Company Name</label>
 				<div class="col-sm-9">
-					<input type="text" id="companyName" name="companyName" ng-model="dealer.companyName" placeholder="companyName" class="form-control" required="required">
+					<input type="text" id="companyName" name="companyName" ng-model="dealer.companyName" placeholder="companyName" class="form-control" required="required" value="{{dealer.companyName}}">
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="contact" class="col-sm-3 control-label">Contact</label>
 				<div class="col-sm-9">
-					<input type="text" id="contact" name="contact" ng-model="dealer.contact" class="form-control" required="required">
+					<input type="text" id="contact" name="contact" ng-model="dealer.contact" class="form-control" required="required" value="{{dealer.contact}}">
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="location" class="col-sm-3 control-label">Location</label>
 				<div class="col-sm-9">
-					<input type="text" id="location" name="location" ng-model="dealer.location" class="form-control" required="required">
+					<input type="text" id="location" name="location" ng-model="dealer.location" class="form-control" required="required" value="{{dealer.location}}">
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="address1" class="col-sm-3 control-label">Address1</label>
 				<div class="col-sm-9">
-					<input type="text" id="address1" name="address1" ng-model="dealer.address1" class="form-control" required="required">
+					<input type="text" id="address1" name="address1" ng-model="dealer.address1" class="form-control" required="required" value="{{dealer.address1}}">
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="address2" class="col-sm-3 control-label">Address2</label>
 				<div class="col-sm-9">
-					<input type="text" id="address2" name="address2" ng-model="dealer.address2" class="form-control" required="required">
+					<input type="text" id="address2" name="address2" ng-model="dealer.address2" class="form-control" required="required" value="{{dealer.address2}}">
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="city" class="col-sm-3 control-label">City</label>
 				<div class="col-sm-9">
-					<input type="text" id="city" name="city" ng-model="dealer.city" class="form-control" required="required">
+					<input type="text" id="city" name="city" ng-model="dealer.city" class="form-control" required="required" value="{{dealer.city}}">
 				</div>
 			</div>
 			<div class="form-group">
@@ -131,31 +131,31 @@
 			<div class="form-group">
 				<label for="zip" class="col-sm-3 control-label">Zip</label>
 				<div class="col-sm-9">
-					<input type="text" id="zip" name="zip" ng-model="dealer.zip" class="form-control" required="required">
+					<input type="text" id="zip" name="zip" ng-model="dealer.zip" class="form-control" required="required" value="{{dealer.zip}}">
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="marketEmail" class="col-sm-3 control-label">Market Email</label>
 				<div class="col-sm-9">
-					<input type="text" id="marketEmail" name="marketEmail" ng-model="dealer.marketEmail" class="form-control" required="required">
+					<input type="text" id="marketEmail" name="marketEmail" ng-model="dealer.marketEmail" class="form-control" required="required" value="{{dealer.marketEmail}}">
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="invoiceEmail" class="col-sm-3 control-label">Invoice Email</label>
 				<div class="col-sm-9">
-					<input type="text" id="invoiceEmail" name="invoiceEmail" ng-model="dealer.invoiceEmail" class="form-control" required="required">
+					<input type="text" id="invoiceEmail" name="invoiceEmail" ng-model="dealer.invoiceEmail" class="form-control" required="required" value="{{dealer.invoiceEmail}}">
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="phone" class="col-sm-3 control-label">Phone</label>
 				<div class="col-sm-9">
-					<input type="text" id="phone" name="phone" ng-model="dealer.phone" class="form-control" required="required">
+					<input type="text" id="phone" name="phone" ng-model="dealer.phone" class="form-control" required="required" value="{{dealer.phone}}">
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="dealerUrl" class="col-sm-3 control-label">URL</label>
 				<div class="col-sm-9">
-					<input type="text" id="dealerUrl" name="dealerUrl" ng-model="dealer.dealerUrl" class="form-control" required="required">
+					<input type="text" id="dealerUrl" name="dealerUrl" ng-model="dealer.dealerUrl" class="form-control" required="required" value="{{dealer.dealerUrl}}">
 				</div>
 			</div>
 			<div class="form-group">
@@ -169,7 +169,7 @@
 			<div class="form-group">
 				<label for="notes" class="col-sm-3 control-label">Notes</label>
 				<div class="col-sm-9">
-					<textarea id="notes" name="notes" ng-model="dealer.notes" class="form-control" rows="5" cols="5" required="required"></textarea>
+					<textarea id="notes" name="notes" ng-model="dealer.notes" class="form-control" rows="5" cols="5" required="required">{{dealer.notes}}</textarea>
 				</div>
 			</div>
 			<div class="form-group">
