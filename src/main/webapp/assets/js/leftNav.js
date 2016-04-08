@@ -55,11 +55,10 @@ routingApp.controller('GetDealerController', function($scope, $http, $timeout) {
 		$http.get("/agg/dealer/"+dealerId)
 	    .then(function(response) {
 	        $scope.dealer = response.data.data;
-	        //$scope.userName = $scope.dealerr.userName;
-	        $scope.dealer = {
+	       /* $scope.dealer = {
 	        	userName: $scope.dealerr.userName,	
 	        	state: $scope.dealerr.state
-	        };
+	        };*/
 	    });
 		
 		var x = screen.width/4;

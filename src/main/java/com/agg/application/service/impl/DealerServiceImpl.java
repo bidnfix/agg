@@ -140,6 +140,10 @@ public class DealerServiceImpl implements DealerService {
 			dealerDO.setState(dealer.getState());
 			dealerDO.setZip(dealer.getZip());
 			dealerDO.setStatus(dealer.getStatus());
+			dealerDO.setContact(dealer.getContact());
+			dealerDO.setDealerUrl(dealer.getUrl());
+			dealerDO.setNotes(dealer.getNotes());
+			dealerDO.setPassword(dealer.getAccount().getPassword());
 		}
 		
 		return dealerDO;
