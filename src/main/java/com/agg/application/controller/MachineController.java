@@ -101,4 +101,17 @@ public class MachineController extends BaseController {
 		return opResult;
 	}
 	
+	@RequestMapping(value = "/machine/{id}", method = RequestMethod.GET)
+	public @ResponseBody Result getMachine(@PathVariable long id, HttpServletRequest request, HttpServletResponse response) {
+		logger.debug("In getMachine");
+		Result opResult = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			opResult = new Result("success", "Machine Info", machineService.getMachine(id));
+		}
+		
+		return opResult;
+	}
+	
 }

@@ -1,4 +1,5 @@
 <!-- Article main content -->
+<%@include file="machinePopup.jsp" %>
 <article class="col-md-9 maincontent">
 	<header class="page-header">
              	<div class="col-md-8 col-sm-12">
@@ -45,7 +46,7 @@
                 <td>{{machine.power}}</td>
                 <td>{{machine.groupId}}</td>
                 <td><div class="manage-sec"><!-- <a href="#"><img src="../assets/images/delete-icon.png" alt="Delete" title="Delete"/></a> -->
-                		<a href="#"><img src="../assets/images/edit-icon.png" alt="Edit" title="Edit"/></a>
+                		<a ng-click="editMachine(machine.machineId)"><img src="../assets/images/edit-pencil.png" alt="Edit" title="Edit"/></a>
                 	</div>
                 </td>
             </tr>

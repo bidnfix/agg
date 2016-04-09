@@ -18,5 +18,7 @@ public interface MachineService {
 	List<MachineModelDO> getMachineModel(int typeId);
 	
 	public long saveMachineInfo(MachineDO machineDO);
+	
+	public MachineInfoDO getMachine(long id);
 
 }

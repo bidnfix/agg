@@ -58,13 +58,15 @@ public class MachineServiceImpl implements MachineService {
 			while(it.hasNext()){
 				machineInfoDO = new MachineInfoDO();
 				machineInfo = it.next();
-				logger.debug("machineInfo.getManufacturer() " +machineInfo.getManufacturer());
+				logger.debug("machineInfo.getMachineType() " +machineInfo.getMachineType().getMachineType());
 				//logger.debug("machineInfo.getManufacturer() " +machineInfo.getManufacturer().getManfName());
 				manufacturerDO = new ManufacturerDO();
-				manufacturerDO.setId(machineInfo.getManufacturer().getManfId());
-				manufacturerDO.setName(machineInfo.getManufacturer().getManfName());
+				Manufacturer manufacturer = machineInfo.getMachineType().getManufacturer();
+				manufacturerDO.setId(manufacturer.getManfId());
+				manufacturerDO.setName(manufacturer.getManfName());
 				machineInfoDO.setManufacturerDO(manufacturerDO);
 				logger.debug("machineInfo.getMachineType().getMachineType() "+machineInfo.getMachineType().getMachineType());
+				machineInfoDO.setMachineId(machineInfo.getMachineId());
 				machineInfoDO.setMachineType(machineInfo.getMachineType().getMachineType());
 				machineInfoDO.setModel(machineInfo.getModel());
 				machineInfoDO.setPower(machineInfo.getPower());
@@ -182,5 +184,29 @@ public class MachineServiceImpl implements MachineService {
 		return macineInfo.getMachineId();
 	}
 	
+	@Override
+	public MachineInfoDO getMachine(long id) {
+		logger.debug("In saveMachineInfo");
+		MachineInfo machine = machineInfoDAO.findOne((long)id);
+		MachineInfoDO machineDO = null;
+		ManufacturerDO manufacturerDO = null;
+		if(machine != null){
+			machineDO = new MachineInfoDO();
+			
+			manufacturerDO = new ManufacturerDO();
+			Manufacturer manufacturer = machine.getMachineType().getManufacturer();
+			manufacturerDO.setId(manufacturer.getManfId());
+			manufacturerDO.setName(manufacturer.getManfName());
+			
+			machineDO.setManufacturerDO(manufacturerDO);
+			machineDO.setMachineType(machine.getMachineType().getMachineType());
+			machineDO.setModel(machine.getModel());
+			machineDO.setGroupId(machine.getGroupId());
+		}
+		
+		logger.debug("In saveMachineInfo : "+machineDO);
+		
+		return machineDO;
+	}
 
 }

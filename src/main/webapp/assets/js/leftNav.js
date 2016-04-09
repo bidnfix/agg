@@ -70,15 +70,36 @@ routingApp.controller('GetDealerController', function($scope, $http, $timeout) {
     };
 });
 
+
+
 routingApp.controller('GetMachineInfoController', function($scope, $http, $timeout) {
 	$http.get("/agg/machineInfo")
     .then(function(response) {
         $scope.machineInfoList = response.data.data.machineInfoList;
-        alert($scope.machineInfoList);
         $timeout(function () {
         	$('#table1').DataTable();
         }, 300);
     });
+	
+	$scope.editMachine = function(machineId) {
+		//alert(dealerId);
+		$http.get("/agg/machine/"+machineId)
+	    .then(function(response) {
+	        $scope.machine = response.data.data;
+	       /* $scope.dealer = {
+	        	userName: $scope.dealerr.userName,	
+	        	state: $scope.dealerr.state
+	        };*/
+	    });
+		
+		var x = screen.width/4;
+	    var y = screen.height/9;
+	    showMask('popup_mask');
+	    $('#machineEditPopup').css("left", x+"px");
+	    $('#machineEditPopup').css("top", y+"px");
+	    $('#machineEditPopup').show();
+	};
+	
 });
 
 routingApp.controller('AddUserController', function($scope, $http) {
