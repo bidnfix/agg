@@ -10,4 +10,4 @@
 .popup_content_row01_buttons { float:left; width:98%; height:45px; text-align:center; }
 .popup_content_field02_buttons { margin:10px 0px 10px 43%; text-align:center; } */
 .agg_popup{width: 70%;}
-.mask {z-index: 10000; display:none; position:absolute; top:0; left:0; -moz-opacity: 0.5; opacity:.50; filter: alpha(opacity=50); background-color:#CCC; }
+.mask {z-index: 10000; display:none; position:absolute; top:0; left:0; -moz-opacity: 0.8; opacity:.80; filter: alpha(opacity=80); background-color:#CCC; }

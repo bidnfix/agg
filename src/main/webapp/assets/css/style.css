@@ -4,7 +4,7 @@
 
 /*General*/
 h1, h2, h3, h4, h5, h6 {
-	font-family: "Open sans", Helvetica, Arial;
+	font-family: "Calibri"/*"Open sans"*/, Helvetica, Arial;
 }
 a {
 color:#FF4242;
@@ -133,7 +133,7 @@ background: #5192d4;
 	text-align: center;
 	padding-top: 240px;
 	color: white;
-	font-family: "Open sans", Helvetica, Arial;
+	font-family: "Calibri"/*"Open sans"*/, Helvetica, Arial;
 	font-weight: 300;
 }
 #head.secondary {
@@ -142,7 +142,7 @@ background: #5192d4;
 	padding-top: 0px;
 }
 #head .lead {
-	font-family: "Open sans", Helvetica, Arial;
+	font-family: "Calibri"/*"Open sans"*/, Helvetica, Arial;
 	font-size: 44px;
 	margin-bottom: 6px;
 	color: white;
@@ -771,7 +771,7 @@ background:rgba(0,0,0,0.80)	;
 		color:#fff;}
 		
 	.navbar-inverse .navbar-brand {
-    font-family: "Open sans",helvetica,arial;
+    font-family: "Calibri"/*"Open sans"*/,helvetica,arial;
     font-size: 24px;
     color: #FFF;
     padding: 0px 0px 0px 15px;

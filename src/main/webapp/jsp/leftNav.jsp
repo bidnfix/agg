@@ -3,7 +3,7 @@
 
 				<!-- Navigation -->
 	<nav class="mainNav" ng-controller="activateTabCtrl">
-      <h3>Headding Comes Here</h3>
+      <!-- <h3>Headding Comes Here</h3> -->
 		<ul id="leftTabs">
 			<li class="animated fadeInLeft"><a id="worklist" href="#" ng-click="activateTab($event);">WORKLIST</a></li>
             <li class="animated fadeInLeft"><a id="serviceDesk" href="#" ng-click="activateTab($event);">SERVICE DRIVE</a></li>
