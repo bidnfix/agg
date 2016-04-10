@@ -25,6 +25,9 @@ D:\GitRepo\agg\agg\src\main\java\com\agg\application\dao\DealerDAO.java
 D:\GitRepo\agg\agg\src\main\java\com\agg\application\entity\BugReport.java
 D:\GitRepo\agg\agg\src\main\java\com\agg\application\model\DealerDO.java
 D:\GitRepo\agg\agg\src\main\java\com\agg\application\dao\MachineInfoDAO.java
+D:\GitRepo\agg\agg\src\main\java\com\agg\application\dao\GroupDAO.java
+D:\GitRepo\agg\agg\src\main\java\com\agg\application\model\MachineTypeDO.java
+D:\GitRepo\agg\agg\src\main\java\com\agg\application\model\GroupDO.java
 D:\GitRepo\agg\agg\src\main\java\com\agg\application\service\impl\DealerServiceImpl.java
 D:\GitRepo\agg\agg\src\main\java\com\agg\application\controller\LoginController.java
 D:\GitRepo\agg\agg\src\main\java\com\agg\application\dao\RoleDAO.java

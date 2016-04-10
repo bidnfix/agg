@@ -33,13 +33,13 @@
 			<div class="form-group">
 				<label for="machine type" class="col-sm-3 control-label">Machine Type</label>
 				<div class="col-sm-9">
-					<select name="machineType" ng-model="machine.machineTypeDO" ng-options="machineType.name for machineType in machineTypeList"></select> 
+					<select name="machineType" ng-model="machine.machineTypeDO.name" ng-options="machineType.name for machineType in machineTypeList"></select> 
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="model" class="col-sm-3 control-label">Model</label>
 				<div class="col-sm-9">
-					<input type="text" id="model" ng-model="machine.modelName" placeholder="Model Name" class="form-control">
+					<input type="text" id="model" ng-model="machine.model" placeholder="Model Name" class="form-control">
 				</div>
 			</div>
 			<div class="form-group">
@@ -51,15 +51,7 @@
 			<div class="form-group">
 				<label for="group id" class="col-sm-3 control-label">Group ID</label>
 				<div class="col-sm-9">
-					<select id="groupId" class="form-control" ng-model="machine.groupId">
-						<option>1</option>
-						<option>2</option>
-						<option>3</option>
-						<option>4</option>
-						<option>5</option>
-						<option>6</option>
-						<option>7</option>
-					</select>
+				<select name="groupId" ng-model="machine.groupId" ng-options="group.groupId for group in groupList"></select>
 				</div>
 			</div>
 			<div class="form-group">

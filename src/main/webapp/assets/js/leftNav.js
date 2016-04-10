@@ -72,7 +72,7 @@ routingApp.controller('GetDealerController', function($scope, $http, $timeout) {
 
 
 
-routingApp.controller('GetMachineInfoController', function($scope, $http, $timeout) {
+routingApp.controller('GetMachineInfoController', function($scope, machineService, $http, $timeout) {
 	$http.get("/agg/machineInfo")
     .then(function(response) {
         $scope.machineInfoList = response.data.data.machineInfoList;
@@ -85,7 +85,8 @@ routingApp.controller('GetMachineInfoController', function($scope, $http, $timeo
 		//alert(dealerId);
 		$http.get("/agg/machine/"+machineId)
 	    .then(function(response) {
-	        $scope.machine = response.data.data;
+	        $scope.machine = response.data.data.machine;
+	        $scope.groupList = response.data.data.groupList;
 	       /* $scope.dealer = {
 	        	userName: $scope.dealerr.userName,	
 	        	state: $scope.dealerr.state
@@ -99,6 +100,11 @@ routingApp.controller('GetMachineInfoController', function($scope, $http, $timeo
 	    $('#machineEditPopup').css("top", y+"px");
 	    $('#machineEditPopup').show();
 	};
+	
+	$scope.submitMachine = function() {
+		alert("In submitMachine");
+		machineService.saveMachineInfo($scope.machine);
+    };
 	
 });
 
@@ -118,7 +124,7 @@ routingApp.controller('AddLocationController', function($scope, $http) {
 });
 
 routingApp.controller('AddMachineController', function($scope, $http) {
-	 $http.get("/agg/machineInfo")
+	 $http.get("/agg/addMachine")
 	    .then(function(response) {
 	        $scope.manufacturerList = response.data.data.manufacturerList;
 	    });

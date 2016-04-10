@@ -16,7 +16,7 @@ public class MachineType implements Serializable {
 
 	@Id
 	@Column(name="machine_type_id")
-	private int machineTypeId;
+	private long machineTypeId;
 
 	@Column(name="machine_type")
 	private String machineType;
@@ -29,11 +29,11 @@ public class MachineType implements Serializable {
 	public MachineType() {
 	}
 
-	public int getMachineTypeId() {
+	public long getMachineTypeId() {
 		return this.machineTypeId;
 	}
 
-	public void setMachineTypeId(int machineTypeId) {
+	public void setMachineTypeId(long machineTypeId) {
 		this.machineTypeId = machineTypeId;
 	}
 

@@ -5,8 +5,7 @@
              	<div class="col-md-8 col-sm-12">
 		<div class="sec-title">
                      
-				<h2 class="wow animated bounceInLeft">Dashboard</h2>
-				<p class="wow animated bounceInRight">The Key Features of our Tool</p>
+				<h2 class="wow animated bounceInLeft">Machine Information</h2>
 			</div>
                      </div>
                      <div class="col-md-4 col-sm-12"><a class="btn btn-primary pull-right  hvr-pulse" href="add-new.html">Add New</a></div>
@@ -41,9 +40,9 @@
         <tbody>
             <tr ng-repeat="machine in machineInfoList">
             	<td>{{machine.manufacturerDO.name}}</td>
-                <td>{{machine.machineType}}</td>
+                <td>{{machine.machineTypeDO.name}}</td>
                 <td>{{machine.model}}</td>
-                <td>{{machine.power}}</td>
+                <td>{{machine.enginePower}}</td>
                 <td>{{machine.groupId}}</td>
                 <td><div class="manage-sec"><!-- <a href="#"><img src="../assets/images/delete-icon.png" alt="Delete" title="Delete"/></a> -->
                 		<a ng-click="editMachine(machine.machineId)"><img src="../assets/images/edit-pencil.png" alt="Edit" title="Edit"/></a>

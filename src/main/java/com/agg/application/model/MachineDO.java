@@ -4,23 +4,35 @@ public class MachineDO {
 	
 	private ManufacturerDO manufacturerDO;
 	
-	private ManufacturerDO machineTypeDO;
+	private MachineTypeDO machineTypeDO;
 	
 	//private MachineModelDO machineModelDO;
 	
-	private String modelName;
+	private String model;
 	
-	public String getModelName() {
-		return modelName;
-	}
-
-	public void setModelName(String modelName) {
-		this.modelName = modelName;
-	}
-
-	private double enginePower;
+    private double enginePower;
 	
 	private int groupId;
+	
+	private long machineId;
+	
+	
+
+	public long getMachineId() {
+		return machineId;
+	}
+
+	public void setMachineId(long machineId) {
+		this.machineId = machineId;
+	}
+
+	public String getModel() {
+		return model;
+	}
+
+	public void setModel(String model) {
+		this.model = model;
+	}
 
 	public ManufacturerDO getManufacturerDO() {
 		return manufacturerDO;
@@ -30,11 +42,11 @@ public class MachineDO {
 		this.manufacturerDO = manufacturerDO;
 	}
 
-	public ManufacturerDO getMachineTypeDO() {
+	public MachineTypeDO getMachineTypeDO() {
 		return machineTypeDO;
 	}
 
-	public void setMachineTypeDO(ManufacturerDO machineTypeDO) {
+	public void setMachineTypeDO(MachineTypeDO machineTypeDO) {
 		this.machineTypeDO = machineTypeDO;
 	}
 

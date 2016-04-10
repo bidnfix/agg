@@ -14,6 +14,7 @@ com\agg\application\dao\AccountDAO.class
 com\agg\application\model\MachineDO.class
 com\agg\application\entity\Pricing.class
 com\agg\application\entity\Role.class
+com\agg\application\model\GroupDO.class
 com\agg\application\service\DealerService.class
 com\agg\application\entity\BugReport.class
 com\agg\application\service\impl\DealerServiceImpl.class
@@ -38,6 +39,7 @@ com\agg\application\service\ProgramService.class
 com\agg\application\entity\Notification.class
 com\agg\application\dao\DealerDAO.class
 com\agg\application\entity\GroupConstant.class
+com\agg\application\model\MachineTypeDO.class
 com\agg\application\model\AccountDO.class
 com\agg\application\entity\CustomerInfo.class
 com\agg\application\service\MachineService.class
@@ -45,6 +47,7 @@ com\agg\application\entity\ClaimNotesAdmin.class
 com\agg\application\AGGApplication.class
 com\agg\application\model\MachineInfoDO.class
 com\agg\application\service\LoginService.class
+com\agg\application\dao\GroupDAO.class
 com\agg\application\entity\Manufacturer.class
 com\agg\application\dao\AccountTypeDAO.class
 com\agg\application\entity\Dealer.class

@@ -3,7 +3,7 @@
 routingApp.factory('machineService', function($http, $q, $window) {
 			return {
 				saveMachineInfo : function(machine) {
-					return $http.post('/agg/addMachine', machine).then(
+					return $http.post('/agg/saveMachine', machine).then(
 							function(response) {
 								alert(response.data.status);
 								if (response.data.status == 'success') {

@@ -13,15 +13,19 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.agg.application.dao.GroupDAO;
 import com.agg.application.dao.MachineDAO;
 import com.agg.application.dao.MachineInfoDAO;
 import com.agg.application.dao.MachineTypeDAO;
+import com.agg.application.entity.GroupConstant;
 import com.agg.application.entity.MachineInfo;
 import com.agg.application.entity.MachineType;
 import com.agg.application.entity.Manufacturer;
+import com.agg.application.model.GroupDO;
 import com.agg.application.model.MachineDO;
 import com.agg.application.model.MachineInfoDO;
 import com.agg.application.model.MachineModelDO;
+import com.agg.application.model.MachineTypeDO;
 import com.agg.application.model.ManufacturerDO;
 import com.agg.application.service.MachineService;
 import com.google.common.collect.Lists;
@@ -39,9 +43,12 @@ public class MachineServiceImpl implements MachineService {
 	
 	@Autowired
 	private MachineInfoDAO machineInfoDAO;
+	
+	@Autowired
+	private GroupDAO groupDAO;
 
 	
-	@Override
+	/*@Override
 	public List<MachineInfoDO> getmachineInfo() {
 		logger.debug("Inside getmachineInfo()");
 		List<MachineInfo>  machineInfoList =  Lists.newArrayList(machineInfoDAO.findAll());
@@ -76,6 +83,89 @@ public class MachineServiceImpl implements MachineService {
 		}
 		logger.debug(""+machineInfoDOList.size());
 		return machineInfoDOList;
+	}*/
+	
+	@Override
+	public List<MachineDO> getmachineInfo() {
+		logger.debug("Inside getmachineInfo()");
+		List<MachineInfo>  machineInfoList =  Lists.newArrayList(machineInfoDAO.findAll());
+		
+		List<MachineDO> machineDOList = null;
+		if(!machineInfoList.isEmpty()){
+			logger.debug("machineInfoList size:"+machineInfoList.size());
+			machineDOList = new ArrayList<MachineDO>();
+			MachineDO machineDO = null;
+			MachineInfo machineInfo = null;
+			ManufacturerDO manufacturerDO = null;
+			MachineTypeDO machineTypeDO = null;
+			
+			Iterator<MachineInfo> it = machineInfoList.iterator();
+			while(it.hasNext()){
+				machineDO = new MachineDO();
+				machineInfo = it.next();
+				logger.debug("machineInfo.getMachineType() " +machineInfo.getMachineType().getMachineType());
+				//logger.debug("machineInfo.getManufacturer() " +machineInfo.getManufacturer().getManfName());
+				manufacturerDO = new ManufacturerDO();
+				Manufacturer manufacturer = machineInfo.getMachineType().getManufacturer();
+				manufacturerDO.setId(manufacturer.getManfId());
+				manufacturerDO.setName(manufacturer.getManfName());
+				machineDO.setManufacturerDO(manufacturerDO);
+				//logger.debug("machineInfo.getMachineType().getMachineType() "+machineInfo.getMachineType().getMachineType());
+				machineDO.setMachineId(machineInfo.getMachineId());
+			    	
+				machineTypeDO = new MachineTypeDO();
+				MachineType machineType = machineInfo.getMachineType();
+				machineTypeDO.setId((int)machineType.getMachineTypeId());
+				machineTypeDO.setName(machineType.getMachineType());
+				machineDO.setMachineTypeDO(machineTypeDO);
+				
+				
+				//machineDO.setMachineType(machineInfo.getMachineType().getMachineType());
+				machineDO.setModel(machineInfo.getModel());
+				machineDO.setEnginePower(machineInfo.getPower());
+				machineDO.setGroupId(machineInfo.getGroupId());
+				machineDOList.add(machineDO);
+			}
+		}
+		logger.debug(""+machineDOList.size());
+		return machineDOList;
+	}
+	
+	@Override
+	public MachineDO getMachine(long id) {
+		logger.debug("In saveMachineInfo");
+		MachineInfo machine = machineInfoDAO.findOne(id);
+		MachineDO machineDO = null;
+		ManufacturerDO manufacturerDO = null;
+		MachineTypeDO machineTypeDO = null;
+		
+		if(machine != null){
+			machineDO = new MachineDO();
+			
+			manufacturerDO = new ManufacturerDO();
+			Manufacturer manufacturer = machine.getMachineType().getManufacturer();
+			manufacturerDO.setId(manufacturer.getManfId());
+			manufacturerDO.setName(manufacturer.getManfName());
+			machineDO.setManufacturerDO(manufacturerDO);
+			//logger.debug("machineInfo.getMachineType().getMachineType() "+machineInfo.getMachineType().getMachineType());
+			machineDO.setMachineId(machine.getMachineId());
+		    	
+			machineTypeDO = new MachineTypeDO();
+			MachineType machineType = machine.getMachineType();
+			machineTypeDO.setId((int)machineType.getMachineTypeId());
+			machineTypeDO.setName(machineType.getMachineType());
+			machineDO.setMachineTypeDO(machineTypeDO);
+			
+			
+			//machineDO.setMachineType(machine.getMachineType().getMachineType());
+			machineDO.setModel(machine.getModel());
+			machineDO.setEnginePower(machine.getPower());
+			machineDO.setGroupId(machine.getGroupId());
+		}
+		
+		logger.debug("In getMachine : "+machineDO);
+		
+		return machineDO;
 	}
 	
 	@Override
@@ -115,7 +205,7 @@ public class MachineServiceImpl implements MachineService {
 			while(it.hasNext()){
 				machineTypeDO = new ManufacturerDO();
 				machineType = it.next();
-				machineTypeDO.setId(machineType.getMachineTypeId());
+				machineTypeDO.setId((int)machineType.getMachineTypeId());
 				machineTypeDO.setName(machineType.getMachineType());
 				machineTypeDOList.add(machineTypeDO);
 			}
@@ -160,14 +250,13 @@ public class MachineServiceImpl implements MachineService {
 		MachineInfo macineInfo = new MachineInfo();
 		Timestamp date = new Timestamp(new Date().getTime());
 		
-		java.sql.Date sqlDate = new java.sql.Date(date.getTime());
-		
+		//java.sql.Date sqlDate = new java.sql.Date(date.getTime());
 		
 		//macineInfo.setModel((machineDO.getMachineModelDO().getModelId());
-		macineInfo.setModel(machineDO.getModelName());
+		macineInfo.setModel(machineDO.getModel());
 		macineInfo.setMachineType(machineTypeDAO.findOne(Long.valueOf(machineDO.getMachineTypeDO().getId())));
 		logger.debug(machineDO.getMachineTypeDO().getName());
-		logger.debug(machineDO.getModelName());
+		logger.debug(machineDO.getModel());
 		//macineInfo.setModelYear(sqlDate);
 		logger.debug(date.toString());
 		macineInfo.setPower(machineDO.getEnginePower());
@@ -184,29 +273,33 @@ public class MachineServiceImpl implements MachineService {
 		return macineInfo.getMachineId();
 	}
 	
-	@Override
-	public MachineInfoDO getMachine(long id) {
-		logger.debug("In saveMachineInfo");
-		MachineInfo machine = machineInfoDAO.findOne((long)id);
-		MachineInfoDO machineDO = null;
-		ManufacturerDO manufacturerDO = null;
-		if(machine != null){
-			machineDO = new MachineInfoDO();
-			
-			manufacturerDO = new ManufacturerDO();
-			Manufacturer manufacturer = machine.getMachineType().getManufacturer();
-			manufacturerDO.setId(manufacturer.getManfId());
-			manufacturerDO.setName(manufacturer.getManfName());
-			
-			machineDO.setManufacturerDO(manufacturerDO);
-			machineDO.setMachineType(machine.getMachineType().getMachineType());
-			machineDO.setModel(machine.getModel());
-			machineDO.setGroupId(machine.getGroupId());
-		}
-		
-		logger.debug("In saveMachineInfo : "+machineDO);
-		
-		return machineDO;
-	}
+	
 
+	@Override
+	public List<GroupDO> getGroups() {
+		logger.debug("Inside getGroups()");
+		List<GroupConstant>  groupList =  Lists.newArrayList(groupDAO.findAll());
+		List<GroupDO> groupDOList = null;
+		if(groupList != null && !groupList.isEmpty()){
+			groupDOList = new ArrayList<GroupDO>();
+			GroupDO groupDO = null;
+			GroupConstant groupConstant = null;
+			Iterator<GroupConstant> it = groupList.iterator();
+			while(it.hasNext()){
+				groupDO = new GroupDO();
+				groupConstant = it.next();
+				groupDO.setGroupId(groupConstant.getGroupId());
+				groupDO.setComm(groupConstant.getComm());
+				groupDO.setLol(groupConstant.getLol());
+				groupDO.setMsrp(groupConstant.getMsrp());
+				groupDO.setOldId(groupConstant.getOldId());
+				groupDO.setRate(groupConstant.getRate());
+				groupDO.setSales(groupConstant.getSales());
+				groupDO.setTax(groupConstant.getTax());
+				groupDOList.add(groupDO);
+			}
+		}
+		logger.debug("Groups size: "+groupDOList.size());
+		return groupDOList;
+	}
 }

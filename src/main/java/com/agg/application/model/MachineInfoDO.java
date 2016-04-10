@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class MachineInfoDO {
 	
-		private int machineId;
+		private long machineId;
 		
 		private ManufacturerDO manufacturerDO;
 
@@ -35,11 +35,11 @@ public class MachineInfoDO {
 
 		private double retailPrice;
 
-		public int getMachineId() {
+		public long getMachineId() {
 			return this.machineId;
 		}
 
-		public void setMachineId(int machineId) {
+		public void setMachineId(long machineId) {
 			this.machineId = machineId;
 		}
 
