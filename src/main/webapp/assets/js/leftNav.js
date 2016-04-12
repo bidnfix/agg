@@ -36,6 +36,16 @@ routingApp.config(['$routeProvider',
                       when('/agg/home', {
                     	  templateUrl: '../../jsp/home.jsp'
                       }).
+                      when('/agg/programs', {
+                    	  templateUrl: '../../jsp/programs.jsp',
+                    	  controller: 'GetProgramsController'
+                    	
+                      }).
+                      when('/agg/addPrograms', {
+                    	  templateUrl: '../../jsp/addPrograms.jsp',
+                    	  controller: 'AddProgramsController'
+                    	
+                      }).
                       otherwise({
                     	  redirectTo: '/agg/home'
                       });
@@ -127,6 +137,69 @@ routingApp.controller('AddMachineController', function($scope, $http) {
 	 $http.get("/agg/addMachine")
 	    .then(function(response) {
 	        $scope.manufacturerList = response.data.data.manufacturerList;
+	    });
+});
+
+routingApp.controller('AddDealerController', function($scope, $http) {
+	 $http.get("/agg/dealerRoleInfo")
+	    .then(function(response) {
+	        $scope.roleList = response.data.data;
+	    });
+});
+
+routingApp.controller('AddDealerController', function($scope, $http) {
+	 $http.get("/agg/dealerRoleInfo")
+	    .then(function(response) {
+	        $scope.roleList = response.data.data;
+	    });
+});
+
+routingApp.controller('GetProgramsController', function($scope, $http, $timeout, $window) {
+	$http.get("/agg/programs")
+    .then(function(response) {
+    	alert(response.data.data.programs)
+        $scope.programsList = response.data.data.programs;
+        alert($scope.programsList);
+        $timeout(function () {
+        	$('#table1').DataTable();
+        }, 300);
+    });
+	
+	$scope.editProgram = function(programId) {
+		alert(programId);
+		$http.get("/agg/programs/"+programId)
+	    .then(function(response) {
+	        $scope.program = response.data.data.program;
+	        alert($scope.program.id);
+	       /* $scope.dealer = {
+	        	userName: $scope.dealerr.userName,	
+	        	state: $scope.dealerr.state
+	        };*/
+	    });
+		
+		var x = screen.width/4;
+	    var y = screen.height/9;
+	    showMask('popup_mask');
+	    $('#programEditPopup').css("left", x+"px");
+	    $('#programEditPopup').css("top", y+"px");
+	    $('#programEditPopup').show();
+    };
+    
+	$scope.deleteProgram = function(programId) {
+		//alert(dealerId);
+		$http.delete("/agg/programs/"+programId)
+	    .then(function(response) {
+	        if (response.data.status == 'success') {
+	        	$window.location.reload();
+			}
+	    });
+    };
+});
+
+routingApp.controller('AddProgramsController', function($scope, $http) {
+	 $http.get("/agg/dealerRoleInfo")
+	    .then(function(response) {
+	        $scope.roleList = response.data.data;
 	    });
 });
 

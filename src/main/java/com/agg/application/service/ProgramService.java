@@ -9,8 +9,10 @@ public interface ProgramService {
 
 	List<Sprogram> getPrograms();
 
-	int saveProgram(Program program);
+	Long saveProgram(Program program);
 
-	Program getProgram(int id);
+	Program getProgram(Long id);
+
+	void deleteProgram(Long id);
 
 }

@@ -6,7 +6,7 @@
       <!-- <h3>Headding Comes Here</h3> -->
 		<ul id="leftTabs">
 			<li class="animated fadeInLeft"><a id="worklist" href="#" ng-click="activateTab($event);">WORKLIST</a></li>
-            <li class="animated fadeInLeft"><a id="serviceDesk" href="#" ng-click="activateTab($event);">SERVICE DRIVE</a></li>
+            <li class="animated fadeInLeft"><a id="serviceDesk" href="#/agg/programs" ng-click="activateTab($event);">SERVICE DRIVE</a></li>
             <li class="animated fadeInLeft"><a id="userTrack" href="#" ng-click="activateTab($event);">USER TRACK</a></li>
             <li class="animated fadeInLeft"><a id="archivedQuotes" href="#" ng-click="activateTab($event);">ARCHIVED QUOTES</a></li>
             <li class="animated fadeInLeft"><a id="adminSearch" href="#" ng-click="activateTab($event);">ADMIN SEARCH</a></li>
