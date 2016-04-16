@@ -20,7 +20,7 @@
 <link rel="stylesheet" href="/assets/css/mask.css">
 
 <!--data table css-->
-<link href="https://cdn.datatables.net/1.10.9/css/dataTables.bootstrap.min.css" rel="stylesheet">
+<link href="/assets/css/dataTables.bootstrap.min.css" rel="stylesheet">
 
 <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>
@@ -41,10 +41,10 @@
 	</div>
 	<jsp:include page="footer.jsp"></jsp:include>
 	<!-- JavaScript libs are placed at the end of the document so the pages load faster -->
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+	<script src="/assets/js/jquery.min.js"></script>
+	<script src="/assets/js/bootstrap.min.js"></script>
      <!--side nav js-->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="/assets/js/jquery.min.js"></script>
 	<script src="/assets/js/navAccordion.min.js"></script>
 	<script>
 		jQuery(document).ready(function(){
@@ -63,8 +63,8 @@
     
      <!--data table js-->
     
-	<script src="https://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
-	<script src="https://cdn.datatables.net/1.10.9/js/dataTables.bootstrap.min.js"></script>
+	<script src="/assets/js/jquery.dataTables.min.js"></script>
+	<script src="/assets/js/dataTables.bootstrap.min.js"></script>
     
 	<script src="/assets/js/headroom.min.js"></script>
 	<script src="/assets/js/jQuery.headroom.min.js"></script>
@@ -74,6 +74,8 @@
 	<script src="/assets/js/controller/dealerController.js"></script>
 	<script src="/assets/js/service/machineService.js"></script>
 	<script src="/assets/js/controller/machineController.js"></script>
+	<script src="/assets/js/controller/programController.js"></script>
+	<script src="/assets/js/service/programService.js"></script>
 	<script src="/assets/js/mask.js"></script>
 	<script src="/assets/js/popup.js"></script>
 </body>

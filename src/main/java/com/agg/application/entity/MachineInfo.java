@@ -31,7 +31,7 @@ public class MachineInfo implements Serializable {
 
 	@Id
 	@Column(name="machine_id")
-	private int machineId;
+	private long machineId;
 
 	@Column(name="base_price")
 	private double basePrice;
@@ -92,11 +92,11 @@ public class MachineInfo implements Serializable {
 	public MachineInfo() {
 	}
 
-	public int getMachineId() {
+	public long getMachineId() {
 		return this.machineId;
 	}
 
-	public void setMachineId(int machineId) {
+	public void setMachineId(long machineId) {
 		this.machineId = machineId;
 	}
 

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.agg.application.model.DealerDO;
+import com.agg.application.model.GroupDO;
 import com.agg.application.model.MachineDO;
 import com.agg.application.model.MachineInfoDO;
 import com.agg.application.model.MachineModelDO;
@@ -38,7 +39,7 @@ public class MachineController extends BaseController {
 	@RequestMapping(value = "/machineInfo", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
 	public @ResponseBody Result machineInfo(ModelMap model, HttpServletResponse response) {
 		logger.info("Inside machineInfo()");
-		List<MachineInfoDO> machineInfoList = machineService.getmachineInfo();
+		List<MachineDO> machineInfoList = machineService.getmachineInfo();
 		model.put("machineInfoList", machineInfoList);
 		return new Result("success", null, model);	
 	}
@@ -79,7 +80,7 @@ public class MachineController extends BaseController {
 		return new Result("success", null, model);
 	}
 	
-	@RequestMapping(value = "/addMachine", method = RequestMethod.POST)
+	@RequestMapping(value = "/saveMachine", method = RequestMethod.POST)
 	public @ResponseBody Result saveOrEditMachine(@RequestBody MachineDO machineDO, BindingResult result,
 			HttpServletRequest request, HttpServletResponse response) {
 		logger.debug("In saveOrEditMachine with groupId: "+machineDO.getGroupId());
@@ -99,6 +100,39 @@ public class MachineController extends BaseController {
 		//}
 		
 		return opResult;
+	}
+	
+	
+	/*@RequestMapping(value = "/machine/{id}", method = RequestMethod.GET)
+	public @ResponseBody Result getMachine(@PathVariable long id, HttpServletRequest request, HttpServletResponse response) {
+		logger.debug("In getMachine");
+		Result opResult = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			
+			opResult = new Result("success", "Machine Info", machineService.getMachine(id));
+		}
+		
+		return opResult;
+	}*/
+	
+	@RequestMapping(value = "/machine/{id}", method = RequestMethod.GET)
+	public @ResponseBody Result getMachine(ModelMap model, HttpServletRequest request, HttpServletResponse response, @PathVariable long id) {
+		logger.debug("In getMachine");
+		Result opResult = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			
+			MachineDO machine = machineService.getMachine(id);
+			model.put("machine", machine);
+			
+			List<GroupDO> groupList = machineService.getGroups();
+			model.put("groupList", groupList);
+		}
+		
+		return new Result("success", null, model);
 	}
 	
 }

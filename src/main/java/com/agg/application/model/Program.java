@@ -1,10 +1,10 @@
 package com.agg.application.model;
 
-import java.sql.Timestamp;
+import ch.qos.logback.classic.net.SyslogAppender;
 
 public class Program {
 	
-	private int id;
+	private Long id;
 	
 	private String name;
 	
@@ -23,18 +23,28 @@ public class Program {
 	private byte isActive;
 
 	private double prLol;
+	
+	private String dealerName;
+
+	public String getDealerName() {
+		return dealerName;
+	}
+
+	public void setDealerName(String dealerName) {
+		this.dealerName = dealerName;
+	}
 
 	/**
 	 * @return the id
 	 */
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -163,5 +173,14 @@ public class Program {
 	public void setPrLol(double prLol) {
 		this.prLol = prLol;
 	}
+
+	@Override
+	public String toString() {
+		return "Program [id=" + id + ", name=" + name + ", description=" + description + ", hours=" + hours + ", term="
+				+ term + ", type=" + type + ", cost=" + cost + ", group=" + group + ", isActive=" + isActive
+				+ ", prLol=" + prLol + ", dealerName=" + dealerName + "]";
+	}
+	
+	
 
 }
