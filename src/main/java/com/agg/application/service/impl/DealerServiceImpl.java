@@ -16,10 +16,12 @@ import com.agg.application.dao.AccountDAO;
 import com.agg.application.dao.DealerDAO;
 import com.agg.application.dao.LocationDAO;
 import com.agg.application.dao.RoleDAO;
+import com.agg.application.dao.SequenceDAO;
 import com.agg.application.entity.Account;
 import com.agg.application.entity.Dealer;
 import com.agg.application.entity.Location;
 import com.agg.application.entity.Role;
+import com.agg.application.entity.Sequence;
 import com.agg.application.model.AccountDO;
 import com.agg.application.model.DealerDO;
 import com.agg.application.model.LocationDO;
@@ -36,6 +38,8 @@ public class DealerServiceImpl implements DealerService {
 	
 	private static final String ACCOUNT_TYPE_DEALER = "dealer";
 	
+	private static final String SEQUENCE_TYPE_DEALER = "dealer";
+	
 	@Autowired
 	DealerDAO dealerDAO;
 	
@@ -47,6 +51,9 @@ public class DealerServiceImpl implements DealerService {
 	
 	@Autowired
 	AccountDAO accountDAO;
+	
+	@Autowired
+	SequenceDAO sequenceDAO;
 	
 	@Override
 	public List<DealerDO> getDealers() {
@@ -96,6 +103,9 @@ public class DealerServiceImpl implements DealerService {
 		dealer.setNotes(dealerDO.getNotes());
 		dealer.setPhone(dealerDO.getPhone());
 		
+		Sequence sequence = sequenceDAO.findBySeqType(SEQUENCE_TYPE_DEALER);
+		logger.debug("sequenceId: "+sequence.getSeqValue());
+		dealer.setCode(Long.valueOf(dealerDO.getZip().substring(0, 2)+sequence.getSeqValue()));
 		dealer.setStatus(1);
 		dealer.setState(dealerDO.getState());
 		dealer.setUrl(dealerDO.getDealerUrl());
@@ -117,6 +127,10 @@ public class DealerServiceImpl implements DealerService {
 		account.setUpdatedBy(accountDO.getUsername());
 		
 		account.setDealer(dealer);
+		account.setDealerParent(dealer);
+		
+		sequence.setSeqValue(sequence.getSeqValue()+1);
+		sequenceDAO.save(sequence);
 		
 		account = accountDAO.save(account);
 		
@@ -258,6 +272,9 @@ public class DealerServiceImpl implements DealerService {
 		dealer.setName(userDO.getFirstName()+" "+userDO.getLastName());
 		dealer.setPhone(userDO.getPhone());
 		
+		Sequence sequence = sequenceDAO.findBySeqType(SEQUENCE_TYPE_DEALER);
+		
+		dealer.setCode(Long.valueOf(dealer.getZip().substring(0, 2)+sequence.getSeqValue()));
 		dealer.setStatus(1);
 		dealer.setState(userDO.getState());
 		dealer.setUrl(userDO.getUrl());
@@ -266,7 +283,7 @@ public class DealerServiceImpl implements DealerService {
 		dealer.setLastUpdate(date);
 		
 		Role role = roleDAO.findOne(userDO.getRoleDO().getId());
-		Location location = locationDAO.findOne(userDO.getLocationDO().getId());
+		//Location location = locationDAO.findOne(userDO.getLocationDO().getId());
 		Account account = new Account();
 		account.setUserName(userDO.getUserName());
 		account.setPassword(userDO.getPassword());
@@ -278,8 +295,11 @@ public class DealerServiceImpl implements DealerService {
 		account.setLastLoginDate(date);
 		account.setStatus((byte)1);
 		account.setUpdatedBy(accountDO.getUsername());
-		account.setLocation(location);
+		account.setDealerParent(dealer);
 		account.setDealer(dealer);
+		
+		sequence.setSeqValue(sequence.getSeqValue()+1);
+		sequenceDAO.save(sequence);
 		
 		account = accountDAO.save(account);
 		

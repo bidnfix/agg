@@ -58,6 +58,8 @@ public class Dealer implements Serializable {
 
 	@Lob
 	private String notes;
+	
+	private long code;
 
 	//bi-directional many-to-one association to Notification
 	@OneToMany(mappedBy="dealer")
@@ -289,6 +291,20 @@ public class Dealer implements Serializable {
 	 */
 	public void setAccount(Account account) {
 		this.account = account;
+	}
+
+	/**
+	 * @return the code
+	 */
+	public long getCode() {
+		return code;
+	}
+
+	/**
+	 * @param code the code to set
+	 */
+	public void setCode(long code) {
+		this.code = code;
 	}
 	
 }

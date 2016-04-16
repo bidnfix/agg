@@ -60,8 +60,8 @@ public class Account implements Serializable {
 	private Dealer dealer;
 	
 	@ManyToOne
-	@JoinColumn(name="location_id")
-	private Location location;
+	@JoinColumn(name="parent_id")
+	private Dealer dealerParent;
 
 	public Account() {
 	}
@@ -169,17 +169,17 @@ public class Account implements Serializable {
 	}
 
 	/**
-	 * @return the location
+	 * @return the dealerParent
 	 */
-	public Location getLocation() {
-		return location;
+	public Dealer getDealerParent() {
+		return dealerParent;
 	}
 
 	/**
-	 * @param location the location to set
+	 * @param dealerParent the dealerParent to set
 	 */
-	public void setLocation(Location location) {
-		this.location = location;
+	public void setDealerParent(Dealer dealerParent) {
+		this.dealerParent = dealerParent;
 	}
-	
+
 }
