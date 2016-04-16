@@ -24,11 +24,11 @@ routingApp.controller('userController', function($scope, userService, $location,
 		userService.saveUser($scope.user);
     };
     
-    $scope.getLocation = function() {
+   /* $scope.getLocation = function() {
     	 $http.get("/agg/locationInfo/"+$scope.user.dealerDO.id)
  	    .then(function(response) {
  	        $scope.locationList = response.data.data;
  	    });
-    };
+    };*/
         
 });

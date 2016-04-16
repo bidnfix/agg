@@ -25,10 +25,10 @@ routingApp.config(['$routeProvider',
                     	  templateUrl: '../../jsp/editMachine.jsp',
                     	  controller: 'AddMachineController'
                       }).
-                      when('/agg/addLocation', {
+                     /* when('/agg/addLocation', {
                     	  templateUrl: '../../jsp/addLocation.jsp',
                     	  controller: 'AddLocationController'
-                      }).
+                      }).*/
                       when('/agg/addUser', {
                     	  templateUrl: '../../jsp/addUser.jsp',
                     	  controller: 'AddUserController'
@@ -51,12 +51,13 @@ routingApp.config(['$routeProvider',
                       });
                 }]);
 
-routingApp.controller('GetDealerController', function($scope, $http, $timeout) {
+routingApp.controller('GetDealerController', function($scope, dealerService, $http, $timeout) {
+	$scope.dealer={};
 	$http.get("/agg/dealerInfo")
     .then(function(response) {
         $scope.dealerList = response.data.data;
         $timeout(function () {
-        	$('#table1').DataTable();
+        	$('#dealerTbl').DataTable();
         }, 300);
     });
 	
@@ -64,7 +65,9 @@ routingApp.controller('GetDealerController', function($scope, $http, $timeout) {
 		//alert(dealerId);
 		$http.get("/agg/dealer/"+dealerId)
 	    .then(function(response) {
-	        $scope.dealer = response.data.data;
+	    	$scope.roleList = response.data.data.roleList;
+	        $scope.dealer = response.data.data.dealer;
+	        //$scope.dealer.roleDO = {"id":5,"name":"Dealer Admin","accountTypeId":2};
 	       /* $scope.dealer = {
 	        	userName: $scope.dealerr.userName,	
 	        	state: $scope.dealerr.state
@@ -78,6 +81,11 @@ routingApp.controller('GetDealerController', function($scope, $http, $timeout) {
 	    $('#dealerEditPopup').css("top", y+"px");
 	    $('#dealerEditPopup').show();
     };
+    
+    $scope.submitEditDealer = function(){
+    	alert("in submitEditDealer");
+    	dealerService.editDealer($scope.dealer);
+    }
 });
 
 
@@ -126,12 +134,12 @@ routingApp.controller('AddUserController', function($scope, $http) {
     });
 });
 
-routingApp.controller('AddLocationController', function($scope, $http) {
+/*routingApp.controller('AddLocationController', function($scope, $http) {
 	$http.get("/agg/dealerInfo")
     .then(function(response) {
         $scope.dealerList = response.data.data;
     });
-});
+});*/
 
 routingApp.controller('AddMachineController', function($scope, $http) {
 	 $http.get("/agg/addMachine")

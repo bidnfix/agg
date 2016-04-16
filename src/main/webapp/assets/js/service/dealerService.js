@@ -18,6 +18,24 @@ routingApp.factory('dealerService', function($http, $q, $window) {
 								alert('Error while creating dealer');
 								return $q.reject(errResponse);
 							});
+				},
+				editDealer : function(dealer) {
+					return $http.post('/agg/editDealer', dealer).then(
+							function(response) {
+								alert(response.data.status);
+								if (response.data.status == 'success') {
+									//$window.location = '/agg/home';
+									closePopup('dealerEditPopup');
+									$window.location.href = '#/agg/dealers';
+								} else {
+									alert('error in adding dealer: '+response.data.errMessage)
+									//$('#errMsg').html(response.data.errMessage);
+								}
+								
+							}, function(errResponse) {
+								alert('Error while editing dealer');
+								return $q.reject(errResponse);
+							});
 				}
 
 			};

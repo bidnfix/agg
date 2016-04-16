@@ -15,16 +15,15 @@
              
 	 <!-- data table section -->
              
-     <table id="table1" class="table table-striped table-bordered" cellspacing="0" width="100%">
+     <table id="dealerTbl" class="table table-striped table-bordered" cellspacing="0" width="100%">
         <thead>
             <tr>
-            	<th>User Name</th>
-                <th>Location</th>
-                <th>Address</th>
-                <th>City</th>
+            	<th>Code</th>
+                <th>Name</th>
                 <th>State</th>
                 <th>Email</th>
                 <th>Phone</th>
+                <th>Parent</th>
                 <th>Role</th>
                 <th>Status</th>
                 <th></th>
@@ -33,13 +32,12 @@
  
         <tfoot>
             <tr>
-            	<th>User Name</th>
-                <th>Location</th>
-                <th>Address</th>
-                <th>City</th>
+            	<th>Code</th>
+                <th>Name</th>
                 <th>State</th>
                 <th>Email</th>
                 <th>Phone</th>
+                <th>Parent</th>
                 <th>Role</th>
                 <th>Status</th>
                 <th></th>
@@ -48,16 +46,16 @@
  
         <tbody>
             <tr ng-repeat="dealer in dealerList">
+            	<td>{{dealer.code}}</td>
             	<td>{{dealer.userName}}</td>
-                <td>{{dealer.location}}</td>
-                <td>{{dealer.address1}}</td>
-                <td>{{dealer.city}}</td>
                 <td>{{dealer.state}}</td>
                 <td>{{dealer.marketEmail}}</td>
                 <td>{{dealer.phone}}</td>
-                <td></td>
-                <td>{{(dealer.status === 0)?"In-Active":"Active"}}</td>
-                <td><div class="manage-sec"><!-- <a href="#"><img src="../assets/images/delete-icon.png" alt="Delete" title="Delete"/></a> -->
+                <td>{{dealer.parentCode}}</td>
+                <td>{{dealer.roleName}}</td>
+                <td>{{(dealer.status === 0)?"In-Active":(dealer.status === 1)?"Active":"Pending"}}</td>
+                <td>
+                	<div class="manage-sec"><!-- <a href="#"><img src="../assets/images/delete-icon.png" alt="Delete" title="Delete"/></a> -->
                 		<a ng-click="editDealer(dealer.id)"><img src="../assets/images/edit-icon.png" alt="Edit" title="Edit"/></a>
                 	</div>
                 </td>

@@ -3,6 +3,8 @@ package com.agg.application.model;
 public class DealerDO {
 	
 	private long id;
+	
+	private long code;
 
 	private String userName;
 	
@@ -34,9 +36,13 @@ public class DealerDO {
 	
 	private String notes;
 	
+	private String roleName;
+	
 	private String zip;
 	
 	private int status;
+	
+	private long parentCode;
 	
 	/**
 	 * @return the id
@@ -288,6 +294,48 @@ public class DealerDO {
 	 */
 	public void setStatus(int status) {
 		this.status = status;
+	}
+
+	/**
+	 * @return the code
+	 */
+	public long getCode() {
+		return code;
+	}
+
+	/**
+	 * @param code the code to set
+	 */
+	public void setCode(long code) {
+		this.code = code;
+	}
+
+	/**
+	 * @return the roleName
+	 */
+	public String getRoleName() {
+		return roleName;
+	}
+
+	/**
+	 * @param roleName the roleName to set
+	 */
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
+	}
+
+	/**
+	 * @return the parentCode
+	 */
+	public long getParentCode() {
+		return parentCode;
+	}
+
+	/**
+	 * @param parentCode the parentCode to set
+	 */
+	public void setParentCode(long parentCode) {
+		this.parentCode = parentCode;
 	}
 	
 }

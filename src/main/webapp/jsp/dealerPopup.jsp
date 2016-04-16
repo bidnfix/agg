@@ -6,7 +6,7 @@
 
 	<div class="inner-main">
 		<a class="btn btn-primary pull-right fadeInLeftBig  hvr-pulse mar-right" onclick="closePopup('dealerEditPopup')">CLOSE</a>
-		<form class="form-horizontal" role="form">
+		<form class="form-horizontal" role="form" ng-submit="submitEditDealer()">
 			<h2>Edit Dealer</h2>
 			<div class="form-group">
 				<label for="userName" class="col-sm-3 control-label">Username</label>
@@ -161,7 +161,7 @@
 			<div class="form-group">
 				<label for="role" class="col-sm-3 control-label">Role</label>
 				<div class="col-sm-9">
-					<select class="form-control" name="role" ng-model="dealer.roleDO" id="role" ng-options="role.name for role in roleList" required="required">
+					<select class="form-control" name="role" id="role" ng-options="role.name for role in roleList track by role.id" ng-model="dealer.roleDO" required="required">
 						<option value="">Select Role</option>
 					</select>
 				</div>

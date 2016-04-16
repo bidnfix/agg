@@ -89,14 +89,39 @@ public class DealerController extends BaseController {
 		return opResult;
 	}
 	
+	
+	@RequestMapping(value = "/editDealer", method = RequestMethod.POST)
+	public @ResponseBody Result editDealer(@RequestBody DealerDO dealerDO, BindingResult result,
+			HttpServletRequest request, HttpServletResponse response) {
+		logger.debug("In editDealer user: "+dealerDO.getUserName());
+		Result opResult = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			if (result.hasErrors()){
+				opResult = new Result("failure", "Invalid dealer form field values", null);
+			}
+	
+			long id = dealerService.editDealer(dealerDO, getAccountDetails(request));
+			if(id > 0){
+				opResult = new Result("success", "Invalid dealer form field values", null);
+			}
+			
+		}
+		
+		return opResult;
+	}
+	
 	@RequestMapping(value = "/dealer/{id}", method = RequestMethod.GET)
-	public @ResponseBody Result getDealer(@PathVariable long id, HttpServletRequest request, HttpServletResponse response) {
+	public @ResponseBody Result getDealer(@PathVariable long id, HttpServletRequest request, HttpServletResponse response, Model model) {
 		logger.debug("In getDealer");
 		Result opResult = null;
 		if (!sessionExists(request)){
 			opResult = new Result("failure", "Invalid Login", null);
 		}else{
-			opResult = new Result("success", "Dealer Info", dealerService.getDealer(id));
+			model.addAttribute("roleList", dealerService.getDealerRoles(id));
+			model.addAttribute("dealer", dealerService.getDealer(id));
+			opResult = new Result("success", "Dealer Info", model);
 		}
 		
 		return opResult;
@@ -146,7 +171,7 @@ public class DealerController extends BaseController {
 		if (!sessionExists(request)){
 			opResult = new Result("failure", "Invalid Login", null);
 		}else{
-			model.addAttribute("dealerList", dealerService.getDealers());
+			model.addAttribute("dealerList", dealerService.getAdminDealers());
 			model.addAttribute("roleList", dealerService.getDealerRoles());
 			opResult = new Result("success", "Dealer and Role Info", model);
 		}

@@ -27,18 +27,19 @@
 			<div class="form-group">
 				<label for="dealer" class="col-sm-3 control-label">Dealer</label>
 				<div class="col-sm-9">
-					<select class="form-control" name="dealer" ng-model="user.dealerDO" id="dealer" ng-options="dealer.userName for dealer in dealerList" required="required" ng-change="getLocation(this.id)">
+					<!-- <select class="form-control" name="dealer" ng-model="user.dealerDO" id="dealer" ng-options="dealer.userName for dealer in dealerList" required="required" ng-change="getLocation(this.id)"> -->
+					<select class="form-control" name="dealer" ng-model="user.dealerDO" id="dealer" ng-options="dealer.userName for dealer in dealerList" required="required">
 						<option value="">Select Dealer</option>
 					</select>
 				</div>
 			</div>
-			<div class="form-group">
+			<!-- <div class="form-group">
 				<label for="location" class="col-sm-3 control-label">Location</label>
 				<div class="col-sm-9">
 					<select class="form-control" name="location" ng-model="user.locationDO" id="location" ng-options="location.title for location in locationList" required="required">
 					</select>
 				</div>
-			</div>
+			</div> -->
 			<div class="form-group">
 				<label for="userName" class="col-sm-3 control-label">Username</label>
 				<div class="col-sm-9">
