@@ -36,10 +36,9 @@
 			<div class="form-group">
 				<label for="groupId" class="col-sm-3 control-label">Group Id</label>
 				<div class="col-sm-9">
-				<select name="groupId" ng-model="machine.groupId" ng-options="group.groupId for group in groupList"></select>
+				<select name="groupId" ng-model="machine.groupId" id="groupId" required="required"></select><!-- ng-options="groupDO.groupId for groupDO in groupList" -->
 				</div>
 			</div>
-			
 			<div class="form-group">
 				<div class="col-sm-9 col-sm-offset-3">
 					<button type="submit" class="btn btn-primary btn-block">Save</button>

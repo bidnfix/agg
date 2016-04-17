@@ -1,148 +1,91 @@
-package com.agg.application.entity;
+package com.agg.application.model;
 
-import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
+import com.agg.application.entity.Dealer;
+import com.agg.application.entity.Manufacturer;
+import com.agg.application.entity.QuotePK;
 
-
-/**
- * The persistent class for the quotes database table.
- * 
- */
-@Entity
-@Table(name="quotes")
-@NamedQuery(name="Quote.findAll", query="SELECT q FROM Quote q")
-public class Quote implements Serializable {
-	private static final long serialVersionUID = 1L;
-
-	@EmbeddedId
+public class QuoteDO {
+	
 	private QuotePK id;
 
-	@Column(name="c_pt_h_hours")
 	private int cPtHHours;
 
-	@Column(name="c_pt_h_pl_hours")
 	private int cPtHPlHours;
 
-	@Column(name="c_pt_hours")
 	private int cPtHours;
 
-	@Column(name="coverage_level_hours")
 	private int coverageLevelHours;
 
-	@Column(name="coverage_term")
 	private int coverageTerm;
 
-	@Column(name="create_date")
-	private Timestamp createDate;
+	private Date createDate;
 
-	@Column(name="dealer_markup")
 	private double dealerMarkup;
 
-	@Column(name="dealer_markup_type")
 	private String dealerMarkupType;
 
-	@Column(name="deduct_amount")
 	private double deductAmount;
 
-	@Column(name="group_id")
 	private int groupId;
 
-	@Column(name="h_hours")
 	private int hHours;
 
-	@Column(name="h_months")
 	private int hMonths;
 
-	@Column(name="is_archive")
 	private short isArchive;
 
-	@Column(name="last_update")
 	private Timestamp lastUpdate;
 
-	@Column(name="machine_hours")
 	private int machineHours;
 
-	@Column(name="machine_meter_hours")
 	private int machineMeterHours;
 
-	@Column(name="machine_model")
 	private String machineModel;
 
-	@Column(name="machine_model_num")
 	private String machineModelNum;
 
-	@Column(name="machine_months")
 	private int machineMonths;
 
-	@Column(name="machine_power")
 	private int machinePower;
 
-	@Column(name="machine_retail_price")
 	private double machineRetailPrice;
 
-	@Column(name="machine_sale_date")
-	private Timestamp machineSaleDate;
+	private Date machineSaleDate;
 
-	@Column(name="machine_serial")
 	private String machineSerial;
 
-	@Column(name="machine_uoe")
 	private String machineUoe;
 
-	@Column(name="machine_year")
-	private Timestamp machineYear;
+	private Date machineYear;
 
-	@Column(name="manf_end_date")
-	private Timestamp manfEndDate;
+	private Date manfEndDate;
 
-	@Column(name="manf_end_known")
 	private byte manfEndKnown;
 
-	@Column(name="manf_expired")
 	private byte manfExpired;
 
-	@Column(name="manf_name")
 	private String manfName;
 
-	@Column(name="manf_verified")
 	private byte manfVerified;
 
-	@Column(name="other_prov")
 	private String otherProv;
 
-	@Column(name="pr_id")
 	private int prId;
 
-	@Column(name="pt_hours")
 	private int ptHours;
 
-	@Column(name="pt_months")
 	private int ptMonths;
 
-	@Column(name="servicing_dealer")
 	private int servicingDealer;
 
 	private byte status;
 
-	//bi-directional many-to-one association to Dealer
-	@ManyToOne
 	private Dealer dealer;
 
-	//bi-directional many-to-one association to Manufacturer
-	@ManyToOne
-	@JoinColumn(name="manf_id")
 	private Manufacturer manufacturer;
-
-	public Quote() {
-	}
 
 	public QuotePK getId() {
 		return this.id;
@@ -192,11 +135,11 @@ public class Quote implements Serializable {
 		this.coverageTerm = coverageTerm;
 	}
 
-	public Timestamp getCreateDate() {
+	public Date getCreateDate() {
 		return this.createDate;
 	}
 
-	public void setCreateDate(Timestamp createDate) {
+	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
 
@@ -320,11 +263,11 @@ public class Quote implements Serializable {
 		this.machineRetailPrice = machineRetailPrice;
 	}
 
-	public Timestamp getMachineSaleDate() {
+	public Date getMachineSaleDate() {
 		return this.machineSaleDate;
 	}
 
-	public void setMachineSaleDate(Timestamp machineSaleDate) {
+	public void setMachineSaleDate(Date machineSaleDate) {
 		this.machineSaleDate = machineSaleDate;
 	}
 
@@ -344,19 +287,19 @@ public class Quote implements Serializable {
 		this.machineUoe = machineUoe;
 	}
 
-	public Timestamp getMachineYear() {
+	public Date getMachineYear() {
 		return this.machineYear;
 	}
 
-	public void setMachineYear(Timestamp machineYear) {
+	public void setMachineYear(Date machineYear) {
 		this.machineYear = machineYear;
 	}
 
-	public Timestamp getManfEndDate() {
+	public Date getManfEndDate() {
 		return this.manfEndDate;
 	}
 
-	public void setManfEndDate(Timestamp manfEndDate) {
+	public void setManfEndDate(Date manfEndDate) {
 		this.manfEndDate = manfEndDate;
 	}
 
@@ -455,5 +398,4 @@ public class Quote implements Serializable {
 	public void setManufacturer(Manufacturer manufacturer) {
 		this.manufacturer = manufacturer;
 	}
-
 }

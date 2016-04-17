@@ -46,6 +46,10 @@ routingApp.config(['$routeProvider',
                     	  controller: 'AddProgramsController'
                     	
                       }).
+                      when('/agg/claimsInfo', {
+                    	  templateUrl: '../../jsp/claimsInfo.jsp',
+                    	  controller: 'ClaimsController'
+                      }).
                       otherwise({
                     	  redirectTo: '/agg/home'
                       });
@@ -228,4 +232,11 @@ routingApp.controller("activateTabCtrl", function($scope) {
     	var tabId = $event.target.id;
     	$('#'+tabId).css({"background":"#205f9f", "color":"#fff"});
     }    
+});
+
+routingApp.controller('ClaimsController', function($scope, $http) {
+	 $http.get("/agg/claimsInfo")
+	    .then(function(response) {
+	        $scope.quoteDOList = response.data.data.manufacturerList;
+	    });
 });
