@@ -28,10 +28,18 @@ public class Dealer implements Serializable {
 	private Date activeDate;
 
 	private String address;
+	
+	private String address2;
 
 	private String city;
 
 	private String contact;
+	
+	@Column(name="first_name")
+	private String firstName;
+	
+	@Column(name="last_name")
+	private String lastName;
 
 	@Column(name="invoice_email")
 	private String invoiceEmail;
@@ -39,12 +47,8 @@ public class Dealer implements Serializable {
 	@Column(name="last_update")
 	private Timestamp lastUpdate;
 
-	private String location;
-
 	@Column(name="market_email")
 	private String marketEmail;
-
-	private String name;
 
 	private String phone;
 
@@ -135,28 +139,12 @@ public class Dealer implements Serializable {
 		this.lastUpdate = lastUpdate;
 	}
 
-	public String getLocation() {
-		return this.location;
-	}
-
-	public void setLocation(String location) {
-		this.location = location;
-	}
-
 	public String getMarketEmail() {
 		return this.marketEmail;
 	}
 
 	public void setMarketEmail(String marketEmail) {
 		this.marketEmail = marketEmail;
-	}
-
-	public String getName() {
-		return this.name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public String getPhone() {
@@ -305,6 +293,48 @@ public class Dealer implements Serializable {
 	 */
 	public void setCode(long code) {
 		this.code = code;
+	}
+
+	/**
+	 * @return the address2
+	 */
+	public String getAddress2() {
+		return address2;
+	}
+
+	/**
+	 * @param address2 the address2 to set
+	 */
+	public void setAddress2(String address2) {
+		this.address2 = address2;
+	}
+
+	/**
+	 * @return the firstName
+	 */
+	public String getFirstName() {
+		return firstName;
+	}
+
+	/**
+	 * @param firstName the firstName to set
+	 */
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	/**
+	 * @return the lastName
+	 */
+	public String getLastName() {
+		return lastName;
+	}
+
+	/**
+	 * @param lastName the lastName to set
+	 */
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 	
 }

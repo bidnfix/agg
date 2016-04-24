@@ -86,10 +86,12 @@ public class DealerServiceImpl implements DealerService {
 				dealerDO.setId(dealer.getId());
 				dealerDO.setCode(dealer.getCode());
 				dealerDO.setUserName(dealer.getAccount().getUserName());
+				dealerDO.setFirstName(dealer.getFirstName());
+				dealerDO.setLastName(dealer.getLastName());
 				dealerDO.setAddress1(dealer.getAddress());
+				dealerDO.setAddress2(dealer.getAddress2());
 				dealerDO.setCity(dealer.getCity());
 				dealerDO.setInvoiceEmail(dealer.getInvoiceEmail());
-				dealerDO.setLocation(dealer.getLocation());
 				dealerDO.setMarketEmail(dealer.getMarketEmail());
 				dealerDO.setPhone(dealer.getPhone());
 				dealerDO.setState(dealer.getState());
@@ -112,16 +114,16 @@ public class DealerServiceImpl implements DealerService {
 		Dealer dealer = new Dealer();
 		Timestamp date = new Timestamp(new Date().getTime());
 		dealer.setAddress(dealerDO.getAddress1());
+		dealer.setAddress2(dealerDO.getAddress2());
 		dealer.setCity(dealerDO.getCity());
 		dealer.setContact(dealerDO.getContact());
+		dealer.setFirstName(dealerDO.getFirstName());
+		dealer.setLastName(dealerDO.getLastName());
 		
 		dealer.setInvoiceEmail(dealerDO.getInvoiceEmail());
 		//TODO
 		dealer.setLastUpdate(date);
-		dealer.setLocation(dealerDO.getLocation());
 		dealer.setMarketEmail(dealerDO.getMarketEmail());
-		//TODO
-		dealer.setName(dealerDO.getUserName());
 		dealer.setNotes(dealerDO.getNotes());
 		dealer.setPhone(dealerDO.getPhone());
 		
@@ -166,16 +168,16 @@ public class DealerServiceImpl implements DealerService {
 		Dealer dealer = dealerDAO.findOne(dealerDO.getId());
 		Timestamp date = new Timestamp(new Date().getTime());
 		dealer.setAddress(dealerDO.getAddress1());
+		dealer.setAddress2(dealerDO.getAddress2());
 		dealer.setCity(dealerDO.getCity());
 		dealer.setContact(dealerDO.getContact());
+		dealer.setFirstName(dealerDO.getFirstName());
+		dealer.setLastName(dealerDO.getLastName());
 		
 		dealer.setInvoiceEmail(dealerDO.getInvoiceEmail());
 		//TODO
 		dealer.setLastUpdate(date);
-		dealer.setLocation(dealerDO.getLocation());
 		dealer.setMarketEmail(dealerDO.getMarketEmail());
-		//TODO
-		dealer.setName(dealerDO.getUserName());
 		dealer.setNotes(dealerDO.getNotes());
 		dealer.setPhone(dealerDO.getPhone());
 		
@@ -218,9 +220,11 @@ public class DealerServiceImpl implements DealerService {
 			dealerDO.setId(dealer.getId());
 			dealerDO.setUserName(dealer.getAccount().getUserName());
 			dealerDO.setAddress1(dealer.getAddress());
+			dealerDO.setAddress2(dealer.getAddress2());
 			dealerDO.setCity(dealer.getCity());
+			dealerDO.setFirstName(dealer.getFirstName());
+			dealerDO.setLastName(dealer.getLastName());
 			dealerDO.setInvoiceEmail(dealer.getInvoiceEmail());
-			dealerDO.setLocation(dealer.getLocation());
 			dealerDO.setMarketEmail(dealer.getMarketEmail());
 			dealerDO.setPhone(dealer.getPhone());
 			dealerDO.setState(dealer.getState());
@@ -379,13 +383,14 @@ public class DealerServiceImpl implements DealerService {
 		Dealer dealer = new Dealer();
 		Timestamp date = new Timestamp(new Date().getTime());
 		dealer.setAddress(userDO.getAddress1());
+		dealer.setAddress2(userDO.getAddress2());
 		dealer.setCity(userDO.getCity());
+		dealer.setFirstName(userDO.getFirstName());
+		dealer.setLastName(userDO.getLastName());
 		
 		dealer.setInvoiceEmail(userDO.getEmail());
 		dealer.setLastUpdate(date);
-		//dealer.setLocation(userDO.getLocationDO().getId()+"");
 		dealer.setMarketEmail(userDO.getEmail());
-		dealer.setName(userDO.getFirstName()+" "+userDO.getLastName());
 		dealer.setPhone(userDO.getPhone());
 		
 		Sequence sequence = sequenceDAO.findBySeqType(SEQUENCE_TYPE_DEALER);

@@ -10,11 +10,11 @@ public class DealerDO {
 	
 	private String password;
 	
-	private String companyName;
+	private String firstName;
+	
+	private String lastName;
 	
 	private String contact;
-	
-	private String location;
 	
 	private String address1;
 	
@@ -87,20 +87,6 @@ public class DealerDO {
 	}
 
 	/**
-	 * @return the companyName
-	 */
-	public String getCompanyName() {
-		return companyName;
-	}
-
-	/**
-	 * @param companyName the companyName to set
-	 */
-	public void setCompanyName(String companyName) {
-		this.companyName = companyName;
-	}
-
-	/**
 	 * @return the contact
 	 */
 	public String getContact() {
@@ -112,20 +98,6 @@ public class DealerDO {
 	 */
 	public void setContact(String contact) {
 		this.contact = contact;
-	}
-
-	/**
-	 * @return the location
-	 */
-	public String getLocation() {
-		return location;
-	}
-
-	/**
-	 * @param location the location to set
-	 */
-	public void setLocation(String location) {
-		this.location = location;
 	}
 
 	/**
@@ -336,6 +308,34 @@ public class DealerDO {
 	 */
 	public void setParentCode(long parentCode) {
 		this.parentCode = parentCode;
+	}
+
+	/**
+	 * @return the firstName
+	 */
+	public String getFirstName() {
+		return firstName;
+	}
+
+	/**
+	 * @param firstName the firstName to set
+	 */
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	/**
+	 * @return the lastName
+	 */
+	public String getLastName() {
+		return lastName;
+	}
+
+	/**
+	 * @param lastName the lastName to set
+	 */
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 	
 }
