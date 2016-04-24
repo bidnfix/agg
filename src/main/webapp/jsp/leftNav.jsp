@@ -36,7 +36,7 @@
 			</li>
             <li class="animated fadeInLeft"><a id="termsConditions" href="#" ng-click="activateTab($event);">TERMS AND CONDITIONS</a></li>
             <li class="animated fadeInLeft"><a id="support" href="#" ng-click="activateTab($event);">SUPPORT</a></li>
-            <li class="animated fadeInLeft"><a id="quotes" href="#" ng-click="activateTab($event);">QUOTES</a></li>
+            <li class="animated fadeInLeft"><a id="quotes" href="#/agg/addQuote" ng-click="activateTab($event);">QUOTES</a></li>
             <li class="animated fadeInLeft"><a id="reports" href="#" ng-click="activateTab($event);">REPORTS</a></li>
             <li class="animated fadeInLeft"><a href="/agg/logout">LOGOUT</a></li>
             <li class="gree animated fadeInLeft"><a id="help" href="#" ng-click="activateTab($event);">HELP</a></li>

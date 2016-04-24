@@ -50,6 +50,10 @@ routingApp.config(['$routeProvider',
                     	  templateUrl: '../../jsp/claimsInfo.jsp',
                     	  controller: 'ClaimsController'
                       }).
+                      when('/agg/addQuote', {
+                    	  templateUrl: '../../jsp/addQuote.jsp',
+                    	  controller: 'QuoteController'
+                      }).
                       otherwise({
                     	  redirectTo: '/agg/home'
                       });
@@ -239,4 +243,14 @@ routingApp.controller('ClaimsController', function($scope, $http) {
 	    .then(function(response) {
 	        $scope.quoteDOList = response.data.data.manufacturerList;
 	    });
+});
+
+routingApp.controller('QuoteController', function($scope, $http) {
+	  var myTabs = tabs({
+		    el: '#quoteTabs',
+		    tabNavigationLinks: '.c-tabs-nav__link',
+		    tabContentContainers: '.c-tab'
+		  });
+	  
+	  myTabs.init();
 });

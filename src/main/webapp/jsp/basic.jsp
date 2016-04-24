@@ -18,6 +18,7 @@
 <link href="/assets/css/animate.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="/assets/css/hover.css">
 <link rel="stylesheet" href="/assets/css/mask.css">
+<link rel="stylesheet" href="/assets/css/tab-style.css" >
 
 <!--data table css-->
 <link href="/assets/css/dataTables.bootstrap.min.css" rel="stylesheet">
@@ -78,5 +79,6 @@
 	<script src="/assets/js/service/programService.js"></script>
 	<script src="/assets/js/mask.js"></script>
 	<script src="/assets/js/popup.js"></script>
+	<script src="/assets/js/tabs.js"></script>
 </body>
 </html>
