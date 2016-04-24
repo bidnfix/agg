@@ -240,6 +240,6 @@ routingApp.controller('ClaimsController', function($scope, machineService, $http
     	$scope.quoteDOList = response.data.data.quoteDOList;
         $timeout(function () {
         	$('#table1').DataTable();
-        }, 300);
+        }, 500);
     });
 
