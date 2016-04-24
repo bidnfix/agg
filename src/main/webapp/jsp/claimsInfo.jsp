@@ -5,7 +5,7 @@
              	<div class="col-md-8 col-sm-12">
 		<div class="sec-title">
                      
-				<h2 class="wow animated bounceInLeft">Machine Information</h2>
+				<h2 class="wow animated bounceInLeft">Claims Information</h2>
 			</div>
                      </div>
                      <div class="col-md-4 col-sm-12"><a class="btn btn-primary pull-right  hvr-pulse" href="#/agg/addMachine">Add New</a></div>
@@ -40,7 +40,7 @@
         <tbody>
             <tr ng-repeat="quote in quoteDOList">
             	<td>{{quote.id}}</td>
-                <td>{{quote.manufacturer}}</td>
+                <td>{{quote.manufacturerDO.id}}</td>
                 <td>{{quote.model}}</td>
                 <td>{{quote.serial}}</td>
                 <td>{{quote.coverageTerm}}</td>

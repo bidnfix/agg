@@ -117,7 +117,7 @@ public class Claims implements Serializable {
 	@Column(name="quote_id")
 	private String quoteId;
 
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="report_date")
 	private Date reportDate;
 

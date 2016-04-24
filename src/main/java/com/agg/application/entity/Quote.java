@@ -1,7 +1,7 @@
 package com.agg.application.entity;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 
 /**
@@ -40,8 +42,9 @@ public class Quote implements Serializable {
 	@Column(name="coverage_term")
 	private int coverageTerm;
 
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="create_date")
-	private Timestamp createDate;
+	private Date createDate;
 
 	@Column(name="dealer_markup")
 	private double dealerMarkup;
@@ -64,8 +67,9 @@ public class Quote implements Serializable {
 	@Column(name="is_archive")
 	private short isArchive;
 
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="last_update")
-	private Timestamp lastUpdate;
+	private Date lastUpdate;
 
 	@Column(name="machine_hours")
 	private int machineHours;
@@ -88,8 +92,9 @@ public class Quote implements Serializable {
 	@Column(name="machine_retail_price")
 	private double machineRetailPrice;
 
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="machine_sale_date")
-	private Timestamp machineSaleDate;
+	private Date machineSaleDate;
 
 	@Column(name="machine_serial")
 	private String machineSerial;
@@ -97,11 +102,13 @@ public class Quote implements Serializable {
 	@Column(name="machine_uoe")
 	private String machineUoe;
 
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="machine_year")
-	private Timestamp machineYear;
+	private Date machineYear;
 
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="manf_end_date")
-	private Timestamp manfEndDate;
+	private Date manfEndDate;
 
 	@Column(name="manf_end_known")
 	private byte manfEndKnown;
@@ -192,11 +199,11 @@ public class Quote implements Serializable {
 		this.coverageTerm = coverageTerm;
 	}
 
-	public Timestamp getCreateDate() {
+	public Date getCreateDate() {
 		return this.createDate;
 	}
 
-	public void setCreateDate(Timestamp createDate) {
+	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
 
@@ -256,11 +263,11 @@ public class Quote implements Serializable {
 		this.isArchive = isArchive;
 	}
 
-	public Timestamp getLastUpdate() {
+	public Date getLastUpdate() {
 		return this.lastUpdate;
 	}
 
-	public void setLastUpdate(Timestamp lastUpdate) {
+	public void setLastUpdate(Date lastUpdate) {
 		this.lastUpdate = lastUpdate;
 	}
 
@@ -320,11 +327,11 @@ public class Quote implements Serializable {
 		this.machineRetailPrice = machineRetailPrice;
 	}
 
-	public Timestamp getMachineSaleDate() {
+	public Date getMachineSaleDate() {
 		return this.machineSaleDate;
 	}
 
-	public void setMachineSaleDate(Timestamp machineSaleDate) {
+	public void setMachineSaleDate(Date machineSaleDate) {
 		this.machineSaleDate = machineSaleDate;
 	}
 
@@ -344,19 +351,19 @@ public class Quote implements Serializable {
 		this.machineUoe = machineUoe;
 	}
 
-	public Timestamp getMachineYear() {
+	public Date getMachineYear() {
 		return this.machineYear;
 	}
 
-	public void setMachineYear(Timestamp machineYear) {
+	public void setMachineYear(Date machineYear) {
 		this.machineYear = machineYear;
 	}
 
-	public Timestamp getManfEndDate() {
+	public Date getManfEndDate() {
 		return this.manfEndDate;
 	}
 
-	public void setManfEndDate(Timestamp manfEndDate) {
+	public void setManfEndDate(Date manfEndDate) {
 		this.manfEndDate = manfEndDate;
 	}
 

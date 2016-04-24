@@ -85,7 +85,55 @@ public class QuoteDO {
 
 	private Dealer dealer;
 
-	private Manufacturer manufacturer;
+	private ManufacturerDO manufacturerDO;
+
+	public int getcPtHHours() {
+		return cPtHHours;
+	}
+
+	public void setcPtHHours(int cPtHHours) {
+		this.cPtHHours = cPtHHours;
+	}
+
+	public int getcPtHPlHours() {
+		return cPtHPlHours;
+	}
+
+	public void setcPtHPlHours(int cPtHPlHours) {
+		this.cPtHPlHours = cPtHPlHours;
+	}
+
+	public int getcPtHours() {
+		return cPtHours;
+	}
+
+	public void setcPtHours(int cPtHours) {
+		this.cPtHours = cPtHours;
+	}
+
+	public int gethHours() {
+		return hHours;
+	}
+
+	public void sethHours(int hHours) {
+		this.hHours = hHours;
+	}
+
+	public int gethMonths() {
+		return hMonths;
+	}
+
+	public void sethMonths(int hMonths) {
+		this.hMonths = hMonths;
+	}
+
+	public ManufacturerDO getManufacturerDO() {
+		return manufacturerDO;
+	}
+
+	public void setManufacturerDO(ManufacturerDO manufacturerDO) {
+		this.manufacturerDO = manufacturerDO;
+	}
 
 	public QuotePK getId() {
 		return this.id;
@@ -391,11 +439,4 @@ public class QuoteDO {
 		this.dealer = dealer;
 	}
 
-	public Manufacturer getManufacturer() {
-		return this.manufacturer;
-	}
-
-	public void setManufacturer(Manufacturer manufacturer) {
-		this.manufacturer = manufacturer;
-	}
 }

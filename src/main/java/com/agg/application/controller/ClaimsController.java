@@ -40,8 +40,9 @@ public class ClaimsController extends BaseController {
 
 	@RequestMapping(value = "/claimsInfo", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
 	public @ResponseBody Result claimsInfo(ModelMap model, HttpServletResponse response) {
-		logger.info("Inside machineInfo()");
+		logger.info("Inside claimsInfo()");
 		List<QuoteDO> quoteInfoList = claimsService.getClaimsInfo();
+		logger.info("quoteInfoList size: "+quoteInfoList.size());
 		model.put("quoteInfoList", quoteInfoList);
 		return new Result("success", null, model);	
 	}

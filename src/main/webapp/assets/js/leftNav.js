@@ -234,9 +234,12 @@ routingApp.controller("activateTabCtrl", function($scope) {
     }    
 });
 
-routingApp.controller('ClaimsController', function($scope, $http) {
-	 $http.get("/agg/claimsInfo")
-	    .then(function(response) {
-	        $scope.quoteDOList = response.data.data.manufacturerList;
-	    });
-});
+routingApp.controller('ClaimsController', function($scope, machineService, $http, $timeout) {
+	$http.get("/agg/claimsInfo")
+    .then(function(response) {
+    	$scope.quoteDOList = response.data.data.quoteDOList;
+        $timeout(function () {
+        	$('#table1').DataTable();
+        }, 300);
+    });
+

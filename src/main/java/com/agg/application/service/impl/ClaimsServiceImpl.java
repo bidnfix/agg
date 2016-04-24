@@ -39,6 +39,7 @@ public class ClaimsServiceImpl implements ClaimsService {
 			logger.debug("QuoteList size:"+quoteList.size());
 			quoteDOList = new ArrayList<QuoteDO>();
 			QuoteDO quoteDO = null;
+			ManufacturerDO manufacturerDO = null; 
 			Quote quote = null;
 			/*ManufacturerDO manufacturerDO = null;
 			MachineTypeDO machineTypeDO = null;*/
@@ -46,17 +47,23 @@ public class ClaimsServiceImpl implements ClaimsService {
 			Iterator<Quote> it = quoteList.iterator();
 			while(it.hasNext()){
 				quoteDO = new QuoteDO();
+				manufacturerDO = new ManufacturerDO();
 				quote = it.next();
 				//logger.debug("machineInfo.getMachineType() " +machineInfo.getMachineType().getMachineType());
 				quoteDO.setId(quote.getId());
-				quoteDO.setManufacturer(quote.getManufacturer());
+				
+				
+				manufacturerDO.setId(quote.getManufacturer().getManfId());
+				manufacturerDO.setName(quote.getManufacturer().getManfName());
+				
+				quoteDO.setManufacturerDO(manufacturerDO);
 				quoteDO.setMachineModel(quote.getMachineModel());
 				quoteDO.setMachineSerial(quote.getMachineSerial());
 				quoteDO.setCoverageTerm(quote.getCoverageTerm());
 				quoteDOList.add(quoteDO);
 			}
 		}
-		logger.debug(""+quoteDOList.size());
+		logger.debug("quoteDOList size: "+quoteDOList.size());
 		return quoteDOList;
 	}
 	
