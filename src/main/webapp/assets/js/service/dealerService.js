@@ -26,7 +26,14 @@ routingApp.factory('dealerService', function($http, $q, $window) {
 								if (response.data.status == 'success') {
 									//$window.location = '/agg/home';
 									closePopup('dealerEditPopup');
-									$window.location.href = '#/agg/dealers';
+									//$window.location.href = '#/agg/dealers';
+									var objects = $scope.dealerList;
+							        for (var i = 0; i < objects.length; i++) {
+							            if (objects[i].id === id) {
+							                objects[i] = dealer;
+							                break;
+							            }
+							        }
 								} else {
 									alert('error in adding dealer: '+response.data.errMessage)
 									//$('#errMsg').html(response.data.errMessage);
