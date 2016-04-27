@@ -9,7 +9,7 @@
 				<p class="wow animated bounceInRight">The Key Features of our Tool</p>
 			</div>
                      </div>
-                     <div class="col-md-4 col-sm-12"><a class="btn btn-primary pull-right  hvr-pulse" href="add-new.html">Add New</a></div>
+                     <div class="col-md-4 col-sm-12"><a class="btn btn-primary pull-right  hvr-pulse" href="#/agg/addPrograms">Add New</a></div>
 	</header>
              
              

@@ -35,12 +35,12 @@ public class DealerController extends BaseController {
 	private DealerService dealerService;
 
 	@RequestMapping(value = "/dealers", method = RequestMethod.GET)
-	public String getDealers(Map<String, Object> model, HttpServletRequest request, HttpServletResponse response) {
+	public Result getDealers(Map<String, Object> model, HttpServletRequest request, HttpServletResponse response) {
 
 		if (!sessionExists(request))
-			return "login";
-		model.put("dealers", dealerService.getDealers());
-		return "dealers";
+			return null;
+		//model.put("dealers", dealerService.getDealers());
+		return new Result("success", null, dealerService.getDealers());
 	}
 
 	@RequestMapping(value = "/addDealer", method = RequestMethod.GET)

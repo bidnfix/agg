@@ -25,9 +25,23 @@
 		<form class="form-horizontal" role="form" ng-submit="submitProgram()">
 			<h2>Add Program</h2>
 			<div class="form-group">
+				<label for="name" class="col-sm-3 control-label">Assign a Dealer</label>
+				<div class="col-sm-9">
+					<select name="dealer" ng-model="program.dealerName" ng-options="dealer.userName for dealer in dealerList"">
+         				 <option ng:repeat="machine in manufacturerList" value="{{dealer.id}}">{{dealer.userName}}</option>
+     				</select> 
+				</div>
+			</div>
+			<div class="form-group">
 				<label for="name" class="col-sm-3 control-label">Name</label>
 				<div class="col-sm-9">
 					<input type="text" ng-model="program.name" id="name" name="name" placeholder="Program Name" class="form-control" required="required">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="name" class="col-sm-3 control-label">Group</label>
+				<div class="col-sm-9">
+					<input type="text" ng-model="program.group" id="group" name="group" class="form-control" required="required" value="{{group}}" ng-readonly=true>
 				</div>
 			</div>
 			<div class="form-group">
