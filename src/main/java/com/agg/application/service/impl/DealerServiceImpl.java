@@ -81,6 +81,8 @@ public class DealerServiceImpl implements DealerService {
 		if(dealerList != null && !dealerList.isEmpty()){
 			dealerDOList = new ArrayList<DealerDO>();
 			DealerDO dealerDO = null;
+			RoleDO roleDO = null;
+			Role role = null;
 			for(Dealer dealer : dealerList){
 				dealerDO = new DealerDO();
 				dealerDO.setId(dealer.getId());
@@ -97,7 +99,12 @@ public class DealerServiceImpl implements DealerService {
 				dealerDO.setState(dealer.getState());
 				dealerDO.setZip(dealer.getZip());
 				dealerDO.setStatus(dealer.getStatus());
-				dealerDO.setRoleName(dealer.getAccount().getRole().getRTitle());
+				role = dealer.getAccount().getRole();
+				roleDO = new RoleDO();
+				roleDO.setId(role.getRId());
+				roleDO.setName(role.getRTitle());
+				dealerDO.setRoleDO(roleDO);
+				dealerDO.setRoleName(role.getRTitle());
 				dealerDO.setParentCode(dealer.getAccount().getDealerParent().getCode());
 				
 				dealerDOList.add(dealerDO);
