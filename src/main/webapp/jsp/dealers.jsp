@@ -52,7 +52,7 @@
                 <td>{{dealer.marketEmail}}</td>
                 <td>{{dealer.phone}}</td>
                 <td>{{dealer.parentCode}}</td>
-                <td>{{dealer.roleName}}</td>
+                <td>{{dealer.roleDO.name}}</td>
                 <td>{{(dealer.status === 0)?"In-Active":(dealer.status === 1)?"Active":"Pending"}}</td>
                 <td>
                 	<div class="manage-sec"><!-- <a href="#"><img src="../assets/images/delete-icon.png" alt="Delete" title="Delete"/></a> -->

@@ -19,7 +19,7 @@ routingApp.factory('dealerService', function($http, $q, $window) {
 								return $q.reject(errResponse);
 							});
 				},
-				editDealer : function(dealer) {
+				editDealer : function(dealer, $scope) {
 					return $http.post('/agg/editDealer', dealer).then(
 							function(response) {
 								alert(response.data.status);
@@ -29,7 +29,7 @@ routingApp.factory('dealerService', function($http, $q, $window) {
 									//$window.location.href = '#/agg/dealers';
 									var objects = $scope.dealerList;
 							        for (var i = 0; i < objects.length; i++) {
-							            if (objects[i].id === id) {
+							            if (objects[i].id === dealer.id) {
 							                objects[i] = dealer;
 							                break;
 							            }
