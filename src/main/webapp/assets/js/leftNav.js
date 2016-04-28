@@ -213,9 +213,14 @@ routingApp.controller('GetProgramsController', function($scope, $http, $timeout,
 });
 
 routingApp.controller('AddProgramsController', function($scope, $http) {
-	 $http.get("/agg/dealerRoleInfo")
+	 $http.get("/agg/dealers")
 	    .then(function(response) {
-	        $scope.roleList = response.data.data;
+	    	alert(response);
+	        $scope.dealerList = response.data.data;
+	    });
+	 $http.get("/agg/groups")
+	    .then(function(response) {
+	        $scope.group = Math.max.apply(Math,response.data.data.map(function(o){return o.groupId;}));
 	    });
 });
 
@@ -246,6 +251,7 @@ routingApp.controller('ClaimsController', function($scope, machineService, $http
         	$('#table1').DataTable();
         }, 500);
     });
+});
 	
 	routingApp.controller('QuoteController', function($scope, $http) {
 		  var myTabs = tabs({
