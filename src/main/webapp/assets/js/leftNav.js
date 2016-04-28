@@ -92,7 +92,7 @@ routingApp.controller('GetDealerController', function($scope, dealerService, $ht
     
     $scope.submitEditDealer = function(){
     	alert("in submitEditDealer");
-    	dealerService.editDealer($scope.dealer);
+    	dealerService.editDealer($scope.dealer, $scope);
     }
 });
 
