@@ -39,7 +39,7 @@
             <div class="inner-main">
 					<div class="form-group">
 						<label for="dealer" class="col-sm-4 control-label">Dealer</label>
-						<div class="col-sm-5">
+						<div class="col-sm-4">
 							<!-- <select class="form-control" name="dealer" ng-model="user.dealerDO" id="dealer" ng-options="dealer.userName for dealer in dealerList" required="required" ng-change="getLocation(this.id)"> -->
 							<select class="form-control" name="dealer" ng-model="quote.dealerDO" id="dealer" ng-options="dealer.userName for dealer in dealerList" required="required">
 								<option value="">Select Dealer</option>
@@ -111,7 +111,7 @@
 					</div>
 					<div class="form-group">
 						<div class="col-sm-5 col-sm-offset-3">
-							<button type="submit" class="btn btn-primary btn-block">Continue to "Machine Info"</button>
+							<button type="button" class="btn btn-primary btn-block">Continue to "Machine Info"</button>
 						</div>
 					</div>
 			</div>
@@ -120,9 +120,92 @@
         </div>
         <div class="c-tab">
           <div class="c-tab__content">
-            <h2>All Books</h2>
-            <p>Books ipsum dolor sit amet, consectetur adipisicing elit. Ipsam quo minus voluptate unde tempore eveniet consequuntur in, quod animi libero rem similique pariatur quos, et eum nisi ducimus, architecto voluptatibus!</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto aspernatur natus dolorem fuga cumque optio saepe corrupti earum. Ipsam quaerat asperiores similique omnis excepturi temporibus ab eum magnam ipsa, odio.</p>
+            <div class="inner-main">
+				<div class="form-group">
+					<label for="manufacturer" class="col-sm-3 control-label">Select Manufacturer</label>
+					<div class="col-sm-4">
+						<select name="manufacturer" ng-model="quote.manufacturerDO" ng-options="manufacturerObj.name for manufacturerObj in manufacturerList" ng-change="getMachineType()">
+	     				</select> 
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="mannufacturerName" class="col-sm-3 control-label">Enter Name if not found in list</label>
+					<div class="col-sm-4">
+						<input type="text" id="mannufacturerName" name="mannufacturerName" ng-model="quote.mannufacturerName" placeholder="mannufacturerName" class="form-control">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="machineType" class="col-sm-3 control-label">Machine Type</label>
+					<div class="col-sm-4">
+						<select name="machineType" ng-model="quote.machineTypeDO" ng-options="machineType.name for machineType in machineTypeList"></select> 
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="model" class="col-sm-3 control-label">Model</label>
+					<div class="col-sm-4">
+						<input type="text" id="model" ng-model="quote.model" placeholder="Model Name" class="form-control">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="modelNumber" class="col-sm-3 control-label">Enter Model Number if not found in list</label>
+					<div class="col-sm-4">
+						<input type="text" id="modelNumber" name="modelNumber" ng-model="quote.modelNumber" placeholder="Model Number" class="form-control">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="horsePower" class="col-sm-3 control-label">Horsepower (Engine)</label>
+					<div class="col-sm-4">
+						<input type="text" id="horsePower" name="horsePower" ng-model="quote.horsePower" placeholder="Horse Power" class="form-control" required="required">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="serialNumber" class="col-sm-3 control-label">Serial Number</label>
+					<div class="col-sm-4">
+						<input type="text" id="serialNumber" name="serialNumber" ng-model="quote.serialNumber" placeholder="Serial Number" class="form-control" required="required">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="serialNumberUnknown" class="col-sm-3 control-label"></label>
+					<div class="col-sm-4">
+						<input type="checkbox" id="serialNumberUnknown" name="serialNumberUnknown" ng-model="quote.serialNumberUnknown" class="">Check if unknown
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="retailPrice" class="col-sm-3 control-label">Retail Price (Aprox)</label>
+					<div class="col-sm-4">
+						<input type="text" id="retailPrice" name="retailPrice" ng-model="quote.retailPrice" class="form-control" placeholder="Retail Price" required="required">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="meterHours" class="col-sm-3 control-label">Meter Hours</label>
+					<div class="col-sm-4">
+						<input type="text" id="meterHours" name="meterHours" ng-model="quote.meterHours" placeholder="Meter Hours" class="form-control" required="required">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="modelYear" class="col-sm-3 control-label">Model Year</label>
+					<div class="col-sm-4">
+						<input type="text" id="modelYear" name="modelYear" ng-model="quote.modelYear" placeholder="Model Year" class="form-control" required="required">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="equipment" class="col-sm-3 control-label">Use of Equipment</label>
+					<div class="col-sm-4">
+						<select name="equipment" ng-model="quote.equipment" ng-options="equipmentObj.name for equipmentObj in equipmentList"></select> 
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="estSaleDate" class="col-sm-3 control-label">Estimated Sale Date</label>
+					<div class="col-sm-4">
+						<input type="date" id="estSaleDate" name="estSaleDate" ng-model="quote.estSaleDate" class="form-control" required="required">
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-5 col-sm-offset-3">
+						<button type="button" class="btn btn-primary btn-block">Continue to "Coverage Info"</button>
+					</div>
+				</div>
+			</div>
           </div>
         </div>
         <div class="c-tab">
