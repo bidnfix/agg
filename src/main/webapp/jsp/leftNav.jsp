@@ -26,7 +26,7 @@
 					<li><a id="dealerSearch" href="#" ng-click="activateTab($event);">DEALER SEARCH</a></li>
 				</ul>
 			</li>
-			<li class="animated fadeInLeftBig"><a id="claims" href="/agg/claimsInfo" ng-click="activateTab($event);">CLAIMS MANAGEMENT</a>
+			<li class="animated fadeInLeftBig"><a id="claims" href="#/agg/claimsInfo" ng-click="activateTab($event);">CLAIMS MANAGEMENT</a>
 				<ul>
 					<li><a id="fileClaim" href="#" ng-click="activateTab($event);">FILE A CLAIM</a></li>
 					<li><a id="myClaims" href="#" ng-click="activateTab($event);">MY CLAIMS</a></li>
