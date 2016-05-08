@@ -246,7 +246,8 @@ routingApp.controller("activateTabCtrl", function($scope) {
 routingApp.controller('ClaimsController', function($scope, machineService, $http, $timeout) {
 	$http.get("/agg/claimsInfo")
     .then(function(response) {
-    	$scope.quoteDOList = response.data.data.quoteDOList;
+    	$scope.quoteDOList = response.data.data.quoteInfoList;
+    	alert(response.data.data.quoteInfoList)
         $timeout(function () {
         	$('#table1').DataTable();
         }, 500);
