@@ -253,13 +253,19 @@ routingApp.controller('ClaimsController', function($scope, machineService, $http
     });
 });
 	
-	routingApp.controller('QuoteController', function($scope, $http) {
-		  var myTabs = tabs({
-			    el: '#quoteTabs',
-			    tabNavigationLinks: '.c-tabs-nav__link',
-			    tabContentContainers: '.c-tab'
-			  });
-		  
-		  myTabs.init();
-	});
+routingApp.controller('QuoteController', function($scope, $http) {
+	$http.get("/agg/quoteInfo")
+	.then(function(response) {
+		$scope.dealerList = response.data.data.dealerDOList;
+		$scope.manufacturerList = response.data.data.manufacturerDOList;
+	});  
+
+	var myTabs = tabs({
+	    el: '#quoteTabs',
+	    tabNavigationLinks: '.c-tabs-nav__link',
+	    tabContentContainers: '.c-tab'
+	  });
+  
+	myTabs.init();
+});
 

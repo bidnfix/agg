@@ -90,6 +90,7 @@ public class DealerServiceImpl implements DealerService {
 				dealerDO.setUserName(dealer.getAccount().getUserName());
 				dealerDO.setFirstName(dealer.getFirstName());
 				dealerDO.setLastName(dealer.getLastName());
+				dealerDO.setName(dealer.getFirstName()+" "+dealer.getLastName());
 				dealerDO.setAddress1(dealer.getAddress());
 				dealerDO.setAddress2(dealer.getAddress2());
 				dealerDO.setCity(dealer.getCity());

@@ -41,7 +41,7 @@
 						<label for="dealer" class="col-sm-4 control-label">Dealer</label>
 						<div class="col-sm-4">
 							<!-- <select class="form-control" name="dealer" ng-model="user.dealerDO" id="dealer" ng-options="dealer.userName for dealer in dealerList" required="required" ng-change="getLocation(this.id)"> -->
-							<select class="form-control" name="dealer" ng-model="quote.dealerDO" id="dealer" ng-options="dealer.userName for dealer in dealerList" required="required">
+							<select class="form-control" name="dealer" ng-model="quote.dealerDO" id="dealer" ng-options="dealer.name for dealer in dealerList" required="required">
 								<option value="">Select Dealer</option>
 							</select>
 						</div>
@@ -210,9 +210,156 @@
         </div>
         <div class="c-tab">
           <div class="c-tab__content">
-            <h2>Your Favourites!</h2>
-            <p>Favourites ipsum dolor sit amet, consectetur adipisicing elit. Ipsam quo minus voluptate unde tempore eveniet consequuntur in, quod animi libero rem similique pariatur quos, et eum nisi ducimus, architecto voluptatibus!</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto aspernatur natus dolorem fuga cumque optio saepe corrupti earum. Ipsam quaerat asperiores similique omnis excepturi temporibus ab eum magnam ipsa, odio.</p>
+            <div class="inner-main">
+            	<p>Determine Dealer Markup: Enter the Dealer Mark-Up You want calculated into this quote as either a percentage or specific dollar amount</p>
+            	<p>Recommended Markup:	Your Dealership does not currently have a recommended markup.</p>
+				<div class="form-group">
+					<label for="dealerMarkup" class="col-sm-3 control-label"></label>
+					<div class="col-sm-4">
+						<input type="text" id="dealerMarkup" name="dealerMarkup" ng-model="quote.dealerMarkup" placeholder="Dealer Markup" class="form-control">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="dealerMarkupVlaue" class="col-sm-3 control-label"></label>
+					<div class="col-sm-4">
+						<input type="radio" id="dealerMarkupPrice" name="dealerMarkupPrice" ng-model="quote.dealerMarkupPrice" class="">Price
+						<input type="radio" id="dealerMarkupPercent" name="dealerMarkupPercent" ng-model="quote.dealerMarkupPercent" class="">Percent
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="coverageTerm" class="col-sm-3 control-label">Choose one deductible amount and one coverage term:</label>
+					<div class="col-sm-4">
+						Deductible:&nbsp;&nbsp;<input type="radio" id="deductiblePrice" name="deductiblePrice" ng-model="quote.deductiblePrice" class="" value="250"> $250
+						<input type="radio" id="deductiblePrice" name="deductiblePrice" ng-model="quote.deductiblePrice" class="" value="500"> $500
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="model" class="col-sm-3 control-label"></label>
+					<div class="col-sm-4">
+						Coverage Term:&nbsp;&nbsp;<input type="radio" id="coverageTerm" name="coverageTerm" ng-model="quote.coverageTerm" class="" value="12"> 12 mos.
+						<input type="radio" id="coverageTerm" name="coverageTerm" ng-model="quote.coverageTerm" class="" value="24"> 24 mos.
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="modelNumber" class="col-sm-3 control-label">Please enter the customer's information below Or assign a "Nickname" to this quote.</label>
+					<div class="col-sm-4">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="dealerName" class="col-sm-3 control-label">Name/Nickname</label>
+					<div class="col-sm-4">
+						<input type="text" id="dealerName" name="dealerName" ng-model="quote.dealerName" placeholder="Dealer Name" class="form-control" required="required">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="dealerAddress" class="col-sm-3 control-label">Address</label>
+					<div class="col-sm-4">
+						<input type="text" id="dealerAddress" name="dealerAddress" ng-model="quote.dealerAddress" placeholder="Dealer Address" class="form-control">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="dealerCity" class="col-sm-3 control-label">City</label>
+					<div class="col-sm-4">
+						<input type="text" id="dealerCity" name="dealerCity" ng-model="quote.dealerCity" placeholder="Dealer City" class="form-control" required="required">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="dealerState" class="col-sm-3 control-label">State/Province</label>
+					<div class="col-sm-4">
+						<select class="form-control" name="dealerState" ng-model="quote.dealerState" id="dealerState" required="required">
+							<option value="">Select State/Province</option>
+							<option value="AL">Alabama</option>
+							<option value="AK">Alaska</option>
+							<option value="AZ">Arizona</option>
+							<option value="AR">Arkansas</option>
+							<option value="CA">California</option>
+							<option value="CO">Colorado</option>
+							<option value="CT">Connecticut</option>
+							<option value="DE">Delaware</option>
+							<option value="DC">District Of Columbia</option>
+							<option value="FL">Florida</option>
+							<option value="GA">Georgia</option>
+							<option value="HI">Hawaii</option>
+							<option value="ID">Idaho</option>
+							<option value="IL">Illinois</option>
+							<option value="IN">Indiana</option>
+							<option value="IA">Iowa</option>
+							<option value="KS">Kansas</option>
+							<option value="KY">Kentucky</option>
+							<option value="LA">Louisiana</option>
+							<option value="ME">Maine</option>
+							<option value="MD">Maryland</option>
+							<option value="MA">Massachusetts</option>
+							<option value="MI">Michigan</option>
+							<option value="MN">Minnesota</option>
+							<option value="MS">Mississippi</option>
+							<option value="MO">Missouri</option>
+							<option value="MT">Montana</option>
+							<option value="NE">Nebraska</option>
+							<option value="NV">Nevada</option>
+							<option value="NH">New Hampshire</option>
+							<option value="NJ">New Jersey</option>
+							<option value="NM">New Mexico</option>
+							<option value="NY">New York</option>
+							<option value="NC">North Carolina</option>
+							<option value="ND">North Dakota</option>
+							<option value="OH">Ohio</option>
+							<option value="OK">Oklahoma</option>
+							<option value="OR">Oregon</option>
+							<option value="PA">Pennsylvania</option>
+							<option value="RI">Rhode Island</option>
+							<option value="SC">South Carolina</option>
+							<option value="SD">South Dakota</option>
+							<option value="TN">Tennessee</option>
+							<option value="TX">Texas</option>
+							<option value="UT">Utah</option>
+							<option value="VT">Vermont</option>
+							<option value="VA">Virginia</option>
+							<option value="WA">Washington</option>
+							<option value="WV">West Virginia</option>
+							<option value="WI">Wisconsin</option>
+							<option value="WY">Wyoming</option>
+							<option value="AB">Alberta</option>
+							<option value="BC">British Columbia</option>
+							<option value="MB">Manitoba</option>
+							<option value="NB">New Brunswick</option>
+							<option value="NL">Newfoundland and Labrador</option>
+							<option value="NS">Nova Scotia</option>
+							<option value="ON">Ontario</option>
+							<option value="PE">Prince Edward Island</option>
+							<option value="QC">Quebec</option>
+							<option value="SK">Saskatchewan</option>
+							<option value="NT">Northwest Territories</option>
+							<option value="NU">Nunavut</option>
+							<option value="YT">Yukon</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="dealerZip" class="col-sm-3 control-label">Zip</label>
+					<div class="col-sm-4">
+						<input type="text" id="dealerZip" name="dealerZip" ng-model="quote.dealerZip" placeholder="Zip" class="form-control" required="required">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="dealerPhone" class="col-sm-3 control-label">Phone Number</label>
+					<div class="col-sm-4">
+						<input type="text" id="dealerPhone" name="dealerPhone" ng-model="quote.dealerPhone" placeholder="Phone Number" class="form-control" required="required">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="dealerEmail" class="col-sm-3 control-label">Email Address</label>
+					<div class="col-sm-4">
+						<input type="text" id="dealerEmail" name="dealerEmail" ng-model="quote.dealerEmail" placeholder="Email" class="form-control" required="required"> 
+					</div>
+				</div>
+				<p>If you cannot find the coverage you want, please select the Help Request form from the black menu bar at the top of the page and we will communicate with you soon to explore other options.</p>
+				<div class="form-group">
+					<div class="col-sm-5 col-sm-offset-3">
+						<button type="button" class="btn btn-primary btn-block">Continue to "Quote Summary"</button>
+					</div>
+				</div>
+			</div>
           </div>
         </div>
         <div class="c-tab">

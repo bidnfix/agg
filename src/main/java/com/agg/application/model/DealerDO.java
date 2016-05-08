@@ -4,6 +4,8 @@ public class DealerDO {
 	
 	private long id;
 	
+	private String name;
+	
 	private long code;
 
 	private String userName;
@@ -336,6 +338,20 @@ public class DealerDO {
 	 */
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 }
