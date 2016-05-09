@@ -45,7 +45,7 @@
                 <td>{{machine.enginePower}}</td>
                 <td>{{machine.groupDO.groupId}}</td>
                 <td><div class="manage-sec"><!-- <a href="#"><img src="../assets/images/delete-icon.png" alt="Delete" title="Delete"/></a> -->
-                		<a ng-click="editMachine(machine.machineId)"><img src="../assets/images/edit-pencil.png" alt="Edit" title="Edit"/></a>
+                		<a ng-click="editMachine(machine.machineId)"><img src="../assets/images/edit-icon.png" alt="Edit" title="Edit"/></a>
                 	</div>
                 </td>
             </tr>
