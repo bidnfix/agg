@@ -83,7 +83,7 @@ public class MachineController extends BaseController {
 	@RequestMapping(value = "/saveMachine", method = RequestMethod.POST)
 	public @ResponseBody Result saveOrEditMachine(@RequestBody MachineDO machineDO, BindingResult result,
 			HttpServletRequest request, HttpServletResponse response) {
-		logger.debug("In saveOrEditMachine with groupId: "+machineDO.getGroupId());
+		logger.debug("In saveOrEditMachine with groupId: "+machineDO.getGroupDO().getGroupId());
 		Result opResult = null;
 		/*if (!sessionExists(request)){
 			opResult = new Result("failure", "Invalid Login", null);

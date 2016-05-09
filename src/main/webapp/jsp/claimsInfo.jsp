@@ -39,7 +39,7 @@
  
         <tbody>
             <tr ng-repeat="quote in quoteDOList">
-            	<td>{{quote.id}}</td>
+            	<td>{{quote.id.id}}</td>
                 <td>{{quote.manufacturerDO.id}}</td>
                 <td>{{quote.model}}</td>
                 <td>{{quote.serial}}</td>

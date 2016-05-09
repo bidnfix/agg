@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.agg.application.dao.GroupConstantDAO;
 import com.agg.application.dao.GroupDAO;
 import com.agg.application.dao.MachineDAO;
 import com.agg.application.dao.MachineInfoDAO;
@@ -23,7 +24,6 @@ import com.agg.application.entity.MachineType;
 import com.agg.application.entity.Manufacturer;
 import com.agg.application.model.GroupDO;
 import com.agg.application.model.MachineDO;
-import com.agg.application.model.MachineInfoDO;
 import com.agg.application.model.MachineModelDO;
 import com.agg.application.model.MachineTypeDO;
 import com.agg.application.model.ManufacturerDO;
@@ -46,6 +46,11 @@ public class MachineServiceImpl implements MachineService {
 	
 	@Autowired
 	private GroupDAO groupDAO;
+	
+	@Autowired
+	private GroupConstantDAO groupConstantDAO;
+	
+	
 
 	
 	/*@Override
@@ -98,6 +103,7 @@ public class MachineServiceImpl implements MachineService {
 			MachineInfo machineInfo = null;
 			ManufacturerDO manufacturerDO = null;
 			MachineTypeDO machineTypeDO = null;
+			GroupDO groupDO = null;
 			
 			Iterator<MachineInfo> it = machineInfoList.iterator();
 			while(it.hasNext()){
@@ -123,7 +129,11 @@ public class MachineServiceImpl implements MachineService {
 				//machineDO.setMachineType(machineInfo.getMachineType().getMachineType());
 				machineDO.setModel(machineInfo.getModel());
 				machineDO.setEnginePower(machineInfo.getPower());
-				machineDO.setGroupId(machineInfo.getGroupId());
+				//machineDO.setGroupId(machineInfo.getGroupId());
+				groupDO = new GroupDO();
+				groupDO.setGroupId(machineInfo.getGroupConstant().getGroupId());
+				machineDO.setGroupDO(groupDO);
+				
 				machineDOList.add(machineDO);
 			}
 		}
@@ -138,6 +148,7 @@ public class MachineServiceImpl implements MachineService {
 		MachineDO machineDO = null;
 		ManufacturerDO manufacturerDO = null;
 		MachineTypeDO machineTypeDO = null;
+		GroupDO groupDO = null;
 		
 		if(machine != null){
 			machineDO = new MachineDO();
@@ -160,7 +171,10 @@ public class MachineServiceImpl implements MachineService {
 			//machineDO.setMachineType(machine.getMachineType().getMachineType());
 			machineDO.setModel(machine.getModel());
 			machineDO.setEnginePower(machine.getPower());
-			machineDO.setGroupId(machine.getGroupId());
+			
+			groupDO = new GroupDO();
+			groupDO.setGroupId(machine.getGroupConstant().getGroupId());
+			machineDO.setGroupDO(groupDO);
 		}
 		
 		logger.debug("In getMachine : "+machineDO);
@@ -223,6 +237,7 @@ public class MachineServiceImpl implements MachineService {
 			machineModelDOList = new ArrayList<MachineModelDO>();
 			MachineModelDO machineModelDO = null;
 			MachineInfo machineModel = null;
+			GroupDO groupDO = null;
 			Iterator<MachineInfo> it = machineModelList.iterator();
 			while(it.hasNext()){
 				machineModelDO = new MachineModelDO();
@@ -234,7 +249,12 @@ public class MachineServiceImpl implements MachineService {
 				//machineModelDO.setePower(machineModel.getePower());
 				machineModelDO.setRetailPrice(machineModel.getRetailPrice());
 				machineModelDO.setBasePrice(machineModel.getBasePrice());
-				machineModelDO.setGroupId(machineModel.getGroupId());
+				
+/*				groupDO = new GroupDO();
+				groupDO.setGroupId(machineModel.getGroupId().getGroupId());
+				machineModelDO.setGroupDO(groupDO);*/
+				
+				machineModelDO.setGroupId(machineModel.getGroupConstant().getGroupId());
 				//machineModelDO.setMachineTypeId(machineModel.getMachineTypeId());
 				machineModelDOList.add(machineModelDO);
 			}
@@ -264,8 +284,10 @@ public class MachineServiceImpl implements MachineService {
 		//macineInfo.setePower(machineModelDO.getePower());
 		//macineInfo.setRetailPrice(machineDO.getRetailPrice());
 		//macineInfo.setBasePrice(machineDO.getBasePrice());
-		macineInfo.setGroupId(machineDO.getGroupId());
+
+		macineInfo.setGroupConstant(groupConstantDAO.findOne(Long.valueOf(machineDO.getGroupDO().getGroupId())));
 		
+
 		macineInfo.setLastUpdate(date);
 		
 		macineInfo = machineInfoDAO.save(macineInfo);

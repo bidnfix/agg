@@ -12,7 +12,7 @@ public class MachineDO {
 	
     private double enginePower;
 	
-	private int groupId;
+	private GroupDO groupDO;
 	
 	private long machineId;
 	
@@ -66,12 +66,12 @@ public class MachineDO {
 		this.enginePower = enginePower;
 	}
 
-	public int getGroupId() {
-		return groupId;
+	public GroupDO getGroupDO() {
+		return groupDO;
 	}
 
-	public void setGroupId(int groupId) {
-		this.groupId = groupId;
+	public void setGroupDO(GroupDO groupDO) {
+		this.groupDO = groupDO;
 	}
 	
 	

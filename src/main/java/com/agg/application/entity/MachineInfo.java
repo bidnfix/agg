@@ -39,8 +39,7 @@ public class MachineInfo implements Serializable {
 	@Column(name="e_power")
 	private double ePower;
 
-	@Column(name="group_id")
-	private int groupId;
+	
 
 	@Column(name="last_update")
 	private Timestamp lastUpdate;
@@ -55,6 +54,11 @@ public class MachineInfo implements Serializable {
 
 	@Column(name="retail_price")
 	private double retailPrice;
+	
+	//bi-directional many-to-one association to Manufacturer
+	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	@JoinColumn(name="group_id")
+	private GroupConstant groupConstant;
 
 	//bi-directional many-to-one association to Manufacturer
 	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
@@ -116,13 +120,6 @@ public class MachineInfo implements Serializable {
 		this.ePower = ePower;
 	}
 
-	public int getGroupId() {
-		return this.groupId;
-	}
-
-	public void setGroupId(int groupId) {
-		this.groupId = groupId;
-	}
 
 	public Timestamp getLastUpdate() {
 		return this.lastUpdate;
@@ -214,6 +211,14 @@ public class MachineInfo implements Serializable {
 		machineNote.setMachineInfo(null);
 
 		return machineNote;
+	}
+	
+	public GroupConstant getGroupConstant() {
+		return groupConstant;
+	}
+
+	public void setGroupConstant(GroupConstant groupConstant) {
+		this.groupConstant = groupConstant;
 	}
 
 }

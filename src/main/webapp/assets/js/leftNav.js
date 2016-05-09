@@ -111,8 +111,8 @@ routingApp.controller('GetMachineInfoController', function($scope, machineServic
 		//alert(dealerId);
 		$http.get("/agg/machine/"+machineId)
 	    .then(function(response) {
+	    	$scope.groupList = response.data.data.groupList;
 	        $scope.machine = response.data.data.machine;
-	        $scope.groupList = response.data.data.groupList;
 	       /* $scope.dealer = {
 	        	userName: $scope.dealerr.userName,	
 	        	state: $scope.dealerr.state

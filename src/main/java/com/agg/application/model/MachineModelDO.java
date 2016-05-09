@@ -15,7 +15,7 @@ public class MachineModelDO {
 
 	private double ePower;
 
-	private int groupId;
+	private long groupId;
 
 	private Timestamp lastUpdate;
 
@@ -67,11 +67,11 @@ public class MachineModelDO {
 		this.ePower = ePower;
 	}
 
-	public int getGroupId() {
+	public long getGroupId() {
 		return groupId;
 	}
 
-	public void setGroupId(int groupId) {
+	public void setGroupId(long groupId) {
 		this.groupId = groupId;
 	}
 

@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class GroupDO{
 	private static final long serialVersionUID = 1L;
 
-	private int groupId;
+	private long groupId;
 
 	private double comm;
 
@@ -23,11 +23,11 @@ public class GroupDO{
 
 	private double tax;
 
-	public int getGroupId() {
+	public long getGroupId() {
 		return this.groupId;
 	}
 
-	public void setGroupId(int groupId) {
+	public void setGroupId(long groupId) {
 		this.groupId = groupId;
 	}
 

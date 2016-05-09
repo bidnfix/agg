@@ -36,7 +36,8 @@
 			<div class="form-group">
 				<label for="groupId" class="col-sm-3 control-label">Group Id</label>
 				<div class="col-sm-9">
-				<select name="groupId" ng-options="groupDO.groupId for groupDO in groupList track by groupDO.groupId" ng-model="machine.groupId" id="groupId" required="required"></select><!-- ng-options="groupDO.groupId for groupDO in groupList " -->
+				<select name="groupId" ng-options="groupDO.groupId for groupDO in groupList track by groupDO.groupId" 
+						ng-model="machine.groupDO" id="groupId" required="required"></select>
 				</div>
 			</div>
 			<div class="form-group">

@@ -16,7 +16,7 @@ public class GroupConstant implements Serializable {
 
 	@Id
 	@Column(name="group_id")
-	private int groupId;
+	private long groupId;
 
 	private double comm;
 
@@ -36,11 +36,11 @@ public class GroupConstant implements Serializable {
 	public GroupConstant() {
 	}
 
-	public int getGroupId() {
+	public long getGroupId() {
 		return this.groupId;
 	}
 
-	public void setGroupId(int groupId) {
+	public void setGroupId(long groupId) {
 		this.groupId = groupId;
 	}
 
