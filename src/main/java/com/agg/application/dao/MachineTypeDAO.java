@@ -11,7 +11,7 @@ import com.agg.application.entity.MachineType;
 @Component
 public interface MachineTypeDAO extends CrudRepository<MachineType, Long> {
 
-	List<MachineType> findByManufacturerManfId(int typeId);
+	//List<MachineType> findByManufacturerManfId(int typeId);
 	
 	//List<MachineModel> findByMachineTypeMachineTypeId(int typeId);
 

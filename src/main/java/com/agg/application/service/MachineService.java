@@ -6,6 +6,7 @@ import com.agg.application.model.GroupDO;
 import com.agg.application.model.MachineDO;
 import com.agg.application.model.MachineInfoDO;
 import com.agg.application.model.MachineModelDO;
+import com.agg.application.model.MachineTypeDO;
 import com.agg.application.model.ManufacturerDO;
 
 public interface MachineService {
@@ -14,7 +15,8 @@ public interface MachineService {
 	
 	List<ManufacturerDO> getManufacturerDetails();
 	
-	List<ManufacturerDO> getMachineTypeById(int typeId);
+	//List<ManufacturerDO> getMachineTypeById(int typeId);
+	List<MachineTypeDO> getMachineTypes();
 	
 	List<MachineModelDO> getMachineModel(int typeId);
 	

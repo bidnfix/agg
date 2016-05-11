@@ -21,11 +21,6 @@ public class MachineType implements Serializable {
 	@Column(name="machine_type")
 	private String machineType;
 
-	//bi-directional many-to-one association to Manufacturer
-	@ManyToOne
-	@JoinColumn(name="manf_id")
-	private Manufacturer manufacturer;
-
 	public MachineType() {
 	}
 
@@ -43,14 +38,6 @@ public class MachineType implements Serializable {
 
 	public void setMachineType(String machineType) {
 		this.machineType = machineType;
-	}
-
-	public Manufacturer getManufacturer() {
-		return this.manufacturer;
-	}
-
-	public void setManufacturer(Manufacturer manufacturer) {
-		this.manufacturer = manufacturer;
 	}
 
 }

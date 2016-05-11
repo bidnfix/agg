@@ -153,6 +153,8 @@ routingApp.controller('AddMachineController', function($scope, $http) {
 	 $http.get("/agg/addMachine")
 	    .then(function(response) {
 	        $scope.manufacturerList = response.data.data.manufacturerList;
+	        $scope.machineTypeList = response.data.data.machineTypeList;
+	        $scope.groupList = response.data.data.groupList;
 	    });
 });
 

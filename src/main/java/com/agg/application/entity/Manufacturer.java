@@ -26,10 +26,10 @@ public class Manufacturer implements Serializable {
 	@OneToMany(mappedBy="manufacturer")
 	private List<MachineInfo> machineInfos;
 
-	//bi-directional many-to-one association to MachineType
+/*	//bi-directional many-to-one association to MachineType
 	@OneToMany(mappedBy="manufacturer")
 	private List<MachineType> machineTypes;
-
+*/
 	//bi-directional many-to-one association to Quote
 	@OneToMany(mappedBy="manufacturer")
 	private List<Quote> quotes;
@@ -75,7 +75,7 @@ public class Manufacturer implements Serializable {
 		return machineInfo;
 	}
 
-	public List<MachineType> getMachineTypes() {
+/*	public List<MachineType> getMachineTypes() {
 		return this.machineTypes;
 	}
 
@@ -85,18 +85,18 @@ public class Manufacturer implements Serializable {
 
 	public MachineType addMachineType(MachineType machineType) {
 		getMachineTypes().add(machineType);
-		machineType.setManufacturer(this);
+		//machineType.setManufacturer(this);
 
 		return machineType;
 	}
 
 	public MachineType removeMachineType(MachineType machineType) {
 		getMachineTypes().remove(machineType);
-		machineType.setManufacturer(null);
+		//machineType.setManufacturer(null);
 
 		return machineType;
 	}
-
+*/
 	public List<Quote> getQuotes() {
 		return this.quotes;
 	}

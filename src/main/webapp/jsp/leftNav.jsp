@@ -23,7 +23,7 @@
 					<!-- <li><a id="manageLocations" href="#/agg/addLocation" ng-click="activateTab($event);">MANAGE LOCATIONS</a></li> -->
 					<li><a id="manageUsers" href="#/agg/addUser" ng-click="activateTab($event);">MANAGE USERS</a></li>
 					<li><a id="pendingDealers" href="#" ng-click="activateTab($event);">PENDING DEALERS</a></li>
-					<li><a id="dealerSearch" href="#" ng-click="activateTab($event);">DEALER SEARCH</a></li>
+					<!-- <li><a id="dealerSearch" href="#" ng-click="activateTab($event);">DEALER SEARCH</a></li>  -->
 				</ul>
 			</li>
 			<li class="animated fadeInLeftBig"><a id="claims" href="#/agg/claimsInfo" ng-click="activateTab($event);">CLAIMS MANAGEMENT</a>

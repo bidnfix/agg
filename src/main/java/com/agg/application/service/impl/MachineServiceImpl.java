@@ -112,7 +112,7 @@ public class MachineServiceImpl implements MachineService {
 				logger.debug("machineInfo.getMachineType() " +machineInfo.getMachineType().getMachineType());
 				//logger.debug("machineInfo.getManufacturer() " +machineInfo.getManufacturer().getManfName());
 				manufacturerDO = new ManufacturerDO();
-				Manufacturer manufacturer = machineInfo.getMachineType().getManufacturer();
+				Manufacturer manufacturer = machineInfo.getManufacturer();
 				manufacturerDO.setId(manufacturer.getManfId());
 				manufacturerDO.setName(manufacturer.getManfName());
 				machineDO.setManufacturerDO(manufacturerDO);
@@ -154,7 +154,7 @@ public class MachineServiceImpl implements MachineService {
 			machineDO = new MachineDO();
 			
 			manufacturerDO = new ManufacturerDO();
-			Manufacturer manufacturer = machine.getMachineType().getManufacturer();
+			Manufacturer manufacturer = machine.getManufacturer();
 			manufacturerDO.setId(manufacturer.getManfId());
 			manufacturerDO.setName(manufacturer.getManfName());
 			machineDO.setManufacturerDO(manufacturerDO);
@@ -206,7 +206,7 @@ public class MachineServiceImpl implements MachineService {
 		return manufacturerDOList;
 	}
 	
-	@Override
+	/*@Override
 	public List<ManufacturerDO> getMachineTypeById(int typeId) {
 		logger.debug("Inside getMachineTypeById()");
 		List<MachineType>  machineTypeList =  machineTypeDAO.findByManufacturerManfId(typeId);
@@ -218,6 +218,28 @@ public class MachineServiceImpl implements MachineService {
 			Iterator<MachineType> it = machineTypeList.iterator();
 			while(it.hasNext()){
 				machineTypeDO = new ManufacturerDO();
+				machineType = it.next();
+				machineTypeDO.setId((int)machineType.getMachineTypeId());
+				machineTypeDO.setName(machineType.getMachineType());
+				machineTypeDOList.add(machineTypeDO);
+			}
+		}
+		logger.debug("Machine Type List size: "+machineTypeDOList.size());
+		return machineTypeDOList;
+	}*/
+	
+	@Override
+	public List<MachineTypeDO> getMachineTypes() {
+		logger.debug("Inside getMachineTypes()");
+		List<MachineType>  machineTypeList =  Lists.newArrayList(machineTypeDAO.findAll());
+		List<MachineTypeDO> machineTypeDOList = null;
+		if(machineTypeList != null && !machineTypeList.isEmpty()){
+			machineTypeDOList = new ArrayList<MachineTypeDO>();
+			MachineTypeDO machineTypeDO = null;
+			MachineType machineType = null;
+			Iterator<MachineType> it = machineTypeList.iterator();
+			while(it.hasNext()){
+				machineTypeDO = new MachineTypeDO();
 				machineType = it.next();
 				machineTypeDO.setId((int)machineType.getMachineTypeId());
 				machineTypeDO.setName(machineType.getMachineType());

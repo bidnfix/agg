@@ -23,6 +23,7 @@ import com.agg.application.model.GroupDO;
 import com.agg.application.model.MachineDO;
 import com.agg.application.model.MachineInfoDO;
 import com.agg.application.model.MachineModelDO;
+import com.agg.application.model.MachineTypeDO;
 import com.agg.application.model.ManufacturerDO;
 import com.agg.application.model.Result;
 import com.agg.application.service.MachineService;
@@ -48,11 +49,15 @@ public class MachineController extends BaseController {
 	public @ResponseBody Result addMachine(ModelMap model, HttpServletResponse response) {
 		logger.info("Inside addMachine()");
 		List<ManufacturerDO> manufacturers = machineService.getManufacturerDetails();
+		List<MachineTypeDO> machineTypes = machineService.getMachineTypes();
+		List<GroupDO> groupList = machineService.getGroups();
 		model.put("manufacturerList", manufacturers);
+		model.put("machineTypeList", machineTypes);
+		model.put("groupList", groupList);
 		return new Result("success", null, model);	
 	}
 	
-	@RequestMapping(value = "/machineType/{typeId}", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+	/*@RequestMapping(value = "/machineType/{typeId}", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
 	public @ResponseBody Result machineType(ModelMap model, HttpServletResponse response, @PathVariable String typeId) {
 		logger.info("Inside machineType() with typeId: "+typeId);
 		if(typeId != null && !typeId.isEmpty()){
@@ -60,7 +65,7 @@ public class MachineController extends BaseController {
 			model.put("machineTypeList", machineTypes);
 		}
 		return new Result("success", null, model);	
-	}
+	}*/
 	
 	@RequestMapping(value = "/machineModel/{typeId}", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
 	public @ResponseBody Result machineModel(ModelMap model, HttpServletResponse response, @PathVariable String typeId) {
