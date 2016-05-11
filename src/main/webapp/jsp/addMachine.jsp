@@ -33,7 +33,7 @@
 			<div class="form-group">
 				<label for="machine type" class="col-sm-3 control-label">Machine Type</label>
 				<div class="col-sm-9">
-					<select name="machineType" ng-model="machine.machineTypeDO.name" ng-options="machineType.name for machineType in machineTypeList"></select> 
+					<select name="machineType" ng-model="machine.machineTypeDO" ng-options="machineType.name for machineType in machineTypeList"></select> 
 				</div>
 			</div>
 			<div class="form-group">
