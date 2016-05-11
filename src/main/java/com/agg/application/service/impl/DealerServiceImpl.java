@@ -83,14 +83,16 @@ public class DealerServiceImpl implements DealerService {
 			DealerDO dealerDO = null;
 			RoleDO roleDO = null;
 			Role role = null;
+			Account account = null;
 			for(Dealer dealer : dealerList){
 				dealerDO = new DealerDO();
 				dealerDO.setId(dealer.getId());
 				dealerDO.setCode(dealer.getCode());
-				dealerDO.setUserName(dealer.getAccount().getUserName());
-				dealerDO.setFirstName(dealer.getFirstName());
-				dealerDO.setLastName(dealer.getLastName());
-				dealerDO.setName(dealer.getFirstName()+" "+dealer.getLastName());
+				account = dealer.getAccount();
+				dealerDO.setUserName(account.getUserName());
+				dealerDO.setFirstName(account.getFirstName());
+				dealerDO.setLastName(account.getLastName());
+				dealerDO.setName(dealer.getName());
 				dealerDO.setAddress1(dealer.getAddress());
 				dealerDO.setAddress2(dealer.getAddress2());
 				dealerDO.setCity(dealer.getCity());
@@ -106,7 +108,7 @@ public class DealerServiceImpl implements DealerService {
 				roleDO.setName(role.getRTitle());
 				dealerDO.setRoleDO(roleDO);
 				dealerDO.setRoleName(role.getRTitle());
-				dealerDO.setParentCode(dealer.getAccount().getDealerParent().getCode());
+				dealerDO.setParentCode(dealer.getParentCode());
 				
 				dealerDOList.add(dealerDO);
 			}
@@ -124,9 +126,7 @@ public class DealerServiceImpl implements DealerService {
 		dealer.setAddress(dealerDO.getAddress1());
 		dealer.setAddress2(dealerDO.getAddress2());
 		dealer.setCity(dealerDO.getCity());
-		dealer.setContact(dealerDO.getContact());
-		dealer.setFirstName(dealerDO.getFirstName());
-		dealer.setLastName(dealerDO.getLastName());
+		dealer.setName(dealerDO.getName());
 		
 		dealer.setInvoiceEmail(dealerDO.getInvoiceEmail());
 		//TODO
@@ -137,7 +137,10 @@ public class DealerServiceImpl implements DealerService {
 		
 		Sequence sequence = sequenceDAO.findBySeqType(SEQUENCE_TYPE_DEALER);
 		logger.debug("sequenceId: "+sequence.getSeqValue());
-		dealer.setCode(Long.valueOf(dealerDO.getZip().substring(0, 2)+sequence.getSeqValue()));
+		long dealerCode = Long.valueOf(dealerDO.getZip().substring(0, 2)+sequence.getSeqValue());
+		logger.debug("dealerCode: "+dealerCode);
+		dealer.setCode(dealerCode);
+		dealer.setParentCode(dealerCode);
 		dealer.setStatus(1);
 		dealer.setState(dealerDO.getState());
 		dealer.setUrl(dealerDO.getDealerUrl());
@@ -149,6 +152,8 @@ public class DealerServiceImpl implements DealerService {
 		Account account = new Account();
 		account.setUserName(dealerDO.getUserName());
 		account.setPassword(dealerDO.getPassword());
+		account.setFirstName(dealerDO.getFirstName());
+		account.setLastName(dealerDO.getLastName());
 		account.setAccountType(role.getAccountType());
 		account.setRole(role);
 		account.setCreatedDate(date);
@@ -159,7 +164,6 @@ public class DealerServiceImpl implements DealerService {
 		account.setUpdatedBy(accountDO.getUsername());
 		
 		account.setDealer(dealer);
-		account.setDealerParent(dealer);
 		
 		sequence.setSeqValue(sequence.getSeqValue()+1);
 		sequenceDAO.save(sequence);
@@ -178,9 +182,7 @@ public class DealerServiceImpl implements DealerService {
 		dealer.setAddress(dealerDO.getAddress1());
 		dealer.setAddress2(dealerDO.getAddress2());
 		dealer.setCity(dealerDO.getCity());
-		dealer.setContact(dealerDO.getContact());
-		dealer.setFirstName(dealerDO.getFirstName());
-		dealer.setLastName(dealerDO.getLastName());
+		dealer.setName(dealerDO.getName());
 		
 		dealer.setInvoiceEmail(dealerDO.getInvoiceEmail());
 		//TODO
@@ -191,7 +193,8 @@ public class DealerServiceImpl implements DealerService {
 		
 		
 		dealer.setCode(dealerDO.getCode());
-		dealer.setStatus(1);
+		dealer.setParentCode(dealerDO.getParentCode());
+		dealer.setStatus(dealerDO.getStatus());
 		dealer.setState(dealerDO.getState());
 		dealer.setUrl(dealerDO.getDealerUrl());
 		dealer.setZip(dealerDO.getZip());
@@ -202,6 +205,8 @@ public class DealerServiceImpl implements DealerService {
 		Account account = dealer.getAccount();
 		account.setUserName(dealerDO.getUserName());
 		account.setPassword(dealerDO.getPassword());
+		account.setFirstName(dealerDO.getFirstName());
+		account.setLastName(dealerDO.getLastName());
 		account.setAccountType(role.getAccountType());
 		account.setRole(role);
 		account.setCreatedDate(date);
@@ -212,7 +217,6 @@ public class DealerServiceImpl implements DealerService {
 		account.setUpdatedBy(accountDO.getUsername());
 		
 		account.setDealer(dealer);
-		account.setDealerParent(dealer);
 		
 		account = accountDAO.save(account);
 		
@@ -226,19 +230,20 @@ public class DealerServiceImpl implements DealerService {
 		if(dealer != null){
 			dealerDO = new DealerDO();
 			dealerDO.setId(dealer.getId());
-			dealerDO.setUserName(dealer.getAccount().getUserName());
+			Account account = dealer.getAccount();
+			dealerDO.setUserName(account.getUserName());
 			dealerDO.setAddress1(dealer.getAddress());
 			dealerDO.setAddress2(dealer.getAddress2());
 			dealerDO.setCity(dealer.getCity());
-			dealerDO.setFirstName(dealer.getFirstName());
-			dealerDO.setLastName(dealer.getLastName());
+			dealerDO.setFirstName(account.getFirstName());
+			dealerDO.setLastName(account.getLastName());
 			dealerDO.setInvoiceEmail(dealer.getInvoiceEmail());
 			dealerDO.setMarketEmail(dealer.getMarketEmail());
 			dealerDO.setPhone(dealer.getPhone());
 			dealerDO.setState(dealer.getState());
 			dealerDO.setZip(dealer.getZip());
 			dealerDO.setStatus(dealer.getStatus());
-			dealerDO.setContact(dealer.getContact());
+			dealerDO.setName(dealer.getName());
 			dealerDO.setDealerUrl(dealer.getUrl());
 			dealerDO.setNotes(dealer.getNotes());
 			dealerDO.setPassword(dealer.getAccount().getPassword());
@@ -388,14 +393,12 @@ public class DealerServiceImpl implements DealerService {
 	public long saveDealerUser(UserDO userDO, AccountDO accountDO) {
 		logger.debug("In saveDealerUser method");
 		
-		Dealer dealer = new Dealer();
 		Timestamp date = new Timestamp(new Date().getTime());
+		
+		/*Dealer dealer = new Dealer();
 		dealer.setAddress(userDO.getAddress1());
 		dealer.setAddress2(userDO.getAddress2());
 		dealer.setCity(userDO.getCity());
-		dealer.setFirstName(userDO.getFirstName());
-		dealer.setLastName(userDO.getLastName());
-		
 		dealer.setInvoiceEmail(userDO.getEmail());
 		dealer.setLastUpdate(date);
 		dealer.setMarketEmail(userDO.getEmail());
@@ -409,13 +412,15 @@ public class DealerServiceImpl implements DealerService {
 		dealer.setUrl(userDO.getUrl());
 		dealer.setZip(userDO.getZip());
 		dealer.setActiveDate(date);
-		dealer.setLastUpdate(date);
+		dealer.setLastUpdate(date);*/
 		
 		Role role = roleDAO.findOne(userDO.getRoleDO().getId());
 		//Location location = locationDAO.findOne(userDO.getLocationDO().getId());
 		Account account = new Account();
 		account.setUserName(userDO.getUserName());
 		account.setPassword(userDO.getPassword());
+		account.setFirstName(userDO.getFirstName());
+		account.setLastName(userDO.getLastName());
 		account.setAccountType(role.getAccountType());
 		account.setRole(role);
 		account.setCreatedDate(date);
@@ -424,15 +429,14 @@ public class DealerServiceImpl implements DealerService {
 		account.setLastLoginDate(date);
 		account.setStatus((byte)1);
 		account.setUpdatedBy(accountDO.getUsername());
-		account.setDealerParent(dealerDAO.findOne(userDO.getDealerDO().getId()));
-		account.setDealer(dealer);
+		account.setDealer(dealerDAO.findOne(userDO.getDealerDO().getId()));
 		
-		sequence.setSeqValue(sequence.getSeqValue()+1);
-		sequenceDAO.save(sequence);
+		/*sequence.setSeqValue(sequence.getSeqValue()+1);
+		sequenceDAO.save(sequence);*/
 		
 		account = accountDAO.save(account);
 		
-		return dealer.getId();
+		return account.getId();
 	}
 
 }

@@ -60,7 +60,7 @@ public class ProgramServiceImpl implements ProgramService {
 		program.setName(sProgram.getPrName());
 		program.setDescription(sProgram.getPrDesc());
 		program.setType(sProgram.getPrCType());
-		program.setDealerName(sProgram.getDealer().getFirstName()+" "+sProgram.getDealer().getLastName());
+		program.setDealerName(sProgram.getDealer().getName());
 		return program;
 	}
 

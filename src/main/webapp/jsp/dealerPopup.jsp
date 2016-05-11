@@ -173,6 +173,17 @@
 				</div>
 			</div>
 			<div class="form-group">
+				<label for="role" class="col-sm-3 control-label">Status</label>
+				<div class="col-sm-9">
+					<select class="form-control" name="status" id="status" ng-model="dealer.status" required="required">
+						<option value="">Select Status</option>
+						<option value="1">Active</option>
+						<option value="0">Terminated</option>
+						<option value="2">Pending</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
 				<div class="col-sm-9 col-sm-offset-3">
 					<button type="submit" class="btn btn-primary btn-block">Edit Dealer</button>
 				</div>

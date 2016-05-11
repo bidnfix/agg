@@ -16,8 +16,6 @@ public class DealerDO {
 	
 	private String lastName;
 	
-	private String contact;
-	
 	private String address1;
 	
 	private String address2;
@@ -86,20 +84,6 @@ public class DealerDO {
 	 */
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	/**
-	 * @return the contact
-	 */
-	public String getContact() {
-		return contact;
-	}
-
-	/**
-	 * @param contact the contact to set
-	 */
-	public void setContact(String contact) {
-		this.contact = contact;
 	}
 
 	/**

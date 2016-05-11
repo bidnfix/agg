@@ -64,7 +64,7 @@
 					<input type="text" id="lastName" name="lastName" ng-model="user.lastName" placeholder="Last Name" class="form-control" required="required">
 				</div>
 			</div>
-			<div class="form-group">
+			<!-- <div class="form-group">
 				<label for="address1" class="col-sm-3 control-label">Address1</label>
 				<div class="col-sm-9">
 					<input type="text" id="address1" name="address1" ng-model="user.address1" placeholder="address1" class="form-control" required="required">
@@ -177,7 +177,7 @@
 				<div class="col-sm-9">
 					<input type="text" id="userUrl" name="userUrl" ng-model="user.url" class="form-control" required="required">
 				</div>
-			</div>
+			</div> -->
 			<div class="form-group">
 				<label for="role" class="col-sm-3 control-label">Role</label>
 				<div class="col-sm-9">
