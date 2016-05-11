@@ -22,6 +22,8 @@ public interface MachineService {
 	
 	public long saveMachineInfo(MachineDO machineDO);
 	
+	public long editMachineInfo(MachineDO machineDO);
+	
 	public MachineDO getMachine(long id);
 	
 	public List<GroupDO> getGroups();

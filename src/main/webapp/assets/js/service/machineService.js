@@ -5,7 +5,7 @@ routingApp.factory('machineService', function($http, $q, $window) {
 				saveMachineInfo : function(machine) {
 					return $http.post('/agg/saveMachine', machine).then(
 							function(response) {
-								alert(response.data.status);
+								//alert(response.data.status);
 								if (response.data.status == 'success') {
 									$window.location = '/agg/home';
 								} else {

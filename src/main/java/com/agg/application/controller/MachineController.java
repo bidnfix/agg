@@ -86,7 +86,7 @@ public class MachineController extends BaseController {
 	}
 	
 	@RequestMapping(value = "/saveMachine", method = RequestMethod.POST)
-	public @ResponseBody Result saveOrEditMachine(@RequestBody MachineDO machineDO, BindingResult result,
+	public @ResponseBody Result saveMachine(@RequestBody MachineDO machineDO, BindingResult result,
 			HttpServletRequest request, HttpServletResponse response) {
 		logger.debug("In saveOrEditMachine with groupId: "+machineDO.getGroupDO().getGroupId());
 		Result opResult = null;
@@ -98,6 +98,28 @@ public class MachineController extends BaseController {
 			}*/
 	
 			long id = machineService.saveMachineInfo(machineDO);
+			if(id > 0){
+				opResult = new Result("success", "Invalid Machine form field values", null);
+			}
+			
+		//}
+		
+		return opResult;
+	}
+	
+	@RequestMapping(value = "/editMachine", method = RequestMethod.POST)
+	public @ResponseBody Result editMachine(@RequestBody MachineDO machineDO, BindingResult result,
+			HttpServletRequest request, HttpServletResponse response) {
+		logger.debug("In saveOrEditMachine with groupId: "+machineDO.getGroupDO().getGroupId());
+		Result opResult = null;
+		/*if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			if (result.hasErrors()){
+				opResult = new Result("failure", "Invalid dealer form field values", null);
+			}*/
+	
+			long id = machineService.editMachineInfo(machineDO);
 			if(id > 0){
 				opResult = new Result("success", "Invalid Machine form field values", null);
 			}

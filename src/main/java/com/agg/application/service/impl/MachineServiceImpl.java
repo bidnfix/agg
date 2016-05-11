@@ -15,13 +15,16 @@ import org.springframework.stereotype.Service;
 
 import com.agg.application.dao.GroupConstantDAO;
 import com.agg.application.dao.GroupDAO;
-import com.agg.application.dao.MachineDAO;
+import com.agg.application.dao.ManufacturerDAO;
 import com.agg.application.dao.MachineInfoDAO;
 import com.agg.application.dao.MachineTypeDAO;
+import com.agg.application.entity.Dealer;
 import com.agg.application.entity.GroupConstant;
 import com.agg.application.entity.MachineInfo;
 import com.agg.application.entity.MachineType;
 import com.agg.application.entity.Manufacturer;
+import com.agg.application.model.AccountDO;
+import com.agg.application.model.DealerDO;
 import com.agg.application.model.GroupDO;
 import com.agg.application.model.MachineDO;
 import com.agg.application.model.MachineModelDO;
@@ -36,7 +39,7 @@ public class MachineServiceImpl implements MachineService {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@Autowired
-	private MachineDAO machineDAO;
+	private ManufacturerDAO manufacturerDAO;
 	
 	@Autowired
 	private MachineTypeDAO machineTypeDAO;
@@ -113,9 +116,13 @@ public class MachineServiceImpl implements MachineService {
 				//logger.debug("machineInfo.getManufacturer() " +machineInfo.getManufacturer().getManfName());
 				manufacturerDO = new ManufacturerDO();
 				Manufacturer manufacturer = machineInfo.getManufacturer();
-				manufacturerDO.setId(manufacturer.getManfId());
-				manufacturerDO.setName(manufacturer.getManfName());
-				machineDO.setManufacturerDO(manufacturerDO);
+				if(manufacturer!=null)
+				{
+					manufacturerDO.setId(manufacturer.getManfId());
+					manufacturerDO.setName(manufacturer.getManfName());
+					machineDO.setManufacturerDO(manufacturerDO);
+				}
+				
 				//logger.debug("machineInfo.getMachineType().getMachineType() "+machineInfo.getMachineType().getMachineType());
 				machineDO.setMachineId(machineInfo.getMachineId());
 			    	
@@ -185,7 +192,7 @@ public class MachineServiceImpl implements MachineService {
 	@Override
 	public List<ManufacturerDO> getManufacturerDetails() {
 		logger.debug("Inside getManufacturerDetails()");
-		List<Manufacturer>  manufacturerModels =  Lists.newArrayList(machineDAO.findAll());
+		List<Manufacturer>  manufacturerModels =  Lists.newArrayList(manufacturerDAO.findAll());
 		
 		List<ManufacturerDO> manufacturerDOList = null;
 		if(!manufacturerModels.isEmpty()){
@@ -289,32 +296,62 @@ public class MachineServiceImpl implements MachineService {
 	@Transactional
 	public long saveMachineInfo(MachineDO machineDO) {
 		logger.debug("In saveMachineInfo");
-		MachineInfo macineInfo = new MachineInfo();
+		MachineInfo machineInfo = new MachineInfo();
 		Timestamp date = new Timestamp(new Date().getTime());
 		
-		//java.sql.Date sqlDate = new java.sql.Date(date.getTime());
-		
 		//macineInfo.setModel((machineDO.getMachineModelDO().getModelId());
-		macineInfo.setModel(machineDO.getModel());
-		macineInfo.setMachineType(machineTypeDAO.findOne(Long.valueOf(machineDO.getMachineTypeDO().getId())));
+		machineInfo.setManufacturer(manufacturerDAO.findOne(Long.valueOf(machineDO.getManufacturerDO().getId())));
+		machineInfo.setModel(machineDO.getModel());
+		machineInfo.setMachineType(machineTypeDAO.findOne(Long.valueOf(machineDO.getMachineTypeDO().getId())));
 		logger.debug(machineDO.getMachineTypeDO().getName());
 		logger.debug(machineDO.getModel());
 		//macineInfo.setModelYear(sqlDate);
 		logger.debug(date.toString());
-		macineInfo.setPower(machineDO.getEnginePower());
+		machineInfo.setPower(machineDO.getEnginePower());
 		logger.debug("Engne power "+machineDO.getEnginePower());
 		//macineInfo.setePower(machineModelDO.getePower());
 		//macineInfo.setRetailPrice(machineDO.getRetailPrice());
 		//macineInfo.setBasePrice(machineDO.getBasePrice());
 
-		macineInfo.setGroupConstant(groupConstantDAO.findOne(Long.valueOf(machineDO.getGroupDO().getGroupId())));
+		machineInfo.setGroupConstant(groupConstantDAO.findOne(Long.valueOf(machineDO.getGroupDO().getGroupId())));
 		
 
-		macineInfo.setLastUpdate(date);
+		machineInfo.setLastUpdate(date);
 		
-		macineInfo = machineInfoDAO.save(macineInfo);
+		machineInfo = machineInfoDAO.save(machineInfo);
 		
-		return macineInfo.getMachineId();
+		return machineInfo.getMachineId();
+	}
+	
+	@Override
+	@Transactional
+	public long editMachineInfo(MachineDO machineDO) {
+		logger.debug("In editMachineInfo : "+machineDO.getMachineId());
+		MachineInfo machineInfo = machineInfoDAO.findOne(machineDO.getMachineId());
+		Timestamp date = new Timestamp(new Date().getTime());
+		
+		//macineInfo.setModel((machineDO.getMachineModelDO().getModelId());
+		machineInfo.setManufacturer(manufacturerDAO.findOne(Long.valueOf(machineDO.getManufacturerDO().getId())));
+		machineInfo.setModel(machineDO.getModel());
+		machineInfo.setMachineType(machineTypeDAO.findOne(Long.valueOf(machineDO.getMachineTypeDO().getId())));
+		logger.debug(machineDO.getMachineTypeDO().getName());
+		logger.debug(machineDO.getModel());
+		//macineInfo.setModelYear(sqlDate);
+		logger.debug(date.toString());
+		machineInfo.setPower(machineDO.getEnginePower());
+		logger.debug("Engne power "+machineDO.getEnginePower());
+		//macineInfo.setePower(machineModelDO.getePower());
+		//macineInfo.setRetailPrice(machineDO.getRetailPrice());
+		//macineInfo.setBasePrice(machineDO.getBasePrice());
+
+		machineInfo.setGroupConstant(groupConstantDAO.findOne(Long.valueOf(machineDO.getGroupDO().getGroupId())));
+		
+
+		machineInfo.setLastUpdate(date);
+		
+		machineInfo = machineInfoDAO.save(machineInfo);
+		
+		return machineInfo.getMachineId();
 	}
 	
 	

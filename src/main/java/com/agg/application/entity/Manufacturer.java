@@ -17,7 +17,7 @@ public class Manufacturer implements Serializable {
 
 	@Id
 	@Column(name="manf_id")
-	private int manfId;
+	private long manfId;
 
 	@Column(name="manf_name")
 	private String manfName;
@@ -37,11 +37,11 @@ public class Manufacturer implements Serializable {
 	public Manufacturer() {
 	}
 
-	public int getManfId() {
+	public long getManfId() {
 		return this.manfId;
 	}
 
-	public void setManfId(int manfId) {
+	public void setManfId(long manfId) {
 		this.manfId = manfId;
 	}
 

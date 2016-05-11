@@ -128,7 +128,7 @@ routingApp.controller('GetMachineInfoController', function($scope, machineServic
 	};
 	
 	$scope.submitMachine = function() {
-		alert("In submitMachine");
+		//alert("In submitMachine");
 		machineService.saveMachineInfo($scope.machine);
     };
 	
