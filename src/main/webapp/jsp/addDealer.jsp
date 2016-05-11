@@ -37,6 +37,12 @@
 				</div>
 			</div>
 			<div class="form-group">
+				<label for="contact" class="col-sm-3 control-label">Name</label>
+				<div class="col-sm-9">
+					<input type="text" id="name" name="name" ng-model="dealer.name" class="form-control" required="required">
+				</div>
+			</div>
+			<div class="form-group">
 				<label for="firstName" class="col-sm-3 control-label">First Name</label>
 				<div class="col-sm-9">
 					<input type="text" id="firstName" name="firstName" ng-model="dealer.firstName" placeholder="firstName" class="form-control" required="required">
@@ -46,12 +52,6 @@
 				<label for="lastName" class="col-sm-3 control-label">Last Name</label>
 				<div class="col-sm-9">
 					<input type="text" id="lastName" name="lastName" ng-model="dealer.lastName" placeholder="lastName" class="form-control" required="required">
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="contact" class="col-sm-3 control-label">Contact</label>
-				<div class="col-sm-9">
-					<input type="text" id="contact" name="contact" ng-model="dealer.contact" class="form-control" required="required">
 				</div>
 			</div>
 			<div class="form-group">

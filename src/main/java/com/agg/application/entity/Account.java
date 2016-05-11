@@ -32,6 +32,12 @@ public class Account implements Serializable {
 	private Date lastLoginDate;
 
 	private String password;
+	
+	@Column(name="first_name")
+	private String firstName;
+	
+	@Column(name="last_name")
+	private String lastName;
 
 	private byte status;
 
@@ -58,10 +64,6 @@ public class Account implements Serializable {
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="dealer_id")
 	private Dealer dealer;
-	
-	@ManyToOne
-	@JoinColumn(name="parent_id")
-	private Dealer dealerParent;
 
 	public Account() {
 	}
@@ -168,18 +170,20 @@ public class Account implements Serializable {
 		this.dealer = dealer;
 	}
 
-	/**
-	 * @return the dealerParent
-	 */
-	public Dealer getDealerParent() {
-		return dealerParent;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	/**
-	 * @param dealerParent the dealerParent to set
-	 */
-	public void setDealerParent(Dealer dealerParent) {
-		this.dealerParent = dealerParent;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+	
 }

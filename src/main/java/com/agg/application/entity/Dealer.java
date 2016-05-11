@@ -33,14 +33,8 @@ public class Dealer implements Serializable {
 
 	private String city;
 
-	private String contact;
+	private String name;
 	
-	@Column(name="first_name")
-	private String firstName;
-	
-	@Column(name="last_name")
-	private String lastName;
-
 	@Column(name="invoice_email")
 	private String invoiceEmail;
 
@@ -64,6 +58,9 @@ public class Dealer implements Serializable {
 	private String notes;
 	
 	private long code;
+	
+	@Column(name="parent_code")
+	private long parentCode;
 
 	//bi-directional many-to-one association to Notification
 	@OneToMany(mappedBy="dealer")
@@ -115,12 +112,12 @@ public class Dealer implements Serializable {
 		this.city = city;
 	}
 
-	public String getContact() {
-		return this.contact;
+	public String getName() {
+		return name;
 	}
 
-	public void setContact(String contact) {
-		this.contact = contact;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getInvoiceEmail() {
@@ -309,32 +306,12 @@ public class Dealer implements Serializable {
 		this.address2 = address2;
 	}
 
-	/**
-	 * @return the firstName
-	 */
-	public String getFirstName() {
-		return firstName;
+	public long getParentCode() {
+		return parentCode;
 	}
 
-	/**
-	 * @param firstName the firstName to set
-	 */
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	/**
-	 * @return the lastName
-	 */
-	public String getLastName() {
-		return lastName;
-	}
-
-	/**
-	 * @param lastName the lastName to set
-	 */
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setParentCode(long parentCode) {
+		this.parentCode = parentCode;
 	}
 	
 }
