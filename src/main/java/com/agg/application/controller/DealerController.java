@@ -119,7 +119,7 @@ public class DealerController extends BaseController {
 		if (!sessionExists(request)){
 			opResult = new Result("failure", "Invalid Login", null);
 		}else{
-			model.addAttribute("roleList", dealerService.getDealerRoles(id));
+			model.addAttribute("roleList", dealerService.getDealerAdminRoles());
 			model.addAttribute("dealer", dealerService.getDealer(id));
 			opResult = new Result("success", "Dealer Info", model);
 		}
@@ -171,7 +171,7 @@ public class DealerController extends BaseController {
 		if (!sessionExists(request)){
 			opResult = new Result("failure", "Invalid Login", null);
 		}else{
-			model.addAttribute("dealerList", dealerService.getAdminDealers());
+			model.addAttribute("dealerList", dealerService.getDealers());
 			model.addAttribute("roleList", dealerService.getDealerRoles());
 			opResult = new Result("success", "Dealer and Role Info", model);
 		}

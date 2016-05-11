@@ -8,7 +8,7 @@
 		<a class="btn btn-primary pull-right fadeInLeftBig  hvr-pulse mar-right" onclick="closePopup('dealerEditPopup')">CLOSE</a>
 		<form class="form-horizontal" role="form" ng-submit="submitEditDealer()">
 			<h2>Edit Dealer</h2>
-			<div class="form-group">
+			<!-- <div class="form-group">
 				<label for="userName" class="col-sm-3 control-label">Username</label>
 				<div class="col-sm-9">
 					<input type="text" id="userName" name="userName" ng-model="dealer.userName" placeholder="User Name" class="form-control" required="required" readonly="readonly">
@@ -31,11 +31,11 @@
 				<div class="col-sm-9">
 					<input type="text" id="lastName" name="lastName" ng-model="dealer.lastName" placeholder="lastName" class="form-control" required="required">
 				</div>
-			</div>
+			</div> -->
 			<div class="form-group">
-				<label for="contact" class="col-sm-3 control-label">Contact</label>
+				<label for="contact" class="col-sm-3 control-label">Name</label>
 				<div class="col-sm-9">
-					<input type="text" id="contact" name="contact" ng-model="dealer.contact" class="form-control" required="required">
+					<input type="text" id="name" name="name" ng-model="dealer.name" class="form-control" required="required">
 				</div>
 			</div>
 			<div class="form-group">

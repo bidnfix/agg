@@ -63,14 +63,14 @@ public class DealerServiceImpl implements DealerService {
 		return getDealerDOList(dealerList);
 	}
 	
-	@Override
+	/*@Override
 	public List<DealerDO> getAdminDealers() {
 		logger.debug("In getPrograms");
 		
-		List<Dealer> dealerList = dealerDAO.findByAccountRoleRTitle(DEALER_ADMIN);
+		List<Dealer> dealerList = dealerDAO.findAll();
 		
 		return getDealerDOList(dealerList);
-	}
+	}*/
 	
 	/**
 	 * @param dealerList
@@ -83,15 +83,30 @@ public class DealerServiceImpl implements DealerService {
 			DealerDO dealerDO = null;
 			RoleDO roleDO = null;
 			Role role = null;
-			Account account = null;
+			List<Account> accounts = null;
+			
 			for(Dealer dealer : dealerList){
 				dealerDO = new DealerDO();
 				dealerDO.setId(dealer.getId());
 				dealerDO.setCode(dealer.getCode());
-				account = dealer.getAccount();
-				dealerDO.setUserName(account.getUserName());
-				dealerDO.setFirstName(account.getFirstName());
-				dealerDO.setLastName(account.getLastName());
+				accounts = dealer.getAccounts();
+				for(Account account : accounts){
+					role = account.getRole();
+					if(role.getRTitle().equalsIgnoreCase(DEALER_ADMIN)){
+						dealerDO.setUserName(account.getUserName());
+						dealerDO.setFirstName(account.getFirstName());
+						dealerDO.setLastName(account.getLastName());
+						
+						roleDO = new RoleDO();
+						roleDO.setId(role.getRId());
+						roleDO.setName(role.getRTitle());
+						dealerDO.setRoleDO(roleDO);
+						dealerDO.setRoleName(role.getRTitle());
+						
+						break;
+					}
+				}
+				
 				dealerDO.setName(dealer.getName());
 				dealerDO.setAddress1(dealer.getAddress());
 				dealerDO.setAddress2(dealer.getAddress2());
@@ -102,12 +117,6 @@ public class DealerServiceImpl implements DealerService {
 				dealerDO.setState(dealer.getState());
 				dealerDO.setZip(dealer.getZip());
 				dealerDO.setStatus(dealer.getStatus());
-				role = dealer.getAccount().getRole();
-				roleDO = new RoleDO();
-				roleDO.setId(role.getRId());
-				roleDO.setName(role.getRTitle());
-				dealerDO.setRoleDO(roleDO);
-				dealerDO.setRoleName(role.getRTitle());
 				dealerDO.setParentCode(dealer.getParentCode());
 				
 				dealerDOList.add(dealerDO);
@@ -201,7 +210,7 @@ public class DealerServiceImpl implements DealerService {
 		dealer.setActiveDate(date);
 		dealer.setLastUpdate(date);
 		
-		Role role = roleDAO.findOne(dealerDO.getRoleDO().getId());
+		/*Role role = roleDAO.findOne(dealerDO.getRoleDO().getId());
 		Account account = dealer.getAccount();
 		account.setUserName(dealerDO.getUserName());
 		account.setPassword(dealerDO.getPassword());
@@ -219,6 +228,8 @@ public class DealerServiceImpl implements DealerService {
 		account.setDealer(dealer);
 		
 		account = accountDAO.save(account);
+		*/
+		dealer = dealerDAO.save(dealer);
 		
 		return dealer.getId();
 	}
@@ -227,16 +238,34 @@ public class DealerServiceImpl implements DealerService {
 	public DealerDO getDealer(long id) {
 		Dealer dealer = dealerDAO.findOne((long)id);
 		DealerDO dealerDO = null;
+		List<Account> accounts = null;
+		Role role =null;
+		RoleDO roleDO = null;
 		if(dealer != null){
 			dealerDO = new DealerDO();
 			dealerDO.setId(dealer.getId());
-			Account account = dealer.getAccount();
-			dealerDO.setUserName(account.getUserName());
+			accounts = dealer.getAccounts();
+			for(Account account : accounts){
+				role = account.getRole();
+				if(role.getRTitle().equalsIgnoreCase(DEALER_ADMIN)){
+					dealerDO.setUserName(account.getUserName());
+					dealerDO.setFirstName(account.getFirstName());
+					dealerDO.setLastName(account.getLastName());
+					dealerDO.setPassword(account.getPassword());
+					
+					roleDO = new RoleDO();
+					roleDO.setId(role.getRId());
+					roleDO.setName(role.getRTitle());
+					dealerDO.setRoleDO(roleDO);
+					dealerDO.setRoleName(role.getRTitle());
+					
+					break;
+				}
+			}
+
 			dealerDO.setAddress1(dealer.getAddress());
 			dealerDO.setAddress2(dealer.getAddress2());
 			dealerDO.setCity(dealer.getCity());
-			dealerDO.setFirstName(account.getFirstName());
-			dealerDO.setLastName(account.getLastName());
 			dealerDO.setInvoiceEmail(dealer.getInvoiceEmail());
 			dealerDO.setMarketEmail(dealer.getMarketEmail());
 			dealerDO.setPhone(dealer.getPhone());
@@ -246,14 +275,6 @@ public class DealerServiceImpl implements DealerService {
 			dealerDO.setName(dealer.getName());
 			dealerDO.setDealerUrl(dealer.getUrl());
 			dealerDO.setNotes(dealer.getNotes());
-			dealerDO.setPassword(dealer.getAccount().getPassword());
-			
-			RoleDO roleDO = new RoleDO();
-			Role role = dealer.getAccount().getRole();
-			roleDO.setId(role.getRId());
-			roleDO.setName(role.getRTitle());
-			roleDO.setAccountTypeId(role.getAccountType().getId());
-			dealerDO.setRoleDO(roleDO);
 		}
 		
 		return dealerDO;
@@ -332,7 +353,7 @@ public class DealerServiceImpl implements DealerService {
 		return roleDOList;
 	}
 	
-	@Override
+	/*@Override
 	public List<RoleDO> getDealerRoles(long dealerId) {
 		logger.debug("Inside getDealerAdminRoles");
 		Dealer dealer = dealerDAO.findOne(dealerId);
@@ -367,7 +388,7 @@ public class DealerServiceImpl implements DealerService {
 			logger.info("roleDOList size: "+roleDOList.size());
 		}
 		return roleDOList;
-	}
+	}*/
 
 	@Override
 	public List<LocationDO> getDealerLocations(long dealerId) {
