@@ -39,7 +39,7 @@ public class QuoteController extends BaseController {
 		if (!sessionExists(request)){
 			opResult = new Result("failure", "Invalid Login", null);
 		}else{
-			List<DealerDO> dealerDOList = dealerService.getAdminDealers();
+			List<DealerDO> dealerDOList = dealerService.getDealers();
 			List<ManufacturerDO> manufacturerDOList = machineService.getManufacturerDetails();
 			model.addAttribute("dealerDOList", dealerDOList);
 			model.addAttribute("manufacturerDOList", manufacturerDOList);

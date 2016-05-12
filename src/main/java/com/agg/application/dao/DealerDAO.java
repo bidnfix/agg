@@ -10,6 +10,6 @@ import com.agg.application.entity.Dealer;
 @Component
 public interface DealerDAO extends CrudRepository<Dealer, Long>{
 	
-	public List<Dealer> findByAccountRoleRTitle(String dealerTitle);
+	//public List<Dealer> findByAccountRoleRTitle(String dealerTitle);
 
 }

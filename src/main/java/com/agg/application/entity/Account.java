@@ -61,7 +61,7 @@ public class Account implements Serializable {
 	@JoinColumn(name="role_id")
 	private Role role;
 	
-	@OneToOne(cascade=CascadeType.ALL)
+	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="dealer_id")
 	private Dealer dealer;
 

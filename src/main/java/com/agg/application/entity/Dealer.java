@@ -74,8 +74,8 @@ public class Dealer implements Serializable {
 	@OneToMany(mappedBy="dealer")
 	private List<Sprogram> sprograms;
 	
-	@OneToOne(mappedBy="dealer", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
-	private Account account;
+	@OneToMany(mappedBy="dealer", fetch=FetchType.LAZY)
+	private List<Account> accounts;
 
 	public Dealer() {
 	}
@@ -265,17 +265,17 @@ public class Dealer implements Serializable {
 	}
 
 	/**
-	 * @return the account
+	 * @return the accounts
 	 */
-	public Account getAccount() {
-		return account;
+	public List<Account> getAccounts() {
+		return accounts;
 	}
 
 	/**
-	 * @param account the account to set
+	 * @param accounts the accounts to set
 	 */
-	public void setAccount(Account account) {
-		this.account = account;
+	public void setAccounts(List<Account> accounts) {
+		this.accounts = accounts;
 	}
 
 	/**
