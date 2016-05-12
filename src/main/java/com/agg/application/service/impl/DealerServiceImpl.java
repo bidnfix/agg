@@ -266,9 +266,11 @@ public class DealerServiceImpl implements DealerService {
 			dealerDO.setAddress1(dealer.getAddress());
 			dealerDO.setAddress2(dealer.getAddress2());
 			dealerDO.setCity(dealer.getCity());
+			dealerDO.setCode(dealer.getCode());
 			dealerDO.setInvoiceEmail(dealer.getInvoiceEmail());
 			dealerDO.setMarketEmail(dealer.getMarketEmail());
 			dealerDO.setPhone(dealer.getPhone());
+			dealerDO.setParentCode(dealer.getParentCode());
 			dealerDO.setState(dealer.getState());
 			dealerDO.setZip(dealer.getZip());
 			dealerDO.setStatus(dealer.getStatus());

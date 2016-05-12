@@ -206,7 +206,7 @@ public class DealerController extends BaseController {
 			}
 	
 			long id = dealerService.saveDealerUser(userDO, getAccountDetails(request));
-			logger.info("locationId: "+id);
+			logger.info("accountId: "+id);
 			if(id > 0){
 				opResult = new Result("success", "Dealer User created successfully", null);
 			}

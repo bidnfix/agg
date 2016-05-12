@@ -33,6 +33,12 @@
 				</div>
 			</div> -->
 			<div class="form-group">
+				<label for="contact" class="col-sm-3 control-label">Code</label>
+				<div class="col-sm-9">
+					<input type="text" id="code" name="code" ng-model="dealer.code" class="form-control" readonly="readonly">
+				</div>
+			</div>
+			<div class="form-group">
 				<label for="contact" class="col-sm-3 control-label">Name</label>
 				<div class="col-sm-9">
 					<input type="text" id="name" name="name" ng-model="dealer.name" class="form-control" required="required">
