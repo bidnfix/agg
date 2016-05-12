@@ -20,7 +20,7 @@ routingApp.factory('machineService', function($http, $q, $window) {
 				},
 
 			
-				editMachineInfo : function(machine) {
+				editMachineInfo : function(machine, $scope) {
 					return $http.post('/agg/editMachine', machine).then(
 							function(response) {
 								//alert(response.data.status);

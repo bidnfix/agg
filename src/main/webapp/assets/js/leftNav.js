@@ -138,9 +138,9 @@ routingApp.controller('GetMachineInfoController', function($scope, machineServic
 	    $('#machineEditPopup').show();
 	};
 	
-	$scope.submitMachine = function() {
+	$scope.editSubmitMachine = function() {
 		//alert("In submitMachine");
-		machineService.saveMachineInfo($scope.machine);
+		machineService.editMachineInfo($scope.machine, $scope);
     };
 	
 });
