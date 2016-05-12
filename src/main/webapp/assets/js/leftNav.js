@@ -94,9 +94,20 @@ routingApp.controller('GetDealerController', function($scope, dealerService, $ht
     	alert("in submitEditDealer");
     	dealerService.editDealer($scope.dealer, $scope);
     }
-});
-
-
+})
+.directive('convertToNumber', function() {
+    return {
+      require: 'ngModel',
+      link: function(scope, element, attrs, ngModel) {
+        ngModel.$parsers.push(function(val) {
+          return parseInt(val, 10);
+        });
+        ngModel.$formatters.push(function(val) {
+          return '' + val;
+        });
+      }
+    };
+ });
 
 routingApp.controller('GetMachineInfoController', function($scope, machineService, $http, $timeout) {
 	$http.get("/agg/machineInfo")

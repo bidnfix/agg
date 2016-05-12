@@ -181,7 +181,7 @@
 			<div class="form-group">
 				<label for="role" class="col-sm-3 control-label">Status</label>
 				<div class="col-sm-9">
-					<select class="form-control" name="status" id="status" ng-model="dealer.status" required="required">
+					<select class="form-control" name="status" id="status" ng-model="dealer.status" convert-to-number required="required">
 						<option value="">Select Status</option>
 						<option value="1">Active</option>
 						<option value="0">Terminated</option>
