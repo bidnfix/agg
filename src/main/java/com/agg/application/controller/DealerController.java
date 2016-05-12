@@ -141,6 +141,20 @@ public class DealerController extends BaseController {
 		return opResult;
 	}
 	
+	@RequestMapping(value = "/pendingDealerInfo", method = RequestMethod.GET)
+	public @ResponseBody Result getPendingDealers(HttpServletRequest request, HttpServletResponse response) {
+		logger.debug("In getPendingDealers");
+		Result opResult = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			List<DealerDO> dealerDOList = dealerService.getPendingDealers();
+			opResult = new Result("success", "Dealer Info", dealerDOList);
+		}
+		
+		return opResult;
+	}
+	
 	@RequestMapping(value = "/addLocation", method = RequestMethod.POST)
 	public @ResponseBody Result saveOrEditLocation(@RequestBody LocationDO locationDO, BindingResult result,
 			HttpServletRequest request, HttpServletResponse response) {
@@ -171,7 +185,7 @@ public class DealerController extends BaseController {
 		if (!sessionExists(request)){
 			opResult = new Result("failure", "Invalid Login", null);
 		}else{
-			model.addAttribute("dealerList", dealerService.getDealers());
+			model.addAttribute("dealerList", dealerService.getActiveDealers());
 			model.addAttribute("roleList", dealerService.getDealerRoles());
 			opResult = new Result("success", "Dealer and Role Info", model);
 		}

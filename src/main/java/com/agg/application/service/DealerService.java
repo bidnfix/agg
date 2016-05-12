@@ -13,6 +13,8 @@ public interface DealerService {
 	public List<DealerDO> getDealers();
 	
 	//public List<DealerDO> getAdminDealers();
+	
+	public List<DealerDO> getActiveDealers();
 
 	public long saveDealer(DealerDO dealerDO, AccountDO accountDO);
 
@@ -31,5 +33,7 @@ public interface DealerService {
 	//public List<RoleDO> getDealerRoles(long id);
 
 	public long editDealer(DealerDO dealerDO, AccountDO accountDO);
+
+	public List<DealerDO> getPendingDealers();
 
 }

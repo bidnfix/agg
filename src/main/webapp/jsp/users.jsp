@@ -5,11 +5,11 @@
              	<div class="col-md-8 col-sm-12">
 		<div class="sec-title">
                      
-				<h2 class="wow animated bounceInLeft">Dealer Info</h2>
+				<h2 class="wow animated bounceInLeft">User Info</h2>
 				<!-- <p class="wow animated bounceInRight">The Key Features of our Tool</p> -->
 			</div>
                      </div>
-                     <div class="col-md-4 col-sm-12"><a class="btn btn-primary pull-right  hvr-pulse" href="#/agg/addDealer">Add New</a></div>
+                     <div class="col-md-4 col-sm-12"><a class="btn btn-primary pull-right  hvr-pulse" href="#/agg/addUser">Add New</a></div>
 	</header>
              
              
@@ -18,11 +18,11 @@
      <table id="dealerTbl" class="table table-striped table-bordered" cellspacing="0" width="100%">
         <thead>
             <tr>
-            	<th>Code</th>
+            	<th>User Name</th>
                 <th>Name</th>
-                <th>State</th>
-                <th>Email</th>
-                <th>Phone</th>
+                <th>User Type</th>
+                <th>Role</th>
+                <th>Parent Dealer</th>
                 <th>Parent</th>
                 <th>Role</th>
                 <th>Status</th>

@@ -5,7 +5,7 @@
              	<div class="col-md-8 col-sm-12">
 		<div class="sec-title">
                      
-				<h2 class="wow animated bounceInLeft">Dealer Info</h2>
+				<h2 class="wow animated bounceInLeft">Pending Dealer Info</h2>
 				<!-- <p class="wow animated bounceInRight">The Key Features of our Tool</p> -->
 			</div>
                      </div>

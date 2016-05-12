@@ -10,11 +10,11 @@
 			</div>
 		</div>
 		<div class="col-md-6 col-sm-12">
-			<a
+			<!-- <a
 				class="btn btn-primary pull-right mar-right animated fadeInRightBig hvr-pulse"
 				href="add-new.html">Add New</a><a
 				class="btn btn-primary pull-right animated fadeInLeftBig  hvr-pulse mar-right"
-				href="#">Back</a>
+				href="#">Back</a> -->
 		</div>
 	</header>
 

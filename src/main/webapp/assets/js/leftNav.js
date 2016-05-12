@@ -7,7 +7,14 @@ routingApp.config(['$routeProvider',
                     $routeProvider.
                       when('/agg/dealers', {
 	                  	  templateUrl: '../../jsp/dealers.jsp',
-	                  	  controller: 'GetDealerController'	  
+	                  	  controller: 'GetDealerController',
+                  		  resolve: {
+                  	         ctrlOptions: function () {
+                  	            return {
+                  	              getAllDealers: true,
+                  	            };
+                  	         }
+                  	      }
 	                  }).
                       when('/agg/addDealer', {
                     	  templateUrl: '../../jsp/addDealer.jsp',
@@ -54,20 +61,42 @@ routingApp.config(['$routeProvider',
                     	  templateUrl: '../../jsp/addQuote.jsp',
                     	  controller: 'QuoteController'
                       }).
+                      when('/agg/pendingDealers', {
+                    	  templateUrl: '../../jsp/pendingDealers.jsp',
+                    	  controller: 'GetDealerController',
+                    	  resolve: {
+                   	         ctrlOptions: function () {
+                   	            return {
+                   	              getAllDealers: false,
+                   	            };
+                   	         }
+                   	      }
+                      }).
                       otherwise({
                     	  redirectTo: '/agg/home'
                       });
                 }]);
 
-routingApp.controller('GetDealerController', function($scope, dealerService, $http, $timeout) {
+routingApp.controller('GetDealerController', function($scope, dealerService, $http, $timeout, ctrlOptions) {
 	$scope.dealer={};
-	$http.get("/agg/dealerInfo")
-    .then(function(response) {
-        $scope.dealerList = response.data.data;
-        $timeout(function () {
-        	$('#dealerTbl').DataTable();
-        }, 300);
-    });
+	if(ctrlOptions.getAllDealers){
+		$http.get("/agg/dealerInfo")
+		.then(function(response) {
+	        $scope.dealerList = response.data.data;
+	        $timeout(function () {
+	        	$('#dealerTbl').DataTable();
+	        }, 300);
+	    });
+	}else{
+		$http.get("/agg/pendingDealerInfo")
+		.then(function(response) {
+	        $scope.dealerList = response.data.data;
+	        $timeout(function () {
+	        	$('#dealerTbl').DataTable();
+	        }, 300);
+	    });
+	}
+	
 	
 	$scope.editDealer = function(dealerId) {
 		//alert(dealerId);

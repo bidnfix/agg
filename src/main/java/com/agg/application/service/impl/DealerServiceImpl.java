@@ -40,6 +40,10 @@ public class DealerServiceImpl implements DealerService {
 	
 	private static final String SEQUENCE_TYPE_DEALER = "dealer";
 	
+	private static final int ACTIVE = 1;
+	
+	private static final int PENDING = 2;
+	
 	@Autowired
 	DealerDAO dealerDAO;
 	
@@ -57,7 +61,7 @@ public class DealerServiceImpl implements DealerService {
 	
 	@Override
 	public List<DealerDO> getDealers() {
-		logger.debug("In getPrograms");
+		logger.debug("In getDealers");
 		List<Dealer> dealerList = Util.toList(dealerDAO.findAll());
 		
 		return getDealerDOList(dealerList);
@@ -71,6 +75,22 @@ public class DealerServiceImpl implements DealerService {
 		
 		return getDealerDOList(dealerList);
 	}*/
+	
+	@Override
+	public List<DealerDO> getActiveDealers() {
+		logger.debug("In getActiveDealers");
+		List<Dealer> dealerList = Util.toList(dealerDAO.findByStatus(ACTIVE));
+		
+		return getDealerDOList(dealerList);
+	}
+	
+	@Override
+	public List<DealerDO> getPendingDealers() {
+		logger.debug("In getPendingDealers");
+		List<Dealer> dealerList = Util.toList(dealerDAO.findByStatus(PENDING));
+		
+		return getDealerDOList(dealerList);
+	}
 	
 	/**
 	 * @param dealerList
@@ -209,6 +229,13 @@ public class DealerServiceImpl implements DealerService {
 		dealer.setZip(dealerDO.getZip());
 		dealer.setActiveDate(date);
 		dealer.setLastUpdate(date);
+		
+		if(dealerDO.getStatus() == 0){
+			List<Account> accounts = dealer.getAccounts();
+			for(Account account : accounts){
+				account.setStatus((byte)dealerDO.getStatus());
+			}
+		}
 		
 		/*Role role = roleDAO.findOne(dealerDO.getRoleDO().getId());
 		Account account = dealer.getAccount();
