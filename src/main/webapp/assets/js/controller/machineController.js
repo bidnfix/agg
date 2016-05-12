@@ -5,6 +5,11 @@ routingApp.controller('machineController', function($scope, machineService, $loc
 	$scope.submitMachine = function() {
 		//alert("In submitMachine");
 		machineService.saveMachineInfo($scope.machine);
+    }
+    
+    $scope.editSubmitMachine = function() {
+		//alert("In submitMachine");
+		machineService.editMachineInfo($scope.machine);
     };
     
     $scope.getMachineType = function ()

@@ -6,7 +6,7 @@
 
 	<div class="inner-main">
 		<a class="btn btn-primary pull-right fadeInLeftBig  hvr-pulse mar-right" onclick="closePopup('machineEditPopup')">CLOSE</a>
-		<form class="form-horizontal" role="form" ng-submit="submitMachine()">
+		<form class="form-horizontal" role="form" ng-submit="editSubmitMachine()">
 			<h2>Edit Machine</h2>
 			<div class="form-group">
 				<label for="manufacturer" class="col-sm-3 control-label">Manufacturer</label>

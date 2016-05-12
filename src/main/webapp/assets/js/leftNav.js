@@ -39,12 +39,10 @@ routingApp.config(['$routeProvider',
                       when('/agg/programs', {
                     	  templateUrl: '../../jsp/programs.jsp',
                     	  controller: 'GetProgramsController'
-                    	
                       }).
                       when('/agg/addPrograms', {
                     	  templateUrl: '../../jsp/addPrograms.jsp',
                     	  controller: 'AddProgramsController'
-                    	
                       }).
                       when('/agg/claimsInfo', {
                     	  templateUrl: '../../jsp/claimsInfo.jsp',
@@ -68,7 +66,7 @@ routingApp.controller('GetDealerController', function($scope, dealerService, $ht
         	$('#dealerTbl').DataTable();
         }, 300);
     });
-	
+
 	$scope.editDealer = function(dealerId) {
 		//alert(dealerId);
 		$http.get("/agg/dealer/"+dealerId)
@@ -76,7 +74,7 @@ routingApp.controller('GetDealerController', function($scope, dealerService, $ht
 	    	$scope.roleList = response.data.data.roleList;
 	        $scope.dealer = response.data.data.dealer;
 	        //$scope.dealer.roleDO = {"id":5,"name":"Dealer Admin","accountTypeId":2};
-	       /* $scope.dealer = {
+	        /* $scope.dealer = {
 	        	userName: $scope.dealerr.userName,	
 	        	state: $scope.dealerr.state
 	        };*/
@@ -130,6 +128,11 @@ routingApp.controller('GetMachineInfoController', function($scope, machineServic
 	$scope.submitMachine = function() {
 		//alert("In submitMachine");
 		machineService.saveMachineInfo($scope.machine);
+    };
+    
+    $scope.editSubmitMachine = function() {
+		//alert("In submitMachine");
+		machineService.editMachineInfo($scope.machine);
     };
 	
 });
