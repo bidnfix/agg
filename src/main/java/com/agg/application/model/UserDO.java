@@ -2,6 +2,8 @@ package com.agg.application.model;
 
 public class UserDO {
 	
+	private long id;
+	
 	private DealerDO dealerDO;
 	
 	private LocationDO locationDO;
@@ -30,7 +32,11 @@ public class UserDO {
 	
 	private String url;
 	
+	private String userType;
+	
 	private RoleDO roleDO;
+	
+	private int status;
 
 	/**
 	 * @return the dealerDO
@@ -240,6 +246,48 @@ public class UserDO {
 	 */
 	public void setRoleDO(RoleDO roleDO) {
 		this.roleDO = roleDO;
+	}
+
+	/**
+	 * @return the userType
+	 */
+	public String getUserType() {
+		return userType;
+	}
+
+	/**
+	 * @param userType the userType to set
+	 */
+	public void setUserType(String userType) {
+		this.userType = userType;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	/**
+	 * @return the status
+	 */
+	public int getStatus() {
+		return status;
+	}
+
+	/**
+	 * @param status the status to set
+	 */
+	public void setStatus(int status) {
+		this.status = status;
 	}
 	
 }

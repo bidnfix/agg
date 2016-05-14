@@ -44,6 +44,8 @@ public class DealerDO {
 	
 	private long parentCode;
 	
+	private DealerDO parentDealerDO;
+	
 	/**
 	 * @return the id
 	 */
@@ -336,6 +338,20 @@ public class DealerDO {
 	 */
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	/**
+	 * @return the parentDealerDO
+	 */
+	public DealerDO getParentDealerDO() {
+		return parentDealerDO;
+	}
+
+	/**
+	 * @param parentDealerDO the parentDealerDO to set
+	 */
+	public void setParentDealerDO(DealerDO parentDealerDO) {
+		this.parentDealerDO = parentDealerDO;
 	}
 	
 }

@@ -38,6 +38,8 @@ public class DealerServiceImpl implements DealerService {
 	
 	private static final String ACCOUNT_TYPE_DEALER = "dealer";
 	
+	private static final String ACCOUNT_TYPE_ADMIN = "admin";
+	
 	private static final String SEQUENCE_TYPE_DEALER = "dealer";
 	
 	private static final int ACTIVE = 1;
@@ -88,6 +90,14 @@ public class DealerServiceImpl implements DealerService {
 	public List<DealerDO> getPendingDealers() {
 		logger.debug("In getPendingDealers");
 		List<Dealer> dealerList = Util.toList(dealerDAO.findByStatus(PENDING));
+		
+		return getDealerDOList(dealerList);
+	}
+	
+	@Override
+	public List<DealerDO> getParentDealers() {
+		logger.debug("In getParentDealers");
+		List<Dealer> dealerList = Util.toList(dealerDAO.findParentDealers());
 		
 		return getDealerDOList(dealerList);
 	}
@@ -222,13 +232,13 @@ public class DealerServiceImpl implements DealerService {
 		
 		
 		dealer.setCode(dealerDO.getCode());
-		dealer.setParentCode(dealerDO.getParentCode());
+		dealer.setParentCode((dealerDO.getParentDealerDO() != null)?dealerDO.getParentDealerDO().getCode():dealerDO.getParentCode());
 		dealer.setStatus(dealerDO.getStatus());
 		dealer.setState(dealerDO.getState());
 		dealer.setUrl(dealerDO.getDealerUrl());
 		dealer.setZip(dealerDO.getZip());
-		dealer.setActiveDate(date);
-		dealer.setLastUpdate(date);
+		//dealer.setActiveDate(date);
+		//dealer.setLastUpdate(date);
 		
 		if(dealerDO.getStatus() == 0){
 			List<Account> accounts = dealer.getAccounts();
@@ -304,6 +314,15 @@ public class DealerServiceImpl implements DealerService {
 			dealerDO.setName(dealer.getName());
 			dealerDO.setDealerUrl(dealer.getUrl());
 			dealerDO.setNotes(dealer.getNotes());
+			
+			Dealer parentDealer = dealerDAO.findByCode(dealer.getParentCode());
+			DealerDO parentDealerDO = new DealerDO();
+			parentDealerDO.setCode(parentDealer.getCode());
+			parentDealerDO.setName(parentDealer.getName());
+			parentDealerDO.setParentCode(parentDealer.getParentCode());
+			
+			dealerDO.setParentDealerDO(parentDealerDO);
+			
 		}
 		
 		return dealerDO;
@@ -487,6 +506,74 @@ public class DealerServiceImpl implements DealerService {
 		account = accountDAO.save(account);
 		
 		return account.getId();
+	}
+
+	@Override
+	public List<RoleDO> getUserRoles(long id) {
+		logger.debug("Inside getUserRoles");
+		Account account = accountDAO.findOne(id);
+		List<RoleDO> roleDOList = null;
+		if(account != null){
+			String roleName = account.getRole().getRTitle();
+			String accountType = account.getAccountType().getAccountType();
+			List<Role> roleList = null;
+			if(accountType.equalsIgnoreCase(ACCOUNT_TYPE_DEALER)){
+				roleList = roleDAO.findByAccountTypeAccountType(ACCOUNT_TYPE_DEALER);
+				roleDOList = getUserRoles(roleList, roleName, accountType);
+			}else{
+				roleList = roleDAO.findByAccountTypeAccountType(ACCOUNT_TYPE_ADMIN);
+				roleDOList = getUserRoles(roleList, roleName, accountType);
+			}
+		}
+		return roleDOList;
+	}
+	
+	public List<RoleDO> getUserRoles(List<Role> roleList, String roleName, String accountType) {
+		logger.debug("Inside getUserRoles");
+		List<RoleDO> roleDOList = null;
+		if(roleList != null && !roleList.isEmpty()){
+			RoleDO roleDO = null;
+			roleDOList = new ArrayList<RoleDO>();
+			if(accountType.equalsIgnoreCase(ACCOUNT_TYPE_DEALER)){
+				if(roleName.equalsIgnoreCase(DEALER_ADMIN)){
+					for(Role role : roleList){
+						if(role.getRTitle().equalsIgnoreCase(roleName)){
+							roleDO = new RoleDO();
+							roleDO.setAccountTypeId(role.getAccountType().getId());
+							roleDO.setId(role.getRId());
+							roleDO.setName(role.getRTitle());
+							
+							roleDOList.add(roleDO);
+							break;
+						}
+					}
+				}else {
+					for(Role role : roleList){
+						if(!role.getRTitle().equalsIgnoreCase(DEALER_ADMIN)){
+							roleDO = new RoleDO();
+							roleDO.setAccountTypeId(role.getAccountType().getId());
+							roleDO.setId(role.getRId());
+							roleDO.setName(role.getRTitle());
+							
+							roleDOList.add(roleDO);
+						}
+					}
+				}
+			}else{
+				for(Role role : roleList){
+					roleDO = new RoleDO();
+					roleDO.setAccountTypeId(role.getAccountType().getId());
+					roleDO.setId(role.getRId());
+					roleDO.setName(role.getRTitle());
+					
+					roleDOList.add(roleDO);
+				}
+			}
+		}
+			
+		logger.info("roleDOList size: "+roleDOList.size());
+			
+		return roleDOList;
 	}
 
 }
