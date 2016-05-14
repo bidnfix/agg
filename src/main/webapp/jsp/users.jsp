@@ -1,5 +1,5 @@
 <!-- Article main content -->
-<%@include file="dealerPopup.jsp" %>
+<%@include file="userPopup.jsp" %>
 <article class="col-md-9 maincontent">
 	<header class="page-header">
              	<div class="col-md-8 col-sm-12">
@@ -15,16 +15,15 @@
              
 	 <!-- data table section -->
              
-     <table id="dealerTbl" class="table table-striped table-bordered" cellspacing="0" width="100%">
+     <table id="userTbl" class="table table-striped table-bordered" cellspacing="0" width="100%">
         <thead>
             <tr>
             	<th>User Name</th>
-                <th>Name</th>
+                <th>First Name</th>
+                <th>Last Name</th>
                 <th>User Type</th>
                 <th>Role</th>
                 <th>Parent Dealer</th>
-                <th>Parent</th>
-                <th>Role</th>
                 <th>Status</th>
                 <th></th>
             </tr>
@@ -32,31 +31,29 @@
  
         <tfoot>
             <tr>
-            	<th>Code</th>
-                <th>Name</th>
-                <th>State</th>
-                <th>Email</th>
-                <th>Phone</th>
-                <th>Parent</th>
+            	<th>User Name</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>User Type</th>
                 <th>Role</th>
+                <th>Parent Dealer</th>
                 <th>Status</th>
                 <th></th>
             </tr>
         </tfoot>
  
         <tbody>
-            <tr ng-repeat="dealer in dealerList">
-            	<td>{{dealer.code}}</td>
-            	<td>{{dealer.name}}</td>
-                <td>{{dealer.state}}</td>
-                <td>{{dealer.marketEmail}}</td>
-                <td>{{dealer.phone}}</td>
-                <td>{{dealer.parentCode}}</td>
-                <td>{{dealer.roleDO.name}}</td>
-                <td>{{(dealer.status === 0)?"Terminated":(dealer.status === 1)?"Active":"Pending"}}</td>
+            <tr ng-repeat="user in userList">
+            	<td>{{user.userName}}</td>
+            	<td>{{user.firstName}}</td>
+                <td>{{user.lastName}}</td>
+                <td>{{user.userType}}</td>
+                <td>{{user.roleDO.name}}</td>
+                <td>{{user.dealerDO.name}}</td>
+                <td>{{(user.status === 0)?"Terminated":(user.status === 1)?"Active":"Pending"}}</td>
                 <td>
                 	<div class="manage-sec"><!-- <a href="#"><img src="../assets/images/delete-icon.png" alt="Delete" title="Delete"/></a> -->
-                		<a ng-click="editDealer(dealer.id)"><img src="../assets/images/edit-icon.png" alt="Edit" title="Edit"/></a>
+                		<a ng-click="editUser(user.id)"><img src="../assets/images/edit-icon.png" alt="Edit" title="Edit"/></a>
                 	</div>
                 </td>
             </tr>

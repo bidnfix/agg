@@ -104,7 +104,7 @@ public class DealerController extends BaseController {
 	
 			long id = dealerService.editDealer(dealerDO, getAccountDetails(request));
 			if(id > 0){
-				opResult = new Result("success", "Invalid dealer form field values", null);
+				opResult = new Result("success", "Dealer edited successfully", null);
 			}
 			
 		}
@@ -120,6 +120,7 @@ public class DealerController extends BaseController {
 			opResult = new Result("failure", "Invalid Login", null);
 		}else{
 			model.addAttribute("roleList", dealerService.getDealerAdminRoles());
+			model.addAttribute("parentDealers", dealerService.getParentDealers());
 			model.addAttribute("dealer", dealerService.getDealer(id));
 			opResult = new Result("success", "Dealer Info", model);
 		}
