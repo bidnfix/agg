@@ -72,6 +72,10 @@ routingApp.config(['$routeProvider',
                    	         }
                    	      }
                       }).
+                      when('/agg/users', {
+                    	  templateUrl: '../../jsp/users.jsp',
+                    	  controller: 'GetUserController'
+                      }).
                       otherwise({
                     	  redirectTo: '/agg/home'
                       });
@@ -104,6 +108,7 @@ routingApp.controller('GetDealerController', function($scope, dealerService, $ht
 	    .then(function(response) {
 	    	$scope.roleList = response.data.data.roleList;
 	        $scope.dealer = response.data.data.dealer;
+	        $scope.parentDealerList = response.data.data.parentDealers;
 	        //$scope.dealer.roleDO = {"id":5,"name":"Dealer Admin","accountTypeId":2};
 	       /* $scope.dealer = {
 	        	userName: $scope.dealerr.userName,	
@@ -121,7 +126,7 @@ routingApp.controller('GetDealerController', function($scope, dealerService, $ht
     
     $scope.submitEditDealer = function(){
     	alert("in submitEditDealer");
-    	dealerService.editDealer($scope.dealer, $scope);
+    	dealerService.editDealer($scope.dealer, $scope, ctrlOptions.getAllDealers);
     }
 })
 .directive('convertToNumber', function() {
@@ -215,9 +220,7 @@ routingApp.controller('AddDealerController', function($scope, $http) {
 routingApp.controller('GetProgramsController', function($scope, $http, $timeout, $window) {
 	$http.get("/agg/programs")
     .then(function(response) {
-    	alert(response.data.data.programs)
         $scope.programsList = response.data.data.programs;
-        alert($scope.programsList);
         $timeout(function () {
         	$('#table1').DataTable();
         }, 300);
@@ -311,4 +314,48 @@ routingApp.controller('QuoteController', function($scope, $http) {
   
 	myTabs.init();
 });
+
+routingApp.controller('GetUserController', function($scope, userService, $http, $timeout) {
+	$scope.user={};
+	$http.get("/agg/userInfo")
+	.then(function(response) {
+        $scope.userList = response.data.data;
+        $timeout(function () {
+        	$('#userTbl').DataTable();
+        }, 300);
+    });
+	
+	$scope.editUser = function(userId) {
+		$http.get("/agg/user/"+userId)
+	    .then(function(response) {
+	    	$scope.roleList = response.data.data.roleList;
+	        $scope.user = response.data.data.user;
+	    });
+		
+		var x = screen.width/4;
+	    var y = screen.height/9;
+	    showMask('popup_mask');
+	    $('#userEditPopup').css("left", x+"px");
+	    $('#userEditPopup').css("top", y+"px");
+	    $('#userEditPopup').show();
+    };
+    
+    $scope.submitEditUser = function(){
+    	alert("in submitEditUser");
+    	userService.editUser($scope.user, $scope);
+    }
+})
+.directive('convertToNumber', function() {
+    return {
+      require: 'ngModel',
+      link: function(scope, element, attrs, ngModel) {
+        ngModel.$parsers.push(function(val) {
+          return parseInt(val, 10);
+        });
+        ngModel.$formatters.push(function(val) {
+          return '' + val;
+        });
+      }
+    };
+ });
 

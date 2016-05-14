@@ -3,15 +3,15 @@ package com.agg.application.service;
 import java.util.List;
 
 import com.agg.application.entity.Sprogram;
-import com.agg.application.model.Program;
+import com.agg.application.model.ProgramDO;
 
 public interface ProgramService {
 
-	List<Sprogram> getPrograms();
+	List<ProgramDO> getPrograms();
 
-	Long saveProgram(Program program);
+	Long saveProgram(ProgramDO program);
 
-	Program getProgram(Long id);
+	ProgramDO getProgram(Long id);
 
 	void deleteProgram(Long id);
 

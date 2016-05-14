@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.agg.application.model.Program;
+import com.agg.application.model.ProgramDO;
 import com.agg.application.model.Result;
 import com.agg.application.service.ProgramService;
 
@@ -46,12 +46,12 @@ public class ProgramController extends BaseController {
 		if (!sessionExists(request))
 			return "login";
 
-		model.addAttribute("programForm", new Program());
+		model.addAttribute("programForm", new ProgramDO());
 		return "addPrograms";
 	}
 
 	@RequestMapping(value = "/postPrograms", method = RequestMethod.POST)
-	public @ResponseBody Result saveOrEditPrograms(@RequestBody Program program, BindingResult result,
+	public @ResponseBody Result saveOrEditPrograms(@RequestBody ProgramDO program, BindingResult result,
 			HttpServletRequest request, HttpServletResponse response) {
 		logger.debug("In addPrograms ");
 
