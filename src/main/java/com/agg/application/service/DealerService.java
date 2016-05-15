@@ -18,7 +18,7 @@ public interface DealerService {
 	
 	public List<DealerDO> getParentDealers();
 
-	public long saveDealer(DealerDO dealerDO, AccountDO accountDO);
+	public long saveDealer(DealerDO dealerDO, AccountDO accountDO, boolean dealerRegistration);
 
 	public DealerDO getDealer(long dealerId);
 

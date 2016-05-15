@@ -12,9 +12,9 @@ App.controller('LoginController', ['$scope', 'LoginService', '$location', functi
           self.submit = function() {
         	  //alert("submit");
               //if(self.user.id != null){
-                  console.log('login User', self.user);    
+                 // console.log('login User', self.user);    
                   self.loginUser(self.user);
              // }
           };
-              
+          
       }]);

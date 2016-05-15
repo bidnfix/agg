@@ -79,7 +79,7 @@ public class DealerController extends BaseController {
 				opResult = new Result("failure", "Invalid dealer form field values", null);
 			}
 	
-			long id = dealerService.saveDealer(dealerDO, getAccountDetails(request));
+			long id = dealerService.saveDealer(dealerDO, getAccountDetails(request), false);
 			if(id > 0){
 				opResult = new Result("success", "Invalid dealer form field values", null);
 			}

@@ -158,7 +158,7 @@ public class DealerServiceImpl implements DealerService {
 
 	@Override
 	@Transactional
-	public long saveDealer(DealerDO dealerDO, AccountDO accountDO) {
+	public long saveDealer(DealerDO dealerDO, AccountDO accountDO, boolean dealerRegistration) {
 		logger.debug("In saveDealer");
 		Dealer dealer = new Dealer();
 		Timestamp date = new Timestamp(new Date().getTime());
@@ -180,14 +180,24 @@ public class DealerServiceImpl implements DealerService {
 		logger.debug("dealerCode: "+dealerCode);
 		dealer.setCode(dealerCode);
 		dealer.setParentCode(dealerCode);
-		dealer.setStatus(1);
+		Role role = null;
+		if(dealerRegistration){
+			dealer.setStatus(2);
+			List<Role> roleList = roleDAO.findByRTitle(DEALER_ADMIN);
+			if(roleList != null){
+				role = roleList.get(0);
+			}
+		}else{
+			dealer.setStatus(1);
+			role = roleDAO.findOne(dealerDO.getRoleDO().getId());
+		}
+		
 		dealer.setState(dealerDO.getState());
 		dealer.setUrl(dealerDO.getDealerUrl());
 		dealer.setZip(dealerDO.getZip());
 		dealer.setActiveDate(date);
 		dealer.setLastUpdate(date);
 		
-		Role role = roleDAO.findOne(dealerDO.getRoleDO().getId());
 		Account account = new Account();
 		account.setUserName(dealerDO.getUserName());
 		account.setPassword(dealerDO.getPassword());
@@ -196,11 +206,20 @@ public class DealerServiceImpl implements DealerService {
 		account.setAccountType(role.getAccountType());
 		account.setRole(role);
 		account.setCreatedDate(date);
-		account.setCreatedBy(accountDO.getUsername());
 		account.setUpdatedDate(date);
 		account.setLastLoginDate(date);
-		account.setStatus((byte)1);
-		account.setUpdatedBy(accountDO.getUsername());
+		if(dealerRegistration){
+			account.setStatus((byte)0);
+		}else{
+			account.setStatus((byte)1);
+		}
+		if(accountDO != null){
+			account.setCreatedBy(accountDO.getUsername());
+			account.setUpdatedBy(accountDO.getUsername());
+		}else{
+			account.setCreatedBy("");
+			account.setUpdatedBy("");
+		}
 		
 		account.setDealer(dealer);
 		
@@ -240,7 +259,7 @@ public class DealerServiceImpl implements DealerService {
 		//dealer.setActiveDate(date);
 		//dealer.setLastUpdate(date);
 		
-		if(dealerDO.getStatus() == 0){
+		if(dealerDO.getStatus() == 0 || dealerDO.getStatus() == 2){
 			List<Account> accounts = dealer.getAccounts();
 			for(Account account : accounts){
 				account.setStatus((byte)dealerDO.getStatus());
