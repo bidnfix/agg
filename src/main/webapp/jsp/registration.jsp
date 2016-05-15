@@ -33,8 +33,8 @@
       <a class="navbar-brand animated fadeInDownBig" href="index.html"><img src="/assets/images/logo_bkp.png" alt="vOne HTML5 template"></a> </div>
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav pull-right">
-        <li class="active"><a href="/agg/home">Home</a></li>
-        <li><a href="#">Register</a></li>
+        <li><a href="/agg/home">Home</a></li>
+        <li class="active"><a href="#">Register</a></li>
         <li><a href="#">About Risk</a></li>
         <li><a href="#">Who We Are</a></li>
         
