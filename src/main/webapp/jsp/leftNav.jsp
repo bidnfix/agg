@@ -13,7 +13,7 @@
             <li class="animated fadeInLeftBig"><a id="machineSearch" href="#/agg/machineInfo" ng-click="activateTab($event);">MACHINE MANAGEMENT</a>
 				<ul>
 					<li><a id="manageLocations" href="#/agg/addMachine" ng-click="activateTab($event);">ADD MACHINE</a></li>
-					<li><a id="manageUsers" href="#/agg/editMachine" ng-click="activateTab($event);">EDIT MACHINE</a></li>
+					<!-- <li><a id="manageUsers" href="#/agg/editMachine" ng-click="activateTab($event);">EDIT MACHINE</a></li> -->
 				</ul>
 			</li>
             <li class="animated fadeInLeft"><a id="quoteSearch" href="#" ng-click="activateTab($event);">QUOTE SEARCH</a></li>
