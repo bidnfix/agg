@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.agg.application.dao.DealerDAO;
+import com.agg.application.dao.ManufacturerDAO;
 import com.agg.application.dao.ProgramDAO;
 import com.agg.application.entity.Dealer;
 import com.agg.application.entity.Sprogram;
@@ -27,6 +28,9 @@ public class ProgramServiceImpl implements ProgramService {
 	
 	@Autowired
 	DealerDAO dealerDAO;
+	
+	@Autowired
+	private ManufacturerDAO manufacturerDAO;
 	
 	@Override
 	public List<ProgramDO> getPrograms() {
@@ -46,8 +50,8 @@ public class ProgramServiceImpl implements ProgramService {
 				programDO = new ProgramDO();
 				program = it.next();
 				
-				programDO.setPrName(program.getPrName());
-				programDO.setPrCType(program.getPrCType());
+				programDO.setName(program.getPrName());
+				programDO.setcType(program.getPrCType());
 				
 				
 				dealerDO = new DealerDO();
@@ -70,18 +74,20 @@ public class ProgramServiceImpl implements ProgramService {
 	public Long saveProgram(ProgramDO program) {
 		logger.debug("In saveProgram");
 		Sprogram progEnt = new Sprogram();
-		progEnt.setPrName(program.getPrName());
-		progEnt.setPrDesc(program.getPrDesc());
+		progEnt.setPrName(program.getName());
+		progEnt.setPrDesc(program.getDesc());
 		progEnt.setPrIsActive((byte) 1);
-		progEnt.setDealer(dealerDAO.findOne(2l));
+		//progEnt.setDealer(dealerDAO.findOne(Long.valueOf(program.getDealer().getId())));
+		progEnt.setDealer(dealerDAO.findOne(Long.valueOf(2)));
 		progEnt.setPrGroup("1");
-		progEnt.setPrCType(program.getPrCType());
-		progEnt.setPrCHours(program.getPrCHours());
-		progEnt.setPrCTerm(program.getPrCTerm());
-		progEnt.setPrCost(program.getPrCost());
+		progEnt.setPrCType(program.getcType());
+		progEnt.setPrCHours(program.getcHours());
+		progEnt.setPrCTerm(program.getcTerm());
+		progEnt.setPrCost(program.getCost());
 		progEnt.setPrIsArchive((byte)0);
 		progEnt.setPrAServicing((byte)1);
-		
+		//progEnt.setManufacturer(manufacturerDAO.findOne(Long.valueOf(program.getManufacturerDO().getId())));
+		progEnt.setManufacturer(manufacturerDAO.findOne(Long.valueOf(2)));
 		//TODO To be implemented after dealer services
 		//progEnt.setDealer(dealer);
 		progEnt = programDAO.save(progEnt);
@@ -92,10 +98,10 @@ public class ProgramServiceImpl implements ProgramService {
 	public ProgramDO getProgram(Long id) {
 		Sprogram sProgram = programDAO.findOne(id);
 		ProgramDO program = new ProgramDO();
-		program.setPrId(sProgram.getPrId());
-		program.setPrName(sProgram.getPrName());
-		program.setPrDesc(sProgram.getPrDesc());
-		program.setPrCType(sProgram.getPrCType());
+		program.setId(sProgram.getPrId());
+		program.setName(sProgram.getPrName());
+		program.setDesc(sProgram.getPrDesc());
+		program.setcType(sProgram.getPrCType());
 		
 		DealerDO dealerDO = new DealerDO();
 		Dealer dealer = sProgram.getDealer();

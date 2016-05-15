@@ -6,157 +6,167 @@ import com.agg.application.entity.Dealer;
 
 public class ProgramDO {
 	
-	private Long prId;
+	private Long id;
 
-	private byte prAServicing;
+	private byte aServicing;
 
-	private int prCHours;
+	private int cHours;
 
-	private int prCTerm;
+	private int cTerm;
 
-	private String prCType;
+	private String cType;
 
-	private byte prCondition;
+	private byte condition;
 
-	private int prCost;
+	private int cost;
 
-	private int prDeductible;
+	private int deductible;
 
-	private String prDesc;
+	private String desc;
 	
 
-	private String prGroup;
+	private String group;
 
-	private byte prIsActive;
+	private byte isActive;
 
-	private byte prIsArchive;
+	private byte isArchive;
 
-	private Timestamp prLastUpdate;
+	private Timestamp lastUpdate;
 
-	private double prLol;
+	private double lol;
 
-	private String prName;
+	private String name;
 
 	private DealerDO dealer;
+	
+	private ManufacturerDO manufacturerDO;
 
-	public Long getPrId() {
-		return prId;
+	public ManufacturerDO getManufacturerDO() {
+		return manufacturerDO;
 	}
 
-	public void setPrId(Long prId) {
-		this.prId = prId;
+	public void setManufacturerDO(ManufacturerDO manufacturerDO) {
+		this.manufacturerDO = manufacturerDO;
 	}
 
-	public byte getPrAServicing() {
-		return prAServicing;
+	public Long getId() {
+		return id;
 	}
 
-	public void setPrAServicing(byte prAServicing) {
-		this.prAServicing = prAServicing;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public int getPrCHours() {
-		return prCHours;
+	public byte getaServicing() {
+		return aServicing;
 	}
 
-	public void setPrCHours(int prCHours) {
-		this.prCHours = prCHours;
+	public void setaServicing(byte aServicing) {
+		this.aServicing = aServicing;
 	}
 
-	public int getPrCTerm() {
-		return prCTerm;
+	public int getcHours() {
+		return cHours;
 	}
 
-	public void setPrCTerm(int prCTerm) {
-		this.prCTerm = prCTerm;
+	public void setcHours(int cHours) {
+		this.cHours = cHours;
 	}
 
-	public String getPrCType() {
-		return prCType;
+	public int getcTerm() {
+		return cTerm;
 	}
 
-	public void setPrCType(String prCType) {
-		this.prCType = prCType;
+	public void setcTerm(int cTerm) {
+		this.cTerm = cTerm;
 	}
 
-	public byte getPrCondition() {
-		return prCondition;
+	public String getcType() {
+		return cType;
 	}
 
-	public void setPrCondition(byte prCondition) {
-		this.prCondition = prCondition;
+	public void setcType(String cType) {
+		this.cType = cType;
 	}
 
-	public int getPrCost() {
-		return prCost;
+	public byte getCondition() {
+		return condition;
 	}
 
-	public void setPrCost(int prCost) {
-		this.prCost = prCost;
+	public void setCondition(byte condition) {
+		this.condition = condition;
 	}
 
-	public int getPrDeductible() {
-		return prDeductible;
+	public int getCost() {
+		return cost;
 	}
 
-	public void setPrDeductible(int prDeductible) {
-		this.prDeductible = prDeductible;
+	public void setCost(int cost) {
+		this.cost = cost;
 	}
 
-	public String getPrDesc() {
-		return prDesc;
+	public int getDeductible() {
+		return deductible;
 	}
 
-	public void setPrDesc(String prDesc) {
-		this.prDesc = prDesc;
+	public void setDeductible(int deductible) {
+		this.deductible = deductible;
 	}
 
-	public String getPrGroup() {
-		return prGroup;
+	public String getDesc() {
+		return desc;
 	}
 
-	public void setPrGroup(String prGroup) {
-		this.prGroup = prGroup;
+	public void setDesc(String desc) {
+		this.desc = desc;
 	}
 
-	public byte getPrIsActive() {
-		return prIsActive;
+	public String getGroup() {
+		return group;
 	}
 
-	public void setPrIsActive(byte prIsActive) {
-		this.prIsActive = prIsActive;
+	public void setGroup(String group) {
+		this.group = group;
 	}
 
-	public byte getPrIsArchive() {
-		return prIsArchive;
+	public byte getIsActive() {
+		return isActive;
 	}
 
-	public void setPrIsArchive(byte prIsArchive) {
-		this.prIsArchive = prIsArchive;
+	public void setIsActive(byte isActive) {
+		this.isActive = isActive;
 	}
 
-	public Timestamp getPrLastUpdate() {
-		return prLastUpdate;
+	public byte getIsArchive() {
+		return isArchive;
 	}
 
-	public void setPrLastUpdate(Timestamp prLastUpdate) {
-		this.prLastUpdate = prLastUpdate;
+	public void setIsArchive(byte isArchive) {
+		this.isArchive = isArchive;
 	}
 
-	public double getPrLol() {
-		return prLol;
+	public Timestamp getLastUpdate() {
+		return lastUpdate;
 	}
 
-	public void setPrLol(double prLol) {
-		this.prLol = prLol;
+	public void setLastUpdate(Timestamp lastUpdate) {
+		this.lastUpdate = lastUpdate;
 	}
 
-	public String getPrName() {
-		return prName;
+	public double getLol() {
+		return lol;
 	}
 
-	public void setPrName(String prName) {
-		this.prName = prName;
+	public void setLol(double lol) {
+		this.lol = lol;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public DealerDO getDealer() {
@@ -167,4 +177,5 @@ public class ProgramDO {
 		this.dealer = dealer;
 	}
 
+	
 }

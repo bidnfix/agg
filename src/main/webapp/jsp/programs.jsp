@@ -34,7 +34,7 @@
  
         <tbody>
             <tr ng-repeat="program in programsList">
-            	<td>{{program.prName}}</td>
+            	<td>{{program.name}}</td>
                 <td>{{program.dealer.name}}</td>
                 <td><div class="manage-sec">
                 		<!-- <a ng-click="deleteProgram(program.prId)">

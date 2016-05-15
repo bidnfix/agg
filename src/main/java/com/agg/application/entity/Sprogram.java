@@ -78,6 +78,11 @@ public class Sprogram implements Serializable {
 	@ManyToOne
 	@JsonIgnore
 	private Dealer dealer;
+	
+	//bi-directional many-to-one association to Dealer
+	@ManyToOne
+	@JsonIgnore
+	private Manufacturer manufacturer;
 
 	public Sprogram() {
 	}
@@ -204,6 +209,14 @@ public class Sprogram implements Serializable {
 
 	public Dealer getDealer() {
 		return this.dealer;
+	}
+
+	public Manufacturer getManufacturer() {
+		return manufacturer;
+	}
+
+	public void setManufacturer(Manufacturer manufacturer) {
+		this.manufacturer = manufacturer;
 	}
 
 	public void setDealer(Dealer dealer) {

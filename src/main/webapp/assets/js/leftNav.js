@@ -267,6 +267,10 @@ routingApp.controller('AddProgramsController', function($scope, $http) {
 	    .then(function(response) {
 	        $scope.group = Math.max.apply(Math,response.data.data.map(function(o){return o.groupId;}));
 	    });
+	 $http.get("/agg/addMachine")
+	    .then(function(response) {
+	        $scope.manufacturerList = response.data.data.manufacturerList;
+	    });
 });
 
 routingApp.controller('AddDealerController', function($scope, $http) {
