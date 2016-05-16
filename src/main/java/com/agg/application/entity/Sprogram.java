@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
@@ -76,12 +77,12 @@ public class Sprogram implements Serializable {
 
 	//bi-directional many-to-one association to Dealer
 	@ManyToOne
-	@JsonIgnore
+	@JoinColumn(name="dealer_id")
 	private Dealer dealer;
 	
 	//bi-directional many-to-one association to Dealer
 	@ManyToOne
-	@JsonIgnore
+	@JoinColumn(name="manf_id")
 	private Manufacturer manufacturer;
 
 	public Sprogram() {
