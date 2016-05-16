@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.context.Context;
 
 import com.agg.application.dao.AccountDAO;
 import com.agg.application.dao.DealerDAO;
@@ -28,6 +29,8 @@ import com.agg.application.model.LocationDO;
 import com.agg.application.model.RoleDO;
 import com.agg.application.model.UserDO;
 import com.agg.application.service.DealerService;
+import com.agg.application.utils.EmailSender;
+import com.agg.application.utils.EmailStatus;
 import com.agg.application.utils.Util;
 
 @Service
@@ -60,6 +63,9 @@ public class DealerServiceImpl implements DealerService {
 	
 	@Autowired
 	SequenceDAO sequenceDAO;
+	
+	@Autowired
+	EmailSender emailSender;
 	
 	@Override
 	public List<DealerDO> getDealers() {
@@ -228,6 +234,17 @@ public class DealerServiceImpl implements DealerService {
 		
 		account = accountDAO.save(account);
 		
+		if(dealer.getId() > 0 && dealerRegistration){
+			Context context = new Context();
+			context.setVariable("title", "Test Email");
+			context.setVariable("description", "Test Description");
+			 
+			EmailStatus emailStatus = emailSender.sendMailAsHtml("srinivas.achini@gmail.com", "Test Email", "email/sample-template", context);
+			if(emailStatus.isSuccess()){
+				logger.info("Email Send succssfully to: "+emailStatus.getTo());
+			}
+		}
+		
 		return dealer.getId();
 	}
 	
@@ -252,19 +269,28 @@ public class DealerServiceImpl implements DealerService {
 		
 		dealer.setCode(dealerDO.getCode());
 		dealer.setParentCode((dealerDO.getParentDealerDO() != null)?dealerDO.getParentDealerDO().getCode():dealerDO.getParentCode());
-		dealer.setStatus(dealerDO.getStatus());
 		dealer.setState(dealerDO.getState());
 		dealer.setUrl(dealerDO.getDealerUrl());
 		dealer.setZip(dealerDO.getZip());
 		//dealer.setActiveDate(date);
 		//dealer.setLastUpdate(date);
 		
-		if(dealerDO.getStatus() == 0 || dealerDO.getStatus() == 2){
+		//updating pending and termination accounts
+		if(dealerDO.getStatus() == 0 || dealer.getStatus() == 2){
 			List<Account> accounts = dealer.getAccounts();
 			for(Account account : accounts){
 				account.setStatus((byte)dealerDO.getStatus());
 			}
+		//updating only dealer account
+		}else if(dealerDO.getStatus() == 1){
+			List<Account> accounts = dealer.getAccounts();
+			for(Account account : accounts){
+				if(account.getRole().getRTitle().equalsIgnoreCase(DEALER_ADMIN)){
+					account.setStatus((byte)dealerDO.getStatus());
+				}
+			}
 		}
+		dealer.setStatus(dealerDO.getStatus());
 		
 		/*Role role = roleDAO.findOne(dealerDO.getRoleDO().getId());
 		Account account = dealer.getAccount();
