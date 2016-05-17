@@ -1,6 +1,8 @@
 package com.agg.application.service.impl;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -73,23 +75,30 @@ public class ProgramServiceImpl implements ProgramService {
 	@Override
 	public Long saveProgram(ProgramDO program) {
 		logger.debug("In saveProgram");
+		Timestamp date = new Timestamp(new Date().getTime());
 		Sprogram progEnt = new Sprogram();
 		progEnt.setPrName(program.getName());
 		progEnt.setPrDesc(program.getDesc());
 		progEnt.setPrIsActive((byte) 1);
+		progEnt.setPrAServicing((byte) 1);
+		progEnt.setPrCondition((byte) 1);
+		progEnt.setPrCType(program.getcType());
 		//progEnt.setDealer(dealerDAO.findOne(Long.valueOf(program.getDealer().getId())));
 		progEnt.setDealer(dealerDAO.findOne(Long.valueOf(2)));
-		progEnt.setPrGroup("1");
+		progEnt.setPrGroup(program.getGroup());
+		progEnt.setPrDeductible(program.getDeductible());
 		progEnt.setPrCType(program.getcType());
 		progEnt.setPrCHours(program.getcHours());
 		progEnt.setPrCTerm(program.getcTerm());
 		progEnt.setPrCost(program.getCost());
+		progEnt.setPrLol(program.getLol());
 		progEnt.setPrIsArchive((byte)0);
 		progEnt.setPrAServicing((byte)1);
 		//progEnt.setManufacturer(manufacturerDAO.findOne(Long.valueOf(program.getManufacturerDO().getId())));
 		progEnt.setManufacturer(manufacturerDAO.findOne(Long.valueOf(2)));
 		//TODO To be implemented after dealer services
 		//progEnt.setDealer(dealer);
+		progEnt.setPrLastUpdate(date);
 		progEnt = programDAO.save(progEnt);
 		return progEnt.getPrId();
 	}

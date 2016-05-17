@@ -258,19 +258,11 @@ routingApp.controller('GetProgramsController', function($scope, $http, $timeout,
 });
 
 routingApp.controller('AddProgramsController', function($scope, $http) {
-	 $http.get("/agg/dealers")
-	    .then(function(response) {
-	    	alert(response);
-	        $scope.dealerList = response.data.data;
-	    });
-	 $http.get("/agg/groups")
-	    .then(function(response) {
-	        $scope.group = Math.max.apply(Math,response.data.data.map(function(o){return o.groupId;}));
-	    });
-	 $http.get("/agg/addMachine")
-	    .then(function(response) {
-	        $scope.manufacturerList = response.data.data.manufacturerList;
-	    });
+	$http.get("/agg/addPrograms")
+    .then(function(response) {
+        $scope.manufacturerList = response.data.data.manufacturerList;
+        $scope.dealerList = response.data.data.dealerList;
+    });
 });
 
 routingApp.controller('AddDealerController', function($scope, $http) {
