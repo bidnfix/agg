@@ -20,6 +20,8 @@ public interface MachineService {
 	
 	List<MachineModelDO> getMachineModel(int typeId);
 	
+	public List<MachineInfoDO> getManfModel(long manfId);
+	
 	public long saveMachineInfo(MachineDO machineDO);
 	
 	public long editMachineInfo(MachineDO machineDO);

@@ -15,18 +15,16 @@ import org.springframework.stereotype.Service;
 
 import com.agg.application.dao.GroupConstantDAO;
 import com.agg.application.dao.GroupDAO;
-import com.agg.application.dao.ManufacturerDAO;
 import com.agg.application.dao.MachineInfoDAO;
 import com.agg.application.dao.MachineTypeDAO;
-import com.agg.application.entity.Dealer;
+import com.agg.application.dao.ManufacturerDAO;
 import com.agg.application.entity.GroupConstant;
 import com.agg.application.entity.MachineInfo;
 import com.agg.application.entity.MachineType;
 import com.agg.application.entity.Manufacturer;
-import com.agg.application.model.AccountDO;
-import com.agg.application.model.DealerDO;
 import com.agg.application.model.GroupDO;
 import com.agg.application.model.MachineDO;
+import com.agg.application.model.MachineInfoDO;
 import com.agg.application.model.MachineModelDO;
 import com.agg.application.model.MachineTypeDO;
 import com.agg.application.model.ManufacturerDO;
@@ -290,6 +288,30 @@ public class MachineServiceImpl implements MachineService {
 		}
 		logger.debug("Machine Type List size: "+machineModelDOList.size());
 		return machineModelDOList;
+	}
+	
+	@Override
+	public List<MachineInfoDO> getManfModel(long manfId) {
+		logger.debug("Inside getMachineModelById()");
+		List<MachineInfo>  machineInfoList =  machineInfoDAO.findByManufacturerManfId(manfId);
+		List<MachineInfoDO> machineInfoDOList = null;
+		if(machineInfoList != null && !machineInfoList.isEmpty()){
+			machineInfoDOList = new ArrayList<MachineInfoDO>();
+			MachineInfoDO machineInfoDO = null;
+			MachineInfo machineModel = null;
+			GroupDO groupDO = null;
+			Iterator<MachineInfo> it = machineInfoList.iterator();
+			while(it.hasNext()){
+				machineInfoDO = new MachineInfoDO();
+				machineModel = it.next();
+				//machineModelDO.setModelId(machineModel.getModel());
+				machineInfoDO.setModel(machineModel.getModel());
+				
+				machineInfoDOList.add(machineInfoDO);
+			}
+		}
+		logger.debug("Machine Type List size: "+machineInfoDOList.size());
+		return machineInfoDOList;
 	}
 
 	@Override

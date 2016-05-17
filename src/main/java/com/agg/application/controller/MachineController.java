@@ -77,6 +77,16 @@ public class MachineController extends BaseController {
 		return new Result("success", null, model);	
 	}
 	
+	@RequestMapping(value = "/manfModel/{manfId}", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+	public @ResponseBody Result getManfModel(ModelMap model, HttpServletResponse response, @PathVariable String manfId) {
+		logger.info("Inside manfModel() with manfId: "+manfId);
+		if(manfId != null && !manfId.isEmpty()){
+			List<MachineInfoDO> machineModels = machineService.getManfModel(Integer.valueOf(manfId));
+			model.put("machineModelList", machineModels);
+		}
+		return new Result("success", null, model);	
+	}
+	
 	@RequestMapping(value = "/editMachine", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
 	public @ResponseBody Result editMachine(ModelMap model, HttpServletResponse response) {
 		logger.info("Inside editMachine()");

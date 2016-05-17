@@ -18,7 +18,6 @@
 		</div>
 	</header>
 
-
 	<!-- data table section -->
 
 	<div class="inner-main" ng-controller="programController">
@@ -35,7 +34,8 @@
 			<div class="form-group">
 				<label for="name" class="col-sm-3 control-label">Manufacturer</label>
 				<div class="col-sm-9">
-					<select name="machine" ng-model="program.manufacturerDO" ng-options="machine.name for machine in manufacturerList">
+					<select name="machine" ng-model="program.manufacturerDO" ng-options="machine.name for machine in manufacturerList" 
+					ng-change="getMachineModel()">
      				</select> 
 				</div>
 			</div>
@@ -43,8 +43,11 @@
 			<div class="form-group">
 				<label for="name" class="col-sm-3 control-label">Model</label>
 				<div class="col-sm-9">
-					<select name="machine" ng-model="program.modelDO" ng-options="machine.name for machine in modelList">
-     				</select> 
+					<!--  <select name="machine" ng-model="program.modelDO" ng-options="machine.name for machine in modelList">
+     				</select> -->
+     				<select name="model" size="7" multiple="multiple" tabindex="2"
+			        ng-model="program.manufacturerDO" ng-options="machine.name for machine in manufacturerList">
+			      </select> 
 				</div>
 			</div>
 			<div class="form-group">
