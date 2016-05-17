@@ -360,7 +360,7 @@ public class DealerServiceImpl implements DealerService {
 			dealerDO.setDealerUrl(dealer.getUrl());
 			dealerDO.setNotes(dealer.getNotes());
 			
-			Dealer parentDealer = dealerDAO.findByCode(dealer.getParentCode());
+			Dealer parentDealer = dealerDAO.findDealerByParentCode(dealer.getParentCode());
 			DealerDO parentDealerDO = new DealerDO();
 			parentDealerDO.setCode(parentDealer.getCode());
 			parentDealerDO.setName(parentDealer.getName());
