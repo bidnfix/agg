@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Component;
 
 import com.agg.application.entity.Dealer;
@@ -19,7 +18,6 @@ public interface DealerDAO extends CrudRepository<Dealer, Long>{
 	@Query("select dealer from Dealer dealer where dealer.code = dealer.parentCode")
 	public List<Dealer> findParentDealers();
 	
-	@Query("select dealer from Dealer dealer where dealer.code = :parentCode")
-	public Dealer findDealerByParentCode(@Param("parentCode")long parentCode);
+	public Dealer findByCode(long parentCode);
 
 }
