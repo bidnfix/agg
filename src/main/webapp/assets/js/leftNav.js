@@ -255,6 +255,17 @@ routingApp.controller('GetProgramsController', function($scope, $http, $timeout,
 			}
 	    });
     };
+    
+    
+    $scope.getMachineModel = function ()
+	 {
+		 //alert($scope.machine.manufacturerDO.id);
+		 $http.get("/agg/machineModel/"+$scope.machine.manufacturerDO.id)
+		    .then(function(response) {
+		        $scope.machineTypeList = response.data.data.machineTypeList;
+		    });
+	 }
+    
 });
 
 routingApp.controller('AddProgramsController', function($scope, $http) {
