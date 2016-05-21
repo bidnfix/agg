@@ -23,7 +23,7 @@
                 <th>Last Name</th>
                 <th>User Type</th>
                 <th>Role</th>
-                <th>Parent Dealer</th>
+                <th>Dealer Name</th>
                 <th>Status</th>
                 <th></th>
             </tr>
@@ -36,7 +36,7 @@
                 <th>Last Name</th>
                 <th>User Type</th>
                 <th>Role</th>
-                <th>Parent Dealer</th>
+                <th>Dealer Name</th>
                 <th>Status</th>
                 <th></th>
             </tr>

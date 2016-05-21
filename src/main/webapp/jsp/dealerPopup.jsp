@@ -7,7 +7,7 @@
 	<div class="inner-main">
 		<a class="btn btn-primary pull-right fadeInLeftBig  hvr-pulse mar-right" onclick="closePopup('dealerEditPopup')">CLOSE</a>
 		<form class="form-horizontal" role="form" ng-submit="submitEditDealer()">
-			<h2>Edit Dealer</h2>
+			<h2>Manage Dealer Account</h2>
 			<!-- <div class="form-group">
 				<label for="userName" class="col-sm-3 control-label">Username</label>
 				<div class="col-sm-9">
@@ -53,7 +53,7 @@
 			<div class="form-group">
 				<label for="address2" class="col-sm-3 control-label">Address2</label>
 				<div class="col-sm-9">
-					<input type="text" id="address2" name="address2" ng-model="dealer.address2" class="form-control" required="required">
+					<input type="text" id="address2" name="address2" ng-model="dealer.address2" class="form-control">
 				</div>
 			</div>
 			<div class="form-group">
@@ -194,12 +194,12 @@
 			<div class="form-group">
 				<label for="notes" class="col-sm-3 control-label">Notes</label>
 				<div class="col-sm-9">
-					<textarea id="notes" name="notes" ng-model="dealer.notes" class="form-control" rows="5" cols="5" required="required"></textarea>
+					<textarea id="notes" name="notes" ng-model="dealer.notes" class="form-control" rows="5" cols="5"></textarea>
 				</div>
 			</div>
 			<div class="form-group">
 				<div class="col-sm-9 col-sm-offset-3">
-					<button type="submit" class="btn btn-primary btn-block">Edit Dealer</button>
+					<button type="submit" class="btn btn-primary btn-block">Save</button>
 				</div>
 			</div>
 		</form>

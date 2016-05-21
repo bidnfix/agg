@@ -33,7 +33,7 @@
 			<div class="form-group">
 				<label for="password" class="col-sm-3 control-label">Password</label>
 				<div class="col-sm-9">
-					<input type="text" id="password" name="password" ng-model="dealer.password" placeholder="password" class="form-control" required="required">
+					<input type="password" id="password" name="password" ng-model="dealer.password" placeholder="password" class="form-control" required="required">
 				</div>
 			</div>
 			<div class="form-group">
@@ -45,13 +45,13 @@
 			<div class="form-group">
 				<label for="firstName" class="col-sm-3 control-label">First Name</label>
 				<div class="col-sm-9">
-					<input type="text" id="firstName" name="firstName" ng-model="dealer.firstName" placeholder="firstName" class="form-control" required="required">
+					<input type="text" id="firstName" name="firstName" ng-model="dealer.firstName" placeholder="First Name" class="form-control" required="required">
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="lastName" class="col-sm-3 control-label">Last Name</label>
 				<div class="col-sm-9">
-					<input type="text" id="lastName" name="lastName" ng-model="dealer.lastName" placeholder="lastName" class="form-control" required="required">
+					<input type="text" id="lastName" name="lastName" ng-model="dealer.lastName" placeholder="Last Name" class="form-control" required="required">
 				</div>
 			</div>
 			<div class="form-group">
@@ -63,7 +63,7 @@
 			<div class="form-group">
 				<label for="address2" class="col-sm-3 control-label">Address2</label>
 				<div class="col-sm-9">
-					<input type="text" id="address2" name="address2" ng-model="dealer.address2" class="form-control" required="required">
+					<input type="text" id="address2" name="address2" ng-model="dealer.address2" class="form-control">
 				</div>
 			</div>
 			<div class="form-group">
@@ -185,7 +185,7 @@
 			<div class="form-group">
 				<label for="notes" class="col-sm-3 control-label">Notes</label>
 				<div class="col-sm-9">
-					<textarea id="notes" name="notes" ng-model="dealer.notes" class="form-control" rows="5" cols="5" required="required"></textarea>
+					<textarea id="notes" name="notes" ng-model="dealer.notes" class="form-control" rows="5" cols="5"></textarea>
 				</div>
 			</div>
 			<div class="form-group">

@@ -236,10 +236,9 @@ public class DealerServiceImpl implements DealerService {
 		
 		if(dealer.getId() > 0 && dealerRegistration){
 			Context context = new Context();
-			context.setVariable("title", "Test Email");
-			context.setVariable("description", "Test Description");
+			context.setVariable("dealerName", dealer.getName());
 			 
-			EmailStatus emailStatus = emailSender.sendMailAsHtml("srinivas.achini@gmail.com", "Test Email", "email/sample-template", context);
+			EmailStatus emailStatus = emailSender.sendMailAsHtml("srinivas.achini@gmail.com", "Dealer Registration", "email/dealer-registration-template", context);
 			if(emailStatus.isSuccess()){
 				logger.info("Email Send succssfully to: "+emailStatus.getTo());
 			}
