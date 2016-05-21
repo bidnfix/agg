@@ -20,13 +20,5 @@ routingApp.controller('machineController', function($scope, machineService, $loc
 		        $scope.machineTypeList = response.data.data.machineTypeList;
 		    });
 	 }
-     
-    $scope.getMachineModel = function ()
-	 {
-		 //alert($scope.machine.machineTypeDO.id);
-		 $http.get("/agg/machineModel/"+$scope.machine.machineTypeDO.id)
-		    .then(function(response) {
-		        $scope.machineModelList = response.data.data.machineModelList;
-		    });
-	 }
+
 });
