@@ -28,7 +28,7 @@
 				<label for="dealer" class="col-sm-3 control-label">Dealer</label>
 				<div class="col-sm-9">
 					<!-- <select class="form-control" name="dealer" ng-model="user.dealerDO" id="dealer" ng-options="dealer.userName for dealer in dealerList" required="required" ng-change="getLocation(this.id)"> -->
-					<select class="form-control" name="dealer" ng-model="user.dealerDO" id="dealer" ng-options="dealer.userName for dealer in dealerList" required="required">
+					<select class="form-control" name="dealer" ng-model="user.dealerDO" id="dealer" ng-options="dealer.name for dealer in dealerList" required="required">
 						<option value="">Select Dealer</option>
 					</select>
 				</div>
@@ -49,7 +49,7 @@
 			<div class="form-group">
 				<label for="password" class="col-sm-3 control-label">Password</label>
 				<div class="col-sm-9">
-					<input type="text" id="password" name="password" ng-model="user.password" placeholder="Password" class="form-control" required="required">
+					<input type="password" id="password" name="password" ng-model="user.password" placeholder="Password" class="form-control" required="required">
 				</div>
 			</div>
 			<div class="form-group">
