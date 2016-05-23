@@ -2,8 +2,6 @@ package com.agg.application.model;
 
 import java.sql.Timestamp;
 
-import com.agg.application.entity.Dealer;
-
 public class ProgramDO {
 	
 	private Long id;
@@ -37,9 +35,19 @@ public class ProgramDO {
 
 	private String name;
 
-	private DealerDO dealer;
+	private DealerDO dealerDO;
 	
 	private ManufacturerDO manufacturerDO;
+	
+	private MachineInfoDO[] machineInfoDO;
+	
+	public DealerDO getDealerDO() {
+		return dealerDO;
+	}
+
+	public void setDealerDO(DealerDO dealerDO) {
+		this.dealerDO = dealerDO;
+	}
 
 	public ManufacturerDO getManufacturerDO() {
 		return manufacturerDO;
@@ -47,6 +55,14 @@ public class ProgramDO {
 
 	public void setManufacturerDO(ManufacturerDO manufacturerDO) {
 		this.manufacturerDO = manufacturerDO;
+	}
+
+	public MachineInfoDO[] getMachineInfoDO() {
+		return machineInfoDO;
+	}
+
+	public void setMachineInfoDO(MachineInfoDO[] machineInfoDO) {
+		this.machineInfoDO = machineInfoDO;
 	}
 
 	public Long getId() {
@@ -169,13 +185,7 @@ public class ProgramDO {
 		this.name = name;
 	}
 
-	public DealerDO getDealer() {
-		return dealer;
-	}
-
-	public void setDealer(DealerDO dealer) {
-		this.dealer = dealer;
-	}
+	
 
 	
 }

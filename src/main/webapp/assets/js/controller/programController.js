@@ -15,4 +15,14 @@ routingApp.controller('programController', function($scope, programService, $loc
 		        $scope.programsList = response.data.data.programs;
 		    });
 	 }
+    
+    $scope.getManfModel = function ()
+	 {
+		 alert($scope.program.manufacturerDO.id);
+		 $http.get("/agg/manfModel/"+$scope.program.manufacturerDO.id)
+		    .then(function(response) {
+		        $scope.machineModelList = response.data.data.machineModelList;
+		    });
+	 }
+    
 });

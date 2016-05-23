@@ -306,6 +306,7 @@ public class MachineServiceImpl implements MachineService {
 				machineModel = it.next();
 				//machineModelDO.setModelId(machineModel.getModel());
 				machineInfoDO.setModel(machineModel.getModel());
+				machineInfoDO.setMachineId(machineModel.getMachineId());
 				
 				machineInfoDOList.add(machineInfoDO);
 			}

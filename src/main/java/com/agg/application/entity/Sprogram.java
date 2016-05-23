@@ -1,20 +1,22 @@
 package com.agg.application.entity;
 
+
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 /**
@@ -22,7 +24,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * 
  */
 @Entity
-@Table(name="sprogram")
 @NamedQuery(name="Sprogram.findAll", query="SELECT s FROM Sprogram s")
 public class Sprogram implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -31,6 +32,14 @@ public class Sprogram implements Serializable {
 	@Column(name="pr_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long prId;
+
+	@ManyToOne
+	@JoinColumn(name="dealer_id")
+	private Dealer dealer;
+
+	@ManyToOne
+	@JoinColumn(name="manf_id")
+	private Manufacturer manufacturer;
 
 	@Column(name="pr_a_servicing")
 	private byte prAServicing;
@@ -75,26 +84,41 @@ public class Sprogram implements Serializable {
 	@Column(name="pr_name")
 	private String prName;
 
-	//bi-directional many-to-one association to Dealer
-	@ManyToOne
-	@JoinColumn(name="dealer_id")
-	private Dealer dealer;
-	
-	//bi-directional many-to-one association to Dealer
-	@ManyToOne
-	@JoinColumn(name="manf_id")
-	private Manufacturer manufacturer;
+	//bi-directional many-to-many association to MachineInfo
+		@ManyToMany(cascade = {CascadeType.ALL})
+		@JoinTable(
+			name="prog_manf_model_xref"
+			, joinColumns={
+				@JoinColumn(name="prog_id")
+				}
+			, inverseJoinColumns={
+				@JoinColumn(name="machine_info_id")
+				}
+			)
+		private List<MachineInfo> machineInfos;
 
 	public Sprogram() {
 	}
 
 	public Long getPrId() {
-		return this.prId;
+		return prId;
 	}
+
 
 	public void setPrId(Long prId) {
 		this.prId = prId;
 	}
+
+
+	public Manufacturer getManufacturer() {
+		return manufacturer;
+	}
+
+
+	public void setManufacturer(Manufacturer manufacturer) {
+		this.manufacturer = manufacturer;
+	}
+
 
 	public byte getPrAServicing() {
 		return this.prAServicing;
@@ -207,21 +231,25 @@ public class Sprogram implements Serializable {
 	public void setPrName(String prName) {
 		this.prName = prName;
 	}
+	
+	
 
 	public Dealer getDealer() {
-		return this.dealer;
-	}
-
-	public Manufacturer getManufacturer() {
-		return manufacturer;
-	}
-
-	public void setManufacturer(Manufacturer manufacturer) {
-		this.manufacturer = manufacturer;
+		return dealer;
 	}
 
 	public void setDealer(Dealer dealer) {
 		this.dealer = dealer;
 	}
+
+	public List<MachineInfo> getMachineInfos() {
+		return machineInfos;
+	}
+
+	public void setMachineInfos(List<MachineInfo> machineInfos) {
+		this.machineInfos = machineInfos;
+	}
+	
+	
 
 }

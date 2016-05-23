@@ -12,11 +12,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.agg.application.dao.DealerDAO;
+import com.agg.application.dao.MachineInfoDAO;
 import com.agg.application.dao.ManufacturerDAO;
 import com.agg.application.dao.ProgramDAO;
 import com.agg.application.entity.Dealer;
+import com.agg.application.entity.MachineInfo;
 import com.agg.application.entity.Sprogram;
 import com.agg.application.model.DealerDO;
+import com.agg.application.model.MachineInfoDO;
 import com.agg.application.model.ProgramDO;
 import com.agg.application.service.ProgramService;
 import com.agg.application.utils.Util;
@@ -33,6 +36,9 @@ public class ProgramServiceImpl implements ProgramService {
 	
 	@Autowired
 	private ManufacturerDAO manufacturerDAO;
+	
+	@Autowired
+	private MachineInfoDAO machineInfoDAO;
 	
 	@Override
 	public List<ProgramDO> getPrograms() {
@@ -63,7 +69,7 @@ public class ProgramServiceImpl implements ProgramService {
 					dealerDO.setName(dealer.getName());
 					dealerDO.setId(dealer.getId());
 				}
-				programDO.setDealer(dealerDO);
+				programDO.setDealerDO(dealerDO);
 				programDOList.add(programDO);
 			}
 		}
@@ -83,9 +89,9 @@ public class ProgramServiceImpl implements ProgramService {
 		progEnt.setPrAServicing((byte) 1);
 		progEnt.setPrCondition((byte) 1);
 		progEnt.setPrCType(program.getcType());
-		logger.debug("-->"+program.getDealer());
-		//progEnt.setDealer(dealerDAO.findOne(Long.valueOf(program.getDealer().getId())));
-		progEnt.setDealer(dealerDAO.findOne(Long.valueOf(14)));
+		logger.debug("-->"+program.getDealerDO());
+		progEnt.setDealer(dealerDAO.findOne(Long.valueOf(program.getDealerDO().getId())));
+		//progEnt.setDealer(dealerDAO.findOne(Long.valueOf(14)));
 		progEnt.setPrGroup(program.getGroup());
 		progEnt.setPrDeductible(program.getDeductible());
 		progEnt.setPrCType(program.getcType());
@@ -95,10 +101,30 @@ public class ProgramServiceImpl implements ProgramService {
 		progEnt.setPrLol(program.getLol());
 		progEnt.setPrIsArchive((byte)0);
 		progEnt.setPrAServicing((byte)1);
-		//progEnt.setManufacturer(manufacturerDAO.findOne(Long.valueOf(program.getManufacturerDO().getId())));
-		progEnt.setManufacturer(manufacturerDAO.findOne(Long.valueOf(8)));
+		progEnt.setManufacturer(manufacturerDAO.findOne(Long.valueOf(program.getManufacturerDO().getId())));
+		//progEnt.setManufacturer(manufacturerDAO.findOne(Long.valueOf(8)));
 		//TODO To be implemented after dealer services
 		//progEnt.setDealer(dealer);
+		
+		MachineInfoDO[] machineInfoDOs =  program.getMachineInfoDO();
+		
+		
+		
+		MachineInfo machineInfo = null;
+		List<MachineInfo> machineInfoList = new ArrayList<MachineInfo>();
+		for(MachineInfoDO machineInfoDO : machineInfoDOs)
+		{
+			logger.debug("--machineInfoDO--"+machineInfoDO.getMachineId());
+			machineInfo = machineInfoDAO.findOne(machineInfoDO.getMachineId());
+			if(machineInfo!=null)
+			{
+				logger.debug("--machineInfo --"+machineInfo.getMachineId());
+				machineInfoList.add(machineInfo);
+			}
+		}
+		
+		progEnt.setMachineInfos(machineInfoList);
+		
 		progEnt.setPrLastUpdate(date);
 		progEnt = programDAO.save(progEnt);
 		return progEnt.getPrId();
@@ -120,7 +146,7 @@ public class ProgramServiceImpl implements ProgramService {
 			dealerDO.setName(dealer.getName());
 			dealerDO.setId(dealer.getId());
 		}
-		program.setDealer(dealerDO);
+		program.setDealerDO(dealerDO);
 		
 		return program;
 	}
