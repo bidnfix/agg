@@ -292,7 +292,7 @@ public class MachineServiceImpl implements MachineService {
 	
 	@Override
 	public List<MachineInfoDO> getManfModel(long manfId) {
-		logger.debug("Inside getMachineModelById()");
+		logger.debug("Inside getManfModel()");
 		List<MachineInfo>  machineInfoList =  machineInfoDAO.findByManufacturerManfId(manfId);
 		List<MachineInfoDO> machineInfoDOList = null;
 		if(machineInfoList != null && !machineInfoList.isEmpty()){

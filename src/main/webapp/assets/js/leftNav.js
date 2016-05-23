@@ -255,6 +255,9 @@ routingApp.controller('GetProgramsController', function($scope, $http, $timeout,
 			}
 	    });
     };
+    
+
+    
 });
 
 routingApp.controller('AddProgramsController', function($scope, $http) {
@@ -263,6 +266,17 @@ routingApp.controller('AddProgramsController', function($scope, $http) {
         $scope.manufacturerList = response.data.data.manufacturerList;
         $scope.dealerList = response.data.data.dealerList;
     });
+	
+    
+    $scope.getManfModel = function ()
+	 {
+		 alert($scope.program.manufacturerDO.id);
+		 $http.get("/agg/manfModel/"+$scope.program.manufacturerDO.id)
+		    .then(function(response) {
+		        $scope.machineModelList = response.data.data.machineModelList;
+		    });
+	 }
+	
 });
 
 routingApp.controller('AddDealerController', function($scope, $http) {

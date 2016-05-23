@@ -83,8 +83,9 @@ public class ProgramServiceImpl implements ProgramService {
 		progEnt.setPrAServicing((byte) 1);
 		progEnt.setPrCondition((byte) 1);
 		progEnt.setPrCType(program.getcType());
+		logger.debug("-->"+program.getDealer());
 		//progEnt.setDealer(dealerDAO.findOne(Long.valueOf(program.getDealer().getId())));
-		progEnt.setDealer(dealerDAO.findOne(Long.valueOf(2)));
+		progEnt.setDealer(dealerDAO.findOne(Long.valueOf(14)));
 		progEnt.setPrGroup(program.getGroup());
 		progEnt.setPrDeductible(program.getDeductible());
 		progEnt.setPrCType(program.getcType());
@@ -95,7 +96,7 @@ public class ProgramServiceImpl implements ProgramService {
 		progEnt.setPrIsArchive((byte)0);
 		progEnt.setPrAServicing((byte)1);
 		//progEnt.setManufacturer(manufacturerDAO.findOne(Long.valueOf(program.getManufacturerDO().getId())));
-		progEnt.setManufacturer(manufacturerDAO.findOne(Long.valueOf(2)));
+		progEnt.setManufacturer(manufacturerDAO.findOne(Long.valueOf(8)));
 		//TODO To be implemented after dealer services
 		//progEnt.setDealer(dealer);
 		progEnt.setPrLastUpdate(date);
