@@ -109,7 +109,7 @@ public class MachineController extends BaseController {
 	
 			long id = machineService.saveMachineInfo(machineDO);
 			if(id > 0){
-				opResult = new Result("success", "Invalid Machine form field values", null);
+				opResult = new Result("success", "Machine created successfully", null);
 			}
 			
 		//}

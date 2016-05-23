@@ -15,6 +15,7 @@ public class MachineType implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue
 	@Column(name="machine_type_id")
 	private long machineTypeId;
 
