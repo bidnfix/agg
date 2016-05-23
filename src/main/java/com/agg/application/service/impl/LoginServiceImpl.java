@@ -33,7 +33,7 @@ public class LoginServiceImpl implements LoginService {
 		AccountDO accountDO = new AccountDO();
 		accountDO.setUsername(account.getUserName());
 		accountDO.setStatus(account.getStatus());
-		//accountDO.setRoleName(account.getRole().getRTitle());
+		accountDO.setRoleName(account.getRole().getRTitle());
 		return accountDO;
 	}
 

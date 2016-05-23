@@ -19,7 +19,9 @@
             <li class="animated fadeInLeft"><a id="quoteSearch" href="#" ng-click="activateTab($event);">QUOTE SEARCH</a></li>
             <li class="animated fadeInLeftBig"><a id="dealerManagement" href="#/agg/dealers" ng-click="activateTab($event);">DEALER MANAGEMENT</a>
 				<ul>
+					<c:if test="${user.roleName eq 'Dealer Admin'}">
 					<li><a id="manageDealers" href="#/agg/addDealer" ng-click="activateTab($event);">ADD DEALER</a></li>
+					</c:if>
 					<!-- <li><a id="manageLocations" href="#/agg/addLocation" ng-click="activateTab($event);">MANAGE LOCATIONS</a></li> -->
 					<!-- <li><a id="manageUsers" href="#/agg/addUser" ng-click="activateTab($event);">MANAGE USERS</a></li> -->
 					<li><a id="pendingDealers" href="#/agg/pendingDealers" ng-click="activateTab($event);">PENDING DEALERS</a></li>
