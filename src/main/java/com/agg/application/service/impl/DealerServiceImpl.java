@@ -241,7 +241,12 @@ public class DealerServiceImpl implements DealerService {
 		logger.info("dealerId: "+dealer.getId());
 		if(dealer.getId() > 0){
 			Context context = new Context();
-			context.setVariable("dealerName", dealer.getName());
+			context.setVariable("dealerName", dealerDO.getName());
+			context.setVariable("dealerCode", dealerCode);
+			context.setVariable("dealerFirstName", dealerDO.getFirstName());
+			context.setVariable("dealerLastName", dealerDO.getLastName());
+			context.setVariable("dealerPhone", dealerDO.getPhone());
+			context.setVariable("dealerMarketEmail", dealerDO.getMarketEmail());
 			
 			logger.info("b4 Email sending to the dealer: "+dealer.getName());
 			//sending email to dealer
