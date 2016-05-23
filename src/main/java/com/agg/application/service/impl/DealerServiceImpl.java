@@ -234,14 +234,29 @@ public class DealerServiceImpl implements DealerService {
 		
 		account = accountDAO.save(account);
 		
-		if(dealer.getId() > 0 && dealerRegistration){
+		logger.info("dealerId: "+dealer.getId());
+		if(dealer.getId() > 0){
 			Context context = new Context();
 			context.setVariable("dealerName", dealer.getName());
-			 
-			EmailStatus emailStatus = emailSender.sendMailAsHtml("srinivas.achini@gmail.com", "Dealer Registration", "email/dealer-registration-template", context);
-			if(emailStatus.isSuccess()){
-				logger.info("Email Send succssfully to: "+emailStatus.getTo());
+			
+			logger.info("b4 Email sending to the dealer: "+dealer.getName());
+			//sending email to dealer
+			EmailStatus emailStatus = emailSender.sendMailAsHtml(dealer.getMarketEmail(), "Dealer Registration", "email/dealer-registration-template", context);
+			if(emailStatus != null){
+				logger.info("email status: "+emailStatus.isSuccess());
+				if(emailStatus.isSuccess()){
+					logger.info("Dealer Registration Email Send succssfully to dealer: "+emailStatus.getTo());
+				}
 			}
+			
+			//sending email to admin
+			/*emailStatus = emailSender.sendMailAsHtml(dealer.getMarketEmail(), "Dealer Registration", "email/dealer-registration-template", context);
+			if(emailStatus != null){
+				logger.info("email status: "+emailStatus.isSuccess());
+				if(emailStatus.isSuccess()){
+					logger.info("Dealer Registration Email Send succssfully to dealer: "+emailStatus.getTo());
+				}
+			}*/
 		}
 		
 		return dealer.getId();

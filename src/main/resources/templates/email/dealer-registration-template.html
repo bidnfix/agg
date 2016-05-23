@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport"    content="width=device-width, initial-scale=1.0">
-	<meta name="description" content="">
-	<meta name="author"      content="AgGuard">
+	<meta charset="utf-8"/>
+	<meta name="viewport"    content="width=device-width, initial-scale=1.0"/>
+	<meta name="description" content=""/>
+	<meta name="author"      content="AgGuard"/>
 	
 	<title>Ag Guard</title>
-<link rel="favicon" href="assets/images/favicon.png">
-<link rel="stylesheet" href="assets/css/bootstrap.min.css">
-<link rel="stylesheet" href="assets/css/font-awesome.min.css">
+<link rel="favicon" href="assets/images/favicon.png"/>
+<link rel="stylesheet" href="assets/css/bootstrap.min.css"/>
+<link rel="stylesheet" href="assets/css/font-awesome.min.css"/>
 <!-- Custom styles for our template -->
-<link rel="stylesheet" href="assets/css/bootstrap-theme.css" media="screen" >
+<link rel="stylesheet" href="assets/css/bootstrap-theme.css" media="screen" />
 <link rel="stylesheet" type="text/css" href="assets/css/da-slider.css" />
-<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/style.css"/>
 <link href="assets/css/animate.min.css" rel="stylesheet" />
-<link rel="stylesheet" href="assets/css/hover.css">
+<link rel="stylesheet" href="assets/css/hover.css"/>
 
 
 
@@ -33,7 +33,7 @@
     <div class="navbar-header"> 
       <!-- Button for smallest screens -->
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-      <a class="navbar-brand animated fadeInDownBig" href="index.html"><img src="assets/images/logo.png" alt="AgGuard"></a> </div>
+      <a class="navbar-brand animated fadeInDownBig" href="index.html"><img src="assets/images/logo.png" alt="AgGuard"/></a> </div>
   </div>
 </div>
 <!-- /.navbar --> 
@@ -47,8 +47,8 @@
 			
 			<div class="inner-main">
 				<div class="col-sm-10">
-					<p>Dear ${dealerName}</p>
-					<p>This is to inform you that your registration process has been submitted for review. Upon activation, you will be receiving an email from us with your dealer account & credentials</p>
+					<p th:text="'Dear '+${dealerName}"></p>
+					<p>This is to inform you that your registration process has been submitted for review. Upon activation, you will be receiving an email from us with your dealer account &amp; credentials</p>
 					<br/>
 					<br/>
 					<p>Best Regards</p>
