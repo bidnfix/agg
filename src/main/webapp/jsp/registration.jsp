@@ -28,7 +28,7 @@
 	<![endif]-->
 </head>
 
-<body>
+<body ng-app="aggApp">
 	<!-- Fixed navbar -->
 	<div class="navbar navbar-inverse navbar-fixed-top headroom" >
   <div class="container">
