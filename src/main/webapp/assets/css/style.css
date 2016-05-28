@@ -470,14 +470,14 @@ img.pull-left {
     margin-bottom: 10px;
 }
 .item blockquote p::before {
-    content: "";
+    content: "ï„�";
     float: left;
     font-family: "Fontawesome";
     margin-right: 10px;
 }
-.new-modal-box{
+.modal-body{
 	overflow-x: hidden!important;
-	height:350px!important;
+	height:500px!important;
 	}
 .contact ul {
     padding: 0;
@@ -959,3 +959,12 @@ ul li.has-subnav .accordion-btn {
 
 .mar-bot{
 	margin-bottom:25px!important;}
+	
+.err-msg{
+	color: #BB1818;
+	padding-bottom: 12px;
+}
+.success-msg{
+	color: #65EF64;
+	padding-bottom: 12px;
+}

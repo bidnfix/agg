@@ -19,5 +19,7 @@ public interface DealerDAO extends CrudRepository<Dealer, Long>{
 	public List<Dealer> findParentDealers();
 	
 	public Dealer findByCode(long parentCode);
+	
+	public long countByStatus(int status);
 
 }

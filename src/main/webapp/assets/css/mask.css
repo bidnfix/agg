@@ -9,5 +9,5 @@
 .popup_content_scroller_01 { float:left; width:100%; height:auto; padding:0px; }
 .popup_content_row01_buttons { float:left; width:98%; height:45px; text-align:center; }
 .popup_content_field02_buttons { margin:10px 0px 10px 43%; text-align:center; } */
-.agg_popup{width: 70%;}
+.agg_popup{width: 50%;}
 .mask {z-index: 10000; display:none; position:absolute; top:0; left:0; -moz-opacity: 0.8; opacity:.80; filter: alpha(opacity=80); background-color:#CCC; }

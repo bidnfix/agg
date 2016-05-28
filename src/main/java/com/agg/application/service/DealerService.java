@@ -39,5 +39,11 @@ public interface DealerService {
 	public List<DealerDO> getPendingDealers();
 
 	public List<RoleDO> getUserRoles(long id);
+	
+	public long getActiveDealerCount();
+	
+	public long getTerminatedDealerCount();
+	
+	public long getPendingDealerCount();
 
 }

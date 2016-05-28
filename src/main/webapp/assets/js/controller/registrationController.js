@@ -4,6 +4,6 @@ App.controller('registrationController', function($scope, registrationService, $
 	$scope.dealer={};
 	$scope.submitDealer = function() {
 		alert("in submitDealer");
-		registrationService.saveRegistration($scope.dealer);
+		registrationService.saveRegistration($scope.dealer, $scope);
     };
 });

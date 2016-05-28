@@ -41,7 +41,8 @@ routingApp.config(['$routeProvider',
                     	  controller: 'AddUserController'
                       }).
                       when('/agg/home', {
-                    	  templateUrl: '../../jsp/home.jsp'
+                    	  templateUrl: '../../jsp/home.jsp',
+                    	  controller: 'HomeController'
                       }).
                       when('/agg/programs', {
                     	  templateUrl: '../../jsp/programs.jsp',
@@ -186,6 +187,16 @@ routingApp.controller('AddUserController', function($scope, $http) {
         $scope.roleList = response.data.data.roleList;
     });
 });
+
+routingApp.controller('HomeController', function($scope, $http) {
+	$http.get("/agg/dealerCountDetails")
+    .then(function(response) {
+        $scope.activeDealers = response.data.data.activeDealers;
+        $scope.pendingDealers = response.data.data.pendingDealers;
+        $scope.terminatedDealers = response.data.data.terminatedDealers;
+    });
+});
+
 
 /*routingApp.controller('AddLocationController', function($scope, $http) {
 	$http.get("/agg/dealerInfo")

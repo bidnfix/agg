@@ -230,4 +230,26 @@ public class DealerController extends BaseController {
 		
 		return opResult;
 	}
+	
+	@RequestMapping(value = "/dealerCountDetails", method = RequestMethod.GET)
+	public @ResponseBody Result getDealerCountDetails(Model model, HttpServletRequest request, HttpServletResponse response) {
+		logger.debug("In getDealerCountDetails method");
+		Result opResult = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			long activeDealers = dealerService.getActiveDealerCount();
+			long pendingDealers = dealerService.getPendingDealerCount();
+			long terminatedDealers = dealerService.getTerminatedDealerCount();
+			
+			logger.info("activeDealers, pendingDealers & terminatedDealers: "+activeDealers+", "+pendingDealers+" & "+terminatedDealers);
+			model.addAttribute("activeDealers", activeDealers);
+			model.addAttribute("pendingDealers", pendingDealers);
+			model.addAttribute("terminatedDealers", terminatedDealers);
+			opResult = new Result("success", "Dealer information fetched successfully", model);
+			
+		}
+		
+		return opResult;
+	}
 }

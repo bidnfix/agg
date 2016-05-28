@@ -34,6 +34,9 @@ public class LoginServiceImpl implements LoginService {
 		accountDO.setUsername(account.getUserName());
 		accountDO.setStatus(account.getStatus());
 		accountDO.setRoleName(account.getRole().getRTitle());
+		accountDO.setFirstName(account.getFirstName());
+		accountDO.setLastName(account.getLastName());
+		
 		return accountDO;
 	}
 

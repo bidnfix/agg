@@ -22,3 +22,4 @@
 <!-- /.navbar --> 
 
 <header id="head" class="secondary"></header>
+<div class="head" class="secondary"><div class="pull-right"><h4>Logged in User: ${user.firstName}&nbsp;${user.lastName}&nbsp;(${user.username})</h4></div></div>

@@ -50,6 +50,8 @@ public class DealerServiceImpl implements DealerService {
 	
 	private static final int PENDING = 2;
 	
+	private static final int TERMINATED = 0;
+	
 	@Value("${admin.email}")
 	private String adminEmail;
 	
@@ -643,6 +645,24 @@ public class DealerServiceImpl implements DealerService {
 		logger.info("roleDOList size: "+roleDOList.size());
 			
 		return roleDOList;
+	}
+
+	@Override
+	public long getActiveDealerCount() {
+		logger.info("inside getActiveDealerCount method");
+		return dealerDAO.countByStatus(ACTIVE);
+	}
+
+	@Override
+	public long getTerminatedDealerCount() {
+		logger.info("inside getTerminatedDealerCount method");
+		return dealerDAO.countByStatus(TERMINATED);
+	}
+
+	@Override
+	public long getPendingDealerCount() {
+		logger.info("inside getPendingDealerCount method");
+		return dealerDAO.countByStatus(PENDING);
 	}
 
 }

@@ -1,6 +1,42 @@
 
 <!-- Article main content -->
-<article class="col-md-9 maincontent">
+<article class="col-md-9 maincontent" ng-controller="HomeController">
+	<nav class="navbar navbar-findcond ">
+    <!--<div class="container">-->
+		
+		<div id="navbar">
+			<ul class="nav navbar-nav ">
+				<li>
+					<a href="#/agg/pendingDealers"> Pending Dealers <span class="badge">{{pendingDealers}}</span></a>
+				</li>
+                
+                <li>
+					<a href="#/agg/dealers"> Active Dealers <span class="badge">{{activeDealers}}</span></a>
+				</li>
+				
+                
+                <li>
+					<a href="#/agg/dealers"> Terminated Dealers <span class="badge">{{terminatedDealers}}</span></a>
+				</li>
+                <!--
+                <li>
+					<a href="#"> Invoiced  <span class="badge">24</span></a>
+				</li>
+                
+                <li>
+					<a href="#"> Purchase Requested <span class="badge">6</span></a>
+				</li>
+                
+                <li>
+					<a href="#"> Claims <span class="badge">112</span></a>
+				</li>
+				-->
+				
+			</ul>
+			
+		</div>
+	<!--</div>-->
+</nav>
 	<header class="page-header">
 		<div class="col-md-6 col-sm-12">
 			<div class="sec-title">

@@ -7,6 +7,10 @@ public class AccountDO {
 	private byte status;
 	
 	private String roleName;
+	
+	private String firstName;
+	
+	private String lastName;
 
 	/**
 	 * @return the username
@@ -48,6 +52,34 @@ public class AccountDO {
 	 */
 	public void setRoleName(String roleName) {
 		this.roleName = roleName;
+	}
+
+	/**
+	 * @return the firstName
+	 */
+	public String getFirstName() {
+		return firstName;
+	}
+
+	/**
+	 * @param firstName the firstName to set
+	 */
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	/**
+	 * @return the lastName
+	 */
+	public String getLastName() {
+		return lastName;
+	}
+
+	/**
+	 * @param lastName the lastName to set
+	 */
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 	
 }

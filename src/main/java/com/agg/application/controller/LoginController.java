@@ -46,6 +46,7 @@ public class LoginController extends BaseController {
 			HttpServletRequest request, HttpServletResponse response) throws Exception {
 		logger.debug("LoginForm username: [{}]", loginForm.getUsername());
 		AccountDO account = loginService.authenticateUser(loginForm);
+		
 		logger.debug("Account [{}]", account);
 		request.getSession().setAttribute("user", account);
 		return new Result("success", null, account);

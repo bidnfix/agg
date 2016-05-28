@@ -1,13 +1,18 @@
-<div id="userEditPopup" class="agg_popup" style="z-index:10001; display:none; position:absolute;">
+<div id="userEditPopup" class="agg_popup modal-dialog" style="z-index:10001; display:none; position:absolute;">
 <!-- Article main content -->
-<article class="col-md-9 maincontent popup">
+<article class="modal-content new-modal-box popup">
+
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" onclick="closePopup('userEditPopup')"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+		<h3 class="modal-title" id="lineModalLabel">Manage Dealer User</h3>
+	</div>
 
 	<!-- data table section -->
 
-	<div class="inner-main">
-		<a class="btn btn-primary pull-right fadeInLeftBig  hvr-pulse mar-right" onclick="closePopup('userEditPopup')">CLOSE</a>
+	<div class="modal-body">
+		<!-- <a class="btn btn-primary pull-right fadeInLeftBig  hvr-pulse mar-right" onclick="closePopup('userEditPopup')">CLOSE</a> -->
 		<form class="form-horizontal" role="form" ng-submit="submitEditUser()">
-			<h2>Edit User</h2>
+			<!-- <h2>Edit User</h2> -->
 			<!-- <div class="form-group">
 				<label for="dealer" class="col-sm-3 control-label">Dealer</label>
 				<div class="col-sm-9">
