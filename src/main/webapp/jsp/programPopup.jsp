@@ -6,7 +6,7 @@
 
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal" onclick="closePopup('userEditPopup')"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-		<h3 class="modal-title" id="lineModalLabel">Manage Machine</h3>
+		<h3 class="modal-title" id="lineModalLabel">Manage Programs</h3>
 	</div>
 	
 		<div class="modal-body">
