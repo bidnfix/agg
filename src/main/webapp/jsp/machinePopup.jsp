@@ -1,11 +1,14 @@
-<div id="machineEditPopup" class="agg_popup" style="z-index:10001; display:none; position:absolute;">
+<div id="machineEditPopup" class="agg_popup modal-dialog" style="z-index:10001; display:none; position:absolute;">
 <!-- Article main content -->
-<article class="col-md-9 maincontent popup">
-
+<article class="modal-content new-modal-box popup">
 	<!-- data table section -->
+	
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" onclick="closePopup('userEditPopup')"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+		<h3 class="modal-title" id="lineModalLabel">Manage Machine</h3>
+	</div>
 
-	<div class="inner-main">
-		<a class="btn btn-primary pull-right fadeInLeftBig  hvr-pulse mar-right" onclick="closePopup('machineEditPopup')">CLOSE</a>
+	<div class="modal-body">
 		<form class="form-horizontal" role="form" ng-submit="editSubmitMachine()">
 			<h2>Edit Machine</h2>
 			<div class="form-group">
