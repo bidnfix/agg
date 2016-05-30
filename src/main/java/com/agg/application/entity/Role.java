@@ -42,6 +42,10 @@ public class Role implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="account_type_id")
 	private AccountType accountType;
+	
+	//bi-directional many-to-one association to UserRoleMenus
+	@OneToMany(mappedBy="role")
+	private List<UserRoleMenus> userRoleMenuses;
 
 	public Role() {
 	}
@@ -120,6 +124,28 @@ public class Role implements Serializable {
 	 */
 	public void setAccountType(AccountType accountType) {
 		this.accountType = accountType;
+	}
+	
+	public List<UserRoleMenus> getUserRoleMenuses() {
+		return this.userRoleMenuses;
+	}
+
+	public void setUserRoleMenuses(List<UserRoleMenus> userRoleMenuses) {
+		this.userRoleMenuses = userRoleMenuses;
+	}
+
+	public UserRoleMenus addUserRoleMenus(UserRoleMenus userRoleMenus) {
+		getUserRoleMenuses().add(userRoleMenus);
+		userRoleMenus.setRole(this);
+
+		return userRoleMenus;
+	}
+
+	public UserRoleMenus removeUserRoleMenus(UserRoleMenus userRoleMenus) {
+		getUserRoleMenuses().remove(userRoleMenus);
+		userRoleMenus.setRole(null);
+
+		return userRoleMenus;
 	}
 	
 }

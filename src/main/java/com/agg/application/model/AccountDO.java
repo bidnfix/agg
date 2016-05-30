@@ -1,5 +1,7 @@
 package com.agg.application.model;
 
+import java.util.Set;
+
 public class AccountDO {
 	
 	private String username;
@@ -11,6 +13,8 @@ public class AccountDO {
 	private String firstName;
 	
 	private String lastName;
+	
+	private Set<UserMenuDO> userMenuDOSet = null;
 
 	/**
 	 * @return the username
@@ -80,6 +84,14 @@ public class AccountDO {
 	 */
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+
+	public Set<UserMenuDO> getUserMenuDOSet() {
+		return userMenuDOSet;
+	}
+
+	public void setUserMenuDOSet(Set<UserMenuDO> userMenuDOSet) {
+		this.userMenuDOSet = userMenuDOSet;
 	}
 	
 }
