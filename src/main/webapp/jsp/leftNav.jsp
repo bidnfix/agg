@@ -1,10 +1,22 @@
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!-- Sidebar -->
-			<aside class="col-md-3 sidebar sidebar-left">
+<aside class="col-md-3 sidebar sidebar-left">
 
 				<!-- Navigation -->
 	<nav class="mainNav" ng-controller="activateTabCtrl">
       <!-- <h3>Headding Comes Here</h3> -->
 		<ul id="leftTabs">
+			<c:forEach items="${user.userMenuDOSet}" var="userMenus">
+		       <li class="animated fadeInLeft"><a id="worklist" href="#${userMenus.url}" ng-click="activateTab($event);">${userMenus.name}</a></li>
+		       <c:if test="${userMenus.userSubMenuDOSet ne null}">
+		       	   <ul>
+				       <c:forEach items="${userMenus.userSubMenuDOSet}" var="userSubMenus">
+				       		<li><a id="manageLocations" href="#${userSubMenus.url}" ng-click="activateTab($event);">${userSubMenus.name}</a></li>
+				       </c:forEach>
+			       </ul>
+		       </c:if>
+    		</c:forEach>
 			<li class="animated fadeInLeft"><a id="worklist" href="#" ng-click="activateTab($event);">WORKLIST</a></li>
             <li class="animated fadeInLeft"><a id="serviceDesk" href="#/agg/programs" ng-click="activateTab($event);">SERVICE DRIVE</a></li>
             <li class="animated fadeInLeft"><a id="userTrack" href="#" ng-click="activateTab($event);">USER TRACK</a></li>
