@@ -4,11 +4,11 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 
@@ -23,19 +23,17 @@ public class UserSubMenus implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue
 	private int id;
-
-	@Column(name="menu_id")
-	private int menuId;
 
 	private String name;
 
-	@Column(name="navi_url")
-	private String naviUrl;
+	@Column(name="nav_url")
+	private String navUrl;
 
 	//bi-directional one-to-one association to UserMenus
 	@ManyToOne
-	@JoinColumn(name="id")
+	@JoinColumn(name="menu_id")
 	private UserMenus userMenus;
 
 	public UserSubMenus() {
@@ -49,28 +47,12 @@ public class UserSubMenus implements Serializable {
 		this.id = id;
 	}
 
-	public int getMenuId() {
-		return this.menuId;
-	}
-
-	public void setMenuId(int menuId) {
-		this.menuId = menuId;
-	}
-
 	public String getName() {
 		return this.name;
 	}
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getNaviUrl() {
-		return this.naviUrl;
-	}
-
-	public void setNaviUrl(String naviUrl) {
-		this.naviUrl = naviUrl;
 	}
 
 	public UserMenus getUserMenus() {
@@ -81,4 +63,18 @@ public class UserSubMenus implements Serializable {
 		this.userMenus = userMenus;
 	}
 
+	/**
+	 * @return the navUrl
+	 */
+	public String getNavUrl() {
+		return navUrl;
+	}
+
+	/**
+	 * @param navUrl the navUrl to set
+	 */
+	public void setNavUrl(String navUrl) {
+		this.navUrl = navUrl;
+	}
+	
 }

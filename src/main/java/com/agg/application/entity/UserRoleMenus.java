@@ -19,12 +19,12 @@ public class UserRoleMenus implements Serializable {
 
 	//bi-directional many-to-one association to UserMenus
 	@ManyToOne
-	@JoinColumn(name="menu_id")
+	@JoinColumn(name="menu_id", insertable=false, updatable=false)
 	private UserMenus userMenus;
 
 	//bi-directional many-to-one association to Role
 	@ManyToOne
-	@JoinColumn(name="role_id")
+	@JoinColumn(name="role_id", insertable=false, updatable=false)
 	private Role role;
 
 	public UserRoleMenus() {

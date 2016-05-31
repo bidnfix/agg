@@ -67,7 +67,7 @@ public class LoginServiceImpl implements LoginService {
 				userSubMenuDO = new UserSubMenuDO();
 				userSubMenuDO.setId(userSubMenus.getId());
 				userSubMenuDO.setName(userSubMenus.getName());
-				userSubMenuDO.setUrl(userSubMenus.getNaviUrl());
+				userSubMenuDO.setUrl(userSubMenus.getNavUrl());
 				
 				userSubMenuDOSet.add(userSubMenuDO);
 			}
