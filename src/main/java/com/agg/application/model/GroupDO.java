@@ -22,6 +22,18 @@ public class GroupDO{
 	private double sales;
 
 	private double tax;
+	
+	private String tips;
+	
+	
+
+	public String getTips() {
+		return tips;
+	}
+
+	public void setTips(String tips) {
+		this.tips = tips;
+	}
 
 	public long getGroupId() {
 		return this.groupId;
@@ -30,6 +42,8 @@ public class GroupDO{
 	public void setGroupId(long groupId) {
 		this.groupId = groupId;
 	}
+
+
 
 	public double getComm() {
 		return this.comm;

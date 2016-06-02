@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,8 @@ import com.google.common.collect.Lists;
 @Service
 public class GroupServiceImpl implements GroupService {
 
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+	
 	@Autowired
 	private GroupDAO groupDAO;
 	
@@ -38,6 +42,14 @@ public class GroupServiceImpl implements GroupService {
 				groupDO.setRate(groupConstant.getRate());
 				groupDO.setSales(groupConstant.getSales());
 				groupDO.setTax(groupConstant.getTax());
+				StringBuffer tooltip = new StringBuffer().append("Old Group "+groupConstant.getGroupId()+'\n')
+						.append(" MRP "+groupConstant.getMsrp()+'\n')
+						.append(" Sales "+groupConstant.getSales()+'\n')
+						.append(" Tax "+groupConstant.getTax()+'\n')
+						.append(" LOL "+groupConstant.getLol()+'\n')
+						.append(" Rate "+groupConstant.getRate());
+				logger.debug("Tooltip 2"+tooltip);
+				groupDO.setTips(tooltip.toString());
 				groupDOList.add(groupDO);
 			}
 		}
