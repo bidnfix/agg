@@ -10,6 +10,8 @@ import com.agg.application.entity.QuotePK;
 public class QuoteDO {
 	
 	private QuotePK id;
+	
+	private String quoteId;
 
 	private int cPtHHours;
 
@@ -93,6 +95,14 @@ public class QuoteDO {
 
 	public void setcPtHHours(int cPtHHours) {
 		this.cPtHHours = cPtHHours;
+	}
+
+	public String getQuoteId() {
+		return quoteId;
+	}
+
+	public void setQuoteId(String quoteId) {
+		this.quoteId = quoteId;
 	}
 
 	public int getcPtHPlHours() {

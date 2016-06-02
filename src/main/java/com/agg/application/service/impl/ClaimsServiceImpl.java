@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.agg.application.dao.ManufacturerDAO;
 import com.agg.application.dao.QuoteDAO;
 import com.agg.application.entity.MachineInfo;
 import com.agg.application.entity.MachineType;
@@ -28,6 +29,9 @@ public class ClaimsServiceImpl implements ClaimsService {
 	
 	@Autowired
 	private QuoteDAO quoteDAO;
+	
+	@Autowired
+	private ManufacturerDAO manufacturerDAO;
 	
 	public List<QuoteDO> getClaimsInfo()
 	{
@@ -51,12 +55,18 @@ public class ClaimsServiceImpl implements ClaimsService {
 				quote = it.next();
 				//logger.debug("machineInfo.getMachineType() " +machineInfo.getMachineType().getMachineType());
 				quoteDO.setId(quote.getId());
+				quoteDO.setQuoteId(quote.getId().getQuoteId());
 				
+				//logger.debug("__quote id "+quote.getId().getQuoteId()+ "  "+quote.getId().getId());
+				
+				Manufacturer manf = manufacturerDAO.findOne(Long.valueOf(quote.getManufacturer().getManfId()));
 				
 				manufacturerDO.setId(quote.getManufacturer().getManfId());
-				manufacturerDO.setName(quote.getManufacturer().getManfName());
+				manufacturerDO.setName(manf.getManfName());
 				
 				quoteDO.setManufacturerDO(manufacturerDO);
+				
+				
 				quoteDO.setMachineModel(quote.getMachineModel());
 				quoteDO.setMachineSerial(quote.getMachineSerial());
 				quoteDO.setCoverageTerm(quote.getCoverageTerm());

@@ -22,7 +22,6 @@
                 <th>Model</th>
                 <th>Serial</th>
                 <th>Coverage Type</th>
-                <th></th>
             </tr>
         </thead>
  
@@ -33,21 +32,18 @@
                 <th>Model</th>
                 <th>Serial</th>
                 <th>Coverage Type</th>
-                <th></th>
             </tr>
         </tfoot>
  
         <tbody>
-            <tr ng-repeat="quote in quoteDOList">
-            	<td>{{quote.id.id}}</td>
-                <td>{{quote.manufacturerDO.id}}</td>
-                <td>{{quote.model}}</td>
-                <td>{{quote.serial}}</td>
+            <tr ng-repeat="quote in quoteDOList" >
+            	<div> <a ng-click="editMachine(machine.machineId)">
+                	<td>{{quote.id.quoteId}}</td></a>
+                </div>
+                <td>{{quote.manufacturerDO.name}}</td>
+                <td>{{quote.machineModel}}</td>
+                <td>{{quote.machineSerial}}</td>
                 <td>{{quote.coverageTerm}}</td>
-                <td><div class="manage-sec"><!-- <a href="#"><img src="../assets/images/delete-icon.png" alt="Delete" title="Delete"/></a> -->
-                		<a ng-click="editMachine(machine.machineId)"><img src="../assets/images/edit-pencil.png" alt="Edit" title="Edit"/></a>
-                	</div>
-                </td>
             </tr>
         </tbody>
     </table>

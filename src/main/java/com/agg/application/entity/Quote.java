@@ -26,7 +26,7 @@ public class Quote implements Serializable {
 
 	@EmbeddedId
 	private QuotePK id;
-
+	
 	@Column(name="c_pt_h_hours")
 	private int cPtHHours;
 
@@ -157,6 +157,46 @@ public class Quote implements Serializable {
 
 	public void setId(QuotePK id) {
 		this.id = id;
+	}
+
+	public int getcPtHHours() {
+		return cPtHHours;
+	}
+
+	public void setcPtHHours(int cPtHHours) {
+		this.cPtHHours = cPtHHours;
+	}
+
+	public int getcPtHPlHours() {
+		return cPtHPlHours;
+	}
+
+	public void setcPtHPlHours(int cPtHPlHours) {
+		this.cPtHPlHours = cPtHPlHours;
+	}
+
+	public int getcPtHours() {
+		return cPtHours;
+	}
+
+	public void setcPtHours(int cPtHours) {
+		this.cPtHours = cPtHours;
+	}
+
+	public int gethHours() {
+		return hHours;
+	}
+
+	public void sethHours(int hHours) {
+		this.hHours = hHours;
+	}
+
+	public int gethMonths() {
+		return hMonths;
+	}
+
+	public void sethMonths(int hMonths) {
+		this.hMonths = hMonths;
 	}
 
 	public int getCPtHHours() {

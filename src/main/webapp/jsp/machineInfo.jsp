@@ -1,3 +1,4 @@
+
 <!-- Article main content -->
 <%@include file="machinePopup.jsp" %>
 <article class="col-md-9 maincontent">
