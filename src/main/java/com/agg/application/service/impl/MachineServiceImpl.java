@@ -400,11 +400,11 @@ public class MachineServiceImpl implements MachineService {
 				groupDO.setRate(groupConstant.getRate());
 				groupDO.setSales(groupConstant.getSales());
 				groupDO.setTax(groupConstant.getTax());
-				StringBuffer tooltip = new StringBuffer().append("Old Group "+groupConstant.getGroupId()+'\n')
-						.append(" MRP "+groupConstant.getMsrp()+'\n')
-						.append(" Sales "+groupConstant.getSales()+'\n')
-						.append(" Tax "+groupConstant.getTax()+'\n')
-						.append(" LOL "+groupConstant.getLol()+'\n')
+				StringBuffer tooltip = new StringBuffer().append("Old Group "+groupConstant.getGroupId()+'\r')
+						.append(" MRP "+groupConstant.getMsrp()+'\r')
+						.append(" Sales "+groupConstant.getSales()+'\r')
+						.append(" Tax "+groupConstant.getTax()+'\r')
+						.append(" LOL "+groupConstant.getLol()+'\r')
 						.append(" Rate "+groupConstant.getRate());
 				
 				logger.debug("Tooltip 1"+tooltip);

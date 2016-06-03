@@ -311,6 +311,10 @@ routingApp.controller('ClaimsController', function($scope, machineService, $http
         	$('#table1').DataTable();
         }, 500);
     });
+	
+	$scope.editMachine = function(machineId) {
+		alert(machineId);
+    };
 });
 	
 routingApp.controller('QuoteController', function($scope, $http) {

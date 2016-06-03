@@ -37,9 +37,7 @@
  
         <tbody>
             <tr ng-repeat="quote in quoteDOList" >
-            	<div> <a ng-click="editMachine(machine.machineId)">
-                	<td>{{quote.id.quoteId}}</td></a>
-                </div>
+                <td><a style="cursor: pointer;" ng-click="editMachine(machine.machineId)">{{quote.id.quoteId}}</a></td>
                 <td>{{quote.manufacturerDO.name}}</td>
                 <td>{{quote.machineModel}}</td>
                 <td>{{quote.machineSerial}}</td>

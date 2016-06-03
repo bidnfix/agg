@@ -5,17 +5,11 @@
 		<div class="col-md-6 col-sm-12">
 			<div class="sec-title">
 
-				<h2 class="wow animated bounceInLeft">File a Claim</h2>
+				<h1 class="wow animated bounceInLeft">Quote Overview:#</h1>
 				<p class="wow animated bounceInRight">&nbsp;</p>
 			</div>
 		</div>
-		<div class="col-md-6 col-sm-12">
-			<!-- <a
-				class="btn btn-primary pull-right mar-right animated fadeInRightBig hvr-pulse"
-				href="add-new.html">Add New</a><a
-				class="btn btn-primary pull-right animated fadeInLeftBig  hvr-pulse mar-right"
-				href="#">Back</a> -->
-		</div>
+
 	</header>
 
 
