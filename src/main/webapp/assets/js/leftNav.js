@@ -290,7 +290,36 @@ routingApp.controller('AddDealerController', function($scope, $http) {
 	    });
 });
 
-routingApp.controller("activateTabCtrl", function($scope) {
+routingApp.controller("activateTabCtrl", function($scope, $timeout) {
+	/*jQuery(document).ready(function(){
+		$timeout(function () {
+		    var loadJS = function(url, loadLeftNav, location){
+	
+		        var scriptTag = document.createElement('script');
+		        scriptTag.src = url;
+	
+		        scriptTag.onload = loadLeftNav;
+		        scriptTag.onreadystatechange = loadLeftNav;
+	
+		        location.appendChild(scriptTag);
+		    };
+		    var loadLeftNav = function(){
+		    	//Accordion Nav
+				jQuery('.mainNav').navAccordion({
+					expandButtonText: '<i class="fa fa-plus"></i>',  //Text inside of buttons can be HTML
+					collapseButtonText: '<i class="fa fa-minus"></i>'
+				});
+		    }
+		    loadJS('/assets/js/navAccordion.js', loadLeftNav, document.body);
+		}, 500);
+	    
+	});*/
+	$timeout(function () {
+		 jQuery('.mainNav').navAccordion({
+				expandButtonText: '<i class="fa fa-plus"></i>',  //Text inside of buttons can be HTML
+				collapseButtonText: '<i class="fa fa-minus"></i>'
+			});
+     }, 500);
     $scope.activateTab = function ($event) {
     	$('#leftTabs li a').each(function($event, $this){
     		if($this.id != null && $this.id !=""){

@@ -1,5 +1,6 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!-- Sidebar -->
 <aside class="col-md-3 sidebar sidebar-left">
 
@@ -8,16 +9,26 @@
       <!-- <h3>Headding Comes Here</h3> -->
 		<ul id="leftTabs">
 			<c:forEach items="${user.userMenuDOSet}" var="userMenus">
-		       <li class="animated fadeInLeft"><a id="worklist" href="#${userMenus.url}" ng-click="activateTab($event);">${userMenus.name}</a></li>
-		       <c:if test="${userMenus.userSubMenuDOSet ne null}">
-		       	   <ul>
-				       <c:forEach items="${userMenus.userSubMenuDOSet}" var="userSubMenus">
-				       		<li><a id="manageLocations" href="#${userSubMenus.url}" ng-click="activateTab($event);">${userSubMenus.name}</a></li>
-				       </c:forEach>
-			       </ul>
-		       </c:if>
+			   <c:choose>
+				    <c:when test="${ not empty userMenus.userSubMenuDOSet}">
+				       <li class="animated fadeInLeftBig">
+					       <a id="${fn:replace(fn:toLowerCase(userMenus.name), ' ', '')}" href="#${userMenus.url}" ng-click="activateTab($event);">${userMenus.name}</a>
+					       <ul>
+						       <c:forEach items="${userMenus.userSubMenuDOSet}" var="userSubMenus">
+						       		<li><a id="${fn:replace(fn:toLowerCase(userSubMenus.name), ' ', '')}" href="#${userSubMenus.url}" ng-click="activateTab($event);">${userSubMenus.name}</a></li>
+						       </c:forEach>
+					       </ul>
+				       </li>
+				    </c:when>
+				    <c:when test="${fn:replace(fn:toLowerCase(userMenus.name), ' ', '') eq 'logout'}">
+				        <li class="animated fadeInLeft"><a id="${fn:replace(fn:toLowerCase(userMenus.name), ' ', '')}" href="${userMenus.url}" ng-click="activateTab($event);">${userMenus.name}</a></li>
+				    </c:when>
+				    <c:otherwise>
+				        <li class="animated fadeInLeft"><a id="${fn:replace(fn:toLowerCase(userMenus.name), ' ', '')}" href="#${userMenus.url}" ng-click="activateTab($event);">${userMenus.name}</a></li>
+				    </c:otherwise>
+				</c:choose>
     		</c:forEach>
-			<li class="animated fadeInLeft"><a id="worklist" href="#" ng-click="activateTab($event);">WORKLIST</a></li>
+			<%-- <li class="animated fadeInLeft"><a id="worklist" href="#" ng-click="activateTab($event);">WORKLIST</a></li>
             <li class="animated fadeInLeft"><a id="serviceDesk" href="#/agg/programs" ng-click="activateTab($event);">SERVICE DRIVE</a></li>
             <li class="animated fadeInLeft"><a id="userTrack" href="#" ng-click="activateTab($event);">USER TRACK</a></li>
             <li class="animated fadeInLeft"><a id="archivedQuotes" href="#" ng-click="activateTab($event);">ARCHIVED QUOTES</a></li>
@@ -58,7 +69,7 @@
             <li class="animated fadeInLeft"><a id="quotes" href="#/agg/addQuote" ng-click="activateTab($event);">QUOTES</a></li>
             <li class="animated fadeInLeft"><a id="reports" href="#" ng-click="activateTab($event);">REPORTS</a></li>
             <li class="animated fadeInLeft"><a href="/agg/logout">LOGOUT</a></li>
-            <li class="gree animated fadeInLeft"><a id="help" href="#" ng-click="activateTab($event);">HELP</a></li>
+            <li class="gree animated fadeInLeft"><a id="help" href="#" ng-click="activateTab($event);">HELP</a></li> --%>
 		</ul>
 	</nav>
 				

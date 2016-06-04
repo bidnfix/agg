@@ -48,8 +48,7 @@
 	<script src="/assets/js/bootstrap.min.js"></script>
      <!--side nav js-->
   <script src="/assets/js/jquery.min.js"></script>
-	<script src="/assets/js/navAccordion.min.js"></script>
-	<script>
+	<!-- <script>
 		jQuery(document).ready(function(){
 		
 			//Accordion Nav
@@ -62,7 +61,7 @@
 			});
 			
 		});
-	</script> 
+	</script>  -->
     
      <!--data table js-->
     
@@ -82,5 +81,6 @@
 	<script src="/assets/js/mask.js"></script>
 	<script src="/assets/js/popup.js"></script>
 	<script src="/assets/js/tabs.js"></script>
+	<script src="/assets/js/navAccordion.js"></script>
 </body>
 </html>
