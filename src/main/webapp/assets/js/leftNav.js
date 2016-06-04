@@ -32,10 +32,6 @@ routingApp.config(['$routeProvider',
                     	  templateUrl: '../../jsp/editMachine.jsp',
                     	  controller: 'AddMachineController'
                       }).
-                     /* when('/agg/addLocation', {
-                    	  templateUrl: '../../jsp/addLocation.jsp',
-                    	  controller: 'AddLocationController'
-                      }).*/
                       when('/agg/addUser', {
                     	  templateUrl: '../../jsp/addUser.jsp',
                     	  controller: 'AddUserController'
@@ -56,6 +52,10 @@ routingApp.config(['$routeProvider',
                       }).
                       when('/agg/claimsInfo', {
                     	  templateUrl: '../../jsp/claimsInfo.jsp',
+                    	  controller: 'ClaimsController'
+                      }).
+                      when('/agg/editClaim/claimId', {
+                    	  templateUrl: '../../jsp/fileaClaim.jsp',
                     	  controller: 'ClaimsController'
                       }).
                       when('/agg/addQuote', {
@@ -320,8 +320,9 @@ routingApp.controller('ClaimsController', function($scope, machineService, $http
         }, 500);
     });
 	
-	$scope.editMachine = function(machineId) {
-		alert(machineId);
+	$scope.editClaim = function(claimId) {
+		alert(claimId);
+		$http.get("/agg/editClaim/"+claimId);
     };
 });
 	

@@ -47,5 +47,13 @@ public class ClaimsController extends BaseController {
 		return new Result("success", null, model);	
 	}
 	
-	
+	@RequestMapping(value = "/editClaim/{claimId}", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+	public @ResponseBody Result machineModel(ModelMap model, HttpServletResponse response, @PathVariable String claimId) {
+		logger.info("Inside machineModel() with typeId: "+claimId);
+		if(claimId != null && !claimId.isEmpty()){
+			//List<MachineModelDO> machineModels = machineService.getMachineModel(Integer.valueOf(typeId));
+			//model.put("machineModelList", machineModels);
+		}
+		return new Result("success", null, model);	
+	}
 }

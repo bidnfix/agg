@@ -1,5 +1,4 @@
 <!-- Article main content -->
-<%@include file="machinePopup.jsp" %>
 <article class="col-md-9 maincontent">
 	<header class="page-header">
              	<div class="col-md-8 col-sm-12">
@@ -37,7 +36,7 @@
  
         <tbody>
             <tr ng-repeat="quote in quoteDOList" >
-                <td><a style="cursor: pointer;" ng-click="editMachine(machine.machineId)">{{quote.id.quoteId}}</a></td>
+                <td><a style="cursor: pointer;" ng-click="editClaim(quote.id.quoteId)">{{quote.id.quoteId}}</a></td>
                 <td>{{quote.manufacturerDO.name}}</td>
                 <td>{{quote.machineModel}}</td>
                 <td>{{quote.machineSerial}}</td>
