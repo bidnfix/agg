@@ -19,7 +19,7 @@ public class UserMenus implements Serializable {
 
 	@Id
 	@GeneratedValue
-	private int id;
+	private long id;
 
 	private String name;
 
@@ -37,11 +37,11 @@ public class UserMenus implements Serializable {
 	public UserMenus() {
 	}
 
-	public int getId() {
+	public long getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

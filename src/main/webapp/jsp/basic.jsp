@@ -48,21 +48,6 @@
 	<script src="/assets/js/bootstrap.min.js"></script>
      <!--side nav js-->
   <script src="/assets/js/jquery.min.js"></script>
-	<!-- <script>
-		jQuery(document).ready(function(){
-		
-			//Accordion Nav
-			jQuery('.mainNav').navAccordion({
-				expandButtonText: '<i class="fa fa-plus"></i>',  //Text inside of buttons can be HTML
-				collapseButtonText: '<i class="fa fa-minus"></i>'
-			}, 
-			function(){
-				console.log('Callback')
-			});
-			
-		});
-	</script>  -->
-    
      <!--data table js-->
     
 	<script src="/assets/js/jquery.dataTables.min.js"></script>
@@ -81,6 +66,6 @@
 	<script src="/assets/js/mask.js"></script>
 	<script src="/assets/js/popup.js"></script>
 	<script src="/assets/js/tabs.js"></script>
-	<script src="/assets/js/navAccordion.js"></script>
+	<script src="/assets/js/navAccordion.min.js"></script>
 </body>
 </html>

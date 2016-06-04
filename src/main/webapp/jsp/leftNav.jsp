@@ -8,13 +8,13 @@
 	<nav class="mainNav" ng-controller="activateTabCtrl">
       <!-- <h3>Headding Comes Here</h3> -->
 		<ul id="leftTabs">
-			<c:forEach items="${user.userMenuDOSet}" var="userMenus">
+			<c:forEach items="${user.userMenuDOList}" var="userMenus">
 			   <c:choose>
-				    <c:when test="${ not empty userMenus.userSubMenuDOSet}">
+				    <c:when test="${ not empty userMenus.userSubMenuDOList}">
 				       <li class="animated fadeInLeftBig">
 					       <a id="${fn:replace(fn:toLowerCase(userMenus.name), ' ', '')}" href="#${userMenus.url}" ng-click="activateTab($event);">${userMenus.name}</a>
 					       <ul>
-						       <c:forEach items="${userMenus.userSubMenuDOSet}" var="userSubMenus">
+						       <c:forEach items="${userMenus.userSubMenuDOList}" var="userSubMenus">
 						       		<li><a id="${fn:replace(fn:toLowerCase(userSubMenus.name), ' ', '')}" href="#${userSubMenus.url}" ng-click="activateTab($event);">${userSubMenus.name}</a></li>
 						       </c:forEach>
 					       </ul>

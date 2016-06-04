@@ -1,5 +1,6 @@
 package com.agg.application.model;
 
+import java.util.List;
 import java.util.Set;
 
 public class AccountDO {
@@ -14,7 +15,7 @@ public class AccountDO {
 	
 	private String lastName;
 	
-	private Set<UserMenuDO> userMenuDOSet = null;
+	private List<UserMenuDO> userMenuDOList = null;
 
 	/**
 	 * @return the username
@@ -86,12 +87,18 @@ public class AccountDO {
 		this.lastName = lastName;
 	}
 
-	public Set<UserMenuDO> getUserMenuDOSet() {
-		return userMenuDOSet;
+	/**
+	 * @return the userMenuDOList
+	 */
+	public List<UserMenuDO> getUserMenuDOList() {
+		return userMenuDOList;
 	}
 
-	public void setUserMenuDOSet(Set<UserMenuDO> userMenuDOSet) {
-		this.userMenuDOSet = userMenuDOSet;
+	/**
+	 * @param userMenuDOList the userMenuDOList to set
+	 */
+	public void setUserMenuDOList(List<UserMenuDO> userMenuDOList) {
+		this.userMenuDOList = userMenuDOList;
 	}
-	
+
 }

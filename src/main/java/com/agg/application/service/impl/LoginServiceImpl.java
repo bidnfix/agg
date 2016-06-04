@@ -1,8 +1,8 @@
 package com.agg.application.service.impl;
 
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.agg.application.dao.UserDAO;
+import com.agg.application.dao.UserRoleMenusDAO;
 import com.agg.application.entity.Account;
 import com.agg.application.entity.UserMenus;
 import com.agg.application.entity.UserRoleMenus;
@@ -27,6 +28,9 @@ public class LoginServiceImpl implements LoginService {
 	
 	@Autowired
 	private UserDAO userDAO;
+	
+	@Autowired
+	private UserRoleMenusDAO userRoleMenusDAO;
 
 	@Override
 	public Iterable<Account> getUserDetails() {
@@ -50,8 +54,8 @@ public class LoginServiceImpl implements LoginService {
 		
 		UserMenuDO userMenuDO = null;
 		UserSubMenuDO userSubMenuDO = null;
-		Set<UserMenuDO> userMenuDOSet = new HashSet<UserMenuDO>();
-		Set<UserSubMenuDO> userSubMenuDOSet = null;
+		List<UserMenuDO> userMenuDOList = new ArrayList<UserMenuDO>();
+		List<UserSubMenuDO> userSubMenuDOList = null;
 		UserMenus userMenus = null;
 		List<UserSubMenus> userSubMenusList = null;
 		for(UserRoleMenus userRoleMenus : userRoleMenuList){
@@ -61,7 +65,7 @@ public class LoginServiceImpl implements LoginService {
 			userMenuDO.setName(userMenus.getName());
 			userMenuDO.setUrl(userMenus.getNavUrl());
 			
-			userSubMenuDOSet = new HashSet<UserSubMenuDO>();
+			userSubMenuDOList = new ArrayList<UserSubMenuDO>();
 			userSubMenusList = userMenus.getUserSubMenuses();
 			for(UserSubMenus userSubMenus : userSubMenusList){
 				userSubMenuDO = new UserSubMenuDO();
@@ -69,14 +73,17 @@ public class LoginServiceImpl implements LoginService {
 				userSubMenuDO.setName(userSubMenus.getName());
 				userSubMenuDO.setUrl(userSubMenus.getNavUrl());
 				
-				userSubMenuDOSet.add(userSubMenuDO);
+				userSubMenuDOList.add(userSubMenuDO);
 			}
-			userMenuDO.setUserSubMenuDOSet(userSubMenuDOSet);
+			userMenuDO.setUserSubMenuDOList(userSubMenuDOList);
 			
-			userMenuDOSet.add(userMenuDO);
+			userMenuDOList.add(userMenuDO);
 		}
 		
-		accountDO.setUserMenuDOSet(userMenuDOSet);
+		Collections.sort(userMenuDOList);
+		
+		
+		accountDO.setUserMenuDOList(userMenuDOList);
 		
 		return accountDO;
 	}

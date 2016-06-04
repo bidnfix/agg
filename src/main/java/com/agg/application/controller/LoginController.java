@@ -47,7 +47,7 @@ public class LoginController extends BaseController {
 		logger.debug("LoginForm username: [{}]", loginForm.getUsername());
 		AccountDO account = loginService.authenticateUser(loginForm);
 		
-		logger.info("UserMenu size: "+account.getUserMenuDOSet().size());
+		logger.info("UserMenu size: "+account.getUserMenuDOList().size());
 		logger.debug("Account [{}]", account);
 		request.getSession().setAttribute("user", account);
 		return new Result("success", null, account);

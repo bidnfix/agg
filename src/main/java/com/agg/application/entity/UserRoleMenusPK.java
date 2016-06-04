@@ -14,32 +14,32 @@ public class UserRoleMenusPK implements Serializable {
 	//default serial version id, required for serializable classes.
 	private static final long serialVersionUID = 1L;
 
-	private int id;
+	private long id;
 
 	@Column(name="role_id", insertable=false, updatable=false)
-	private int roleId;
+	private long roleId;
 
 	@Column(name="menu_id", insertable=false, updatable=false)
-	private int menuId;
+	private long menuId;
 
 	public UserRoleMenusPK() {
 	}
-	public int getId() {
+	public long getId() {
 		return this.id;
 	}
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
-	public int getRoleId() {
+	public long getRoleId() {
 		return this.roleId;
 	}
-	public void setRoleId(int roleId) {
+	public void setRoleId(long roleId) {
 		this.roleId = roleId;
 	}
-	public int getMenuId() {
+	public long getMenuId() {
 		return this.menuId;
 	}
-	public void setMenuId(int menuId) {
+	public void setMenuId(long menuId) {
 		this.menuId = menuId;
 	}
 
@@ -60,9 +60,9 @@ public class UserRoleMenusPK implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int hash = 17;
-		hash = hash * prime + this.id;
-		hash = hash * prime + this.roleId;
-		hash = hash * prime + this.menuId;
+		hash = hash * prime + Long.valueOf(this.id).intValue();
+		hash = hash * prime + Long.valueOf(this.roleId).intValue();
+		hash = hash * prime + Long.valueOf(this.menuId).intValue();
 		
 		return hash;
 	}

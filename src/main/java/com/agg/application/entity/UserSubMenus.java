@@ -24,7 +24,7 @@ public class UserSubMenus implements Serializable {
 
 	@Id
 	@GeneratedValue
-	private int id;
+	private long id;
 
 	private String name;
 
@@ -39,11 +39,11 @@ public class UserSubMenus implements Serializable {
 	public UserSubMenus() {
 	}
 
-	public int getId() {
+	public long getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

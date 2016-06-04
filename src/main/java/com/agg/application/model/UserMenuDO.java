@@ -1,22 +1,22 @@
 package com.agg.application.model;
 
-import java.util.Set;
+import java.util.List;
 
-public class UserMenuDO {
+public class UserMenuDO implements Comparable<UserMenuDO>{
 
-	private int id;
+	private long id;
 	
 	private String name;
 	
 	private String url;
 	
-	private Set<UserSubMenuDO> userSubMenuDOSet = null;
+	private List<UserSubMenuDO> userSubMenuDOList = null;
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -36,12 +36,23 @@ public class UserMenuDO {
 		this.url = url;
 	}
 
-	public Set<UserSubMenuDO> getUserSubMenuDOSet() {
-		return userSubMenuDOSet;
+	/**
+	 * @return the userSubMenuDOList
+	 */
+	public List<UserSubMenuDO> getUserSubMenuDOList() {
+		return userSubMenuDOList;
 	}
 
-	public void setUserSubMenuDOSet(Set<UserSubMenuDO> userSubMenuDOSet) {
-		this.userSubMenuDOSet = userSubMenuDOSet;
+	/**
+	 * @param userSubMenuDOList the userSubMenuDOList to set
+	 */
+	public void setUserSubMenuDOList(List<UserSubMenuDO> userSubMenuDOList) {
+		this.userSubMenuDOList = userSubMenuDOList;
+	}
+
+	@Override
+	public int compareTo(UserMenuDO userMenuDO) {
+		return Long.valueOf(this.id - userMenuDO.id).intValue();
 	}
 	
 }
