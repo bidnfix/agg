@@ -7,5 +7,7 @@ import com.agg.application.entity.Quote;
 
 @Component
 public interface QuoteDAO extends CrudRepository<Quote, Long> {
+	
+	//public Quote findByQuotePK(String quoteId);
 
 }

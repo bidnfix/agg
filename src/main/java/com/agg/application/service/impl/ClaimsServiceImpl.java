@@ -77,4 +77,48 @@ public class ClaimsServiceImpl implements ClaimsService {
 		return quoteDOList;
 	}
 	
+	public QuoteDO getClaimInfo(String ClaimId)
+	{
+		logger.debug("Inside getClaimInfo()");
+		Quote  quote = null;//quoteDAO.findByQuoteId(ClaimId);
+		
+		QuoteDO quoteDO = null;
+		if(quote != null){
+			//logger.debug("QuoteList size:"+quoteList.size());
+			//quoteDOList = new ArrayList<QuoteDO>();
+			
+			ManufacturerDO manufacturerDO = null; 
+			//Quote quote = null;
+			/*ManufacturerDO manufacturerDO = null;
+			MachineTypeDO machineTypeDO = null;*/
+			
+			//Iterator<Quote> it = quoteList.iterator();
+			//while(it.hasNext()){
+				quoteDO = new QuoteDO();
+				manufacturerDO = new ManufacturerDO();
+				//quote = it.next();
+				//logger.debug("machineInfo.getMachineType() " +machineInfo.getMachineType().getMachineType());
+				quoteDO.setId(quote.getId());
+				quoteDO.setQuoteId(quote.getId().getQuoteId());
+				
+				//logger.debug("__quote id "+quote.getId().getQuoteId()+ "  "+quote.getId().getId());
+				
+				Manufacturer manf = manufacturerDAO.findOne(Long.valueOf(quote.getManufacturer().getManfId()));
+				
+				manufacturerDO.setId(quote.getManufacturer().getManfId());
+				manufacturerDO.setName(manf.getManfName());
+				
+				quoteDO.setManufacturerDO(manufacturerDO);
+				
+				
+				quoteDO.setMachineModel(quote.getMachineModel());
+				quoteDO.setMachineSerial(quote.getMachineSerial());
+				quoteDO.setCoverageTerm(quote.getCoverageTerm());
+				//quoteDOList.add(quoteDO);
+			//}
+		}
+		//logger.debug("quoteDOList size: "+quoteDOList.size());
+		return quoteDO;
+	}
+	
 	}

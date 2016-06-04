@@ -48,13 +48,12 @@ routingApp.config(['$routeProvider',
                       when('/agg/addPrograms', {
                     	  templateUrl: '../../jsp/addPrograms.jsp',
                     	  controller: 'AddProgramsController'
-                    	
                       }).
                       when('/agg/claimsInfo', {
                     	  templateUrl: '../../jsp/claimsInfo.jsp',
                     	  controller: 'ClaimsController'
                       }).
-                      when('/agg/editClaim/claimId', {
+                      when('/agg/editClaim', {
                     	  templateUrl: '../../jsp/fileaClaim.jsp',
                     	  controller: 'ClaimsController'
                       }).
@@ -319,13 +318,15 @@ routingApp.controller('ClaimsController', function($scope, machineService, $http
         	$('#table1').DataTable();
         }, 500);
     });
-	
 	$scope.editClaim = function(claimId) {
 		alert(claimId);
-		$http.get("/agg/editClaim/"+claimId);
+		$http.get("/agg/editClaim");
+		.then(function(response) {
+			$scope.quoteDO = response.data.data.quoteDO;
+			alert($scope.quoteDO);
+		}
     };
 });
-	
 routingApp.controller('QuoteController', function($scope, $http) {
 	$http.get("/agg/quoteInfo")
 	.then(function(response) {

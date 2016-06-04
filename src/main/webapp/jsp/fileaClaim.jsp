@@ -11,18 +11,14 @@
 		</div>
 
 	</header>
-
-
+-
 	<!-- data table section -->
 
-	<div class="inner-main" ng-controller="dealerController">
+	<div class="inner-main" ng-controller="ClaimsController">
 		<form class="form-horizontal" role="form" ng-submit="submitDealer()">
-			<h2>Add Dealer</h2>
 			<div class="form-group">
-				<label for="userName" class="col-sm-3 control-label">Username</label>
-				<div class="col-sm-9">
-					<input type="text" id="userName" name="userName" ng-model="dealer.userName" placeholder="User Name" class="form-control" required="required">
-				</div>
+				<label for="Manufacturer" class="col-sm-3 control-label">Manufacturer: ${quoteDO.quoteId}</label>
+				<label for="Manf" class="col-sm-3 control-label">Manufacturer:</label>
 			</div>
 			<div class="form-group">
 				<label for="password" class="col-sm-3 control-label">Password</label>
