@@ -19,6 +19,11 @@ public class QuotePK implements Serializable {
 
 	public QuotePK() {
 	}
+	
+	public QuotePK(String quoteId, int id) {
+		this.quoteId = quoteId;
+		this.id = id;
+	}
 	public int getId() {
 		return this.id;
 	}

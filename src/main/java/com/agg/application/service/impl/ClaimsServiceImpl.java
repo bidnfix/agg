@@ -11,12 +11,9 @@ import org.springframework.stereotype.Service;
 
 import com.agg.application.dao.ManufacturerDAO;
 import com.agg.application.dao.QuoteDAO;
-import com.agg.application.entity.MachineInfo;
-import com.agg.application.entity.MachineType;
 import com.agg.application.entity.Manufacturer;
 import com.agg.application.entity.Quote;
-import com.agg.application.model.MachineDO;
-import com.agg.application.model.MachineTypeDO;
+import com.agg.application.entity.QuotePK;
 import com.agg.application.model.ManufacturerDO;
 import com.agg.application.model.QuoteDO;
 import com.agg.application.service.ClaimsService;
@@ -77,14 +74,14 @@ public class ClaimsServiceImpl implements ClaimsService {
 		return quoteDOList;
 	}
 	
-	public QuoteDO getClaimInfo(String ClaimId)
+	public QuoteDO getClaimInfo(String claimId)
 	{
 		logger.debug("Inside getClaimInfo()");
-		Quote  quote = null;//quoteDAO.findByQuoteId(ClaimId);
+		Quote  quote = null;//quoteDAO.find(new QuotePK(claimId, 1));
 		
 		QuoteDO quoteDO = null;
 		if(quote != null){
-			//logger.debug("QuoteList size:"+quoteList.size());
+			logger.debug("QuoteList size:"+quote.getGroupId());
 			//quoteDOList = new ArrayList<QuoteDO>();
 			
 			ManufacturerDO manufacturerDO = null; 
