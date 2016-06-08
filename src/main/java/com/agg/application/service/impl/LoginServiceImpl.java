@@ -14,6 +14,7 @@ import com.agg.application.dao.UserRoleMenusDAO;
 import com.agg.application.entity.Account;
 import com.agg.application.entity.UserMenus;
 import com.agg.application.entity.UserRoleMenus;
+import com.agg.application.entity.UserRoleSubMenus;
 import com.agg.application.entity.UserSubMenus;
 import com.agg.application.model.AccountDO;
 import com.agg.application.model.LoginForm;
@@ -57,7 +58,8 @@ public class LoginServiceImpl implements LoginService {
 		List<UserMenuDO> userMenuDOList = new ArrayList<UserMenuDO>();
 		List<UserSubMenuDO> userSubMenuDOList = null;
 		UserMenus userMenus = null;
-		List<UserSubMenus> userSubMenusList = null;
+		List<UserRoleSubMenus> userRoleSubMenusList = null;
+		UserSubMenus userSubMenus = null;
 		for(UserRoleMenus userRoleMenus : userRoleMenuList){
 			userMenus = userRoleMenus.getUserMenus();
 			userMenuDO = new UserMenuDO();
@@ -66,8 +68,9 @@ public class LoginServiceImpl implements LoginService {
 			userMenuDO.setUrl(userMenus.getNavUrl());
 			
 			userSubMenuDOList = new ArrayList<UserSubMenuDO>();
-			userSubMenusList = userMenus.getUserSubMenuses();
-			for(UserSubMenus userSubMenus : userSubMenusList){
+			userRoleSubMenusList = userMenus.getUserRoleSubMenuses();
+			for(UserRoleSubMenus userRoleSubMenus : userRoleSubMenusList){
+				userSubMenus = userRoleSubMenus.getUserSubMenus();
 				userSubMenuDO = new UserSubMenuDO();
 				userSubMenuDO.setId(userSubMenus.getId());
 				userSubMenuDO.setName(userSubMenus.getName());

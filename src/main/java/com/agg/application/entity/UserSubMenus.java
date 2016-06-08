@@ -1,6 +1,7 @@
 package com.agg.application.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
@@ -35,6 +37,10 @@ public class UserSubMenus implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="menu_id")
 	private UserMenus userMenus;
+	
+	//bi-directional many-to-one association to UserRoleSubMenus
+	@OneToMany(mappedBy="userSubMenus")
+	private List<UserRoleSubMenus> userRoleSubMenuses;
 
 	public UserSubMenus() {
 	}
@@ -75,6 +81,28 @@ public class UserSubMenus implements Serializable {
 	 */
 	public void setNavUrl(String navUrl) {
 		this.navUrl = navUrl;
+	}
+	
+	public List<UserRoleSubMenus> getUserRoleSubMenuses() {
+		return this.userRoleSubMenuses;
+	}
+
+	public void setUserRoleSubMenuses(List<UserRoleSubMenus> userRoleSubMenuses) {
+		this.userRoleSubMenuses = userRoleSubMenuses;
+	}
+
+	public UserRoleSubMenus addUserRoleSubMenus(UserRoleSubMenus userRoleSubMenus) {
+		getUserRoleSubMenuses().add(userRoleSubMenus);
+		userRoleSubMenus.setUserSubMenus(this);
+
+		return userRoleSubMenus;
+	}
+
+	public UserRoleSubMenus removeUserRoleSubMenus(UserRoleSubMenus userRoleSubMenus) {
+		getUserRoleSubMenuses().remove(userRoleSubMenus);
+		userRoleSubMenus.setUserSubMenus(null);
+
+		return userRoleSubMenus;
 	}
 	
 }
