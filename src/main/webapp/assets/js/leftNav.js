@@ -320,11 +320,11 @@ routingApp.controller('ClaimsController', function($scope, machineService, $http
     });
 	$scope.editClaim = function(claimId) {
 		alert(claimId);
-		$http.get("/agg/editClaim");
+		$http.get("/agg/editClaim")
 		.then(function(response) {
 			$scope.quoteDO = response.data.data.quoteDO;
 			alert($scope.quoteDO);
-		}
+		});
     };
 });
 routingApp.controller('QuoteController', function($scope, $http) {
