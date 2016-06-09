@@ -78,6 +78,7 @@ public class LoginServiceImpl implements LoginService {
 				
 				userSubMenuDOList.add(userSubMenuDO);
 			}
+			Collections.sort(userSubMenuDOList);
 			userMenuDO.setUserSubMenuDOList(userSubMenuDOList);
 			
 			userMenuDOList.add(userMenuDO);

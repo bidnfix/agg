@@ -1,6 +1,6 @@
 package com.agg.application.model;
 
-public class UserSubMenuDO {
+public class UserSubMenuDO implements Comparable<UserSubMenuDO> {
 	
 	private long id;
 	
@@ -30,6 +30,11 @@ public class UserSubMenuDO {
 
 	public void setUrl(String url) {
 		this.url = url;
+	}
+
+	@Override
+	public int compareTo(UserSubMenuDO userSubMenuDO) {
+		return Long.valueOf(this.id - userSubMenuDO.id).intValue();
 	}
 	
 }
