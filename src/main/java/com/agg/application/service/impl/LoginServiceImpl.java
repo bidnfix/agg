@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.agg.application.dao.UserDAO;
 import com.agg.application.dao.UserRoleMenusDAO;
+import com.agg.application.dao.UserRoleSubMenusDAO;
 import com.agg.application.entity.Account;
 import com.agg.application.entity.UserMenus;
 import com.agg.application.entity.UserRoleMenus;
@@ -32,6 +33,9 @@ public class LoginServiceImpl implements LoginService {
 	
 	@Autowired
 	private UserRoleMenusDAO userRoleMenusDAO;
+	
+	@Autowired
+	private UserRoleSubMenusDAO userRoleSubMenusDAO;
 
 	@Override
 	public Iterable<Account> getUserDetails() {
@@ -68,7 +72,9 @@ public class LoginServiceImpl implements LoginService {
 			userMenuDO.setUrl(userMenus.getNavUrl());
 			
 			userSubMenuDOList = new ArrayList<UserSubMenuDO>();
-			userRoleSubMenusList = userMenus.getUserRoleSubMenuses();
+			//userRoleSubMenusList = userMenus.getUserRoleSubMenuses();
+			userRoleSubMenusList = userRoleSubMenusDAO.findByRoleRIdAndUserMenusId(userRoleMenus.getRole().getRId(),
+					userRoleMenus.getId().getId());
 			for(UserRoleSubMenus userRoleSubMenus : userRoleSubMenusList){
 				userSubMenus = userRoleSubMenus.getUserSubMenus();
 				userSubMenuDO = new UserSubMenuDO();
