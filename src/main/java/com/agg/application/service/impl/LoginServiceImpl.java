@@ -74,7 +74,7 @@ public class LoginServiceImpl implements LoginService {
 			userSubMenuDOList = new ArrayList<UserSubMenuDO>();
 			//userRoleSubMenusList = userMenus.getUserRoleSubMenuses();
 			userRoleSubMenusList = userRoleSubMenusDAO.findByRoleRIdAndUserMenusId(userRoleMenus.getRole().getRId(),
-					userRoleMenus.getId().getId());
+					userMenus.getId());
 			for(UserRoleSubMenus userRoleSubMenus : userRoleSubMenusList){
 				userSubMenus = userRoleSubMenus.getUserSubMenus();
 				userSubMenuDO = new UserSubMenuDO();
