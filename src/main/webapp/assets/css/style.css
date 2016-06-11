@@ -961,10 +961,10 @@ ul li.has-subnav .accordion-btn {
 	margin-bottom:25px!important;}
 	
 .err-msg{
-	color: #BB1818;
+	color: #BB1818 !important;
 	padding-bottom: 12px;
 }
 .success-msg{
-	color: #65EF64;
+	color: #65EF64 !important;
 	padding-bottom: 12px;
 }
