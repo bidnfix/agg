@@ -22,4 +22,6 @@ public interface DealerDAO extends CrudRepository<Dealer, Long>{
 	
 	public long countByStatus(int status);
 
+	public List<Dealer> findByIdAndStatus(long id, int active);
+
 }

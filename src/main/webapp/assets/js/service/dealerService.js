@@ -86,7 +86,7 @@ routingApp.factory('userService', function($http, $q, $window) {
 						alert(response.data.status);
 						if (response.data.status == 'success') {
 							//$window.location = '/agg/home';
-							$window.location.href = '#/agg/dealers';
+							$window.location.href = '#/agg/users';
 						} else {
 							alert('error in adding user: '+response.data.errMessage)
 							//$('#errMsg').html(response.data.errMessage);

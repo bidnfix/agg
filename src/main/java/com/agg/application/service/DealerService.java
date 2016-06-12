@@ -14,7 +14,7 @@ public interface DealerService {
 	
 	//public List<DealerDO> getAdminDealers();
 	
-	public List<DealerDO> getActiveDealers();
+	public List<DealerDO> getActiveDealers(AccountDO accountDO);
 	
 	public List<DealerDO> getParentDealers();
 

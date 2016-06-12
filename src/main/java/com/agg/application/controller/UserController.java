@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.agg.application.model.DealerDO;
 import com.agg.application.model.Result;
 import com.agg.application.model.UserDO;
 import com.agg.application.service.DealerService;
@@ -41,7 +40,7 @@ public class UserController extends BaseController {
 		if (!sessionExists(request)){
 			opResult = new Result("failure", "Invalid Login", null);
 		}else{
-			opResult = new Result("success", null, userService.getUsers());
+			opResult = new Result("success", null, userService.getUsers(getAccountDetails(request)));
 		}
 		
 		return opResult;

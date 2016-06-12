@@ -11,17 +11,21 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.agg.application.dao.AccountDAO;
 import com.agg.application.dao.DealerDAO;
 import com.agg.application.dao.MachineInfoDAO;
 import com.agg.application.dao.ManufacturerDAO;
 import com.agg.application.dao.ProgramDAO;
+import com.agg.application.entity.Account;
 import com.agg.application.entity.Dealer;
 import com.agg.application.entity.MachineInfo;
 import com.agg.application.entity.Sprogram;
+import com.agg.application.model.AccountDO;
 import com.agg.application.model.DealerDO;
 import com.agg.application.model.MachineInfoDO;
 import com.agg.application.model.ProgramDO;
 import com.agg.application.service.ProgramService;
+import com.agg.application.utils.AggConstants;
 import com.agg.application.utils.Util;
 
 @Service
@@ -35,15 +39,26 @@ public class ProgramServiceImpl implements ProgramService {
 	DealerDAO dealerDAO;
 	
 	@Autowired
+	AccountDAO accountDAO;
+	
+	@Autowired
 	private ManufacturerDAO manufacturerDAO;
 	
 	@Autowired
 	private MachineInfoDAO machineInfoDAO;
 	
 	@Override
-	public List<ProgramDO> getPrograms() {
+	public List<ProgramDO> getPrograms(AccountDO accountDO) {
 		logger.debug("In getPrograms");
-		List<Sprogram> programList = Util.toList(programDAO.findAll());
+		List<Sprogram> programList = null;
+		if(accountDO.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)){
+			programList = Util.toList(programDAO.findAll());
+		}else{
+			Account account = accountDAO.findOne(accountDO.getId());
+			if(account != null){
+				programList = programDAO.findByDealerId(account.getDealer().getId());
+			}
+		}
 		
 		List<ProgramDO> programDOList = null;
 		if(!programList.isEmpty()){

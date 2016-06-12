@@ -7,6 +7,8 @@ public class RoleDO {
 	private String name;
 	
 	private long accountTypeId;
+	
+	private String accountType;
 
 	/**
 	 * @return the id
@@ -49,6 +51,19 @@ public class RoleDO {
 	public void setAccountTypeId(long accountTypeId) {
 		this.accountTypeId = accountTypeId;
 	}
-	
+
+	/**
+	 * @return the accountType
+	 */
+	public String getAccountType() {
+		return accountType;
+	}
+
+	/**
+	 * @param accountType the accountType to set
+	 */
+	public void setAccountType(String accountType) {
+		this.accountType = accountType;
+	}
 	
 }

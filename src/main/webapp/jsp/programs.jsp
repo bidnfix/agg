@@ -1,3 +1,5 @@
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!-- Article main content -->
 <%@include file="programPopup.jsp" %>
 <article class="col-md-9 maincontent">
@@ -9,7 +11,9 @@
 				<p class="wow animated bounceInRight">The Key Features of our Tool</p>
 			</div>
                      </div>
-                     <div class="col-md-4 col-sm-12"><a class="btn btn-primary pull-right  hvr-pulse" href="#/agg/addPrograms">Add New</a></div>
+                     <c:if test="${user.roleName eq 'admin'}">
+                     	<div class="col-md-4 col-sm-12"><a class="btn btn-primary pull-right  hvr-pulse" href="#/agg/addPrograms">Add New</a></div>
+                     </c:if>
 	</header>
              
              
@@ -20,7 +24,9 @@
             <tr>
             	<th>Program Name</th>
                 <th>Dealer</th>
-                <th>Tasks</th>
+                <c:if test="${user.roleName eq 'admin'}">
+                	<th>Tasks</th>
+                </c:if>
             </tr>
         </thead>
  
@@ -28,7 +34,9 @@
             <tr>
             	<th>Program Name</th>
                 <th>Dealer</th>
-                <th>Tasks</th>
+                <c:if test="${user.roleName eq 'admin'}">
+                	<th>Tasks</th>
+                </c:if>
             </tr>
         </tfoot>
  
@@ -36,13 +44,15 @@
             <tr ng-repeat="program in programsList">
             	<td>{{program.name}}</td>
                 <td>{{program.dealerDO.name}}</td>
-                <td><div class="manage-sec">
-                		<!-- <a ng-click="deleteProgram(program.prId)">
-                		<img src="../assets/images/delete-icon.png" alt="Delete" title="Delete"/></a> -->
-                		<a ng-click="editProgram(program.prId)">
-                		<img src="../assets/images/edit-icon.png" alt="Edit" title="Edit"/></a>
-                	</div>
-                </td>
+                <c:if test="${user.roleName eq 'admin'}">
+	                <td><div class="manage-sec">
+	                		<!-- <a ng-click="deleteProgram(program.prId)">
+	                		<img src="../assets/images/delete-icon.png" alt="Delete" title="Delete"/></a> -->
+	                		<a ng-click="editProgram(program.prId)">
+	                		<img src="../assets/images/edit-icon.png" alt="Edit" title="Edit"/></a>
+	                	</div>
+	                </td>
+                </c:if>
             </tr>
         </tbody>
     </table>

@@ -1,13 +1,14 @@
 package com.agg.application.model;
 
 import java.util.List;
-import java.util.Set;
 
 public class AccountDO {
 	
+	private long id;
+	
 	private String username;
 	
-	private byte status;
+	private int status;
 	
 	private String roleName;
 	
@@ -15,7 +16,24 @@ public class AccountDO {
 	
 	private String lastName;
 	
+	private RoleDO roleDO;
+	
 	private List<UserMenuDO> userMenuDOList = null;
+	
+	
+	/**
+	 * @return the id
+	 */
+	public long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(long id) {
+		this.id = id;
+	}
 
 	/**
 	 * @return the username
@@ -34,14 +52,14 @@ public class AccountDO {
 	/**
 	 * @return the status
 	 */
-	public byte getStatus() {
+	public int getStatus() {
 		return status;
 	}
 
 	/**
 	 * @param status the status to set
 	 */
-	public void setStatus(byte status) {
+	public void setStatus(int status) {
 		this.status = status;
 	}
 
@@ -85,6 +103,20 @@ public class AccountDO {
 	 */
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+	
+	/**
+	 * @return the roleDO
+	 */
+	public RoleDO getRoleDO() {
+		return roleDO;
+	}
+
+	/**
+	 * @param roleDO the roleDO to set
+	 */
+	public void setRoleDO(RoleDO roleDO) {
+		this.roleDO = roleDO;
 	}
 
 	/**

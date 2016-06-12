@@ -50,7 +50,7 @@ public class ProgramController extends BaseController {
 
 /*		if (!sessionExists(request))
 			return "login";*/
-		model.put("programs", programService.getPrograms());
+		model.put("programs", programService.getPrograms(getAccountDetails(request)));
 		return new Result("success", null, model);	
 	}
 
@@ -65,11 +65,11 @@ public class ProgramController extends BaseController {
 	}*/
 	
 	@RequestMapping(value = "/addPrograms", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
-	public @ResponseBody Result addPrograms(ModelMap model, HttpServletResponse response) {
+	public @ResponseBody Result addPrograms(ModelMap model, HttpServletResponse response, HttpServletRequest request) {
 		logger.info("Inside addPrograms()");
 		//List<GroupDO> groupList = machineService.getGroups();
 		model.addAttribute("manufacturerList", machineService.getManufacturerDetails());
-		model.addAttribute("dealerList", dealerService.getActiveDealers());
+		model.addAttribute("dealerList", dealerService.getActiveDealers(getAccountDetails(request)));
 		//model.put("groupList", groupList);
 		return new Result("success", null, model);	
 	}

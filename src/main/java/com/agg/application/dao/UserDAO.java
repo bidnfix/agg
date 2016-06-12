@@ -14,4 +14,6 @@ public interface UserDAO extends CrudRepository<Account, Long> {
 
 	Optional<Account> findByUserNameAndPassword(String username, String password);
 
+	Optional<Account> findByUserNameAndPasswordAndStatus(String username, String password, int active);
+
 }

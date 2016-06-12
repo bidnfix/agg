@@ -30,6 +30,7 @@ import com.agg.application.model.LocationDO;
 import com.agg.application.model.RoleDO;
 import com.agg.application.model.UserDO;
 import com.agg.application.service.DealerService;
+import com.agg.application.utils.AggConstants;
 import com.agg.application.utils.EmailSender;
 import com.agg.application.utils.EmailStatus;
 import com.agg.application.utils.Util;
@@ -37,20 +38,6 @@ import com.agg.application.utils.Util;
 @Service
 public class DealerServiceImpl implements DealerService {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
-	
-	private static final String DEALER_ADMIN = "Dealer Admin";
-	
-	private static final String ACCOUNT_TYPE_DEALER = "dealer";
-	
-	private static final String ACCOUNT_TYPE_ADMIN = "admin";
-	
-	private static final String SEQUENCE_TYPE_DEALER = "dealer";
-	
-	private static final int ACTIVE = 1;
-	
-	private static final int PENDING = 2;
-	
-	private static final int TERMINATED = 0;
 	
 	@Value("${admin.email}")
 	private String adminEmail;
@@ -91,9 +78,18 @@ public class DealerServiceImpl implements DealerService {
 	}*/
 	
 	@Override
-	public List<DealerDO> getActiveDealers() {
+	public List<DealerDO> getActiveDealers(AccountDO accountDO) {
 		logger.debug("In getActiveDealers");
-		List<Dealer> dealerList = Util.toList(dealerDAO.findByStatus(ACTIVE));
+		List<Dealer> dealerList = null;
+		if(accountDO.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)){
+			dealerList = dealerDAO.findByStatus(AggConstants.ACTIVE);
+		}else{
+			Account account = accountDAO.findOne(accountDO.getId());
+			if(account != null){
+				dealerList = new ArrayList<Dealer>();
+				dealerList.add(account.getDealer());
+			}
+		}
 		
 		return getDealerDOList(dealerList);
 	}
@@ -101,7 +97,7 @@ public class DealerServiceImpl implements DealerService {
 	@Override
 	public List<DealerDO> getPendingDealers() {
 		logger.debug("In getPendingDealers");
-		List<Dealer> dealerList = Util.toList(dealerDAO.findByStatus(PENDING));
+		List<Dealer> dealerList = Util.toList(dealerDAO.findByStatus(AggConstants.PENDING));
 		
 		return getDealerDOList(dealerList);
 	}
@@ -134,7 +130,7 @@ public class DealerServiceImpl implements DealerService {
 				accounts = dealer.getAccounts();
 				for(Account account : accounts){
 					role = account.getRole();
-					if(role.getRTitle().equalsIgnoreCase(DEALER_ADMIN)){
+					if(role.getRTitle().equalsIgnoreCase(AggConstants.DEALER_ADMIN)){
 						dealerDO.setUserName(account.getUserName());
 						dealerDO.setFirstName(account.getFirstName());
 						dealerDO.setLastName(account.getLastName());
@@ -186,7 +182,7 @@ public class DealerServiceImpl implements DealerService {
 		dealer.setNotes(dealerDO.getNotes());
 		dealer.setPhone(dealerDO.getPhone());
 		
-		Sequence sequence = sequenceDAO.findBySeqType(SEQUENCE_TYPE_DEALER);
+		Sequence sequence = sequenceDAO.findBySeqType(AggConstants.SEQUENCE_TYPE_DEALER);
 		logger.debug("sequenceId: "+sequence.getSeqValue());
 		long dealerCode = Long.valueOf(dealerDO.getZip().substring(0, 2)+sequence.getSeqValue());
 		logger.debug("dealerCode: "+dealerCode);
@@ -195,7 +191,7 @@ public class DealerServiceImpl implements DealerService {
 		Role role = null;
 		if(dealerRegistration){
 			dealer.setStatus(2);
-			List<Role> roleList = roleDAO.findByRTitle(DEALER_ADMIN);
+			List<Role> roleList = roleDAO.findByRTitle(AggConstants.DEALER_ADMIN);
 			if(roleList != null){
 				role = roleList.get(0);
 			}
@@ -221,9 +217,9 @@ public class DealerServiceImpl implements DealerService {
 		account.setUpdatedDate(date);
 		account.setLastLoginDate(date);
 		if(dealerRegistration){
-			account.setStatus((byte)0);
+			account.setStatus(AggConstants.TERMINATED);
 		}else{
-			account.setStatus((byte)1);
+			account.setStatus(AggConstants.ACTIVE);
 		}
 		if(accountDO != null){
 			account.setCreatedBy(accountDO.getUsername());
@@ -305,14 +301,14 @@ public class DealerServiceImpl implements DealerService {
 		if(dealerDO.getStatus() == 0 || dealer.getStatus() == 2){
 			List<Account> accounts = dealer.getAccounts();
 			for(Account account : accounts){
-				account.setStatus((byte)dealerDO.getStatus());
+				account.setStatus(dealerDO.getStatus());
 			}
 		//updating only dealer account
 		}else if(dealerDO.getStatus() == 1){
 			List<Account> accounts = dealer.getAccounts();
 			for(Account account : accounts){
-				if(account.getRole().getRTitle().equalsIgnoreCase(DEALER_ADMIN)){
-					account.setStatus((byte)dealerDO.getStatus());
+				if(account.getRole().getRTitle().equalsIgnoreCase(AggConstants.DEALER_ADMIN)){
+					account.setStatus(dealerDO.getStatus());
 				}
 			}
 		}
@@ -330,7 +326,7 @@ public class DealerServiceImpl implements DealerService {
 		account.setCreatedBy(accountDO.getUsername());
 		account.setUpdatedDate(date);
 		account.setLastLoginDate(date);
-		account.setStatus((byte)1);
+		account.setStatus(1);
 		account.setUpdatedBy(accountDO.getUsername());
 		
 		account.setDealer(dealer);
@@ -355,7 +351,7 @@ public class DealerServiceImpl implements DealerService {
 			accounts = dealer.getAccounts();
 			for(Account account : accounts){
 				role = account.getRole();
-				if(role.getRTitle().equalsIgnoreCase(DEALER_ADMIN)){
+				if(role.getRTitle().equalsIgnoreCase(AggConstants.DEALER_ADMIN)){
 					dealerDO.setUserName(account.getUserName());
 					dealerDO.setFirstName(account.getFirstName());
 					dealerDO.setLastName(account.getLastName());
@@ -429,7 +425,7 @@ public class DealerServiceImpl implements DealerService {
 	@Override
 	public List<RoleDO> getDealerAdminRoles() {
 		logger.debug("Inside getDealerAdminRoles");
-		List<Role> roleList = roleDAO.findByRTitle(DEALER_ADMIN);
+		List<Role> roleList = roleDAO.findByRTitle(AggConstants.DEALER_ADMIN);
 		List<RoleDO> roleDOList = null;
 		if(roleList != null && !roleList.isEmpty()){
 			RoleDO roleDO = null;
@@ -451,13 +447,13 @@ public class DealerServiceImpl implements DealerService {
 	@Override
 	public List<RoleDO> getDealerRoles() {
 		logger.debug("Inside getDealerAdminRoles");
-		List<Role> roleList = roleDAO.findByAccountTypeAccountType(ACCOUNT_TYPE_DEALER);
+		List<Role> roleList = roleDAO.findByAccountTypeAccountType(AggConstants.ACCOUNT_TYPE_DEALER);
 		List<RoleDO> roleDOList = null;
 		if(roleList != null && !roleList.isEmpty()){
 			RoleDO roleDO = null;
 			roleDOList = new ArrayList<RoleDO>();
 			for(Role role : roleList){
-				if(!role.getRTitle().equalsIgnoreCase(DEALER_ADMIN)){
+				if(!role.getRTitle().equalsIgnoreCase(AggConstants.DEALER_ADMIN)){
 					roleDO = new RoleDO();
 					roleDO.setAccountTypeId(role.getAccountType().getId());
 					roleDO.setId(role.getRId());
@@ -567,7 +563,7 @@ public class DealerServiceImpl implements DealerService {
 		account.setCreatedBy(accountDO.getUsername());
 		account.setUpdatedDate(date);
 		account.setLastLoginDate(date);
-		account.setStatus((byte)1);
+		account.setStatus(AggConstants.ACTIVE);
 		account.setUpdatedBy(accountDO.getUsername());
 		account.setDealer(dealerDAO.findOne(userDO.getDealerDO().getId()));
 		
@@ -588,11 +584,11 @@ public class DealerServiceImpl implements DealerService {
 			String roleName = account.getRole().getRTitle();
 			String accountType = account.getAccountType().getAccountType();
 			List<Role> roleList = null;
-			if(accountType.equalsIgnoreCase(ACCOUNT_TYPE_DEALER)){
-				roleList = roleDAO.findByAccountTypeAccountType(ACCOUNT_TYPE_DEALER);
+			if(accountType.equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_DEALER)){
+				roleList = roleDAO.findByAccountTypeAccountType(AggConstants.ACCOUNT_TYPE_DEALER);
 				roleDOList = getUserRoles(roleList, roleName, accountType);
 			}else{
-				roleList = roleDAO.findByAccountTypeAccountType(ACCOUNT_TYPE_ADMIN);
+				roleList = roleDAO.findByAccountTypeAccountType(AggConstants.ACCOUNT_TYPE_ADMIN);
 				roleDOList = getUserRoles(roleList, roleName, accountType);
 			}
 		}
@@ -605,8 +601,8 @@ public class DealerServiceImpl implements DealerService {
 		if(roleList != null && !roleList.isEmpty()){
 			RoleDO roleDO = null;
 			roleDOList = new ArrayList<RoleDO>();
-			if(accountType.equalsIgnoreCase(ACCOUNT_TYPE_DEALER)){
-				if(roleName.equalsIgnoreCase(DEALER_ADMIN)){
+			if(accountType.equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_DEALER)){
+				if(roleName.equalsIgnoreCase(AggConstants.DEALER_ADMIN)){
 					for(Role role : roleList){
 						if(role.getRTitle().equalsIgnoreCase(roleName)){
 							roleDO = new RoleDO();
@@ -620,7 +616,7 @@ public class DealerServiceImpl implements DealerService {
 					}
 				}else {
 					for(Role role : roleList){
-						if(!role.getRTitle().equalsIgnoreCase(DEALER_ADMIN)){
+						if(!role.getRTitle().equalsIgnoreCase(AggConstants.DEALER_ADMIN)){
 							roleDO = new RoleDO();
 							roleDO.setAccountTypeId(role.getAccountType().getId());
 							roleDO.setId(role.getRId());
@@ -650,19 +646,19 @@ public class DealerServiceImpl implements DealerService {
 	@Override
 	public long getActiveDealerCount() {
 		logger.info("inside getActiveDealerCount method");
-		return dealerDAO.countByStatus(ACTIVE);
+		return dealerDAO.countByStatus(AggConstants.ACTIVE);
 	}
 
 	@Override
 	public long getTerminatedDealerCount() {
 		logger.info("inside getTerminatedDealerCount method");
-		return dealerDAO.countByStatus(TERMINATED);
+		return dealerDAO.countByStatus(AggConstants.TERMINATED);
 	}
 
 	@Override
 	public long getPendingDealerCount() {
 		logger.info("inside getPendingDealerCount method");
-		return dealerDAO.countByStatus(PENDING);
+		return dealerDAO.countByStatus(AggConstants.PENDING);
 	}
 
 }

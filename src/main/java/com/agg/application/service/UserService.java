@@ -7,7 +7,7 @@ import com.agg.application.model.UserDO;
 
 public interface UserService {
 
-	public List<UserDO> getUsers();
+	public List<UserDO> getUsers(AccountDO accountDetails);
 
 	public Object getUser(long id);
 

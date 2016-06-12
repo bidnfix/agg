@@ -10,18 +10,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.agg.application.dao.UserDAO;
-import com.agg.application.dao.UserRoleMenusDAO;
 import com.agg.application.dao.UserRoleSubMenusDAO;
 import com.agg.application.entity.Account;
+import com.agg.application.entity.AccountType;
+import com.agg.application.entity.Role;
 import com.agg.application.entity.UserMenus;
 import com.agg.application.entity.UserRoleMenus;
 import com.agg.application.entity.UserRoleSubMenus;
 import com.agg.application.entity.UserSubMenus;
 import com.agg.application.model.AccountDO;
 import com.agg.application.model.LoginForm;
+import com.agg.application.model.RoleDO;
 import com.agg.application.model.UserMenuDO;
 import com.agg.application.model.UserSubMenuDO;
 import com.agg.application.service.LoginService;
+import com.agg.application.utils.AggConstants;
 
 @Service
 public class LoginServiceImpl implements LoginService {
@@ -30,9 +33,6 @@ public class LoginServiceImpl implements LoginService {
 	
 	@Autowired
 	private UserDAO userDAO;
-	
-	@Autowired
-	private UserRoleMenusDAO userRoleMenusDAO;
 	
 	@Autowired
 	private UserRoleSubMenusDAO userRoleSubMenusDAO;
@@ -46,14 +46,27 @@ public class LoginServiceImpl implements LoginService {
 	@Override
 	public AccountDO authenticateUser(LoginForm loginForm) throws Exception {
 		logger.debug("In authenticateUser");
-		Account account = userDAO.findByUserNameAndPassword(loginForm.getUsername(), loginForm.getPassword())
+		Account account = userDAO.findByUserNameAndPasswordAndStatus(loginForm.getUsername(), loginForm.getPassword(), AggConstants.ACTIVE)
 				.orElseThrow(() -> new Exception("User doesn't exist"));
+		
+		Role role = account.getRole();
+		AccountType accountType = role.getAccountType();
+		
 		AccountDO accountDO = new AccountDO();
 		accountDO.setUsername(account.getUserName());
 		accountDO.setStatus(account.getStatus());
-		accountDO.setRoleName(account.getRole().getRTitle());
+		accountDO.setRoleName(role.getRTitle());
 		accountDO.setFirstName(account.getFirstName());
 		accountDO.setLastName(account.getLastName());
+		accountDO.setId(account.getId());
+		
+		RoleDO roleDO = new RoleDO();
+		roleDO.setId(role.getRId());
+		roleDO.setAccountTypeId(accountType.getId());
+		roleDO.setName(role.getRTitle());
+		roleDO.setAccountType(accountType.getAccountType());
+		
+		accountDO.setRoleDO(roleDO);
 		
 		List<UserRoleMenus> userRoleMenuList = account.getRole().getUserRoleMenuses();
 		
@@ -72,7 +85,6 @@ public class LoginServiceImpl implements LoginService {
 			userMenuDO.setUrl(userMenus.getNavUrl());
 			
 			userSubMenuDOList = new ArrayList<UserSubMenuDO>();
-			//userRoleSubMenusList = userMenus.getUserRoleSubMenuses();
 			userRoleSubMenusList = userRoleSubMenusDAO.findByRoleRIdAndUserMenusId(userRoleMenus.getRole().getRId(),
 					userMenus.getId());
 			for(UserRoleSubMenus userRoleSubMenus : userRoleSubMenusList){

@@ -186,7 +186,7 @@ public class DealerController extends BaseController {
 		if (!sessionExists(request)){
 			opResult = new Result("failure", "Invalid Login", null);
 		}else{
-			model.addAttribute("dealerList", dealerService.getActiveDealers());
+			model.addAttribute("dealerList", dealerService.getActiveDealers(getAccountDetails(request)));
 			model.addAttribute("roleList", dealerService.getDealerRoles());
 			opResult = new Result("success", "Dealer and Role Info", model);
 		}

@@ -55,7 +55,7 @@ public class LoginController extends BaseController {
 
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String home(Map<String, Object> model, HttpServletRequest request, HttpServletResponse response) {
-		AccountDO account = (AccountDO) request.getSession().getAttribute("user");
+		AccountDO account = getAccountDetails(request);
 		if (account == null)
 			return "login";
 		return "basic";

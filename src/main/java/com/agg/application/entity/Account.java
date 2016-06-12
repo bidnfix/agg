@@ -40,7 +40,7 @@ public class Account implements Serializable {
 	@Column(name="last_name")
 	private String lastName;
 
-	private byte status;
+	private int status;
 
 	@Column(name="updated_by")
 	private String updatedBy;
@@ -109,11 +109,11 @@ public class Account implements Serializable {
 		this.password = password;
 	}
 
-	public byte getStatus() {
+	public int getStatus() {
 		return this.status;
 	}
 
-	public void setStatus(byte status) {
+	public void setStatus(int status) {
 		this.status = status;
 	}
 

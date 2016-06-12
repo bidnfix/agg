@@ -11,4 +11,8 @@ import com.agg.application.entity.Account;
 public interface AccountDAO extends CrudRepository<Account, Long>{
 	
 	List<Account> findByAccountTypeAccountType(String accountType);
+	
+	List<Account> findByRoleRId(long roleId);
+	
+	List<Account> findByDealerId(long dealerId);
 }

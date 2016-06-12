@@ -1,6 +1,5 @@
 package com.agg.application.service.impl;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -21,6 +20,7 @@ import com.agg.application.model.DealerDO;
 import com.agg.application.model.RoleDO;
 import com.agg.application.model.UserDO;
 import com.agg.application.service.UserService;
+import com.agg.application.utils.AggConstants;
 import com.agg.application.utils.Util;
 
 @Service
@@ -37,9 +37,18 @@ public class UserServiceImpl implements UserService {
 	AccountDAO accountDAO;
 	
 	@Override
-	public List<UserDO> getUsers() {
-		logger.debug("In getUsers");
-		List<Account> accountList = Util.toList(accountDAO.findAll());
+	public List<UserDO> getUsers(AccountDO accountDetails) {
+		logger.debug("In getUsers"); ;
+		List<Account> accountList = null;
+		if(accountDetails.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)){
+			accountList = Util.toList(accountDAO.findAll());
+		}else{
+			Account account = accountDAO.findOne(accountDetails.getId());
+			if(account != null){
+				accountList = Util.toList(accountDAO.findByDealerId(account.getDealer().getId()));
+			}
+		}
+		
 		
 		return getUserDOList(accountList);
 	}
@@ -128,7 +137,7 @@ public class UserServiceImpl implements UserService {
 	public long editUser(UserDO userDO, AccountDO accountDetails) {
 		logger.debug("Inside editUser");
 		Account account = accountDAO.findOne(userDO.getId());
-		account.setStatus((byte)userDO.getStatus());
+		account.setStatus(userDO.getStatus());
 		account.setFirstName(userDO.getFirstName());
 		account.setLastName(userDO.getLastName());
 		account.setUpdatedDate(new Date());
@@ -159,7 +168,7 @@ public class UserServiceImpl implements UserService {
 		account.setCreatedBy(accountDO.getUsername());
 		account.setUpdatedDate(date);
 		account.setLastLoginDate(date);
-		account.setStatus((byte)1);
+		account.setStatus(1);
 		account.setUpdatedBy(accountDO.getUsername());
 		account.setDealer(dealerDAO.findOne(userDO.getDealerDO().getId()));
 		
