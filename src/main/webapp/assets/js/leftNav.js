@@ -296,7 +296,7 @@ routingApp.controller("activateTabCtrl", function($scope, $timeout) {
 				expandButtonText: '<i class="fa fa-plus"></i>',  //Text inside of buttons can be HTML
 				collapseButtonText: '<i class="fa fa-minus"></i>'
 			});
-     }, 500);
+     }, 200);
 	
     $scope.activateTab = function ($event) {
     	$('#leftTabs li a').each(function($event, $this){
