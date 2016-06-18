@@ -52,7 +52,7 @@
 				<label for="group id" class="col-sm-3 control-label">Group ID</label>
 				<div class="col-sm-9">
 				<select name="groupId" ng-model="machine.groupDO" id="groupId" required="required">
-						<option tooltip="{{groupDO.tips}}" ng-repeat="groupDO in groupList track by groupDO.groupId">{{groupDO.groupId}}</option>
+						<option data-toggle="tooltip" title="{{groupDO.tips}}" tooltip-placement="top" ng-repeat="groupDO in groupList track by groupDO.groupId">{{groupDO.groupId}}</option>
 				</select>
 				</div>
 			</div>

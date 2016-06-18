@@ -52,6 +52,7 @@
     
 	<script src="/assets/js/jquery.dataTables.min.js"></script>
 	<script src="/assets/js/dataTables.bootstrap.min.js"></script>
+	<script src="/assets/js/ui-bootstrap-custom-tpls-0.10.0.js"></script>
     
 	<script src="/assets/js/headroom.min.js"></script>
 	<script src="/assets/js/jQuery.headroom.min.js"></script>

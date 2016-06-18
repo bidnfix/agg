@@ -1,6 +1,6 @@
 'use strict';
 
-var routingApp = angular.module('aggRoutingApp',['ngRoute']);
+var routingApp = angular.module('aggRoutingApp',['ngRoute', 'ui.bootstrap']);
 
 routingApp.config(['$routeProvider',
                   function($routeProvider) {
