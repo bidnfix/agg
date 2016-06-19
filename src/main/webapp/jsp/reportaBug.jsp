@@ -34,7 +34,7 @@
 			<div class="form-group">
 				<label for="userName" class="col-sm-3 control-label">Discovered</label>
 				<div class="col-sm-9">
-					<input type="date" ng-model="date" value="{{ date | date: 'yyyy-MM-dd' }}" />
+					 <input type="date" ng-model="date" value={{date}}>
 				</div>
 			</div>
 			<div class="form-group">

@@ -81,8 +81,8 @@ routingApp.config(['$routeProvider',
                     	  //,controller: 'GetUserController'
                       }).
                       when('/agg/reportaBug', {
-                    	  templateUrl: '../../jsp/reportaBug.jsp'
-                    	  //,controller: 'GetUserController'
+                    	  templateUrl: '../../jsp/reportaBug.jsp',
+                    	  controller: 'ReportBugController'
                       }).
                       otherwise({
                     	  redirectTo: '/agg/home'
@@ -349,6 +349,18 @@ routingApp.controller('QuoteController', function($scope, $http) {
 	  });
   
 	myTabs.init();
+});
+
+routingApp.controller('ReportBugController', function($scope, $http) {
+	$http.get("/agg/reportaBug")
+	.then(function(response) {
+		$scope.dealerList = response.data.data.dealerDOList;
+		$scope.manufacturerList = response.data.data.manufacturerDOList;
+	});  
+
+	function MyCtrl($scope, $filter) {
+	    $scope.date = $filter("date")(Date.now(), 'yyyy-MM-dd');
+	};
 });
 
 routingApp.controller('GetUserController', function($scope, userService, $http, $timeout) {
