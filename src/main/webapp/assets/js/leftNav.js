@@ -76,6 +76,14 @@ routingApp.config(['$routeProvider',
                     	  templateUrl: '../../jsp/users.jsp',
                     	  controller: 'GetUserController'
                       }).
+                      when('/agg/termsncond', {
+                    	  templateUrl: '../../jsp/termsandconditions.jsp'
+                    	  //,controller: 'GetUserController'
+                      }).
+                      when('/agg/reportaBug', {
+                    	  templateUrl: '../../jsp/reportaBug.jsp'
+                    	  //,controller: 'GetUserController'
+                      }).
                       otherwise({
                     	  redirectTo: '/agg/home'
                       });
