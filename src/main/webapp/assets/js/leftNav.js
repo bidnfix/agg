@@ -358,9 +358,12 @@ routingApp.controller('ReportBugController', function($scope, $http) {
 		$scope.manufacturerList = response.data.data.manufacturerDOList;
 	});  
 
-	function MyCtrl($scope, $filter) {
-	    $scope.date = $filter("date")(Date.now(), 'yyyy-MM-dd');
-	};
+	
+    	$scope.currDate = new Date();
+   
+	
+	
+	
 });
 
 routingApp.controller('GetUserController', function($scope, userService, $http, $timeout) {

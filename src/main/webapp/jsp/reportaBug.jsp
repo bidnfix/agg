@@ -21,7 +21,7 @@
 
 	<!-- data table section -->
 
-	<div class="inner-main" ng-controller="bugController">
+	<div class="inner-main" ng-controller="ReportBugController">
 		<form class="form-horizontal" role="form" ng-submit="submitBug()">
 			<div class="form-group">
 				<label for="ID" class="col-sm-3 control-label">ID</label>
@@ -34,7 +34,7 @@
 			<div class="form-group">
 				<label for="userName" class="col-sm-3 control-label">Discovered</label>
 				<div class="col-sm-9">
-					 <input type="date" ng-model="date" value={{date}}>
+					 <input type="date" ng-model="currDate">
 				</div>
 			</div>
 			<div class="form-group">
