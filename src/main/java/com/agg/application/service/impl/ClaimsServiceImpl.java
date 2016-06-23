@@ -13,7 +13,6 @@ import com.agg.application.dao.ManufacturerDAO;
 import com.agg.application.dao.QuoteDAO;
 import com.agg.application.entity.Manufacturer;
 import com.agg.application.entity.Quote;
-import com.agg.application.entity.QuotePK;
 import com.agg.application.model.ManufacturerDO;
 import com.agg.application.model.QuoteDO;
 import com.agg.application.service.ClaimsService;
@@ -69,6 +68,40 @@ public class ClaimsServiceImpl implements ClaimsService {
 				quoteDO.setCoverageTerm(quote.getCoverageTerm());
 				quoteDOList.add(quoteDO);
 			}
+		}
+		logger.debug("quoteDOList size: "+quoteDOList.size());
+		return quoteDOList;
+	}
+	
+	/**
+	 * 
+	 * @param serialNo
+	 * @return
+	 */
+	public List<QuoteDO> getClaimInfoBySerialNumber(final String serialNo){
+		logger.debug("Inside getClaimInfoBySerialNumber()");
+		List<Quote> quoteList= Lists.newArrayList(quoteDAO.findByMachineSerial(serialNo));
+		List<QuoteDO> quoteDOList = new ArrayList<QuoteDO>();
+		QuoteDO quoteDO = null;
+		ManufacturerDO manufacturerDO = null; 
+		
+		for(Quote quote : quoteList){
+			quoteDO = new QuoteDO();
+			manufacturerDO = new ManufacturerDO();
+			quoteDO.setId(quote.getId());
+			quoteDO.setQuoteId(quote.getId().getQuoteId());
+			Manufacturer manf = manufacturerDAO.findOne(Long.valueOf(quote.getManufacturer().getManfId()));
+			
+			manufacturerDO.setId(quote.getManufacturer().getManfId());
+			manufacturerDO.setName(manf.getManfName());
+			
+			quoteDO.setManufacturerDO(manufacturerDO);
+			
+			
+			quoteDO.setMachineModel(quote.getMachineModel());
+			quoteDO.setMachineSerial(quote.getMachineSerial());
+			quoteDO.setCoverageTerm(quote.getCoverageTerm());
+			quoteDOList.add(quoteDO);
 		}
 		logger.debug("quoteDOList size: "+quoteDOList.size());
 		return quoteDOList;

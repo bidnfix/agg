@@ -2,13 +2,16 @@ package com.agg.application.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -28,14 +31,14 @@ public class ClaimsController extends BaseController {
 	@Autowired
 	private ClaimsService claimsService;
 
-	@RequestMapping(value = "/claimsInfo", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+	/*@RequestMapping(value = "/claimsInfo", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
 	public @ResponseBody Result claimsInfo(ModelMap model, HttpServletResponse response) {
 		logger.info("Inside claimsInfo()");
 		List<QuoteDO> quoteInfoList = claimsService.getClaimsInfo();
 		logger.info("quoteInfoList size: "+quoteInfoList.size());
 		model.put("quoteInfoList", quoteInfoList);
 		return new Result("success", null, model);	
-	}
+	}*/
 	
 	@RequestMapping(value = "/editClaim", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
 	public @ResponseBody Result machineModel(ModelMap model, HttpServletResponse response/*, @PathVariable String claimId*/) {
@@ -47,4 +50,22 @@ public class ClaimsController extends BaseController {
 		}
 		return new Result("success", null, model);	
 	}
+	
+	@RequestMapping(value = "/searchClaim/{id}", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+	public @ResponseBody Result searchClaim(@PathVariable String id, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		logger.info("Inside claimsInfo()");
+		List<QuoteDO> quoteInfoList = claimsService.getClaimInfoBySerialNumber(id);
+		logger.info("quoteInfoList size: "+quoteInfoList.size());
+		model.put("quoteInfoList", quoteInfoList);
+		return new Result("success", null, model);	
+	}
+	
+	/*@RequestMapping(value = "/searchClaim/{id}", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+	public @ResponseBody Result searchClaim(@PathVariable String id, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		logger.info("Inside claimsInfo()");
+		List<QuoteDO> quoteInfoList = claimsService.getClaimInfoBySerialNumber(id);
+		logger.info("quoteInfoList size: "+quoteInfoList.size());
+		model.put("quoteInfoList", quoteInfoList);
+		return new Result("success", null, model);	
+	}*/
 }
