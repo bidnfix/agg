@@ -7,7 +7,7 @@
 				<h2 class="wow animated bounceInLeft">Claims Information</h2>
 			</div>
                      </div>
-                     <div class="col-md-4 col-sm-12"><a class="btn btn-primary pull-right  hvr-pulse" href="#/agg/addMachine">Add New</a></div>
+                     <div class="col-md-4 col-sm-12"><a class="btn btn-primary pull-right  hvr-pulse" href="#/agg/fileClaim">Add New</a></div>
 	</header>
              
              

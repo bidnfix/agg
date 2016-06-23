@@ -64,6 +64,7 @@
 	<script src="/assets/js/controller/machineController.js"></script>
 	<script src="/assets/js/controller/programController.js"></script>
 	<script src="/assets/js/service/programService.js"></script>
+	<script src="/assets/js/service/claimService.js"></script>
 	<script src="/assets/js/mask.js"></script>
 	<script src="/assets/js/popup.js"></script>
 	<script src="/assets/js/tabs.js"></script>

@@ -53,6 +53,10 @@ routingApp.config(['$routeProvider',
                     	  templateUrl: '../../jsp/claimsInfo.jsp',
                     	  controller: 'ClaimsController'
                       }).
+                      when('/agg/fileClaim', {
+                    	  templateUrl: '../../jsp/fileClaim.jsp',
+                    	  controller: 'ClaimsController'
+                      }).
                       when('/agg/editClaim', {
                     	  templateUrl: '../../jsp/fileaClaim.jsp',
                     	  controller: 'ClaimsController'
@@ -317,15 +321,15 @@ routingApp.controller("activateTabCtrl", function($scope, $timeout) {
     }    
 });
 
-routingApp.controller('ClaimsController', function($scope, machineService, $http, $timeout) {
-	$http.get("/agg/claimsInfo")
+routingApp.controller('ClaimsController', ['$scope', 'claimService', '$http', '$timeout', function($scope, claimService, $http, $timeout) {
+	/*$http.get("/agg/claimsInfo")
     .then(function(response) {
     	$scope.quoteDOList = response.data.data.quoteInfoList;
     	//alert(response.data.data.quoteInfoList)
         $timeout(function () {
         	$('#table1').DataTable();
         }, 500);
-    });
+    });*/
 	$scope.editClaim = function(claimId) {
 		alert(claimId);
 		$http.get("/agg/editClaim")
@@ -334,7 +338,15 @@ routingApp.controller('ClaimsController', function($scope, machineService, $http
 			alert($scope.quoteDO);
 		});
     };
-});
+    $scope.onClickSearchSerialNo = function(){
+    	if($scope.serialNo){
+    		claimService.getSerialNumberInfo($scope);
+    	}
+    };
+    $scope.onClickSelectQuote = function(data){
+    	claimService.selectQuote($scope, data);
+    }
+}]);
 routingApp.controller('QuoteController', function($scope, $http) {
 	$http.get("/agg/quoteInfo")
 	.then(function(response) {
