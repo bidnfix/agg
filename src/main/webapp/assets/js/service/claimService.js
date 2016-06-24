@@ -9,7 +9,19 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', functi
 			$scope.quoteInfoList = data;
 			$scope.showActiveQuoteDetails = false;
 			$scope.showContractDetails = true;
+			initClaimAddForm($scope);
+		},
+		initClaimAddForm = function($scope){
+			$scope.claim={};
+			$scope.claim.claimNo = 'CL555';
+			$scope.$watch('claim.laborHours * claim.hourlyRate', function(value){
+				$scope.claim.totalLaborCost = value;
+			});
+			$scope.$watchCollection('[claim.totalLaborCost, claim.totalPartsCost, claim.totalOtherCharges1, claim.totalOtherCharges2]', function(newValues){
+				$scope.claim.totalClaimCost = parseInt(newValues[0]) + parseInt(newValues[1]) + parseInt(newValues[2]) + parseInt(newValues[3]);
+			});
 		};
+		
 	return {
 		getSerialNumberInfo : function($scope){
 			$scope.showContractDetails = false;
