@@ -53,11 +53,18 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="coverageEndDate" class="col-sm-4 control-label">End Date of Manufacturer's Base Coverage:</label>
+						<label for="coverageEndDate" class="col-sm-4 control-label">
+							End Date of Manufacturer's Base Coverage:
+						</label>
 						<div class="col-sm-4">
 							<input type="date" id="coverageEndDate" name="coverageEndDate" ng-model="quote.coverageEndDate" class="form-control">
 						</div>
 					</div>
+					<img src="/assets/images/info-icon.png" alt="Info" 
+							data-toggle="tooltip" 
+							tooltip-trigger tooltip-animation="false" 
+				          	tooltip="The 'End Date' is the last day that the Manufacturer's base (powertrain) warranty is in effect-the day it expires. This is vital information because the AgGuard extended service contract will not take effect until after the date you enter. If the date you provide is wrong, it can leave the machine without coverage or cause the coverage to cost more. Always double-check the date by confirming the warranty end date with the manufacturer."
+				          	tooltip-placement="top">
 					<div class="form-group">
 						<label for="coverageEndDateUnknown" class="col-sm-4 control-label">Check if unknown</label>
 						<div class="col-sm-1">
