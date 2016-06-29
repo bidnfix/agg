@@ -348,10 +348,22 @@ routingApp.controller('ClaimsController', ['$scope', 'claimService', '$http', '$
     }
 }]);
 routingApp.controller('QuoteController', function($scope, $http) {
+	$scope.quote={};
+	$scope.quote.powerTrainMonths = 24;
+	$scope.quote.hydraulicsMonths = 24;
+	$scope.quote.fullMachineMonths = 24;
+	$scope.quote.powerTrainHours = 2000;
+	$scope.quote.hydraulicsHours = 2000;
+	$scope.quote.fullMachineHours = 2000;
+	$scope.quote.estSaleDate = new Date();
+	
+	$scope.date = new Date();
+	
 	$http.get("/agg/quoteInfo")
 	.then(function(response) {
 		$scope.dealerList = response.data.data.dealerDOList;
 		$scope.manufacturerList = response.data.data.manufacturerDOList;
+		$scope.useOfEquipmentDOList = response.data.data.useOfEquipmentDOList;
 	});  
 
 	var myTabs = tabs({
@@ -361,6 +373,39 @@ routingApp.controller('QuoteController', function($scope, $http) {
 	  });
   
 	myTabs.init();
+	
+	$scope.changeTab = function(index){
+		myTabs.goToTab(index);
+		if(index == 2){
+			var coverageExpired = $scope.quote.coverageExpired;
+			var machineId = $scope.quote.machineInfoDO.machineId;
+			$http.get("/agg/quote/coverageDeductInfo/"+coverageExpired+"/"+machineId)
+			.then(function(response) {
+				$scope.deductibleAmtList = response.data.data.deductibleAmtList;
+				$scope.coverageTermList = response.data.data.coverageTermList;
+			});  
+		}
+	}
+	
+	$scope.disableSelected = true;
+	$scope.displayDealerText = function(dealerObj){
+		if(dealerObj != null){
+			$scope.dealerText = '"'+dealerObj.name+'"'+' has been assigned to quote . You may assign this quote to a different approved dealer by selecting from the list and pressing the "Proceed to Machine Info" button below.';
+			$scope.disableSelected = false;
+		}else{
+			$scope.dealerText = "";
+			$scope.disableSelected = true;
+		}
+	}
+	
+	$scope.getMachineModel = function(manufacturerDO){
+		if(manufacturerDO != null){
+			 $http.get("/agg/manfModel/"+manufacturerDO.id)
+			    .then(function(response) {
+			        $scope.machineModelList = response.data.data.machineModelList;
+			    });
+		}
+	}
 });
 
 routingApp.controller('ReportBugController', function($scope, $http) {

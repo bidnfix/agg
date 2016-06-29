@@ -19,14 +19,6 @@ public class MachineInfoDO {
 
 		private String machineType;
 
-		public String getMachineType() {
-			return machineType;
-		}
-
-		public void setMachineType(String machineType) {
-			this.machineType = machineType;
-		}
-
 		private String model;
 
 		private Date modelYear;
@@ -34,6 +26,14 @@ public class MachineInfoDO {
 		private double power;
 
 		private double retailPrice;
+		
+		public String getMachineType() {
+			return machineType;
+		}
+
+		public void setMachineType(String machineType) {
+			this.machineType = machineType;
+		}
 
 		public long getMachineId() {
 			return this.machineId;

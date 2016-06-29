@@ -968,3 +968,6 @@ ul li.has-subnav .accordion-btn {
 	color: #65EF64 !important;
 	padding-bottom: 12px;
 }
+.hided-div{
+	display: none !important;
+}

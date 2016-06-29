@@ -15,7 +15,7 @@ public class UseOfEquip implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	private int id;
+	private long id;
 
 	@Column(name="equip_name")
 	private String equipName;
@@ -23,11 +23,11 @@ public class UseOfEquip implements Serializable {
 	public UseOfEquip() {
 	}
 
-	public int getId() {
+	public long getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
