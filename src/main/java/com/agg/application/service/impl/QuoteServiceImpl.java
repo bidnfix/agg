@@ -15,6 +15,7 @@ import com.agg.application.dao.PricingDAO;
 import com.agg.application.dao.UseOfEquipmentDAO;
 import com.agg.application.entity.MachineInfo;
 import com.agg.application.entity.UseOfEquip;
+import com.agg.application.model.PricingDO;
 import com.agg.application.model.UseOfEquipmentDO;
 import com.agg.application.service.QuoteService;
 import com.agg.application.utils.Util;
@@ -51,17 +52,17 @@ public class QuoteServiceImpl implements QuoteService {
 	}
 
 	@Override
-	public Map<String, List<Long>> getDeductableCoverageTermDetails(boolean coverageExpired, long machineId) {
+	public Map<String, List<Integer>> getDeductableCoverageTermDetails(boolean coverageExpired, long machineId) {
 		MachineInfo machineInfo = machineInfoDAO.findOne(machineId);
-		Map<String, List<Long>> deductableCoverageTermMap = null;
+		Map<String, List<Integer>> deductableCoverageTermMap = null;
 		if(machineInfo != null){
-			deductableCoverageTermMap = new HashMap<String, List<Long>>();
+			deductableCoverageTermMap = new HashMap<String, List<Integer>>();
 			int groupId = new Long(machineInfo.getGroupConstant().getGroupId()).intValue();
 			logger.info("groupId: "+groupId);
 			//if manufacturers coverage date expires then consider as used(2) otherwise new(1);
 			byte condition = coverageExpired ? (byte)1 : (byte)2;
-			List<Long> deductibleAmtList = pricingDAO.findDeductibleAmount(condition, groupId);
-			List<Long> coverageTermList = pricingDAO.findCoverageTerm(condition, groupId, deductibleAmtList);
+			List<Integer> deductibleAmtList = pricingDAO.findDeductibleAmount(condition, groupId);
+			List<Integer> coverageTermList = pricingDAO.findCoverageTerm(condition, groupId, deductibleAmtList);
 			
 			logger.info("deductibleAmtList size: "+deductibleAmtList.size()+" coverageTermList size: "+coverageTermList.size());
 			
@@ -70,6 +71,23 @@ public class QuoteServiceImpl implements QuoteService {
 		}
 		
 		return deductableCoverageTermMap;
+	}
+
+	@Override
+	public List<PricingDO> getCoveragePriceDetils(boolean coverageExpired, long machineId, int deductibleAmt, int coverageTerm) {
+		MachineInfo machineInfo = machineInfoDAO.findOne(machineId);
+		List<PricingDO> pricingDOList = null;
+		if(machineInfo != null){
+			int groupId = new Long(machineInfo.getGroupConstant().getGroupId()).intValue();
+			logger.info("groupId: "+groupId);
+			//if manufacturers coverage date expires then consider as used(2) otherwise new(1);
+			byte condition = coverageExpired ? (byte)1 : (byte)2;
+			
+			pricingDOList = pricingDAO.findCoverageLevelPricing(condition, groupId, deductibleAmt, coverageTerm);
+			logger.info("pricingDOList size: "+pricingDOList.size());
+		}
+		
+		return pricingDOList;
 	}
 
 

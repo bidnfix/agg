@@ -279,7 +279,7 @@
 				<div class="form-group">
 					<label for="dealerMarkupVlaue" class="col-sm-3 control-label"></label>
 					<div class="col-sm-4">
-						<input type="radio" id="dealerMarkupPrice" name="dealerMarkupVlaue" ng-model="quote.dealerMarkupVlaue" value="dealerMarkupPrice" class="">&nbsp;Price
+						<input type="radio" id="dealerMarkupPrice" name="dealerMarkupVlaue" ng-model="quote.dealerMarkupVlaue" value="dealerMarkupPrice" class="" ng-checked="true">&nbsp;Price
 						&nbsp;&nbsp;<input type="radio" id="dealerMarkupPercent" name="dealerMarkupVlaue" ng-model="quote.dealerMarkupVlaue" value="dealerMarkupPercent" class="">&nbsp;Percent
 					</div>
 				</div>
@@ -298,7 +298,7 @@
 					</label>
 					<div class="col-sm-8">
 						<label ng-repeat="deductibleAmt in deductibleAmtList">
-							<input  type="radio" id="deductiblePrice" name="deductiblePrice" ng-model="quote.deductiblePrice" class="" ng-value="deductibleAmt"><span>$</span>{{deductibleAmt}}
+							<input  type="radio" id="deductiblePrice" name="deductiblePrice" ng-model="quote.deductiblePrice" ng-click="getCoveragePriceLevels(quote.deductiblePrice, quote.coverageTerm)" class="" ng-value="deductibleAmt" ng-init="$index==0?(quote.deductiblePrice=deductibleAmt):''"><span>$</span>{{deductibleAmt}}
 						</label>&nbsp;&nbsp;
 					</div>
 				</div>
@@ -313,25 +313,57 @@
 					</label>
 					<div class="col-sm-8">
 						<label ng-repeat="coverageTermVal in coverageTermList">
-							<input type="radio" id="coverageTerm" name="coverageTerm" ng-model="quote.coverageTerm" class="" ng-value="coverageTermVal">{{coverageTermVal}}&nbsp;mos.
+							<input type="radio" id="coverageTerm" name="coverageTerm" ng-model="quote.coverageTerm" ng-click="getCoveragePriceLevels(quote.deductiblePrice, quote.coverageTerm)" class="" ng-value="coverageTermVal" ng-init="$index==0?(quote.coverageTerm=coverageTermVal):''">{{coverageTermVal}}&nbsp;mos.
 						</label>&nbsp;&nbsp;
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="modelNumber" class="col-sm-3 control-label">Please enter the customer's information below Or assign a "Nickname" to this quote.</label>
-					<div class="col-sm-4">
+					<label class="col-sm-9 control-label">Select the Desired Coverage Level and Hours for {{coverageTermSelected}} months and <span>$</span>{{deductiblePriceSelected}} deductible.</label>
+					<div class="col-sm-3"></div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-1 control-label"></label>
+					<div class="col-sm-8">
+						<table id="dealerTbl" class="table table-striped table-bordered" cellspacing="0" width="100%">
+					        <thead>
+					            <tr>
+					            	<th>Terms for {{coverageTermSelected}} months(Hours)</th>
+					                <th>Powertrain</th>
+					                <th>Powertrain + Hydraulic</th>
+					                <th>Powertrain + Hydraulic + Platform</th>
+					            </tr>
+					        </thead>
+					        <tbody>
+					            <tr ng-repeat="pricingDO in pricingDOList">
+					            	<td>{{pricingDO.coverageLevelHours}}</td>
+					            	<td ng-class="{'selectedcol':$index == selectedRow && selectedCloumn == 1, 'mouseovercol':$index == mouseoverRow && mouseoverCloumn == 1}"  ng-click="setClickedCloumn($index, 1)" ng-mouseover="setMouserCloumn($index, 1)" ng-mouseleave="resetMouseoverColumn()">{{(pricingDO.ptBasePrice != -1)?pricingDO.ptBasePrice:""}}</td>
+					                <td ng-class="{'selectedcol':$index == selectedRow && selectedCloumn == 2, 'mouseovercol':$index == mouseoverRow && mouseoverCloumn == 2}"  ng-click="setClickedCloumn($index, 2)" ng-mouseover="setMouserCloumn($index, 2)" ng-mouseleave="resetMouseoverColumn()">{{(pricingDO.phBasePrice != -1)?pricingDO.phBasePrice:""}}</td>
+					                <td ng-class="{'selectedcol':$index == selectedRow && selectedCloumn == 3, 'mouseovercol':$index == mouseoverRow && mouseoverCloumn == 3}"  ng-click="setClickedCloumn($index, 3)" ng-mouseover="setMouserCloumn($index, 3)" ng-mouseleave="resetMouseoverColumn()">{{(pricingDO.plBasePrice != -1)?pricingDO.plBasePrice:""}}</td>
+					            </tr>
+					        </tbody>
+					    </table>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="modelNumber" class="col-sm-9 control-label">
+						Please enter the customer's information below Or assign a "Nickname" to this quote.
+						<span class="badge" ng-click="getDealerInfo()">Dealer Info</span>
+					</label>
+					<div class="col-sm-3">
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="dealerName" class="col-sm-3 control-label">Name/Nickname</label>
 					<div class="col-sm-4">
 						<input type="text" id="dealerName" name="dealerName" ng-model="quote.dealerName" placeholder="Dealer Name" class="form-control" required="required">
+						<input type="checkbox" id="custUnderstandCoverage" name="custUnderstandCoverage" ng-model="quote.custUnderstandCoverage" ng-value="true">Customer understands coverage.
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="dealerAddress" class="col-sm-3 control-label">Address</label>
 					<div class="col-sm-4">
 						<input type="text" id="dealerAddress" name="dealerAddress" ng-model="quote.dealerAddress" placeholder="Dealer Address" class="form-control">
+						<input type="checkbox" id="custRemorsePeriod" name="custRemorsePeriod" ng-model="quote.custRemorsePeriod" ng-value="true">Customer is aware of 90-day remorse period.
 					</div>
 				</div>
 				<div class="form-group">

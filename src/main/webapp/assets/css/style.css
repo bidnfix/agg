@@ -971,3 +971,13 @@ ul li.has-subnav .accordion-btn {
 .hided-div{
 	display: none !important;
 }
+.selectedcol {
+	background-color:#b8c159 !important;
+	color:white;
+	font-weight:bold;
+}
+.mouseovercol {
+	background-color:#b8c159 !important;
+	color:white;
+	font-weight:bold;
+}

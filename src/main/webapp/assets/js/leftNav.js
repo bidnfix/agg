@@ -383,7 +383,13 @@ routingApp.controller('QuoteController', function($scope, $http) {
 			.then(function(response) {
 				$scope.deductibleAmtList = response.data.data.deductibleAmtList;
 				$scope.coverageTermList = response.data.data.coverageTermList;
+				$scope.pricingDOList = response.data.data.pricingDOList;
+				
+				$scope.coverageTermSelected = $scope.coverageTermList[0];
+				$scope.deductiblePriceSelected = $scope.deductibleAmtList[0];
 			});  
+			
+			
 		}
 	}
 	
@@ -405,6 +411,56 @@ routingApp.controller('QuoteController', function($scope, $http) {
 			        $scope.machineModelList = response.data.data.machineModelList;
 			    });
 		}
+	}
+	
+	$scope.setClickedCloumn = function(rowIndex, colIndex){
+		var tbCellVal = (colIndex === 1)?$scope.pricingDOList[rowIndex].ptBasePrice:(colIndex === 2)?$scope.pricingDOList[rowIndex].phBasePrice:$scope.pricingDOList[rowIndex].plBasePrice;
+		if(tbCellVal != "" && tbCellVal != -1){
+			$scope.selectedRow = rowIndex;
+			$scope.selectedCloumn = colIndex;
+		}else{
+			$scope.selectedRow = "";
+			$scope.selectedCloumn = "";
+		}
+	}
+	
+	$scope.setMouserCloumn = function(rowIndex, colIndex){
+		$scope.mouseoverRow = rowIndex;
+		$scope.mouseoverCloumn = colIndex;
+	}
+	
+	$scope.getCoveragePriceLevels = function(deductiblePrice, coverageTerm){
+		$scope.selectedRow = "";
+		$scope.selectedCloumn = "";
+		$scope.mouseoverRow = "";
+		$scope.mouseoverCloumn = "";
+		var coverageExpired = $scope.quote.coverageExpired;
+		var machineId = $scope.quote.machineInfoDO.machineId;
+		$scope.coverageTermSelected = coverageTerm;
+		$scope.deductiblePriceSelected = deductiblePrice;
+		$http.get("/agg/quote/coverageLevelPrice/"+coverageExpired+"/"+machineId+"/"+deductiblePrice+"/"+coverageTerm)
+		.then(function(response) {
+			$scope.pricingDOList = response.data.data;
+		});  
+	}
+	
+	$scope.resetMouseoverColumn = function(){
+		$scope.mouseoverRow = "";
+		$scope.mouseoverCloumn = "";
+	}
+	
+	$scope.getDealerInfo = function(){
+		$http.get("/agg/quote/userInfo")
+		.then(function(response) {
+			var dealrDO = response.data.data;
+			$scope.quote.dealerName = dealrDO.name;
+			$scope.quote.dealerAddress = dealrDO.address1;
+			$scope.quote.dealerCity = dealrDO.city;
+			$scope.quote.dealerState = dealrDO.state;
+			$scope.quote.dealerZip = dealrDO.zip;
+			$scope.quote.dealerPhone = dealrDO.phone;
+			$scope.quote.dealerEmail = dealrDO.invoiceEmail;
+		});  
 	}
 });
 
