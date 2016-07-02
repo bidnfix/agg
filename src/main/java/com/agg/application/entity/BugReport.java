@@ -1,3 +1,4 @@
+
 package com.agg.application.entity;
 
 import java.io.Serializable;
@@ -17,7 +18,7 @@ public class BugReport implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	private int id;
+	private long id;
 
 	@Column(name="created_on")
 	private Timestamp createdOn;
@@ -50,11 +51,11 @@ public class BugReport implements Serializable {
 	public BugReport() {
 	}
 
-	public int getId() {
+	public long getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

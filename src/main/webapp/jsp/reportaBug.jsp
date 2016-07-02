@@ -80,6 +80,11 @@
 					<input type="textarea" id="notes" name="notes" ng-model="user.address1" class="form-control" required="required">
 				</div>
 			</div>
+			<div class="form-group">
+				<div class="col-sm-9 col-sm-offset-3">
+					<button type="submit" class="btn btn-primary btn-block">Submit</button>
+				</div>
+			</div>
 		</form>
 		<!-- /form -->
 	</div>

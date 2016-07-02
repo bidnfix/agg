@@ -4,6 +4,11 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Lob;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 /**
  * The persistent class for the claims database table.
  * 
@@ -11,354 +16,118 @@ import java.util.Date;
 public class BugDO {
 	private static final long serialVersionUID = 1L;
 
-	private int claimId;
+	private long Id;
 
-	private String cLevel;
+	private Timestamp createdOn;
 
-	private byte cStatus;
+	private String description;
 
-	private String causeFail;
-
-	private String correctiveAction;
-
-	private String custComplaint;
-
-	private String dealerAddress1;
-
-	private String dealerAddress2;
-
-	private String dealerCity;
-
-	private String dealerContact;
-
-	private String dealerEmail;
-
-	private int dealerId;
-
-	private String dealerName;
-
-	private String dealerPhone;
-
-	private String dealerState;
-
-	private String dealerZip;
-
-	private Date failDate;
-
-	private int hourlyRate;
-
-	private int hoursBreakDown;
-
-	private byte isArchived;
-
-	private int labourHours;
-
-	private Timestamp lastUpdate;
-
-	private String manf;
-
-	private String model;
-
-	private String newClaimId;
-
-	private int otherCharges1;
-
-	private int otherCharges2;
-
-	private String otherManf;
-
-	private String otherModel;
-
-	private int partsTotal;
-
-	private String preAuth;
-
-	private String quoteId;
-
-	private Date reportDate;
-
-	private String serial;
-
-	private String workOrder;
-
-	public int getClaimId() {
-		return this.claimId;
-	}
-
-	public void setClaimId(int claimId) {
-		this.claimId = claimId;
-	}
-
-	public String getCLevel() {
-		return this.cLevel;
-	}
-
-	public void setCLevel(String cLevel) {
-		this.cLevel = cLevel;
-	}
-
-	public byte getCStatus() {
-		return this.cStatus;
-	}
-
-	public void setCStatus(byte cStatus) {
-		this.cStatus = cStatus;
-	}
-
-	public String getCauseFail() {
-		return this.causeFail;
-	}
-
-	public void setCauseFail(String causeFail) {
-		this.causeFail = causeFail;
-	}
-
-	public String getCorrectiveAction() {
-		return this.correctiveAction;
-	}
-
-	public void setCorrectiveAction(String correctiveAction) {
-		this.correctiveAction = correctiveAction;
-	}
-
-	public String getCustComplaint() {
-		return this.custComplaint;
-	}
-
-	public void setCustComplaint(String custComplaint) {
-		this.custComplaint = custComplaint;
-	}
-
-	public String getDealerAddress1() {
-		return this.dealerAddress1;
-	}
-
-	public void setDealerAddress1(String dealerAddress1) {
-		this.dealerAddress1 = dealerAddress1;
-	}
-
-	public String getDealerAddress2() {
-		return this.dealerAddress2;
-	}
-
-	public void setDealerAddress2(String dealerAddress2) {
-		this.dealerAddress2 = dealerAddress2;
-	}
-
-	public String getDealerCity() {
-		return this.dealerCity;
-	}
-
-	public void setDealerCity(String dealerCity) {
-		this.dealerCity = dealerCity;
-	}
-
-	public String getDealerContact() {
-		return this.dealerContact;
-	}
-
-	public void setDealerContact(String dealerContact) {
-		this.dealerContact = dealerContact;
-	}
-
-	public String getDealerEmail() {
-		return this.dealerEmail;
-	}
-
-	public void setDealerEmail(String dealerEmail) {
-		this.dealerEmail = dealerEmail;
-	}
-
-	public int getDealerId() {
-		return this.dealerId;
-	}
-
-	public void setDealerId(int dealerId) {
-		this.dealerId = dealerId;
-	}
-
-	public String getDealerName() {
-		return this.dealerName;
-	}
-
-	public void setDealerName(String dealerName) {
-		this.dealerName = dealerName;
-	}
-
-	public String getDealerPhone() {
-		return this.dealerPhone;
-	}
-
-	public void setDealerPhone(String dealerPhone) {
-		this.dealerPhone = dealerPhone;
-	}
-
-	public String getDealerState() {
-		return this.dealerState;
+	public long getId() {
+		return Id;
 	}
 
-	public void setDealerState(String dealerState) {
-		this.dealerState = dealerState;
+	public void setId(long id) {
+		Id = id;
 	}
 
-	public String getDealerZip() {
-		return this.dealerZip;
+	public Timestamp getCreatedOn() {
+		return createdOn;
 	}
 
-	public void setDealerZip(String dealerZip) {
-		this.dealerZip = dealerZip;
+	public void setCreatedOn(Timestamp createdOn) {
+		this.createdOn = createdOn;
 	}
 
-	public Date getFailDate() {
-		return this.failDate;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setFailDate(Date failDate) {
-		this.failDate = failDate;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
-	public int getHourlyRate() {
-		return this.hourlyRate;
+	public Date getDiscovered() {
+		return discovered;
 	}
 
-	public void setHourlyRate(int hourlyRate) {
-		this.hourlyRate = hourlyRate;
+	public void setDiscovered(Date discovered) {
+		this.discovered = discovered;
 	}
 
-	public int getHoursBreakDown() {
-		return this.hoursBreakDown;
+	public Date getFixBy() {
+		return fixBy;
 	}
 
-	public void setHoursBreakDown(int hoursBreakDown) {
-		this.hoursBreakDown = hoursBreakDown;
+	public void setFixBy(Date fixBy) {
+		this.fixBy = fixBy;
 	}
 
-	public byte getIsArchived() {
-		return this.isArchived;
+	public String getNotes() {
+		return notes;
 	}
 
-	public void setIsArchived(byte isArchived) {
-		this.isArchived = isArchived;
+	public void setNotes(String notes) {
+		this.notes = notes;
 	}
 
-	public int getLabourHours() {
-		return this.labourHours;
+	public int getPriority() {
+		return priority;
 	}
 
-	public void setLabourHours(int labourHours) {
-		this.labourHours = labourHours;
+	public void setPriority(int priority) {
+		this.priority = priority;
 	}
 
-	public Timestamp getLastUpdate() {
-		return this.lastUpdate;
+	public int getReportedBy() {
+		return reportedBy;
 	}
 
-	public void setLastUpdate(Timestamp lastUpdate) {
-		this.lastUpdate = lastUpdate;
+	public void setReportedBy(int reportedBy) {
+		this.reportedBy = reportedBy;
 	}
 
-	public String getManf() {
-		return this.manf;
+	public int getStatus() {
+		return status;
 	}
 
-	public void setManf(String manf) {
-		this.manf = manf;
+	public void setStatus(int status) {
+		this.status = status;
 	}
 
-	public String getModel() {
-		return this.model;
+	public String getUrl() {
+		return url;
 	}
 
-	public void setModel(String model) {
-		this.model = model;
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
-	public String getNewClaimId() {
-		return this.newClaimId;
+	public String getUserAgent() {
+		return userAgent;
 	}
 
-	public void setNewClaimId(String newClaimId) {
-		this.newClaimId = newClaimId;
+	public void setUserAgent(String userAgent) {
+		this.userAgent = userAgent;
 	}
 
-	public int getOtherCharges1() {
-		return this.otherCharges1;
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
-	public void setOtherCharges1(int otherCharges1) {
-		this.otherCharges1 = otherCharges1;
-	}
-
-	public int getOtherCharges2() {
-		return this.otherCharges2;
-	}
-
-	public void setOtherCharges2(int otherCharges2) {
-		this.otherCharges2 = otherCharges2;
-	}
-
-	public String getOtherManf() {
-		return this.otherManf;
-	}
-
-	public void setOtherManf(String otherManf) {
-		this.otherManf = otherManf;
-	}
-
-	public String getOtherModel() {
-		return this.otherModel;
-	}
-
-	public void setOtherModel(String otherModel) {
-		this.otherModel = otherModel;
-	}
-
-	public int getPartsTotal() {
-		return this.partsTotal;
-	}
+	private Date discovered;
 
-	public void setPartsTotal(int partsTotal) {
-		this.partsTotal = partsTotal;
-	}
-
-	public String getPreAuth() {
-		return this.preAuth;
-	}
-
-	public void setPreAuth(String preAuth) {
-		this.preAuth = preAuth;
-	}
-
-	public String getQuoteId() {
-		return this.quoteId;
-	}
+	private Date fixBy;
 
-	public void setQuoteId(String quoteId) {
-		this.quoteId = quoteId;
-	}
-
-	public Date getReportDate() {
-		return this.reportDate;
-	}
+	private String notes;
 
-	public void setReportDate(Date reportDate) {
-		this.reportDate = reportDate;
-	}
+	private int priority;
 
-	public String getSerial() {
-		return this.serial;
-	}
+	private int reportedBy;
 
-	public void setSerial(String serial) {
-		this.serial = serial;
-	}
+	private int status;
 
-	public String getWorkOrder() {
-		return this.workOrder;
-	}
+	private String url;
 
-	public void setWorkOrder(String workOrder) {
-		this.workOrder = workOrder;
-	}
+	private String userAgent;
 
 }
