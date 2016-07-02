@@ -3,11 +3,10 @@ package com.agg.application.dao;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Component;
 
-import com.agg.application.entity.Claims;
-import com.agg.application.entity.Quote;
+import com.agg.application.entity.BugReport;
 
 @Component
-public interface ReportBugDAO extends CrudRepository<Quote, Long> {
+public interface ReportBugDAO extends CrudRepository<BugReport, Long> {
 	
 	
 	

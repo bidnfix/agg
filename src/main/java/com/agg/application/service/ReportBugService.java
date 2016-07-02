@@ -2,10 +2,11 @@ package com.agg.application.service;
 
 import java.util.List;
 
+import com.agg.application.model.BugDO;
 import com.agg.application.model.QuoteDO;
 
 public interface ReportBugService {
 
-	List<QuoteDO> getClaimsInfo();
+	public Long saveBug(BugDO bugDO);
 	
 }
