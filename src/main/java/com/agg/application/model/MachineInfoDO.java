@@ -27,6 +27,8 @@ public class MachineInfoDO {
 
 		private double retailPrice;
 		
+		private double lol;
+		
 		public String getMachineType() {
 			return machineType;
 		}
@@ -123,7 +125,19 @@ public class MachineInfoDO {
 			this.ePower = ePower;
 		}
 
+		/**
+		 * @return the lol
+		 */
+		public double getLol() {
+			return lol;
+		}
 
+		/**
+		 * @param lol the lol to set
+		 */
+		public void setLol(double lol) {
+			this.lol = lol;
+		}
 
 	}
 

@@ -473,9 +473,308 @@
         </div>
         <div class="c-tab">
           <div class="c-tab__content">
-            <h2>Stay Busy</h2>
-            <p>Calendar ipsum dolor sit amet, consectetur adipisicing elit. Ipsam quo minus voluptate unde tempore eveniet consequuntur in, quod animi libero rem similique pariatur quos, et eum nisi ducimus, architecto voluptatibus!</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto aspernatur natus dolorem fuga cumque optio saepe corrupti earum. Ipsam quaerat asperiores similique omnis excepturi temporibus ab eum magnam ipsa, odio.</p>
+          	<div class="form-group">
+				<label class="col-sm-9 control-label">
+					Please review your quote below. Click the edit button to modify. &nbsp;&nbsp;<span class="badge" ng-click="editQuoteInfo()">Edit</span>
+				</label>
+				<div class="col-sm-1">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-5 control-label">
+					Here is your current quote: 
+				</label>
+				<div class="col-sm-1">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label">Quote ID:</label>
+				<div class="col-sm-4">
+					{{quoteId}}
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label">
+					<img src="/assets/images/info-icon.png" alt="Info" 
+								data-toggle="tooltip" 
+								tooltip-trigger tooltip-animation="false" 
+					          	tooltip="The Manufacturer's serial number for the machine. If pricing coverage for a machine you have ordered, but have not yet received, then  'unknown' is appropriate, but this field must be updated before you can complete the purchase of coverage."
+					          	tooltip-placement="top">&nbsp;
+					Serial Number:
+				</label>
+				<div class="col-sm-4">
+					{{quote.serialNumber}}
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label">
+					<img src="/assets/images/info-icon.png" alt="Info" 
+								data-toggle="tooltip" 
+								tooltip-trigger tooltip-animation="false" 
+					          	tooltip="If you were unable to find the machine manufacturer in the list in step 2, then the name you entered manually will appear; however, we will not be able to provide you with a price automatically. Using the  information you have provided, we will  respond to you quickly with a quote.  We apologize for the inconvenience."
+					          	tooltip-placement="top">&nbsp;
+					Manufacturer:
+				</label>
+				<div class="col-sm-4">
+					{{quote.manufacturerDO.name}}
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label">
+					<img src="/assets/images/info-icon.png" alt="Info" 
+								data-toggle="tooltip" 
+								tooltip-trigger tooltip-animation="false" 
+					          	tooltip="If you were unable to find the model in the list in step 2, the model you entered manually will appear and we will consider the explanation you provided in the 'unusual provisions' section in step one.   Similarly, we will look to the 'unusual provisions' section if you chose a best-fit model number.  If we are unable to provide a price automatically based on the model you entered, we will use the  information you provide to determine the cost and respond to you quickly with a quote.  We apologize for the inconvenience."
+					          	tooltip-placement="top">&nbsp;
+					Model:
+				</label>
+				<div class="col-sm-4">
+					{{quote.machineInfoDO.model}}
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label">
+					<img src="/assets/images/info-icon.png" alt="Info" 
+								data-toggle="tooltip" 
+								tooltip-trigger tooltip-animation="false" 
+					          	tooltip="Please use the engine-rated horsepower. This is not the PTO power or peak power."
+					          	tooltip-placement="top">&nbsp;
+					Horsepower:
+				</label>
+				<div class="col-sm-4">
+					{{quote.horsePower}}
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label">
+					<img src="/assets/images/info-icon.png" alt="Info" 
+								data-toggle="tooltip" 
+								tooltip-trigger tooltip-animation="false" 
+					          	tooltip="For our purposes, the 'Retail Price' is the advertised price of the machine not including any special deals or terms.  This is not necessarily the sales price.   We do not use the 'Retail Price'  to determine the price of coverage; however, we do use this information to compare coverage on certain machines and within certain price bands when we analyze our risk-so, it is important to report this accurately in order to help us keep our prices as low as possible."
+					          	tooltip-placement="top">&nbsp;
+					Retail Price:
+				</label>
+				<div class="col-sm-4">
+					{{quote.retailPrice}}
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label">
+					<img src="/assets/images/info-icon.png" alt="Info" 
+								data-toggle="tooltip" 
+								tooltip-trigger tooltip-animation="false" 
+					          	tooltip="This should be the exact hours shown on the Machine's tachometer or hours gauge.  It is important that this information is recorded accurately to prevent lapses or denial of coverage."
+					          	tooltip-placement="top">&nbsp;
+					Meter Hours:
+				</label>
+				<div class="col-sm-4">
+					{{quote.meterHours}}
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label">
+					<img src="/assets/images/info-icon.png" alt="Info" 
+								data-toggle="tooltip" 
+								tooltip-trigger tooltip-animation="false" 
+					          	tooltip="The 'model year' may not correlate with age of the machine, but it may effect the price.  Sometimes components change by model year and the change is not reflected in the model number.  These changes can effect our risk  (and our pricing) significantly.  Therefore, it is important to record the actual model year.  If you do not know the model year, leave blank and explain why in the 'unusual provisions' section in step one. "
+					          	tooltip-placement="top">&nbsp;
+					Model Year:
+				</label>
+				<div class="col-sm-4">
+					{{quote.modelYear}}
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label">
+					<img src="/assets/images/info-icon.png" alt="Info" 
+								data-toggle="tooltip" 
+								tooltip-trigger tooltip-animation="false" 
+					          	tooltip="Based on information you provide, we will determine whether we consider the machine condition to be 'new or used'.  This determination depends on several factors and may not match your description of condition.  New machine pricing is better than used.  If we determine that the condition is 'new', that is good for you.  If, however, we determine it is 'used' and you believe it is 'new', then please contact us before purchasing coverage."
+					          	tooltip-placement="top">&nbsp;
+					Condition (New/Used):
+				</label>
+				<div class="col-sm-4">
+					{{machineCondition}}
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label">
+					<img src="/assets/images/info-icon.png" alt="Info" 
+								data-toggle="tooltip" 
+								tooltip-trigger tooltip-animation="false" 
+					          	tooltip="The primary use for which the equipment is being purchased to perform. The options are broad categories and you should choose the best fit. If you have concerns about an application, it is worth verifying how it might effect coverage before completing the purchase so that there are no surprises. How the machine will be used can effect pricing.  And if the machine is used in a materially different application than reported, it could compromise the coverage."
+					          	tooltip-placement="top">&nbsp;
+					Use of Equipment:
+				</label>
+				<div class="col-sm-4">
+					{{quote.useOfEquipmentDO.equipName}}
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-5 control-label">
+					Manufacturer Warranty Details 
+				</label>
+				<div class="col-sm-1">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label">
+					Warranty End Date:
+				</label>
+				<div class="col-sm-4">
+					{{quote.coverageEndDate}}
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label">
+					Transmission Coverage Hours:
+				</label>
+				<div class="col-sm-4">
+					{{quote.powerTrainHours}}
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label">
+					Transmission Coverage Term:
+				</label>
+				<div class="col-sm-4">
+					{{quote.powerTrainMonths}} mons.
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label">
+					Hydraulics Coverage Hours:
+				</label>
+				<div class="col-sm-4">
+					{{quote.hydraulicsHours}}
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label">
+					Hydraulics Coverage Term:
+				</label>
+				<div class="col-sm-4">
+					{{quote.hydraulicsMonths}} mons.
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label">
+					Full Machine Coverage Hours:
+				</label>
+				<div class="col-sm-4">
+					{{quote.fullMachineHours}}
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label">
+					Full Machine Coverage Term:
+				</label>
+				<div class="col-sm-4">
+					{{quote.fullMachineMonths}} mons.
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-5 control-label">
+					Quote Coverage Details 
+				</label>
+				<div class="col-sm-1">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label">
+					Coverage Type (PT/PH/PL):
+				</label>
+				<div class="col-sm-4">
+					{{coverageType}}
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label">
+					Deductible:
+				</label>
+				<div class="col-sm-4">
+					<span>$</span>{{quote.deductiblePrice}}
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label">
+					Coverage Hours:
+				</label>
+				<div class="col-sm-4">
+					{{coverageHours}}
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label">
+					Coverage Term:
+				</label>
+				<div class="col-sm-4">
+					{{quote.coverageTerm}} &nbsp;<span>mos.</span>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label">
+					Limit of Liability:
+				</label>
+				<div class="col-sm-4">
+					<span>$</span>{{quote.machineInfoDO.lol}}
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label">
+					Estimated Date of Sale:
+				</label>
+				<div class="col-sm-4">
+					<label ng-bind="quote.estSaleDate |  date:'MM/dd/yyyy'"></label>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label">
+					Additional Unit Information:
+				</label>
+				<div class="col-sm-4">
+					{{addUnitInformation}}
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-5 control-label">
+					Pricing Details 
+				</label>
+				<div class="col-sm-1">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label">
+					Base Price:
+				</label>
+				<div class="col-sm-4">
+					<span>$</span>{{quoteBasePrice}}
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label">
+					Dealer Markup:
+				</label>
+				<div class="col-sm-4">
+					<span>$</span>{{dealerMarkupPrice}}
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label">
+					Total Price to Customer:
+				</label>
+				<div class="col-sm-4">
+					<span>$</span>{{totalCustPrice}}
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label">
+					Total Price to Dealer:
+				</label>
+				<div class="col-sm-4">
+					<span>$</span>{{totalDealerPrice}}
+				</div>
+			</div>
           </div>
         </div>
         <div class="c-tab">
