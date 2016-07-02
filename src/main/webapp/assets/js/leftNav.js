@@ -377,7 +377,7 @@ routingApp.controller('QuoteController', function($scope, $http) {
 	$scope.changeTab = function(index){
 		myTabs.goToTab(index);
 		if(index == 2){
-			var coverageExpired = $scope.quote.coverageExpired;
+			var coverageExpired = ($scope.quote.coverageExpired != null && $scope.quoteBasePrice == true)?true:false;
 			var machineId = $scope.quote.machineInfoDO.machineId;
 			$http.get("/agg/quote/coverageDeductInfo/"+coverageExpired+"/"+machineId)
 			.then(function(response) {
@@ -388,7 +388,34 @@ routingApp.controller('QuoteController', function($scope, $http) {
 				$scope.coverageTermSelected = $scope.coverageTermList[0];
 				$scope.deductiblePriceSelected = $scope.deductibleAmtList[0];
 			});  
+		}else if(index == 3){
+			if($scope.quote.coverageExpired != null && $scope.quote.coverageExpired == true){
+				$scope.machineCondition = 'Used';
+			}else if($scope.quote.coverageEndDate != null && ($scope.quote.coverageEndDate > $scope.date)){
+				$scope.machineCondition = 'New';
+			}else{
+				$scope.machineCondition = 'Used';
+			}
 			
+			var rowIndex = $scope.selectedRow;
+			var colIndex = $scope.selectedCloumn;
+			var dealerMarkupVlaue = "";
+			
+			if(rowIndex != "" && colIndex != ""){
+				$scope.coverageHours = $scope.pricingDOList[rowIndex].coverageLevelHours;
+				$scope.quoteBasePrice = (colIndex === 1)?$scope.pricingDOList[rowIndex].ptBasePrice:(colIndex === 2)?$scope.pricingDOList[rowIndex].phBasePrice:$scope.pricingDOList[rowIndex].plBasePrice;
+				$scope.coverageType = (colIndex === 1)?"PT":(colIndex === 2)?"PH":"PL";
+			}
+			
+			if($scope.quote.dealerMarkupVlaue == 'dealerMarkupPrice'){
+				dealerMarkupVlaue = $scope.quote.dealerMarkup;
+			}else{
+				dealerMarkupVlaue = (($scope.quoteBasePrice * $scope.quote.dealerMarkup)/100);
+			}
+			
+			$scope.dealerMarkupPrice = dealerMarkupVlaue;
+			$scope.totalCustPrice = dealerMarkupVlaue + $scope.quoteBasePrice;
+			$scope.totalDealerPrice = $scope.quoteBasePrice;
 			
 		}
 	}
@@ -434,7 +461,7 @@ routingApp.controller('QuoteController', function($scope, $http) {
 		$scope.selectedCloumn = "";
 		$scope.mouseoverRow = "";
 		$scope.mouseoverCloumn = "";
-		var coverageExpired = $scope.quote.coverageExpired;
+		var coverageExpired = ($scope.quote.coverageExpired != null && $scope.quoteBasePrice == true)?true:false;
 		var machineId = $scope.quote.machineInfoDO.machineId;
 		$scope.coverageTermSelected = coverageTerm;
 		$scope.deductiblePriceSelected = deductiblePrice;
