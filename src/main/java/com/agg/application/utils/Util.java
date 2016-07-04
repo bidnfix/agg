@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Util {
+	private static final String EMPTY = ""; 
 	
 	public static <T> List<T> toList(Iterable<T> iterable) {
 		if (iterable instanceof List) {
@@ -16,5 +17,9 @@ public class Util {
 			}
 		}
 		return list;
+	}
+	
+	public static boolean isNotEmptyString(final String value){
+		return (null != value && !value.trim().equals(EMPTY));
 	}
 }

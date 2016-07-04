@@ -13,6 +13,37 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', functi
 		},
 		initClaimAddForm = function($scope){
 			$scope.claim={};
+			var initDatepicker = function(){
+				var getMaxClaimFailureDate = function(){
+					return $scope.claim.reportedDate - 1;
+				};
+				$scope.claim.reportedDate = new Date();
+				$scope.dateOptions1 = {
+				        maxDate: getMaxClaimFailureDate(),
+				        startingDay: 1
+				    };
+				$scope.dateOptions2 = {
+			        maxDate: new Date(),
+			        startingDay: 1
+			    };
+				$scope.format = 'dd.MM.yyyy';
+				$scope.fdtopen = function() {
+			    	$scope.popup1.opened = true;
+			    };
+			      
+				$scope.popup1 = {
+					opened: false
+				};
+				$scope.rdtopen = function() {
+			    	$scope.popup2.opened = true;
+			    };
+			      
+				$scope.popup2 = {
+					opened: false
+				};
+			};
+			initDatepicker();
+			
 			$scope.claim.claimNo = 'CL555';
 			$scope.$watch('claim.laborHours * claim.hourlyRate', function(value){
 				$scope.claim.totalLaborCost = value;
