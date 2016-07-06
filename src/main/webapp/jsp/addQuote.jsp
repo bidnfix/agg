@@ -1,8 +1,7 @@
 <!-- Article main content -->
 			<article class="col-md-9 maincontent">
-				<header class="page-header">
-                	<div class="o-container">
-
+				<header class="page-header"></header>
+ <div class="o-container">
     <div class="o-section">
       <div id="quoteTabs" class="c-tabs no-js">
         <div class="c-tabs-nav">
@@ -277,10 +276,14 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="dealerMarkupVlaue" class="col-sm-3 control-label"></label>
+					<label class="col-sm-3 control-label"></label>
 					<div class="col-sm-4">
-						<input type="radio" id="dealerMarkupPrice" name="dealerMarkupVlaue" ng-model="quote.dealerMarkupVlaue" value="dealerMarkupPrice" class="" ng-checked="true">&nbsp;Price
-						&nbsp;&nbsp;<input type="radio" id="dealerMarkupPercent" name="dealerMarkupVlaue" ng-model="quote.dealerMarkupVlaue" value="dealerMarkupPercent" class="">&nbsp;Percent
+						<label>
+							<input type="radio" id="dealerMarkupVlaue" name="dealerMarkupVlaue" ng-model="quote.dealerMarkupType" value="dealerMarkupPrice" class="">&nbsp;Price
+						</label>
+						<label>
+							&nbsp;&nbsp;<input type="radio" id="dealerMarkupVlaue" name="dealerMarkupVlaue" ng-model="quote.dealerMarkupType" value="dealerMarkupPercent" class="">&nbsp;Percent
+						</label>
 					</div>
 				</div>
 				<div class="form-group">
@@ -298,7 +301,7 @@
 					</label>
 					<div class="col-sm-8">
 						<label ng-repeat="deductibleAmt in deductibleAmtList">
-							<input  type="radio" id="deductiblePrice" name="deductiblePrice" ng-model="quote.deductiblePrice" ng-click="getCoveragePriceLevels(quote.deductiblePrice, quote.coverageTerm)" class="" ng-value="deductibleAmt" ng-init="$index==0?(quote.deductiblePrice=deductibleAmt):''"><span>$</span>{{deductibleAmt}}
+							<input  type="radio" id="deductiblePrice" name="deductiblePrice" ng-model="quote.deductiblePrice" ng-click="getCoveragePriceLevels(quote.deductiblePrice, quote.coverageTerm)" class="" ng-value="deductibleAmt" ng-init="$index==0?(quote.deductiblePrice=deductibleAmt):''">{{deductibleAmt | currency:"$":0}}
 						</label>&nbsp;&nbsp;
 					</div>
 				</div>
@@ -318,7 +321,7 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-sm-9 control-label">Select the Desired Coverage Level and Hours for {{coverageTermSelected}} months and <span>$</span>{{deductiblePriceSelected}} deductible.</label>
+					<label class="col-sm-9 control-label">Select the Desired Coverage Level and Hours for {{coverageTermSelected}} months and {{deductiblePriceSelected | currency:"$":0}} deductible.</label>
 					<div class="col-sm-3"></div>
 				</div>
 				<div class="form-group">
@@ -693,7 +696,7 @@
 					Deductible:
 				</label>
 				<div class="col-sm-4">
-					<span>$</span>{{quote.deductiblePrice}}
+					{{quote.deductiblePrice | currency:"$":0}}
 				</div>
 			</div>
 			<div class="form-group">
@@ -717,7 +720,7 @@
 					Limit of Liability:
 				</label>
 				<div class="col-sm-4">
-					<span>$</span>{{quote.machineInfoDO.lol}}
+					{{quote.machineInfoDO.lol | currency:"$":0}}
 				</div>
 			</div>
 			<div class="form-group">
@@ -748,7 +751,7 @@
 					Base Price:
 				</label>
 				<div class="col-sm-4">
-					<span>$</span>{{quoteBasePrice}}
+					{{quoteBasePrice | currency:"$":0}}
 				</div>
 			</div>
 			<div class="form-group">
@@ -756,7 +759,7 @@
 					Dealer Markup:
 				</label>
 				<div class="col-sm-4">
-					<span>$</span>{{dealerMarkupPrice}}
+					{{dealerMarkupAmtPrice | currency:"$":0}}
 				</div>
 			</div>
 			<div class="form-group">
@@ -764,7 +767,7 @@
 					Total Price to Customer:
 				</label>
 				<div class="col-sm-4">
-					<span>$</span>{{totalCustPrice}}
+					{{totalCustPrice | currency:"$":0}}
 				</div>
 			</div>
 			<div class="form-group">
@@ -772,7 +775,7 @@
 					Total Price to Dealer:
 				</label>
 				<div class="col-sm-4">
-					<span>$</span>{{totalDealerPrice}}
+					{{totalDealerPrice | currency:"$":0}}
 				</div>
 			</div>
           </div>
@@ -798,9 +801,6 @@
 
     
   </div>
-			
-	</header>
-                
                 
 				 <!-- data table section -->
                 

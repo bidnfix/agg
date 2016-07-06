@@ -356,6 +356,7 @@ routingApp.controller('QuoteController', function($scope, $http) {
 	$scope.quote.hydraulicsHours = 2000;
 	$scope.quote.fullMachineHours = 2000;
 	$scope.quote.estSaleDate = new Date();
+	$scope.quote.dealerMarkupType = "dealerMarkupPrice";
 	
 	$scope.date = new Date();
 	
@@ -399,22 +400,20 @@ routingApp.controller('QuoteController', function($scope, $http) {
 			
 			var rowIndex = $scope.selectedRow;
 			var colIndex = $scope.selectedCloumn;
-			var dealerMarkupVlaue = "";
 			
-			if(rowIndex != "" && colIndex != ""){
+			if(rowIndex >= 0 && colIndex > 0){
 				$scope.coverageHours = $scope.pricingDOList[rowIndex].coverageLevelHours;
 				$scope.quoteBasePrice = (colIndex === 1)?$scope.pricingDOList[rowIndex].ptBasePrice:(colIndex === 2)?$scope.pricingDOList[rowIndex].phBasePrice:$scope.pricingDOList[rowIndex].plBasePrice;
 				$scope.coverageType = (colIndex === 1)?"PT":(colIndex === 2)?"PH":"PL";
 			}
 			
-			if($scope.quote.dealerMarkupVlaue == 'dealerMarkupPrice'){
-				dealerMarkupVlaue = $scope.quote.dealerMarkup;
+			if($scope.quote.dealerMarkupType == 'dealerMarkupPrice'){
+				$scope.dealerMarkupAmtPrice = parseInt($scope.quote.dealerMarkup);
 			}else{
-				dealerMarkupVlaue = (($scope.quoteBasePrice * $scope.quote.dealerMarkup)/100);
+				$scope.dealerMarkupAmtPrice = (($scope.quoteBasePrice * parseInt($scope.quote.dealerMarkup))/100);
 			}
 			
-			$scope.dealerMarkupPrice = dealerMarkupVlaue;
-			$scope.totalCustPrice = dealerMarkupVlaue + $scope.quoteBasePrice;
+			$scope.totalCustPrice = $scope.dealerMarkupAmtPrice + $scope.quoteBasePrice;
 			$scope.totalDealerPrice = $scope.quoteBasePrice;
 			
 		}
