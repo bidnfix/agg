@@ -2,7 +2,7 @@
 
 routingApp.factory('reportaBugService', function($http, $q, $window) {
 			return {
-				saveBug : function(program) {
+				saveBug : function(bug) {
 					return $http.post('/agg/postBug', bug).then(
 							function(response) {
 								alert(response.data.status);
