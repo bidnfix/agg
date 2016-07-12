@@ -22,6 +22,8 @@ public class ContractDO {
 	private long quoteId;
 	private int status;
 	private String machineSerialNo;
+	private String machineModel;
+	private ManufacturerDO manufacturerDO; 
 	private String coverageType;
 	private int coverageTermMonths;
 	private int coverageLevelHours;
@@ -92,6 +94,19 @@ public class ContractDO {
 	 */
 	public void setMachineSerialNo(String machineSerialNo) {
 		this.machineSerialNo = machineSerialNo;
+	}
+	
+	/**
+	 * @return the machineModel
+	 */
+	public String getMachineModel() {
+		return machineModel;
+	}
+	/**
+	 * @param machineModel the machineModel to set
+	 */
+	public void setMachineModel(String machineModel) {
+		this.machineModel = machineModel;
 	}
 	/**
 	 * @return the coverageType
@@ -224,6 +239,18 @@ public class ContractDO {
 	 */
 	public void setLastUpdatedDate(Date lastUpdatedDate) {
 		this.lastUpdatedDate = lastUpdatedDate;
+	}
+	/**
+	 * @return the manufacturerDO
+	 */
+	public ManufacturerDO getManufacturerDO() {
+		return manufacturerDO;
+	}
+	/**
+	 * @param manufacturerDO the manufacturerDO to set
+	 */
+	public void setManufacturerDO(ManufacturerDO manufacturerDO) {
+		this.manufacturerDO = manufacturerDO;
 	}
 	
 }

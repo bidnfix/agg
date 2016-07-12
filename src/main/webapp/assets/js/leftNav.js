@@ -330,7 +330,7 @@ routingApp.controller('ClaimsController', ['$scope', 'claimService', '$http', '$
         	$('#table1').DataTable();
         }, 500);
     });*/
-	$scope.editClaim = function(claimId) {
+	$scope.edit = function(claimId) {
 		alert(claimId);
 		$http.get("/agg/editClaim")
 		.then(function(response) {
@@ -343,8 +343,8 @@ routingApp.controller('ClaimsController', ['$scope', 'claimService', '$http', '$
     		claimService.getSerialNumberInfo($scope);
     	}
     };
-    $scope.onClickSelectQuote = function(data){
-    	claimService.selectQuote($scope, data);
+    $scope.onClickSelectContract = function(data){
+    	claimService.selectContract($scope, data);
     }
 }]);
 routingApp.controller('QuoteController', function($scope, $http) {

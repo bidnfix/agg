@@ -5,9 +5,9 @@
 'use strict';
 
 routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', function($http, $q, $window, $timeout){
-	var selectQuote = function($scope, data){
-			$scope.quoteInfoList = data;
-			$scope.showActiveQuoteDetails = false;
+	var selectContract = function($scope, data){
+			$scope.contractInfoList = data;
+			$scope.showActiveContractDetails = false;
 			$scope.showContractDetails = true;
 			initClaimAddForm($scope);
 		},
@@ -56,18 +56,18 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', functi
 	return {
 		getSerialNumberInfo : function($scope){
 			$scope.showContractDetails = false;
-			$http.get("/agg/searchClaim/" + $scope.serialNo)
+			$http.get("/agg/contracts/machineserialno/search/" + $scope.serialNo)
     		.then(function(response) {
     			if(response.data.status === 'success'){
-    				if(response.data.data.quoteInfoList.length == 1){
-    					selectQuote($scope, response.data.data.quoteInfoList[0]);
+    				if(response.data.data.contractDOList.length === 1){
+    					selectContract($scope, response.data.data.contractDOList[0]);
     				}else {
     					$scope.showContractDetails = false;
-    					if(response.data.data.quoteInfoList.length > 1){
-    						$scope.showActiveQuoteDetails = true;
-    						$scope.quoteInfoList = response.data.data.quoteInfoList;
+    					if(response.data.data.contractDOList.length > 1){
+    						$scope.showActiveContractDetails = true;
+    						$scope.contractDOList = response.data.data.contractDOList;
     						 $timeout(function () {
-    					        	$('#quotesTable').DataTable();
+    					        	$('#contractsTable').DataTable();
     						 }, 500);
     					}else{
     						console.log('no records found');
@@ -78,6 +78,6 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', functi
     			}
     		});
 		},
-		selectQuote : selectQuote
+		selectContract : selectContract
 	}
 }]);

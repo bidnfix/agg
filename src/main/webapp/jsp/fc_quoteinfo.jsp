@@ -1,38 +1,38 @@
 <table class="table">
 	<tr>
 		<td>Contract Id</td>
-		<td>{{quoteInfoList.quoteId}}</td>
+		<td>{{contractInfoList.contractId}}</td>
 	</tr>
 	<tr>
 		<td>Serial/VIN #</td>
-		<td>{{quoteInfoList.machineSerial}}</td>
+		<td>{{contractInfoList.machineSerialNo}}</td>
 	</tr>
 	<tr>
 		<td>Manufacturer</td>
-		<td>{{quoteInfoList.manufacturerDO.name}}</td>
+		<td>{{contractInfoList.manufacturerDO.name}}</td>
 	</tr>
-	<tr>
+	<!-- <tr>
 		<td>Model</td>
-		<td>{{quoteInfoList.machineModel}}</td>
-	</tr>
+		<td>{{claim.machineModel}}</td>
+	</tr> -->
 	<tr>
 		<td>Contract Expiration Date</td>
-		<td>{{quoteInfoList.manfEndDate}}</td>
-	</tr>
+		<td>{{contractInfoList.expirationDate}}</td>
+	</tr> 
 	<tr>
 		<td>Usage Hours covered</td>
-		<td>{{quoteInfoList.coverageLevelHours}}</td>
+		<td>{{contractInfoList.coverageLevelHours}}</td>
 	</tr>
 	<tr>
 		<td>Limit of Liability (LOL)</td>
-		<td></td>
+		<td>{{contractInfoList.lol}}</td>
 	</tr>
 	<tr>
 		<td>Available LOL</td>
-		<td></td>
+		<td>{{contractInfoList.availabeLol}}</td>
 	</tr>
 	<tr>
 		<td>Deductible</td>
-		<td></td>
+		<td>{{contractInfoList.deductible}}</td>
 	</tr>
 </table>

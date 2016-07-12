@@ -7,7 +7,7 @@
 			</div>
 		</div>
 	</header>
-	<div  ng-controller="ClaimsController" ng-init="showContractDetails=false; showActiveQuoteDetails=false">
+	<div  ng-controller="ClaimsController" ng-init="showContractDetails=false; showActiveContractDetails=false">
 		<div class="inner-main">
 			<!-- search serial/vin# form -->
 			<form class="form-horizontal" role="form" ng-submit="onClickSearchSerialNo()">
@@ -32,24 +32,22 @@
 				<jsp:include page="fc_addContractForm.jsp"></jsp:include>
 			</div>
 		</div>
-		<div ng-if='showActiveQuoteDetails'>
-			<table id="quotesTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+		<div ng-if='showActiveContractDetails'>
+			<table id="contractsTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
 				<thead>
 		            <tr>
 		            	<th>ID</th>
 		                <th>Manufacturer</th>
 		                <th>Model</th>
 		                <th>Serial</th>
-		                <th>Coverage Type</th>
 		            </tr>
 		        </thead>
 				<tbody>
-		            <tr ng-repeat="quote in quoteInfoList" ng-click="onClickSelectQuote(quote)">
-		                <td><a style="cursor: pointer;" ng-click="editClaim(quote.id.quoteId)">{{quote.id.quoteId}}</a></td>
-		                <td>{{quote.manufacturerDO.name}}</td>
-		                <td>{{quote.machineModel}}</td>
-		                <td>{{quote.machineSerial}}</td>
-		                <td>{{quote.coverageTerm}}</td>
+		            <tr ng-repeat="contract in contractDOList" ng-click="onClickSelectContract(contract)">
+		                <td>{{contract.contractId}}</td>
+		                <td>{{contract.manufacturerDO.name}}</td>
+		                <td>{{contract.machineModel}}</td>
+		                <td>{{contract.machineSerialNo}}</td>
 		            </tr>
 		        </tbody>
 			</table>

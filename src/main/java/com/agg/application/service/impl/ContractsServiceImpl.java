@@ -14,8 +14,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.agg.application.dao.ContractsDAO;
+import com.agg.application.dao.ManufacturerDAO;
+import com.agg.application.dao.QuoteDAO;
 import com.agg.application.entity.Contracts;
+import com.agg.application.entity.Manufacturer;
+import com.agg.application.entity.Quote;
+import com.agg.application.entity.QuotePK;
 import com.agg.application.model.ContractDO;
+import com.agg.application.model.ManufacturerDO;
 import com.agg.application.service.ContractsService;
 import com.agg.application.utils.Util;
 
@@ -28,7 +34,13 @@ public class ContractsServiceImpl implements ContractsService{
 	private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 	
 	@Autowired
-	private ContractsDAO dao;
+	private ContractsDAO contractDAO;
+	
+	@Autowired
+	private QuoteDAO quoteDAO;
+	
+	@Autowired
+	private ManufacturerDAO manufacturerDAO;
 
 	/* (non-Javadoc)
 	 * @see com.agg.application.service.ContractsService#saveContract(com.agg.application.model.ContractDO)
@@ -55,7 +67,7 @@ public class ContractsServiceImpl implements ContractsService{
 		record.setComments(contract.getComments());
 		record.setLastUpdatedDate(contract.getLastUpdatedDate());
 		try{
-			response = dao.save(record);
+			response = contractDAO.save(record);
 		}catch(Exception e){
 			LOGGER.error(e.getMessage());
 		}
@@ -67,7 +79,7 @@ public class ContractsServiceImpl implements ContractsService{
 	 */
 	@Override
 	public List<ContractDO> getAllContracts() {
-		List<Contracts> contracts = Util.toList(dao.findAll());
+		List<Contracts> contracts = Util.toList(contractDAO.findAll());
 		return formatEntityToDO(contracts);
 	}
 	
@@ -76,12 +88,13 @@ public class ContractsServiceImpl implements ContractsService{
 	 */
 	@Override
 	public List<ContractDO> getAllContractsByMachineSerialNo(String machineSerialNo) {
-		List<Contracts> contracts = Util.toList(dao.findByMachineSerialNo(machineSerialNo));
+		List<Contracts> contracts = Util.toList(contractDAO.findByMachineSerialNo(machineSerialNo));
 		return formatEntityToDO(contracts);
 	}
 	
 	private List<ContractDO> formatEntityToDO(final List<Contracts> contractsList){
 		List<ContractDO> contractsDOList = new LinkedList<>();
+		ManufacturerDO manufacturerDO = null;
 		for(Contracts item : contractsList){
 			ContractDO contractDO = new ContractDO();
 			contractDO.setId(item.getId());
@@ -101,6 +114,15 @@ public class ContractsServiceImpl implements ContractsService{
 			contractDO.setComments(item.getComments());
 			contractDO.setLastUpdatedDate(item.getLastUpdatedDate());
 			contractsDOList.add(contractDO);
+			Quote quote = quoteDAO.findOne((int)item.getQuoteId());
+			if(null != quote){
+				manufacturerDO = new ManufacturerDO();
+				Manufacturer manf = manufacturerDAO.findOne(Long.valueOf(quote.getManufacturer().getManfId()));
+				manufacturerDO.setId(quote.getManufacturer().getManfId());
+				manufacturerDO.setName(manf.getManfName());
+				contractDO.setManufacturerDO(manufacturerDO);
+				contractDO.setMachineModel(quote.getMachineModel());
+			}
 		}
 		return contractsDOList;
 	}
