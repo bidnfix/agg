@@ -53,6 +53,10 @@ routingApp.config(['$routeProvider',
                     	  templateUrl: '../../jsp/claimsInfo.jsp',
                     	  controller: 'ClaimsController'
                       }).
+                      when('/agg/fileClaim', {
+                    	  templateUrl: '../../jsp/fileClaim.jsp',
+                    	  controller: 'ClaimsController'
+                      }).
                       when('/agg/editClaim', {
                     	  templateUrl: '../../jsp/fileaClaim.jsp',
                     	  controller: 'ClaimsController'
@@ -317,16 +321,16 @@ routingApp.controller("activateTabCtrl", function($scope, $timeout) {
     }    
 });
 
-routingApp.controller('ClaimsController', function($scope, machineService, $http, $timeout) {
-	$http.get("/agg/claimsInfo")
+routingApp.controller('ClaimsController', ['$scope', 'claimService', '$http', '$timeout', function($scope, claimService, $http, $timeout) {
+	/*$http.get("/agg/claimsInfo")
     .then(function(response) {
     	$scope.quoteDOList = response.data.data.quoteInfoList;
     	//alert(response.data.data.quoteInfoList)
         $timeout(function () {
         	$('#table1').DataTable();
         }, 500);
-    });
-	$scope.editClaim = function(claimId) {
+    });*/
+	$scope.edit = function(claimId) {
 		alert(claimId);
 		$http.get("/agg/editClaim")
 		.then(function(response) {
@@ -334,12 +338,33 @@ routingApp.controller('ClaimsController', function($scope, machineService, $http
 			alert($scope.quoteDO);
 		});
     };
-});
+    $scope.onClickSearchSerialNo = function(){
+    	if($scope.serialNo){
+    		claimService.getSerialNumberInfo($scope);
+    	}
+    };
+    $scope.onClickSelectContract = function(data){
+    	claimService.selectContract($scope, data);
+    }
+}]);
 routingApp.controller('QuoteController', function($scope, $http) {
+	$scope.quote={};
+	$scope.quote.powerTrainMonths = 24;
+	$scope.quote.hydraulicsMonths = 24;
+	$scope.quote.fullMachineMonths = 24;
+	$scope.quote.powerTrainHours = 2000;
+	$scope.quote.hydraulicsHours = 2000;
+	$scope.quote.fullMachineHours = 2000;
+	$scope.quote.estSaleDate = new Date();
+	$scope.quote.dealerMarkupType = "dealerMarkupPrice";
+	
+	$scope.date = new Date();
+	
 	$http.get("/agg/quoteInfo")
 	.then(function(response) {
 		$scope.dealerList = response.data.data.dealerDOList;
 		$scope.manufacturerList = response.data.data.manufacturerDOList;
+		$scope.useOfEquipmentDOList = response.data.data.useOfEquipmentDOList;
 	});  
 
 	var myTabs = tabs({
@@ -349,6 +374,120 @@ routingApp.controller('QuoteController', function($scope, $http) {
 	  });
   
 	myTabs.init();
+	
+	$scope.changeTab = function(index){
+		myTabs.goToTab(index);
+		if(index == 2){
+			var coverageExpired = ($scope.quote.coverageExpired != null && $scope.quoteBasePrice == true)?true:false;
+			var machineId = $scope.quote.machineInfoDO.machineId;
+			$http.get("/agg/quote/coverageDeductInfo/"+coverageExpired+"/"+machineId)
+			.then(function(response) {
+				$scope.deductibleAmtList = response.data.data.deductibleAmtList;
+				$scope.coverageTermList = response.data.data.coverageTermList;
+				$scope.pricingDOList = response.data.data.pricingDOList;
+				
+				$scope.coverageTermSelected = $scope.coverageTermList[0];
+				$scope.deductiblePriceSelected = $scope.deductibleAmtList[0];
+			});  
+		}else if(index == 3){
+			if($scope.quote.coverageExpired != null && $scope.quote.coverageExpired == true){
+				$scope.machineCondition = 'Used';
+			}else if($scope.quote.coverageEndDate != null && ($scope.quote.coverageEndDate > $scope.date)){
+				$scope.machineCondition = 'New';
+			}else{
+				$scope.machineCondition = 'Used';
+			}
+			
+			var rowIndex = $scope.selectedRow;
+			var colIndex = $scope.selectedCloumn;
+			
+			if(rowIndex >= 0 && colIndex > 0){
+				$scope.coverageHours = $scope.pricingDOList[rowIndex].coverageLevelHours;
+				$scope.quoteBasePrice = (colIndex === 1)?$scope.pricingDOList[rowIndex].ptBasePrice:(colIndex === 2)?$scope.pricingDOList[rowIndex].phBasePrice:$scope.pricingDOList[rowIndex].plBasePrice;
+				$scope.coverageType = (colIndex === 1)?"PT":(colIndex === 2)?"PH":"PL";
+			}
+			
+			if($scope.quote.dealerMarkupType == 'dealerMarkupPrice'){
+				$scope.dealerMarkupAmtPrice = parseInt($scope.quote.dealerMarkup);
+			}else{
+				$scope.dealerMarkupAmtPrice = (($scope.quoteBasePrice * parseInt($scope.quote.dealerMarkup))/100);
+			}
+			
+			$scope.totalCustPrice = $scope.dealerMarkupAmtPrice + $scope.quoteBasePrice;
+			$scope.totalDealerPrice = $scope.quoteBasePrice;
+			
+		}
+	}
+	
+	$scope.disableSelected = true;
+	$scope.displayDealerText = function(dealerObj){
+		if(dealerObj != null){
+			$scope.dealerText = '"'+dealerObj.name+'"'+' has been assigned to quote . You may assign this quote to a different approved dealer by selecting from the list and pressing the "Proceed to Machine Info" button below.';
+			$scope.disableSelected = false;
+		}else{
+			$scope.dealerText = "";
+			$scope.disableSelected = true;
+		}
+	}
+	
+	$scope.getMachineModel = function(manufacturerDO){
+		if(manufacturerDO != null){
+			 $http.get("/agg/manfModel/"+manufacturerDO.id)
+			    .then(function(response) {
+			        $scope.machineModelList = response.data.data.machineModelList;
+			    });
+		}
+	}
+	
+	$scope.setClickedCloumn = function(rowIndex, colIndex){
+		var tbCellVal = (colIndex === 1)?$scope.pricingDOList[rowIndex].ptBasePrice:(colIndex === 2)?$scope.pricingDOList[rowIndex].phBasePrice:$scope.pricingDOList[rowIndex].plBasePrice;
+		if(tbCellVal != "" && tbCellVal != -1){
+			$scope.selectedRow = rowIndex;
+			$scope.selectedCloumn = colIndex;
+		}else{
+			$scope.selectedRow = "";
+			$scope.selectedCloumn = "";
+		}
+	}
+	
+	$scope.setMouserCloumn = function(rowIndex, colIndex){
+		$scope.mouseoverRow = rowIndex;
+		$scope.mouseoverCloumn = colIndex;
+	}
+	
+	$scope.getCoveragePriceLevels = function(deductiblePrice, coverageTerm){
+		$scope.selectedRow = "";
+		$scope.selectedCloumn = "";
+		$scope.mouseoverRow = "";
+		$scope.mouseoverCloumn = "";
+		var coverageExpired = ($scope.quote.coverageExpired != null && $scope.quoteBasePrice == true)?true:false;
+		var machineId = $scope.quote.machineInfoDO.machineId;
+		$scope.coverageTermSelected = coverageTerm;
+		$scope.deductiblePriceSelected = deductiblePrice;
+		$http.get("/agg/quote/coverageLevelPrice/"+coverageExpired+"/"+machineId+"/"+deductiblePrice+"/"+coverageTerm)
+		.then(function(response) {
+			$scope.pricingDOList = response.data.data;
+		});  
+	}
+	
+	$scope.resetMouseoverColumn = function(){
+		$scope.mouseoverRow = "";
+		$scope.mouseoverCloumn = "";
+	}
+	
+	$scope.getDealerInfo = function(){
+		$http.get("/agg/quote/userInfo")
+		.then(function(response) {
+			var dealrDO = response.data.data;
+			$scope.quote.dealerName = dealrDO.name;
+			$scope.quote.dealerAddress = dealrDO.address1;
+			$scope.quote.dealerCity = dealrDO.city;
+			$scope.quote.dealerState = dealrDO.state;
+			$scope.quote.dealerZip = dealrDO.zip;
+			$scope.quote.dealerPhone = dealrDO.phone;
+			$scope.quote.dealerEmail = dealrDO.invoiceEmail;
+		});  
+	}
 });
 
 routingApp.controller('ReportBugController', function($scope, $http) {
@@ -409,4 +548,6 @@ routingApp.controller('GetUserController', function($scope, userService, $http, 
       }
     };
  });
+
+
 

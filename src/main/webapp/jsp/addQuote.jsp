@@ -1,8 +1,7 @@
 <!-- Article main content -->
 			<article class="col-md-9 maincontent">
-				<header class="page-header">
-                	<div class="o-container">
-
+				<header class="page-header"></header>
+ <div class="o-container">
     <div class="o-section">
       <div id="quoteTabs" class="c-tabs no-js">
         <div class="c-tabs-nav">
@@ -38,80 +37,102 @@
           <div class="c-tab__content">
             <div class="inner-main">
 					<div class="form-group">
-						<label for="dealer" class="col-sm-4 control-label">Dealer</label>
+						<label for="dealer" class="col-sm-5 control-label">Dealer</label>
 						<div class="col-sm-4">
-							<!-- <select class="form-control" name="dealer" ng-model="user.dealerDO" id="dealer" ng-options="dealer.userName for dealer in dealerList" required="required" ng-change="getLocation(this.id)"> -->
-							<select class="form-control" name="dealer" ng-model="quote.dealerDO" id="dealer" ng-options="dealer.name for dealer in dealerList" required="required">
+							<select class="form-control" name="dealer" ng-model="quote.dealerDO" id="dealer" ng-options="dealer.name for dealer in dealerList" required="required" ng-change="displayDealerText(quote.dealerDO)">
 								<option value="">Select Dealer</option>
 							</select>
 						</div>
 					</div>
-					<div class="form-group">
-						<label for="coverageExpired" class="col-sm-4 control-label">Check here if the Manufacturer's Coverage has expired:</label>
-						<div class="col-sm-1">
-							<input type="checkbox" id="coverageExpired" name="coverageExpired" ng-model="quote.coverageExpired" class="form-control">
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="coverageEndDate" class="col-sm-4 control-label">End Date of Manufacturer's Base Coverage:</label>
-						<div class="col-sm-4">
-							<input type="date" id="coverageEndDate" name="coverageEndDate" ng-model="quote.coverageEndDate" class="form-control">
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="coverageEndDateUnknown" class="col-sm-4 control-label">Check if unknown</label>
-						<div class="col-sm-1">
-							<input type="checkbox" id="coverageEndDateUnknown" name="coverageEndDateUnknown" ng-model="quote.coverageEndDateUnknown" class="form-control">
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="coverageEndDateVerified" class="col-sm-4 control-label">Check here if the End Date has been verified with Mfr.</label>
-						<div class="col-sm-1">
-							<input type="checkbox" id="coverageEndDateVerified" name="coverageEndDateVerified" ng-model="quote.coverageEndDateVerified" class="form-control">
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="control-label">Describe the Manufacturer's Coverage Terms:</label>
-					</div>
-					<div class="form-group">
+					<div class="form-group" ng-disabled="disableSelected" id="dealerTxt" ng-class="{'hided-div':disableSelected}">
 						<label class="col-sm-4 control-label"></label>
-						<div class="col-sm-3">
-							Months
-						</div>
-						<div class="col-sm-3">
-							Hours
+						<div class="col-sm-8">
+							<p>{{dealerText}}</p>
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="powerTrain" class="col-sm-4 control-label">Power Train</label>
-						<div class="col-sm-2">
-							<input type="text" id="powerTrainMonths" name="powerTrainMonths" ng-model="quote.powerTrainMonths" class="form-control">
-						</div>
-						<div class="col-sm-2">
-							<input type="text" id="powerTrainHours" name="powerTrainHours" ng-model="quote.powerTrainHours" class="form-control">
+						<label class="col-sm-5">Manufacturer's Coverage Information</label>
+						<div class="col-sm-4">
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="hydraulics" class="col-sm-4 control-label">Hydraulics</label>
-						<div class="col-sm-2">
-							<input type="text" id="hydraulicsMonths" name="hydraulicsMonths" ng-model="quote.hydraulicsMonths" class="form-control">
-						</div>
-						<div class="col-sm-2">
-							<input type="text" id="hydraulicsHours" name="hydraulicsHours" ng-model="quote.hydraulicsHours" class="form-control">
+						<label for="coverageExpired" class="col-sm-5 control-label">Check here if the Manufacturer's Coverage has expired:</label>
+						<div class="col-sm-1">
+							<input type="checkbox" id="coverageExpired" name="coverageExpired" ng-model="quote.coverageExpired" value="true" class="form-control">
 						</div>
 					</div>
-					<div class="form-group">
-						<label for="fullMachine" class="col-sm-4 control-label">Full Machine</label>
-						<div class="col-sm-2">
-							<input type="text" id="fullMachineMonths" name="fullMachineMonths" ng-model="quote.fullMachineMonths" class="form-control">
+					<div id="manfCoverageExp" ng-disabled="quote.coverageExpired" ng-class="{'hided-div':quote.coverageExpired}">
+						<div class="form-group">
+							<label class="col-sm-5 control-label">
+								<img src="/assets/images/info-icon.png" alt="Info" 
+								data-toggle="tooltip" 
+								tooltip-trigger tooltip-animation="false" 
+					          	tooltip="The 'End Date' is the last day that the Manufacturer's base (powertrain) warranty is in effect-the day it expires. This is vital information because the AgGuard extended service contract will not take effect until after the date you enter. If the date you provide is wrong, it can leave the machine without coverage or cause the coverage to cost more. Always double-check the date by confirming the warranty end date with the manufacturer."
+					          	tooltip-placement="top">&nbsp;End Date of Manufacturer's Base Coverage:
+							</label>
+							<div class="col-sm-4">
+								<input type="date" id="coverageEndDate" name="coverageEndDate" min="{{date | date:'yyyy-MM-dd'}}" ng-model="quote.coverageEndDate" class="form-control">
+							</div>
 						</div>
-						<div class="col-sm-2">
-							<input type="text" id="fullMachineHours" name="fullMachineHours" ng-model="quote.fullMachineHours" class="form-control">
+						<div class="form-group">
+							<label for="coverageEndDateUnknown" class="col-sm-5 control-label">Check if unknown</label>
+							<div class="col-sm-1">
+								<input type="checkbox" id="coverageEndDateUnknown" name="coverageEndDateUnknown" ng-model="quote.coverageEndDateUnknown" class="form-control">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="coverageEndDateVerified" class="col-sm-5 control-label">Check here if the End Date has been verified with Mfr.</label>
+							<div class="col-sm-1">
+								<input type="checkbox" id="coverageEndDateVerified" name="coverageEndDateVerified" ng-model="quote.coverageEndDateVerified" class="form-control">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label"><img src="/assets/images/info-icon.png" alt="Info" 
+								data-toggle="tooltip" 
+								tooltip-trigger tooltip-animation="false" 
+					          	tooltip="Describe the manufacturer's coverage in terms of months and hours.  For example: a machine with 36 months and 3,000 hours of manufacture's coverage on the Powertrain,  but only  18 months and 1,000 hours on the Hydraulics and only 12 months and 500 hours on the Full Machine would be depicted as follows: "
+					          	tooltip-placement="top">&nbsp;Describe the Manufacturer's Coverage Terms:</label>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-4 control-label"></label>
+							<div class="col-sm-3">
+								Months
+							</div>
+							<div class="col-sm-3">
+								Hours
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="powerTrain" class="col-sm-4 control-label">Power Train</label>
+							<div class="col-sm-2">
+								<input type="text" id="powerTrainMonths" name="powerTrainMonths" ng-model="quote.powerTrainMonths" class="form-control" value="24">
+							</div>
+							<div class="col-sm-2">
+								<input type="text" id="powerTrainHours" name="powerTrainHours" ng-model="quote.powerTrainHours" class="form-control" value="2000">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="hydraulics" class="col-sm-4 control-label">Hydraulics</label>
+							<div class="col-sm-2">
+								<input type="text" id="hydraulicsMonths" name="hydraulicsMonths" ng-model="quote.hydraulicsMonths" class="form-control" value="24">
+							</div>
+							<div class="col-sm-2">
+								<input type="text" id="hydraulicsHours" name="hydraulicsHours" ng-model="quote.hydraulicsHours" class="form-control" value="2000">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="fullMachine" class="col-sm-4 control-label">Full Machine</label>
+							<div class="col-sm-2">
+								<input type="text" id="fullMachineMonths" name="fullMachineMonths" ng-model="quote.fullMachineMonths" class="form-control" value="24">
+							</div>
+							<div class="col-sm-2">
+								<input type="text" id="fullMachineHours" name="fullMachineHours" ng-model="quote.fullMachineHours" class="form-control" value="2000">
+							</div>
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="col-sm-5 col-sm-offset-3">
-							<button type="button" class="btn btn-primary btn-block">Continue to "Machine Info"</button>
+							<button type="button" class="btn btn-primary btn-block" ng-click="changeTab(1)">Continue to "Machine Info"</button>
 						</div>
 					</div>
 			</div>
@@ -124,44 +145,57 @@
 				<div class="form-group">
 					<label for="manufacturer" class="col-sm-3 control-label">Select Manufacturer</label>
 					<div class="col-sm-4">
-						<select name="manufacturer" ng-model="quote.manufacturerDO" ng-options="manufacturerObj.name for manufacturerObj in manufacturerList" ng-change="getMachineType()">
+						<select class="form-control" name="manufacturer" ng-model="quote.manufacturerDO" ng-options="manufacturerObj.name for manufacturerObj in manufacturerList" ng-change="getMachineModel(quote.manufacturerDO)">
+							<option value="">Select Manufacturer</option>
 	     				</select> 
 					</div>
 				</div>
-				<div class="form-group">
+				<!-- <div class="form-group">
 					<label for="mannufacturerName" class="col-sm-3 control-label">Enter Name if not found in list</label>
 					<div class="col-sm-4">
-						<input type="text" id="mannufacturerName" name="mannufacturerName" ng-model="quote.mannufacturerName" placeholder="mannufacturerName" class="form-control">
+						<input type="text" id="mannufacturerName" name="mannufacturerName" ng-model="quote.mannufacturerName" placeholder="Mannufacturer Name" class="form-control">&nbsp;<img src="/assets/images/info-icon.png" alt="Info" 
+								data-toggle="tooltip" 
+								tooltip-trigger tooltip-animation="false" 
+					          	tooltip="If you are unable to find the machine manufacturer in the list, please enter its full name here and continue.  We will not be able to provide you with a price automatically.  However,   if you complete this form, we will have the information we need to respond to you quickly with a quote.  We apologize for the inconvenience."
+					          	tooltip-placement="top">
 					</div>
-				</div>
+				</div> -->
 				<div class="form-group">
-					<label for="machineType" class="col-sm-3 control-label">Machine Type</label>
+					<label for="machineModel" class="col-sm-3 control-label">Model Number</label>
 					<div class="col-sm-4">
-						<select name="machineType" ng-model="quote.machineTypeDO" ng-options="machineType.name for machineType in machineTypeList"></select> 
+						<select class="form-control" name="machineModel" ng-model="quote.machineInfoDO" ng-options="machineModel.model group by machineModel.machineType for machineModel in machineModelList">
+							<option value="">Model Number</option>
+						</select> 
 					</div>
 				</div>
-				<div class="form-group">
-					<label for="model" class="col-sm-3 control-label">Model</label>
-					<div class="col-sm-4">
-						<input type="text" id="model" ng-model="quote.model" placeholder="Model Name" class="form-control">
-					</div>
-				</div>
-				<div class="form-group">
+				<!-- <div class="form-group">
 					<label for="modelNumber" class="col-sm-3 control-label">Enter Model Number if not found in list</label>
 					<div class="col-sm-4">
-						<input type="text" id="modelNumber" name="modelNumber" ng-model="quote.modelNumber" placeholder="Model Number" class="form-control">
+						<input type="text" id="modelNumber" name="modelNumber" ng-model="quote.modelNumber" placeholder="Model Number" class="form-control">&nbsp;<img src="/assets/images/info-icon.png" alt="Info" 
+								data-toggle="tooltip" 
+								tooltip-trigger tooltip-animation="false" 
+					          	tooltip="If you are unable to find the model in the list, look to see if there is a close match and note the difference in the 'unusual provisions' section in step one. If the exact model is part of a series of similar machines, just choose the base model in the series.  If no model in the list is a good match, please enter the correct model here and continue.  We will not be able to provide you with a price automatically.  However,   if you complete this form, we will have the information we need to respond to you quickly with a quote.  We apologize for the inconvenience."
+					          	tooltip-placement="top">
 					</div>
-				</div>
+				</div> -->
 				<div class="form-group">
 					<label for="horsePower" class="col-sm-3 control-label">Horsepower (Engine)</label>
 					<div class="col-sm-4">
-						<input type="text" id="horsePower" name="horsePower" ng-model="quote.horsePower" placeholder="Horse Power" class="form-control" required="required">
+						<input type="text" id="horsePower" name="horsePower" ng-model="quote.horsePower" placeholder="Horse Power" class="form-control" required="required">&nbsp;<img src="/assets/images/info-icon.png" alt="Info" 
+								data-toggle="tooltip" 
+								tooltip-trigger tooltip-animation="false" 
+					          	tooltip="Please use the engine-rated horsepower.  This is not the PTO power or peak power."
+					          	tooltip-placement="top">
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="serialNumber" class="col-sm-3 control-label">Serial Number</label>
 					<div class="col-sm-4">
-						<input type="text" id="serialNumber" name="serialNumber" ng-model="quote.serialNumber" placeholder="Serial Number" class="form-control" required="required">
+						<input type="text" id="serialNumber" name="serialNumber" ng-model="quote.serialNumber" placeholder="Serial Number" class="form-control" required="required">&nbsp;<img src="/assets/images/info-icon.png" alt="Info" 
+								data-toggle="tooltip" 
+								tooltip-trigger tooltip-animation="false" 
+					          	tooltip="Enter the Manufacturer's serial number for the machine. If you need to price coverage for a machine you have ordered, but have not yet received, then check 'unknown' and you can update this field later when you purchase the coverage."
+					          	tooltip-placement="top">
 					</div>
 				</div>
 				<div class="form-group">
@@ -173,36 +207,58 @@
 				<div class="form-group">
 					<label for="retailPrice" class="col-sm-3 control-label">Retail Price (Aprox)</label>
 					<div class="col-sm-4">
-						<input type="text" id="retailPrice" name="retailPrice" ng-model="quote.retailPrice" class="form-control" placeholder="Retail Price" required="required">
+						<input type="text" id="retailPrice" name="retailPrice" ng-model="quote.retailPrice" class="form-control" placeholder="Retail Price" required="required">&nbsp;<img src="/assets/images/info-icon.png" alt="Info" 
+								data-toggle="tooltip" 
+								tooltip-trigger tooltip-animation="false" 
+					          	tooltip="For our purposes, the 'Retail Price' is the advertised price of the machine not including any special deals or terms.  This is not necessarily the sales price.   We do not use the 'Retail Price'  to determine the price of coverage; however, we do use this information to compare coverage on certain machines and within certain price bands when we analyze our risk-so, it is important to report this accurately in order to help us keep our prices as low as possible."
+					          	tooltip-placement="top">
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="meterHours" class="col-sm-3 control-label">Meter Hours</label>
 					<div class="col-sm-4">
-						<input type="text" id="meterHours" name="meterHours" ng-model="quote.meterHours" placeholder="Meter Hours" class="form-control" required="required">
+						<input type="text" id="meterHours" name="meterHours" ng-model="quote.meterHours" placeholder="Meter Hours" class="form-control" required="required">&nbsp;<img src="/assets/images/info-icon.png" alt="Info" 
+								data-toggle="tooltip" 
+								tooltip-trigger tooltip-animation="false" 
+					          	tooltip="This should be the exact hours shown on the Machine's tachometer or hours gauge. It is important that this information is recorded accurately to prevent lapses or denial of coverage."
+					          	tooltip-placement="top">
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="modelYear" class="col-sm-3 control-label">Model Year</label>
 					<div class="col-sm-4">
-						<input type="text" id="modelYear" name="modelYear" ng-model="quote.modelYear" placeholder="Model Year" class="form-control" required="required">
+						<input type="text" id="modelYear" name="modelYear" ng-model="quote.modelYear" placeholder="Model Year" class="form-control" required="required">&nbsp;<img src="/assets/images/info-icon.png" alt="Info" 
+								data-toggle="tooltip" 
+								tooltip-trigger tooltip-animation="false" 
+					          	tooltip="The 'model year' may not correlate with age of the machine, but it may effect the price.  Sometimes components change by model year and the change is not reflected in the model number.  These changes can effect our risk  (and our pricing) significantly.  Therefore, it is important to record the actual model year.  If you do not know the model year, leave blank and explain why in the 'unusual provisions' section in step one."
+					          	tooltip-placement="top">
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="equipment" class="col-sm-3 control-label">Use of Equipment</label>
 					<div class="col-sm-4">
-						<select name="equipment" ng-model="quote.equipment" ng-options="equipmentObj.name for equipmentObj in equipmentList"></select> 
+						<select name="equipment" ng-model="quote.useOfEquipmentDO" class="form-control" ng-options="equipmentObj.equipName for equipmentObj in useOfEquipmentDOList">
+							<option value="">Use of Equipment</option>
+						</select>&nbsp;<img src="/assets/images/info-icon.png" alt="Info" 
+								data-toggle="tooltip" 
+								tooltip-trigger tooltip-animation="false" 
+					          	tooltip="Choose the primary use for which the equipment is being purchased to perform. The pull-down options are broad categories and you should choose the best one. If you have concerns about an application, it is worth verifying how it might effect coverage before completing the purchase so that there are no surprises. How the machine will be used can effect pricing.  And if the machine is used in a materially different application than reported, it could compromise the coverage."
+					          	tooltip-placement="top">
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="estSaleDate" class="col-sm-3 control-label">Estimated Sale Date</label>
 					<div class="col-sm-4">
-						<input type="date" id="estSaleDate" name="estSaleDate" ng-model="quote.estSaleDate" class="form-control" required="required">
+						<input type="date" id="estSaleDate" name="estSaleDate" ng-model="quote.estSaleDate" class="form-control" min="{{date | date:'yyyy-MM-dd'}}" value="{{date | date:'MM/dd/yyyy'}}" required="required">&nbsp;<img src="/assets/images/info-icon.png" alt="Info" 
+								data-toggle="tooltip" 
+								tooltip-trigger tooltip-animation="false" 
+					          	tooltip="The 'estimated sale date' is your best guess as to when you will complete the sale.  We use this date for follow-up and to make sure coverage is in place when you need it."
+					          	tooltip-placement="top">
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="col-sm-5 col-sm-offset-3">
-						<button type="button" class="btn btn-primary btn-block">Continue to "Coverage Info"</button>
+						<button type="button" class="btn btn-primary btn-block" ng-click="changeTab(2)">Continue to "Coverage Info"</button>
 					</div>
 				</div>
 			</div>
@@ -220,41 +276,97 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="dealerMarkupVlaue" class="col-sm-3 control-label"></label>
+					<label class="col-sm-3 control-label"></label>
 					<div class="col-sm-4">
-						<input type="radio" id="dealerMarkupPrice" name="dealerMarkupPrice" ng-model="quote.dealerMarkupPrice" class="">Price
-						<input type="radio" id="dealerMarkupPercent" name="dealerMarkupPercent" ng-model="quote.dealerMarkupPercent" class="">Percent
+						<label>
+							<input type="radio" id="dealerMarkupVlaue" name="dealerMarkupVlaue" ng-model="quote.dealerMarkupType" value="dealerMarkupPrice" class="">&nbsp;Price
+						</label>
+						<label>
+							&nbsp;&nbsp;<input type="radio" id="dealerMarkupVlaue" name="dealerMarkupVlaue" ng-model="quote.dealerMarkupType" value="dealerMarkupPercent" class="">&nbsp;Percent
+						</label>
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="coverageTerm" class="col-sm-3 control-label">Choose one deductible amount and one coverage term:</label>
-					<div class="col-sm-4">
-						Deductible:&nbsp;&nbsp;<input type="radio" id="deductiblePrice" name="deductiblePrice" ng-model="quote.deductiblePrice" class="" value="250"> $250
-						<input type="radio" id="deductiblePrice" name="deductiblePrice" ng-model="quote.deductiblePrice" class="" value="500"> $500
+					<label class="col-sm-6 control-label">Choose one deductible amount and one coverage term:</label>
+					<div class="col-sm-4"></div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						<img src="/assets/images/info-icon.png" alt="Info" 
+								data-toggle="tooltip" 
+								tooltip-trigger tooltip-animation="false" 
+					          	tooltip="Including a deductible can reduce the price of coverage, which is appealing on the front end.  However, customers can later regret a high deductible because it is assessed per failure, not per repair.  Therefore, if you repair a machine that has multiple failures that are being addressed at the same time, then the deductible can get large.  The deductible can also be a tool for reducing the number of small repairs, which can be an issue for some dealer's. Typically, AgGuard recommends no deductible on new machines; however, it may be appropriate in some cases."
+					          	tooltip-placement="top">
+						&nbsp;Deductible:
+					</label>
+					<div class="col-sm-8">
+						<label ng-repeat="deductibleAmt in deductibleAmtList">
+							<input  type="radio" id="deductiblePrice" name="deductiblePrice" ng-model="quote.deductiblePrice" ng-click="getCoveragePriceLevels(quote.deductiblePrice, quote.coverageTerm)" class="" ng-value="deductibleAmt" ng-init="$index==0?(quote.deductiblePrice=deductibleAmt):''">{{deductibleAmt | currency:"$":0}}
+						</label>&nbsp;&nbsp;
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="model" class="col-sm-3 control-label"></label>
-					<div class="col-sm-4">
-						Coverage Term:&nbsp;&nbsp;<input type="radio" id="coverageTerm" name="coverageTerm" ng-model="quote.coverageTerm" class="" value="12"> 12 mos.
-						<input type="radio" id="coverageTerm" name="coverageTerm" ng-model="quote.coverageTerm" class="" value="24"> 24 mos.
+					<label class="col-sm-3 control-label">
+						<img src="/assets/images/info-icon.png" alt="Info" 
+								data-toggle="tooltip" 
+								tooltip-trigger tooltip-animation="false" 
+					          	tooltip="Coverage begins on the 'Contract Inception Date' and expires according to the 'Term' in months or machine hours, whichever occurs first.  On newer equipment, the time and hour limits of the Term starts the day the manufacturer's warranty starts and at zero (0) Hours.  Coverage expires when the length of time or accumulated hours of the Term selected is reached. For example, 48 months would be the same as 2 years of Manufacturer's coverage and 2 more years of extended coverage.  On used equipment, the term is typically expressed in terms of additional time and hours."
+					          	tooltip-placement="top">
+						&nbsp;Coverage Term:
+					</label>
+					<div class="col-sm-8">
+						<label ng-repeat="coverageTermVal in coverageTermList">
+							<input type="radio" id="coverageTerm" name="coverageTerm" ng-model="quote.coverageTerm" ng-click="getCoveragePriceLevels(quote.deductiblePrice, quote.coverageTerm)" class="" ng-value="coverageTermVal" ng-init="$index==0?(quote.coverageTerm=coverageTermVal):''">{{coverageTermVal}}&nbsp;mos.
+						</label>&nbsp;&nbsp;
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="modelNumber" class="col-sm-3 control-label">Please enter the customer's information below Or assign a "Nickname" to this quote.</label>
-					<div class="col-sm-4">
+					<label class="col-sm-9 control-label">Select the Desired Coverage Level and Hours for {{coverageTermSelected}} months and {{deductiblePriceSelected | currency:"$":0}} deductible.</label>
+					<div class="col-sm-3"></div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-1 control-label"></label>
+					<div class="col-sm-8">
+						<table id="dealerTbl" class="table table-striped table-bordered" cellspacing="0" width="100%">
+					        <thead>
+					            <tr>
+					            	<th>Terms for {{coverageTermSelected}} months(Hours)</th>
+					                <th>Powertrain</th>
+					                <th>Powertrain + Hydraulic</th>
+					                <th>Powertrain + Hydraulic + Platform</th>
+					            </tr>
+					        </thead>
+					        <tbody>
+					            <tr ng-repeat="pricingDO in pricingDOList">
+					            	<td>{{pricingDO.coverageLevelHours}}</td>
+					            	<td ng-class="{'selectedcol':$index == selectedRow && selectedCloumn == 1, 'mouseovercol':$index == mouseoverRow && mouseoverCloumn == 1}"  ng-click="setClickedCloumn($index, 1)" ng-mouseover="setMouserCloumn($index, 1)" ng-mouseleave="resetMouseoverColumn()">{{(pricingDO.ptBasePrice != -1)?pricingDO.ptBasePrice:""}}</td>
+					                <td ng-class="{'selectedcol':$index == selectedRow && selectedCloumn == 2, 'mouseovercol':$index == mouseoverRow && mouseoverCloumn == 2}"  ng-click="setClickedCloumn($index, 2)" ng-mouseover="setMouserCloumn($index, 2)" ng-mouseleave="resetMouseoverColumn()">{{(pricingDO.phBasePrice != -1)?pricingDO.phBasePrice:""}}</td>
+					                <td ng-class="{'selectedcol':$index == selectedRow && selectedCloumn == 3, 'mouseovercol':$index == mouseoverRow && mouseoverCloumn == 3}"  ng-click="setClickedCloumn($index, 3)" ng-mouseover="setMouserCloumn($index, 3)" ng-mouseleave="resetMouseoverColumn()">{{(pricingDO.plBasePrice != -1)?pricingDO.plBasePrice:""}}</td>
+					            </tr>
+					        </tbody>
+					    </table>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="modelNumber" class="col-sm-9 control-label">
+						Please enter the customer's information below Or assign a "Nickname" to this quote.
+						<span class="badge" ng-click="getDealerInfo()">Dealer Info</span>
+					</label>
+					<div class="col-sm-3">
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="dealerName" class="col-sm-3 control-label">Name/Nickname</label>
 					<div class="col-sm-4">
 						<input type="text" id="dealerName" name="dealerName" ng-model="quote.dealerName" placeholder="Dealer Name" class="form-control" required="required">
+						<input type="checkbox" id="custUnderstandCoverage" name="custUnderstandCoverage" ng-model="quote.custUnderstandCoverage" ng-value="true">Customer understands coverage.
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="dealerAddress" class="col-sm-3 control-label">Address</label>
 					<div class="col-sm-4">
 						<input type="text" id="dealerAddress" name="dealerAddress" ng-model="quote.dealerAddress" placeholder="Dealer Address" class="form-control">
+						<input type="checkbox" id="custRemorsePeriod" name="custRemorsePeriod" ng-model="quote.custRemorsePeriod" ng-value="true">Customer is aware of 90-day remorse period.
 					</div>
 				</div>
 				<div class="form-group">
@@ -356,7 +468,7 @@
 				<p>If you cannot find the coverage you want, please select the Help Request form from the black menu bar at the top of the page and we will communicate with you soon to explore other options.</p>
 				<div class="form-group">
 					<div class="col-sm-5 col-sm-offset-3">
-						<button type="button" class="btn btn-primary btn-block">Continue to "Quote Summary"</button>
+						<button type="button" class="btn btn-primary btn-block" ng-click="changeTab(3)">Continue to "Quote Summary"</button>
 					</div>
 				</div>
 			</div>
@@ -364,9 +476,308 @@
         </div>
         <div class="c-tab">
           <div class="c-tab__content">
-            <h2>Stay Busy</h2>
-            <p>Calendar ipsum dolor sit amet, consectetur adipisicing elit. Ipsam quo minus voluptate unde tempore eveniet consequuntur in, quod animi libero rem similique pariatur quos, et eum nisi ducimus, architecto voluptatibus!</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto aspernatur natus dolorem fuga cumque optio saepe corrupti earum. Ipsam quaerat asperiores similique omnis excepturi temporibus ab eum magnam ipsa, odio.</p>
+          	<div class="form-group">
+				<label class="col-sm-9 control-label">
+					Please review your quote below. Click the edit button to modify. &nbsp;&nbsp;<span class="badge" ng-click="editQuoteInfo()">Edit</span>
+				</label>
+				<div class="col-sm-1">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-5 control-label">
+					Here is your current quote: 
+				</label>
+				<div class="col-sm-1">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label">Quote ID:</label>
+				<div class="col-sm-4">
+					{{quoteId}}
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label">
+					<img src="/assets/images/info-icon.png" alt="Info" 
+								data-toggle="tooltip" 
+								tooltip-trigger tooltip-animation="false" 
+					          	tooltip="The Manufacturer's serial number for the machine. If pricing coverage for a machine you have ordered, but have not yet received, then  'unknown' is appropriate, but this field must be updated before you can complete the purchase of coverage."
+					          	tooltip-placement="top">&nbsp;
+					Serial Number:
+				</label>
+				<div class="col-sm-4">
+					{{quote.serialNumber}}
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label">
+					<img src="/assets/images/info-icon.png" alt="Info" 
+								data-toggle="tooltip" 
+								tooltip-trigger tooltip-animation="false" 
+					          	tooltip="If you were unable to find the machine manufacturer in the list in step 2, then the name you entered manually will appear; however, we will not be able to provide you with a price automatically. Using the  information you have provided, we will  respond to you quickly with a quote.  We apologize for the inconvenience."
+					          	tooltip-placement="top">&nbsp;
+					Manufacturer:
+				</label>
+				<div class="col-sm-4">
+					{{quote.manufacturerDO.name}}
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label">
+					<img src="/assets/images/info-icon.png" alt="Info" 
+								data-toggle="tooltip" 
+								tooltip-trigger tooltip-animation="false" 
+					          	tooltip="If you were unable to find the model in the list in step 2, the model you entered manually will appear and we will consider the explanation you provided in the 'unusual provisions' section in step one.   Similarly, we will look to the 'unusual provisions' section if you chose a best-fit model number.  If we are unable to provide a price automatically based on the model you entered, we will use the  information you provide to determine the cost and respond to you quickly with a quote.  We apologize for the inconvenience."
+					          	tooltip-placement="top">&nbsp;
+					Model:
+				</label>
+				<div class="col-sm-4">
+					{{quote.machineInfoDO.model}}
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label">
+					<img src="/assets/images/info-icon.png" alt="Info" 
+								data-toggle="tooltip" 
+								tooltip-trigger tooltip-animation="false" 
+					          	tooltip="Please use the engine-rated horsepower. This is not the PTO power or peak power."
+					          	tooltip-placement="top">&nbsp;
+					Horsepower:
+				</label>
+				<div class="col-sm-4">
+					{{quote.horsePower}}
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label">
+					<img src="/assets/images/info-icon.png" alt="Info" 
+								data-toggle="tooltip" 
+								tooltip-trigger tooltip-animation="false" 
+					          	tooltip="For our purposes, the 'Retail Price' is the advertised price of the machine not including any special deals or terms.  This is not necessarily the sales price.   We do not use the 'Retail Price'  to determine the price of coverage; however, we do use this information to compare coverage on certain machines and within certain price bands when we analyze our risk-so, it is important to report this accurately in order to help us keep our prices as low as possible."
+					          	tooltip-placement="top">&nbsp;
+					Retail Price:
+				</label>
+				<div class="col-sm-4">
+					{{quote.retailPrice}}
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label">
+					<img src="/assets/images/info-icon.png" alt="Info" 
+								data-toggle="tooltip" 
+								tooltip-trigger tooltip-animation="false" 
+					          	tooltip="This should be the exact hours shown on the Machine's tachometer or hours gauge.  It is important that this information is recorded accurately to prevent lapses or denial of coverage."
+					          	tooltip-placement="top">&nbsp;
+					Meter Hours:
+				</label>
+				<div class="col-sm-4">
+					{{quote.meterHours}}
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label">
+					<img src="/assets/images/info-icon.png" alt="Info" 
+								data-toggle="tooltip" 
+								tooltip-trigger tooltip-animation="false" 
+					          	tooltip="The 'model year' may not correlate with age of the machine, but it may effect the price.  Sometimes components change by model year and the change is not reflected in the model number.  These changes can effect our risk  (and our pricing) significantly.  Therefore, it is important to record the actual model year.  If you do not know the model year, leave blank and explain why in the 'unusual provisions' section in step one. "
+					          	tooltip-placement="top">&nbsp;
+					Model Year:
+				</label>
+				<div class="col-sm-4">
+					{{quote.modelYear}}
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label">
+					<img src="/assets/images/info-icon.png" alt="Info" 
+								data-toggle="tooltip" 
+								tooltip-trigger tooltip-animation="false" 
+					          	tooltip="Based on information you provide, we will determine whether we consider the machine condition to be 'new or used'.  This determination depends on several factors and may not match your description of condition.  New machine pricing is better than used.  If we determine that the condition is 'new', that is good for you.  If, however, we determine it is 'used' and you believe it is 'new', then please contact us before purchasing coverage."
+					          	tooltip-placement="top">&nbsp;
+					Condition (New/Used):
+				</label>
+				<div class="col-sm-4">
+					{{machineCondition}}
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label">
+					<img src="/assets/images/info-icon.png" alt="Info" 
+								data-toggle="tooltip" 
+								tooltip-trigger tooltip-animation="false" 
+					          	tooltip="The primary use for which the equipment is being purchased to perform. The options are broad categories and you should choose the best fit. If you have concerns about an application, it is worth verifying how it might effect coverage before completing the purchase so that there are no surprises. How the machine will be used can effect pricing.  And if the machine is used in a materially different application than reported, it could compromise the coverage."
+					          	tooltip-placement="top">&nbsp;
+					Use of Equipment:
+				</label>
+				<div class="col-sm-4">
+					{{quote.useOfEquipmentDO.equipName}}
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-5 control-label">
+					Manufacturer Warranty Details 
+				</label>
+				<div class="col-sm-1">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label">
+					Warranty End Date:
+				</label>
+				<div class="col-sm-4">
+					{{quote.coverageEndDate}}
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label">
+					Transmission Coverage Hours:
+				</label>
+				<div class="col-sm-4">
+					{{quote.powerTrainHours}}
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label">
+					Transmission Coverage Term:
+				</label>
+				<div class="col-sm-4">
+					{{quote.powerTrainMonths}} mons.
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label">
+					Hydraulics Coverage Hours:
+				</label>
+				<div class="col-sm-4">
+					{{quote.hydraulicsHours}}
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label">
+					Hydraulics Coverage Term:
+				</label>
+				<div class="col-sm-4">
+					{{quote.hydraulicsMonths}} mons.
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label">
+					Full Machine Coverage Hours:
+				</label>
+				<div class="col-sm-4">
+					{{quote.fullMachineHours}}
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label">
+					Full Machine Coverage Term:
+				</label>
+				<div class="col-sm-4">
+					{{quote.fullMachineMonths}} mons.
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-5 control-label">
+					Quote Coverage Details 
+				</label>
+				<div class="col-sm-1">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label">
+					Coverage Type (PT/PH/PL):
+				</label>
+				<div class="col-sm-4">
+					{{coverageType}}
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label">
+					Deductible:
+				</label>
+				<div class="col-sm-4">
+					{{quote.deductiblePrice | currency:"$":0}}
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label">
+					Coverage Hours:
+				</label>
+				<div class="col-sm-4">
+					{{coverageHours}}
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label">
+					Coverage Term:
+				</label>
+				<div class="col-sm-4">
+					{{quote.coverageTerm}} &nbsp;<span>mos.</span>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label">
+					Limit of Liability:
+				</label>
+				<div class="col-sm-4">
+					{{quote.machineInfoDO.lol | currency:"$":0}}
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label">
+					Estimated Date of Sale:
+				</label>
+				<div class="col-sm-4">
+					<label ng-bind="quote.estSaleDate |  date:'MM/dd/yyyy'"></label>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label">
+					Additional Unit Information:
+				</label>
+				<div class="col-sm-4">
+					{{addUnitInformation}}
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-5 control-label">
+					Pricing Details 
+				</label>
+				<div class="col-sm-1">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label">
+					Base Price:
+				</label>
+				<div class="col-sm-4">
+					{{quoteBasePrice | currency:"$":0}}
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label">
+					Dealer Markup:
+				</label>
+				<div class="col-sm-4">
+					{{dealerMarkupAmtPrice | currency:"$":0}}
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label">
+					Total Price to Customer:
+				</label>
+				<div class="col-sm-4">
+					{{totalCustPrice | currency:"$":0}}
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label">
+					Total Price to Dealer:
+				</label>
+				<div class="col-sm-4">
+					{{totalDealerPrice | currency:"$":0}}
+				</div>
+			</div>
           </div>
         </div>
         <div class="c-tab">
@@ -390,9 +801,6 @@
 
     
   </div>
-			
-	</header>
-                
                 
 				 <!-- data table section -->
                 

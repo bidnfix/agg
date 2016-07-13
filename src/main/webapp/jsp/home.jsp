@@ -1,6 +1,23 @@
 
 <!-- Article main content -->
 <article class="col-md-9 maincontent" ng-controller="HomeController">
+	<header class="page-header">
+		<!-- <div class="col-md-6 col-sm-12">
+			<div class="sec-title">
+
+				<h2 class="wow animated bounceInLeft">Dashboard</h2>
+				<p class="wow animated bounceInRight">The Key Features of our
+					Tool</p>
+			</div>
+		</div>
+		<div class="col-md-6 col-sm-12">
+			<a
+				class="btn btn-primary pull-right mar-right animated fadeInRightBig hvr-pulse"
+				href="add-new.html">Add New</a><a
+				class="btn btn-primary pull-right animated fadeInLeftBig  hvr-pulse mar-right"
+				href="#">Back</a>
+		</div> -->
+	</header>
 	<nav class="navbar navbar-findcond ">
     <!--<div class="container">-->
 		
@@ -35,26 +52,8 @@
 			</ul>
 			
 		</div>
-	<!--</div>-->
-</nav>
-	<header class="page-header">
-		<div class="col-md-6 col-sm-12">
-			<div class="sec-title">
-
-				<h2 class="wow animated bounceInLeft">Dashboard</h2>
-				<p class="wow animated bounceInRight">The Key Features of our
-					Tool</p>
-			</div>
-		</div>
-		<div class="col-md-6 col-sm-12">
-			<a
-				class="btn btn-primary pull-right mar-right animated fadeInRightBig hvr-pulse"
-				href="add-new.html">Add New</a><a
-				class="btn btn-primary pull-right animated fadeInLeftBig  hvr-pulse mar-right"
-				href="#">Back</a>
-		</div>
-	</header>
-
+		<!--</div>-->
+	</nav>
 
 	<!-- data table section -->
 

@@ -661,5 +661,15 @@ public class DealerServiceImpl implements DealerService {
 		return dealerDAO.countByStatus(AggConstants.PENDING);
 	}
 
+	@Override
+	public DealerDO getDealerInfo(long accountId) {
+		Account account = accountDAO.findOne(accountId);
+		DealerDO dealerDO = null;
+		if(account != null && account.getDealer() != null){
+			dealerDO = getDealer(account.getDealer().getId());
+		}
+		return dealerDO;
+	}
+
 }
 

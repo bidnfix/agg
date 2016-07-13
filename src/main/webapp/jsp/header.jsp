@@ -7,19 +7,14 @@
       <a class="navbar-brand animated fadeInDownBig" href="index.html"><img src="/assets/images/logo.png" alt=""></a> </div>
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav pull-right">
-        <li class="active"><a href="#">Home</a></li>
-        <li><a href="#">Register</a></li>
-        <li><a href="#">About Risk</a></li>
-        <li><a href="#">Who We Are</a></li>
-        
-        
-        <li><a href="#">Mom's Pink Tractor</a></li>
+        <li><h4>Logged in User: ${user.firstName}&nbsp;${user.lastName}&nbsp;(${user.username})</h4></li>
+        <li><a href="/agg/logout"><img src="/assets/images/logout.png" alt="" width="40" height="40"></a></li>
       </ul>
     </div>
     <!--/.nav-collapse --> 
   </div>
 </div>
-<!-- /.navbar --> 
-
+<!-- /.navbar -->
+ 
 <header id="head" class="secondary"></header>
-<div class="head" class="secondary"><div class="pull-right"><h4>Logged in User: ${user.firstName}&nbsp;${user.lastName}&nbsp;(${user.username})</h4></div></div>
+<div class="head" class="secondary"><div class="pull-right"></div></div>

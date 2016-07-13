@@ -46,4 +46,6 @@ public interface DealerService {
 	
 	public long getPendingDealerCount();
 
+	public DealerDO getDealerInfo(long accountId);
+
 }
