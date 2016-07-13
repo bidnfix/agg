@@ -69,5 +69,7 @@
 	<script src="/assets/js/popup.js"></script>
 	<script src="/assets/js/tabs.js"></script>
 	<script src="/assets/js/navAccordion.min.js"></script>
+	<script src="/assets/js/controller/reportaBugController.js"></script>
+	<script src="/assets/js/service/reportaBugService.js"></script>
 </body>
 </html>

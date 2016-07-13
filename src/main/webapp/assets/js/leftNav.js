@@ -491,18 +491,18 @@ routingApp.controller('QuoteController', function($scope, $http) {
 });
 
 routingApp.controller('ReportBugController', function($scope, $http) {
+	$scope.report={};
+	$scope.date = new Date()
+	/*
 	$http.get("/agg/reportaBug")
 	.then(function(response) {
 		$scope.dealerList = response.data.data.dealerDOList;
 		$scope.manufacturerList = response.data.data.manufacturerDOList;
 	});  
 
-	
-    	$scope.currDate = new Date();
-   
-	
-	
-	
+	function MyCtrl($scope, $filter) {
+	    $scope.date = $filter("date")(Date.now(), 'yyyy-MM-dd');
+	};*/
 });
 
 routingApp.controller('GetUserController', function($scope, userService, $http, $timeout) {

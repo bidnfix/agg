@@ -21,7 +21,7 @@
 
 	<!-- data table section -->
 
-	<div class="inner-main" ng-controller="ReportBugController">
+	<div class="inner-main" ng-controller="bugController">
 		<form class="form-horizontal" role="form" ng-submit="submitBug()">
 			<div class="form-group">
 				<label for="ID" class="col-sm-3 control-label">ID</label>
@@ -34,19 +34,19 @@
 			<div class="form-group">
 				<label for="userName" class="col-sm-3 control-label">Discovered</label>
 				<div class="col-sm-9">
-					 <input type="date" ng-model="currDate">
+					 <input type="date" ng-model="report.discDate" value="{{date | date:'yyyy-MM-dd'}}">
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="FixedBy" class="col-sm-3 control-label">Fixed by</label>
 				<div class="col-sm-9">
-					<input type="date" ng-model="date" value="{{ date | date: 'yyyy-MM-dd' }}" />
+					<input type="date" ng-model="report.FixByDate" value="{{date | date:'yyyy-MM-dd'}}" />
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="priority" class="col-sm-3 control-label">Priority</label>
 				<div class="col-sm-9">
-					<select class="form-control" name="Priority" ng-model="user.state" id="priority" required="required">
+					<select class="form-control" name="Priority" ng-model="report.priority" id="priority" required="required">
 						<option value="">Select a Priority</option>
 						<option value="1">Low</option>
 						<option value="2">Medium</option>
@@ -59,7 +59,7 @@
 			<div class="form-group">
 				<label for="status" class="col-sm-3 control-label">Status</label>
 				<div class="col-sm-9">
-					<select class="form-control" name="Status" ng-model="user.state" id="status" required="required">
+					<select class="form-control" name="Status" ng-model="report.status" id="status" required="required">
 						<option value="">Status</option>
 						<option value="1">New</option>
 						<option value="2">Problem</option>
@@ -70,14 +70,14 @@
 			<div class="form-group">
 				<label for="description" class="col-sm-3 control-label">Bug Description</label>
 				<div class="col-sm-9">
-					<input type="textarea" id="description" name="description" ng-model="user.address1" class="form-control" required="required">
+					<input type="textarea" id="description" name="description" ng-model="report.description" class="form-control" required="required">
 				</div>
 			</div>
 			
 			<div class="form-group">
 				<label for="notes" class="col-sm-3 control-label">Notes</label>
 				<div class="col-sm-9">
-					<input type="textarea" id="notes" name="notes" ng-model="user.address1" class="form-control" required="required">
+					<input type="textarea" id="notes" name="notes" ng-model="report.notes" class="form-control" required="required">
 				</div>
 			</div>
 			<div class="form-group">
