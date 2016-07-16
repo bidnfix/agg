@@ -1,6 +1,9 @@
 <!-- Article main content -->
 			<article class="col-md-9 maincontent">
-				<header class="page-header"></header>
+				<header class="page-header">
+					<div><span>Dealer: {{quote.dealerDO.name}}</span><span>Quote ID: {{quoteId}}</span><span>Quote Status: {{quoteStatus}}</span></div>
+				</header>
+				
  <div class="o-container">
     <div class="o-section">
       <div id="quoteTabs" class="c-tabs no-js">
@@ -9,15 +12,15 @@
             <i class="fa fa-home"></i>
             <span>Warranty Info</span>
           </a>
-          <a href="#" class="c-tabs-nav__link">
+          <a href="#" class="c-tabs-nav__link" ng-click="changeTab(1)">
             <i class="fa fa-book"></i>
             <span>Machine Info</span>
           </a>
-          <a href="#" class="c-tabs-nav__link">
+          <a href="#" class="c-tabs-nav__link" ng-click="changeTab(2)">
             <i class="fa fa-heart"></i>
             <span>Coverage Info</span>
           </a>
-          <a href="#" class="c-tabs-nav__link">
+          <a href="#" class="c-tabs-nav__link" ng-click="changeTab(3)">
             <i class="fa fa-calendar"></i>
             <span>Quote Summary</span>
           </a>
@@ -56,9 +59,13 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="coverageExpired" class="col-sm-5 control-label">Check here if the Manufacturer's Coverage has expired:</label>
-						<div class="col-sm-1">
-							<input type="checkbox" id="coverageExpired" name="coverageExpired" ng-model="quote.coverageExpired" value="true" class="form-control">
+						<label class="col-sm-5 control-label">Check here if the Manufacturer's Coverage has expired:</label>
+						<div class="col-sm-5">
+							<div class="checkbox">
+								<label>
+									<input type="checkbox" id="coverageExpired" name="coverageExpired" ng-model="quote.coverageExpired" value="true">
+								</label>
+							</div>
 						</div>
 					</div>
 					<div id="manfCoverageExp" ng-disabled="quote.coverageExpired" ng-class="{'hided-div':quote.coverageExpired}">
@@ -75,15 +82,23 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="coverageEndDateUnknown" class="col-sm-5 control-label">Check if unknown</label>
-							<div class="col-sm-1">
-								<input type="checkbox" id="coverageEndDateUnknown" name="coverageEndDateUnknown" ng-model="quote.coverageEndDateUnknown" class="form-control">
+							<label class="col-sm-5 control-label">Check if unknown</label>
+							<div class="col-sm-5">
+								<div class="checkbox">
+									<label>
+										<input type="checkbox" id="coverageEndDateUnknown" name="coverageEndDateUnknown" ng-model="quote.coverageEndDateUnknown" value="coverageEndDateUnknown">
+									</label>
+								</div>
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="coverageEndDateVerified" class="col-sm-5 control-label">Check here if the End Date has been verified with Mfr.</label>
-							<div class="col-sm-1">
-								<input type="checkbox" id="coverageEndDateVerified" name="coverageEndDateVerified" ng-model="quote.coverageEndDateVerified" class="form-control">
+							<label class="col-sm-5 control-label">Check here if the End Date has been verified with Mfr.</label>
+							<div class="col-sm-5">
+								<div class="checkbox">
+									<label>
+										<input type="checkbox" id="coverageEndDateVerified" name="coverageEndDateVerified" ng-model="quote.coverageEndDateVerified" value="coverageEndDateVerified">
+									</label>
+								</div>
 							</div>
 						</div>
 						<div class="form-group">
@@ -199,9 +214,13 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="serialNumberUnknown" class="col-sm-3 control-label"></label>
-					<div class="col-sm-4">
-						<input type="checkbox" id="serialNumberUnknown" name="serialNumberUnknown" ng-model="quote.serialNumberUnknown" class="">Check if unknown
+					<label class="col-sm-3 control-label"></label>
+					<div class="col-sm-5">
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" id="serialNumberUnknown" name="serialNumberUnknown" ng-model="quote.serialNumberUnknown" value="serialNumberUnknown">Check if unknown
+							</label>
+						</div>
 					</div>
 				</div>
 				<div class="form-group">
@@ -277,13 +296,19 @@
 				</div>
 				<div class="form-group">
 					<label class="col-sm-3 control-label"></label>
-					<div class="col-sm-4">
-						<label>
-							<input type="radio" id="dealerMarkupVlaue" name="dealerMarkupVlaue" ng-model="quote.dealerMarkupType" value="dealerMarkupPrice" class="">&nbsp;Price
-						</label>
-						<label>
-							&nbsp;&nbsp;<input type="radio" id="dealerMarkupVlaue" name="dealerMarkupVlaue" ng-model="quote.dealerMarkupType" value="dealerMarkupPercent" class="">&nbsp;Percent
-						</label>
+					<div class="col-sm-6">
+						<div class="row">
+							<div class="col-sm-2">
+								<label class="radio-inline">
+									<input type="radio" id="dealerMarkupVlaue" name="dealerMarkupVlaue" ng-model="quote.dealerMarkupType" value="dealerMarkupPrice" class="">Price
+								</label>
+							</div>
+							<div class="col-sm-2">
+								<label class="radio-inline">
+									<input type="radio" id="dealerMarkupVlaue" name="dealerMarkupVlaue" ng-model="quote.dealerMarkupType" value="dealerMarkupPercent" class="">Percent
+								</label>
+							</div>
+						</div>
 					</div>
 				</div>
 				<div class="form-group">
@@ -300,9 +325,13 @@
 						&nbsp;Deductible:
 					</label>
 					<div class="col-sm-8">
-						<label ng-repeat="deductibleAmt in deductibleAmtList">
-							<input  type="radio" id="deductiblePrice" name="deductiblePrice" ng-model="quote.deductiblePrice" ng-click="getCoveragePriceLevels(quote.deductiblePrice, quote.coverageTerm)" class="" ng-value="deductibleAmt" ng-init="$index==0?(quote.deductiblePrice=deductibleAmt):''">{{deductibleAmt | currency:"$":0}}
-						</label>&nbsp;&nbsp;
+						<div class="row">
+							<div class="col-sm-2" ng-repeat="deductibleAmt in deductibleAmtList">
+								<label class="radio-inline">
+									<input  type="radio" id="deductiblePrice" name="deductiblePrice" ng-model="quote.deductiblePrice" ng-click="getCoveragePriceLevels(quote.deductiblePrice, quote.coverageTerm)" ng-value="deductibleAmt" ng-init="$index==0?(quote.deductiblePrice=deductibleAmt):''">{{deductibleAmt | currency:"$":0}}
+								</label>
+							</div>
+						</div>
 					</div>
 				</div>
 				<div class="form-group">
@@ -315,9 +344,13 @@
 						&nbsp;Coverage Term:
 					</label>
 					<div class="col-sm-8">
-						<label ng-repeat="coverageTermVal in coverageTermList">
-							<input type="radio" id="coverageTerm" name="coverageTerm" ng-model="quote.coverageTerm" ng-click="getCoveragePriceLevels(quote.deductiblePrice, quote.coverageTerm)" class="" ng-value="coverageTermVal" ng-init="$index==0?(quote.coverageTerm=coverageTermVal):''">{{coverageTermVal}}&nbsp;mos.
-						</label>&nbsp;&nbsp;
+						<div class="row">
+							<div class="col-sm-2" ng-repeat="coverageTermVal in coverageTermList">
+								<label class="radio-inline">
+									<input type="radio" id="coverageTerm" name="coverageTerm" ng-model="quote.coverageTerm" ng-click="getCoveragePriceLevels(quote.deductiblePrice, quote.coverageTerm)" class="" ng-value="coverageTermVal" ng-init="$index==0?(quote.coverageTerm=coverageTermVal):''">{{coverageTermVal}}&nbsp;mos.
+								</label>
+							</div>
+						</div>
 					</div>
 				</div>
 				<div class="form-group">
@@ -359,14 +392,22 @@
 					<label for="dealerName" class="col-sm-3 control-label">Name/Nickname</label>
 					<div class="col-sm-4">
 						<input type="text" id="dealerName" name="dealerName" ng-model="quote.dealerName" placeholder="Dealer Name" class="form-control" required="required">
-						<input type="checkbox" id="custUnderstandCoverage" name="custUnderstandCoverage" ng-model="quote.custUnderstandCoverage" ng-value="true">Customer understands coverage.
+						<div class="checkbox">
+                            <label>
+								<input type="checkbox" id="custUnderstandCoverage" name="custUnderstandCoverage" ng-model="quote.custUnderstandCoverage" ng-value="true">Customer understands coverage.
+							</label>
+						</div>
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="dealerAddress" class="col-sm-3 control-label">Address</label>
 					<div class="col-sm-4">
 						<input type="text" id="dealerAddress" name="dealerAddress" ng-model="quote.dealerAddress" placeholder="Dealer Address" class="form-control">
-						<input type="checkbox" id="custRemorsePeriod" name="custRemorsePeriod" ng-model="quote.custRemorsePeriod" ng-value="true">Customer is aware of 90-day remorse period.
+						<div class="checkbox">
+                            <label>
+								<input type="checkbox" id="custRemorsePeriod" name="custRemorsePeriod" ng-model="quote.custRemorsePeriod" ng-value="true">Customer is aware of 90-day remorse period.
+							</label>
+						</div>
 					</div>
 				</div>
 				<div class="form-group">
