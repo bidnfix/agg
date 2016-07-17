@@ -12,15 +12,15 @@
             <i class="fa fa-home"></i>
             <span>Warranty Info</span>
           </a>
-          <a href="#" class="c-tabs-nav__link" ng-click="changeTab(1)">
+          <a href="#" class="c-tabs-nav__link" ng-click="changeTab(1, warrantyInfoForm)">
             <i class="fa fa-book"></i>
             <span>Machine Info</span>
           </a>
-          <a href="#" class="c-tabs-nav__link" ng-click="changeTab(2)">
+          <a href="#" class="c-tabs-nav__link" ng-click="changeTab(2, machineInfoForm)">
             <i class="fa fa-heart"></i>
             <span>Coverage Info</span>
           </a>
-          <a href="#" class="c-tabs-nav__link" ng-click="changeTab(3)">
+          <a href="#" class="c-tabs-nav__link" ng-click="changeTab(3, coverageInfoForm)">
             <i class="fa fa-calendar"></i>
             <span>Quote Summary</span>
           </a>
@@ -35,9 +35,9 @@
           </a>
           
         </div>
-        <form class="form-horizontal">
         <div class="c-tab is-active">
           <div class="c-tab__content">
+          	<form class="form-horizontal" name="warrantyInfoForm" id="warrantyInfoForm" angular-validator-submit="validateWarrantyInfoForm()" novalidate angular-validator>
             <div class="inner-main">
 					<div class="form-group">
 						<label for="dealer" class="col-sm-5 control-label">Dealer</label>
@@ -147,20 +147,22 @@
 					</div>
 					<div class="form-group">
 						<div class="col-sm-5 col-sm-offset-3">
-							<button type="button" class="btn btn-primary btn-block" ng-click="changeTab(1)">Continue to "Machine Info"</button>
+							<button type="submit" class="btn btn-primary btn-block" ng-click="changeTab(1, warrantyInfoForm)">Continue to "Machine Info"</button>
 						</div>
 					</div>
 			</div>
+			</form>
 			<!--inner main-->
           </div>
         </div>
         <div class="c-tab">
           <div class="c-tab__content">
+            <form class="form-horizontal" name="machineInfoForm" id="machineInfoForm" angular-validator-submit="validateMachineInfoForm()" novalidate angular-validator>
             <div class="inner-main">
 				<div class="form-group">
-					<label for="manufacturer" class="col-sm-3 control-label">Select Manufacturer</label>
+					<label for="manufacturer" class="col-sm-3 control-label"><span class="man-field">*</span>Select Manufacturer</label>
 					<div class="col-sm-4">
-						<select class="form-control" name="manufacturer" ng-model="quote.manufacturerDO" ng-options="manufacturerObj.name for manufacturerObj in manufacturerList" ng-change="getMachineModel(quote.manufacturerDO)">
+						<select class="form-control" name="manufacturer" ng-model="quote.manufacturerDO" ng-options="manufacturerObj.name for manufacturerObj in manufacturerList" ng-change="getMachineModel(quote.manufacturerDO)" required-message="Please select manufacturer." required="required">
 							<option value="">Select Manufacturer</option>
 	     				</select> 
 					</div>
@@ -176,9 +178,9 @@
 					</div>
 				</div> -->
 				<div class="form-group">
-					<label for="machineModel" class="col-sm-3 control-label">Model Number</label>
+					<label for="machineModel" class="col-sm-3 control-label"><span class="man-field">*</span>Model Number</label>
 					<div class="col-sm-4">
-						<select class="form-control" name="machineModel" ng-model="quote.machineInfoDO" ng-options="machineModel.model group by machineModel.machineType for machineModel in machineModelList">
+						<select class="form-control" name="machineModel" ng-model="quote.machineInfoDO" ng-options="machineModel.model group by machineModel.machineType for machineModel in machineModelList" required-message="Please select valid Model Number." required="required">
 							<option value="">Model Number</option>
 						</select> 
 					</div>
@@ -196,7 +198,7 @@
 				<div class="form-group">
 					<label for="horsePower" class="col-sm-3 control-label">Horsepower (Engine)</label>
 					<div class="col-sm-4">
-						<input type="text" id="horsePower" name="horsePower" ng-model="quote.horsePower" placeholder="Horse Power" class="form-control" required="required">&nbsp;<img src="/assets/images/info-icon.png" alt="Info" 
+						<input type="text" id="horsePower" name="horsePower" ng-model="quote.horsePower" placeholder="Horse Power" class="form-control">&nbsp;<img src="/assets/images/info-icon.png" alt="Info" 
 								data-toggle="tooltip" 
 								tooltip-trigger tooltip-animation="false" 
 					          	tooltip="Please use the engine-rated horsepower.  This is not the PTO power or peak power."
@@ -204,9 +206,9 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="serialNumber" class="col-sm-3 control-label">Serial Number</label>
+					<label for="serialNumber" class="col-sm-3 control-label"><span class="man-field">*</span>Serial Number</label>
 					<div class="col-sm-4">
-						<input type="text" id="serialNumber" name="serialNumber" ng-model="quote.serialNumber" placeholder="Serial Number" class="form-control" required="required">&nbsp;<img src="/assets/images/info-icon.png" alt="Info" 
+						<input type="text" id="serialNumber" name="serialNumber" ng-model="quote.serialNumber" placeholder="Serial Number" class="form-control" required-message="Please enter serial number of machine." required="required">&nbsp;<img src="/assets/images/info-icon.png" alt="Info" 
 								data-toggle="tooltip" 
 								tooltip-trigger tooltip-animation="false" 
 					          	tooltip="Enter the Manufacturer's serial number for the machine. If you need to price coverage for a machine you have ordered, but have not yet received, then check 'unknown' and you can update this field later when you purchase the coverage."
@@ -226,7 +228,7 @@
 				<div class="form-group">
 					<label for="retailPrice" class="col-sm-3 control-label">Retail Price (Aprox)</label>
 					<div class="col-sm-4">
-						<input type="text" id="retailPrice" name="retailPrice" ng-model="quote.retailPrice" class="form-control" placeholder="Retail Price" required="required">&nbsp;<img src="/assets/images/info-icon.png" alt="Info" 
+						<input type="text" id="retailPrice" name="retailPrice" ng-model="quote.retailPrice" class="form-control" placeholder="Retail Price">&nbsp;<img src="/assets/images/info-icon.png" alt="Info" 
 								data-toggle="tooltip" 
 								tooltip-trigger tooltip-animation="false" 
 					          	tooltip="For our purposes, the 'Retail Price' is the advertised price of the machine not including any special deals or terms.  This is not necessarily the sales price.   We do not use the 'Retail Price'  to determine the price of coverage; however, we do use this information to compare coverage on certain machines and within certain price bands when we analyze our risk-so, it is important to report this accurately in order to help us keep our prices as low as possible."
@@ -234,9 +236,9 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="meterHours" class="col-sm-3 control-label">Meter Hours</label>
+					<label for="meterHours" class="col-sm-3 control-label"><span class="man-field">*</span>Meter Hours</label>
 					<div class="col-sm-4">
-						<input type="text" id="meterHours" name="meterHours" ng-model="quote.meterHours" placeholder="Meter Hours" class="form-control" required="required">&nbsp;<img src="/assets/images/info-icon.png" alt="Info" 
+						<input type="text" id="meterHours" name="meterHours" ng-model="quote.meterHours" placeholder="Meter Hours" class="form-control" required-message="Please enter meter hours of machine." required="required">&nbsp;<img src="/assets/images/info-icon.png" alt="Info" 
 								data-toggle="tooltip" 
 								tooltip-trigger tooltip-animation="false" 
 					          	tooltip="This should be the exact hours shown on the Machine's tachometer or hours gauge. It is important that this information is recorded accurately to prevent lapses or denial of coverage."
@@ -246,7 +248,7 @@
 				<div class="form-group">
 					<label for="modelYear" class="col-sm-3 control-label">Model Year</label>
 					<div class="col-sm-4">
-						<input type="text" id="modelYear" name="modelYear" ng-model="quote.modelYear" placeholder="Model Year" class="form-control" required="required">&nbsp;<img src="/assets/images/info-icon.png" alt="Info" 
+						<input type="text" id="modelYear" name="modelYear" ng-model="quote.modelYear" placeholder="Model Year" class="form-control">&nbsp;<img src="/assets/images/info-icon.png" alt="Info" 
 								data-toggle="tooltip" 
 								tooltip-trigger tooltip-animation="false" 
 					          	tooltip="The 'model year' may not correlate with age of the machine, but it may effect the price.  Sometimes components change by model year and the change is not reflected in the model number.  These changes can effect our risk  (and our pricing) significantly.  Therefore, it is important to record the actual model year.  If you do not know the model year, leave blank and explain why in the 'unusual provisions' section in step one."
@@ -254,9 +256,9 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="equipment" class="col-sm-3 control-label">Use of Equipment</label>
+					<label for="equipment" class="col-sm-3 control-label"><span class="man-field">*</span>Use of Equipment</label>
 					<div class="col-sm-4">
-						<select name="equipment" ng-model="quote.useOfEquipmentDO" class="form-control" ng-options="equipmentObj.equipName for equipmentObj in useOfEquipmentDOList">
+						<select name="equipment" ng-model="quote.useOfEquipmentDO" class="form-control" ng-options="equipmentObj.equipName for equipmentObj in useOfEquipmentDOList" required-message="Please select use of equipment." required="required">
 							<option value="">Use of Equipment</option>
 						</select>&nbsp;<img src="/assets/images/info-icon.png" alt="Info" 
 								data-toggle="tooltip" 
@@ -266,7 +268,7 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="estSaleDate" class="col-sm-3 control-label">Estimated Sale Date</label>
+					<label for="estSaleDate" class="col-sm-3 control-label"><span class="man-field">*</span>Estimated Sale Date</label>
 					<div class="col-sm-4">
 						<input type="date" id="estSaleDate" name="estSaleDate" ng-model="quote.estSaleDate" class="form-control" min="{{date | date:'yyyy-MM-dd'}}" value="{{date | date:'MM/dd/yyyy'}}" required="required">&nbsp;<img src="/assets/images/info-icon.png" alt="Info" 
 								data-toggle="tooltip" 
@@ -277,14 +279,16 @@
 				</div>
 				<div class="form-group">
 					<div class="col-sm-5 col-sm-offset-3">
-						<button type="button" class="btn btn-primary btn-block" ng-click="changeTab(2)">Continue to "Coverage Info"</button>
+						<button type="submit" class="btn btn-primary btn-block" ng-click="changeTab(2, machineInfoForm)">Continue to "Coverage Info"</button>
 					</div>
 				</div>
 			</div>
+			</form>
           </div>
         </div>
         <div class="c-tab">
           <div class="c-tab__content">
+          	<form class="form-horizontal" name="coverageInfoForm" id="coverageInfoForm" angular-validator-submit="validateCoverageInfoForm()" novalidate angular-validator>
             <div class="inner-main">
             	<p>Determine Dealer Markup: Enter the Dealer Mark-Up You want calculated into this quote as either a percentage or specific dollar amount</p>
             	<p>Recommended Markup:	Your Dealership does not currently have a recommended markup.</p>
@@ -509,14 +513,17 @@
 				<p>If you cannot find the coverage you want, please select the Help Request form from the black menu bar at the top of the page and we will communicate with you soon to explore other options.</p>
 				<div class="form-group">
 					<div class="col-sm-5 col-sm-offset-3">
-						<button type="button" class="btn btn-primary btn-block" ng-click="changeTab(3)">Continue to "Quote Summary"</button>
+						<button type="submit" class="btn btn-primary btn-block" ng-click="changeTab(3, coverageInfoForm)">Continue to "Quote Summary"</button>
 					</div>
 				</div>
 			</div>
+			</form>
           </div>
         </div>
         <div class="c-tab">
           <div class="c-tab__content">
+          <form class="form-horizontal" name="coverageInfoForm" id="coverageInfoForm" angular-validator-submit="validateQuoteSummaryForm()" novalidate angular-validator>
+            <div class="inner-main">
           	<div class="form-group">
 				<label class="col-sm-9 control-label">
 					Please review your quote below. Click the edit button to modify. &nbsp;&nbsp;<span class="badge" ng-click="editQuoteInfo()">Edit</span>
@@ -820,6 +827,8 @@
 				</div>
 			</div>
           </div>
+          </form>
+        </div>
         </div>
         <div class="c-tab">
           <div class="c-tab__content">
@@ -836,7 +845,6 @@
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto aspernatur natus dolorem fuga cumque optio saepe corrupti earum. Ipsam quaerat asperiores similique omnis excepturi temporibus ab eum magnam ipsa, odio.</p>
           </div>
         </div>
-        </form>
       </div>
     </div>
 

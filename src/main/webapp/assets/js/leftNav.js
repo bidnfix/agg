@@ -1,6 +1,6 @@
 'use strict';
 
-var routingApp = angular.module('aggRoutingApp',['ngRoute', 'ui.bootstrap']);
+var routingApp = angular.module('aggRoutingApp',['ngRoute', 'ui.bootstrap', 'angularValidator']);
 
 routingApp.config(['$routeProvider',
                   function($routeProvider) {
@@ -375,47 +375,50 @@ routingApp.controller('QuoteController', function($scope, $http) {
   
 	myTabs.init();
 	
-	$scope.changeTab = function(index){
-		myTabs.goToTab(index);
-		if(index == 2){
-			var coverageExpired = ($scope.quote.coverageExpired != null && $scope.quoteBasePrice == true)?true:false;
-			var machineId = $scope.quote.machineInfoDO.machineId;
-			$http.get("/agg/quote/coverageDeductInfo/"+coverageExpired+"/"+machineId)
-			.then(function(response) {
-				$scope.deductibleAmtList = response.data.data.deductibleAmtList;
-				$scope.coverageTermList = response.data.data.coverageTermList;
-				$scope.pricingDOList = response.data.data.pricingDOList;
+	$scope.changeTab = function(index, tabForm){
+		alert(tabForm.$valid);
+		if(tabForm.$valid){
+			myTabs.goToTab(index);
+			if(index == 2){
+				var coverageExpired = ($scope.quote.coverageExpired != null && $scope.quoteBasePrice == true)?true:false;
+				var machineId = $scope.quote.machineInfoDO.machineId;
+				$http.get("/agg/quote/coverageDeductInfo/"+coverageExpired+"/"+machineId)
+				.then(function(response) {
+					$scope.deductibleAmtList = response.data.data.deductibleAmtList;
+					$scope.coverageTermList = response.data.data.coverageTermList;
+					$scope.pricingDOList = response.data.data.pricingDOList;
+					
+					$scope.coverageTermSelected = $scope.coverageTermList[0];
+					$scope.deductiblePriceSelected = $scope.deductibleAmtList[0];
+				});  
+			}else if(index == 3){
+				if($scope.quote.coverageExpired != null && $scope.quote.coverageExpired == true){
+					$scope.machineCondition = 'Used';
+				}else if($scope.quote.coverageEndDate != null && ($scope.quote.coverageEndDate > $scope.date)){
+					$scope.machineCondition = 'New';
+				}else{
+					$scope.machineCondition = 'Used';
+				}
 				
-				$scope.coverageTermSelected = $scope.coverageTermList[0];
-				$scope.deductiblePriceSelected = $scope.deductibleAmtList[0];
-			});  
-		}else if(index == 3){
-			if($scope.quote.coverageExpired != null && $scope.quote.coverageExpired == true){
-				$scope.machineCondition = 'Used';
-			}else if($scope.quote.coverageEndDate != null && ($scope.quote.coverageEndDate > $scope.date)){
-				$scope.machineCondition = 'New';
-			}else{
-				$scope.machineCondition = 'Used';
+				var rowIndex = $scope.selectedRow;
+				var colIndex = $scope.selectedCloumn;
+				
+				if(rowIndex >= 0 && colIndex > 0){
+					$scope.coverageHours = $scope.pricingDOList[rowIndex].coverageLevelHours;
+					$scope.quoteBasePrice = (colIndex === 1)?$scope.pricingDOList[rowIndex].ptBasePrice:(colIndex === 2)?$scope.pricingDOList[rowIndex].phBasePrice:$scope.pricingDOList[rowIndex].plBasePrice;
+					$scope.coverageType = (colIndex === 1)?"PT":(colIndex === 2)?"PH":"PL";
+				}
+				
+				if($scope.quote.dealerMarkupType == 'dealerMarkupPrice'){
+					$scope.dealerMarkupAmtPrice = parseInt($scope.quote.dealerMarkup);
+				}else{
+					$scope.dealerMarkupAmtPrice = (($scope.quoteBasePrice * parseInt($scope.quote.dealerMarkup))/100);
+				}
+				
+				$scope.totalCustPrice = $scope.dealerMarkupAmtPrice + $scope.quoteBasePrice;
+				$scope.totalDealerPrice = $scope.quoteBasePrice;
+				
 			}
-			
-			var rowIndex = $scope.selectedRow;
-			var colIndex = $scope.selectedCloumn;
-			
-			if(rowIndex >= 0 && colIndex > 0){
-				$scope.coverageHours = $scope.pricingDOList[rowIndex].coverageLevelHours;
-				$scope.quoteBasePrice = (colIndex === 1)?$scope.pricingDOList[rowIndex].ptBasePrice:(colIndex === 2)?$scope.pricingDOList[rowIndex].phBasePrice:$scope.pricingDOList[rowIndex].plBasePrice;
-				$scope.coverageType = (colIndex === 1)?"PT":(colIndex === 2)?"PH":"PL";
-			}
-			
-			if($scope.quote.dealerMarkupType == 'dealerMarkupPrice'){
-				$scope.dealerMarkupAmtPrice = parseInt($scope.quote.dealerMarkup);
-			}else{
-				$scope.dealerMarkupAmtPrice = (($scope.quoteBasePrice * parseInt($scope.quote.dealerMarkup))/100);
-			}
-			
-			$scope.totalCustPrice = $scope.dealerMarkupAmtPrice + $scope.quoteBasePrice;
-			$scope.totalDealerPrice = $scope.quoteBasePrice;
-			
 		}
 	}
 	
@@ -487,6 +490,22 @@ routingApp.controller('QuoteController', function($scope, $http) {
 			$scope.quote.dealerPhone = dealrDO.phone;
 			$scope.quote.dealerEmail = dealrDO.invoiceEmail;
 		});  
+	}
+	
+	$scope.validateWarrantyInfoForm = function(){
+		alert(1);
+	}
+	
+	$scope.validateMachineInfoForm = function(){
+		alert(2);
+	}
+	
+	$scope.validateCoverageInfoForm = function(){
+		alert(3);
+	}
+	
+	$scope.validateQuoteSummaryForm = function(){
+		alert(4);
 	}
 });
 

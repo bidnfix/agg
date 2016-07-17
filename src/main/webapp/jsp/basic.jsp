@@ -71,5 +71,6 @@
 	<script src="/assets/js/navAccordion.min.js"></script>
 	<script src="/assets/js/controller/reportaBugController.js"></script>
 	<script src="/assets/js/service/reportaBugService.js"></script>
+	<script src="/assets/js/angular-validator.js"></script>
 </body>
 </html>
