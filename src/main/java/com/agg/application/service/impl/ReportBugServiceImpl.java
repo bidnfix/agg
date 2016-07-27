@@ -31,7 +31,13 @@ public class ReportBugServiceImpl implements ReportBugService {
 		bug.setDescription(bugDO.getDescription());
 		bug.setPriority(bugDO.getPriority());
 		bug.setStatus(bugDO.getStatus());
+		bug.setDiscovered(date);
+		bug.setUserAgent("NA");
+		bug.setFixBy(date);
+		bug.setReportedBy(1);
 		bug.setCreatedOn(date);
+		bug.setUrl("www");
+		bug.setNotes(bugDO.getNotes());
 		bug = reportBugDAO.save(bug);
 		return bug.getId();
 	}
