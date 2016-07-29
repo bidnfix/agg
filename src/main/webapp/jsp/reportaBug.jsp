@@ -27,7 +27,7 @@
 				<label for="ID" class="col-sm-3 control-label">ID</label>
 				<div class="col-sm-9">
 					<div class="col-sm-9">
-					<label for="ID" class="col-sm-3 control-label">66</label>
+					<label for="ID" class="col-sm-3 control-label">bugId</label>
 				</div>
 				</div>
 			</div>
@@ -78,6 +78,11 @@
 				<label for="notes" class="col-sm-3 control-label">Notes</label>
 				<div class="col-sm-9">
 					<input type="textarea" id="notes" name="notes" ng-model="report.notes" class="form-control" required="required">
+				</div>
+				<div class="form-group">
+				<label for="notes" class="col-sm-3 control-label">URL</label>
+				<div class="col-sm-9">
+					<input type="textarea" id="url" name="notes" ng-model="report.url" class="form-control" required="required">
 				</div>
 			</div>
 			<div class="form-group">

@@ -8,5 +8,6 @@ import com.agg.application.model.QuoteDO;
 public interface ReportBugService {
 
 	public Long saveBug(BugDO bugDO);
+	public Integer getBugId();
 	
 }
