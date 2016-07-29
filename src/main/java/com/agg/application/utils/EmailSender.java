@@ -1,5 +1,6 @@
 package com.agg.application.utils;
 
+import javax.activation.DataSource;
 import javax.mail.internet.MimeMessage;
 
 import org.slf4j.Logger;
@@ -23,25 +24,32 @@ public class EmailSender {
     private TemplateEngine templateEngine;
  
     public EmailStatus sendMailAsText(String to, String subject, String text) {
-        return sendMail(to, subject, text, false);
+        return sendMail(to, subject, text, false, null, null);
     }
     
     public EmailStatus sendMailAsHtml(String to, String subject, String templateName, Context context) {
         String body = templateEngine.process(templateName, context);
         return sendHtmlMail(to, subject, body);
     }
- 
-    private EmailStatus sendHtmlMail(String to, String subject, String htmlBody) {
-        return sendMail(to, subject, htmlBody, true);
+    
+    public EmailStatus sendMailAsAttachment(String to, String subject, String body, DataSource aAttachment, String attachmentName) {
+        return sendMail(to, subject, body, false, aAttachment, attachmentName);
     }
  
-    private EmailStatus sendMail(String to, String subject, String text, Boolean isHtml) {
+    private EmailStatus sendHtmlMail(String to, String subject, String htmlBody) {
+        return sendMail(to, subject, htmlBody, true, null, null);
+    }
+ 
+    private EmailStatus sendMail(String to, String subject, String text, Boolean isHtml, DataSource aAttachment, String attachmentName) {
         try {
             MimeMessage mail = javaMailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(mail, true);
             helper.setTo(to);
             helper.setSubject(subject);
             helper.setText(text, isHtml);
+            if(aAttachment != null){
+            	helper.addAttachment(attachmentName, aAttachment);
+            }
             javaMailSender.send(mail);
             logger.info("Send email '{}' to: {}", subject, to);
             return new EmailStatus(to, subject, text).success();
