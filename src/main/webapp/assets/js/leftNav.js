@@ -512,6 +512,13 @@ routingApp.controller('QuoteController', function($scope, $http) {
 routingApp.controller('ReportBugController', function($scope, $http) {
 	$scope.report={};
 	$scope.date = new Date()
+	
+	$http.get("/agg/bugId")
+    .then(function(response) {
+    	alert(response.data.data.bugId);
+        $scope.bugId = response.data.data.bugId;
+    });
+	
 	/*
 	$http.get("/agg/reportaBug")
 	.then(function(response) {

@@ -36,10 +36,18 @@ public class ReportBugServiceImpl implements ReportBugService {
 		bug.setFixBy(date);
 		bug.setReportedBy(1);
 		bug.setCreatedOn(date);
-		bug.setUrl("www");
+		bug.setUrl(bugDO.getUrl());
 		bug.setNotes(bugDO.getNotes());
 		bug = reportBugDAO.save(bug);
 		return bug.getId();
+	}
+	
+	@Override
+	public Integer getBugId() {
+		
+		//Integer bugId = reportBugDAO.findMaxReportId();
+		
+		return 55;
 	}
 	
 	
