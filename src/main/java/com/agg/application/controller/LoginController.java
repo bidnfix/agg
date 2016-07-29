@@ -11,11 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.agg.application.model.AccountDO;
 import com.agg.application.model.DealerDO;
@@ -24,6 +26,8 @@ import com.agg.application.model.Result;
 import com.agg.application.service.DealerService;
 import com.agg.application.service.LoginService;
 import com.agg.application.service.MachineService;
+
+import net.sf.jasperreports.engine.JREmptyDataSource;
 
 @Controller
 @RequestMapping("/agg")
@@ -93,6 +97,15 @@ public class LoginController extends BaseController {
 		long dealerId = dealerService.saveDealer(dealerDO, null, true);
 		logger.debug("registered dealerId: "+dealerId);
 		return new Result("success", null, "Dealer registered successfully");
+	}
+	
+	@RequestMapping(value = "/report", method = RequestMethod.GET)
+	public ModelAndView report(ModelMap modelMap, ModelAndView modelAndView, HttpServletRequest request, HttpServletResponse response) {
+		modelMap.put("datasource", new JREmptyDataSource());
+		modelMap.put("format", "pdf");
+		 modelAndView = new ModelAndView("rpt_customerQuote", modelMap);
+		
+		return modelAndView;
 	}
 	
 }
