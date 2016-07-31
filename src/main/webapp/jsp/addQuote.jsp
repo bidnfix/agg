@@ -42,7 +42,7 @@
 					<div class="form-group">
 						<label for="dealer" class="col-sm-5 control-label">Dealer</label>
 						<div class="col-sm-4">
-							<select class="form-control" name="dealer" ng-model="quote.dealerDO" id="dealer" ng-options="dealer.name for dealer in dealerList" required="required" ng-change="displayDealerText(quote.dealerDO)">
+							<select class="form-control" name="dealer" ng-model="quote.dealerDO" id="dealer" ng-options="dealer.name for dealer in dealerList" ng-change="displayDealerText(quote.dealerDO)">
 								<option value="">Select Dealer</option>
 							</select>
 						</div>
@@ -86,7 +86,7 @@
 							<div class="col-sm-5">
 								<div class="checkbox">
 									<label>
-										<input type="checkbox" id="coverageEndDateUnknown" name="coverageEndDateUnknown" ng-model="quote.coverageEndDateUnknown" value="coverageEndDateUnknown">
+										<input type="checkbox" id="coverageEndDateUnknown" name="coverageEndDateUnknown" ng-model="quote.coverageEndDateUnknown" value="true">
 									</label>
 								</div>
 							</div>
@@ -96,7 +96,7 @@
 							<div class="col-sm-5">
 								<div class="checkbox">
 									<label>
-										<input type="checkbox" id="coverageEndDateVerified" name="coverageEndDateVerified" ng-model="quote.coverageEndDateVerified" value="coverageEndDateVerified">
+										<input type="checkbox" id="coverageEndDateVerified" name="coverageEndDateVerified" ng-model="quote.coverageEndDateVerified" value="true">
 									</label>
 								</div>
 							</div>
@@ -162,7 +162,7 @@
 				<div class="form-group">
 					<label for="manufacturer" class="col-sm-3 control-label"><span class="man-field">*</span>Select Manufacturer</label>
 					<div class="col-sm-4">
-						<select class="form-control" name="manufacturer" ng-model="quote.manufacturerDO" ng-options="manufacturerObj.name for manufacturerObj in manufacturerList" ng-change="getMachineModel(quote.manufacturerDO)" required-message="Please select manufacturer." required="required">
+						<select class="form-control" name="manufacturer" ng-model="quote.manufacturerDO" ng-options="manufacturerObj.name for manufacturerObj in manufacturerList" ng-change="getMachineModel(quote.manufacturerDO)" required-message="'Please select manufacturer.'" required="required">
 							<option value="">Select Manufacturer</option>
 	     				</select> 
 					</div>
@@ -180,7 +180,7 @@
 				<div class="form-group">
 					<label for="machineModel" class="col-sm-3 control-label"><span class="man-field">*</span>Model Number</label>
 					<div class="col-sm-4">
-						<select class="form-control" name="machineModel" ng-model="quote.machineInfoDO" ng-options="machineModel.model group by machineModel.machineType for machineModel in machineModelList" required-message="Please select valid Model Number." required="required">
+						<select class="form-control" name="machineModel" ng-model="quote.machineInfoDO" ng-options="machineModel.model group by machineModel.machineType for machineModel in machineModelList" required-message="'Please select valid Model Number.'" required="required">
 							<option value="">Model Number</option>
 						</select> 
 					</div>
@@ -208,7 +208,7 @@
 				<div class="form-group">
 					<label for="serialNumber" class="col-sm-3 control-label"><span class="man-field">*</span>Serial Number</label>
 					<div class="col-sm-4">
-						<input type="text" id="serialNumber" name="serialNumber" ng-model="quote.serialNumber" placeholder="Serial Number" class="form-control" required-message="Please enter serial number of machine." required="required">&nbsp;<img src="/assets/images/info-icon.png" alt="Info" 
+						<input type="text" id="serialNumber" name="serialNumber" ng-model="quote.serialNumber" placeholder="Serial Number" class="form-control" required-message="'Please enter serial number of machine.'" required="required">&nbsp;<img src="/assets/images/info-icon.png" alt="Info" 
 								data-toggle="tooltip" 
 								tooltip-trigger tooltip-animation="false" 
 					          	tooltip="Enter the Manufacturer's serial number for the machine. If you need to price coverage for a machine you have ordered, but have not yet received, then check 'unknown' and you can update this field later when you purchase the coverage."
@@ -238,7 +238,7 @@
 				<div class="form-group">
 					<label for="meterHours" class="col-sm-3 control-label"><span class="man-field">*</span>Meter Hours</label>
 					<div class="col-sm-4">
-						<input type="text" id="meterHours" name="meterHours" ng-model="quote.meterHours" placeholder="Meter Hours" class="form-control" required-message="Please enter meter hours of machine." required="required">&nbsp;<img src="/assets/images/info-icon.png" alt="Info" 
+						<input type="text" id="meterHours" name="meterHours" ng-model="quote.meterHours" placeholder="Meter Hours" class="form-control" required-message="'Please enter meter hours of machine.'" required="required">&nbsp;<img src="/assets/images/info-icon.png" alt="Info" 
 								data-toggle="tooltip" 
 								tooltip-trigger tooltip-animation="false" 
 					          	tooltip="This should be the exact hours shown on the Machine's tachometer or hours gauge. It is important that this information is recorded accurately to prevent lapses or denial of coverage."
@@ -258,7 +258,7 @@
 				<div class="form-group">
 					<label for="equipment" class="col-sm-3 control-label"><span class="man-field">*</span>Use of Equipment</label>
 					<div class="col-sm-4">
-						<select name="equipment" ng-model="quote.useOfEquipmentDO" class="form-control" ng-options="equipmentObj.equipName for equipmentObj in useOfEquipmentDOList" required-message="Please select use of equipment." required="required">
+						<select name="equipment" ng-model="quote.useOfEquipmentDO" class="form-control" ng-options="equipmentObj.equipName for equipmentObj in useOfEquipmentDOList" required-message="'Please select use of equipment.'" required="required">
 							<option value="">Use of Equipment</option>
 						</select>&nbsp;<img src="/assets/images/info-icon.png" alt="Info" 
 								data-toggle="tooltip" 
@@ -304,12 +304,12 @@
 						<div class="row">
 							<div class="col-sm-2">
 								<label class="radio-inline">
-									<input type="radio" id="dealerMarkupVlaue" name="dealerMarkupVlaue" ng-model="quote.dealerMarkupType" value="dealerMarkupPrice" class="">Price
+									<input type="radio" id="dealerMarkupVlaue" name="dealerMarkupVlaue" ng-model="quote.dealerMarkupType" value="price" class="">Price
 								</label>
 							</div>
 							<div class="col-sm-2">
 								<label class="radio-inline">
-									<input type="radio" id="dealerMarkupVlaue" name="dealerMarkupVlaue" ng-model="quote.dealerMarkupType" value="dealerMarkupPercent" class="">Percent
+									<input type="radio" id="dealerMarkupVlaue" name="dealerMarkupVlaue" ng-model="quote.dealerMarkupType" value="percent" class="">Percent
 								</label>
 							</div>
 						</div>

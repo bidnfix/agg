@@ -3,13 +3,9 @@ package com.agg.application.model;
 import java.sql.Timestamp;
 import java.util.Date;
 
-import com.agg.application.entity.Dealer;
-import com.agg.application.entity.Manufacturer;
-import com.agg.application.entity.QuotePK;
-
 public class QuoteDO {
 	
-	private QuotePK id;
+	private int id;
 	
 	private String quoteId;
 
@@ -85,10 +81,69 @@ public class QuoteDO {
 
 	private byte status;
 
-	private Dealer dealer;
+	private DealerDO dealerDO;
 
 	private ManufacturerDO manufacturerDO;
-
+	
+	private boolean coverageExpired;
+	
+	private Date coverageEndDate;
+	
+	private boolean coverageEndDateUnknown;
+	
+	private boolean coverageEndDateVerified;
+	
+	private int powerTrainMonths;
+	
+	private int powerTrainHours;
+	
+	private int hydraulicsMonths;
+	
+	private int hydraulicsHours;
+	
+	private int fullMachineMonths;
+	
+	private int fullMachineHours;
+	
+	private MachineInfoDO machineInfoDO;
+	
+	private int horsePower;
+	
+	private String serialNumber;
+	
+	private boolean serialNumberUnknown;
+	
+	private double retailPrice;
+	
+	private int meterHours;
+	
+	private int modelYear;
+	
+	private UseOfEquipmentDO useOfEquipmentDO;
+	
+	private Date estSaleDate;
+	
+	private double deductiblePrice;
+	
+	private double coeragePrice;
+	
+	private String dealerName;
+	
+	private String dealerAddress;
+	
+	private boolean custRemorsePeriod;
+	
+	private String dealerCity;
+	
+	private String dealerState;
+	
+	private String dealerZip;
+	
+	private String dealerPhone;
+	
+	private String dealerEmail;
+	
+	
 	public int getcPtHHours() {
 		return cPtHHours;
 	}
@@ -145,11 +200,11 @@ public class QuoteDO {
 		this.manufacturerDO = manufacturerDO;
 	}
 
-	public QuotePK getId() {
+	public int getId() {
 		return this.id;
 	}
 
-	public void setId(QuotePK id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -441,12 +496,424 @@ public class QuoteDO {
 		this.status = status;
 	}
 
-	public Dealer getDealer() {
-		return this.dealer;
+	/**
+	 * @return the dealerDO
+	 */
+	public DealerDO getDealerDO() {
+		return dealerDO;
 	}
 
-	public void setDealer(Dealer dealer) {
-		this.dealer = dealer;
+	/**
+	 * @param dealerDO the dealerDO to set
+	 */
+	public void setDealerDO(DealerDO dealerDO) {
+		this.dealerDO = dealerDO;
 	}
 
+	/**
+	 * @return the coverageExpired
+	 */
+	public boolean isCoverageExpired() {
+		return coverageExpired;
+	}
+
+	/**
+	 * @param coverageExpired the coverageExpired to set
+	 */
+	public void setCoverageExpired(boolean coverageExpired) {
+		this.coverageExpired = coverageExpired;
+	}
+
+	/**
+	 * @return the coverageEndDate
+	 */
+	public Date getCoverageEndDate() {
+		return coverageEndDate;
+	}
+
+	/**
+	 * @param coverageEndDate the coverageEndDate to set
+	 */
+	public void setCoverageEndDate(Date coverageEndDate) {
+		this.coverageEndDate = coverageEndDate;
+	}
+
+	/**
+	 * @return the coverageEndDateUnknown
+	 */
+	public boolean isCoverageEndDateUnknown() {
+		return coverageEndDateUnknown;
+	}
+
+	/**
+	 * @param coverageEndDateUnknown the coverageEndDateUnknown to set
+	 */
+	public void setCoverageEndDateUnknown(boolean coverageEndDateUnknown) {
+		this.coverageEndDateUnknown = coverageEndDateUnknown;
+	}
+
+	/**
+	 * @return the coverageEndDateVerified
+	 */
+	public boolean isCoverageEndDateVerified() {
+		return coverageEndDateVerified;
+	}
+
+	/**
+	 * @param coverageEndDateVerified the coverageEndDateVerified to set
+	 */
+	public void setCoverageEndDateVerified(boolean coverageEndDateVerified) {
+		this.coverageEndDateVerified = coverageEndDateVerified;
+	}
+
+	/**
+	 * @return the powerTrainMonths
+	 */
+	public int getPowerTrainMonths() {
+		return powerTrainMonths;
+	}
+
+	/**
+	 * @param powerTrainMonths the powerTrainMonths to set
+	 */
+	public void setPowerTrainMonths(int powerTrainMonths) {
+		this.powerTrainMonths = powerTrainMonths;
+	}
+
+	/**
+	 * @return the powerTrainHours
+	 */
+	public int getPowerTrainHours() {
+		return powerTrainHours;
+	}
+
+	/**
+	 * @param powerTrainHours the powerTrainHours to set
+	 */
+	public void setPowerTrainHours(int powerTrainHours) {
+		this.powerTrainHours = powerTrainHours;
+	}
+
+	/**
+	 * @return the hydraulicsMonths
+	 */
+	public int getHydraulicsMonths() {
+		return hydraulicsMonths;
+	}
+
+	/**
+	 * @param hydraulicsMonths the hydraulicsMonths to set
+	 */
+	public void setHydraulicsMonths(int hydraulicsMonths) {
+		this.hydraulicsMonths = hydraulicsMonths;
+	}
+
+	/**
+	 * @return the hydraulicsHours
+	 */
+	public int getHydraulicsHours() {
+		return hydraulicsHours;
+	}
+
+	/**
+	 * @param hydraulicsHours the hydraulicsHours to set
+	 */
+	public void setHydraulicsHours(int hydraulicsHours) {
+		this.hydraulicsHours = hydraulicsHours;
+	}
+
+	/**
+	 * @return the fullMachineMonths
+	 */
+	public int getFullMachineMonths() {
+		return fullMachineMonths;
+	}
+
+	/**
+	 * @param fullMachineMonths the fullMachineMonths to set
+	 */
+	public void setFullMachineMonths(int fullMachineMonths) {
+		this.fullMachineMonths = fullMachineMonths;
+	}
+
+	/**
+	 * @return the fullMachineHours
+	 */
+	public int getFullMachineHours() {
+		return fullMachineHours;
+	}
+
+	/**
+	 * @param fullMachineHours the fullMachineHours to set
+	 */
+	public void setFullMachineHours(int fullMachineHours) {
+		this.fullMachineHours = fullMachineHours;
+	}
+
+	/**
+	 * @return the machineInfoDO
+	 */
+	public MachineInfoDO getMachineInfoDO() {
+		return machineInfoDO;
+	}
+
+	/**
+	 * @param machineInfoDO the machineInfoDO to set
+	 */
+	public void setMachineInfoDO(MachineInfoDO machineInfoDO) {
+		this.machineInfoDO = machineInfoDO;
+	}
+
+	/**
+	 * @return the horsePower
+	 */
+	public int getHorsePower() {
+		return horsePower;
+	}
+
+	/**
+	 * @param horsePower the horsePower to set
+	 */
+	public void setHorsePower(int horsePower) {
+		this.horsePower = horsePower;
+	}
+
+	/**
+	 * @return the serialNumber
+	 */
+	public String getSerialNumber() {
+		return serialNumber;
+	}
+
+	/**
+	 * @param serialNumber the serialNumber to set
+	 */
+	public void setSerialNumber(String serialNumber) {
+		this.serialNumber = serialNumber;
+	}
+
+	/**
+	 * @return the serialNumberUnknown
+	 */
+	public boolean isSerialNumberUnknown() {
+		return serialNumberUnknown;
+	}
+
+	/**
+	 * @param serialNumberUnknown the serialNumberUnknown to set
+	 */
+	public void setSerialNumberUnknown(boolean serialNumberUnknown) {
+		this.serialNumberUnknown = serialNumberUnknown;
+	}
+
+	/**
+	 * @return the retailPrice
+	 */
+	public double getRetailPrice() {
+		return retailPrice;
+	}
+
+	/**
+	 * @param retailPrice the retailPrice to set
+	 */
+	public void setRetailPrice(double retailPrice) {
+		this.retailPrice = retailPrice;
+	}
+
+	/**
+	 * @return the meterHours
+	 */
+	public int getMeterHours() {
+		return meterHours;
+	}
+
+	/**
+	 * @param meterHours the meterHours to set
+	 */
+	public void setMeterHours(int meterHours) {
+		this.meterHours = meterHours;
+	}
+
+	/**
+	 * @return the modelYear
+	 */
+	public int getModelYear() {
+		return modelYear;
+	}
+
+	/**
+	 * @param modelYear the modelYear to set
+	 */
+	public void setModelYear(int modelYear) {
+		this.modelYear = modelYear;
+	}
+
+	/**
+	 * @return the useOfEquipmentDO
+	 */
+	public UseOfEquipmentDO getUseOfEquipmentDO() {
+		return useOfEquipmentDO;
+	}
+
+	/**
+	 * @param useOfEquipmentDO the useOfEquipmentDO to set
+	 */
+	public void setUseOfEquipmentDO(UseOfEquipmentDO useOfEquipmentDO) {
+		this.useOfEquipmentDO = useOfEquipmentDO;
+	}
+
+	/**
+	 * @return the estSaleDate
+	 */
+	public Date getEstSaleDate() {
+		return estSaleDate;
+	}
+
+	/**
+	 * @param estSaleDate the estSaleDate to set
+	 */
+	public void setEstSaleDate(Date estSaleDate) {
+		this.estSaleDate = estSaleDate;
+	}
+
+	/**
+	 * @return the deductiblePrice
+	 */
+	public double getDeductiblePrice() {
+		return deductiblePrice;
+	}
+
+	/**
+	 * @param deductiblePrice the deductiblePrice to set
+	 */
+	public void setDeductiblePrice(double deductiblePrice) {
+		this.deductiblePrice = deductiblePrice;
+	}
+
+	/**
+	 * @return the coeragePrice
+	 */
+	public double getCoeragePrice() {
+		return coeragePrice;
+	}
+
+	/**
+	 * @param coeragePrice the coeragePrice to set
+	 */
+	public void setCoeragePrice(double coeragePrice) {
+		this.coeragePrice = coeragePrice;
+	}
+
+	/**
+	 * @return the dealerName
+	 */
+	public String getDealerName() {
+		return dealerName;
+	}
+
+	/**
+	 * @param dealerName the dealerName to set
+	 */
+	public void setDealerName(String dealerName) {
+		this.dealerName = dealerName;
+	}
+
+	/**
+	 * @return the dealerAddress
+	 */
+	public String getDealerAddress() {
+		return dealerAddress;
+	}
+
+	/**
+	 * @param dealerAddress the dealerAddress to set
+	 */
+	public void setDealerAddress(String dealerAddress) {
+		this.dealerAddress = dealerAddress;
+	}
+
+	/**
+	 * @return the custRemorsePeriod
+	 */
+	public boolean isCustRemorsePeriod() {
+		return custRemorsePeriod;
+	}
+
+	/**
+	 * @param custRemorsePeriod the custRemorsePeriod to set
+	 */
+	public void setCustRemorsePeriod(boolean custRemorsePeriod) {
+		this.custRemorsePeriod = custRemorsePeriod;
+	}
+
+	/**
+	 * @return the dealerCity
+	 */
+	public String getDealerCity() {
+		return dealerCity;
+	}
+
+	/**
+	 * @param dealerCity the dealerCity to set
+	 */
+	public void setDealerCity(String dealerCity) {
+		this.dealerCity = dealerCity;
+	}
+
+	/**
+	 * @return the dealerState
+	 */
+	public String getDealerState() {
+		return dealerState;
+	}
+
+	/**
+	 * @param dealerState the dealerState to set
+	 */
+	public void setDealerState(String dealerState) {
+		this.dealerState = dealerState;
+	}
+
+	/**
+	 * @return the dealerZip
+	 */
+	public String getDealerZip() {
+		return dealerZip;
+	}
+
+	/**
+	 * @param dealerZip the dealerZip to set
+	 */
+	public void setDealerZip(String dealerZip) {
+		this.dealerZip = dealerZip;
+	}
+
+	/**
+	 * @return the dealerPhone
+	 */
+	public String getDealerPhone() {
+		return dealerPhone;
+	}
+
+	/**
+	 * @param dealerPhone the dealerPhone to set
+	 */
+	public void setDealerPhone(String dealerPhone) {
+		this.dealerPhone = dealerPhone;
+	}
+
+	/**
+	 * @return the dealerEmail
+	 */
+	public String getDealerEmail() {
+		return dealerEmail;
+	}
+
+	/**
+	 * @param dealerEmail the dealerEmail to set
+	 */
+	public void setDealerEmail(String dealerEmail) {
+		this.dealerEmail = dealerEmail;
+	}
+	
 }

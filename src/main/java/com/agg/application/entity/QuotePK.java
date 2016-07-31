@@ -11,7 +11,8 @@ import javax.persistence.*;
 public class QuotePK implements Serializable {
 	//default serial version id, required for serializable classes.
 	private static final long serialVersionUID = 1L;
-
+	
+	@GeneratedValue
 	private int id;
 
 	@Column(name="quote_id")

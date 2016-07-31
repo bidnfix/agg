@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,6 +21,7 @@ import com.agg.application.model.AccountDO;
 import com.agg.application.model.DealerDO;
 import com.agg.application.model.ManufacturerDO;
 import com.agg.application.model.PricingDO;
+import com.agg.application.model.QuoteDO;
 import com.agg.application.model.Result;
 import com.agg.application.service.DealerService;
 import com.agg.application.service.MachineService;
@@ -116,6 +118,21 @@ public class QuoteController extends BaseController {
 			}
 			
 			opResult = new Result("success", "Quote Info", dealerDO);
+		}
+		
+		return opResult;
+	}
+	
+	@RequestMapping(value = "/quote/addQuote/warrantyInfo", method = RequestMethod.POST)
+	public @ResponseBody Result saveQuoteWarrantyInfo(@RequestBody  QuoteDO quoteDO, HttpServletRequest request, HttpServletResponse response, Model model) {
+		logger.debug("In getUserInfo");
+		Result opResult = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			quoteService.saveWarrantyInfo(quoteDO);
+			
+			opResult = new Result("success", "Quote Info", quoteDO);
 		}
 		
 		return opResult;

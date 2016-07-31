@@ -347,7 +347,7 @@ routingApp.controller('ClaimsController', ['$scope', 'claimService', '$http', '$
     	claimService.selectContract($scope, data);
     }
 }]);
-routingApp.controller('QuoteController', function($scope, $http) {
+routingApp.controller('QuoteController', function($scope, $http, quoteService) {
 	$scope.quote={};
 	$scope.quote.powerTrainMonths = 24;
 	$scope.quote.hydraulicsMonths = 24;
@@ -356,7 +356,7 @@ routingApp.controller('QuoteController', function($scope, $http) {
 	$scope.quote.hydraulicsHours = 2000;
 	$scope.quote.fullMachineHours = 2000;
 	$scope.quote.estSaleDate = new Date();
-	$scope.quote.dealerMarkupType = "dealerMarkupPrice";
+	$scope.quote.dealerMarkupType = "price";
 	
 	$scope.date = new Date();
 	
@@ -379,7 +379,9 @@ routingApp.controller('QuoteController', function($scope, $http) {
 		alert(tabForm.$valid);
 		if(tabForm.$valid){
 			myTabs.goToTab(index);
-			if(index == 2){
+			if(index == 1){
+				quoteService.saveWarrantyInfo($scope.quote, $scope);
+			}else if(index == 2){
 				var coverageExpired = ($scope.quote.coverageExpired != null && $scope.quoteBasePrice == true)?true:false;
 				var machineId = $scope.quote.machineInfoDO.machineId;
 				$http.get("/agg/quote/coverageDeductInfo/"+coverageExpired+"/"+machineId)
@@ -409,7 +411,7 @@ routingApp.controller('QuoteController', function($scope, $http) {
 					$scope.coverageType = (colIndex === 1)?"PT":(colIndex === 2)?"PH":"PL";
 				}
 				
-				if($scope.quote.dealerMarkupType == 'dealerMarkupPrice'){
+				if($scope.quote.dealerMarkupType == 'price'){
 					$scope.dealerMarkupAmtPrice = parseInt($scope.quote.dealerMarkup);
 				}else{
 					$scope.dealerMarkupAmtPrice = (($scope.quoteBasePrice * parseInt($scope.quote.dealerMarkup))/100);

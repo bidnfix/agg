@@ -50,7 +50,7 @@ public class ClaimsServiceImpl implements ClaimsService {
 				manufacturerDO = new ManufacturerDO();
 				quote = it.next();
 				//logger.debug("machineInfo.getMachineType() " +machineInfo.getMachineType().getMachineType());
-				quoteDO.setId(quote.getId());
+				quoteDO.setId(quote.getId().getId());
 				quoteDO.setQuoteId(quote.getId().getQuoteId());
 				
 				//logger.debug("__quote id "+quote.getId().getQuoteId()+ "  "+quote.getId().getId());
@@ -88,7 +88,7 @@ public class ClaimsServiceImpl implements ClaimsService {
 		for(Quote quote : quoteList){
 			quoteDO = new QuoteDO();
 			manufacturerDO = new ManufacturerDO();
-			quoteDO.setId(quote.getId());
+			quoteDO.setId(quote.getId().getId());
 			quoteDO.setQuoteId(quote.getId().getQuoteId());
 			Manufacturer manf = manufacturerDAO.findOne(Long.valueOf(quote.getManufacturer().getManfId()));
 			
@@ -128,7 +128,7 @@ public class ClaimsServiceImpl implements ClaimsService {
 				manufacturerDO = new ManufacturerDO();
 				//quote = it.next();
 				//logger.debug("machineInfo.getMachineType() " +machineInfo.getMachineType().getMachineType());
-				quoteDO.setId(quote.getId());
+				quoteDO.setId(quote.getId().getId());
 				quoteDO.setQuoteId(quote.getId().getQuoteId());
 				
 				//logger.debug("__quote id "+quote.getId().getQuoteId()+ "  "+quote.getId().getId());

@@ -11,7 +11,7 @@ import com.agg.application.entity.Quote;
 import com.agg.application.entity.QuotePK;
 
 @Component
-public interface QuoteDAO extends CrudRepository<Quote, Long> {
+public interface QuoteDAO extends CrudRepository<Quote, QuotePK> {
 	
 	@Query("SELECT q FROM Quote q WHERE q.id.id = :id")
 	public Quote findOne(@Param("id")int id);
