@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="customerQuote" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c0ec05e7-1fb2-4f7a-a475-4bbe0eaa13dc">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="50"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="imagePath" class="java.lang.String"/>
 	<field name="dealerName" class="java.lang.String"/>
 	<field name="quoteDate" class="java.lang.String"/>
@@ -35,13 +35,15 @@
 	<field name="limitOfLiability" class="java.lang.String"/>
 	<field name="price" class="java.lang.String"/>
 	<field name="specialConsiderationDesc" class="java.lang.String"/>
+	<field name="quotePrice" class="java.lang.String"/>
+	<field name="dealerMarkup" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
 		<band height="52" splitType="Stretch">
 			<rectangle>
-				<reportElement x="-21" y="-23" width="596" height="10" forecolor="#FFFFFF" backcolor="#00FF33" uuid="99b89fec-d99d-4a62-93cc-0d4428059e08"/>
+				<reportElement x="-21" y="-23" width="596" height="10" forecolor="#FFFFFF" backcolor="#FF3333" uuid="99b89fec-d99d-4a62-93cc-0d4428059e08"/>
 			</rectangle>
 			<staticText>
 				<reportElement mode="Transparent" x="155" y="16" width="392" height="15" forecolor="#333333" uuid="023d74bb-7d31-46f9-abe9-5d0ff8f31df7"/>
@@ -66,7 +68,7 @@
 				<textElement>
 					<font size="13" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Customer Quote]]></text>
+				<text><![CDATA[Dealer Quote]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="25" y="42" width="41" height="14" uuid="e597c6d4-9312-49f1-8b14-461bec82e91a"/>
@@ -341,7 +343,7 @@
 			</textField>
 			<staticText>
 				<reportElement x="25" y="419" width="130" height="14" uuid="9f689a5c-5f8e-4001-92e5-defeede63d26"/>
-				<text><![CDATA[Price:]]></text>
+				<text><![CDATA[Customer Price:]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="155" y="419" width="138" height="14" uuid="2c56f666-89fd-423d-bea6-8199cacabaf3"/>
@@ -361,6 +363,22 @@
 			<textField>
 				<reportElement x="25" y="70" width="196" height="14" uuid="f53ad76b-1c26-4d18-8103-02060251d28a"/>
 				<textFieldExpression><![CDATA[$F{address}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="369" y="405" width="85" height="14" uuid="698d7924-2824-4492-9af5-da627796252b"/>
+				<text><![CDATA[Quote Price:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="369" y="419" width="85" height="14" uuid="599adfc1-51d9-42f3-9778-b77a2d719e58"/>
+				<text><![CDATA[Dealer Mark-up:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="454" y="405" width="87" height="14" uuid="8b307e32-ab75-49b2-aec7-3bc26c9095d9"/>
+				<textFieldExpression><![CDATA[$F{quotePrice}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="454" y="419" width="87" height="14" uuid="8882606c-b7b6-4dae-a411-08dadeab69f5"/>
+				<textFieldExpression><![CDATA[$F{dealerMarkup}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
