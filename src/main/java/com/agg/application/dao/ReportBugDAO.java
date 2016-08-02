@@ -12,8 +12,8 @@ import com.agg.application.entity.Dealer;
 @Component
 public interface ReportBugDAO extends CrudRepository<BugReport, Long> {
 	
-	//@Query("select max(id) from bug_report b where 1=1")
-	//public Integer findMaxReportId();
+	@Query("select max(id) from BugReport")
+	public Integer findMaxReportId();
 	
 	
 }

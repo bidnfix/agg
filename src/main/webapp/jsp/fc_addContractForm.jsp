@@ -8,13 +8,13 @@
 	<div class="form-group">
 		<label for="failureDate" class="col-sm-3 control-label">Failure Date</label>
 		<div class="col-sm-9">
-			<input type="text" ng-model="claim.failureDate" id="failureDate" name="failureDate" class="form-control" required="required">
+			<input type="date" ng-model="claim.failureDate" id="failureDate" name="failureDate" value="{{date | date:'yyyy-MM-dd'}}" class="form-control" required="required">
 		</div>
 	</div>
 	<div class="form-group">
 		<label for="reportedDate" class="col-sm-3 control-label">Reported Date</label>
 		<div class="col-sm-9">
-			<input type="text" ng-model="claim.reportedDate" id="reportedDate" name="reportedDate" class="form-control" required="required">
+			<input type="date" ng-model="claim.reportedDate" id="reportedDate" name="reportedDate" value="{{date | date:'yyyy-MM-dd'}}" class="form-control" required="required">
 		</div>
 	</div>
 	<div class="form-group">

@@ -26,9 +26,7 @@
 			<div class="form-group">
 				<label for="ID" class="col-sm-3 control-label">ID</label>
 				<div class="col-sm-9">
-					<div class="col-sm-9">
-					<label for="ID" class="col-sm-3 control-label">bugId</label>
-				</div>
+					<input type="text" id="ID" name="userName" ng-model="bugId" class="form-control" readonly="readonly">
 				</div>
 			</div>
 			<div class="form-group">
@@ -79,10 +77,12 @@
 				<div class="col-sm-9">
 					<input type="textarea" id="notes" name="notes" ng-model="report.notes" class="form-control" required="required">
 				</div>
+				</div>
+				
 				<div class="form-group">
 				<label for="notes" class="col-sm-3 control-label">URL</label>
 				<div class="col-sm-9">
-					<input type="textarea" id="url" name="notes" ng-model="report.url" class="form-control" required="required">
+					<input type="text" id="url" name="notes" ng-model="report.url" class="form-control" required="required">
 				</div>
 			</div>
 			<div class="form-group">

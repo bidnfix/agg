@@ -517,7 +517,6 @@ routingApp.controller('ReportBugController', function($scope, $http) {
 	
 	$http.get("/agg/bugId")
     .then(function(response) {
-    	alert(response.data.data.bugId);
         $scope.bugId = response.data.data.bugId;
     });
 	

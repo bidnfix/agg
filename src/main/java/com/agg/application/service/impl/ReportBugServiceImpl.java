@@ -45,9 +45,9 @@ public class ReportBugServiceImpl implements ReportBugService {
 	@Override
 	public Integer getBugId() {
 		
-		//Integer bugId = reportBugDAO.findMaxReportId();
+		Integer bugId = reportBugDAO.findMaxReportId();
 		
-		return 55;
+		return bugId;
 	}
 	
 	
