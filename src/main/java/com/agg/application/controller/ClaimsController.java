@@ -9,15 +9,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.agg.application.entity.Quote;
+import com.agg.application.model.ClaimsDO;
 import com.agg.application.model.QuoteDO;
 import com.agg.application.model.Result;
 import com.agg.application.service.ClaimsService;
@@ -68,4 +69,13 @@ public class ClaimsController extends BaseController {
 		model.put("quoteInfoList", quoteInfoList);
 		return new Result("success", null, model);	
 	}*/
+	
+	@RequestMapping(value = "/saveClaim", method = RequestMethod.POST)
+	public @ResponseBody Result saveClaim(@RequestBody ClaimsDO claimsDO, BindingResult result,
+			HttpServletRequest request, HttpServletResponse response) {
+		logger.debug("In saveClaim ");
+
+		Long id = claimsService.saveClaim(claimsDO);
+		return new Result("success", null, id);
+	}
 }

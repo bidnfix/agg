@@ -13,6 +13,7 @@ import com.agg.application.dao.ManufacturerDAO;
 import com.agg.application.dao.QuoteDAO;
 import com.agg.application.entity.Manufacturer;
 import com.agg.application.entity.Quote;
+import com.agg.application.model.ClaimsDO;
 import com.agg.application.model.ManufacturerDO;
 import com.agg.application.model.QuoteDO;
 import com.agg.application.service.ClaimsService;
@@ -149,6 +150,11 @@ public class ClaimsServiceImpl implements ClaimsService {
 		}
 		//logger.debug("quoteDOList size: "+quoteDOList.size());
 		return quoteDO;
+	}
+	
+	public Long saveClaim(ClaimsDO claimsDO)
+	{
+		return new Long(2);
 	}
 	
 	}

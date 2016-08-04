@@ -1,12 +1,10 @@
 'use strict';
 
-routingApp.controller('bugController', function($scope, reportaBugService, $location, $http) {
+routingApp.controller('claimController', function($scope, claimService, $location, $http) {
 	$scope.report={};
 	$scope.submitBug = function() {
 		alert("In submitBug");
 		reportaBugService.saveBug($scope.report);
     };
-    
-
     
 });
