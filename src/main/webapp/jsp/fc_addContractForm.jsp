@@ -1,4 +1,4 @@
-<form class="form-horizontal" role="form" ng-controller="dealerController" ng-submit="submitClaim()">
+<form class="form-horizontal" role="form" ng-submit="submitClaim()">
 	<div class="form-group">
 		<label for="claimNo" class="col-sm-3 control-label">Claim #</label>
 		<div class="col-sm-9">

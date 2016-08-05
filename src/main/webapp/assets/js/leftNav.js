@@ -253,7 +253,7 @@ routingApp.controller('GetProgramsController', function($scope, $http, $timeout,
 		$http.get("/agg/programs/"+programId)
 	    .then(function(response) {
 	        $scope.program = response.data.data.program;
-	        alert($scope.program.id);
+	        alert($scope.program.prId);
 	       /* $scope.dealer = {
 	        	userName: $scope.dealerr.userName,	
 	        	state: $scope.dealerr.state

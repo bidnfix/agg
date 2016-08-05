@@ -11,23 +11,6 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', functi
 			$scope.showContractDetails = true;
 			initClaimAddForm($scope);
 		},
-		saveClaim : function(claim) {
-			alert('in saveClaim');
-			return $http.post('/agg/saveClaim', claim).then(
-					function(response) {
-						alert(response.data.status);
-						if (response.data.status == 'success') {
-							$window.location = '#/agg/fileClaim';
-						} else {
-							alert('error in adding program: '+response.data.errMessage)
-							//$('#errMsg').html(response.data.errMessage);
-						}
-						
-					}, function(errResponse) {
-						alert('Error while creating program');
-						return $q.reject(errResponse);
-					});
-		},
 		initClaimAddForm = function($scope){
 			$scope.claim={};
 			var initDatepicker = function(){
@@ -94,6 +77,23 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', functi
     				$scope.showContractDetails = false;
     			}
     		});
+		},
+		saveClaim : function(claim) {
+			alert('in saveClaim');
+			return $http.post('/agg/saveClaim', claim).then(
+					function(response) {
+						alert(response.data.status);
+						if (response.data.status == 'success') {
+							$window.location = '#/agg/fileClaim';
+						} else {
+							alert('error in adding program: '+response.data.errMessage)
+							//$('#errMsg').html(response.data.errMessage);
+						}
+						
+					}, function(errResponse) {
+						alert('Error while creating program');
+						return $q.reject(errResponse);
+					});
 		},
 		selectContract : selectContract
 	}

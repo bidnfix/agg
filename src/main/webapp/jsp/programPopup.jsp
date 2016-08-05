@@ -10,7 +10,7 @@
 	</div>
 	
 		<div class="modal-body">
-		<form class="form-horizontal" role="form">
+		<form class="form-horizontal" role="form" ng-submit="editProgram()">
 			<h2>Edit Program</h2>
 			<div class="form-group">
 				<label for="programName" class="col-sm-3 control-label">Program Name</label>
@@ -21,13 +21,13 @@
 			<div class="form-group">
 				<label for="description" class="col-sm-3 control-label">Description</label>
 				<div class="col-sm-9">
-					<input type="text" id="description" name="description" ng-model="program.description" placeholder="description" class="form-control" required="required">
+					<input type="text" id="description" name="description" ng-model="program.desc" placeholder="description" class="form-control" required="required">
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="dealerName" class="col-sm-3 control-label">Dealer Name</label>
 				<div class="col-sm-9">
-					<input type="text" id="dealerName" name="dealerName" ng-model="program.dealerName" placeholder="Dealer name" class="form-control" required="required">
+					<input type="text" id="dealerName" name="dealerName" ng-model="program.dealerDO.name" placeholder="Dealer name" class="form-control" required="required">
 				</div>
 			</div>
 			

@@ -75,7 +75,7 @@ public class ProgramServiceImpl implements ProgramService {
 				
 				programDO.setName(program.getPrName());
 				programDO.setcType(program.getPrCType());
-				
+				programDO.setPrId(program.getPrId());
 				
 				dealerDO = new DealerDO();
 				Dealer dealer = program.getDealer();
@@ -149,7 +149,7 @@ public class ProgramServiceImpl implements ProgramService {
 	public ProgramDO getProgram(Long id) {
 		Sprogram sProgram = programDAO.findOne(id);
 		ProgramDO program = new ProgramDO();
-		program.setId(sProgram.getPrId());
+		program.setPrId(sProgram.getPrId());
 		program.setName(sProgram.getPrName());
 		program.setDesc(sProgram.getPrDesc());
 		program.setcType(sProgram.getPrCType());

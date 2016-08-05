@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 
 public class ProgramDO {
 	
-	private Long id;
+	private Long prId;
 
 	private byte aServicing;
 
@@ -65,12 +65,14 @@ public class ProgramDO {
 		this.machineInfoDO = machineInfoDO;
 	}
 
-	public Long getId() {
-		return id;
+	
+
+	public Long getPrId() {
+		return prId;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setPrId(Long prId) {
+		this.prId = prId;
 	}
 
 	public byte getaServicing() {
