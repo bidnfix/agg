@@ -199,6 +199,7 @@ public class QuoteServiceImpl implements QuoteService {
 		quote = quoteDAO.save(quote);
 		
 		if(quote != null && quote.getId() != null){
+			logger.info("quoteId: "+quote.getId().getQuoteId()+" and id: "+quote.getId().getId());
 			quoteDO.setQuoteId(quote.getId().getQuoteId());
 			quoteDO.setId(quote.getId().getId());
 		}

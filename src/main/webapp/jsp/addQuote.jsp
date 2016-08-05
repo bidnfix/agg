@@ -1,7 +1,7 @@
 <!-- Article main content -->
 			<article class="col-md-9 maincontent">
 				<header class="page-header">
-					<div><span>Dealer: {{quote.dealerDO.name}}</span><span>Quote ID: {{quoteId}}</span><span>Quote Status: {{quoteStatus}}</span></div>
+					<div><span>{{(quote.dealerDO.name != null && quote.dealerDO.name != "")?"Dealer: "+quote.dealerDO.name:""}}</span>&nbsp;&nbsp;<span>{{(quote.quoteId != null && quote.quoteId != "")?"Quote ID: "+quote.quoteId:""}}</span>&nbsp;&nbsp;<span>{{(quote.serialNumber != null && quote.serialNumber != "")?"Serial#: "+quote.serialNumber:""}}</span>&nbsp;&nbsp;<span>{{(quote.quoteStatus != null && quote.quoteStatus != "")?"Quote Status: "+quote.quoteStatus:""}}</span></div>
 				</header>
 				
  <div class="o-container">

@@ -132,6 +132,8 @@ public class QuoteController extends BaseController {
 		}else{
 			quoteService.saveWarrantyInfo(quoteDO);
 			
+			logger.info("quoteId: "+quoteDO.getQuoteId()+" and id: "+quoteDO.getId());
+			
 			opResult = new Result("success", "Quote Info", quoteDO);
 		}
 		

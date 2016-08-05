@@ -7,7 +7,9 @@ routingApp.factory('quoteService', function($http, $q, $window) {
 					function(response) {
 						alert(response.data.status);
 						if (response.data.status == 'success') {
-							$window.location.href = '#/agg/dealers';
+							alert(response.data.data);
+							$scope.quote = response.data.data;
+							//$window.location.href = '#/agg/dealers';
 						} else {
 							alert('error in adding Quote Warranty Info: '+response.data.errMessage)
 							//$('#errMsg').html(response.data.errMessage);
