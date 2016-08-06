@@ -239,7 +239,7 @@ routingApp.controller('AddDealerController', function($scope, $http) {
 	    });
 });
 
-routingApp.controller('GetProgramsController', function($scope, $http, $timeout, $window) {
+routingApp.controller('GetProgramsController', function($scope, programService, $http, $timeout) {
 	$http.get("/agg/programs")
     .then(function(response) {
         $scope.programsList = response.data.data.programs;
@@ -266,6 +266,11 @@ routingApp.controller('GetProgramsController', function($scope, $http, $timeout,
 	    $('#programEditPopup').css("left", x+"px");
 	    $('#programEditPopup').css("top", y+"px");
 	    $('#programEditPopup').show();
+    };
+    
+    $scope.editProgramDetails = function() {
+		alert("In editProgram");
+		programService.editProgram($scope.program, $scope);
     };
     
 	$scope.deleteProgram = function(programId) {

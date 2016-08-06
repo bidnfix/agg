@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.agg.application.model.GroupDO;
+import com.agg.application.model.MachineDO;
 import com.agg.application.model.MachineTypeDO;
 import com.agg.application.model.ManufacturerDO;
 import com.agg.application.model.ProgramDO;
@@ -51,7 +52,7 @@ public class ProgramController extends BaseController {
 /*		if (!sessionExists(request))
 			return "login";*/
 		model.put("programs", programService.getPrograms(getAccountDetails(request)));
-		return new Result("success", null, model);	
+		return new Result("success", null, model);
 	}
 
 	/*@RequestMapping(value = "/addPrograms", method = RequestMethod.GET)
@@ -95,5 +96,27 @@ public class ProgramController extends BaseController {
 		logger.debug("In getOneProgram ");
 		programService.deleteProgram(id);
 		return new Result("success", null, true);	
+	}
+	
+	@RequestMapping(value = "/editProgram", method = RequestMethod.POST)
+	public @ResponseBody Result editProgram(@RequestBody ProgramDO programDO, BindingResult result,
+			HttpServletRequest request, HttpServletResponse response) {
+		logger.debug("In saveOrEditMachine with groupId: "+programDO.getPrId());
+		Result opResult = null;
+		/*if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			if (result.hasErrors()){
+				opResult = new Result("failure", "Invalid dealer form field values", null);
+			}*/
+	
+			long id = programService.editProgram(programDO);
+			if(id > 0){
+				opResult = new Result("success", "Invalid Machine form field values", null);
+			}
+			
+		//}
+		
+		return opResult;
 	}
 }

@@ -6,6 +6,8 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,7 @@ import com.agg.application.entity.MachineInfo;
 import com.agg.application.entity.Sprogram;
 import com.agg.application.model.AccountDO;
 import com.agg.application.model.DealerDO;
+import com.agg.application.model.MachineDO;
 import com.agg.application.model.MachineInfoDO;
 import com.agg.application.model.ProgramDO;
 import com.agg.application.service.ProgramService;
@@ -171,5 +174,24 @@ public class ProgramServiceImpl implements ProgramService {
 		Sprogram sProgram = programDAO.findOne(id);
 		programDAO.delete(id);;
 	}
+	
+	@Override
+	@Transactional
+	public long editProgram(ProgramDO programDO) {
+		logger.debug("In editProgram : "+programDO.getPrId());
+		Sprogram sProgram = programDAO.findOne(programDO.getPrId());
+		Timestamp date = new Timestamp(new Date().getTime());
+		
+		sProgram.setPrDesc(programDO.getDesc());
+		sProgram.setPrDesc(programDO.getDesc());
+		sProgram.setDealer(dealerDAO.findOne(Long.valueOf(programDO.getDealerDO().getId())));
+
+		sProgram.setPrLastUpdate(date);
+		
+		sProgram = programDAO.save(sProgram);
+		
+		return sProgram.getPrId();
+	}
+	
 }
 

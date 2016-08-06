@@ -7,8 +7,7 @@
              	<div class="col-md-8 col-sm-12">
 		<div class="sec-title">
                      
-				<h2 class="wow animated bounceInLeft">Dashboard</h2>
-				<p class="wow animated bounceInRight">The Key Features of our Tool</p>
+				<h2 class="wow animated bounceInLeft">Programs Info</h2>
 			</div>
                      </div>
                      <c:if test="${user.roleName eq 'admin'}">

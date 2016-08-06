@@ -14,5 +14,7 @@ public interface ProgramService {
 	ProgramDO getProgram(Long id);
 
 	void deleteProgram(Long id);
+	
+	long editProgram(ProgramDO programDO);
 
 }
