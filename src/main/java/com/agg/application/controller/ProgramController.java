@@ -54,6 +54,16 @@ public class ProgramController extends BaseController {
 		model.put("programs", programService.getPrograms(getAccountDetails(request)));
 		return new Result("success", null, model);
 	}
+	
+	
+	@RequestMapping(value = "/programAsDealer", method = RequestMethod.GET)
+	public @ResponseBody Result listProgramsForDealer(Map<String, Object> model, HttpServletRequest request, HttpServletResponse response) {
+
+/*		if (!sessionExists(request))
+			return "login";*/
+		model.put("programList", programService.getPrograms(getAccountDetails(request)));
+		return new Result("success", null, model);
+	}
 
 	/*@RequestMapping(value = "/addPrograms", method = RequestMethod.GET)
 	public String addPrograms(Model model, HttpServletRequest request, HttpServletResponse response) {
