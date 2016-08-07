@@ -45,6 +45,11 @@ routingApp.config(['$routeProvider',
                     	  controller: 'GetProgramsController'
                     	
                       }).
+                      when('/agg/programAsDealer', {
+                    	  templateUrl: '../../jsp/programsAsDealer.jsp',
+                    	  controller: 'GetProgramsController'
+                    	
+                      }).
                       when('/agg/addPrograms', {
                     	  templateUrl: '../../jsp/addPrograms.jsp',
                     	  controller: 'AddProgramsController'
