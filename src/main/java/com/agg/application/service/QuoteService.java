@@ -16,4 +16,6 @@ public interface QuoteService {
 	public List<PricingDO> getCoveragePriceDetils(boolean coverageExpired, long machineId, int deductibleAmt, int coverageTerm);
 	
 	public void saveWarrantyInfo(QuoteDO quoteDO);
+	
+	public void saveMachineInfo(QuoteDO quoteDO);
 }

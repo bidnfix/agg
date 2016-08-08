@@ -143,6 +143,8 @@ public class QuoteDO {
 	
 	private String dealerEmail;
 	
+	private String statusDesc;
+	
 	
 	public int getcPtHHours() {
 		return cPtHHours;
@@ -915,5 +917,19 @@ public class QuoteDO {
 	public void setDealerEmail(String dealerEmail) {
 		this.dealerEmail = dealerEmail;
 	}
-	
+
+	/**
+	 * @return the statusDesc
+	 */
+	public String getStatusDesc() {
+		return statusDesc;
+	}
+
+	/**
+	 * @param statusDesc the statusDesc to set
+	 */
+	public void setStatusDesc(String statusDesc) {
+		this.statusDesc = statusDesc;
+	}
+
 }

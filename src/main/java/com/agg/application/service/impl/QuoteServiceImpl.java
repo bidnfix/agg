@@ -1,7 +1,6 @@
 package com.agg.application.service.impl;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -19,6 +18,7 @@ import com.agg.application.dao.PricingDAO;
 import com.agg.application.dao.QuoteDAO;
 import com.agg.application.dao.UseOfEquipmentDAO;
 import com.agg.application.entity.MachineInfo;
+import com.agg.application.entity.Manufacturer;
 import com.agg.application.entity.Quote;
 import com.agg.application.entity.QuotePK;
 import com.agg.application.entity.UseOfEquip;
@@ -114,6 +114,16 @@ public class QuoteServiceImpl implements QuoteService {
 		if(quoteDO.getId() != 0 && quoteDO.getId() > 0 && quoteDO.getQuoteId() != null && !quoteDO.getQuoteId().isEmpty()){
 			QuotePK quotePK = new QuotePK(quoteDO.getQuoteId(), quoteDO.getId());
 			quote = quoteDAO.findOne(quotePK);
+		}else if(quoteDO.getQuoteId() != null && !quoteDO.getQuoteId().isEmpty()){
+			quote = quoteDAO.findByIdQuoteId(quoteDO.getQuoteId());
+			if(quote == null){
+				quote = new Quote();
+				QuotePK quotePK = new QuotePK();
+				quotePK.setQuoteId(quoteDO.getQuoteId());
+				
+				quote.setId(quotePK);
+				quote.setStatus((byte)1);
+			}
 		}else{
 			quote = new Quote();
 			String quoteId = Util.getQuoteId(AggConstants.CHARSET_AZ_09, AggConstants.QUOTE_ID_LENGTH);
@@ -202,9 +212,95 @@ public class QuoteServiceImpl implements QuoteService {
 			logger.info("quoteId: "+quote.getId().getQuoteId()+" and id: "+quote.getId().getId());
 			quoteDO.setQuoteId(quote.getId().getQuoteId());
 			quoteDO.setId(quote.getId().getId());
+			if(quote.getStatus() == 1){
+				quoteDO.setStatusDesc(AggConstants.QUOTE_STATUS_ESTIMATING_PRICE);
+			}else if(quote.getStatus() == 4){
+				quoteDO.setStatusDesc(AggConstants.QUOTE_STATUS_PURCHASE_REQUESTED);
+			}else if(quote.getStatus() == 5){
+				quoteDO.setStatusDesc(AggConstants.QUOTE_STATUS_INVOICED);
+			}
 		}
 	}
-
+	
+	@Override
+	public void saveMachineInfo(QuoteDO quoteDO) {
+		Quote quote = null;
+		if(quoteDO.getId() != 0 && quoteDO.getId() > 0 && quoteDO.getQuoteId() != null && !quoteDO.getQuoteId().isEmpty()){
+			QuotePK quotePK = new QuotePK(quoteDO.getQuoteId(), quoteDO.getId());
+			quote = quoteDAO.findOne(quotePK);
+		}else if(quoteDO.getQuoteId() != null && !quoteDO.getQuoteId().isEmpty()){
+			quote = quoteDAO.findByIdQuoteId(quoteDO.getQuoteId());
+			if(quote == null){
+				quote = new Quote();
+				QuotePK quotePK = new QuotePK();
+				quotePK.setQuoteId(quoteDO.getQuoteId());
+				
+				quote.setId(quotePK);
+				quote.setStatus((byte)1);
+			}
+		}
+		if(quote != null){
+			quote.setDealer(dealerDAO.findOne(quoteDO.getDealerDO().getId()));
+			quote.setManfExpired((quoteDO.isCoverageExpired())?(byte)1:(byte)0);
+			quote.setManfEndDate(quoteDO.getCoverageEndDate());
+			quote.setManfEndKnown((quoteDO.isCoverageEndDateUnknown())?(byte)1:(byte)0);
+			quote.setManfVerified((quoteDO.isCoverageEndDateVerified())?(byte)1:(byte)0);
+			quote.setPtHours(quoteDO.getPowerTrainHours());
+			quote.setPtMonths(quoteDO.getPowerTrainMonths());
+			quote.setHHours(quoteDO.getHydraulicsHours());
+			quote.setHMonths(quoteDO.getHydraulicsMonths());
+			quote.setMachineHours(quoteDO.getFullMachineHours());
+			quote.setMachineMonths(quoteDO.getFullMachineMonths());
+			quote.setOtherProv("");
+			
+			Manufacturer manufacturer = manufacturerDAO.findOne(quoteDO.getManufacturerDO().getId());
+			if(manufacturer != null){
+				quote.setManufacturer(manufacturer);
+				quote.setManfName(manufacturer.getManfName());
+			}
+			
+			MachineInfo machineInfo = machineInfoDAO.findOne(quoteDO.getMachineInfoDO().getMachineId());
+			if(machineInfo != null){
+				quote.setMachineModel(machineInfo.getModel());
+				quote.setMachineInfo(machineInfo);
+				quote.setGroupId(new Long(machineInfo.getGroupConstant().getGroupId()).intValue());
+			}
+			
+			quote.setMachinePower(quoteDO.getHorsePower());
+			quote.setMachineSerial(quoteDO.getSerialNumber());
+			quote.setMachineRetailPrice(quoteDO.getRetailPrice());
+			quote.setMachineMeterHours(quoteDO.getMeterHours());
+			quote.setMachineYear(quoteDO.getModelYear());
+			/*if(quoteDO.getModelYear() > 0){
+				Calendar cal = Calendar.getInstance();
+				cal.set(Calendar.YEAR, quoteDO.getModelYear());
+				quote.setMachineYear(cal.getTime());
+			}*/
+			quote.setUseOfEquip(useOfEquipmentDAO.findOne(quoteDO.getUseOfEquipmentDO().getId()));
+			quote.setMachineSaleDate(quoteDO.getEstSaleDate());
+			quote.setIsArchive((short)0);
+			quote.setCreateDate(new Date());
+			quote.setPrId(0);
+			quote.setServicingDealer(0);
+			quote.setLastUpdate(new Date());
+			
+			quote = quoteDAO.save(quote);
+			
+			if(quote != null && quote.getId() != null){
+				logger.info("quoteId: "+quote.getId().getQuoteId()+" and id: "+quote.getId().getId());
+				quoteDO.setQuoteId(quote.getId().getQuoteId());
+				quoteDO.setId(quote.getId().getId());
+				if(quote.getStatus() == 1){
+					quoteDO.setStatusDesc(AggConstants.QUOTE_STATUS_ESTIMATING_PRICE);
+				}else if(quote.getStatus() == 4){
+					quoteDO.setStatusDesc(AggConstants.QUOTE_STATUS_PURCHASE_REQUESTED);
+				}else if(quote.getStatus() == 5){
+					quoteDO.setStatusDesc(AggConstants.QUOTE_STATUS_INVOICED);
+				}
+			}
+		
+		}
+	}
 
 }
 

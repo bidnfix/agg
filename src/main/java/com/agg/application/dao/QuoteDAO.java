@@ -18,4 +18,7 @@ public interface QuoteDAO extends CrudRepository<Quote, QuotePK> {
 	
 	@Query("SELECT q FROM Quote q WHERE q.machineSerial LIKE CONCAT('%', :machineSerial, '%')")
 	List<Quote> findByMachineSerial(@Param("machineSerial") String serialNo);
+	
+	public Quote findByIdQuoteId(String quoteId);
+	
 }

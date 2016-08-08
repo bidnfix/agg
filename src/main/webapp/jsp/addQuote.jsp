@@ -1,7 +1,7 @@
 <!-- Article main content -->
 			<article class="col-md-9 maincontent">
 				<header class="page-header">
-					<div><span>{{(quote.dealerDO.name != null && quote.dealerDO.name != "")?"Dealer: "+quote.dealerDO.name:""}}</span>&nbsp;&nbsp;<span>{{(quote.quoteId != null && quote.quoteId != "")?"Quote ID: "+quote.quoteId:""}}</span>&nbsp;&nbsp;<span>{{(quote.serialNumber != null && quote.serialNumber != "")?"Serial#: "+quote.serialNumber:""}}</span>&nbsp;&nbsp;<span>{{(quote.quoteStatus != null && quote.quoteStatus != "")?"Quote Status: "+quote.quoteStatus:""}}</span></div>
+					<div><span>{{(quote.dealerDO.name != null && quote.dealerDO.name != "")?"Dealer: "+quote.dealerDO.name:""}}</span>&nbsp;&nbsp;<span>{{(quote.quoteId != null && quote.quoteId != "")?"Quote ID: "+quote.quoteId:""}}</span>&nbsp;&nbsp;<span>{{(quote.serialNumber != null && quote.serialNumber != "")?"Serial#: "+quote.serialNumber:""}}</span>&nbsp;&nbsp;<span>{{(quote.statusDesc != null && quote.statusDesc != "")?"Quote Status: "+quote.statusDesc:""}}</span></div>
 				</header>
 				
  <div class="o-container">
@@ -42,7 +42,7 @@
 					<div class="form-group">
 						<label for="dealer" class="col-sm-5 control-label">Dealer</label>
 						<div class="col-sm-4">
-							<select class="form-control" name="dealer" ng-model="quote.dealerDO" id="dealer" ng-options="dealer.name for dealer in dealerList" ng-change="displayDealerText(quote.dealerDO)">
+							<select class="form-control" name="dealer" ng-model="quote.dealerDO" id="dealer" ng-options="dealer.name for dealer in dealerList track by dealer.id" ng-change="displayDealerText(quote.dealerDO)">
 								<option value="">Select Dealer</option>
 							</select>
 						</div>
@@ -162,7 +162,7 @@
 				<div class="form-group">
 					<label for="manufacturer" class="col-sm-3 control-label"><span class="man-field">*</span>Select Manufacturer</label>
 					<div class="col-sm-4">
-						<select class="form-control" name="manufacturer" ng-model="quote.manufacturerDO" ng-options="manufacturerObj.name for manufacturerObj in manufacturerList" ng-change="getMachineModel(quote.manufacturerDO)" required-message="'Please select manufacturer.'" required="required">
+						<select class="form-control" name="manufacturer" ng-model="quote.manufacturerDO" ng-options="manufacturerObj.name for manufacturerObj in manufacturerList track by manufacturerObj.id" ng-change="getMachineModel(quote.manufacturerDO)" required-message="'Please select manufacturer.'" required="required">
 							<option value="">Select Manufacturer</option>
 	     				</select> 
 					</div>
@@ -180,7 +180,7 @@
 				<div class="form-group">
 					<label for="machineModel" class="col-sm-3 control-label"><span class="man-field">*</span>Model Number</label>
 					<div class="col-sm-4">
-						<select class="form-control" name="machineModel" ng-model="quote.machineInfoDO" ng-options="machineModel.model group by machineModel.machineType for machineModel in machineModelList" required-message="'Please select valid Model Number.'" required="required">
+						<select class="form-control" name="machineModel" ng-model="quote.machineInfoDO" ng-options="machineModel.model group by machineModel.machineType for machineModel in machineModelList track by machineModel.machineId" required-message="'Please select valid Model Number.'" required="required">
 							<option value="">Model Number</option>
 						</select> 
 					</div>
@@ -258,7 +258,7 @@
 				<div class="form-group">
 					<label for="equipment" class="col-sm-3 control-label"><span class="man-field">*</span>Use of Equipment</label>
 					<div class="col-sm-4">
-						<select name="equipment" ng-model="quote.useOfEquipmentDO" class="form-control" ng-options="equipmentObj.equipName for equipmentObj in useOfEquipmentDOList" required-message="'Please select use of equipment.'" required="required">
+						<select name="equipment" ng-model="quote.useOfEquipmentDO" class="form-control" ng-options="equipmentObj.equipName for equipmentObj in useOfEquipmentDOList track by equipmentObj.id" required-message="'Please select use of equipment.'" required="required">
 							<option value="">Use of Equipment</option>
 						</select>&nbsp;<img src="/assets/images/info-icon.png" alt="Info" 
 								data-toggle="tooltip" 
@@ -295,7 +295,7 @@
 				<div class="form-group">
 					<label for="dealerMarkup" class="col-sm-3 control-label"></label>
 					<div class="col-sm-4">
-						<input type="text" id="dealerMarkup" name="dealerMarkup" ng-model="quote.dealerMarkup" placeholder="Dealer Markup" class="form-control">
+						<input type="text" id="dealerMarkup" name="dealerMarkup" ng-model="quote.dealerMarkup" placeholder="Dealer Markup" class="form-control" required="required">
 					</div>
 				</div>
 				<div class="form-group">
@@ -393,12 +393,12 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="dealerName" class="col-sm-3 control-label">Name/Nickname</label>
+					<label for="dealerName" class="col-sm-3 control-label"><span class="man-field">*</span>Name/Nickname</label>
 					<div class="col-sm-4">
 						<input type="text" id="dealerName" name="dealerName" ng-model="quote.dealerName" placeholder="Dealer Name" class="form-control" required="required">
 						<div class="checkbox">
                             <label>
-								<input type="checkbox" id="custUnderstandCoverage" name="custUnderstandCoverage" ng-model="quote.custUnderstandCoverage" ng-value="true">Customer understands coverage.
+								<input type="checkbox" id="custUnderstandCoverage" name="custUnderstandCoverage" ng-model="quote.custUnderstandCoverage" ng-value="true" ng-checked="true">Customer understands coverage.
 							</label>
 						</div>
 					</div>
@@ -409,7 +409,7 @@
 						<input type="text" id="dealerAddress" name="dealerAddress" ng-model="quote.dealerAddress" placeholder="Dealer Address" class="form-control">
 						<div class="checkbox">
                             <label>
-								<input type="checkbox" id="custRemorsePeriod" name="custRemorsePeriod" ng-model="quote.custRemorsePeriod" ng-value="true">Customer is aware of 90-day remorse period.
+								<input type="checkbox" id="custRemorsePeriod" name="custRemorsePeriod" ng-model="quote.custRemorsePeriod" ng-value="true" ng-checked="true">Customer is aware of 90-day remorse period.
 							</label>
 						</div>
 					</div>

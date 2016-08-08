@@ -392,6 +392,9 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService) {
 			if(index == 1){
 				quoteService.saveWarrantyInfo($scope.quote, $scope);
 			}else if(index == 2){
+				//saveing machineInfo
+				quoteService.saveMachineInfo($scope.quote, $scope);
+				
 				var coverageExpired = ($scope.quote.coverageExpired != null && $scope.quoteBasePrice == true)?true:false;
 				var machineId = $scope.quote.machineInfoDO.machineId;
 				$http.get("/agg/quote/coverageDeductInfo/"+coverageExpired+"/"+machineId)
@@ -402,8 +405,12 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService) {
 					
 					$scope.coverageTermSelected = $scope.coverageTermList[0];
 					$scope.deductiblePriceSelected = $scope.deductibleAmtList[0];
-				});  
+				});
+				
 			}else if(index == 3){
+				//saving coverage information
+				quoteService.saveCoverageInfo($scope.quote, $scope);
+				
 				if($scope.quote.coverageExpired != null && $scope.quote.coverageExpired == true){
 					$scope.machineCondition = 'Used';
 				}else if($scope.quote.coverageEndDate != null && ($scope.quote.coverageEndDate > $scope.date)){

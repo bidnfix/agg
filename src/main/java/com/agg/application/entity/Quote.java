@@ -80,9 +80,6 @@ public class Quote implements Serializable {
 	@Column(name="machine_model")
 	private String machineModel;
 
-	@Column(name="machine_model_num")
-	private String machineModelNum;
-
 	@Column(name="machine_months")
 	private int machineMonths;
 
@@ -99,12 +96,8 @@ public class Quote implements Serializable {
 	@Column(name="machine_serial")
 	private String machineSerial;
 
-	@Column(name="machine_uoe")
-	private String machineUoe;
-
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="machine_year")
-	private Date machineYear;
+	private int machineYear;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="manf_end_date")
@@ -141,12 +134,22 @@ public class Quote implements Serializable {
 
 	//bi-directional many-to-one association to Dealer
 	@ManyToOne
+	@JoinColumn(name="dealer_id")
 	private Dealer dealer;
 
 	//bi-directional many-to-one association to Manufacturer
 	@ManyToOne
 	@JoinColumn(name="manf_id")
 	private Manufacturer manufacturer;
+	
+	//bi-directional many-to-one association to Manufacturer
+	@ManyToOne
+	@JoinColumn(name="machine_model_id")
+	private MachineInfo machineInfo;
+	
+	@ManyToOne
+	@JoinColumn(name="machine_uoe")
+	private UseOfEquip useOfEquip;
 
 	public Quote() {
 	}
@@ -335,14 +338,6 @@ public class Quote implements Serializable {
 		this.machineModel = machineModel;
 	}
 
-	public String getMachineModelNum() {
-		return this.machineModelNum;
-	}
-
-	public void setMachineModelNum(String machineModelNum) {
-		this.machineModelNum = machineModelNum;
-	}
-
 	public int getMachineMonths() {
 		return this.machineMonths;
 	}
@@ -383,19 +378,17 @@ public class Quote implements Serializable {
 		this.machineSerial = machineSerial;
 	}
 
-	public String getMachineUoe() {
-		return this.machineUoe;
+	/**
+	 * @return the machineYear
+	 */
+	public int getMachineYear() {
+		return machineYear;
 	}
 
-	public void setMachineUoe(String machineUoe) {
-		this.machineUoe = machineUoe;
-	}
-
-	public Date getMachineYear() {
-		return this.machineYear;
-	}
-
-	public void setMachineYear(Date machineYear) {
+	/**
+	 * @param machineYear the machineYear to set
+	 */
+	public void setMachineYear(int machineYear) {
 		this.machineYear = machineYear;
 	}
 
@@ -503,4 +496,32 @@ public class Quote implements Serializable {
 		this.manufacturer = manufacturer;
 	}
 
+	/**
+	 * @return the machineInfo
+	 */
+	public MachineInfo getMachineInfo() {
+		return machineInfo;
+	}
+
+	/**
+	 * @param machineInfo the machineInfo to set
+	 */
+	public void setMachineInfo(MachineInfo machineInfo) {
+		this.machineInfo = machineInfo;
+	}
+
+	/**
+	 * @return the useOfEquip
+	 */
+	public UseOfEquip getUseOfEquip() {
+		return useOfEquip;
+	}
+
+	/**
+	 * @param useOfEquip the useOfEquip to set
+	 */
+	public void setUseOfEquip(UseOfEquip useOfEquip) {
+		this.useOfEquip = useOfEquip;
+	}
+	
 }

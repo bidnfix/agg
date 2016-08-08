@@ -19,5 +19,11 @@ public class AggConstants {
 	public static final char[] CHARSET_AZ_09 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".toCharArray();
 	
 	public static final int QUOTE_ID_LENGTH = 5;
-
+	
+	public static final String QUOTE_STATUS_ESTIMATING_PRICE = "Estimating Price";
+	
+	public static final String QUOTE_STATUS_PURCHASE_REQUESTED = "Purchase Requested";
+	
+	public static final String QUOTE_STATUS_INVOICED = "Invoiced";
+	
 }
