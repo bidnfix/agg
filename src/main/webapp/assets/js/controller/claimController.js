@@ -6,7 +6,4 @@ routingApp.controller('claimController', function($scope, claimService, $locatio
 		alert("In submitClaim");
 		claimService.saveClaim($scope.claim);
     };
-    
-
-    
 });

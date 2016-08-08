@@ -18,10 +18,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.agg.application.model.ClaimsDO;
 import com.agg.application.model.QuoteDO;
 import com.agg.application.model.Result;
 import com.agg.application.service.ClaimsService;
+import com.agg.application.vo.ClaimsVO;
 
 @RestController
 @RequestMapping("/agg")
@@ -71,11 +71,11 @@ public class ClaimsController extends BaseController {
 	}*/
 	
 	@RequestMapping(value = "/saveClaim", method = RequestMethod.POST)
-	public @ResponseBody Result saveClaim(@RequestBody ClaimsDO claimsDO, BindingResult result,
+	public @ResponseBody Result saveClaim(@RequestBody ClaimsVO claimsVO, BindingResult result,
 			HttpServletRequest request, HttpServletResponse response) {
 		logger.debug("In saveClaim ");
 
-		Long id = claimsService.saveClaim(claimsDO);
+		Long id = claimsService.saveClaim(claimsVO);
 		return new Result("success", null, id);
 	}
 }

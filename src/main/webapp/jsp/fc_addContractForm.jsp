@@ -12,7 +12,8 @@
 			Date</label>
 		<div class="col-sm-9">
 			<input type="date" ng-model="claim.failureDate" id="failureDate"
-				name="failureDate" value="{{date | date:'yyyy-MM-dd'}}"
+				name="failureDate" value="{{date | date:'yyyy-MM-dd'}}" 
+				ngMax="{{failureDateValid}}" max="{{failureDateValid | date:'yyyy-MM-dd'}}"
 				class="form-control" required="required">
 		</div>
 	</div>
@@ -22,6 +23,7 @@
 		<div class="col-sm-9">
 			<input type="date" ng-model="claim.reportedDate" id="reportedDate"
 				name="reportedDate" value="{{date | date:'yyyy-MM-dd'}}"
+				ngMax="{{todayDate}}" max="{{todayDate | date:'yyyy-MM-dd'}}"
 				class="form-control" required="required">
 		</div>
 	</div>

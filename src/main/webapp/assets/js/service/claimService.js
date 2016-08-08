@@ -13,37 +13,8 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', functi
 		},
 		initClaimAddForm = function($scope){
 			$scope.claim={};
-			var initDatepicker = function(){
-				var getMaxClaimFailureDate = function(){
-					return $scope.claim.reportedDate - 1;
-				};
-				$scope.claim.reportedDate = new Date();
-				$scope.dateOptions1 = {
-				        maxDate: getMaxClaimFailureDate(),
-				        startingDay: 1
-				    };
-				$scope.dateOptions2 = {
-			        maxDate: new Date(),
-			        startingDay: 1
-			    };
-				$scope.format = 'dd.MM.yyyy';
-				$scope.fdtopen = function() {
-			    	$scope.popup1.opened = true;
-			    };
-			      
-				$scope.popup1 = {
-					opened: false
-				};
-				$scope.rdtopen = function() {
-			    	$scope.popup2.opened = true;
-			    };
-			      
-				$scope.popup2 = {
-					opened: false
-				};
-			};
-			initDatepicker();
-			
+			$scope.todayDate = new Date();
+			$scope.claim.reportedDate = $scope.todayDate;
 			$scope.claim.claimNo = 'CL555';
 			$scope.$watch('claim.laborHours * claim.hourlyRate', function(value){
 				$scope.claim.totalLaborCost = value;
@@ -51,6 +22,16 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', functi
 			$scope.$watchCollection('[claim.totalLaborCost, claim.totalPartsCost, claim.totalOtherCharges1, claim.totalOtherCharges2]', function(newValues){
 				$scope.claim.totalClaimCost = parseInt(newValues[0]) + parseInt(newValues[1]) + parseInt(newValues[2]) + parseInt(newValues[3]);
 			});
+			$scope.$watch('claim.reportedDate', function(newValues){
+				$scope.failureDateValid = updateDate($scope.claim.reportedDate, -1);
+				$scope.claim.failureDate = $scope.failureDateValid;
+			});
+		},
+		updateDate = function(date, days){
+			if(!date){
+				date = new Date();
+			}
+			return new Date(date.getTime()  + (days*24*60*60*1000));
 		};
 		
 	return {
