@@ -9,14 +9,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.agg.application.dao.ClaimsDAO;
 import com.agg.application.dao.ManufacturerDAO;
 import com.agg.application.dao.QuoteDAO;
 import com.agg.application.entity.Manufacturer;
 import com.agg.application.entity.Quote;
+import com.agg.application.model.ClaimsDO;
 import com.agg.application.model.ManufacturerDO;
 import com.agg.application.model.QuoteDO;
 import com.agg.application.service.ClaimsService;
-import com.agg.application.vo.ClaimsVO;
 import com.google.common.collect.Lists;
 
 @Service
@@ -29,6 +30,9 @@ public class ClaimsServiceImpl implements ClaimsService {
 	
 	@Autowired
 	private ManufacturerDAO manufacturerDAO;
+	
+	@Autowired
+	private ClaimsDAO claimsDAO;
 	
 	public List<QuoteDO> getClaimsInfo()
 	{
@@ -152,7 +156,7 @@ public class ClaimsServiceImpl implements ClaimsService {
 		return quoteDO;
 	}
 	
-	public Long saveClaim(ClaimsVO claimsVO)
+	public Long saveClaim(ClaimsDO claimsVO)
 	{
 		return new Long(2);
 	}

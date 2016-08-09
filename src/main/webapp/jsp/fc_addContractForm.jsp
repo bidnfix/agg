@@ -154,7 +154,7 @@
 	</div>
 	<div class="form-group">
 		<div class="col-sm-9 col-sm-offset-3">
-			<button type="submit" class="btn btn-primary btn-block">Submit Claim</button>
+			<button type="submit" class="btn btn-primary btn-block" ng-disabled="isSubmitDisabled">Submit Claim</button>
 		</div>
 	</div>
 

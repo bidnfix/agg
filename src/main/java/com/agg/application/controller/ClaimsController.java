@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.agg.application.model.ClaimsDO;
 import com.agg.application.model.QuoteDO;
 import com.agg.application.model.Result;
 import com.agg.application.service.ClaimsService;
@@ -74,8 +75,8 @@ public class ClaimsController extends BaseController {
 	public @ResponseBody Result saveClaim(@RequestBody ClaimsVO claimsVO, BindingResult result,
 			HttpServletRequest request, HttpServletResponse response) {
 		logger.debug("In saveClaim ");
-
-		Long id = claimsService.saveClaim(claimsVO);
+		
+		Long id = claimsService.saveClaim(new ClaimsDO());
 		return new Result("success", null, id);
 	}
 }

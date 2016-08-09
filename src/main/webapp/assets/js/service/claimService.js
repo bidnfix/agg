@@ -12,6 +12,7 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', functi
 			initClaimAddForm($scope);
 		},
 		initClaimAddForm = function($scope){
+			$scope.isSubmitDisabled = false;
 			$scope.claim={};
 			$scope.todayDate = new Date();
 			$scope.claim.reportedDate = $scope.todayDate;
@@ -21,6 +22,7 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', functi
 			});
 			$scope.$watchCollection('[claim.totalLaborCost, claim.totalPartsCost, claim.totalOtherCharges1, claim.totalOtherCharges2]', function(newValues){
 				$scope.claim.totalClaimCost = parseInt(newValues[0]) + parseInt(newValues[1]) + parseInt(newValues[2]) + parseInt(newValues[3]);
+				$scope.isSubmitDisabled = $scope.claim.totalClaimCost > 1500;
 			});
 			$scope.$watch('claim.reportedDate', function(newValues){
 				$scope.failureDateValid = updateDate($scope.claim.reportedDate, -1);
