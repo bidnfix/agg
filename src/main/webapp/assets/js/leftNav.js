@@ -408,9 +408,6 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService) {
 				});
 				
 			}else if(index == 3){
-				//saving coverage information
-				quoteService.saveCoverageInfo($scope.quote, $scope);
-				
 				if($scope.quote.coverageExpired != null && $scope.quote.coverageExpired == true){
 					$scope.machineCondition = 'Used';
 				}else if($scope.quote.coverageEndDate != null && ($scope.quote.coverageEndDate > $scope.date)){
@@ -436,6 +433,9 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService) {
 				
 				$scope.totalCustPrice = $scope.dealerMarkupAmtPrice + $scope.quoteBasePrice;
 				$scope.totalDealerPrice = $scope.quoteBasePrice;
+				
+				//saving coverage information
+				quoteService.saveCoverageInfo($scope.quote, $scope);
 				
 			}
 		}

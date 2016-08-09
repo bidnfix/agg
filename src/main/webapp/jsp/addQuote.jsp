@@ -40,9 +40,9 @@
           	<form class="form-horizontal" name="warrantyInfoForm" id="warrantyInfoForm" angular-validator-submit="validateWarrantyInfoForm()" novalidate angular-validator>
             <div class="inner-main">
 					<div class="form-group">
-						<label for="dealer" class="col-sm-5 control-label">Dealer</label>
+						<label for="dealer" class="col-sm-5 control-label"><span class="man-field">*</span>Dealer</label>
 						<div class="col-sm-4">
-							<select class="form-control" name="dealer" ng-model="quote.dealerDO" id="dealer" ng-options="dealer.name for dealer in dealerList track by dealer.id" ng-change="displayDealerText(quote.dealerDO)">
+							<select class="form-control" name="dealer" ng-model="quote.dealerDO" id="dealer" ng-options="dealer.name for dealer in dealerList track by dealer.id" ng-change="displayDealerText(quote.dealerDO)" required>
 								<option value="">Select Dealer</option>
 							</select>
 						</div>
@@ -295,7 +295,7 @@
 				<div class="form-group">
 					<label for="dealerMarkup" class="col-sm-3 control-label"></label>
 					<div class="col-sm-4">
-						<input type="text" id="dealerMarkup" name="dealerMarkup" ng-model="quote.dealerMarkup" placeholder="Dealer Markup" class="form-control" required="required">
+						<input type="text" id="dealerMarkup" name="dealerMarkup" ng-model="quote.dealerMarkup" placeholder="Dealer Markup" class="form-control" required>
 					</div>
 				</div>
 				<div class="form-group">
@@ -395,21 +395,21 @@
 				<div class="form-group">
 					<label for="dealerName" class="col-sm-3 control-label"><span class="man-field">*</span>Name/Nickname</label>
 					<div class="col-sm-4">
-						<input type="text" id="dealerName" name="dealerName" ng-model="quote.dealerName" placeholder="Dealer Name" class="form-control" required="required">
+						<input type="text" id="dealerName" name="dealerName" ng-model="quote.dealerName" placeholder="Dealer Name" class="form-control" required>
 						<div class="checkbox">
                             <label>
-								<input type="checkbox" id="custUnderstandCoverage" name="custUnderstandCoverage" ng-model="quote.custUnderstandCoverage" ng-value="true" ng-checked="true">Customer understands coverage.
+								<input type="checkbox" id="custUnderstandCoverage" name="custUnderstandCoverage" ng-model="quote.custUnderstandCoverage" ng-value="true" ng-checked="true" required="required">Customer understands coverage.
 							</label>
 						</div>
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="dealerAddress" class="col-sm-3 control-label">Address</label>
+					<label for="dealerAddress" class="col-sm-3 control-label"><span class="man-field">*</span>Address</label>
 					<div class="col-sm-4">
 						<input type="text" id="dealerAddress" name="dealerAddress" ng-model="quote.dealerAddress" placeholder="Dealer Address" class="form-control">
 						<div class="checkbox">
                             <label>
-								<input type="checkbox" id="custRemorsePeriod" name="custRemorsePeriod" ng-model="quote.custRemorsePeriod" ng-value="true" ng-checked="true">Customer is aware of 90-day remorse period.
+								<input type="checkbox" id="custRemorsePeriod" name="custRemorsePeriod" ng-model="quote.custRemorsePeriod" ng-value="true" ng-checked="true" required="required">Customer is aware of 90-day remorse period.
 							</label>
 						</div>
 					</div>
@@ -417,11 +417,11 @@
 				<div class="form-group">
 					<label for="dealerCity" class="col-sm-3 control-label">City</label>
 					<div class="col-sm-4">
-						<input type="text" id="dealerCity" name="dealerCity" ng-model="quote.dealerCity" placeholder="Dealer City" class="form-control" required="required">
+						<input type="text" id="dealerCity" name="dealerCity" ng-model="quote.dealerCity" placeholder="Dealer City" class="form-control">
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="dealerState" class="col-sm-3 control-label">State/Province</label>
+					<label for="dealerState" class="col-sm-3 control-label"><span class="man-field">*</span>State/Province</label>
 					<div class="col-sm-4">
 						<select class="form-control" name="dealerState" ng-model="quote.dealerState" id="dealerState" required="required">
 							<option value="">Select State/Province</option>
@@ -493,19 +493,19 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="dealerZip" class="col-sm-3 control-label">Zip</label>
+					<label for="dealerZip" class="col-sm-3 control-label"><span class="man-field">*</span>Zip</label>
 					<div class="col-sm-4">
 						<input type="text" id="dealerZip" name="dealerZip" ng-model="quote.dealerZip" placeholder="Zip" class="form-control" required="required">
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="dealerPhone" class="col-sm-3 control-label">Phone Number</label>
+					<label for="dealerPhone" class="col-sm-3 control-label"><span class="man-field">*</span>Phone Number</label>
 					<div class="col-sm-4">
 						<input type="text" id="dealerPhone" name="dealerPhone" ng-model="quote.dealerPhone" placeholder="Phone Number" class="form-control" required="required">
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="dealerEmail" class="col-sm-3 control-label">Email Address</label>
+					<label for="dealerEmail" class="col-sm-3 control-label"><span class="man-field">*</span>Email Address</label>
 					<div class="col-sm-4">
 						<input type="text" id="dealerEmail" name="dealerEmail" ng-model="quote.dealerEmail" placeholder="Email" class="form-control" required="required"> 
 					</div>
@@ -522,7 +522,7 @@
         </div>
         <div class="c-tab">
           <div class="c-tab__content">
-          <form class="form-horizontal" name="coverageInfoForm" id="coverageInfoForm" angular-validator-submit="validateQuoteSummaryForm()" novalidate angular-validator>
+          <form class="form-horizontal" name="quoteSummaryForm" id="quoteSummaryForm" angular-validator-submit="validateQuoteSummaryForm()" novalidate angular-validator>
             <div class="inner-main">
           	<div class="form-group">
 				<label class="col-sm-9 control-label">

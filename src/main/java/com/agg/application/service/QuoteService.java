@@ -18,4 +18,6 @@ public interface QuoteService {
 	public void saveWarrantyInfo(QuoteDO quoteDO);
 	
 	public void saveMachineInfo(QuoteDO quoteDO);
+
+	public void saveCoverageInfo(QuoteDO quoteDO);
 }

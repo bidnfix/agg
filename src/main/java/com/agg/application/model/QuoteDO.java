@@ -145,6 +145,12 @@ public class QuoteDO {
 	
 	private String statusDesc;
 	
+	private int coverageHours;
+	
+	private double quoteBasePrice;
+	
+	private String coverageType;
+	
 	
 	public int getcPtHHours() {
 		return cPtHHours;
@@ -932,4 +938,46 @@ public class QuoteDO {
 		this.statusDesc = statusDesc;
 	}
 
+	/**
+	 * @return the coverageHours
+	 */
+	public int getCoverageHours() {
+		return coverageHours;
+	}
+
+	/**
+	 * @param coverageHours the coverageHours to set
+	 */
+	public void setCoverageHours(int coverageHours) {
+		this.coverageHours = coverageHours;
+	}
+
+	/**
+	 * @return the quoteBasePrice
+	 */
+	public double getQuoteBasePrice() {
+		return quoteBasePrice;
+	}
+
+	/**
+	 * @param quoteBasePrice the quoteBasePrice to set
+	 */
+	public void setQuoteBasePrice(double quoteBasePrice) {
+		this.quoteBasePrice = quoteBasePrice;
+	}
+
+	/**
+	 * @return the coverageType
+	 */
+	public String getCoverageType() {
+		return coverageType;
+	}
+
+	/**
+	 * @param coverageType the coverageType to set
+	 */
+	public void setCoverageType(String coverageType) {
+		this.coverageType = coverageType;
+	}
+	
 }
