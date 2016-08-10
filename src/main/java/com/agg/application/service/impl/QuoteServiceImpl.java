@@ -10,13 +10,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.agg.application.dao.CustomerInfoDAO;
 import com.agg.application.dao.DealerDAO;
 import com.agg.application.dao.MachineInfoDAO;
 import com.agg.application.dao.ManufacturerDAO;
 import com.agg.application.dao.PricingDAO;
 import com.agg.application.dao.QuoteDAO;
 import com.agg.application.dao.UseOfEquipmentDAO;
+import com.agg.application.entity.CustomerInfo;
 import com.agg.application.entity.MachineInfo;
 import com.agg.application.entity.Manufacturer;
 import com.agg.application.entity.Quote;
@@ -50,6 +53,9 @@ public class QuoteServiceImpl implements QuoteService {
 	
 	@Autowired
 	private ManufacturerDAO manufacturerDAO;
+	
+	@Autowired
+	private CustomerInfoDAO customerInfoDAO;
 
 	@Override
 	public List<UseOfEquipmentDO> getUseOfEquipmentDetails() {
@@ -298,6 +304,7 @@ public class QuoteServiceImpl implements QuoteService {
 	}
 	
 	@Override
+	@Transactional
 	public void saveCoverageInfo(QuoteDO quoteDO) {
 		Quote quote = null;
 		if(quoteDO.getId() != 0 && quoteDO.getId() > 0 && quoteDO.getQuoteId() != null && !quoteDO.getQuoteId().isEmpty()){
@@ -354,12 +361,29 @@ public class QuoteServiceImpl implements QuoteService {
 			quote.setDeductAmount(quoteDO.getDeductiblePrice());
 			quote.setCoverageTerm(quoteDO.getCoverageTerm());
 			quote.setCoverageLevelHours(quoteDO.getCoverageHours());
+			quote.setCoverageType(quoteDO.getCoverageType());
+			quote.setCoveragePrice(quoteDO.getQuoteBasePrice());
 			
 			quote.setIsArchive((short)0);
 			quote.setCreateDate(new Date());
 			quote.setPrId(0);
 			quote.setServicingDealer(0);
 			quote.setLastUpdate(new Date());
+			
+			CustomerInfo customerInfo = new CustomerInfo();
+			customerInfo.setQuoteId(quoteDO.getQuoteId());
+			customerInfo.setAddress(quoteDO.getDealerAddress());
+			customerInfo.setCity(quoteDO.getDealerCity());
+			customerInfo.setEmail(quoteDO.getDealerEmail());
+			customerInfo.setName(quoteDO.getDealerName());
+			customerInfo.setPhone(quoteDO.getDealerPhone());
+			customerInfo.setRemorse((byte)0);
+			customerInfo.setState(quoteDO.getDealerState());
+			customerInfo.setUnderstand((byte)1);
+			customerInfo.setZip(quoteDO.getDealerZip());
+			
+			//TODO
+			customerInfoDAO.save(customerInfo);
 			
 			quote = quoteDAO.save(quote);
 			

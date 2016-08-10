@@ -434,6 +434,9 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService) {
 				$scope.totalCustPrice = $scope.dealerMarkupAmtPrice + $scope.quoteBasePrice;
 				$scope.totalDealerPrice = $scope.quoteBasePrice;
 				
+				$scope.quote.coverageHours = $scope.coverageHours;
+				$scope.quote.quoteBasePrice = $scope.quoteBasePrice;
+				$scope.quote.coverageType = $scope.coverageType;
 				//saving coverage information
 				quoteService.saveCoverageInfo($scope.quote, $scope);
 				
