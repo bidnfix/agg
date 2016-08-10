@@ -58,7 +58,7 @@ public class ProgramController extends BaseController {
 	
 	@RequestMapping(value = "/programAsDealer", method = RequestMethod.GET)
 	public @ResponseBody Result listProgramsForDealer(Map<String, Object> model, HttpServletRequest request, HttpServletResponse response) {
-
+		logger.info("Inside listProgramsForDealer()");
 /*		if (!sessionExists(request))
 			return "login";*/
 		model.put("programList", programService.getPrograms(getAccountDetails(request)));

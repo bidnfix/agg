@@ -47,7 +47,7 @@ routingApp.config(['$routeProvider',
                       }).
                       when('/agg/programAsDealer', {
                     	  templateUrl: '../../jsp/programsAsDealer.jsp',
-                    	  controller: 'GetProgramsController'
+                    	  controller: 'ProgramAsDealerController'
                     	
                       }).
                       when('/agg/addPrograms', {
@@ -292,6 +292,8 @@ routingApp.controller('GetProgramsController', function($scope, programService, 
     
 });
 
+
+
 routingApp.controller('AddProgramsController', function($scope, $http) {
 	$http.get("/agg/addPrograms")
     .then(function(response) {
@@ -299,9 +301,15 @@ routingApp.controller('AddProgramsController', function($scope, $http) {
         $scope.dealerList = response.data.data.dealerList;
     });
 	
-    
-   
-	
+});
+
+routingApp.controller('ProgramAsDealerController', function($scope, $http) {
+	//alert("in ProgramAsDealerController");
+	$http.get("/agg/programAsDealer")
+    .then(function(response) {
+    	//alert(response.data.data.programList);
+        $scope.programList = response.data.data.programList;
+    });
 });
 
 routingApp.controller('AddDealerController', function($scope, $http) {
