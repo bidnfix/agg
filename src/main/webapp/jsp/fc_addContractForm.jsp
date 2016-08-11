@@ -1,8 +1,8 @@
-<form class="form-horizontal" role="form" ng-submit="submitClaim()">
+<form class="form-horizontal" role="form" ng-submit="onClickSubmitClaim()">
 	<div class="form-group">
 		<label for="claimNo" class="col-sm-3 control-label">Claim #</label>
 		<div class="col-sm-9">
-			<input type="text" ng-model="claim.claimNo" id="claimNo"
+			<input type="text" ng-model="claim.claimId" id="claimNo"
 				name="claimNo" class="form-control" required="required"
 				ng-readonly=true>
 		</div>
@@ -11,8 +11,8 @@
 		<label for="failureDate" class="col-sm-3 control-label">Failure
 			Date</label>
 		<div class="col-sm-9">
-			<input type="date" ng-model="claim.failureDate" id="failureDate"
-				name="failureDate" value="{{date | date:'yyyy-MM-dd'}}" 
+			<input type="date" ng-model="claim.failDate" id="failureDate"
+				name="failureDate" value="{{claim.failDate | date:'yyyy-MM-dd'}}" 
 				ngMax="{{failureDateValid}}" max="{{failureDateValid | date:'yyyy-MM-dd'}}"
 				class="form-control" required="required">
 		</div>
@@ -21,17 +21,17 @@
 		<label for="reportedDate" class="col-sm-3 control-label">Reported
 			Date</label>
 		<div class="col-sm-9">
-			<input type="date" ng-model="claim.reportedDate" id="reportedDate"
-				name="reportedDate" value="{{date | date:'yyyy-MM-dd'}}"
+			<input type="date" ng-model="claim.reportDate" id="reportedDate"
+				name="reportedDate" value="{{claim.reportDate | date:'yyyy-MM-dd'}}"
 				ngMax="{{todayDate}}" max="{{todayDate | date:'yyyy-MM-dd'}}"
-				class="form-control" required="required">
+					class="form-control" required="required"> 
 		</div>
 	</div>
 	<div class="form-group">
 		<label for="workOrderNo" class="col-sm-3 control-label">Work
 			Order #</label>
 		<div class="col-sm-9">
-			<input type="text" ng-model="claim.workOrderNo" id="workOrderNo"
+			<input type="text" ng-model="claim.workOrder" id="workOrderNo"
 				name="workOrderNo" class="form-control" required="required">
 		</div>
 	</div>
@@ -39,7 +39,7 @@
 		<label for="hoursBreakdown" class="col-sm-3 control-label">Hours
 			@ Breakdown</label>
 		<div class="col-sm-9">
-			<input type="text" ng-model="claim.hoursBreakdown"
+			<input type="text" ng-model="claim.hoursBreakDown"
 				id="hoursBreakdown" name="hoursBreakdown" class="form-control"
 				required="required">
 		</div>
@@ -48,7 +48,7 @@
 		<label for="laborHours" class="col-sm-3 control-label">Labor
 			Hours</label>
 		<div class="col-sm-9">
-			<input type="text" ng-model="claim.laborHours" id="laborHours"
+			<input type="text" ng-model="claim.labourHours" id="laborHours"
 				name="laborHours" class="form-control" required="required">
 		</div>
 	</div>
@@ -73,7 +73,7 @@
 		<label for="totalPartsCost" class="col-sm-3 control-label">Total
 			Parts Cost</label>
 		<div class="col-sm-9">
-			<input type="text" ng-model="claim.totalPartsCost"
+			<input type="text" ng-model="claim.partsTotal"
 				id="totalPartsCost" name="totalPartsCost" class="form-control"
 				required="required">
 		</div>
@@ -82,7 +82,7 @@
 		<label for="totalOtherCharges1" class="col-sm-3 control-label">Total
 			Other Charges (1)</label>
 		<div class="col-sm-9">
-			<input type="text" ng-model="claim.totalOtherCharges1"
+			<input type="text" ng-model="claim.otherCharges1"
 				id="totalOtherCharges1" name="totalOtherCharges1"
 				class="form-control" required="required">
 		</div>
@@ -91,7 +91,7 @@
 		<label for="totalOtherCharges2" class="col-sm-3 control-label">Total
 			Other Charges (2)</label>
 		<div class="col-sm-9">
-			<input type="text" ng-model="claim.totalOtherCharges2"
+			<input type="text" ng-model="claim.otherCharges2"
 				id="totalOtherCharges2" name="totalOtherCharges2"
 				class="form-control" required="required">
 		</div>
@@ -109,7 +109,7 @@
 		<label for="customerComplaint" class="col-sm-3 control-label">Customer
 			Complaint</label>
 		<div class="col-sm-9">
-			<input type="text" ng-model="claim.customerComplaint"
+			<input type="text" ng-model="claim.custComplaint"
 				id="customerComplaint" name="customerComplaint" class="form-control"
 				required="required">
 		</div>
@@ -118,7 +118,7 @@
 		<label for="causeofFailure" class="col-sm-3 control-label">Cause
 			of Failure</label>
 		<div class="col-sm-9">
-			<input type="text" ng-model="claim.causeofFailure"
+			<input type="text" ng-model="claim.causeFail"
 				id="causeofFailure" name="causeofFailure" class="form-control"
 				required="required">
 		</div>

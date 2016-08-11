@@ -363,6 +363,9 @@ routingApp.controller('ClaimsController', ['$scope', 'claimService', '$http', '$
     };
     $scope.onClickSelectContract = function(data){
     	claimService.selectContract($scope, data);
+    };
+    $scope.onClickSubmitClaim = function(){
+    	claimService.saveClaim($scope.claim);
     }
 }]);
 routingApp.controller('QuoteController', function($scope, $http, quoteService) {
