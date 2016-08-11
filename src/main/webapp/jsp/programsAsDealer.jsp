@@ -39,8 +39,8 @@
 							<label class="cols-sm-2 control-label" for="userName">Select a Program</label>
 							<div class="cols-sm-10">
 								<div class="input-group">
-									<select name="programName" ng-model="programDO" ng-options="program.name for program in programList" 
-										ng-change="getProgDetails()">
+									<select name="programName" ng-model="program.programDO" ng-options="program.name for program in programList" 
+										ng-change="getProgDetails(program.programDO)">
      								</select> 
 								</div>
 							</div>
@@ -51,7 +51,7 @@
 							<label class="cols-sm-2 control-label" for="password">Manufacturer</label>
 							<div class="cols-sm-10">
 								<div class="input-group">
-									<input type="text" ng-model="program.manufacturerDO.name" placeholder="manfName" id="manfName" name="manfName" class="form-control" required="required">
+									<input type="text" ng-model="program.manufacturerDO.name" placeholder="Manufacturer" id="manfName" name="manfName" class="form-control" required="required">
 								</div>
 							</div>
 						</div>
@@ -149,7 +149,7 @@
 							<label class="cols-sm-2 control-label" for="state">Type of Coverage</label>
 							<div class="cols-sm-10">
 								<div class="input-group">
-									<input type="text" id="city" name="city" ng-model="dealer.city" placeholder="City" class="form-control" required="required">
+									<input type="text" id="city" name="city" ng-model="program.cType" placeholder="Coverage type" class="form-control" required="required">
 								</div>
 							</div>
 						</div>
