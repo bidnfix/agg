@@ -57,20 +57,22 @@
 						</div>
                         
                         
-                        <div class="form-group">
-							<label class="cols-sm-2 control-label" for="name">Model</label>
-							<div class="cols-sm-10">
-								<div class="input-group">
-									<input type="text" ng-model="program.model" placeholder="Dealer Name" id="name" name="name" class="form-control" required="required">
-								</div>
-							</div>
+                       <div class="form-group">
+						<label for="name" class="col-sm-3 control-label">Model</label>
+						<div class="col-sm-9">
+							<!--  <select name="machine" ng-model="program.modelDO" ng-options="machine.name for machine in modelList">
+		     				</select> -->
+		     				<select size="5" id="myselection" multiple ng-multiple="true"
+					        ng-model="program.machineInfoDO" ng-options="machine.model for machine in machineModelList">
+					      </select> 
 						</div>
+					</div>	
                         
                         <div class="form-group">
 							<label class="cols-sm-2 control-label" for="firstName">Model Year</label>
 							<div class="cols-sm-10">
 								<div class="input-group">
-									<input type="text" id="modelYear" name="firstName" ng-model="dealer.firstName" placeholder="First Name" class="form-control" required="required">
+									<input type="text" id="modelYear" name="modelYear" ng-model="program." placeholder="First Name" class="form-control" required="required">
 								</div>
 							</div>
 						</div>

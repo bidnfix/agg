@@ -315,6 +315,15 @@ routingApp.controller('ProgramAsDealerController', function($scope, $http) {
 	 {
 		 alert(programDO.cType);
 		 $scope.program.cType = programDO.cType;
+		 $scope.program.cType = programDO.cType;
+		 $scope.program.cType = programDO.cType;
+		 $scope.program.cType = programDO.cType;
+		 $scope.program.cType = programDO.cType;
+		 $scope.program.cType = programDO.cType;
+		 $scope.program.cType = programDO.cType;
+		 $scope.program.cType = programDO.cType;
+		 $scope.program.cType = programDO.cType;
+		 $scope.program.cType = programDO.cType;
 
 	 }
 });
