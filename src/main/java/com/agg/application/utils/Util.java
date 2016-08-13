@@ -21,8 +21,30 @@ public class Util {
 		return list;
 	}
 	
+	/**
+	 * 
+	 * @param value
+	 * @param string
+	 * @return
+	 */
 	public static boolean isNotEmptyString(final String value){
 		return (null != value && !value.trim().equals(EMPTY));
+	}
+	
+	/**
+	 * sets empty string as default value
+	 */
+	public static String setDefaultStringValue(final String string){
+		return setDefaultStringValue(string, EMPTY);
+	}
+	
+	/**
+	 * sets given value string as default value to string
+	 * @param string
+	 * @param value
+	 */
+	public static String setDefaultStringValue(final String string, final String value){
+		return isNotEmptyString(string)?string:value;
 	}
 	
 	/**

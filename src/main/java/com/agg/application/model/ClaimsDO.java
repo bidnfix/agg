@@ -73,7 +73,7 @@ public class ClaimsDO {
 
 	private String preAuth;
 
-	private String quoteId;
+	private String contractId;
 
 	private Date reportDate;
 
@@ -329,12 +329,12 @@ public class ClaimsDO {
 		this.preAuth = preAuth;
 	}
 
-	public String getQuoteId() {
-		return this.quoteId;
+	public String getContractId() {
+		return this.contractId;
 	}
 
-	public void setQuoteId(String quoteId) {
-		this.quoteId = quoteId;
+	public void setContractId(String contractId) {
+		this.contractId = contractId;
 	}
 
 	public Date getReportDate() {

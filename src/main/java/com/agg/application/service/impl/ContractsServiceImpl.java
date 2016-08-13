@@ -17,10 +17,11 @@ import com.agg.application.dao.ContractsDAO;
 import com.agg.application.dao.ManufacturerDAO;
 import com.agg.application.dao.QuoteDAO;
 import com.agg.application.entity.Contracts;
+import com.agg.application.entity.Dealer;
 import com.agg.application.entity.Manufacturer;
 import com.agg.application.entity.Quote;
-import com.agg.application.entity.QuotePK;
 import com.agg.application.model.ContractDO;
+import com.agg.application.model.DealerDO;
 import com.agg.application.model.ManufacturerDO;
 import com.agg.application.service.ContractsService;
 import com.agg.application.utils.Util;
@@ -125,5 +126,33 @@ public class ContractsServiceImpl implements ContractsService{
 			}
 		}
 		return contractsDOList;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.agg.application.service.ContractsService#getDealer(java.lang.String)
+	 */
+	@Override
+	public DealerDO getDealer(String contractId) {
+		DealerDO dealerDO = null;
+		Contracts contract = contractDAO.findByContractId(contractId);
+		if(null != contract){
+			Quote quote = quoteDAO.findOne((int)contract.getQuoteId());
+			Dealer dealer = quote.getDealer();
+			if(null != dealer){
+				dealerDO = new DealerDO();
+				dealerDO.setId(dealer.getId());
+				dealerDO.setName(dealer.getName());
+				dealerDO.setCode(dealer.getCode());
+				dealerDO.setAddress1(dealer.getAddress());
+				dealerDO.setAddress2(dealer.getAddress2());
+				dealerDO.setCity(dealer.getCity());
+				dealerDO.setState(dealer.getState());
+				dealerDO.setZip(dealer.getZip());
+				dealerDO.setPhone(dealer.getPhone());
+				dealerDO.setInvoiceEmail(dealer.getInvoiceEmail());
+				dealerDO.setMarketEmail(dealer.getMarketEmail());
+			}
+		}
+		return dealerDO;
 	}
 }

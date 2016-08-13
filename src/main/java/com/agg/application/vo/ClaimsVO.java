@@ -13,7 +13,7 @@ import java.util.Date;
 
 public class ClaimsVO {
 	private String claimId;
-	private String quoteId;
+	private String contractId;
 	private String serial;
 	private Date failDate;
 	private Date reportDate;
@@ -34,16 +34,16 @@ public class ClaimsVO {
 	private String preAuth;
 	private byte isArchived;
 	/**
-	 * @return the quoteId
+	 * @return the contractId
 	 */
-	public String getQuoteId() {
-		return quoteId;
+	public String getContractId() {
+		return contractId;
 	}
 	/**
-	 * @param quoteId the quoteId to set
+	 * @param contractId the contractId to set
 	 */
-	public void setQuoteId(String quoteId) {
-		this.quoteId = quoteId;
+	public void setContractId(String contractId) {
+		this.contractId = contractId;
 	}
 	/**
 	 * @return the serial

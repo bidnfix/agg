@@ -18,6 +18,7 @@ public class Claims implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="claim_id")
 	private int claimId;
 
@@ -114,8 +115,8 @@ public class Claims implements Serializable {
 	@Column(name="pre_auth")
 	private String preAuth;
 
-	@Column(name="quote_id")
-	private String quoteId;
+	@Column(name="contract_id")
+	private String contractId;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="report_date")
@@ -377,12 +378,12 @@ public class Claims implements Serializable {
 		this.preAuth = preAuth;
 	}
 
-	public String getQuoteId() {
-		return this.quoteId;
+	public String getContractId() {
+		return this.contractId;
 	}
 
-	public void setQuoteId(String quoteId) {
-		this.quoteId = quoteId;
+	public void setContractId(String contractId) {
+		this.contractId = contractId;
 	}
 
 	public Date getReportDate() {

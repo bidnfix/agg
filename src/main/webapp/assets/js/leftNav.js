@@ -382,7 +382,7 @@ routingApp.controller('ClaimsController', ['$scope', 'claimService', '$http', '$
     };
     $scope.onClickSubmitClaim = function(){
     	claimService.saveClaim($scope.claim);
-    }
+    };
 }]);
 routingApp.controller('QuoteController', function($scope, $http, quoteService) {
 	$scope.quote={};

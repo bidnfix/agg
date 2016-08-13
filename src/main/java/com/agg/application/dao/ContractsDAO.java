@@ -21,4 +21,7 @@ import com.agg.application.entity.Contracts;
 public interface ContractsDAO extends CrudRepository<Contracts, Long>{
 	@Query("SELECT c FROM Contracts c WHERE c.machineSerialNo LIKE CONCAT('%', :machineSerialNo, '%') ")
 	List<Contracts> findByMachineSerialNo(@Param("machineSerialNo") String machineSerialNo);
+	
+	@Query("SELECT c FROM Contracts c WHERE c.contractId = :contractId")
+	Contracts findByContractId(@Param("contractId") String contractId);
 }

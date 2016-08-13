@@ -14,7 +14,7 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', functi
 		initClaimAddForm = function($scope){
 			$scope.isSubmitDisabled = false;
 			$scope.claim={};
-			$scope.claim.quoteId = $scope.contractInfoList.quoteId;
+			$scope.claim.contractId = $scope.contractInfoList.contractId;
 			$scope.claim.serial = $scope.contractInfoList.machineSerialNo;
 			$scope.claim.manf = $scope.contractInfoList.manufacturerDO.name;
 			$scope.claim.model = $scope.contractInfoList.machineModel;

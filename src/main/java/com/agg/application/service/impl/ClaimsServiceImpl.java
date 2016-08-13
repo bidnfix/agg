@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.agg.application.dao.ClaimsDAO;
 import com.agg.application.dao.ManufacturerDAO;
 import com.agg.application.dao.QuoteDAO;
+import com.agg.application.entity.Claims;
 import com.agg.application.entity.Manufacturer;
 import com.agg.application.entity.Quote;
 import com.agg.application.model.ClaimsDO;
@@ -156,9 +157,44 @@ public class ClaimsServiceImpl implements ClaimsService {
 		return quoteDO;
 	}
 	
-	public Long saveClaim(ClaimsDO claimsVO)
+	public Long saveClaim(ClaimsDO claimsDO)
 	{
-		return new Long(2);
+		Claims claim = new Claims();
+		claim.setCauseFail(claimsDO.getCauseFail());
+		claim.setCorrectiveAction(claimsDO.getCorrectiveAction());
+		claim.setCustComplaint(claimsDO.getCustComplaint());
+		claim.setDealerAddress1(claimsDO.getDealerAddress1());
+		claim.setDealerAddress2(claimsDO.getDealerAddress2());
+		claim.setDealerCity(claimsDO.getDealerCity());
+		claim.setDealerContact(claimsDO.getDealerContact());
+		claim.setDealerEmail(claimsDO.getDealerEmail());
+		claim.setDealerId(claimsDO.getDealerId());
+		claim.setDealerName(claimsDO.getDealerName());
+		claim.setDealerPhone(claimsDO.getDealerPhone());
+		claim.setDealerState(claimsDO.getDealerState());
+		claim.setDealerZip(claimsDO.getDealerZip());
+		claim.setFailDate(claimsDO.getFailDate());
+		claim.setReportDate(claimsDO.getReportDate());
+		claim.setHourlyRate(claimsDO.getHourlyRate());
+		claim.setHoursBreakDown(claimsDO.getHoursBreakDown());
+		claim.setIsArchived(claimsDO.getIsArchived());
+		claim.setLabourHours(claimsDO.getLabourHours());
+		claim.setLastUpdate(claimsDO.getLastUpdate());
+		claim.setManf(claimsDO.getManf());
+		claim.setModel(claimsDO.getModel());
+		claim.setNewClaimId(claimsDO.getNewClaimId());
+		claim.setOtherCharges1(claimsDO.getOtherCharges1());
+		claim.setOtherCharges2(claimsDO.getOtherCharges2());
+		claim.setOtherManf(claimsDO.getOtherManf());
+		claim.setOtherModel(claimsDO.getOtherModel());
+		claim.setPartsTotal(claimsDO.getPartsTotal());
+		claim.setPreAuth(claimsDO.getPreAuth());
+		claim.setContractId(claimsDO.getContractId());
+		claim.setSerial(claimsDO.getSerial());
+		claim.setWorkOrder(claimsDO.getWorkOrder());
+		claim.setCLevel(claimsDO.getCLevel());
+		Claims c = claimsDAO.save(claim);
+		return (long)c.getClaimId();
 	}
 	
 }
