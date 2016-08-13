@@ -39,8 +39,8 @@
 							<label class="cols-sm-2 control-label" for="userName">Select a Program</label>
 							<div class="cols-sm-10">
 								<div class="input-group">
-									<select name="programName" ng-model="programDO" ng-options="program.name for program in programList" 
-										ng-change="getProgDetails()">
+									<select name="programName" ng-model="program.programDO" ng-options="program.name for program in programList" 
+										ng-change="getProgDetails(program.programDO)">
      								</select> 
 								</div>
 							</div>
@@ -51,26 +51,28 @@
 							<label class="cols-sm-2 control-label" for="password">Manufacturer</label>
 							<div class="cols-sm-10">
 								<div class="input-group">
-									<input type="text" ng-model="program.manufacturerDO.name" placeholder="manfName" id="manfName" name="manfName" class="form-control" required="required">
+									<input type="text" ng-model="program.manufacturerDO.name" placeholder="Manufacturer" id="manfName" name="manfName" class="form-control" required="required">
 								</div>
 							</div>
 						</div>
                         
                         
-                        <div class="form-group">
-							<label class="cols-sm-2 control-label" for="name">Model</label>
-							<div class="cols-sm-10">
-								<div class="input-group">
-									<input type="text" ng-model="program.model" placeholder="Dealer Name" id="name" name="name" class="form-control" required="required">
-								</div>
-							</div>
+                       <div class="form-group">
+						<label for="name" class="col-sm-3 control-label">Model</label>
+						<div class="col-sm-9">
+							<!--  <select name="machine" ng-model="program.modelDO" ng-options="machine.name for machine in modelList">
+		     				</select> -->
+		     				<select size="5" id="myselection" multiple ng-multiple="true"
+					        ng-model="program.machineInfoDO" ng-options="machine.model for machine in machineModelList">
+					      </select> 
 						</div>
+					</div>	
                         
                         <div class="form-group">
 							<label class="cols-sm-2 control-label" for="firstName">Model Year</label>
 							<div class="cols-sm-10">
 								<div class="input-group">
-									<input type="text" id="modelYear" name="firstName" ng-model="dealer.firstName" placeholder="First Name" class="form-control" required="required">
+									<input type="text" id="modelYear" name="modelYear" ng-model="program." placeholder="First Name" class="form-control" required="required">
 								</div>
 							</div>
 						</div>
@@ -149,7 +151,7 @@
 							<label class="cols-sm-2 control-label" for="state">Type of Coverage</label>
 							<div class="cols-sm-10">
 								<div class="input-group">
-									<input type="text" id="city" name="city" ng-model="dealer.city" placeholder="City" class="form-control" required="required">
+									<input type="text" id="city" name="city" ng-model="program.cType" placeholder="Coverage type" class="form-control" required="required">
 								</div>
 							</div>
 						</div>

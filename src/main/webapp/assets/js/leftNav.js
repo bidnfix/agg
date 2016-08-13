@@ -310,6 +310,22 @@ routingApp.controller('ProgramAsDealerController', function($scope, $http) {
     	//alert(response.data.data.programList);
         $scope.programList = response.data.data.programList;
     });
+	
+    $scope.getProgDetails = function (programDO)
+	 {
+		 alert(programDO.cType);
+		 $scope.program.cType = programDO.cType;
+		 $scope.program.cType = programDO.cType;
+		 $scope.program.cType = programDO.cType;
+		 $scope.program.cType = programDO.cType;
+		 $scope.program.cType = programDO.cType;
+		 $scope.program.cType = programDO.cType;
+		 $scope.program.cType = programDO.cType;
+		 $scope.program.cType = programDO.cType;
+		 $scope.program.cType = programDO.cType;
+		 $scope.program.cType = programDO.cType;
+
+	 }
 });
 
 routingApp.controller('AddDealerController', function($scope, $http) {

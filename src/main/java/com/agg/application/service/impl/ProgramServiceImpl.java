@@ -26,6 +26,7 @@ import com.agg.application.model.AccountDO;
 import com.agg.application.model.DealerDO;
 import com.agg.application.model.MachineDO;
 import com.agg.application.model.MachineInfoDO;
+import com.agg.application.model.ManufacturerDO;
 import com.agg.application.model.ProgramDO;
 import com.agg.application.service.ProgramService;
 import com.agg.application.utils.AggConstants;
@@ -70,6 +71,7 @@ public class ProgramServiceImpl implements ProgramService {
 			ProgramDO programDO = null;
 			Sprogram program = null;
 			DealerDO dealerDO = null;
+			ManufacturerDO manfDO = null;
 			
 			Iterator<Sprogram> it = programList.iterator();
 			while(it.hasNext()){
