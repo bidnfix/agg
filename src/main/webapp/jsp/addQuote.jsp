@@ -26,11 +26,6 @@
           </a>
           <a href="#" class="c-tabs-nav__link">
             <i class="fa fa-cog"></i>
-            <span>Next Steps</span>
-          </a>
-          
-          <a href="#" class="c-tabs-nav__link">
-            <i class="fa fa-cog"></i>
             <span>Purchase</span>
           </a>
           
@@ -541,7 +536,7 @@
 			<div class="form-group">
 				<label class="col-sm-4 control-label">Quote ID:</label>
 				<div class="col-sm-4">
-					{{quoteId}}
+					{{quote.quoteId}}
 				</div>
 			</div>
 			<div class="form-group">
@@ -673,7 +668,7 @@
 					Warranty End Date:
 				</label>
 				<div class="col-sm-4">
-					{{quote.coverageEndDate}}
+					{{quote.coverageEndDate |  date:"MM/dd/yyyy"}}
 				</div>
 			</div>
 			<div class="form-group">
@@ -826,25 +821,83 @@
 					{{totalDealerPrice | currency:"$":0}}
 				</div>
 			</div>
+			<div class="form-group">
+				<div class="col-sm-5 col-sm-offset-3">
+					<button type="submit" class="btn btn-primary btn-block" ng-click="changeTab(4, quoteSummaryForm)">Continue to "Purchase Info"</button>
+				</div>
+			</div>
           </div>
           </form>
         </div>
         </div>
         <div class="c-tab">
           <div class="c-tab__content">
-            <h2>Change It Up</h2>
-            <p>Settings ipsum dolor sit amet, consectetur adipisicing elit. Ipsam quo minus voluptate unde tempore eveniet consequuntur in, quod animi libero rem similique pariatur quos, et eum nisi ducimus, architecto voluptatibus!</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto aspernatur natus dolorem fuga cumque optio saepe corrupti earum. Ipsam quaerat asperiores similique omnis excepturi temporibus ab eum magnam ipsa, odio.</p>
+            <form class="form-horizontal" name="purchaseInfoForm" id="purchaseInfoForm" angular-validator-submit="validatePurchaseInfoForm()" novalidate angular-validator>
+	            <div class="inner-main">
+						<div class="form-group">
+							<label class="col-sm-5">Quote {{quote.quoteId}} has been saved.</label>
+							<div class="col-sm-4">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-5">If you ever have problems with a Quote or Purchase please call 816-223-1978.</label>
+							<div class="col-sm-4">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-5 control-label">Here is your current quote:</label>
+							<div class="col-sm-4">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-5 control-label">With {{coverageTypeDesc}} @ {{coverageHours}} Hrs : {{quoteBasePrice | currency:"$":0}}</label>
+							<div class="col-sm-4">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-5 control-label">Dealer Markup : {{dealerMarkupAmtPrice | currency:"$":0}}</label>
+							<div class="col-sm-4">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-5 control-label">Total : {{dealerMarkupAmtPrice | currency:"$":0}}</label>
+							<div class="col-sm-4">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-4 control-label">
+								Total Price to Customer: {{totalCustPrice | currency:"$":0}}
+							</label>
+							<div class="col-sm-4"></div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-4 control-label">
+								Total Price to Dealer: {{totalDealerPrice | currency:"$":0}}
+							</label>
+							<div class="col-sm-4"></div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-5 control-label">To request an invoice for this quote, please click the Purchase Now button below.</label>
+							<div class="col-sm-4">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-5 control-label">You will be taken to the purchase verification and customer info screen.</label>
+							<div class="col-sm-4">
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-5 col-sm-offset-3">
+								<button type="submit" class="btn btn-primary btn-block" ng-click="changeTab(5, purchaseInfoForm)">Request Purchase</button>
+								<button type="button" class="btn btn-primary btn-block" ng-click="printQuote('dealer')">Print Dealer Quote</button>
+								<button type="button" class="btn btn-primary btn-block" ng-click="printQuote('customer')">Print Customer Quote</button>
+							</div>
+						</div>
+				</div>
+			</form>
           </div>
         </div>
         
-        <div class="c-tab">
-          <div class="c-tab__content">
-            <h2>Change It Up</h2>
-            <p>Settings ipsum dolor sit amet, consectetur adipisicing elit. Ipsam quo minus voluptate unde tempore eveniet consequuntur in, quod animi libero rem similique pariatur quos, et eum nisi ducimus, architecto voluptatibus!</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto aspernatur natus dolorem fuga cumque optio saepe corrupti earum. Ipsam quaerat asperiores similique omnis excepturi temporibus ab eum magnam ipsa, odio.</p>
-          </div>
-        </div>
       </div>
     </div>
 

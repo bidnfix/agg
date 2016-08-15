@@ -63,6 +63,10 @@ public class ReportDO {
 	private String price;
 	
 	private String specialConsiderationDesc;
+	
+	private String quotePrice;
+	
+	private String dealerMarkup;
 
 	/**
 	 * @return the dealerName
@@ -496,6 +500,34 @@ public class ReportDO {
 	 */
 	public void setSpecialConsiderationDesc(String specialConsiderationDesc) {
 		this.specialConsiderationDesc = specialConsiderationDesc;
+	}
+
+	/**
+	 * @return the quotePrice
+	 */
+	public String getQuotePrice() {
+		return quotePrice;
+	}
+
+	/**
+	 * @param quotePrice the quotePrice to set
+	 */
+	public void setQuotePrice(String quotePrice) {
+		this.quotePrice = quotePrice;
+	}
+
+	/**
+	 * @return the dealerMarkup
+	 */
+	public String getDealerMarkup() {
+		return dealerMarkup;
+	}
+
+	/**
+	 * @param dealerMarkup the dealerMarkup to set
+	 */
+	public void setDealerMarkup(String dealerMarkup) {
+		this.dealerMarkup = dealerMarkup;
 	}
 	
 }

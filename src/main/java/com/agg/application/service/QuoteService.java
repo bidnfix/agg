@@ -20,4 +20,6 @@ public interface QuoteService {
 	public void saveMachineInfo(QuoteDO quoteDO);
 
 	public void saveCoverageInfo(QuoteDO quoteDO);
+	
+	public void savePurchaseInfo(QuoteDO quoteDO, String appUrl) throws Exception;
 }

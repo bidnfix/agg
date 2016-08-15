@@ -388,6 +388,8 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService) {
 	$scope.quote.fullMachineHours = 2000;
 	$scope.quote.estSaleDate = new Date();
 	$scope.quote.dealerMarkupType = "price";
+	$scope.quote.custRemorsePeriod = true;
+	$scope.quote.custUnderstandCoverage = true;
 	
 	$scope.date = new Date();
 	
@@ -409,7 +411,9 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService) {
 	$scope.changeTab = function(index, tabForm){
 		alert(tabForm.$valid);
 		if(tabForm.$valid){
-			myTabs.goToTab(index);
+			if(index !=5){
+				myTabs.goToTab(index);
+			}
 			if(index == 1){
 				quoteService.saveWarrantyInfo($scope.quote, $scope);
 			}else if(index == 2){
@@ -437,6 +441,8 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService) {
 					$scope.machineCondition = 'Used';
 				}
 				
+				$scope.quote.machineCondition = $scope.machineCondition;
+				
 				var rowIndex = $scope.selectedRow;
 				var colIndex = $scope.selectedCloumn;
 				
@@ -444,6 +450,7 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService) {
 					$scope.coverageHours = $scope.pricingDOList[rowIndex].coverageLevelHours;
 					$scope.quoteBasePrice = (colIndex === 1)?$scope.pricingDOList[rowIndex].ptBasePrice:(colIndex === 2)?$scope.pricingDOList[rowIndex].phBasePrice:$scope.pricingDOList[rowIndex].plBasePrice;
 					$scope.coverageType = (colIndex === 1)?"PT":(colIndex === 2)?"PH":"PL";
+					$scope.coverageTypeDesc = (colIndex === 1)?"Powertrain":(colIndex === 2)?"Powertrain + Hydraulic":"Powertrain + Hydraulic + Platform";
 				}
 				
 				if($scope.quote.dealerMarkupType == 'price'){
@@ -458,9 +465,16 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService) {
 				$scope.quote.coverageHours = $scope.coverageHours;
 				$scope.quote.quoteBasePrice = $scope.quoteBasePrice;
 				$scope.quote.coverageType = $scope.coverageType;
+				$scope.quote.coverageTypeDesc = $scope.coverageTypeDesc;
+				$scope.quote.customerPrice = $scope.totalCustPrice;
+				$scope.quote.dealerMarkupPrice = $scope.dealerMarkupAmtPrice;
+				
 				//saving coverage information
 				quoteService.saveCoverageInfo($scope.quote, $scope);
 				
+			}else if(index == 5){
+				//saving coverage information
+				quoteService.savePurchanseInfo($scope.quote, $scope);
 			}
 		}
 	}
@@ -533,6 +547,10 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService) {
 			$scope.quote.dealerPhone = dealrDO.phone;
 			$scope.quote.dealerEmail = dealrDO.invoiceEmail;
 		});  
+	}
+	
+	$scope.printQuote = function(quotePrintType){
+		alert(quotePrintType);
 	}
 	
 	$scope.validateWarrantyInfoForm = function(){

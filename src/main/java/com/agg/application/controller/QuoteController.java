@@ -125,7 +125,7 @@ public class QuoteController extends BaseController {
 	
 	@RequestMapping(value = "/quote/addQuote/warrantyInfo", method = RequestMethod.POST)
 	public @ResponseBody Result saveQuoteWarrantyInfo(@RequestBody  QuoteDO quoteDO, HttpServletRequest request, HttpServletResponse response, Model model) {
-		logger.debug("In getUserInfo");
+		logger.debug("In saveQuoteWarrantyInfo");
 		Result opResult = null;
 		if (!sessionExists(request)){
 			opResult = new Result("failure", "Invalid Login", null);
@@ -142,7 +142,7 @@ public class QuoteController extends BaseController {
 	
 	@RequestMapping(value = "/quote/addQuote/machineInfo", method = RequestMethod.POST)
 	public @ResponseBody Result saveQuoteMachineInfo(@RequestBody  QuoteDO quoteDO, HttpServletRequest request, HttpServletResponse response, Model model) {
-		logger.debug("In getUserInfo");
+		logger.debug("In saveQuoteMachineInfo");
 		Result opResult = null;
 		if (!sessionExists(request)){
 			opResult = new Result("failure", "Invalid Login", null);
@@ -159,7 +159,7 @@ public class QuoteController extends BaseController {
 	
 	@RequestMapping(value = "/quote/addQuote/coverageInfo", method = RequestMethod.POST)
 	public @ResponseBody Result saveQuoteCoverageInfo(@RequestBody  QuoteDO quoteDO, HttpServletRequest request, HttpServletResponse response, Model model) {
-		logger.debug("In getUserInfo");
+		logger.debug("In saveQuoteCoverageInfo");
 		Result opResult = null;
 		if (!sessionExists(request)){
 			opResult = new Result("failure", "Invalid Login", null);
@@ -174,4 +174,26 @@ public class QuoteController extends BaseController {
 		return opResult;
 	}
 	
+	@RequestMapping(value = "/quote/addQuote/purchaseInfo", method = RequestMethod.POST)
+	public @ResponseBody Result saveQuotePurchaseInfo(@RequestBody  QuoteDO quoteDO, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{
+		logger.debug("In saveQuotePurchaseInfo");
+		Result opResult = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			logger.info("contextPath: "+request.getServletContext().getContextPath());
+			StringBuffer url = request.getRequestURL();
+			String uri = request.getRequestURI();
+			String appUrl = url.substring(0, url.length() - uri.length());
+			logger.info("appUrl: "+appUrl);
+			
+			quoteService.savePurchaseInfo(quoteDO, appUrl);
+			
+			logger.info("quoteId: "+quoteDO.getQuoteId()+" and id: "+quoteDO.getId());
+			
+			opResult = new Result("success", "Quote Info", quoteDO);
+		}
+		
+		return opResult;
+	}
 }

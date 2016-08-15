@@ -97,8 +97,28 @@ routingApp.factory('quoteService', function($http, $q, $window) {
 						alert('Error while editing dealer');
 						return $q.reject(errResponse);
 					});
+		},
+		savePurchanseInfo : function(quote, $scope) {
+			return $http.post('/agg/quote/addQuote/purchaseInfo', quote).then(
+					function(response) {
+						alert(response.data.status);
+						if (response.data.status == 'success') {
+							alert(response.data.data.quoteId+" "+response.data.data.id);
+							//$scope.quote = response.data.data;
+							$scope.quote.quoteId = response.data.data.quoteId;
+							$scope.quote.id = response.data.data.id;
+							$scope.quote.statusDesc = response.data.data.statusDesc;
+							//$window.location.href = '#/agg/dealers';
+						} else {
+							alert('error in adding Quote Coverage Info: '+response.data.errMessage)
+							//$('#errMsg').html(response.data.errMessage);
+						}
+						
+					}, function(errResponse) {
+						alert('Error while editing dealer');
+						return $q.reject(errResponse);
+					});
 		}
-
 	};
 
 });
