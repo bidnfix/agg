@@ -151,6 +151,14 @@ public class QuoteDO {
 	
 	private String coverageType;
 	
+	private String machineCondition;
+	
+	private String coverageTypeDesc;
+	
+	private double customerPrice;
+	
+	private double dealerMarkupPrice;
+	
 	
 	public int getcPtHHours() {
 		return cPtHHours;
@@ -978,6 +986,62 @@ public class QuoteDO {
 	 */
 	public void setCoverageType(String coverageType) {
 		this.coverageType = coverageType;
+	}
+
+	/**
+	 * @return the machineCondition
+	 */
+	public String getMachineCondition() {
+		return machineCondition;
+	}
+
+	/**
+	 * @param machineCondition the machineCondition to set
+	 */
+	public void setMachineCondition(String machineCondition) {
+		this.machineCondition = machineCondition;
+	}
+
+	/**
+	 * @return the coverageTypeDesc
+	 */
+	public String getCoverageTypeDesc() {
+		return coverageTypeDesc;
+	}
+
+	/**
+	 * @param coverageTypeDesc the coverageTypeDesc to set
+	 */
+	public void setCoverageTypeDesc(String coverageTypeDesc) {
+		this.coverageTypeDesc = coverageTypeDesc;
+	}
+
+	/**
+	 * @return the customerPrice
+	 */
+	public double getCustomerPrice() {
+		return customerPrice;
+	}
+
+	/**
+	 * @param customerPrice the customerPrice to set
+	 */
+	public void setCustomerPrice(double customerPrice) {
+		this.customerPrice = customerPrice;
+	}
+
+	/**
+	 * @return the dealerMarkupPrice
+	 */
+	public double getDealerMarkupPrice() {
+		return dealerMarkupPrice;
+	}
+
+	/**
+	 * @param dealerMarkupPrice the dealerMarkupPrice to set
+	 */
+	public void setDealerMarkupPrice(double dealerMarkupPrice) {
+		this.dealerMarkupPrice = dealerMarkupPrice;
 	}
 	
 }
