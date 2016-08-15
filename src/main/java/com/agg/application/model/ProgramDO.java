@@ -1,6 +1,7 @@
 package com.agg.application.model;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 public class ProgramDO {
 	
@@ -39,9 +40,17 @@ public class ProgramDO {
 	
 	private ManufacturerDO manufacturerDO;
 	
-	private MachineInfoDO[] machineInfoDO;
+	private List<MachineInfoDO> machineInfoDO;
 	
-	public DealerDO getDealerDO() {
+	public List<MachineInfoDO> getMachineInfoDO() {
+		return machineInfoDO;
+	}
+
+	public void setMachineInfoDO(List<MachineInfoDO> machineInfoDO) {
+		this.machineInfoDO = machineInfoDO;
+	}
+
+	public DealerDO getDealerDO() {	
 		return dealerDO;
 	}
 
@@ -56,16 +65,6 @@ public class ProgramDO {
 	public void setManufacturerDO(ManufacturerDO manufacturerDO) {
 		this.manufacturerDO = manufacturerDO;
 	}
-
-	public MachineInfoDO[] getMachineInfoDO() {
-		return machineInfoDO;
-	}
-
-	public void setMachineInfoDO(MachineInfoDO[] machineInfoDO) {
-		this.machineInfoDO = machineInfoDO;
-	}
-
-	
 
 	public Long getPrId() {
 		return prId;

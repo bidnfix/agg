@@ -62,9 +62,9 @@
 						<div class="col-sm-9">
 							<!--  <select name="machine" ng-model="program.modelDO" ng-options="machine.name for machine in modelList">
 		     				</select> -->
-		     				<select size="5" id="myselection" multiple ng-multiple="true"
-					        ng-model="program.machineInfoDO" ng-options="machine.model for machine in machineModelList">
-					      </select> 
+		     				<select name="modelName" ng-model="program.machineInfoDO" ng-options="machineInfo.model for machineInfo in machineInfoDOList" 
+										ng-change="getProgDetails(program.programDO)">
+     								</select> 
 						</div>
 					</div>	
                         
@@ -72,7 +72,7 @@
 							<label class="cols-sm-2 control-label" for="firstName">Model Year</label>
 							<div class="cols-sm-10">
 								<div class="input-group">
-									<input type="text" id="modelYear" name="modelYear" ng-model="program." placeholder="First Name" class="form-control" required="required">
+									<input type="text" id="modelYear" name="modelYear" ng-model="program.modelYear" placeholder="First Name" class="form-control" required="required">
 								</div>
 							</div>
 						</div>
@@ -115,17 +115,6 @@
                          <div class="form-group ">
 							<button class="btn btn-primary btn-lg btn-block login-button" type="submit">Submit</button>
 						</div>
-                        
-                       <!--  <div class="form-group">
-							<label class="cols-sm-2 control-label" for="address2">Address2</label>
-							<div class="cols-sm-10">
-								<div class="input-group">
-									<span class="input-group-addon"><i aria-hidden="true" class="fa fa-book fa"></i></span>
-									<input type="text" id="address2" name="address2" ng-model="dealer.address2" placeholder="Address 2" class="form-control">
-								</div>
-							</div>
-						</div>
-                     -->
                     </div>
                     
                     
@@ -151,7 +140,8 @@
 							<label class="cols-sm-2 control-label" for="state">Type of Coverage</label>
 							<div class="cols-sm-10">
 								<div class="input-group">
-									<input type="text" id="city" name="city" ng-model="program.cType" placeholder="Coverage type" class="form-control" required="required">
+									<input type="text" id="cType" name="cType" ng-model="program.cType" placeholder="Coverage type" class="form-control" 
+									required="required">
 								</div>
 							</div>
 						</div>

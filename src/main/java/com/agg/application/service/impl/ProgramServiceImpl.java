@@ -21,6 +21,7 @@ import com.agg.application.dao.ProgramDAO;
 import com.agg.application.entity.Account;
 import com.agg.application.entity.Dealer;
 import com.agg.application.entity.MachineInfo;
+import com.agg.application.entity.Manufacturer;
 import com.agg.application.entity.Sprogram;
 import com.agg.application.model.AccountDO;
 import com.agg.application.model.DealerDO;
@@ -72,6 +73,7 @@ public class ProgramServiceImpl implements ProgramService {
 			Sprogram program = null;
 			DealerDO dealerDO = null;
 			ManufacturerDO manfDO = null;
+			List<MachineInfoDO> machineInfoDOList = null; 
 			
 			Iterator<Sprogram> it = programList.iterator();
 			while(it.hasNext()){
@@ -90,6 +92,32 @@ public class ProgramServiceImpl implements ProgramService {
 					dealerDO.setId(dealer.getId());
 				}
 				programDO.setDealerDO(dealerDO);
+				
+				manfDO = new ManufacturerDO();
+				Manufacturer manf = program.getManufacturer();
+				if(manf!=null)
+				{
+					manfDO.setName(manf.getManfName());
+					manfDO.setId(manf.getManfId());
+				}
+				programDO.setManufacturerDO(manfDO);
+				
+				machineInfoDOList = new ArrayList<MachineInfoDO>();
+				List<MachineInfo> machineInfoLst = program.getMachineInfos();
+				if(machineInfoLst!=null)
+				{
+					for(MachineInfo macineInfo : machineInfoLst)
+					{
+						MachineInfoDO macInfDO = new MachineInfoDO();
+						macInfDO.setModel(macineInfo.getModel());
+						macInfDO.setMachineId(macineInfo.getMachineId());
+						
+						machineInfoDOList.add(macInfDO);
+					}
+					programDO.setMachineInfoDO(machineInfoDOList);
+				}
+				programDO.setDealerDO(dealerDO);
+				
 				programDOList.add(programDO);
 			}
 		}
@@ -126,7 +154,7 @@ public class ProgramServiceImpl implements ProgramService {
 		//TODO To be implemented after dealer services
 		//progEnt.setDealer(dealer);
 		
-		MachineInfoDO[] machineInfoDOs =  program.getMachineInfoDO();
+		List<MachineInfoDO> machineInfoDOs =  program.getMachineInfoDO();
 		
 		
 		
