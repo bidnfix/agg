@@ -378,7 +378,7 @@ routingApp.controller('ClaimsController', ['$scope', 'claimService', '$http', '$
     	claimService.saveClaim($scope.claim);
     };
 }]);
-routingApp.controller('QuoteController', function($scope, $http, quoteService) {
+routingApp.controller('QuoteController', function($scope, $http, quoteService, $window) {
 	$scope.quote={};
 	$scope.quote.powerTrainMonths = 24;
 	$scope.quote.hydraulicsMonths = 24;
@@ -550,7 +550,11 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService) {
 	}
 	
 	$scope.printQuote = function(quotePrintType){
-		alert(quotePrintType);
+		if(quotePrintType == 'dealer'){
+			$window.open('/agg/quote/report/dealer/'+$scope.quote.quoteId);
+		}else if(quotePrintType == 'customer'){
+			$window.open('/agg/quote/report/customer/'+$scope.quote.quoteId);
+		}
 	}
 	
 	$scope.validateWarrantyInfoForm = function(){

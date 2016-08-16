@@ -617,5 +617,98 @@ public class QuoteServiceImpl implements QuoteService {
 		return reportDO;
 	}
 
+	@Override
+	public ReportDO getQuoteReportDetails(String quoteId) {
+		logger.info("Inside getQuoteReportDetails with quoteId: "+quoteId); 
+		ReportDO reportDO = null;
+		
+		Quote quote = quoteDAO.findByIdQuoteId(quoteId);
+		if(quote != null){
+			reportDO = new ReportDO();
+			
+			SimpleDateFormat reportDateFormat = new SimpleDateFormat("MM/dd/yyyy");
+			Locale locale = new Locale("en", "US");
+			NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
+			
+			reportDO.setDealerName(quote.getDealer().getName());
+			reportDO.setQuoteDate((quote.getMachineSaleDate() != null)?reportDateFormat.format(quote.getMachineSaleDate()):"");
+			//TODO
+			reportDO.setAttn("");
+			//TODO
+			reportDO.setQuoteExpires("");
+			reportDO.setQuoteId(quoteId);
+			CustomerInfo customerInfo = customerInfoDAO.findOne(quoteId);
+			if(customerInfo != null){
+				reportDO.setAddress(customerInfo.getAddress()+", "+customerInfo.getState()+" "+customerInfo.getZip());
+				reportDO.setEmail(customerInfo.getEmail());
+				reportDO.setPhone(customerInfo.getPhone());
+			}
+			String outStandingDesc = "Thank you for considering AgGuard coverage, we appreciate the opportunity to earn your trust. "
+					+ "This quote reflects the information provided in your request for an extended service Contract based on the current terms and "
+					+ "conditions provided on our website. Our pricing is dynamic, so it is possible the price will increase after your initial quote request; "
+					+ "however, we guarantee this price for at least 90 days so that you can work out other aspects of the deal. If the price goes down, "
+					+ "then you will get the new, lower price. If you need more than a 90-day price lock, then please let us know and we will try to accommodate your needs. "
+					+ "It is important for you to double-check the details reflected on this quote for accuracy. Inaccurate information may result in an incorrect quote "
+					+ "and void the price guarantee.";
+			
+			String coverageDesc = " Coverage begins upon the acceptance of any Outstanding Conditions (noted above) and the receipt of good funds. "
+					+ "Our responsibility begins when the Manufacturer's coverage ends. Coverage is for the specified time period in months or hours of use, "
+					+ "whichever is reached first.";
+			reportDO.setOutStandingDesc(outStandingDesc);
+			reportDO.setManufacturerName(quote.getManufacturer().getManfName());
+			reportDO.setModelName(quote.getMachineInfo().getModel());
+			reportDO.setModelSerialNo(quote.getMachineSerial());
+			reportDO.setEquipment(quote.getUseOfEquip().getEquipName());
+			reportDO.setRetailPrice(currencyFormat.format(quote.getMachineRetailPrice()));
+			reportDO.setCurrentHours(quote.getMachineHours()+"");
+			if((quote.getManfExpired() == 1) || (quote.getManfEndDate() != null && (quote.getManfEndDate().compareTo(new Date()) < 0))){
+				reportDO.setMachineStatus(AggConstants.MACHINE_STATUS_USED);
+			}else{
+				reportDO.setMachineStatus(AggConstants.MACHINE_STATUS_NEW);
+			}
+			
+			reportDO.setCoverageDesc(coverageDesc);
+			reportDO.setCoverageTerm(quote.getCoverageTerm());
+			reportDO.setCoverageHours(quote.getCoverageLevelHours());
+			reportDO.setDeductibleAmount(currencyFormat.format(quote.getDeductAmount()));
+			String coverageType = quote.getCoverageType();
+			if(coverageType != null && !coverageType.isEmpty()){
+				if(coverageType.equalsIgnoreCase("PT")){
+					reportDO.setCoverageType("Powertrain");
+				}else if(coverageType.equalsIgnoreCase("PH")){
+					reportDO.setCoverageType("Powertrain + Hydraulic");
+				}else if(coverageType.equalsIgnoreCase("PL")){
+					reportDO.setCoverageType("Powertrain + Hydraulic + Platform");
+				}
+			}
+			reportDO.setPowerTrainMonths(quote.getPtMonths());
+			reportDO.setPowerTrainHours(quote.getPtHours());
+			reportDO.setHydraulicMonths(quote.getHMonths());
+			reportDO.setHydraulicHours(quote.getHHours());
+			reportDO.setFullMachineHours(quote.getMachineHours());
+			reportDO.setFullMachineMonths(quote.getMachineMonths());
+			reportDO.setWarrantyEndDate((quote.getManfEndDate() != null)?reportDateFormat.format(quote.getManfEndDate()):"");
+			reportDO.setLimitOfLiability(currencyFormat.format(quote.getMachineInfo().getGroupConstant().getLol()));
+			String dealerMarkupType = quote.getDealerMarkupType();
+			double coveragePrice = quote.getCoveragePrice();
+			double customerPrice = 0.0;
+			double dealerMarkupPrice = 0.0;
+			if(dealerMarkupType != null && !dealerMarkupType.isEmpty()){
+				if(dealerMarkupType.equalsIgnoreCase("price")){
+					dealerMarkupPrice = quote.getDealerMarkup();
+				}else{
+					dealerMarkupPrice = (coveragePrice * quote.getDealerMarkup())/100.0;
+				}
+			}
+			customerPrice = coveragePrice + dealerMarkupPrice;
+			reportDO.setPrice(currencyFormat.format(customerPrice));
+			reportDO.setQuotePrice(currencyFormat.format(coveragePrice));
+			reportDO.setDealerMarkup(currencyFormat.format(dealerMarkupPrice));
+			reportDO.setSpecialConsiderationDesc("None");
+		}
+		
+		return reportDO;
+	}
+
 }
 

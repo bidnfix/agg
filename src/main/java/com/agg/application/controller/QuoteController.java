@@ -1,5 +1,6 @@
 package com.agg.application.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -10,23 +11,30 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.agg.application.model.AccountDO;
 import com.agg.application.model.DealerDO;
 import com.agg.application.model.ManufacturerDO;
 import com.agg.application.model.PricingDO;
 import com.agg.application.model.QuoteDO;
+import com.agg.application.model.ReportDO;
 import com.agg.application.model.Result;
 import com.agg.application.service.DealerService;
 import com.agg.application.service.MachineService;
 import com.agg.application.service.QuoteService;
 import com.agg.application.utils.AggConstants;
+
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.JREmptyDataSource;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 @RestController
 @RequestMapping("/agg")
@@ -181,7 +189,6 @@ public class QuoteController extends BaseController {
 		if (!sessionExists(request)){
 			opResult = new Result("failure", "Invalid Login", null);
 		}else{
-			logger.info("contextPath: "+request.getServletContext().getContextPath());
 			StringBuffer url = request.getRequestURL();
 			String uri = request.getRequestURI();
 			String appUrl = url.substring(0, url.length() - uri.length());
@@ -195,5 +202,41 @@ public class QuoteController extends BaseController {
 		}
 		
 		return opResult;
+	}
+	
+	@RequestMapping(value = "/quote/report/{reportType}/{quoteId}", method = RequestMethod.GET)
+	public ModelAndView showQuoteReport(@PathVariable String reportType, @PathVariable String quoteId, ModelAndView modelAndView, HttpServletRequest request, 
+			HttpServletResponse response, ModelMap modelMap) throws Exception{
+		logger.debug("In showQuoteReport with reportType: "+reportType+" and quoteId: "+quoteId);
+		if (!sessionExists(request)){
+			modelAndView = new ModelAndView("login");
+		}else{
+			StringBuffer url = request.getRequestURL();
+			String uri = request.getRequestURI();
+			String appUrl = url.substring(0, url.length() - uri.length());
+			logger.info("appUrl: "+appUrl);
+			
+			ReportDO reportDO = quoteService.getQuoteReportDetails(quoteId);
+			JRDataSource jrDataSource = null;
+			if(reportDO != null){
+				List<ReportDO> reportDOList = new ArrayList<ReportDO>();
+				reportDOList.add(reportDO);
+				jrDataSource = new JRBeanCollectionDataSource(reportDOList);
+			}else{
+				jrDataSource = new JREmptyDataSource();
+			}
+			
+			modelMap.put("datasource", jrDataSource);
+			modelMap.put("format", "pdf");
+			modelMap.put("imagePath", appUrl+"/assets/images/logo.png");
+			if(reportType != null && reportType.equalsIgnoreCase("customer")){
+				modelAndView = new ModelAndView("rpt_customerQuote", modelMap);
+			}else if(reportType != null && reportType.equalsIgnoreCase("dealer")){
+				modelAndView = new ModelAndView("rpt_dealerQuote", modelMap);
+			}
+			
+		}
+		
+		return modelAndView;
 	}
 }

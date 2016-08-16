@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.agg.application.model.PricingDO;
 import com.agg.application.model.QuoteDO;
+import com.agg.application.model.ReportDO;
 import com.agg.application.model.UseOfEquipmentDO;
 
 public interface QuoteService {
@@ -22,4 +23,6 @@ public interface QuoteService {
 	public void saveCoverageInfo(QuoteDO quoteDO);
 	
 	public void savePurchaseInfo(QuoteDO quoteDO, String appUrl) throws Exception;
+
+	public ReportDO getQuoteReportDetails(String quoteId);
 }
