@@ -10,5 +10,5 @@ public interface ClaimsService {
 	List<QuoteDO> getClaimsInfo();
 	List<QuoteDO> getClaimInfoBySerialNumber(final String serialNo);
 	QuoteDO getClaimInfo(String ClaimId);
-	Long saveClaim(ClaimsDO claimsVO);
+	Long saveClaim(ClaimsDO claimsDO);
 }

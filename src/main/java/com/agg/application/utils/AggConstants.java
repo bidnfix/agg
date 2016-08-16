@@ -30,4 +30,22 @@ public class AggConstants {
 	
 	public static final String MACHINE_STATUS_NEW= "New";
 	
+	public static final int CLAIM_STATUS_OPEN = 1;
+	
+	public static final int CLAIM_STATUS_PRE_AUTHORIZED_REQUESTED = 2;
+	
+	public static final int CLAIM_STATUS_SUBMITTED = 3;
+	
+	public static final int CLAIM_STATUS_CLOSED = 4;
+	
+	public static final int CLAIM_STATUS_PRE_AUTHORIZED_APPROVED = 5;
+	
+	public static final int CLAIM_STATUS_PRE_AUTHORIZED_REJECTED = 6;
+	
+	public static final int CLAIM_STATUS_PRE_AUTHORIZED_APPROVED_WITH_ADJUSMENTS = 7;
+	
+	public static final int CLAIM_STATUS_PENDING = 8;
+	
+	public static final int CLAIM_STATUS_DRAFT = 9;
+	
 }

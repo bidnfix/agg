@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.agg.application.model.ClaimLaborDO;
+import com.agg.application.model.ClaimPartDO;
 import com.agg.application.model.ClaimsDO;
 import com.agg.application.model.DealerDO;
 import com.agg.application.model.QuoteDO;
@@ -90,45 +92,47 @@ public class ClaimsController extends BaseController {
 			HttpServletRequest request, HttpServletResponse response) {
 		logger.debug("In saveClaim ");
 		ClaimsDO claimsDO = new ClaimsDO();
-		claimsDO.setCauseFail(Util.setDefaultStringValue(claimsVO.getCauseFail()));
-		claimsDO.setCorrectiveAction(Util.setDefaultStringValue(claimsVO.getCorrectiveAction()));
-		claimsDO.setCustComplaint(Util.setDefaultStringValue(claimsVO.getCustComplaint()));
+		claimsDO.setClaimId(claimsVO.getClaimId());
+		claimsDO.setContractId(claimsVO.getContractId());
 		
-		DealerDO dealerDO = contractsService.getDealer(claimsVO.getContractId());
-		if(null != dealerDO){
-			claimsDO.setDealerAddress1(Util.setDefaultStringValue(dealerDO.getAddress1()));
-			claimsDO.setDealerAddress2(Util.setDefaultStringValue(dealerDO.getAddress2()));
-			claimsDO.setDealerCity(Util.setDefaultStringValue(dealerDO.getCity()));
-			claimsDO.setDealerEmail(Util.setDefaultStringValue(dealerDO.getInvoiceEmail()));
-			claimsDO.setDealerId((int)dealerDO.getId());
-			claimsDO.setDealerName(Util.setDefaultStringValue(dealerDO.getName()));
-			claimsDO.setDealerPhone(Util.setDefaultStringValue(dealerDO.getPhone()));
-			claimsDO.setDealerState(Util.setDefaultStringValue(dealerDO.getState()));
-			claimsDO.setDealerZip(Util.setDefaultStringValue(dealerDO.getZip()));
-			claimsDO.setDealerContact(Util.setDefaultStringValue(null));
+		if(null != claimsVO.getContractId()){
+			DealerDO dealerDO = contractsService.getDealer(claimsVO.getContractId());
+			if(null != dealerDO){
+				claimsDO.setDealerId((int)dealerDO.getId());
+			}
 		}
 		
-		claimsDO.setFailDate(claimsVO.getFailDate());
-		claimsDO.setHourlyRate(claimsVO.getHourlyRate());
-		claimsDO.setHoursBreakDown(claimsVO.getHoursBreakDown());
-		claimsDO.setIsArchived(claimsVO.getIsArchived());
-		claimsDO.setLabourHours(claimsVO.getLabourHours());
-		claimsDO.setManf(Util.setDefaultStringValue(claimsVO.getManf()));
-		claimsDO.setModel(Util.setDefaultStringValue(claimsVO.getModel()));
-		claimsDO.setNewClaimId(claimsVO.getClaimId());
-		claimsDO.setOtherCharges1(claimsVO.getOtherCharges1());
-		claimsDO.setOtherCharges2(claimsVO.getOtherCharges2());
-		claimsDO.setOtherManf(Util.setDefaultStringValue(claimsVO.getOtherManf()));
-		claimsDO.setOtherModel(Util.setDefaultStringValue(claimsVO.getOtherModel()));
-		claimsDO.setPartsTotal(claimsVO.getPartsTotal());
-		claimsDO.setPreAuth(Util.setDefaultStringValue(claimsVO.getPreAuth()));
-		claimsDO.setContractId(claimsVO.getContractId());
-		claimsDO.setReportDate(claimsVO.getReportDate());
 		claimsDO.setSerial(claimsVO.getSerial());
+		claimsDO.setFailDate(claimsVO.getFailDate());
+		claimsDO.setReportDate(claimsVO.getReportDate());
 		claimsDO.setWorkOrder(Util.setDefaultStringValue(claimsVO.getWorkOrder()));
-		claimsDO.setContractId(Util.setDefaultStringValue(null));
-		claimsDO.setCLevel(Util.setDefaultStringValue(null));
+		claimsDO.setHoursBreakDown(claimsVO.getHoursBreakDown());
+		claimsDO.setPreauthApprovedAmt(claimsVO.getPreauthApprovedAmt());
+		claimsDO.setCustComplaint(Util.setDefaultStringValue(claimsVO.getCustComplaint()));
+		claimsDO.setCauseFail(Util.setDefaultStringValue(claimsVO.getCauseFail()));
+		claimsDO.setCorrectiveAction(Util.setDefaultStringValue(claimsVO.getCorrectiveAction()));
+		claimsDO.setIsArchived(claimsVO.getIsArchived());
+		claimsDO.setcStatus(claimsVO.getcStatusValue());
+		claimsDO.setRequestedOtherCharges1(claimsVO.getRequestedOtherCharges1());
+		claimsDO.setRequestedOtherCharges2(claimsVO.getRequestedOtherCharges2());
+		claimsDO.setTotalAdjustedPartsCost(claimsVO.getTotalAdjustedPartsCost());
+		claimsDO.setTotalAdjustedLaborCost(claimsVO.getTotalAdjustedLaborCost());
+		claimsDO.setApprovedOtherCharges1(claimsVO.getApprovedOtherCharges1());
+		claimsDO.setApprovedOtherCharges2(claimsVO.getApprovedOtherCharges2());
 		
+		ClaimPartDO claimPartDO = new ClaimPartDO();
+		claimPartDO.setPartNo(claimsVO.getClaimPartVO().getPartNo());
+		claimPartDO.setPartDescr(claimsVO.getClaimPartVO().getPartDescr());
+		claimPartDO.setQty(claimsVO.getClaimPartVO().getQty());
+		claimPartDO.setUnitPrice(claimsVO.getClaimPartVO().getUnitPrice());
+		claimsDO.setClaimPartDO(claimPartDO);
+		
+		ClaimLaborDO claimLaborDO = new ClaimLaborDO();
+		claimLaborDO.setLaborNo(claimsVO.getLaborNo());
+		claimLaborDO.setLaborDescr(claimsVO.getLaborDescr());
+		claimLaborDO.setLaborHrs(claimsVO.getLaborHrs());
+		claimLaborDO.setRate(claimsVO.getLaborHourlyRate());
+		claimsDO.setClaimLaborDO(claimLaborDO);
 		Long id = claimsService.saveClaim(claimsDO);
 		return new Result("success", null, id);
 	}

@@ -36,10 +36,9 @@
 		</div>
 	</div>
 	<div class="form-group">
-		<label for="hoursBreakdown" class="col-sm-3 control-label">Hours
-			@ Breakdown</label>
+		<label for="hoursBreakdown" class="col-sm-3 control-label">Hours @ Breakdown</label>
 		<div class="col-sm-9">
-			<input type="text" ng-model="claim.hoursBreakDown"
+			<input type="number" ng-model="claim.hoursBreakDown"
 				id="hoursBreakdown" name="hoursBreakdown" class="form-control"
 				required="required">
 		</div>
@@ -48,7 +47,7 @@
 		<label for="laborHours" class="col-sm-3 control-label">Labor
 			Hours</label>
 		<div class="col-sm-9">
-			<input type="text" ng-model="claim.labourHours" id="laborHours"
+			<input type="number" ng-model="claim.laborHrs" id="laborHours"
 				name="laborHours" class="form-control" required="required">
 		</div>
 	</div>
@@ -56,7 +55,7 @@
 		<label for="hourlyRate" class="col-sm-3 control-label">Hourly
 			Rate</label>
 		<div class="col-sm-9">
-			<input type="text" ng-model="claim.hourlyRate" id="hourlyRate"
+			<input type="number" ng-model="claim.laborHourlyRate" id="hourlyRate"
 				name="hourlyRate" class="form-control" required="required">
 		</div>
 	</div>
@@ -64,8 +63,44 @@
 		<label for="totalLaborCost" class="col-sm-3 control-label">Total
 			Labor Cost</label>
 		<div class="col-sm-9">
-			<input type="text" ng-model="claim.totalLaborCost"
+			<input type="number" ng-model="claim.totalLaborCost"
 				id="totalLaborCost" name="totalLaborCost" class="form-control"
+				ng-readonly=true>
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="partNo" class="col-sm-3 control-label">Part#</label>
+		<div class="col-sm-9">
+			<input type="text" ng-model="claim.claimPartVO.partNo"
+				id="partNo" name="partNo" class="form-control" required="required">
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="partDescr" class="col-sm-3 control-label">Part Description</label>
+		<div class="col-sm-9">
+			<input type="text" ng-model="claim.claimPartVO.partDescr"
+				id="partDescr" name="partDescr" class="form-control" required="required">
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="partQty" class="col-sm-3 control-label">Quantity</label>
+		<div class="col-sm-9">
+			<input type="number" ng-model="claim.claimPartVO.qty"
+				id="partQty" name="partQty" class="form-control" required="required">
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="partUnitprice" class="col-sm-3 control-label">Unit Price</label>
+		<div class="col-sm-9">
+			<input type="number" ng-model="claim.claimPartVO.unitPrice"
+				id="partUnitprice" name="partUnitprice" class="form-control" required="required">
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="partTotal" class="col-sm-3 control-label">Parts Total</label>
+		<div class="col-sm-9">
+			<input type="number" ng-model="claim.claimPartVO.partsTotal"
+				id="partTotal" name="partTotal" class="form-control"
 				ng-readonly=true>
 		</div>
 	</div>
@@ -73,16 +108,16 @@
 		<label for="totalPartsCost" class="col-sm-3 control-label">Total
 			Parts Cost</label>
 		<div class="col-sm-9">
-			<input type="text" ng-model="claim.partsTotal"
+			<input type="number" ng-model="claim.partsTotalCost"
 				id="totalPartsCost" name="totalPartsCost" class="form-control"
-				required="required">
+				ng-readonly=true>
 		</div>
 	</div>
 	<div class="form-group">
 		<label for="totalOtherCharges1" class="col-sm-3 control-label">Total
 			Other Charges (1)</label>
 		<div class="col-sm-9">
-			<input type="text" ng-model="claim.otherCharges1"
+			<input type="number" ng-model="claim.requestedOtherCharges1"
 				id="totalOtherCharges1" name="totalOtherCharges1"
 				class="form-control" required="required">
 		</div>
@@ -91,7 +126,7 @@
 		<label for="totalOtherCharges2" class="col-sm-3 control-label">Total
 			Other Charges (2)</label>
 		<div class="col-sm-9">
-			<input type="text" ng-model="claim.otherCharges2"
+			<input type="number" ng-model="claim.requestedOtherCharges2"
 				id="totalOtherCharges2" name="totalOtherCharges2"
 				class="form-control" required="required">
 		</div>
@@ -100,7 +135,7 @@
 		<label for="totalClaimCost" class="col-sm-3 control-label">Total
 			Claim Cost</label>
 		<div class="col-sm-9">
-			<input type="text" ng-model="claim.totalClaimCost"
+			<input type="number" ng-model="claim.totalClaimCost"
 				id="totalClaimCost" name="totalClaimCost" class="form-control"
 				ng-readonly=true>
 		</div>

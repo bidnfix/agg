@@ -14,6 +14,7 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', functi
 		initClaimAddForm = function($scope){
 			$scope.isSubmitDisabled = false;
 			$scope.claim={};
+			$scope.claim.claimPartVO = $scope.claim.claimPartVO || {};
 			$scope.claim.contractId = $scope.contractInfoList.contractId;
 			$scope.claim.serial = $scope.contractInfoList.machineSerialNo;
 			$scope.claim.manf = $scope.contractInfoList.manufacturerDO.name;
@@ -23,10 +24,14 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', functi
 			$scope.todayDate = new Date();
 			$scope.failureDateValid = updateDate($scope.todayDate, -1);
 			
-			$scope.$watch('claim.labourHours * claim.hourlyRate', function(value){
+			$scope.$watch('claim.laborHrs * claim.laborHourlyRate', function(value){
 				$scope.claim.totalLaborCost = value;
 			});
-			$scope.$watchCollection('[claim.totalLaborCost, claim.partsTotal, claim.otherCharges1, claim.otherCharges2]', function(newValues){
+			$scope.$watch('claim.claimPartVO.qty * claim.claimPartVO.unitPrice', function(value){
+				$scope.claim.claimPartVO.partsTotal = value;
+				$scope.claim.partsTotalCost = $scope.claim.claimPartVO.partsTotal;
+			});
+			$scope.$watchCollection('[claim.totalLaborCost, claim.partsTotalCost, claim.requestedOtherCharges1, claim.requestedOtherCharges2]', function(newValues){
 				$scope.claim.totalClaimCost = parseInt(newValues[0]) + parseInt(newValues[1]) + parseInt(newValues[2]) + parseInt(newValues[3]);
 				$scope.isSubmitDisabled = $scope.claim.totalClaimCost > 1500;
 			});
@@ -68,6 +73,7 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', functi
 		},
 		saveClaim : function(claim) {
 			alert('in saveClaim');
+			claim.cStatus = "Pending";
 			console.log(JSON.stringify(claim));
 			return $http.post('/agg/saveClaim', claim).then(
 					function(response) {
