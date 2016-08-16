@@ -313,11 +313,11 @@ routingApp.controller('ProgramAsDealerController', function($scope, $http) {
 	
     $scope.getProgDetails = function (programDO)
 	 {
-		 alert(programDO.manufacturerDO.name);
+		 //alert(programDO.manufacturerDO.name);
 		 $scope.program.cType = programDO.cType;
 		 $scope.program.manufacturerDO = $scope.program.manufacturerDO || {};
 		 $scope.program.manufacturerDO.name = programDO.manufacturerDO.name;
-		
+		 $scope.program.machineInfoDOList = programDO.machineInfoDOList;
 
 	 }
 });

@@ -63,51 +63,51 @@
 							<!--  <select name="machine" ng-model="program.modelDO" ng-options="machine.name for machine in modelList">
 		     				</select> -->
 		     				<select name="modelName" ng-model="program.machineInfoDO" ng-options="machineInfo.model for machineInfo in machineInfoDOList" 
-										ng-change="getProgDetails(program.programDO)">
+										>
      								</select> 
 						</div>
 					</div>	
                         
                         <div class="form-group">
-							<label class="cols-sm-2 control-label" for="firstName">Model Year</label>
+							<label class="cols-sm-2 control-label">Model Year</label>
 							<div class="cols-sm-10">
 								<div class="input-group">
-									<input type="text" id="modelYear" name="modelYear" ng-model="program.modelYear" placeholder="First Name" class="form-control" required="required">
+									<input type="text" id="modelYear" name="modelYear" ng-model="program.modelYear" placeholder="Model Year" class="form-control" required="required">
 								</div>
 							</div>
 						</div>
                         
                         
                         <div class="form-group">
-							<label class="cols-sm-2 control-label" for="lastName">Serial Number</label>
+							<label class="cols-sm-2 control-label">Serial Number</label>
 							<div class="cols-sm-10">
 								<div class="input-group">
-									<input type="text" id="lastName" name="lastName" ng-model="dealer.lastName" placeholder="Last Name" class="form-control" required="required">
+									<input type="text" id="serialNum" name="serialNum" ng-model="program.serialNo" placeholder="Serial Number" class="form-control" required="required">
 								</div>
 							</div>
 						</div>
                         
                         <div class="form-group">
-							<label class="cols-sm-2 control-label" for="address1">Hours at Enrollment</label>
+							<label class="cols-sm-2 control-label" for="enrollment">Hours at Enrollment</label>
 							<div class="cols-sm-10">
 								<div class="input-group">
-									<input type="text" id="address1" name="address1" ng-model="dealer.address1" placeholder="Address 1" class="form-control" required="required">
+									<input type="text" id="enrollment" name="addenrollmentress1" ng-model="program.enrolement" placeholder="Hours at Enrollment" class="form-control" required="required">
 								</div>
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="cols-sm-2 control-label" for="address1">Start Date of Coverage</label>
+							<label class="cols-sm-2 control-label" for="coverage">Start Date of Coverage</label>
 							<div class="cols-sm-10">
 								<div class="input-group">
-									<input type="date" id="address1" name="address1" ng-model="dealer.address1" placeholder="Address 1" class="form-control" required="required">
+									<input type="date" id="coverage" name="coverage" ng-model="program.coverage" placeholder="Start Date of Coverage" class="form-control" required="required">
 								</div>
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="cols-sm-2 control-label" for="address1">Unusual Provisions</label>
+							<label class="cols-sm-2 control-label" for="provisions">Unusual Provisions</label>
 							<div class="cols-sm-10">
 								<div class="input-group">
-									<input type="textarea" id="address1" name="address1" ng-model="dealer.address1" placeholder="Address 1" class="form-control" required="required">
+									<input type="textarea" id="provisions" name="provisions" ng-model="program.provisions" placeholder="Unusual Provisions" class="form-control" required="required">
 								</div>
 							</div>
 						</div>
