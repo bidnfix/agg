@@ -183,59 +183,6 @@ public class QuoteServiceImpl implements QuoteService {
 		quote.setMachineMonths(quoteDO.getFullMachineMonths());
 		quote.setOtherProv("");
 		
-		/*quote.setManfName("");
-		quote.setMachineModel("");
-		quote.setMachineModelNum("");
-		quote.setGroupId(0);
-		quote.setMachinePower(0);
-		quote.setMachineSerial("");
-		quote.setMachineRetailPrice(0.0);
-		quote.setMachineMeterHours(0);
-		Calendar cal = Calendar.getInstance();
-		cal.set(Calendar.YEAR, 0);
-		quote.setMachineYear(cal.getTime());
-		quote.setDealerMarkupType("");
-		quote.setDealerMarkup(0.0);
-		quote.setDeductAmount(0.0);
-		quote.setCoverageTerm(0);
-		quote.setCoverageLevelHours(0);
-		quote.setCPtHours(0);
-		quote.setCPtHHours(0);
-		quote.setCPtHPlHours(0);
-		
-		quote.setMachineSaleDate(new Date());
-		quote.setMachineUoe("");*/
-		
-/*		if(quoteDO.getManufacturerDO() != null){
-			quote.setManufacturer(manufacturerDAO.findOne(quoteDO.getManufacturerDO().getId()));
-			quote.setManfName(quoteDO.getManufacturerDO().getName());
-		}
-		if(quoteDO.getMachineInfoDO() != null){
-			quote.setMachineModel(quoteDO.getMachineInfoDO().getModel());
-			quote.setMachineModelNum(quoteDO.getMachineInfoDO().getModel());
-			quote.setGroupId(quoteDO.getMachineInfoDO().getGroupId());
-		}
-		quote.setMachinePower(quoteDO.getHorsePower());
-		quote.setMachineSerial(quoteDO.getSerialNumber());
-		quote.setMachineRetailPrice(quoteDO.getRetailPrice());
-		quote.setMachineMeterHours(quoteDO.getMeterHours());
-		if(quoteDO.getModelYear() > 0){
-			Calendar cal = Calendar.getInstance();
-			cal.set(Calendar.YEAR, quoteDO.getModelYear());
-			quote.setMachineYear(cal.getTime());
-		}
-		if(quoteDO.getUseOfEquipmentDO() != null){
-			quote.setMachineUoe(quoteDO.getUseOfEquipmentDO().getEquipName());
-		}
-		quote.setMachineSaleDate(quoteDO.getEstSaleDate());
-		quote.setDealerMarkupType(quoteDO.getDealerMarkupType());
-		quote.setDealerMarkup(quoteDO.getDealerMarkup());
-		quote.setDeductAmount(quoteDO.getDeductiblePrice());
-		quote.setCoverageTerm(quoteDO.getCoverageTerm());
-		quote.setCoverageLevelHours(quoteDO.getCoverageLevelHours());
-		quote.setCPtHours(quoteDO.getCPtHours());
-		quote.setCPtHHours(quoteDO.getCPtHHours());
-		quote.setCPtHPlHours(quoteDO.getCPtHPlHours());*/
 		quote.setIsArchive((short)0);
 		quote.setCreateDate(new Date());
 		quote.setPrId(0);
@@ -575,18 +522,7 @@ public class QuoteServiceImpl implements QuoteService {
 		reportDO.setQuoteExpires("");
 		reportDO.setQuoteId(quoteDO.getQuoteId());
 		reportDO.setAddress(quoteDO.getDealerAddress()+", "+quoteDO.getDealerState()+" "+quoteDO.getDealerZip());
-		String outStandingDesc = "Thank you for considering AgGuard coverage, we appreciate the opportunity to earn your trust. "
-				+ "This quote reflects the information provided in your request for an extended service Contract based on the current terms and "
-				+ "conditions provided on our website. Our pricing is dynamic, so it is possible the price will increase after your initial quote request; "
-				+ "however, we guarantee this price for at least 90 days so that you can work out other aspects of the deal. If the price goes down, "
-				+ "then you will get the new, lower price. If you need more than a 90-day price lock, then please let us know and we will try to accommodate your needs. "
-				+ "It is important for you to double-check the details reflected on this quote for accuracy. Inaccurate information may result in an incorrect quote "
-				+ "and void the price guarantee.";
-		
-		String coverageDesc = " Coverage begins upon the acceptance of any Outstanding Conditions (noted above) and the receipt of good funds. "
-				+ "Our responsibility begins when the Manufacturer's coverage ends. Coverage is for the specified time period in months or hours of use, "
-				+ "whichever is reached first.";
-		reportDO.setOutStandingDesc(outStandingDesc);
+		reportDO.setOutStandingDesc(AggConstants.QUOTE_REPORT_OUT_STANDING_DESC);
 		reportDO.setManufacturerName(quoteDO.getManufacturerDO().getName());
 		reportDO.setModelName(quoteDO.getMachineInfoDO().getModel());
 		reportDO.setModelSerialNo(quoteDO.getSerialNumber());
@@ -596,7 +532,7 @@ public class QuoteServiceImpl implements QuoteService {
 		reportDO.setMachineStatus(quoteDO.getMachineCondition());
 		reportDO.setEmail(quoteDO.getDealerEmail());
 		reportDO.setPhone(quoteDO.getDealerPhone());
-		reportDO.setCoverageDesc(coverageDesc);
+		reportDO.setCoverageDesc(AggConstants.QUOTE_REPORT_COVERAGE_DESC);
 		reportDO.setCoverageTerm(quoteDO.getCoverageTerm());
 		reportDO.setCoverageHours(quoteDO.getCoverageHours());
 		reportDO.setDeductibleAmount(currencyFormat.format(quoteDO.getDeductiblePrice()));
@@ -643,18 +579,7 @@ public class QuoteServiceImpl implements QuoteService {
 				reportDO.setEmail(customerInfo.getEmail());
 				reportDO.setPhone(customerInfo.getPhone());
 			}
-			String outStandingDesc = "Thank you for considering AgGuard coverage, we appreciate the opportunity to earn your trust. "
-					+ "This quote reflects the information provided in your request for an extended service Contract based on the current terms and "
-					+ "conditions provided on our website. Our pricing is dynamic, so it is possible the price will increase after your initial quote request; "
-					+ "however, we guarantee this price for at least 90 days so that you can work out other aspects of the deal. If the price goes down, "
-					+ "then you will get the new, lower price. If you need more than a 90-day price lock, then please let us know and we will try to accommodate your needs. "
-					+ "It is important for you to double-check the details reflected on this quote for accuracy. Inaccurate information may result in an incorrect quote "
-					+ "and void the price guarantee.";
-			
-			String coverageDesc = " Coverage begins upon the acceptance of any Outstanding Conditions (noted above) and the receipt of good funds. "
-					+ "Our responsibility begins when the Manufacturer's coverage ends. Coverage is for the specified time period in months or hours of use, "
-					+ "whichever is reached first.";
-			reportDO.setOutStandingDesc(outStandingDesc);
+			reportDO.setOutStandingDesc(AggConstants.QUOTE_REPORT_OUT_STANDING_DESC);
 			reportDO.setManufacturerName(quote.getManufacturer().getManfName());
 			reportDO.setModelName(quote.getMachineInfo().getModel());
 			reportDO.setModelSerialNo(quote.getMachineSerial());
@@ -667,7 +592,7 @@ public class QuoteServiceImpl implements QuoteService {
 				reportDO.setMachineStatus(AggConstants.MACHINE_STATUS_NEW);
 			}
 			
-			reportDO.setCoverageDesc(coverageDesc);
+			reportDO.setCoverageDesc(AggConstants.QUOTE_REPORT_COVERAGE_DESC);
 			reportDO.setCoverageTerm(quote.getCoverageTerm());
 			reportDO.setCoverageHours(quote.getCoverageLevelHours());
 			reportDO.setDeductibleAmount(currencyFormat.format(quote.getDeductAmount()));

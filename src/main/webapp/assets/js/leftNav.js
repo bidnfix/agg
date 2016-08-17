@@ -409,7 +409,7 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService, $
 	myTabs.init();
 	
 	$scope.changeTab = function(index, tabForm){
-		alert(tabForm.$valid);
+		//alert(tabForm.$valid);
 		if(tabForm.$valid){
 			if(index !=5){
 				myTabs.goToTab(index);
@@ -558,19 +558,19 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService, $
 	}
 	
 	$scope.validateWarrantyInfoForm = function(){
-		alert(1);
+		//alert(1);
 	}
 	
 	$scope.validateMachineInfoForm = function(){
-		alert(2);
+		//alert(2);
 	}
 	
 	$scope.validateCoverageInfoForm = function(){
-		alert(3);
+		//alert(3);
 	}
 	
 	$scope.validateQuoteSummaryForm = function(){
-		alert(4);
+		//alert(4);
 	}
 });
 

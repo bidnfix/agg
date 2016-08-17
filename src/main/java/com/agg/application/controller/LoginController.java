@@ -1,29 +1,21 @@
 package com.agg.application.controller;
 
-import java.io.ByteArrayOutputStream;
-import java.util.HashMap;
 import java.util.Map;
 
-import javax.activation.DataSource;
-import javax.mail.util.ByteArrayDataSource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.MediaType;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.agg.application.model.AccountDO;
 import com.agg.application.model.DealerDO;
@@ -31,16 +23,6 @@ import com.agg.application.model.LoginForm;
 import com.agg.application.model.Result;
 import com.agg.application.service.DealerService;
 import com.agg.application.service.LoginService;
-import com.agg.application.service.MachineService;
-import com.agg.application.utils.EmailSender;
-import com.agg.application.utils.EmailStatus;
-
-import net.sf.jasperreports.engine.JREmptyDataSource;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
 
 @Controller
 @RequestMapping("/agg")
@@ -51,20 +33,9 @@ public class LoginController extends BaseController {
 	@Autowired
 	private LoginService loginService;
 	
-	@Autowired
-	private MachineService machineService;
 	
 	@Autowired
 	private DealerService dealerService;
-	
-	@Autowired
-	private JavaMailSender javaMailSender;
-	
-	@Autowired
-	EmailSender emailSender;
-	
-	@Autowired
-    private ResourceLoader resourceLoader;
 	
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST, consumes = MediaType.ALL_VALUE)
@@ -119,37 +90,6 @@ public class LoginController extends BaseController {
 		long dealerId = dealerService.saveDealer(dealerDO, null, true);
 		logger.debug("registered dealerId: "+dealerId);
 		return new Result("success", null, "Dealer registered successfully");
-	}
-	
-	@RequestMapping(value = "/report", method = RequestMethod.GET)
-	public ModelAndView report(ModelMap modelMap, ModelAndView modelAndView, HttpServletRequest request, HttpServletResponse response) {
-		//JRDataSource JRdataSource = new JRBeanCollectionDataSource(usersList);
-		modelMap.put("datasource", new JREmptyDataSource());
-		modelMap.put("format", "pdf");
-		modelAndView = new ModelAndView("rpt_customerQuote", modelMap);
-		try {
-			JasperReport jasperReport;
-			JasperPrint jasperPrint;
-			jasperReport = JasperCompileManager
-					.compileReport(resourceLoader.getResource("classpath:/jrxml/rpt_customerQuote.jrxml").getInputStream());
-			jasperPrint = JasperFillManager.fillReport(jasperReport, new HashMap(),
-					new JREmptyDataSource());
-			
-			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			JasperExportManager.exportReportToPdfStream(jasperPrint, baos);
-			DataSource aAttachment =  new ByteArrayDataSource(baos.toByteArray(), "application/pdf");
-			EmailStatus eaEmailStatus = emailSender.sendMailAsAttachment("agguardllc@gmail.com", "Test PDF", "Testing PDF Attachment", aAttachment, "customerQuote");
-			if(eaEmailStatus != null){
-				logger.info("eaEmailStatus: "+eaEmailStatus.getStatus());
-			}
-			logger.info("PDF Attached email sent successfully");
-			
-		} catch (Exception e) { 
-			logger.error("Exception occured while sending the PDF report: ", e);
-		}
-		
-		
-		return modelAndView;
 	}
 	
 }

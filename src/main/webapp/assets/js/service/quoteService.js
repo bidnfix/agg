@@ -5,9 +5,9 @@ routingApp.factory('quoteService', function($http, $q, $window) {
 		saveWarrantyInfo : function(quote, $scope) {
 			return $http.post('/agg/quote/addQuote/warrantyInfo', quote).then(
 					function(response) {
-						alert(response.data.status);
+						//alert(response.data.status);
 						if (response.data.status == 'success') {
-							alert(response.data.data.quoteId+" "+response.data.data.id);
+							//alert(response.data.data.quoteId+" "+response.data.data.id);
 							$scope.quote.quoteId = response.data.data.quoteId;
 							$scope.quote.id = response.data.data.id;
 							$scope.quote.statusDesc = response.data.data.statusDesc;
@@ -42,9 +42,9 @@ routingApp.factory('quoteService', function($http, $q, $window) {
 		saveMachineInfo : function(quote, $scope) {
 			return $http.post('/agg/quote/addQuote/machineInfo', quote).then(
 					function(response) {
-						alert(response.data.status);
+						//alert(response.data.status);
 						if (response.data.status == 'success') {
-							alert(response.data.data.quoteId+" "+response.data.data.id);
+							//alert(response.data.data.quoteId+" "+response.data.data.id);
 							$scope.quote.quoteId = response.data.data.quoteId;
 							$scope.quote.id = response.data.data.id;
 							$scope.quote.statusDesc = response.data.data.statusDesc;
@@ -80,9 +80,9 @@ routingApp.factory('quoteService', function($http, $q, $window) {
 		saveCoverageInfo : function(quote, $scope) {
 			return $http.post('/agg/quote/addQuote/coverageInfo', quote).then(
 					function(response) {
-						alert(response.data.status);
+						//alert(response.data.status);
 						if (response.data.status == 'success') {
-							alert(response.data.data.quoteId+" "+response.data.data.id);
+							//alert(response.data.data.quoteId+" "+response.data.data.id);
 							//$scope.quote = response.data.data;
 							$scope.quote.quoteId = response.data.data.quoteId;
 							$scope.quote.id = response.data.data.id;
@@ -101,9 +101,9 @@ routingApp.factory('quoteService', function($http, $q, $window) {
 		savePurchanseInfo : function(quote, $scope) {
 			return $http.post('/agg/quote/addQuote/purchaseInfo', quote).then(
 					function(response) {
-						alert(response.data.status);
+						//alert(response.data.status);
 						if (response.data.status == 'success') {
-							alert(response.data.data.quoteId+" "+response.data.data.id);
+							//alert(response.data.data.quoteId+" "+response.data.data.id);
 							//$scope.quote = response.data.data;
 							$scope.quote.quoteId = response.data.data.quoteId;
 							$scope.quote.id = response.data.data.id;
