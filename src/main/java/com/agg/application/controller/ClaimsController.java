@@ -1,5 +1,6 @@
 package com.agg.application.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,6 +30,7 @@ import com.agg.application.service.ContractsService;
 import com.agg.application.service.DealerService;
 import com.agg.application.service.QuoteService;
 import com.agg.application.utils.Util;
+import com.agg.application.vo.ClaimPartVO;
 import com.agg.application.vo.ClaimsVO;
 
 @RestController
@@ -120,12 +122,18 @@ public class ClaimsController extends BaseController {
 		claimsDO.setApprovedOtherCharges1(claimsVO.getApprovedOtherCharges1());
 		claimsDO.setApprovedOtherCharges2(claimsVO.getApprovedOtherCharges2());
 		
-		ClaimPartDO claimPartDO = new ClaimPartDO();
-		claimPartDO.setPartNo(claimsVO.getClaimPartVO().getPartNo());
-		claimPartDO.setPartDescr(claimsVO.getClaimPartVO().getPartDescr());
-		claimPartDO.setQty(claimsVO.getClaimPartVO().getQty());
-		claimPartDO.setUnitPrice(claimsVO.getClaimPartVO().getUnitPrice());
-		claimsDO.setClaimPartDO(claimPartDO);
+		if(null != claimsVO.getClaimPartVOList() && !claimsVO.getClaimPartVOList().isEmpty()){
+			List<ClaimPartDO> partDO = new ArrayList<>();
+			for(ClaimPartVO partVO : claimsVO.getClaimPartVOList()){
+				ClaimPartDO claimPartDO = new ClaimPartDO();
+				claimPartDO.setPartNo(partVO.getPartNo());
+				claimPartDO.setPartDescr(partVO.getPartDescr());
+				claimPartDO.setQty(partVO.getQty());
+				claimPartDO.setUnitPrice(partVO.getUnitPrice());
+				partDO.add(claimPartDO);
+			}
+			claimsDO.setClaimPartDO(partDO);
+		}
 		
 		ClaimLaborDO claimLaborDO = new ClaimLaborDO();
 		claimLaborDO.setLaborNo(claimsVO.getLaborNo());

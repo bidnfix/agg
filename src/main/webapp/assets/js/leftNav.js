@@ -400,6 +400,14 @@ routingApp.controller('ClaimsController', ['$scope', 'claimService', '$http', '$
     $scope.onClickSubmitClaim = function(){
     	claimService.saveClaim($scope.claim);
     };
+    
+    $scope.calcTotalPartLine = function(index){
+    	claimService.calcTotalPartLine($scope.claim, index);
+    };
+    
+    $scope.calcTotalPartCost = function(){
+    	claimService.calcTotalPartCost($scope.claim);
+    };
 }]);
 routingApp.controller('QuoteController', function($scope, $http, quoteService, $window) {
 	$scope.quote={};

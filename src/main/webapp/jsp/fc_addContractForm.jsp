@@ -39,7 +39,7 @@
 		<label for="hoursBreakdown" class="col-sm-3 control-label">Hours @ Breakdown</label>
 		<div class="col-sm-9">
 			<input type="number" ng-model="claim.hoursBreakDown"
-				id="hoursBreakdown" name="hoursBreakdown" class="form-control"
+				id="hoursBreakdown" name="hoursBreakdown" class="form-control" min="0"
 				required="required">
 		</div>
 	</div>
@@ -47,7 +47,7 @@
 		<label for="laborHours" class="col-sm-3 control-label">Labor
 			Hours</label>
 		<div class="col-sm-9">
-			<input type="number" ng-model="claim.laborHrs" id="laborHours"
+			<input type="number" ng-model="claim.laborHrs" id="laborHours" min="0"
 				name="laborHours" class="form-control" required="required">
 		</div>
 	</div>
@@ -55,7 +55,7 @@
 		<label for="hourlyRate" class="col-sm-3 control-label">Hourly
 			Rate</label>
 		<div class="col-sm-9">
-			<input type="number" ng-model="claim.laborHourlyRate" id="hourlyRate"
+			<input type="number" ng-model="claim.laborHourlyRate" id="hourlyRate" min="0"
 				name="hourlyRate" class="form-control" required="required">
 		</div>
 	</div>
@@ -68,40 +68,49 @@
 				ng-readonly=true>
 		</div>
 	</div>
-	<div class="form-group">
-		<label for="partNo" class="col-sm-3 control-label">Part#</label>
-		<div class="col-sm-9">
-			<input type="text" ng-model="claim.claimPartVO.partNo"
-				id="partNo" name="partNo" class="form-control" required="required">
-		</div>
+	<div data-ng-repeat="claimPartVO in claim.claimPartVOList">
+		<span>
+			<div class="form-group">
+				<label for="partNo" class="col-sm-3 control-label">Part#</label>
+				<div class="col-sm-9">
+					<input type="text" ng-model="claimPartVO.partNo"
+						id="partNo" name="partNo" class="form-control" required="required">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="partDescr" class="col-sm-3 control-label">Part Description</label>
+				<div class="col-sm-9">
+					<input type="text" ng-model="claimPartVO.partDescr"
+						id="partDescr" name="partDescr" class="form-control" required="required">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="partQty" class="col-sm-3 control-label">Quantity</label>
+				<div class="col-sm-9">
+					<input type="number" ng-model="claimPartVO.qty" ng-change="calcTotalPartLine($index)"
+						id="partQty" name="partQty" class="form-control" min="0" required="required">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="partUnitprice" class="col-sm-3 control-label">Unit Price</label>
+				<div class="col-sm-9">
+					<input type="number" ng-model="claimPartVO.unitPrice" ng-change="calcTotalPartLine($index)"
+						id="partUnitprice" name="partUnitprice" class="form-control" min="0"  required="required">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="partTotal" class="col-sm-3 control-label" >Parts Total</label>
+				<div class="col-sm-9">
+					<input type="number" ng-model="claimPartVO.partsTotal"
+						id="partTotal" name="partTotal" class="form-control"
+						ng-readonly=true>
+				</div>
+			</div>
+		</span>
 	</div>
 	<div class="form-group">
-		<label for="partDescr" class="col-sm-3 control-label">Part Description</label>
-		<div class="col-sm-9">
-			<input type="text" ng-model="claim.claimPartVO.partDescr"
-				id="partDescr" name="partDescr" class="form-control" required="required">
-		</div>
-	</div>
-	<div class="form-group">
-		<label for="partQty" class="col-sm-3 control-label">Quantity</label>
-		<div class="col-sm-9">
-			<input type="number" ng-model="claim.claimPartVO.qty"
-				id="partQty" name="partQty" class="form-control" required="required">
-		</div>
-	</div>
-	<div class="form-group">
-		<label for="partUnitprice" class="col-sm-3 control-label">Unit Price</label>
-		<div class="col-sm-9">
-			<input type="number" ng-model="claim.claimPartVO.unitPrice"
-				id="partUnitprice" name="partUnitprice" class="form-control" required="required">
-		</div>
-	</div>
-	<div class="form-group">
-		<label for="partTotal" class="col-sm-3 control-label">Parts Total</label>
-		<div class="col-sm-9">
-			<input type="number" ng-model="claim.claimPartVO.partsTotal"
-				id="partTotal" name="partTotal" class="form-control"
-				ng-readonly=true>
+		<div class="col-sm-9 col-sm-offset-3">
+			<button class="btn btn-primary btn-block" ng-click="claim.claimPartVOList.push({})">Add Line</button>
 		</div>
 	</div>
 	<div class="form-group">
@@ -119,7 +128,7 @@
 		<div class="col-sm-9">
 			<input type="number" ng-model="claim.requestedOtherCharges1"
 				id="totalOtherCharges1" name="totalOtherCharges1"
-				class="form-control" required="required">
+				class="form-control" min="0" required="required">
 		</div>
 	</div>
 	<div class="form-group">
@@ -128,7 +137,7 @@
 		<div class="col-sm-9">
 			<input type="number" ng-model="claim.requestedOtherCharges2"
 				id="totalOtherCharges2" name="totalOtherCharges2"
-				class="form-control" required="required">
+				class="form-control" min="0" required="required">
 		</div>
 	</div>
 	<div class="form-group">

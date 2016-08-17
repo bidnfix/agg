@@ -14,23 +14,33 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', functi
 		initClaimAddForm = function($scope){
 			$scope.isSubmitDisabled = false;
 			$scope.claim={};
-			$scope.claim.claimPartVO = $scope.claim.claimPartVO || {};
 			$scope.claim.contractId = $scope.contractInfoList.contractId;
 			$scope.claim.serial = $scope.contractInfoList.machineSerialNo;
 			$scope.claim.manf = $scope.contractInfoList.manufacturerDO.name;
 			$scope.claim.model = $scope.contractInfoList.machineModel;
 			$scope.claim.claimId = 'CL' + $scope.contractInfoList.quoteId;
-			
+			$scope.claim.claimPartVOList = [];
+			$scope.claim.claimPartVOList.push({});
 			$scope.todayDate = new Date();
 			$scope.failureDateValid = updateDate($scope.todayDate, -1);
 			
 			$scope.$watch('claim.laborHrs * claim.laborHourlyRate', function(value){
 				$scope.claim.totalLaborCost = value;
 			});
-			$scope.$watch('claim.claimPartVO.qty * claim.claimPartVO.unitPrice', function(value){
-				$scope.claim.claimPartVO.partsTotal = value;
-				$scope.claim.partsTotalCost = $scope.claim.claimPartVO.partsTotal;
+			
+			/*$scope.$watch('claimPartVO.qty * claimPartVO.unitPrice', function(value){
+				$scope.claimPartVO.partsTotal = value;
+			});*/
+			/*$scope.$watch('claim.claimPartVOList@qty * claim.claimPartVOList@unitPrice', function(value){
+				$scope.claim.claimPartVOList@partsTotal = value;
+				$scope.claim.partsTotalCost = $scope.claim.claimPartVO@partsTotal;
+				$scope.claim.partsTotalCost = value;
 			});
+			*/
+			/*$scope.$watchCollection('claim.claimPartVOList', function(newValues){
+				alert(JSON.stringify(newValues));
+				alert('vo list');
+			});*/
 			$scope.$watchCollection('[claim.totalLaborCost, claim.partsTotalCost, claim.requestedOtherCharges1, claim.requestedOtherCharges2]', function(newValues){
 				$scope.claim.totalClaimCost = parseInt(newValues[0]) + parseInt(newValues[1]) + parseInt(newValues[2]) + parseInt(newValues[3]);
 				$scope.isSubmitDisabled = $scope.claim.totalClaimCost > 1500;
@@ -44,6 +54,20 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', functi
 				date = new Date();
 			}
 			return new Date(date.getTime()  + (days*24*60*60*1000));
+		},
+		calcTotalPartLine = function(claim, index){
+			if((claim.claimPartVOList[index].qty >= 0) && (claim.claimPartVOList[index].unitPrice >= 0)){
+				claim.claimPartVOList[index].partsTotal = claim.claimPartVOList[index].qty * claim.claimPartVOList[index].unitPrice;
+				calcTotalPartCost(claim);
+			}
+		},
+		calcTotalPartCost = function(claim){
+			claim.partsTotalCost = 0;
+			angular.forEach(claim.claimPartVOList, function(claimPartVO, index){
+				if(claimPartVO.partsTotal >= 0){
+					claim.partsTotalCost += claimPartVO.partsTotal;
+				}
+			});
 		};
 		
 	return {
@@ -90,6 +114,8 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', functi
 						return $q.reject(errResponse);
 					});
 		},
-		selectContract : selectContract
+		selectContract : selectContract,
+		calcTotalPartLine : calcTotalPartLine,
+		calcTotalPartCost : calcTotalPartCost
 	}
 }]);

@@ -20,6 +20,7 @@ import com.agg.application.entity.ClaimPart;
 import com.agg.application.entity.Claims;
 import com.agg.application.entity.Manufacturer;
 import com.agg.application.entity.Quote;
+import com.agg.application.model.ClaimPartDO;
 import com.agg.application.model.ClaimsDO;
 import com.agg.application.model.ManufacturerDO;
 import com.agg.application.model.QuoteDO;
@@ -195,13 +196,19 @@ public class ClaimsServiceImpl implements ClaimsService {
 		
 		Claims newClaim = claimsDAO.save(claim);
 		
-		ClaimPart claimPart = new ClaimPart();
-		claimPart.setClaimId(newClaim.getId());
-		claimPart.setPartNo(claimsDO.getClaimPartDO().getPartNo());
-		claimPart.setPartDescr(claimsDO.getClaimPartDO().getPartDescr());
-		claimPart.setQty(claimsDO.getClaimPartDO().getQty());
-		claimPart.setUnitPrice(claimsDO.getClaimPartDO().getUnitPrice());
-		claimPartDAO.save(claimPart);
+		if(null != claimsDO.getClaimPartDO() && !claimsDO.getClaimPartDO().isEmpty()){
+			List<ClaimPart> claimPartList = new ArrayList<>();
+			for(ClaimPartDO claimPartDO : claimsDO.getClaimPartDO()){
+				ClaimPart claimPart = new ClaimPart();
+				claimPart.setClaimId(newClaim.getId());
+				claimPart.setPartNo(claimPartDO.getPartNo());
+				claimPart.setPartDescr(claimPartDO.getPartDescr());
+				claimPart.setQty(claimPartDO.getQty());
+				claimPart.setUnitPrice(claimPartDO.getUnitPrice());
+				claimPartList.add(claimPart);
+			}
+			claimPartDAO.save(claimPartList);
+		}
 		
 		ClaimLabor claimLabor = new ClaimLabor();
 		claimLabor.setClaimId(newClaim.getId());

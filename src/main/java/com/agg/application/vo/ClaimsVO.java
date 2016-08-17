@@ -5,6 +5,7 @@ package com.agg.application.vo;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 import com.agg.application.utils.AggConstants;
 
@@ -40,7 +41,7 @@ public class ClaimsVO {
 	private String laborDescr;
 	private int laborHrs;
 	private int laborHourlyRate;
-	private ClaimPartVO claimPartVO;
+	private List<ClaimPartVO> claimPartVOList;
 	private byte cStatusValue;
 	
 	/**
@@ -363,16 +364,16 @@ public class ClaimsVO {
 		this.laborHourlyRate = laborHourlyRate;
 	}
 	/**
-	 * @return the claimPartVO
+	 * @return the claimPartVOList
 	 */
-	public ClaimPartVO getClaimPartVO() {
-		return claimPartVO;
+	public List<ClaimPartVO> getClaimPartVOList() {
+		return claimPartVOList;
 	}
 	/**
-	 * @param claimPartVO the claimPartVO to set
+	 * @param claimPartVOList the claimPartVOList to set
 	 */
-	public void setClaimPartVO(ClaimPartVO claimPartVO) {
-		this.claimPartVO = claimPartVO;
+	public void setClaimPartVOList(List<ClaimPartVO> claimPartVOList) {
+		this.claimPartVOList = claimPartVOList;
 	}
 	/**
 	 * @return the cStatusValue

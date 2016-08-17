@@ -2,6 +2,7 @@ package com.agg.application.model;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 public class ClaimsDO {
 	private int id;
@@ -26,7 +27,7 @@ public class ClaimsDO {
 	private int totalAdjustedLaborCost;
 	private int approvedOtherCharges1;
 	private int approvedOtherCharges2;
-	private ClaimPartDO claimPartDO;
+	private List<ClaimPartDO> claimPartDO;
 	private ClaimLaborDO claimLaborDO;
 	/**
 	 * 
@@ -302,13 +303,13 @@ public class ClaimsDO {
 	/**
 	 * @return the claimPartDO
 	 */
-	public ClaimPartDO getClaimPartDO() {
+	public List<ClaimPartDO> getClaimPartDO() {
 		return claimPartDO;
 	}
 	/**
 	 * @param claimPartDO the claimPartDO to set
 	 */
-	public void setClaimPartDO(ClaimPartDO claimPartDO) {
+	public void setClaimPartDO(List<ClaimPartDO> claimPartDO) {
 		this.claimPartDO = claimPartDO;
 	}
 	/**
