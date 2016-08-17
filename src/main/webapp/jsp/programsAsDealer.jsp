@@ -62,9 +62,11 @@
 						<div class="col-sm-9">
 							<!--  <select name="machine" ng-model="program.modelDO" ng-options="machine.name for machine in modelList">
 		     				</select> -->
-		     				<select name="modelName" ng-model="program.machineInfoDO" ng-options="machineInfo.model for machineInfo in machineInfoDOList" 
+		     				<div class="input-group">
+		     				<select name="modelName" ng-model="program.machineInfoDO" ng-options="machineInfooDO.model for machineInfooDO in program.machineInfoDOList" 
 										>
      								</select> 
+     								</div>
 						</div>
 					</div>	
                         
@@ -131,7 +133,7 @@
 							<label class="cols-sm-2 control-label" for="city">Condition</label>
 							<div class="cols-sm-10">
 								<div class="input-group">
-									<input type="text" id="city" name="city" ng-model="dealer.city" placeholder="City" class="form-control" required="required">
+									<input type="text" id="condition" name="condition" ng-model="program.condition" class="form-control" required="required">
 								</div>
 							</div>
 						</div>
@@ -152,7 +154,7 @@
 							<label class="cols-sm-2 control-label" for="zip">Coverage Term</label>
 							<div class="cols-sm-10">
 								<div class="input-group">
-									<input type="text" id="zip" name="zip" ng-model="dealer.zip" placeholder="Zip Code" class="form-control" required="required">
+									<input type="text" id="cTerm" name="cTerm" ng-model="program.cTerm" class="form-control" required="required">
 								</div>
 							</div>
 						</div>      
@@ -163,7 +165,7 @@
 							<label class="cols-sm-2 control-label" for="marketEmail">Hours Covered</label>
 							<div class="cols-sm-10">
 								<div class="input-group">
-									<input type="text" id="marketEmail" name="marketEmail" ng-model="dealer.marketEmail" placeholder="Market Email" class="form-control" required="required">
+									<input type="number" id="cHour" name="cHour" ng-model="program.cHour" class="form-control" required="required">
 								</div>
 							</div>
 						</div>
@@ -172,7 +174,7 @@
 							<label class="cols-sm-2 control-label" for="invoiceEmail">Deductible</label>
 							<div class="cols-sm-10">
 								<div class="input-group">
-									<input type="text" id="invoiceEmail" name="invoiceEmail" ng-model="dealer.invoiceEmail" placeholder="Invoice Email" class="form-control" required="required">
+									<input type="number" id="deductible" name="deductible" ng-model="program.deductible" class="form-control" required="required">
 								</div>
 							</div>
 						</div>            
@@ -181,7 +183,7 @@
 							<label class="cols-sm-2 control-label" for="phone">Limit of Liability</label>
 							<div class="cols-sm-10">
 								<div class="input-group">
-									<input type="number" id="phone" name="phone" ng-model="dealer.phone" placeholder="Phone Number" class="form-control" required="required">
+									<input type="number" id="lol" name="lol" ng-model="program.lol" class="form-control" required="required">
 								</div>
 							</div>
 						</div>          
@@ -191,7 +193,7 @@
 							<label class="cols-sm-2 control-label" for="dealerUrl">Cost</label>
 							<div class="cols-sm-10">
 								<div class="input-group">
-									<input type="text" id="dealerUrl" name="dealerUrl" ng-model="dealer.dealerUrl" placeholder="URL" class="form-control" required="required">
+									<input type="number" id="cost" name="cost" ng-model="program.cost" class="form-control" required="required">
 								</div>
 							</div>
 						</div>	
@@ -200,7 +202,7 @@
 							<label class="cols-sm-2 control-label" for="dealerUrl">Program Description</label>
 							<div class="cols-sm-10">
 								<div class="input-group">
-									<input type="text" id="dealerUrl" name="dealerUrl" ng-model="dealer.dealerUrl" placeholder="URL" class="form-control" required="required">
+									<input type="text" id="desc" name="desc" ng-model="program.desc" class="form-control" required="required">
 								</div>
 							</div>
 						</div>	

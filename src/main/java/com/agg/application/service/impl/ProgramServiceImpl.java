@@ -83,6 +83,14 @@ public class ProgramServiceImpl implements ProgramService {
 				programDO.setName(program.getPrName());
 				programDO.setcType(program.getPrCType());
 				programDO.setPrId(program.getPrId());
+				programDO.setCondition(program.getPrCondition());
+				programDO.setcType(program.getPrCType());
+				programDO.setcTerm(program.getPrCTerm());
+				programDO.setcHours(program.getPrCHours());
+				programDO.setDeductible(program.getPrDeductible());
+				programDO.setLol(program.getPrLol());
+				programDO.setCost(program.getPrCost());
+				programDO.setDesc(program.getPrDesc());
 				
 				dealerDO = new DealerDO();
 				Dealer dealer = program.getDealer();
@@ -111,10 +119,11 @@ public class ProgramServiceImpl implements ProgramService {
 						MachineInfoDO macInfDO = new MachineInfoDO();
 						macInfDO.setModel(macineInfo.getModel());
 						macInfDO.setMachineId(macineInfo.getMachineId());
+						macInfDO.setModelYear(macineInfo.getModelYear());
 						
 						machineInfoDOList.add(macInfDO);
 					}
-					programDO.setMachineInfoDO(machineInfoDOList);
+					programDO.setMachineInfoDOList(machineInfoDOList);
 				}
 				programDO.setDealerDO(dealerDO);
 				
@@ -154,7 +163,7 @@ public class ProgramServiceImpl implements ProgramService {
 		//TODO To be implemented after dealer services
 		//progEnt.setDealer(dealer);
 		
-		List<MachineInfoDO> machineInfoDOs =  program.getMachineInfoDO();
+		List<MachineInfoDO> machineInfoDOs =  program.getMachineInfoDOList();
 		
 		
 		

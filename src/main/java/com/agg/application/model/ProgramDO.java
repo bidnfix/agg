@@ -40,14 +40,14 @@ public class ProgramDO {
 	
 	private ManufacturerDO manufacturerDO;
 	
-	private List<MachineInfoDO> machineInfoDO;
+	private List<MachineInfoDO> machineInfoDOList;
 	
-	public List<MachineInfoDO> getMachineInfoDO() {
-		return machineInfoDO;
+	public List<MachineInfoDO> getMachineInfoDOList() {
+		return machineInfoDOList;
 	}
 
-	public void setMachineInfoDO(List<MachineInfoDO> machineInfoDO) {
-		this.machineInfoDO = machineInfoDO;
+	public void setMachineInfoDOList(List<MachineInfoDO> machineInfoDOList) {
+		this.machineInfoDOList = machineInfoDOList;
 	}
 
 	public DealerDO getDealerDO() {	

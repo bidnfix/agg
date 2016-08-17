@@ -311,7 +311,30 @@ routingApp.controller('ProgramAsDealerController', function($scope, $http) {
         $scope.programList = response.data.data.programList;
     });
 	
-    $scope.getProgDetails = function (programDO)
+	$scope.getProgDetails = function (programDO)
+	 {
+		 //alert(programDO.manufacturerDO.name);
+   	
+   	 $scope.program.manufacturerDO = $scope.program.manufacturerDO || {};
+		 $scope.program.manufacturerDO.name = programDO.manufacturerDO.name;
+		 $scope.program.machineInfoDOList = programDO.machineInfoDOList;
+		 
+   	 $scope.program.condition = programDO.condition;
+		 $scope.program.cType = programDO.cType;
+		 $scope.program.coverage = programDO.coverage;
+		 $scope.program.cTerm = programDO.cTerm;
+		 $scope.program.cHour = programDO.cHour;
+		 $scope.program.deductible = programDO.deductible;
+		 $scope.program.lol = programDO.lol;
+		 $scope.program.cost = programDO.cost;
+		 $scope.program.desc = programDO.desc;
+		 
+		 
+		
+
+	 }
+   
+   $scope.getRemProgDetails = function (programDO)
 	 {
 		 //alert(programDO.manufacturerDO.name);
 		 $scope.program.cType = programDO.cType;
