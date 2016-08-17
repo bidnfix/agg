@@ -315,11 +315,10 @@ routingApp.controller('ProgramAsDealerController', function($scope, $http) {
 	 {
 		 //alert(programDO.manufacturerDO.name);
    	
-   	 $scope.program.manufacturerDO = $scope.program.manufacturerDO || {};
+		 $scope.program.manufacturerDO = $scope.program.manufacturerDO || {};
 		 $scope.program.manufacturerDO.name = programDO.manufacturerDO.name;
 		 $scope.program.machineInfoDOList = programDO.machineInfoDOList;
-		 
-   	 $scope.program.condition = programDO.condition;
+		 $scope.program.condition = programDO.condition;
 		 $scope.program.cType = programDO.cType;
 		 $scope.program.coverage = programDO.coverage;
 		 $scope.program.cTerm = programDO.cTerm;
@@ -334,13 +333,10 @@ routingApp.controller('ProgramAsDealerController', function($scope, $http) {
 
 	 }
    
-   $scope.getRemProgDetails = function (programDO)
+   $scope.getRemProgDetails = function (machineInfo)
 	 {
-		 //alert(programDO.manufacturerDO.name);
-		 $scope.program.cType = programDO.cType;
-		 $scope.program.manufacturerDO = $scope.program.manufacturerDO || {};
-		 $scope.program.manufacturerDO.name = programDO.manufacturerDO.name;
-		 $scope.program.machineInfoDOList = programDO.machineInfoDOList;
+		 alert(machineInfo.modelYear);
+		 $scope.program2.modelYear = machineInfo.modelYear;
 
 	 }
 });

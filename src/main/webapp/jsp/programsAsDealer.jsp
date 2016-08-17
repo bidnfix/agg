@@ -64,7 +64,7 @@
 		     				</select> -->
 		     				<div class="input-group">
 		     				<select name="modelName" ng-model="program.machineInfoDO" ng-options="machineInfooDO.model for machineInfooDO in program.machineInfoDOList" 
-										>
+										ng-change="getRemProgDetails(program.machineInfoDO)">
      								</select> 
      								</div>
 						</div>
@@ -74,7 +74,7 @@
 							<label class="cols-sm-2 control-label">Model Year</label>
 							<div class="cols-sm-10">
 								<div class="input-group">
-									<input type="text" id="modelYear" name="modelYear" ng-model="program.modelYear" placeholder="Model Year" class="form-control" required="required">
+									<input type="text" id="modelYear" name="modelYear" ng-model="program2.modelYear" placeholder="Model Year" class="form-control" required="required">
 								</div>
 							</div>
 						</div>
