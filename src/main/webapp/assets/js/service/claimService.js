@@ -95,9 +95,9 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', functi
     			}
     		});
 		},
-		saveClaim : function(claim) {
+		saveClaim : function(claim, status) {
 			alert('in saveClaim');
-			claim.cStatus = "Pending";
+			claim.cStatus = status;
 			console.log(JSON.stringify(claim));
 			return $http.post('/agg/saveClaim', claim).then(
 					function(response) {
