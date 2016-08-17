@@ -186,7 +186,7 @@
 
 	<div class="form-group">
 		<div class="col-sm-9 col-sm-offset-3">
-			<button type="button" class="btn btn-primary btn-block" onclick="saveAsDraft('model')">Save
+			<button type="button" class="btn btn-primary btn-block" ng-click="saveAsDraft()">Save
 				as Draft</button>
 		</div>
 	</div>

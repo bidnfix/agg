@@ -398,7 +398,7 @@ routingApp.controller('ClaimsController', ['$scope', 'claimService', '$http', '$
     	claimService.selectContract($scope, data);
     };
     $scope.onClickSubmitClaim = function(){
-    	claimService.saveClaim($scope.claim);
+    	claimService.saveClaim($scope.claim, 'Pending');
     };
     
     $scope.calcTotalPartLine = function(index){
@@ -407,6 +407,10 @@ routingApp.controller('ClaimsController', ['$scope', 'claimService', '$http', '$
     
     $scope.calcTotalPartCost = function(){
     	claimService.calcTotalPartCost($scope.claim);
+    };
+    
+    $scope.saveAsDraft = function(){
+    	claimService.saveClaim($scope.claim, 'Draft');
     };
 }]);
 routingApp.controller('QuoteController', function($scope, $http, quoteService, $window) {
