@@ -28,19 +28,6 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', functi
 				$scope.claim.totalLaborCost = value;
 			});
 			
-			/*$scope.$watch('claimPartVO.qty * claimPartVO.unitPrice', function(value){
-				$scope.claimPartVO.partsTotal = value;
-			});*/
-			/*$scope.$watch('claim.claimPartVOList@qty * claim.claimPartVOList@unitPrice', function(value){
-				$scope.claim.claimPartVOList@partsTotal = value;
-				$scope.claim.partsTotalCost = $scope.claim.claimPartVO@partsTotal;
-				$scope.claim.partsTotalCost = value;
-			});
-			*/
-			/*$scope.$watchCollection('claim.claimPartVOList', function(newValues){
-				alert(JSON.stringify(newValues));
-				alert('vo list');
-			});*/
 			$scope.$watchCollection('[claim.totalLaborCost, claim.partsTotalCost, claim.requestedOtherCharges1, claim.requestedOtherCharges2]', function(newValues){
 				$scope.claim.totalClaimCost = parseInt(newValues[0]) + parseInt(newValues[1]) + parseInt(newValues[2]) + parseInt(newValues[3]);
 				$scope.isSubmitDisabled = $scope.claim.totalClaimCost > 1500;

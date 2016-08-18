@@ -408,6 +408,10 @@ routingApp.controller('ClaimsController', ['$scope', 'claimService', '$http', '$
     $scope.saveAsDraft = function(){
     	claimService.saveClaim($scope.claim, 'Draft');
     };
+    
+    $scope.reqAuth = function(){
+    	claimService.saveClaim($scope.claim, 'pre_authorized_requested');
+    };
 }]);
 routingApp.controller('QuoteController', function($scope, $http, quoteService, $window) {
 	$scope.quote={};

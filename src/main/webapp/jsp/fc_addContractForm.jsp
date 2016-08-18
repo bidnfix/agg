@@ -192,7 +192,7 @@
 	</div>
 	<div class="form-group">
 		<div class="col-sm-9 col-sm-offset-3">
-			<button type="button" class="btn btn-primary btn-block" onclick="reqAuth('machineEditPopup')">Request
+			<button type="button" class="btn btn-primary btn-block" ng-click="reqAuth()">Request
 				for Authorization</button>
 		</div>
 	</div>
