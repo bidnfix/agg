@@ -93,6 +93,10 @@ routingApp.config(['$routeProvider',
                     	  templateUrl: '../../jsp/reportaBug.jsp',
                     	  controller: 'ReportBugController'
                       }).
+                      when('/agg/quotes', {
+                    	  templateUrl: '../../jsp/quotes.jsp',
+                    	  controller: 'QuotesDetailController'
+                      }).
                       otherwise({
                     	  redirectTo: '/agg/home'
                       });
@@ -673,6 +677,20 @@ routingApp.controller('GetUserController', function($scope, userService, $http, 
       }
     };
  });
+
+routingApp.controller('QuotesDetailController', function($scope, $http, $timeout) {
+	$http.get("/agg/quotesInfo")
+	.then(function(response) {
+        $scope.quoteList = response.data.data;
+        $timeout(function () {
+        	$('#quotesTbl').DataTable();
+        }, 300);
+    });
+	
+	$scope.viewQuote = function(id, quoteId){
+		alert(id+" "+quoteId);
+	}
+})
 
 
 

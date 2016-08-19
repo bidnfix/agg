@@ -26,6 +26,8 @@ public class AggConstants {
 	
 	public static final String QUOTE_STATUS_INVOICED = "Invoiced";
 	
+	public static final String QUOTE_STATUS_ACRHIVE = "Archive";
+	
 	public static final String MACHINE_STATUS_USED = "Used";
 	
 	public static final String MACHINE_STATUS_NEW= "New";

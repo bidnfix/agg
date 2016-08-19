@@ -18,6 +18,8 @@ public class AccountDO {
 	
 	private RoleDO roleDO;
 	
+	private long dealerId;
+	
 	private List<UserMenuDO> userMenuDOList = null;
 	
 	
@@ -133,4 +135,12 @@ public class AccountDO {
 		this.userMenuDOList = userMenuDOList;
 	}
 
+	public long getDealerId() {
+		return dealerId;
+	}
+
+	public void setDealerId(long dealerId) {
+		this.dealerId = dealerId;
+	}
+	
 }

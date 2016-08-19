@@ -21,4 +21,6 @@ public interface QuoteDAO extends CrudRepository<Quote, QuotePK> {
 	
 	public Quote findByIdQuoteId(String quoteId);
 	
+	public List<Quote> findByDealerId(long dealerId);
+	
 }

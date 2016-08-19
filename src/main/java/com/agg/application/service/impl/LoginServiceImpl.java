@@ -13,6 +13,7 @@ import com.agg.application.dao.UserDAO;
 import com.agg.application.dao.UserRoleSubMenusDAO;
 import com.agg.application.entity.Account;
 import com.agg.application.entity.AccountType;
+import com.agg.application.entity.Dealer;
 import com.agg.application.entity.Role;
 import com.agg.application.entity.UserMenus;
 import com.agg.application.entity.UserRoleMenus;
@@ -59,6 +60,12 @@ public class LoginServiceImpl implements LoginService {
 		accountDO.setFirstName(account.getFirstName());
 		accountDO.setLastName(account.getLastName());
 		accountDO.setId(account.getId());
+		
+		Dealer dealer = account.getDealer();
+		if(dealer != null){
+			accountDO.setDealerId(dealer.getId());
+		}
+		
 		
 		RoleDO roleDO = new RoleDO();
 		roleDO.setId(role.getRId());

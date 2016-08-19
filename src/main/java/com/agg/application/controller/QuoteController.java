@@ -239,4 +239,16 @@ public class QuoteController extends BaseController {
 		
 		return modelAndView;
 	}
+	
+	@RequestMapping(value = "/quotesInfo", method = RequestMethod.GET)
+	public Result getDealers(Map<String, Object> model, HttpServletRequest request, HttpServletResponse response) {
+		Result opResult = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			opResult = new Result("success", null, quoteService.getQuotes(getAccountDetails(request)));
+		}
+		
+		return opResult;
+	}
 }

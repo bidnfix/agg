@@ -159,6 +159,8 @@ public class QuoteDO {
 	
 	private double dealerMarkupPrice;
 	
+	private boolean custUnderstandCoverage;
+	
 	
 	public int getcPtHHours() {
 		return cPtHHours;
@@ -1042,6 +1044,14 @@ public class QuoteDO {
 	 */
 	public void setDealerMarkupPrice(double dealerMarkupPrice) {
 		this.dealerMarkupPrice = dealerMarkupPrice;
+	}
+
+	public boolean isCustUnderstandCoverage() {
+		return custUnderstandCoverage;
+	}
+
+	public void setCustUnderstandCoverage(boolean custUnderstandCoverage) {
+		this.custUnderstandCoverage = custUnderstandCoverage;
 	}
 	
 }
