@@ -42,6 +42,24 @@ routingApp.factory('programService', function($http, $q, $window) {
 								alert('Error while creating machine');
 								return $q.reject(errResponse);
 							});
+				},
+				
+				submitProgramAsDel : function(program) {
+					return $http.post('/agg/postProgramsAsDealer', program).then(
+							function(response) {
+								alert("in postProgramsAsDealer");
+								alert(response.data.status);
+								if (response.data.status == 'success') {
+									$window.location = '#/agg/programs';
+								} else {
+									alert('error in adding program: '+response.data.errMessage)
+									//$('#errMsg').html(response.data.errMessage);
+								}
+								
+							}, function(errResponse) {
+								alert('Error while creating program');
+								return $q.reject(errResponse);
+							});
 				}
 
 			};

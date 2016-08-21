@@ -307,7 +307,7 @@ routingApp.controller('AddProgramsController', function($scope, $http) {
 	
 });
 
-routingApp.controller('ProgramAsDealerController', function($scope, $http) {
+routingApp.controller('ProgramAsDealerController', function($scope, programService, $http) {
 	//alert("in ProgramAsDealerController");
 	$http.get("/agg/programAsDealer")
     .then(function(response) {
@@ -318,8 +318,7 @@ routingApp.controller('ProgramAsDealerController', function($scope, $http) {
 	$scope.getProgDetails = function (programDO)
 	 {
 		 //alert(programDO.manufacturerDO.name);
-   	
-		 $scope.program.manufacturerDO = $scope.program.manufacturerDO || {};
+   		 $scope.program.manufacturerDO = $scope.program.manufacturerDO || {};
 		 $scope.program.manufacturerDO.name = programDO.manufacturerDO.name;
 		 $scope.program.machineInfoDOList = programDO.machineInfoDOList;
 		 $scope.program.condition = programDO.condition;
@@ -331,18 +330,20 @@ routingApp.controller('ProgramAsDealerController', function($scope, $http) {
 		 $scope.program.lol = programDO.lol;
 		 $scope.program.cost = programDO.cost;
 		 $scope.program.desc = programDO.desc;
-		 
-		 
-		
 
 	 }
    
-   $scope.getRemProgDetails = function (machineInfo)
+  /* $scope.getRemProgDetails = function (machineInfo)
 	 {
 		 alert(machineInfo.modelYear);
 		 $scope.program2.modelYear = machineInfo.modelYear;
 
-	 }
+	 }*/
+   
+   $scope.submitProgramAsDel = function() {
+		alert("In submitProgramAsDel");
+		programService.submitProgramAsDel($scope.program, $scope);
+   };
 });
 
 routingApp.controller('AddDealerController', function($scope, $http) {

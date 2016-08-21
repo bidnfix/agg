@@ -32,7 +32,7 @@
                     <h2 class="mar-bot">Vew as Dealer</h2>
                     <p class="success-msg" id="successMsg" hidden="true"></p>
                     <p class="err-msg" id="errMsg" hidden="true"></p>
-                    <form role="form" ng-submit="submitDealer()">
+                    <form role="form" ng-submit="submitProgramAsDel()">
 					<div class="col-md-6">
                     
                     <div class="form-group">
