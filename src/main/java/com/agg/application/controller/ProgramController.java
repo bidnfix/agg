@@ -87,6 +87,15 @@ public class ProgramController extends BaseController {
 		return new Result("success", null, id);
 	}
 	
+	@RequestMapping(value = "/saveProgramsAsDealr", method = RequestMethod.POST)
+	public @ResponseBody Result saveProgramsAsDealr(@RequestBody ProgramDO program, BindingResult result,
+			HttpServletRequest request, HttpServletResponse response) {
+		logger.debug("In saveProgramsAsDealr");
+
+		Long id = programService.saveProgramsAsDealr(program);
+		return new Result("success", null, id);
+	}
+	
 	@RequestMapping(value = "/programs/{id}", method = RequestMethod.GET)
 	public @ResponseBody Result getOneProgram(@PathVariable Long id, Map<String, Object> model, HttpServletRequest request, HttpServletResponse response) {
 		logger.debug("In getOneProgram ");

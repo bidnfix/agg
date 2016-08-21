@@ -44,10 +44,10 @@ routingApp.factory('programService', function($http, $q, $window) {
 							});
 				},
 				
-				submitProgramAsDel : function(program) {
-					return $http.post('/agg/postProgramsAsDealer', program).then(
+				submitProgramAsDealr : function(program) {
+					return $http.post('/agg/saveProgramsAsDealr', program).then(
 							function(response) {
-								alert("in postProgramsAsDealer");
+								alert("in submitProgramAsDealr");
 								alert(response.data.status);
 								if (response.data.status == 'success') {
 									$window.location = '#/agg/programs';

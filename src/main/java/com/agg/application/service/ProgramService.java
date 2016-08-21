@@ -10,6 +10,8 @@ public interface ProgramService {
 	List<ProgramDO> getPrograms(AccountDO accountDO);
 
 	Long saveProgram(ProgramDO program);
+	
+	Long saveProgramsAsDealr(ProgramDO program);
 
 	ProgramDO getProgram(Long id);
 

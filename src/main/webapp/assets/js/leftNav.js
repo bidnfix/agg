@@ -333,16 +333,9 @@ routingApp.controller('ProgramAsDealerController', function($scope, programServi
 
 	 }
    
-  /* $scope.getRemProgDetails = function (machineInfo)
-	 {
-		 alert(machineInfo.modelYear);
-		 $scope.program2.modelYear = machineInfo.modelYear;
-
-	 }*/
-   
    $scope.submitProgramAsDel = function() {
 		alert("In submitProgramAsDel");
-		programService.submitProgramAsDel($scope.program, $scope);
+		programService.submitProgramAsDealr($scope.program, $scope);
    };
 });
 
