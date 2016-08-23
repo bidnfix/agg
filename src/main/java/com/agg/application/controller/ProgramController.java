@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.agg.application.model.ProgramDO;
+import com.agg.application.model.QuoteDO;
 import com.agg.application.model.Result;
 import com.agg.application.service.DealerService;
 import com.agg.application.service.MachineService;
@@ -88,11 +89,12 @@ public class ProgramController extends BaseController {
 	}
 	
 	@RequestMapping(value = "/saveProgramsAsDealr", method = RequestMethod.POST)
-	public @ResponseBody Result saveProgramsAsDealr(@RequestBody ProgramDO program, BindingResult result,
+	public @ResponseBody Result saveProgramsAsDealr(@RequestBody QuoteDO quoteDO, BindingResult result,
 			HttpServletRequest request, HttpServletResponse response) {
 		logger.debug("In saveProgramsAsDealr");
 
-		Long id = programService.saveProgramsAsDealr(program);
+		int id = programService.saveProgramsAsDealr(quoteDO, getAccountDetails(request));
+		logger.debug("Quote id :"+id);
 		return new Result("success", null, id);
 	}
 	

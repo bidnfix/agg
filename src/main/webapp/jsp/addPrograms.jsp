@@ -46,7 +46,7 @@
 					<!--  <select name="machine" ng-model="program.modelDO" ng-options="machine.name for machine in modelList">
      				</select> -->
      				<select size="5" id="myselection" multiple ng-multiple="true"
-			        ng-model="program.machineInfoDO" ng-options="machine.model for machine in machineModelList">
+			        ng-model="program.machineInfoDOList" ng-options="machine.model for machine in machineModelList">
 			      </select> 
 				</div>
 			</div>

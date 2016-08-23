@@ -18,17 +18,20 @@ import com.agg.application.dao.DealerDAO;
 import com.agg.application.dao.MachineInfoDAO;
 import com.agg.application.dao.ManufacturerDAO;
 import com.agg.application.dao.ProgramDAO;
+import com.agg.application.dao.QuoteDAO;
 import com.agg.application.entity.Account;
 import com.agg.application.entity.Dealer;
 import com.agg.application.entity.MachineInfo;
 import com.agg.application.entity.Manufacturer;
+import com.agg.application.entity.Quote;
+import com.agg.application.entity.QuotePK;
 import com.agg.application.entity.Sprogram;
 import com.agg.application.model.AccountDO;
 import com.agg.application.model.DealerDO;
-import com.agg.application.model.MachineDO;
 import com.agg.application.model.MachineInfoDO;
 import com.agg.application.model.ManufacturerDO;
 import com.agg.application.model.ProgramDO;
+import com.agg.application.model.QuoteDO;
 import com.agg.application.service.ProgramService;
 import com.agg.application.utils.AggConstants;
 import com.agg.application.utils.Util;
@@ -51,6 +54,9 @@ public class ProgramServiceImpl implements ProgramService {
 	
 	@Autowired
 	private MachineInfoDAO machineInfoDAO;
+	
+	@Autowired
+	private QuoteDAO quoteDAO;
 	
 	@Override
 	public List<ProgramDO> getPrograms(AccountDO accountDO) {
@@ -188,55 +194,50 @@ public class ProgramServiceImpl implements ProgramService {
 	}
 	
 	@Override
-	public Long saveProgramsAsDealr(ProgramDO program) {
-		logger.debug("In saveProgram");
+	public int saveProgramsAsDealr(QuoteDO quoteDO, AccountDO accountDO) {
+		logger.debug("In saveProgramsAsDealr");
 		Timestamp date = new Timestamp(new Date().getTime());
-		Sprogram progEnt = new Sprogram();
-		progEnt.setPrName(program.getName());
-		progEnt.setPrDesc(program.getDesc());
-		progEnt.setPrIsActive((byte) 1);
-		progEnt.setPrAServicing((byte) 1);
-		progEnt.setPrCondition((byte) 1);
-		progEnt.setPrCType(program.getcType());
-		logger.debug("-->"+program.getDealerDO());
-		progEnt.setDealer(dealerDAO.findOne(Long.valueOf(program.getDealerDO().getId())));
-		//progEnt.setDealer(dealerDAO.findOne(Long.valueOf(14)));
-		progEnt.setPrGroup(program.getGroup());
-		progEnt.setPrDeductible(program.getDeductible());
-		progEnt.setPrCType(program.getcType());
-		progEnt.setPrCHours(program.getcHours());
-		progEnt.setPrCTerm(program.getcTerm());
-		progEnt.setPrCost(program.getCost());
-		progEnt.setPrLol(program.getLol());
-		progEnt.setPrIsArchive((byte)0);
-		progEnt.setPrAServicing((byte)1);
-		progEnt.setManufacturer(manufacturerDAO.findOne(Long.valueOf(program.getManufacturerDO().getId())));
-		//progEnt.setManufacturer(manufacturerDAO.findOne(Long.valueOf(8)));
-		//TODO To be implemented after dealer services
-		//progEnt.setDealer(dealer);
 		
-		List<MachineInfoDO> machineInfoDOs =  program.getMachineInfoDOList();
+		Quote quote = new Quote();
+		String quoteId = Util.getQuoteId(AggConstants.CHARSET_AZ_09, AggConstants.QUOTE_ID_LENGTH);
+		logger.info("created quoteId: "+quoteId);
+		QuotePK quotePK = new QuotePK();
+		quotePK.setQuoteId(quoteId);
+		quote.setId(quotePK);
 		
-		
-		
-		MachineInfo machineInfo = null;
-		List<MachineInfo> machineInfoList = new ArrayList<MachineInfo>();
-		for(MachineInfoDO machineInfoDO : machineInfoDOs)
+		if(quoteDO.getManufacturerDO() != null)
 		{
-			logger.debug("--machineInfoDO--"+machineInfoDO.getMachineId());
-			machineInfo = machineInfoDAO.findOne(machineInfoDO.getMachineId());
-			if(machineInfo!=null)
-			{
-				logger.debug("--machineInfo --"+machineInfo.getMachineId());
-				machineInfoList.add(machineInfo);
-			}
+			quote.setManufacturer(manufacturerDAO.findOne(Long.valueOf(quoteDO.getManufacturerDO().getId())));
+		}
+		logger.info("accountDO.getDealerId() "+accountDO.getDealerId());
+		
+		if(accountDO.getDealerId() > 0)
+		{
+			quote.setDealer(dealerDAO.findOne(accountDO.getDealerId()));
 		}
 		
-		progEnt.setMachineInfos(machineInfoList);
+		quote.setManfExpired((byte)0);
+		quote.setManfEndDate(new Date());
+		quote.setManfEndKnown((byte)0);
+		quote.setManfVerified((byte)0);
+		quote.setPtHours(0);
+		quote.setPtMonths(0);
+		quote.setHHours(0);
+		quote.setHMonths(0);
+		quote.setMachineHours(0);
+		quote.setMachineMonths(0);
+		quote.setOtherProv("");
 		
-		progEnt.setPrLastUpdate(date);
-		progEnt = programDAO.save(progEnt);
-		return progEnt.getPrId();
+		quote.setIsArchive((short)0);
+		quote.setCreateDate(new Date());
+		quote.setPrId(0);
+		quote.setServicingDealer(0);
+		quote.setLastUpdate(date);
+		
+		quote = quoteDAO.save(quote);
+		
+		
+		return (quote.getId()).getId();
 	}
 
 	@Override

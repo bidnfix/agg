@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.agg.application.model.AccountDO;
 import com.agg.application.model.ProgramDO;
+import com.agg.application.model.QuoteDO;
 
 public interface ProgramService {
 
@@ -11,9 +12,9 @@ public interface ProgramService {
 
 	Long saveProgram(ProgramDO program);
 	
-	Long saveProgramsAsDealr(ProgramDO program);
+	int saveProgramsAsDealr(QuoteDO quoteDO, AccountDO accountDO);
 
-	ProgramDO getProgram(Long id);
+	ProgramDO getProgram(Long id);	
 
 	void deleteProgram(Long id);
 	
