@@ -94,7 +94,7 @@ public class Quote implements Serializable {
 	private String machineSerial;
 
 	@Column(name="machine_year")
-	private int machineYear;
+	private Integer machineYear;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="manf_end_date")
@@ -330,14 +330,14 @@ public class Quote implements Serializable {
 	/**
 	 * @return the machineYear
 	 */
-	public int getMachineYear() {
+	public Integer getMachineYear() {
 		return machineYear;
 	}
 
 	/**
 	 * @param machineYear the machineYear to set
 	 */
-	public void setMachineYear(int machineYear) {
+	public void setMachineYear(Integer machineYear) {
 		this.machineYear = machineYear;
 	}
 

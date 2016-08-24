@@ -731,7 +731,7 @@ public class QuoteServiceImpl implements QuoteService {
 			}
 			quoteDO.setRetailPrice(quote.getMachineRetailPrice());
 			quoteDO.setMeterHours(quote.getMachineMeterHours());
-			quoteDO.setModelYear(quote.getMachineYear());
+			quoteDO.setModelYear((quote.getMachineYear() != null)?quote.getMachineYear():0);
 			
 			UseOfEquip useOfEquip = quote.getUseOfEquip();
 			if(useOfEquip != null){
