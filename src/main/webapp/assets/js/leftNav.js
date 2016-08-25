@@ -97,6 +97,10 @@ routingApp.config(['$routeProvider',
                     	  templateUrl: '../../jsp/quotes.jsp',
                     	  controller: 'QuotesDetailController'
                       }).
+                      when('/agg/viewQuote/:quoteId/:quoteCode', {
+                    	  templateUrl: '../../jsp/quickQuote.jsp',
+                    	  controller: 'QuoteDetailController'
+                      }).
                       otherwise({
                     	  redirectTo: '/agg/home'
                       });
@@ -681,10 +685,15 @@ routingApp.controller('QuotesDetailController', function($scope, $http, $timeout
         }, 300);
     });
 	
-	$scope.viewQuote = function(id, quoteId){
+	/*$scope.viewQuote = function(id, quoteId){
 		alert(id+" "+quoteId);
-	}
+		return '../../jsp/pendingDealers.jsp';
+	}*/
 })
 
+
+routingApp.controller('QuoteDetailController', function($scope, $http, $timeout, $routeParams, $route) {
+	alert($routeParams.quoteId+" - "+$routeParams.quoteCode);
+})
 
 
