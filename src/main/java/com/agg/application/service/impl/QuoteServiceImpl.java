@@ -780,5 +780,16 @@ public class QuoteServiceImpl implements QuoteService {
 		return quoteDO;
 	}
 
+	@Override
+	public QuoteDO getQuote(AccountDO accountDetails, int id, String quoteId) {
+		QuoteDO quoteDO = null;
+		if(id > 0 && quoteId != null && !quoteId.isEmpty()){
+			QuotePK quotePK = new QuotePK(quoteId, id);
+			quoteDO = getQuoteDetails(quoteDAO.findOne(quotePK));
+		}
+		
+		return quoteDO;
+	}
+
 }
 

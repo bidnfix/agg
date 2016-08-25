@@ -693,7 +693,12 @@ routingApp.controller('QuotesDetailController', function($scope, $http, $timeout
 
 
 routingApp.controller('QuoteDetailController', function($scope, $http, $timeout, $routeParams, $route) {
-	alert($routeParams.quoteId+" - "+$routeParams.quoteCode);
+	//alert($routeParams.quoteId+" - "+$routeParams.quoteCode);
+	$scope.quote = {};
+	$http.get("/agg/quoteInfo/"+$routeParams.quoteId+"/"+$routeParams.quoteCode)
+	.then(function(response) {
+        $scope.quote = response.data.data;
+    });
 })
 
 

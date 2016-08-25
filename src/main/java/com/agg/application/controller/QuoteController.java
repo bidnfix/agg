@@ -241,12 +241,25 @@ public class QuoteController extends BaseController {
 	}
 	
 	@RequestMapping(value = "/quotesInfo", method = RequestMethod.GET)
-	public Result getDealers(Map<String, Object> model, HttpServletRequest request, HttpServletResponse response) {
+	public Result getQuotes(Map<String, Object> model, HttpServletRequest request, HttpServletResponse response) {
 		Result opResult = null;
 		if (!sessionExists(request)){
 			opResult = new Result("failure", "Invalid Login", null);
 		}else{
 			opResult = new Result("success", null, quoteService.getQuotes(getAccountDetails(request)));
+		}
+		
+		return opResult;
+	}
+	
+	@RequestMapping(value = "/quoteInfo/{id}/{quoteId}", method = RequestMethod.GET)
+	public Result getQuote(@PathVariable int id, @PathVariable String quoteId, Map<String, Object> model, HttpServletRequest request, HttpServletResponse response) {
+		logger.debug("Inside getQuote with id: "+id+" & quoteId: "+quoteId);
+		Result opResult = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			opResult = new Result("success", null, quoteService.getQuote(getAccountDetails(request), id, quoteId));
 		}
 		
 		return opResult;

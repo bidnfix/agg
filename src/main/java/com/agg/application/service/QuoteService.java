@@ -28,4 +28,6 @@ public interface QuoteService {
 	public ReportDO getQuoteReportDetails(String quoteId);
 
 	public List<QuoteDO> getQuotes(AccountDO accountDO);
+
+	public QuoteDO getQuote(AccountDO accountDetails, int id, String quoteId);
 }

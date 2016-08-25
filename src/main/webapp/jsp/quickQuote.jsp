@@ -5,7 +5,7 @@
 		<div class="sec-title">
                      
 				<h2 class="wow animated bounceInLeft">Quick Quote</h2>
-				<p class="wow animated bounceInRight">Quote #: 7KA015</p>
+				<p class="wow animated bounceInRight">Quote #: {{quote.quoteId}}</p>
 			</div>
                      </div>
                      <div class="col-md-6 col-sm-12"><a class="btn btn-primary pull-right mar-right animated fadeInRightBig hvr-pulse" href="add-new.html">Add New</a><a class="btn btn-primary pull-right animated fadeInLeftBig  hvr-pulse mar-right" href="#">Back</a></div>
@@ -14,9 +14,9 @@
              
 	 <!-- data table section -->
              
-             <div class="inner-main col-xs-12 no-pad pad10-top">
+             <div class="inner-main">
                    
-                   <div class="col-xs-12 agf1">
+                   <div class="col-xs-12 agf1 main-login pad10-top">
                      <div class="col-md-6 no-pad pad10-right">
                        <div class="form-group">
                          <label>Assign Dealer</label>
