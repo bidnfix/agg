@@ -984,3 +984,92 @@ ul li.has-subnav .accordion-btn {
 span .man-field {
 	color: #f40a0a;
 }
+
+.pad10{
+    padding: 10px !important;
+}
+.pad10-left{
+    padding-left: 10px !important;
+}
+.pad10-right{
+    padding-right: 10px !important;
+}
+.pad10-top{
+    padding-top: 10px !important;
+}
+.border{
+    border:1px #eee solid;
+}
+.marg10{
+    margin: 10px !important;
+}
+.marg10-bottom{
+    margin-bottom: 10px !important;
+}
+.border-left{
+    border-left:1px #c3c1c1 solid;
+}
+.border-bottom{
+    border-bottom:1px #c3c1c1 solid;
+}
+.f-l{
+    float: left !important;
+}
+.f-r{
+    float: right !important;
+}
+
+ /* V2 */
+.agf1 .form-group{
+    width: 100% !important;
+    margin-bottom: 10px !important;
+}
+.agf1 .form-group label{
+    width: 49% !important;
+    float: left;
+}
+.agf1 .form-group .form-control{
+    width: 49% !important;
+}
+.agf1 .form-group .input-group .form-control{
+    width: 100% !important;
+}
+.agf1 .form-group .control{
+    width: 49% !important;
+    float: left;
+}
+.agf1 .agform-radio{
+    width: 100% !important;
+}
+.agf1 .agform-radio label{
+    width: 25% !important;
+    margin: 0px !important;
+ }
+ body.agf1{
+    background: #EEEEEE !important;
+}
+.agf1 .btn{
+    font-size: 14px !important;
+    padding: 10px 15px !important;
+ }
+.agf1 .inner-main{
+    background: #fff !important;
+    margin-top: 0px !important; 
+        box-shadow: 0 2px 3px rgba(0, 0, 0, 0.3); 
+ }
+ .agf1 h4{
+    margin: 0px !important;
+ }
+ .agf1 .mainNav ul{
+    border: 0px !important;
+ }
+ .agf1 .mainNav ul li a{
+    background: none !important;
+    border-bottom: 1px #1686D0 solid !important
+ }
+ .agf1 .mainNav ul li a:hover{
+    color: #B8C159 !important;
+}
+ .form-control{
+    background: #fff !important;
+ }
