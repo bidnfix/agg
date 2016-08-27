@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.agg.application.utils.AggConstants;
+import com.agg.application.utils.Util;
 
 /**
  * @author htamada
@@ -379,37 +380,7 @@ public class ClaimsVO {
 	 * @return the cStatusValue
 	 */
 	public byte getcStatusValue() {
-		switch(this.cStatus.toLowerCase()){
-			case "open": 
-				this.cStatusValue = AggConstants.CLAIM_STATUS_OPEN;
-				break;
-			case "pre_authorized_requested":
-				this.cStatusValue = AggConstants.CLAIM_STATUS_PRE_AUTHORIZED_REQUESTED;
-				break;
-			case "submitted":
-				this.cStatusValue = AggConstants.CLAIM_STATUS_SUBMITTED;
-				break;
-			case "closed":
-				this.cStatusValue = AggConstants.CLAIM_STATUS_CLOSED;
-				break;
-			case "pre_authorized_approved":
-				this.cStatusValue = AggConstants.CLAIM_STATUS_PRE_AUTHORIZED_APPROVED;
-				break;
-			case "pre_authorized_rejected":
-				this.cStatusValue = AggConstants.CLAIM_STATUS_PRE_AUTHORIZED_REJECTED;
-				break;
-			case "pre_authorized_approved_with_adjustments":
-				this.cStatusValue = AggConstants.CLAIM_STATUS_PRE_AUTHORIZED_APPROVED_WITH_ADJUSMENTS;
-				break;
-			case "pending":
-				this.cStatusValue = AggConstants.CLAIM_STATUS_PENDING;
-				break;
-			case "draft":
-				this.cStatusValue = AggConstants.CLAIM_STATUS_DRAFT;
-				break;
-			default:
-				this.cStatusValue = 0;
-		}
+		this.cStatusValue = Util.getClaimStatusCode(this.cStatus);
 		return cStatusValue;
 	}
 	/**

@@ -11,4 +11,6 @@ public interface ClaimsService {
 	List<QuoteDO> getClaimInfoBySerialNumber(final String serialNo);
 	QuoteDO getClaimInfo(String ClaimId);
 	Long saveClaim(ClaimsDO claimsDO);
+	List<ClaimsDO> getClaimsByCStatus(byte cStatus);
+	void updateStatus(final int id, final byte status);
 }

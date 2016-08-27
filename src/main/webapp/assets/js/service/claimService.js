@@ -55,6 +55,22 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', functi
 					claim.partsTotalCost += claimPartVO.partsTotal;
 				}
 			});
+		},
+		getPreAuthRequest = function(){
+			return $http.post('/agg/saveClaim', claim).then(
+					function(response) {
+						alert(response.data.status);
+						if (response.data.status == 'success') {
+							$window.location = '#/agg/fileClaim';
+						} else {
+							alert('error in adding program: '+response.data.errMessage)
+							//$('#errMsg').html(response.data.errMessage);
+						}
+						
+					}, function(errResponse) {
+						alert('Error while creating program');
+						return $q.reject(errResponse);
+					});
 		};
 		
 	return {
@@ -103,6 +119,72 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', functi
 		},
 		selectContract : selectContract,
 		calcTotalPartLine : calcTotalPartLine,
-		calcTotalPartCost : calcTotalPartCost
+		calcTotalPartCost : calcTotalPartCost,
+		getPreAuthRequest : getPreAuthRequest
+	}
+}]);
+
+routingApp.factory('claimPreAuthReqService', ['$http', '$q', '$window', '$timeout', function($http, $q, $window, $timeout){
+	var init = function($scope){
+		$http.get("/agg/preAuthClaimReq")
+	    .then(function(response) {
+	    	$scope.preAuthClaimList = response.data.data.preAuthClaimList;
+	    });
+	},
+	calcCost = function(preAuthClaim){
+		if(preAuthClaim){
+			preAuthClaim.totalPartCost = 0;
+			if(preAuthClaim.claimPartDO){
+				for(var i in preAuthClaim.claimPartDO){
+					preAuthClaim.totalPartCost += preAuthClaim.claimPartDO[i].qty * preAuthClaim.claimPartDO[i].unitPrice;
+				}
+			}
+			preAuthClaim.totalClaimCost = (preAuthClaim.claimLaborDO.laborHrs * preAuthClaim.claimLaborDO.rate) + preAuthClaim.totalPartCost
+				+ preAuthClaim.requestedOtherCharges1 + preAuthClaim.requestedOtherCharges2;
+		}
+	},
+	selectClaim = function($scope, claim){
+		$scope.showPreAuthClaimList = false;
+		$scope.preAuthClaim = claim;
+		calcCost($scope.preAuthClaim);
+		$scope.extCommentFlag = true;
+	},
+	submit = function($scope, status){
+		var data = {};
+		data.id = $scope.preAuthClaim.id;
+		data.cStatus = status;
+		if($scope.preAuthClaim.extComment){
+			data.extComment = $scope.preAuthClaim.extComment;
+		}
+		$http.put('/agg/preAuthClaimReq', data).then(
+				function(response) {
+					alert(response.data.status);
+					if (response.data.status == 'success') {
+						$window.location = '#/agg/fileClaim';
+					} else {
+						alert('error in adding program: '+response.data.errMessage)
+						//$('#errMsg').html(response.data.errMessage);
+					}
+					
+				}, function(errResponse) {
+					alert('Error while creating program');
+					return $q.reject(errResponse);
+				});
+	},
+	reqAuth = function($scope, status){
+		if(status === 'pre_authorized_approved_with_adjustments' || status === 'pre_authorized_rejected'){
+			if($scope.preAuthClaim.extComment){
+				submit($scope, status);
+			}
+		}
+		if(status === 'pre_authorized_approved'){
+			submit($scope, status);
+		}
+	};
+	
+	return {
+		init : init,
+		selectClaim : selectClaim,
+		reqAuth : reqAuth
 	}
 }]);

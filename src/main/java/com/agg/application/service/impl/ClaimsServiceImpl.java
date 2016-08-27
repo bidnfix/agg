@@ -1,8 +1,10 @@
 package com.agg.application.service.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +22,7 @@ import com.agg.application.entity.ClaimPart;
 import com.agg.application.entity.Claims;
 import com.agg.application.entity.Manufacturer;
 import com.agg.application.entity.Quote;
+import com.agg.application.model.ClaimLaborDO;
 import com.agg.application.model.ClaimPartDO;
 import com.agg.application.model.ClaimsDO;
 import com.agg.application.model.ManufacturerDO;
@@ -46,6 +49,7 @@ public class ClaimsServiceImpl implements ClaimsService {
 	
 	@Autowired
 	private ClaimLaborDAO claimLaborDAO;
+	
 	
 	public List<QuoteDO> getClaimsInfo()
 	{
@@ -218,6 +222,113 @@ public class ClaimsServiceImpl implements ClaimsService {
 		claimLabor.setRate(claimsDO.getClaimLaborDO().getRate());
 		claimLaborDAO.save(claimLabor);
 		return (long)newClaim.getId();
+	}
+
+	/* (non-Javadoc)
+	 * @see com.agg.application.service.ClaimsService#getClaimsByCStatus(byte)
+	 */
+	@Override
+	public List<ClaimsDO> getClaimsByCStatus(byte cStatus) {
+		List<Claims> claimsList = claimsDAO.findAllByCStatus(cStatus);
+		List<ClaimLabor> claimsLaborList = null;
+		List<ClaimPart> claimPartList = null;
+		List<Integer> claimIdList = new ArrayList<>();
+		for(Claims claims : claimsList){
+			claimIdList.add(claims.getId());
+		}
+		if(!claimIdList.isEmpty()){
+			claimsLaborList = claimLaborDAO.findAllByClaimID(claimIdList);
+			claimPartList = claimPartDAO.findAllByClaimID(claimIdList);
+		}
+		return ConvertClaimToClaimsDO(claimsList, claimsLaborList, claimPartList);
+	}
+	
+	private List<ClaimsDO> ConvertClaimToClaimsDO(List<Claims> claimsList, List<ClaimLabor> claimsLaborList, List<ClaimPart> claimPartList){
+		List<ClaimsDO> claimsDOList = new ArrayList<>();
+		Map<Integer, ClaimLabor> laborMap = new HashMap<>();
+		Map<Integer, List<ClaimPart>> partMap = new HashMap<>();
+		
+		if(null != claimsLaborList){
+			for(ClaimLabor claimLabor : claimsLaborList){
+				laborMap.put(claimLabor.getClaimId(), claimLabor);
+			}
+		}
+		if(null != claimPartList){
+			for(ClaimPart claimPart : claimPartList){
+				if(partMap.containsKey(claimPart.getClaimId())){
+					List<ClaimPart> clList = partMap.get(claimPart.getClaimId());
+					clList.add(claimPart);
+				}else{
+					List<ClaimPart> clList = new ArrayList<>();
+					clList.add(claimPart);
+					partMap.put(claimPart.getClaimId(), clList);
+				}
+			}
+		}
+		if(null != claimsList && !claimsList.isEmpty()){
+			for(Claims claim : claimsList){
+				ClaimsDO claimDO = new ClaimsDO();
+				claimDO.setId(claim.getId());
+				claimDO.setClaimId(claim.getClaimId());
+				claimDO.setContractId(claim.getContractId());
+				claimDO.setDealerId(claim.getDealerId());
+				claimDO.setSerial(claim.getSerial());
+				claimDO.setFailDate(claim.getFailDate());
+				claimDO.setReportDate(claim.getReportDate());
+				claimDO.setWorkOrder(claim.getWorkOrder());
+				claimDO.setHoursBreakDown(claim.getHoursBreakDown());
+				claimDO.setPreauthApprovedAmt(claim.getPreauthApprovedAmt());
+				claimDO.setCustComplaint(claim.getCustComplaint());
+				claimDO.setCauseFail(claim.getCauseFail());
+				claimDO.setCorrectiveAction(claim.getCorrectiveAction());
+				claimDO.setIsArchived(claim.getIsArchived());
+				claimDO.setcStatus(claim.getcStatus());
+				claimDO.setLastUpdate(claim.getLastUpdate());
+				claimDO.setRequestedOtherCharges1(claim.getRequestedOtherCharges1());
+				claimDO.setRequestedOtherCharges2(claim.getRequestedOtherCharges2());
+				claimDO.setTotalAdjustedPartsCost(claim.getTotalAdjustedPartsCost());
+				claimDO.setTotalAdjustedLaborCost(claim.getTotalAdjustedLaborCost());
+				claimDO.setApprovedOtherCharges1(claim.getApprovedOtherCharges1());
+				claimDO.setApprovedOtherCharges2(claim.getApprovedOtherCharges2());
+				if(null != laborMap.get(claim.getId())){
+					ClaimLabor cl = laborMap.get(claim.getId());
+					ClaimLaborDO laborDO = new ClaimLaborDO();
+					laborDO.setId(cl.getId());
+					laborDO.setClaimId(cl.getClaimId());
+					laborDO.setLaborDescr(cl.getLaborDescr());
+					laborDO.setLaborNo(cl.getLaborNo());
+					laborDO.setLaborHrs(cl.getLaborHrs());
+					laborDO.setRate(cl.getRate());
+					claimDO.setClaimLaborDO(laborDO);
+				}
+				
+				if(null != partMap.get(claim.getId())){
+					List<ClaimPartDO> cpl = new ArrayList<>();
+					for(ClaimPart cp : partMap.get(claim.getId())){
+						ClaimPartDO partDO = new ClaimPartDO();
+						partDO.setId(cp.getId());
+						partDO.setClaimId(cp.getClaimId());
+						partDO.setPartDescr(cp.getPartDescr());
+						partDO.setPartNo(cp.getPartNo());
+						partDO.setQty(cp.getQty());
+						partDO.setUnitPrice(cp.getQty());
+						cpl.add(partDO);
+					}
+					claimDO.setClaimPartDO(cpl);
+				}
+				
+				claimsDOList.add(claimDO);
+			}
+		}
+		return claimsDOList;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.agg.application.service.ClaimsService#updateStatus(int, byte)
+	 */
+	@Override
+	public void updateStatus(int id, byte status) {
+		claimsDAO.updateStatus(id, status);
 	}
 	
 }

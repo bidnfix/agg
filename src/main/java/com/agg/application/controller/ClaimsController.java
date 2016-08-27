@@ -1,7 +1,9 @@
 package com.agg.application.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.agg.application.model.ClaimLaborDO;
 import com.agg.application.model.ClaimPartDO;
 import com.agg.application.model.ClaimsDO;
+import com.agg.application.model.ContractDO;
 import com.agg.application.model.DealerDO;
 import com.agg.application.model.QuoteDO;
 import com.agg.application.model.Result;
@@ -31,6 +34,7 @@ import com.agg.application.service.DealerService;
 import com.agg.application.service.QuoteService;
 import com.agg.application.utils.Util;
 import com.agg.application.vo.ClaimPartVO;
+import com.agg.application.vo.ClaimPreAuthVO;
 import com.agg.application.vo.ClaimsVO;
 
 @RestController
@@ -74,10 +78,14 @@ public class ClaimsController extends BaseController {
 	@RequestMapping(value = "/searchClaim/{id}", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
 	public @ResponseBody Result searchClaim(@PathVariable String id, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
 		logger.info("Inside claimsInfo()");
-		List<QuoteDO> quoteInfoList = claimsService.getClaimInfoBySerialNumber(id);
-		logger.info("quoteInfoList size: "+quoteInfoList.size());
-		model.put("quoteInfoList", quoteInfoList);
-		return new Result("success", null, model);	
+		if(!sessionExists(request)){
+			return new Result("failure", "Session Expired", null);
+		}else{
+			List<QuoteDO> quoteInfoList = claimsService.getClaimInfoBySerialNumber(id);
+			logger.info("quoteInfoList size: "+quoteInfoList.size());
+			model.put("quoteInfoList", quoteInfoList);
+			return new Result("success", null, model);
+		}
 	}
 	
 	/*@RequestMapping(value = "/searchClaim/{id}", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
@@ -93,55 +101,84 @@ public class ClaimsController extends BaseController {
 	public @ResponseBody Result saveClaim(@RequestBody ClaimsVO claimsVO, BindingResult result,
 			HttpServletRequest request, HttpServletResponse response) {
 		logger.debug("In saveClaim ");
-		ClaimsDO claimsDO = new ClaimsDO();
-		claimsDO.setClaimId(claimsVO.getClaimId());
-		claimsDO.setContractId(claimsVO.getContractId());
-		
-		if(null != claimsVO.getContractId()){
-			DealerDO dealerDO = contractsService.getDealer(claimsVO.getContractId());
-			if(null != dealerDO){
-				claimsDO.setDealerId((int)dealerDO.getId());
+		if(!sessionExists(request)){
+			return new Result("failure", "Session Expired", null);
+		}else{
+			ClaimsDO claimsDO = new ClaimsDO();
+			claimsDO.setClaimId(claimsVO.getClaimId());
+			claimsDO.setContractId(claimsVO.getContractId());
+			
+			if(null != claimsVO.getContractId()){
+				DealerDO dealerDO = contractsService.getDealer(claimsVO.getContractId());
+				if(null != dealerDO){
+					claimsDO.setDealerId((int)dealerDO.getId());
+				}
 			}
-		}
-		
-		claimsDO.setSerial(claimsVO.getSerial());
-		claimsDO.setFailDate(claimsVO.getFailDate());
-		claimsDO.setReportDate(claimsVO.getReportDate());
-		claimsDO.setWorkOrder(Util.setDefaultStringValue(claimsVO.getWorkOrder()));
-		claimsDO.setHoursBreakDown(claimsVO.getHoursBreakDown());
-		claimsDO.setPreauthApprovedAmt(claimsVO.getPreauthApprovedAmt());
-		claimsDO.setCustComplaint(Util.setDefaultStringValue(claimsVO.getCustComplaint()));
-		claimsDO.setCauseFail(Util.setDefaultStringValue(claimsVO.getCauseFail()));
-		claimsDO.setCorrectiveAction(Util.setDefaultStringValue(claimsVO.getCorrectiveAction()));
-		claimsDO.setIsArchived(claimsVO.getIsArchived());
-		claimsDO.setcStatus(claimsVO.getcStatusValue());
-		claimsDO.setRequestedOtherCharges1(claimsVO.getRequestedOtherCharges1());
-		claimsDO.setRequestedOtherCharges2(claimsVO.getRequestedOtherCharges2());
-		claimsDO.setTotalAdjustedPartsCost(claimsVO.getTotalAdjustedPartsCost());
-		claimsDO.setTotalAdjustedLaborCost(claimsVO.getTotalAdjustedLaborCost());
-		claimsDO.setApprovedOtherCharges1(claimsVO.getApprovedOtherCharges1());
-		claimsDO.setApprovedOtherCharges2(claimsVO.getApprovedOtherCharges2());
-		
-		if(null != claimsVO.getClaimPartVOList() && !claimsVO.getClaimPartVOList().isEmpty()){
-			List<ClaimPartDO> partDO = new ArrayList<>();
-			for(ClaimPartVO partVO : claimsVO.getClaimPartVOList()){
-				ClaimPartDO claimPartDO = new ClaimPartDO();
-				claimPartDO.setPartNo(partVO.getPartNo());
-				claimPartDO.setPartDescr(partVO.getPartDescr());
-				claimPartDO.setQty(partVO.getQty());
-				claimPartDO.setUnitPrice(partVO.getUnitPrice());
-				partDO.add(claimPartDO);
+			
+			claimsDO.setSerial(claimsVO.getSerial());
+			claimsDO.setFailDate(claimsVO.getFailDate());
+			claimsDO.setReportDate(claimsVO.getReportDate());
+			claimsDO.setWorkOrder(Util.setDefaultStringValue(claimsVO.getWorkOrder()));
+			claimsDO.setHoursBreakDown(claimsVO.getHoursBreakDown());
+			claimsDO.setPreauthApprovedAmt(claimsVO.getPreauthApprovedAmt());
+			claimsDO.setCustComplaint(Util.setDefaultStringValue(claimsVO.getCustComplaint()));
+			claimsDO.setCauseFail(Util.setDefaultStringValue(claimsVO.getCauseFail()));
+			claimsDO.setCorrectiveAction(Util.setDefaultStringValue(claimsVO.getCorrectiveAction()));
+			claimsDO.setIsArchived(claimsVO.getIsArchived());
+			claimsDO.setcStatus(claimsVO.getcStatusValue());
+			claimsDO.setRequestedOtherCharges1(claimsVO.getRequestedOtherCharges1());
+			claimsDO.setRequestedOtherCharges2(claimsVO.getRequestedOtherCharges2());
+			claimsDO.setTotalAdjustedPartsCost(claimsVO.getTotalAdjustedPartsCost());
+			claimsDO.setTotalAdjustedLaborCost(claimsVO.getTotalAdjustedLaborCost());
+			claimsDO.setApprovedOtherCharges1(claimsVO.getApprovedOtherCharges1());
+			claimsDO.setApprovedOtherCharges2(claimsVO.getApprovedOtherCharges2());
+			
+			if(null != claimsVO.getClaimPartVOList() && !claimsVO.getClaimPartVOList().isEmpty()){
+				List<ClaimPartDO> partDO = new ArrayList<>();
+				for(ClaimPartVO partVO : claimsVO.getClaimPartVOList()){
+					ClaimPartDO claimPartDO = new ClaimPartDO();
+					claimPartDO.setPartNo(partVO.getPartNo());
+					claimPartDO.setPartDescr(partVO.getPartDescr());
+					claimPartDO.setQty(partVO.getQty());
+					claimPartDO.setUnitPrice(partVO.getUnitPrice());
+					partDO.add(claimPartDO);
+				}
+				claimsDO.setClaimPartDO(partDO);
 			}
-			claimsDO.setClaimPartDO(partDO);
+			
+			ClaimLaborDO claimLaborDO = new ClaimLaborDO();
+			claimLaborDO.setLaborNo(claimsVO.getLaborNo());
+			claimLaborDO.setLaborDescr(claimsVO.getLaborDescr());
+			claimLaborDO.setLaborHrs(claimsVO.getLaborHrs());
+			claimLaborDO.setRate(claimsVO.getLaborHourlyRate());
+			claimsDO.setClaimLaborDO(claimLaborDO);
+			Long id = claimsService.saveClaim(claimsDO);
+			return new Result("success", null, id);
 		}
-		
-		ClaimLaborDO claimLaborDO = new ClaimLaborDO();
-		claimLaborDO.setLaborNo(claimsVO.getLaborNo());
-		claimLaborDO.setLaborDescr(claimsVO.getLaborDescr());
-		claimLaborDO.setLaborHrs(claimsVO.getLaborHrs());
-		claimLaborDO.setRate(claimsVO.getLaborHourlyRate());
-		claimsDO.setClaimLaborDO(claimLaborDO);
-		Long id = claimsService.saveClaim(claimsDO);
-		return new Result("success", null, id);
+	}
+	
+	@RequestMapping(value = "/preAuthClaimReq", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+	public @ResponseBody Result getPreAuthClaimRequest(HttpServletRequest request, HttpServletResponse response) {
+		logger.info("Inside getPreAuthClaimRequest()");
+		//if(!sessionExists(request)){
+			//return new Result("failure", "Session Expired", null);
+		//}else{
+			Map<String, Object> map = new HashMap<>();
+			List<ClaimsDO> cliamsList = claimsService.getClaimsByCStatus(Util.getClaimStatusCode("pre_authorized_requested"));
+			logger.info("preAuthClaims size: "+cliamsList.size());
+			map.put("preAuthClaimList", cliamsList);
+			return new Result("success", null, map);
+		//}
+	}
+	
+	@RequestMapping(value = "/preAuthClaimReq", method = RequestMethod.PUT, consumes = MediaType.ALL_VALUE)
+	public @ResponseBody Result UpdatePreAuthClaimRequestUpdate(@RequestBody ClaimPreAuthVO claimPreAuthVO, HttpServletRequest request, HttpServletResponse response) {
+		logger.info("Inside UpdatePreAuthClaimRequestUpdate()");
+		//if(!sessionExists(request)){
+			//return new Result("failure", "Session Expired", null);
+		//}else{
+			claimsService.updateStatus(claimPreAuthVO.getId(), Util.getClaimStatusCode(claimPreAuthVO.getcStatus()));
+			return new Result("success", null, "status updated");
+		//}
 	}
 }

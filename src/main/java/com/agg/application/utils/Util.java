@@ -62,4 +62,43 @@ public class Util {
         }
         return new String(result);
     }
+	
+	/**
+	 * 
+	 */
+	public static byte getClaimStatusCode(final String cStatus){
+		byte cStatusValue = 0;
+		switch(cStatus.toLowerCase()){
+			case "open": 
+				cStatusValue = AggConstants.CLAIM_STATUS_OPEN;
+				break;
+			case "pre_authorized_requested":
+				cStatusValue = AggConstants.CLAIM_STATUS_PRE_AUTHORIZED_REQUESTED;
+				break;
+			case "submitted":
+				cStatusValue = AggConstants.CLAIM_STATUS_SUBMITTED;
+				break;
+			case "closed":
+				cStatusValue = AggConstants.CLAIM_STATUS_CLOSED;
+				break;
+			case "pre_authorized_approved":
+				cStatusValue = AggConstants.CLAIM_STATUS_PRE_AUTHORIZED_APPROVED;
+				break;
+			case "pre_authorized_rejected":
+				cStatusValue = AggConstants.CLAIM_STATUS_PRE_AUTHORIZED_REJECTED;
+				break;
+			case "pre_authorized_approved_with_adjustments":
+				cStatusValue = AggConstants.CLAIM_STATUS_PRE_AUTHORIZED_APPROVED_WITH_ADJUSMENTS;
+				break;
+			case "pending":
+				cStatusValue = AggConstants.CLAIM_STATUS_PENDING;
+				break;
+			case "draft":
+				cStatusValue = AggConstants.CLAIM_STATUS_DRAFT;
+				break;
+			default:
+				cStatusValue = 0;
+		}
+		return cStatusValue;
+	}
 }
