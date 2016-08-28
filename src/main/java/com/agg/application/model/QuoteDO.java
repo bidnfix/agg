@@ -161,7 +161,16 @@ public class QuoteDO {
 	
 	private boolean custUnderstandCoverage;
 	
-	
+	private CustomerInfoDO customerInfoDO;
+		
+	public CustomerInfoDO getCustomerInfoDO() {
+		return customerInfoDO;
+	}
+
+	public void setCustomerInfoDO(CustomerInfoDO customerInfoDO) {
+		this.customerInfoDO = customerInfoDO;
+	}
+
 	public int getcPtHHours() {
 		return cPtHHours;
 	}

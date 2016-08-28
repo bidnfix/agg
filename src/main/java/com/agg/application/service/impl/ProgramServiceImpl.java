@@ -14,12 +14,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.agg.application.dao.AccountDAO;
+import com.agg.application.dao.CustomerInfoDAO;
 import com.agg.application.dao.DealerDAO;
 import com.agg.application.dao.MachineInfoDAO;
 import com.agg.application.dao.ManufacturerDAO;
 import com.agg.application.dao.ProgramDAO;
 import com.agg.application.dao.QuoteDAO;
 import com.agg.application.entity.Account;
+import com.agg.application.entity.CustomerInfo;
 import com.agg.application.entity.Dealer;
 import com.agg.application.entity.MachineInfo;
 import com.agg.application.entity.Manufacturer;
@@ -27,6 +29,7 @@ import com.agg.application.entity.Quote;
 import com.agg.application.entity.QuotePK;
 import com.agg.application.entity.Sprogram;
 import com.agg.application.model.AccountDO;
+import com.agg.application.model.CustomerInfoDO;
 import com.agg.application.model.DealerDO;
 import com.agg.application.model.MachineInfoDO;
 import com.agg.application.model.ManufacturerDO;
@@ -57,6 +60,9 @@ public class ProgramServiceImpl implements ProgramService {
 	
 	@Autowired
 	private QuoteDAO quoteDAO;
+	
+	@Autowired
+	private CustomerInfoDAO customerInfoDAO;
 	
 	@Override
 	public List<ProgramDO> getPrograms(AccountDO accountDO) {
@@ -126,6 +132,7 @@ public class ProgramServiceImpl implements ProgramService {
 						macInfDO.setModel(macineInfo.getModel());
 						macInfDO.setMachineId(macineInfo.getMachineId());
 						macInfDO.setModelYear(macineInfo.getModelYear());
+						macInfDO.setMachineId(macineInfo.getMachineId());
 						
 						machineInfoDOList.add(macInfDO);
 					}
@@ -198,46 +205,86 @@ public class ProgramServiceImpl implements ProgramService {
 		logger.debug("In saveProgramsAsDealr");
 		Timestamp date = new Timestamp(new Date().getTime());
 		
-		Quote quote = new Quote();
-		String quoteId = Util.getQuoteId(AggConstants.CHARSET_AZ_09, AggConstants.QUOTE_ID_LENGTH);
-		logger.info("created quoteId: "+quoteId);
-		QuotePK quotePK = new QuotePK();
-		quotePK.setQuoteId(quoteId);
-		quote.setId(quotePK);
 		
-		if(quoteDO.getManufacturerDO() != null)
+		int generatedQuoteId = 0;
+		if(quoteDO != null)
 		{
-			quote.setManufacturer(manufacturerDAO.findOne(Long.valueOf(quoteDO.getManufacturerDO().getId())));
+			CustomerInfoDO custDO = quoteDO.getCustomerInfoDO();
+			//logger.debug("CustDO "+custDO);
+			Quote quote = new Quote();
+			String quoteId = Util.getQuoteId(AggConstants.CHARSET_AZ_09, AggConstants.QUOTE_ID_LENGTH);
+			logger.info("created quoteId: "+quoteId);
+			QuotePK quotePK = new QuotePK();
+			quotePK.setQuoteId(quoteId);
+			quote.setId(quotePK);
+			
+			if(quoteDO.getManufacturerDO() != null)
+			{
+				quote.setManufacturer(manufacturerDAO.findOne(Long.valueOf(quoteDO.getManufacturerDO().getId())));
+				logger.debug("quote..getManufacturer "+quote.getManufacturer());
+			}
+			
+			if(quoteDO.getMachineInfoDO() != null)
+			{
+				quote.setMachineInfo(machineInfoDAO.findOne(Long.valueOf(quoteDO.getMachineInfoDO().getMachineId())));
+				logger.debug("quote..getManufacturer "+quote.getMachineInfo());
+			}
+			
+			logger.info("accountDO.getDealerId() "+accountDO.getDealerId());
+			
+			/*if(accountDO.getDealerId() > 0)
+			{
+				quote.setDealer(dealerDAO.findOne(accountDO.getDealerId()));
+			}*/
+			
+			if(quoteDO.getDealerDO() != null)
+			{
+				quote.setDealer(dealerDAO.findOne(Long.valueOf(quoteDO.getDealerDO().getId())));
+				logger.debug("quote..getDealerDO "+quoteDO.getDealerDO().getId());
+			}
+			
+			quote.setManfExpired((byte)0);
+			quote.setManfEndDate(date);
+			quote.setManfEndKnown((byte)0);
+			quote.setManfVerified((byte)0);
+			quote.setPtHours(0);
+			quote.setPtMonths(0);
+			quote.setHHours(0);
+			quote.setHMonths(0);
+			quote.setMachineHours(0);
+			quote.setMachineMonths(0);
+			quote.setOtherProv("");
+			
+			quote.setIsArchive((short)0);
+			quote.setCreateDate(date);
+			quote.setPrId(0);
+			quote.setServicingDealer(0);
+			quote.setLastUpdate(date);
+			
+			quote = quoteDAO.save(quote);
+			
+			logger.debug("quote.getId().getId() "+quote.getId().getId());
+			generatedQuoteId = quote.getId().getId();
+			
+			if(/*quote != null && quote.getId() != null & */custDO != null)
+			{
+				
+				//generatedQuoteId = quote.getId().getId();
+				CustomerInfo custInfo = new CustomerInfo();
+				custInfo.setQuoteId(quoteId);
+				custInfo.setName(custDO.getName());
+				custInfo.setAddress(custDO.getAddress());
+				custInfo.setCity(custDO.getCity());
+				custInfo.setState(custDO.getState());
+				custInfo.setZip(custDO.getZip());
+				custInfo.setPhone(custDO.getPhone());
+				custInfo.setEmail(custDO.getEmail());
+				custInfo.setLastUpdate(date);
+				custInfo = customerInfoDAO.save(custInfo);
+				
+			}
 		}
-		logger.info("accountDO.getDealerId() "+accountDO.getDealerId());
-		
-		if(accountDO.getDealerId() > 0)
-		{
-			quote.setDealer(dealerDAO.findOne(accountDO.getDealerId()));
-		}
-		
-		quote.setManfExpired((byte)0);
-		quote.setManfEndDate(new Date());
-		quote.setManfEndKnown((byte)0);
-		quote.setManfVerified((byte)0);
-		quote.setPtHours(0);
-		quote.setPtMonths(0);
-		quote.setHHours(0);
-		quote.setHMonths(0);
-		quote.setMachineHours(0);
-		quote.setMachineMonths(0);
-		quote.setOtherProv("");
-		
-		quote.setIsArchive((short)0);
-		quote.setCreateDate(new Date());
-		quote.setPrId(0);
-		quote.setServicingDealer(0);
-		quote.setLastUpdate(date);
-		
-		quote = quoteDAO.save(quote);
-		
-		
-		return (quote.getId()).getId();
+		return generatedQuoteId;
 	}
 
 	@Override

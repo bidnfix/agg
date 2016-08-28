@@ -35,6 +35,9 @@
                     <form role="form" ng-submit="submitProgramAsDel()">
 					<div class="col-md-6">
                     
+                    
+                   
+                    
                     <div class="form-group">
 							<label class="cols-sm-2 control-label" for="userName">Select a Program</label>
 							<div class="cols-sm-10">
@@ -45,7 +48,24 @@
 								</div>
 							</div>
 						</div>
+						
+						 <div class="form-group">
+							<label class="cols-sm-2 control-label" for="password">Dealer</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									{{program.dealerDO.name}}
+								</div>
+							</div>
+						</div>
                         
+                        <div class="form-group">
+							<label class="cols-sm-2 control-label" for="password">Manufacturer</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<input type="text" ng-model="program.manufacturerDO.name" placeholder="Manufacturer" id="manfName" name="manfName" class="form-control" required="required">
+								</div>
+							</div>
+						</div>
                         
                         <div class="form-group">
 							<label class="cols-sm-2 control-label" for="password">Manufacturer</label>
@@ -133,7 +153,8 @@
 							<label class="cols-sm-2 control-label" for="city">Condition</label>
 							<div class="cols-sm-10">
 								<div class="input-group">
-									<input type="text" id="condition" name="condition" ng-model="program.condition" class="form-control" required="required">
+									<!-- <input type="text" id="condition" name="condition" ng-model="program.condition" class="form-control" required="required"> -->
+									{{program.condition}}
 								</div>
 							</div>
 						</div>
@@ -165,7 +186,7 @@
 							<label class="cols-sm-2 control-label" for="marketEmail">Hours Covered</label>
 							<div class="cols-sm-10">
 								<div class="input-group">
-									<input type="number" id="cHour" name="cHour" ng-model="program.cHour" class="form-control" required="required">
+									<input type="number" id="cHours" name="cHours" ng-model="program.cHours" class="form-control" required="required">
 								</div>
 							</div>
 						</div>
@@ -218,34 +239,34 @@
 							<label class="cols-sm-2 control-label">Name</label>
 							<div class="cols-sm-10">
 								<div class="input-group">
-									<input type="text" id="dealerUrl" name="dealerUrl" ng-model="dealer.dealerUrl" placeholder="URL" class="form-control" required="required">
+									<input type="text" id="custName" name="custName" ng-model="program.customerInfoDO.name" placeholder="Name" class="form-control" required="required">
 								</div>
 							</div>
 						</div>	
 						
 						<div class="form-group">
-							<label class="cols-sm-2 control-label" for="dealerUrl">Address</label>
+							<label class="cols-sm-2 control-label">Address</label>
 							<div class="cols-sm-10">
 								<div class="input-group">
-									<input type="text" id="dealerUrl" name="dealerUrl" ng-model="dealer.dealerUrl" placeholder="URL" class="form-control" required="required">
+									<input type="text" id="address" name="address" ng-model="program.customerInfoDO.address" placeholder="Address" class="form-control" required="required">
 								</div>
 							</div>
 						</div>	
 						
 						<div class="form-group">
-							<label class="cols-sm-2 control-label" for="dealerUrl">City</label>
+							<label class="cols-sm-2 control-label">City</label>
 							<div class="cols-sm-10">
 								<div class="input-group">
-									<input type="text" id="dealerUrl" name="dealerUrl" ng-model="dealer.dealerUrl" placeholder="URL" class="form-control" required="required">
+									<input type="text" id="city" name="city" ng-model="program.customerInfoDO.city" placeholder="City" class="form-control" required="required">
 								</div>
 							</div>
 						</div>	
 						
 						<div class="form-group">
-							<label class="cols-sm-2 control-label" for="dealerUrl">State/Province</label>
+							<label class="cols-sm-2 control-label">State/Province</label>
 							<div class="cols-sm-10">
 								<div class="input-group">
-									<select class="form-control" name="state" ng-model="program.state" id="state" required="required">
+									<select class="form-control" name="state" ng-model="program.customerInfoDO.state" id="state" required="required">
 										<option value="">Select State/Province</option>
 										<option value="AL">Alabama</option>
 										<option value="AK">Alaska</option>
@@ -317,28 +338,28 @@
 						</div>	
 						
 						<div class="form-group">
-							<label class="cols-sm-2 control-label" for="dealerUrl">Zip</label>
+							<label class="cols-sm-2 control-label">Zip</label>
 							<div class="cols-sm-10">
 								<div class="input-group">
-									<input type="text" id="dealerUrl" name="dealerUrl" ng-model="dealer.dealerUrl" placeholder="URL" class="form-control" required="required">
+									<input type="text" id="zip" name="zip" ng-model="program.customerInfoDO.zip" placeholder="Zip" class="form-control" required="required">
 								</div>
 							</div>
 						</div>	
 						
 						<div class="form-group">
-							<label class="cols-sm-2 control-label" for="dealerUrl">Phone Number</label>
+							<label class="cols-sm-2 control-label">Phone Number</label>
 							<div class="cols-sm-10">
 								<div class="input-group">
-									<input type="text" id="dealerUrl" name="dealerUrl" ng-model="dealer.dealerUrl" placeholder="URL" class="form-control" required="required">
+									<input type="text" id="phone" name="phone" ng-model="program.customerInfoDO.phone" placeholder="Phone" class="form-control" required="required">
 								</div>
 							</div>
 						</div>	
 						
 						<div class="form-group">
-							<label class="cols-sm-2 control-label" for="dealerUrl">Email</label>
+							<label class="cols-sm-2 control-label">Email</label>
 							<div class="cols-sm-10">
 								<div class="input-group">
-									<input type="text" id="dealerUrl" name="dealerUrl" ng-model="dealer.dealerUrl" placeholder="URL" class="form-control" required="required">
+									<input type="text" id="email" name="email" ng-model="program.customerInfoDO.email" placeholder="Email" class="form-control" required="required">
 								</div>
 							</div>
 						</div>	
