@@ -662,6 +662,14 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 	$http.get("/agg/quoteInfo/"+$routeParams.quoteId+"/"+$routeParams.quoteCode)
 	.then(function(response) {
         $scope.quote = response.data.data;
+        
+        if($scope.quote.coverageExpired != null && $scope.quote.coverageExpired == true){
+    		$scope.machineCondition = 'Used';
+    	}else if($scope.quote.coverageEndDate != null && ($scope.quote.coverageEndDate > $scope.date)){
+    		$scope.machineCondition = 'New';
+    	}else{
+    		$scope.machineCondition = 'Used';
+    	}
     });
 })
 
