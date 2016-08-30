@@ -661,7 +661,16 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 	$scope.quote = {};
 	$http.get("/agg/quoteInfo/"+$routeParams.quoteId+"/"+$routeParams.quoteCode)
 	.then(function(response) {
-        $scope.quote = response.data.data;
+        $scope.quote = response.data.data.quote;
+        $scope.dealerList = response.data.data.dealerDOList;
+		$scope.manufacturerList = response.data.data.manufacturerDOList;
+		$scope.useOfEquipmentDOList = response.data.data.useOfEquipmentDOList;
+		$scope.machineModelList = response.data.data.machineModelList;
+		$scope.deductibleAmtList = response.data.data.deductibleAmtList;
+		$scope.coverageTermList = response.data.data.coverageTermList;
+		$scope.pricingDOList = response.data.data.pricingDOList;
+		
+		
         
         if($scope.quote.coverageExpired != null && $scope.quote.coverageExpired == true){
     		$scope.machineCondition = 'Used';
@@ -671,6 +680,15 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
     		$scope.machineCondition = 'Used';
     	}
     });
+	
+	$scope.getMachineModel = function(manufacturerDO){
+		if(manufacturerDO != null){
+			 $http.get("/agg/manfModel/"+manufacturerDO.id)
+			    .then(function(response) {
+			        $scope.machineModelList = response.data.data.machineModelList;
+			    });
+		}
+	}
 })
 
 

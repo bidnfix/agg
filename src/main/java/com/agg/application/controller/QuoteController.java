@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.agg.application.model.AccountDO;
 import com.agg.application.model.DealerDO;
+import com.agg.application.model.MachineInfoDO;
 import com.agg.application.model.ManufacturerDO;
 import com.agg.application.model.PricingDO;
 import com.agg.application.model.QuoteDO;
@@ -58,7 +59,7 @@ public class QuoteController extends BaseController {
 		if (!sessionExists(request)){
 			opResult = new Result("failure", "Invalid Login", null);
 		}else{
-			List<DealerDO> dealerDOList = dealerService.getDealers();
+			List<DealerDO> dealerDOList = dealerService.getActiveDealers(getAccountDetails(request));
 			List<ManufacturerDO> manufacturerDOList = machineService.getManufacturerDetails();
 			model.addAttribute("dealerDOList", dealerDOList);
 			model.addAttribute("manufacturerDOList", manufacturerDOList);
@@ -241,7 +242,7 @@ public class QuoteController extends BaseController {
 	}
 	
 	@RequestMapping(value = "/quotesInfo", method = RequestMethod.GET)
-	public Result getQuotes(Map<String, Object> model, HttpServletRequest request, HttpServletResponse response) {
+	public Result getQuotes(Model model, HttpServletRequest request, HttpServletResponse response) {
 		Result opResult = null;
 		if (!sessionExists(request)){
 			opResult = new Result("failure", "Invalid Login", null);
@@ -253,13 +254,34 @@ public class QuoteController extends BaseController {
 	}
 	
 	@RequestMapping(value = "/quoteInfo/{id}/{quoteId}", method = RequestMethod.GET)
-	public Result getQuote(@PathVariable int id, @PathVariable String quoteId, Map<String, Object> model, HttpServletRequest request, HttpServletResponse response) {
+	public Result getQuote(@PathVariable int id, @PathVariable String quoteId, Model model, HttpServletRequest request, HttpServletResponse response) {
 		logger.debug("Inside getQuote with id: "+id+" & quoteId: "+quoteId);
 		Result opResult = null;
 		if (!sessionExists(request)){
 			opResult = new Result("failure", "Invalid Login", null);
 		}else{
-			opResult = new Result("success", null, quoteService.getQuote(getAccountDetails(request), id, quoteId));
+			QuoteDO quoteDO = quoteService.getQuote(getAccountDetails(request), id, quoteId);
+			if(quoteDO != null){
+				List<DealerDO> dealerDOList = dealerService.getActiveDealers(getAccountDetails(request));
+				List<ManufacturerDO> manufacturerDOList = machineService.getManufacturerDetails();
+				Map<String, List<Integer>> deductCoverageMap = quoteService.getDeductableCoverageTermDetails(quoteDO.isCoverageExpired(), 
+						quoteDO.getMachineInfoDO().getMachineId());
+				List<PricingDO> pricingDOList = quoteService.getCoveragePriceDetils(quoteDO.isCoverageExpired(), 
+						quoteDO.getMachineInfoDO().getMachineId(), new Double(quoteDO.getDeductiblePrice()).intValue(), quoteDO.getCoverageTerm());
+				List<MachineInfoDO> machineModels = machineService.getManfModel(Integer.valueOf(String.valueOf(quoteDO.getManufacturerDO().getId())));
+				List<Integer> deductibleAmtList = deductCoverageMap.get("deductibleAmtList");
+				List<Integer> coverageTermList = deductCoverageMap.get("coverageTermList");
+				model.addAttribute("deductibleAmtList", deductibleAmtList);
+				model.addAttribute("coverageTermList", coverageTermList);
+				model.addAttribute("pricingDOList", pricingDOList);
+				model.addAttribute("dealerDOList", dealerDOList);
+				model.addAttribute("manufacturerDOList", manufacturerDOList);
+				model.addAttribute("useOfEquipmentDOList", quoteService.getUseOfEquipmentDetails());
+				model.addAttribute("machineModelList", machineModels);
+				model.addAttribute("quote", quoteDO);
+			}
+			
+			opResult = new Result("success", null, model);
 		}
 		
 		return opResult;
