@@ -286,4 +286,25 @@ public class QuoteController extends BaseController {
 		
 		return opResult;
 	}
+	
+	@RequestMapping(value = "/worklist", method = RequestMethod.GET)
+	public @ResponseBody Result getWorklistInfo(HttpServletRequest request, HttpServletResponse response, Model model) {
+		logger.debug("In getWorklistInfo");
+		Result opResult = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			List<DealerDO> dealerDOList = dealerService.getDealers();
+			List<ManufacturerDO> manufacturerDOList = machineService.getManufacturerDetails();
+			model.addAttribute("dealerDOList", dealerDOList);
+			model.addAttribute("manufacturerDOList", manufacturerDOList);
+			model.addAttribute("useOfEquipmentDOList", quoteService.getUseOfEquipmentDetails());
+			
+			opResult = new Result("success", "Quote Info", model);
+		}
+		
+		return opResult;
+	}
+	
+	
 }
