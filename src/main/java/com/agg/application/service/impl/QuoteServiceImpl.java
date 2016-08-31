@@ -517,12 +517,12 @@ public class QuoteServiceImpl implements QuoteService {
 	private ReportDO getQuoteReportDO(QuoteDO quoteDO) throws Exception{
 		ReportDO reportDO = new ReportDO();
 		
-		SimpleDateFormat reportDateFormat = new SimpleDateFormat("MM/dd/yyyy");
+		//SimpleDateFormat reportDateFormat = new SimpleDateFormat("MM/dd/yyyy");
 		Locale locale = new Locale("en", "US");
 		NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
 		
 		reportDO.setDealerName(quoteDO.getDealerDO().getName());
-		reportDO.setQuoteDate((quoteDO.getEstSaleDate() != null)?reportDateFormat.format(quoteDO.getEstSaleDate()):"");
+		reportDO.setQuoteDate((quoteDO.getEstSaleDate() != null)?dateFormat.format(quoteDO.getEstSaleDate()):"");
 		//TODO
 		reportDO.setAttn("");
 		//TODO
@@ -550,7 +550,7 @@ public class QuoteServiceImpl implements QuoteService {
 		reportDO.setHydraulicHours(quoteDO.getHydraulicsHours());
 		reportDO.setFullMachineHours(quoteDO.getFullMachineHours());
 		reportDO.setFullMachineMonths(quoteDO.getFullMachineMonths());
-		reportDO.setWarrantyEndDate((quoteDO.getCoverageEndDate() != null)?reportDateFormat.format(quoteDO.getCoverageEndDate()):"");
+		reportDO.setWarrantyEndDate((quoteDO.getCoverageEndDate() != null)?dateFormat.format(quoteDO.getCoverageEndDate()):"");
 		reportDO.setLimitOfLiability(currencyFormat.format(quoteDO.getMachineInfoDO().getLol()));
 		reportDO.setPrice(currencyFormat.format(quoteDO.getCustomerPrice()));
 		reportDO.setQuotePrice(currencyFormat.format(quoteDO.getQuoteBasePrice()));
@@ -696,7 +696,9 @@ public class QuoteServiceImpl implements QuoteService {
 			}
 			quoteDO.setCoverageExpired((quote.getManfExpired() == 1)?true:false);
 			quoteDO.setCoverageEndDate(quote.getManfEndDate());
-			quoteDO.setCoverageEndDateStr(dateFormat.format(quote.getManfEndDate()));
+			if(quote.getManfEndDate() != null){
+				quoteDO.setCoverageEndDateStr(dateFormat.format(quote.getManfEndDate()));
+			}
 			quoteDO.setCoverageEndDateUnknown((quote.getManfEndKnown() == 1)?true:false);
 			quoteDO.setCoverageEndDateVerified((quote.getManfVerified() == 1)?true:false);
 			quoteDO.setPowerTrainMonths(quote.getPtMonths());
@@ -747,7 +749,9 @@ public class QuoteServiceImpl implements QuoteService {
 			}
 			
 			quoteDO.setEstSaleDate(quote.getMachineSaleDate());
-			quoteDO.setEstSaleDateStr(dateFormat.format(quote.getMachineSaleDate()));
+			if(quote.getMachineSaleDate() != null){
+				quoteDO.setEstSaleDateStr(dateFormat.format(quote.getMachineSaleDate()));
+			}
 			quoteDO.setDealerMarkup(quote.getDealerMarkup());
 			quoteDO.setDealerMarkupType(quote.getDealerMarkupType());
 			quoteDO.setDeductiblePrice(quote.getDeductAmount());
