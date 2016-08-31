@@ -161,6 +161,10 @@ public class QuoteDO {
 	
 	private boolean custUnderstandCoverage;
 	
+	private String coverageEndDateStr;
+	
+	private String estSaleDateStr;
+	
 	private CustomerInfoDO customerInfoDO;
 		
 	public CustomerInfoDO getCustomerInfoDO() {
@@ -1061,6 +1065,34 @@ public class QuoteDO {
 
 	public void setCustUnderstandCoverage(boolean custUnderstandCoverage) {
 		this.custUnderstandCoverage = custUnderstandCoverage;
+	}
+
+	/**
+	 * @return the coverageEndDateStr
+	 */
+	public String getCoverageEndDateStr() {
+		return coverageEndDateStr;
+	}
+
+	/**
+	 * @param coverageEndDateStr the coverageEndDateStr to set
+	 */
+	public void setCoverageEndDateStr(String coverageEndDateStr) {
+		this.coverageEndDateStr = coverageEndDateStr;
+	}
+
+	/**
+	 * @return the estSaleDateStr
+	 */
+	public String getEstSaleDateStr() {
+		return estSaleDateStr;
+	}
+
+	/**
+	 * @param estSaleDateStr the estSaleDateStr to set
+	 */
+	public void setEstSaleDateStr(String estSaleDateStr) {
+		this.estSaleDateStr = estSaleDateStr;
 	}
 	
 }

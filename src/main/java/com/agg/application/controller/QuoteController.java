@@ -269,6 +269,13 @@ public class QuoteController extends BaseController {
 				List<PricingDO> pricingDOList = quoteService.getCoveragePriceDetils(quoteDO.isCoverageExpired(), 
 						quoteDO.getMachineInfoDO().getMachineId(), new Double(quoteDO.getDeductiblePrice()).intValue(), quoteDO.getCoverageTerm());
 				List<MachineInfoDO> machineModels = machineService.getManfModel(Integer.valueOf(String.valueOf(quoteDO.getManufacturerDO().getId())));
+				List<Integer> coverageLevelHoursList = null;
+				if(pricingDOList != null && !pricingDOList.isEmpty()){
+					coverageLevelHoursList = new ArrayList<Integer>();
+					for(PricingDO pricingDO : pricingDOList){
+						coverageLevelHoursList.add(pricingDO.getCoverageLevelHours());
+					}
+				}
 				List<Integer> deductibleAmtList = deductCoverageMap.get("deductibleAmtList");
 				List<Integer> coverageTermList = deductCoverageMap.get("coverageTermList");
 				model.addAttribute("deductibleAmtList", deductibleAmtList);
@@ -278,6 +285,7 @@ public class QuoteController extends BaseController {
 				model.addAttribute("manufacturerDOList", manufacturerDOList);
 				model.addAttribute("useOfEquipmentDOList", quoteService.getUseOfEquipmentDetails());
 				model.addAttribute("machineModelList", machineModels);
+				model.addAttribute("coverageLevelHoursList", coverageLevelHoursList);
 				model.addAttribute("quote", quoteDO);
 			}
 			

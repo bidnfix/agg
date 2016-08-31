@@ -20,83 +20,83 @@
                      <div class="col-md-6 no-pad pad10-right">
                        <div class="form-group">
                          <label>Assign Dealer</label>
-                         <select class="form-control" name="dealer" ng-model="quote.dealerDO" id="dealer" ng-options="dealer.name for dealer in dealerList track by dealer.id" ng-change="displayDealerText(quote.dealerDO)" required>
+                         <select class="form-control" name="dealer" ng-model="quote.dealerDO" id="dealer" ng-options="dealer.name for dealer in dealerList track by dealer.id" ng-change="displayDealerText(quote.dealerDO)" required="required" disabled="disabled">
 							<option value="">Select Dealer</option>
 						 </select>
                        </div>
                        <div class="form-group">
                          <label>Manufacturer</label>
-                         <select class="form-control" name="manufacturer" ng-model="quote.manufacturerDO" ng-options="manufacturerObj.name for manufacturerObj in manufacturerList track by manufacturerObj.id" ng-change="getMachineModel(quote.manufacturerDO)" required-message="'Please select manufacturer.'" required="required">
+                         <select class="form-control" name="manufacturer" ng-model="quote.manufacturerDO" ng-options="manufacturerObj.name for manufacturerObj in manufacturerList track by manufacturerObj.id" ng-change="getMachineModel(quote.manufacturerDO)" required-message="'Please select manufacturer.'" required="required" disabled="disabled">
 							<option value="">Select Manufacturer</option>
 	     				 </select> 
                        </div>
                        <div class="form-group">
                          <label>Model</label>
-                         <select class="form-control" name="machineModel" ng-model="quote.machineInfoDO" ng-options="machineModel.model group by machineModel.machineType for machineModel in machineModelList track by machineModel.machineId" required-message="'Please select valid Model Number.'" required="required">
+                         <select class="form-control" name="machineModel" ng-model="quote.machineInfoDO" ng-options="machineModel.model group by machineModel.machineType for machineModel in machineModelList track by machineModel.machineId" required-message="'Please select valid Model Number.'" required="required" disabled="disabled">
 							<option value="">Select Model</option>
 						</select>
                        </div>
                        <div class="form-group">
                          <label>Horsepower</label>
-                         <input type="text" id="horsePower" name="horsePower" ng-model="quote.horsePower" placeholder="Horse Power" class="form-control">
+                         <input type="text" id="horsePower" name="horsePower" ng-model="quote.horsePower" placeholder="Horse Power" class="form-control" readonly="readonly">
                        </div>
                        <div class="form-group">
                          <label>Serial Number</label>
-                         <input type="text" id="serialNumber" name="serialNumber" ng-model="quote.serialNumber" placeholder="Serial Number" class="form-control" required-message="'Please enter serial number of machine.'" required="required">
+                         <input type="text" id="serialNumber" name="serialNumber" ng-model="quote.serialNumber" placeholder="Serial Number" class="form-control" required-message="'Please enter serial number of machine.'" required="required" readonly="readonly">
                        </div>
                        <div class="form-group">
                          <label>Retail Price</label>
-                         <input type="text" id="retailPrice" name="retailPrice" ng-model="quote.retailPrice" class="form-control" placeholder="Retail Price">
+                         <input type="text" id="retailPrice" name="retailPrice" ng-model="quote.retailPrice" class="form-control" placeholder="Retail Price" readonly="readonly">
                        </div>
                        <div class="form-group">
                          <label>Meter Hours</label>
-                         <input type="text" id="meterHours" name="meterHours" ng-model="quote.meterHours" placeholder="Meter Hours" class="form-control" required-message="'Please enter meter hours of machine.'" required="required">
+                         <input type="text" id="meterHours" name="meterHours" ng-model="quote.meterHours" placeholder="Meter Hours" class="form-control" required-message="'Please enter meter hours of machine.'" required="required" readonly="readonly">
                        </div>
                        <div class="form-group">
                          <label>Model Year</label>
-                         <input type="text" id="modelYear" name="modelYear" ng-model="quote.modelYear" placeholder="Model Year" class="form-control">
+                         <input type="text" id="modelYear" name="modelYear" ng-model="quote.modelYear" placeholder="Model Year" class="form-control" readonly="readonly">
                        </div>
                        <div class="form-group">
                          <label>Condition</label>
-                         <p>{{$scope.machineCondition}}</p>
+                         <p>{{machineCondition}}</p>
                        </div>
                        <div class="form-group">
                          <label>Use of Equipment</label>
-                         <select name="equipment" ng-model="quote.useOfEquipmentDO" class="form-control" ng-options="equipmentObj.equipName for equipmentObj in useOfEquipmentDOList track by equipmentObj.id" required-message="'Please select use of equipment.'" required="required">
+                         <select name="equipment" ng-model="quote.useOfEquipmentDO" class="form-control" ng-options="equipmentObj.equipName for equipmentObj in useOfEquipmentDOList track by equipmentObj.id" required-message="'Please select use of equipment.'" required="required" disabled="disabled">
 							<option value="">Use of Equipment</option>
 						 </select>
                        </div>
                        <div class="form-group">
                          <label>MFG End Date</label>
                          <div class="input-group">
-                           <input type="date" id="coverageEndDate" name="coverageEndDate" min="{{date | date:'yyyy-MM-dd'}}" ng-model="quote.coverageEndDate" class="form-control">
+                           <input type="date" id="coverageEndDate" name="coverageEndDate" ng-model="quote.coverageEndDate" class="form-control" readonly="readonly">
                            <!-- <input type="text" class="form-control" aria-describedby="basic-addon2"> -->
-                           <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                           <!-- <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span> -->
                          </div>
                        </div>
                        <div class="checkbox">
                          <label>
-                           <input type="checkbox" id="coverageExpired" name="coverageExpired" ng-model="quote.coverageExpired"> Check here if the Manufacturer's Coverage has expired.
+                           <input type="checkbox" id="coverageExpired" name="coverageExpired" ng-model="quote.coverageExpired" disabled="disabled"> Check here if the Manufacturer's Coverage has expired.
                          </label>
                        </div>
                        <div class="form-group">
                          <label>Deductible</label>
-                         <select name="deductiblePrice" ng-model="quote.deductiblePrice" class="form-control" ng-options="deductibleAmt for deductibleAmt in deductibleAmtList track by deductibleAmt" required-message="'Please select use of equipment.'" required="required">
+                         <select name="deductiblePrice" ng-model="quote.deductiblePrice" class="form-control" ng-options="deductibleAmt for deductibleAmt in deductibleAmtList track by deductibleAmt" required-message="'Please select use of equipment.'" required="required" disabled="disabled">
 						 </select>
                        </div>
                        <div class="form-group">
                          <label>Coverage Term</label>
-                         <select name="coverageTerm" ng-model="quote.coverageTerm" class="form-control" ng-options="coverageTermVal for coverageTermVal in coverageTermList track by coverageTermVal" required-message="'Please select use of equipment.'" required="required">
+                         <select name="coverageTerm" ng-model="quote.coverageTerm" class="form-control" ng-options="coverageTermVal for coverageTermVal in coverageTermList track by coverageTermVal" required-message="'Please select use of equipment.'" required="required" disabled="disabled">
 						 </select>
                        </div>
                        <div class="form-group">
                          <label>Covered Hours</label>
-                         <select name="coverageHours" ng-model="quote.coverageHours" class="form-control" ng-options="pricingDO.coverageLevelHours for pricingDO in pricingDOList track by pricingDO.coverageLevelHours" required-message="'Please select use of equipment.'" required="required">
+                         <select name="coverageHours" ng-model="quote.coverageHours" class="form-control" ng-options="coverageLevelHour for coverageLevelHour in coverageLevelHoursList track by coverageLevelHour" required-message="'Please select use of equipment.'" required="required" disabled="disabled">
 						 </select>
                        </div>
                        <div class="form-group">
                          <label>Coverage Type</label>
-                         <select name="coverageType" ng-model="quote.coverageType" class="form-control" required="required">
+                         <select name="coverageType" ng-model="quote.coverageType" class="form-control" required="required" disabled="disabled">
                          	<option value="PT">Powertrain</option>
 			                <option value="PH">Powertrain + Hydraulic</option>
 			                <option value="PL">Powertrain + Hydraulic + Platform</option>
@@ -109,28 +109,28 @@
                        <div class="form-group">
                          <label>Estimated Sale Date</label>
                          <div class="input-group">
-                           <input type="date" id="estSaleDate" name="estSaleDate" ng-model="quote.estSaleDate" class="form-control" min="{{date | date:'yyyy-MM-dd'}}" required="required">
+                           <input type="date" id="estSaleDate" name="estSaleDate" ng-model="quote.estSaleDate" class="form-control" required="required" readonly="readonly">
                            <!-- <input type="text" class="form-control" aria-describedby="basic-addon2"> -->
-                           <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                           <!-- <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span> -->
                          </div>
                        </div>
                        <div class="form-group">
                          <label>Additional Unit Information</label>
-                         <textarea class="form-control" placeholder="" ng-model="quote.otherProv"></textarea>
+                         <textarea class="form-control" placeholder="" ng-model="quote.otherProv" readonly="readonly"></textarea>
                          <span class="f-r"><small>If MFG's coverage is not 2 years/2000 hours, please describe.</small></span>
                        </div>
                        <div class="form-group">
                          <label>Dealer Markup</label>
-                         <input type="text" id="dealerMarkup" name="dealerMarkup" ng-model="quote.dealerMarkup" placeholder="Dealer Markup" class="form-control" required>
+                         <input type="text" id="dealerMarkup" name="dealerMarkup" ng-model="quote.dealerMarkup" placeholder="Dealer Markup" class="form-control" required readonly="readonly">
                        </div>
                        <div class="form-group">
                          <label>Markup Type</label>
                          <div class="agform-radio">
                          <label class="radio-inline">
-                           <input type="radio" id="dealerMarkupVlaue" name="dealerMarkupVlaue" ng-model="quote.dealerMarkupType" value="price" class=""> Price
+                           <input type="radio" id="dealerMarkupVlaue" name="dealerMarkupVlaue" ng-model="quote.dealerMarkupType" value="price" class="" disabled="disabled"> Price
                          </label>
                          <label class="radio-inline">
-                           <input type="radio" id="dealerMarkupVlaue" name="dealerMarkupVlaue" ng-model="quote.dealerMarkupType" value="percent" class="">  Percent
+                           <input type="radio" id="dealerMarkupVlaue" name="dealerMarkupVlaue" ng-model="quote.dealerMarkupType" value="percent" class="" disabled="disabled">  Percent
                          </label>
                          </div>
                        </div>
@@ -172,19 +172,19 @@
                      <div class="col-xs-12 no-pad">
                        <div class="form-group">
                          <label>Name/Nickname</label>
-                         <input type="text" id="dealerName" name="dealerName" ng-model="quote.dealerName" placeholder="Dealer Name" class="form-control" required>
+                         <input type="text" id="dealerName" name="dealerName" ng-model="quote.dealerName" placeholder="Dealer Name" class="form-control" required readonly="readonly">
                        </div>
                        <div class="form-group">
                          <label>Address</label>
-                         <input type="text" id="dealerAddress" name="dealerAddress" ng-model="quote.dealerAddress" placeholder="Dealer Address" class="form-control">
+                         <input type="text" id="dealerAddress" name="dealerAddress" ng-model="quote.dealerAddress" placeholder="Dealer Address" class="form-control" readonly="readonly">
                        </div>
                        <div class="form-group">
                          <label>City</label>
-                         <input type="text" id="dealerCity" name="dealerCity" ng-model="quote.dealerCity" placeholder="Dealer City" class="form-control">
+                         <input type="text" id="dealerCity" name="dealerCity" ng-model="quote.dealerCity" placeholder="Dealer City" class="form-control" readonly="readonly">
                        </div>
                        <div class="form-group">
                          <label>State/Province</label>
-                         <select class="form-control" name="dealerState" ng-model="quote.dealerState" id="dealerState" required="required">
+                         <select class="form-control" name="dealerState" ng-model="quote.dealerState" id="dealerState" required="required" disabled="disabled">
 							<option value="">Select State/Province</option>
 							<option value="AL">Alabama</option>
 							<option value="AK">Alaska</option>
@@ -254,24 +254,24 @@
                        </div>
                        <div class="form-group">
                          <label>Zip</label>
-                         <input type="text" id="dealerZip" name="dealerZip" ng-model="quote.dealerZip" placeholder="Zip" class="form-control" required="required">
+                         <input type="text" id="dealerZip" name="dealerZip" ng-model="quote.dealerZip" placeholder="Zip" class="form-control" required="required" readonly="readonly">
                        </div>
                        <div class="form-group">
                          <label>Phone Number</label>
-                         <input type="text" id="dealerPhone" name="dealerPhone" ng-model="quote.dealerPhone" placeholder="Phone Number" class="form-control" required="required">
+                         <input type="text" id="dealerPhone" name="dealerPhone" ng-model="quote.dealerPhone" placeholder="Phone Number" class="form-control" required="required" readonly="readonly">
                        </div>
                        <div class="form-group">
                          <label>Email</label>
-                         <input type="text" id="dealerEmail" name="dealerEmail" ng-model="quote.dealerEmail" placeholder="Email" class="form-control" required="required">
+                         <input type="text" id="dealerEmail" name="dealerEmail" ng-model="quote.dealerEmail" placeholder="Email" class="form-control" required="required" disabled="disabled">
                        </div>
                        <div class="checkbox">
                          <label>
-                           <input type="checkbox" id="custUnderstandCoverage" name="custUnderstandCoverage" ng-model="quote.custUnderstandCoverage" ng-value="true" ng-checked="true" required="required"> Customer understands coverage.
+                           <input type="checkbox" id="custUnderstandCoverage" name="custUnderstandCoverage" ng-model="quote.custUnderstandCoverage" ng-value="true" ng-checked="true" required="required" disabled="disabled"> Customer understands coverage.
                          </label>
                        </div>
                        <div class="checkbox">
                          <label>
-                           <input type="checkbox" id="custRemorsePeriod" name="custRemorsePeriod" ng-model="quote.custRemorsePeriod" ng-value="true" ng-checked="true" required="required"> Customer is aware of 90-day remorse period.
+                           <input type="checkbox" id="custRemorsePeriod" name="custRemorsePeriod" ng-model="quote.custRemorsePeriod" ng-value="true" ng-checked="true" required="required" disabled="disabled"> Customer is aware of 90-day remorse period.
                          </label>
                        </div>
                      </div>

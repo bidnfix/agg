@@ -659,9 +659,9 @@ routingApp.controller('QuotesDetailController', function($scope, $http, $timeout
 routingApp.controller('QuoteDetailController', function($scope, $http, $timeout, $routeParams, $route) {
 	//alert($routeParams.quoteId+" - "+$routeParams.quoteCode);
 	$scope.quote = {};
+	$scope.date = new Date();
 	$http.get("/agg/quoteInfo/"+$routeParams.quoteId+"/"+$routeParams.quoteCode)
 	.then(function(response) {
-        $scope.quote = response.data.data.quote;
         $scope.dealerList = response.data.data.dealerDOList;
 		$scope.manufacturerList = response.data.data.manufacturerDOList;
 		$scope.useOfEquipmentDOList = response.data.data.useOfEquipmentDOList;
@@ -669,9 +669,14 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 		$scope.deductibleAmtList = response.data.data.deductibleAmtList;
 		$scope.coverageTermList = response.data.data.coverageTermList;
 		$scope.pricingDOList = response.data.data.pricingDOList;
+		$scope.coverageLevelHoursList = response.data.data.coverageLevelHoursList;
+		$scope.quote = response.data.data.quote;
 		
+		$scope.quote.coverageEndDate = new Date($scope.quote.coverageEndDate);
+		$scope.quote.estSaleDate = new Date($scope.quote.estSaleDate);
+		//$scope.coverageEndDate = new Date($scope.quote.coverageEndDate);
+		//$scope.estSaleDate = new Date($scope.quote.estSaleDate);
 		
-        
         if($scope.quote.coverageExpired != null && $scope.quote.coverageExpired == true){
     		$scope.machineCondition = 'Used';
     	}else if($scope.quote.coverageEndDate != null && ($scope.quote.coverageEndDate > $scope.date)){
