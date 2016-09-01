@@ -656,10 +656,11 @@ routingApp.controller('QuotesDetailController', function($scope, $http, $timeout
 })
 
 
-routingApp.controller('QuoteDetailController', function($scope, $http, $timeout, $routeParams, $route) {
+routingApp.controller('QuoteDetailController', function($scope, $http, $timeout, $routeParams, $route, $window, quoteService) {
 	//alert($routeParams.quoteId+" - "+$routeParams.quoteCode);
 	$scope.quote = {};
 	$scope.date = new Date();
+	$scope.disabled= true;
 	$http.get("/agg/quoteInfo/"+$routeParams.quoteId+"/"+$routeParams.quoteCode)
 	.then(function(response) {
         $scope.dealerList = response.data.data.dealerDOList;
@@ -694,6 +695,39 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 			    });
 		}
 	}
+	
+	$scope.editQuote = function(){
+		$scope.disabled= false;
+	}
+	
+	$scope.updateQuote = function(){
+		quoteService.updateQuote($scope.quote, $scope);
+	}
+	
+	$scope.archiveQuote = function(){
+		if($window.confirm('Are you sure you want to archive this record?')) {
+			if($scope.quote != null){
+				quoteService.archiveQuote($scope.quote, $scope);
+			}
+		}
+	}
+	
+	$scope.invoiceQuote = function(){
+		quoteService.invoiceQuote($scope.quote, $scope);
+	}
+	
+	$scope.createContract = function(){
+		
+	}
+	
+	$scope.printQuote = function(quotePrintType){
+		if(quotePrintType == 'dealer'){
+			$window.open('/agg/quote/report/dealer/'+$scope.quote.quoteId);
+		}else if(quotePrintType == 'customer'){
+			$window.open('/agg/quote/report/customer/'+$scope.quote.quoteId);
+		}
+	}
+	
 })
 
 

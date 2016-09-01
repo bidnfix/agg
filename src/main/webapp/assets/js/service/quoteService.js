@@ -35,7 +35,7 @@ routingApp.factory('quoteService', function($http, $q, $window) {
 						}
 						
 					}, function(errResponse) {
-						alert('Error while creating dealer');
+						alert('Error while saving Quote');
 						return $q.reject(errResponse);
 					});
 		},
@@ -73,7 +73,7 @@ routingApp.factory('quoteService', function($http, $q, $window) {
 						}
 						
 					}, function(errResponse) {
-						alert('Error while editing dealer');
+						alert('Error while saving Quote');
 						return $q.reject(errResponse);
 					});
 		},
@@ -94,7 +94,7 @@ routingApp.factory('quoteService', function($http, $q, $window) {
 						}
 						
 					}, function(errResponse) {
-						alert('Error while editing dealer');
+						alert('Error while saving Quote');
 						return $q.reject(errResponse);
 					});
 		},
@@ -115,7 +115,55 @@ routingApp.factory('quoteService', function($http, $q, $window) {
 						}
 						
 					}, function(errResponse) {
-						alert('Error while editing dealer');
+						alert('Error while saving Quote');
+						return $q.reject(errResponse);
+					});
+		},
+		archiveQuote : function(quote, $scope) {
+			return $http.post('/agg/quote/archiveQuote', quote).then(
+					function(response) {
+						//alert(response.data.status);
+						if (response.data.status == 'success') {
+							$window.location.href = '#/agg/quotesInfo';
+						} else {
+							alert('error in archiving Quote: '+response.data.errMessage)
+							//$('#errMsg').html(response.data.errMessage);
+						}
+						
+					}, function(errResponse) {
+						alert('Error while archiving Quote');
+						return $q.reject(errResponse);
+					});
+		},
+		updateQuote : function(quote, $scope) {
+			return $http.post('/agg/quote/updateQuote', quote).then(
+					function(response) {
+						//alert(response.data.status);
+						if (response.data.status == 'success') {
+							$window.location.href = '#/agg/quotesInfo';
+						} else {
+							alert('error in updating Quote: '+response.data.errMessage)
+							//$('#errMsg').html(response.data.errMessage);
+						}
+						
+					}, function(errResponse) {
+						alert('Error while updating Quote');
+						return $q.reject(errResponse);
+					});
+		},
+		invoiceQuote : function(quote, $scope) {
+			return $http.post('/agg/quote/invoiceQuote', quote).then(
+					function(response) {
+						//alert(response.data.status);
+						if (response.data.status == 'success') {
+							$window.location.href = '#/agg/quotesInfo';
+						} else {
+							alert('error in invoicing Quote: '+response.data.errMessage)
+							//$('#errMsg').html(response.data.errMessage);
+						}
+						
+					}, function(errResponse) {
+						alert('Error while invoicing Quote');
 						return $q.reject(errResponse);
 					});
 		}

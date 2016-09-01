@@ -314,5 +314,62 @@ public class QuoteController extends BaseController {
 		return opResult;
 	}
 	
+	@RequestMapping(value = "/quote/archiveQuote", method = RequestMethod.POST)
+	public @ResponseBody Result archiveQuote(@RequestBody  QuoteDO quoteDO, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{
+		logger.debug("In archiveQuote");
+		Result opResult = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			logger.info("quoteId: "+quoteDO.getQuoteId()+" and id: "+quoteDO.getId());
+			
+			boolean isArchivedQuote = quoteService.archiveQuote(quoteDO);
+			
+			logger.info("isArchivedQuote: "+isArchivedQuote);
+			
+			opResult = new Result("success", "Quote Info", quoteDO);
+		}
+		
+		return opResult;
+	}
+	
+	@RequestMapping(value = "/quote/updateQuote", method = RequestMethod.POST)
+	public @ResponseBody Result updateQuote(@RequestBody  QuoteDO quoteDO, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{
+		logger.debug("In updateQuote");
+		Result opResult = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			logger.info("quoteId: "+quoteDO.getQuoteId()+" and id: "+quoteDO.getId());
+			
+			boolean isQuoteUpdated = quoteService.updateQuote(quoteDO);
+			
+			logger.info("isQuoteUpdated: "+isQuoteUpdated);
+			
+			opResult = new Result("success", "Quote Info", quoteDO);
+		}
+		
+		return opResult;
+	}
+	
+	@RequestMapping(value = "/quote/invoiceQuote", method = RequestMethod.POST)
+	public @ResponseBody Result invoiceQuote(@RequestBody  QuoteDO quoteDO, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{
+		logger.debug("In invoiceQuote");
+		Result opResult = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			logger.info("quoteId: "+quoteDO.getQuoteId()+" and id: "+quoteDO.getId());
+			
+			boolean isQuoteInvoiced = quoteService.invoiceQuote(quoteDO);
+			
+			logger.info("isQuoteInvoiced: "+isQuoteInvoiced);
+			
+			opResult = new Result("success", "Quote Info", quoteDO);
+		}
+		
+		return opResult;
+	}
+	
 	
 }

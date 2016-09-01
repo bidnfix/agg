@@ -30,4 +30,10 @@ public interface QuoteService {
 	public List<QuoteDO> getQuotes(AccountDO accountDO);
 
 	public QuoteDO getQuote(AccountDO accountDetails, int id, String quoteId);
+
+	public boolean archiveQuote(QuoteDO quoteDO);
+
+	public boolean updateQuote(QuoteDO quoteDO);
+
+	public boolean invoiceQuote(QuoteDO quoteDO);
 }
