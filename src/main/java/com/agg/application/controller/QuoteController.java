@@ -28,6 +28,7 @@ import com.agg.application.model.PricingDO;
 import com.agg.application.model.QuoteDO;
 import com.agg.application.model.ReportDO;
 import com.agg.application.model.Result;
+import com.agg.application.model.WorklistDO;
 import com.agg.application.service.DealerService;
 import com.agg.application.service.MachineService;
 import com.agg.application.service.QuoteService;
@@ -302,11 +303,16 @@ public class QuoteController extends BaseController {
 		if (!sessionExists(request)){
 			opResult = new Result("failure", "Invalid Login", null);
 		}else{
-			opResult = new Result("success", null, quoteService.getQuotes(getAccountDetails(request)));
+			
+			WorklistDO worklistDO = quoteService.getWorklistCount();
+			model.addAttribute("worklistDO", worklistDO);
+			opResult = new Result("success", null, model);
 		}
 		
 		return opResult;
 	}
+	
+
 	
 	@RequestMapping(value = "/quote/archiveQuote", method = RequestMethod.POST)
 	public @ResponseBody Result archiveQuote(@RequestBody  QuoteDO quoteDO, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{

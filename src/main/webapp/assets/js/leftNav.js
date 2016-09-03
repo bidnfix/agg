@@ -217,11 +217,14 @@ routingApp.controller('AddUserController', function($scope, $http) {
 });
 
 routingApp.controller('HomeController', function($scope, $http) {
-	$http.get("/agg/dealerCountDetails")
+	$http.get("/agg/worklist")
     .then(function(response) {
-        $scope.activeDealers = response.data.data.activeDealers;
-        $scope.pendingDealers = response.data.data.pendingDealers;
-        $scope.terminatedDealers = response.data.data.terminatedDealers;
+        //$scope.activeDealers = response.data.data.activeDealers;
+        //$scope.pendingDealers = response.data.data.pendingDealers;
+        //$scope.terminatedDealers = response.data.data.terminatedDealers;
+    	$scope.estPrice = response.data.data.worklistDO.estPrice;
+    	$scope.invoiced = response.data.data.worklistDO.invoiced;
+    	$scope.purchaseReq = response.data.data.worklistDO.purchaseReq;
     });
 });
 

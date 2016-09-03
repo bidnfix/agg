@@ -8,6 +8,7 @@ import com.agg.application.model.PricingDO;
 import com.agg.application.model.QuoteDO;
 import com.agg.application.model.ReportDO;
 import com.agg.application.model.UseOfEquipmentDO;
+import com.agg.application.model.WorklistDO;
 
 public interface QuoteService {
 
@@ -36,4 +37,6 @@ public interface QuoteService {
 	public boolean updateQuote(QuoteDO quoteDO);
 
 	public boolean invoiceQuote(QuoteDO quoteDO);
+	
+	public WorklistDO getWorklistCount();
 }

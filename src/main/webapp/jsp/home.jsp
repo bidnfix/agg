@@ -24,16 +24,28 @@
 		<div id="navbar">
 			<ul class="nav navbar-nav ">
 				<li>
-					<a href="#/agg/pendingDealers"> Pending Dealers <span class="badge">{{pendingDealers}}</span></a>
+					<a href="#/agg/pendingDealers">Expired Contract<span class="badge">{{pendingDealers}}</span></a>
 				</li>
                 
                 <li>
-					<a href="#/agg/dealers"> Active Dealers <span class="badge">{{activeDealers}}</span></a>
+					<a href="#/agg/dealers">Active Contract<span class="badge">{{activeDealers}}</span></a>
 				</li>
 				
                 
                 <li>
-					<a href="#/agg/dealers"> Terminated Dealers <span class="badge">{{terminatedDealers}}</span></a>
+					<a href="#/agg/estQuotes">Estimating Price<span class="badge">{{estPrice}}</span></a>
+				</li>
+				<li>
+					<a href="#/agg/pendingDealers">Invoiced<span class="badge">{{invoiced}}</span></a>
+				</li>
+                
+                <li>
+					<a href="#/agg/dealers">Purchase Requested<span class="badge">{{purchaseReq}}</span></a>
+				</li>
+				
+                
+                <li>
+					<a href="#/agg/dealers">Claims<span class="badge">{{terminatedDealers}}</span></a>
 				</li>
                 <!--
                 <li>

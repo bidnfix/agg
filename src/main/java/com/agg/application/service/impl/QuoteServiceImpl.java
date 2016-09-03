@@ -43,6 +43,7 @@ import com.agg.application.model.PricingDO;
 import com.agg.application.model.QuoteDO;
 import com.agg.application.model.ReportDO;
 import com.agg.application.model.UseOfEquipmentDO;
+import com.agg.application.model.WorklistDO;
 import com.agg.application.service.QuoteService;
 import com.agg.application.utils.AggConstants;
 import com.agg.application.utils.EmailSender;
@@ -1023,6 +1024,19 @@ public class QuoteServiceImpl implements QuoteService {
 		}
 		
 		return condition;
+	}
+	
+	public WorklistDO getWorklistCount()
+	{
+		WorklistDO worklistDO = new WorklistDO();
+		int estPrice = quoteDAO.countByEstPrice();
+		worklistDO.setEstPrice(estPrice);
+		int purchaseReq = quoteDAO.countByPurRequested();
+		worklistDO.setPurchaseReq(purchaseReq);
+		int invoiced = quoteDAO.countByInvoiced();
+		worklistDO.setInvoiced(invoiced);
+		logger.debug("estPrice -->"+estPrice);
+		return worklistDO;
 	}
 
 }

@@ -23,4 +23,15 @@ public interface QuoteDAO extends CrudRepository<Quote, QuotePK> {
 	
 	public List<Quote> findByDealerId(long dealerId);
 	
+	@Query("SELECT COUNT(*) FROM Quote q WHERE q.status=1")
+	public int countByEstPrice();
+	
+	@Query("SELECT COUNT(*) FROM Quote q WHERE q.status=4")
+	public int countByPurRequested();
+	
+	@Query("SELECT COUNT(*) FROM Quote q WHERE q.status=5")
+	public int countByInvoiced();
+	
+	
+	
 }
