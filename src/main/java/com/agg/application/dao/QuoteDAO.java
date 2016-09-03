@@ -32,6 +32,19 @@ public interface QuoteDAO extends CrudRepository<Quote, QuotePK> {
 	@Query("SELECT COUNT(*) FROM Quote q WHERE q.status=5")
 	public int countByInvoiced();
 	
+	@Query("SELECT q FROM Quote q WHERE q.status=1")
+	public List<Quote> findByEstPrice();
 	
+	@Query("SELECT q FROM Quote q WHERE q.status=1 and q.dealer.id = :dealerId")
+	public List<Quote> findByEstPrice(@Param("dealerId")long dealerId);
+	
+	@Query("SELECT q FROM Quote q WHERE q.status=4")
+	public List<Quote> findByPurRequested();
+	
+	@Query("SELECT q FROM Quote q WHERE q.status=4 and q.dealer.id = :dealerId")
+	public List<Quote> findByPurRequested(@Param("dealerId")long dealerId);
+	
+	@Query("SELECT q FROM Quote q WHERE q.status=5")
+	public List<Quote> findByInvoiced();
 	
 }

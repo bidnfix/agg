@@ -658,6 +658,22 @@ public class QuoteServiceImpl implements QuoteService {
 		return quoteDOList;
 	}
 	
+	@Override
+	public List<QuoteDO> getEstPriceQuotes(AccountDO accountDO) {
+		List<QuoteDO> quoteDOList = null;
+		if(accountDO.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)){
+			List<Quote> quoteList = Util.toList(quoteDAO.findByEstPrice());
+			logger.debug("quoteList --------------> "+ quoteList.size());
+			quoteDOList = getQuoteDetails(quoteList);
+		}else{
+			List<Quote> quoteList = Util.toList(quoteDAO.findByEstPrice(accountDO.getDealerId()));
+			logger.debug("quoteList --------------> "+ quoteList.size());
+			quoteDOList = getQuoteDetails(quoteList);
+		}
+		
+		return quoteDOList;
+	}
+	
 	/**
 	 * @param quoteList
 	 * @return

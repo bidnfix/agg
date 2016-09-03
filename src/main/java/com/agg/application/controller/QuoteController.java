@@ -312,7 +312,17 @@ public class QuoteController extends BaseController {
 		return opResult;
 	}
 	
-
+	@RequestMapping(value = "/estPriceQuotes", method = RequestMethod.GET)
+	public Result getEstPriceQuotes(Model model, HttpServletRequest request, HttpServletResponse response) {
+		Result opResult = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			opResult = new Result("success", null, quoteService.getEstPriceQuotes(getAccountDetails(request)));
+		}
+		
+		return opResult;
+	}
 	
 	@RequestMapping(value = "/quote/archiveQuote", method = RequestMethod.POST)
 	public @ResponseBody Result archiveQuote(@RequestBody  QuoteDO quoteDO, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{

@@ -39,4 +39,6 @@ public interface QuoteService {
 	public boolean invoiceQuote(QuoteDO quoteDO);
 	
 	public WorklistDO getWorklistCount();
+	
+	public List<QuoteDO> getEstPriceQuotes(AccountDO accountDO);
 }
