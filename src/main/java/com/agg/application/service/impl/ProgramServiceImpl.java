@@ -218,6 +218,12 @@ public class ProgramServiceImpl implements ProgramService {
 			quotePK.setQuoteId(quoteId);
 			quote.setId(quotePK);
 			
+			if(quoteDO.getProgramDO() != null)
+			{
+				quote.setProgram(programDAO.findOne(Long.valueOf(quoteDO.getProgramDO().getPrId())));
+				logger.debug("quote..getProgramDO "+quoteDO.getProgramDO().getPrId());
+			}
+			
 			if(quoteDO.getManufacturerDO() != null)
 			{
 				quote.setManufacturer(manufacturerDAO.findOne(Long.valueOf(quoteDO.getManufacturerDO().getId())));
