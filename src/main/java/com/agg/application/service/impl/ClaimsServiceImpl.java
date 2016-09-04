@@ -243,6 +243,22 @@ public class ClaimsServiceImpl implements ClaimsService {
 		return ConvertClaimToClaimsDO(claimsList, claimsLaborList, claimPartList);
 	}
 	
+	@Override
+	public List<ClaimsDO> getClaimsByCStatus(byte cStatus, int dealerId) {
+		List<Claims> claimsList = claimsDAO.findAllByCStatus(cStatus, dealerId);
+		List<ClaimLabor> claimsLaborList = null;
+		List<ClaimPart> claimPartList = null;
+		List<Integer> claimIdList = new ArrayList<>();
+		for(Claims claims : claimsList){
+			claimIdList.add(claims.getId());
+		}
+		if(!claimIdList.isEmpty()){
+			claimsLaborList = claimLaborDAO.findAllByClaimID(claimIdList);
+			claimPartList = claimPartDAO.findAllByClaimID(claimIdList);
+		}
+		return ConvertClaimToClaimsDO(claimsList, claimsLaborList, claimPartList);
+	}
+	
 	private List<ClaimsDO> ConvertClaimToClaimsDO(List<Claims> claimsList, List<ClaimLabor> claimsLaborList, List<ClaimPart> claimPartList){
 		List<ClaimsDO> claimsDOList = new ArrayList<>();
 		Map<Integer, ClaimLabor> laborMap = new HashMap<>();

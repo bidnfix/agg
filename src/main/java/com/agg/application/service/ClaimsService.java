@@ -12,5 +12,6 @@ public interface ClaimsService {
 	QuoteDO getClaimInfo(String ClaimId);
 	Long saveClaim(ClaimsDO claimsDO);
 	List<ClaimsDO> getClaimsByCStatus(byte cStatus);
+	List<ClaimsDO> getClaimsByCStatus(byte cStatus, int dealerId);
 	void updateStatus(final int id, final byte status);
 }

@@ -16,6 +16,9 @@ public interface ClaimsDAO extends CrudRepository<Claims, Long> {
 	@Query("SELECT c FROM Claims c WHERE c.cStatus = :cStatus")
 	List<Claims> findAllByCStatus(@Param("cStatus") byte cStatus);
 	
+	@Query("SELECT c FROM Claims c WHERE c.cStatus = :cStatus AND c.dealerId = :dealerId")
+	List<Claims> findAllByCStatus(@Param("cStatus") byte cStatus, @Param("dealerId") int dealerId);
+	
 	@Modifying
 	@Transactional
 	@Query("UPDATE Claims c SET c.cStatus = :cStatus WHERE c.id = :id ")
