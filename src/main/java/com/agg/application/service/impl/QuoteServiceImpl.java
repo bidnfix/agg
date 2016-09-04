@@ -193,7 +193,7 @@ public class QuoteServiceImpl implements QuoteService {
 		
 		quote.setIsArchive((short)0);
 		quote.setCreateDate(new Date());
-		quote.setPrId(0);
+		//quote.setPrId(0);
 		quote.setServicingDealer(0);
 		quote.setLastUpdate(new Date());
 		
@@ -266,7 +266,7 @@ public class QuoteServiceImpl implements QuoteService {
 			quote.setMachineSaleDate(quoteDO.getEstSaleDate());
 			quote.setIsArchive((short)0);
 			quote.setCreateDate(new Date());
-			quote.setPrId(0);
+			//quote.setPrId(0);
 			quote.setServicingDealer(0);
 			quote.setLastUpdate(new Date());
 			
@@ -351,7 +351,7 @@ public class QuoteServiceImpl implements QuoteService {
 			
 			quote.setIsArchive((short)0);
 			quote.setCreateDate(new Date());
-			quote.setPrId(0);
+			//quote.setPrId(0);
 			quote.setServicingDealer(0);
 			quote.setLastUpdate(new Date());
 			
@@ -451,7 +451,7 @@ public class QuoteServiceImpl implements QuoteService {
 			
 			quote.setIsArchive((short)0);
 			quote.setCreateDate(new Date());
-			quote.setPrId(0);
+			//quote.setPrId(0);
 			quote.setServicingDealer(0);
 			quote.setLastUpdate(new Date());
 			
@@ -658,36 +658,6 @@ public class QuoteServiceImpl implements QuoteService {
 		return quoteDOList;
 	}
 	
-	@Override
-	public List<QuoteDO> getEstPriceQuotes(AccountDO accountDO) {
-		List<QuoteDO> quoteDOList = null;
-		if(accountDO.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)){
-			List<Quote> quoteList = Util.toList(quoteDAO.findByEstPrice());
-			logger.debug("quoteList for estPrice --------------> "+ quoteList.size());
-			quoteDOList = getQuoteDetails(quoteList);
-		}else{
-			List<Quote> quoteList = Util.toList(quoteDAO.findByEstPrice(accountDO.getDealerId()));
-			logger.debug("quoteList for estPrice --------------> "+ quoteList.size());
-			quoteDOList = getQuoteDetails(quoteList);
-		}
-		return quoteDOList;
-	}
-	
-	@Override
-	public List<QuoteDO> getPurchaseReqQuotes(AccountDO accountDO) {
-		List<QuoteDO> quoteDOList = null;
-		if(accountDO.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)){
-			List<Quote> quoteList = Util.toList(quoteDAO.findByPurRequested());
-			logger.debug("quoteList for purchaseReq--------------> "+ quoteList.size());
-			quoteDOList = getQuoteDetails(quoteList);
-		}else{
-			List<Quote> quoteList = Util.toList(quoteDAO.findByPurRequested(accountDO.getDealerId()));
-			logger.debug("quoteList for purchaseReq --------------> "+ quoteList.size());
-			quoteDOList = getQuoteDetails(quoteList);
-		}
-		return quoteDOList;
-	}
-	
 	/**
 	 * @param quoteList
 	 * @return
@@ -791,6 +761,7 @@ public class QuoteServiceImpl implements QuoteService {
 			quoteDO.setCoverageType(quote.getCoverageType());
 			quoteDO.setQuoteBasePrice(quote.getCoveragePrice());
 			quoteDO.setStatus(quote.getStatus());
+			quoteDO.setLastUpdate(quote.getLastUpdate());
 			String statusDesc = "";
 			if(quote.getStatus() == 0){
 				statusDesc = AggConstants.QUOTE_STATUS_ACRHIVE;
@@ -802,6 +773,7 @@ public class QuoteServiceImpl implements QuoteService {
 				statusDesc = AggConstants.QUOTE_STATUS_INVOICED;
 			}
 			quoteDO.setStatusDesc(statusDesc);
+			quoteDO.setStatus(quote.getStatus());
 			
 			String dealerMarkupType = quote.getDealerMarkupType();
 			double coveragePrice = quote.getCoveragePrice();
@@ -917,7 +889,7 @@ public class QuoteServiceImpl implements QuoteService {
 			
 			//quote.setIsArchive((short)0);
 			//quote.setCreateDate(new Date());
-			quote.setPrId(0);
+			//quote.setPrId(0);
 			quote.setServicingDealer(0);
 			quote.setLastUpdate(new Date());
 			
@@ -1015,7 +987,7 @@ public class QuoteServiceImpl implements QuoteService {
 			
 			//quote.setIsArchive((short)0);
 			//quote.setCreateDate(new Date());
-			quote.setPrId(0);
+			//quote.setPrId(0);
 			quote.setServicingDealer(0);
 			quote.setLastUpdate(new Date());
 			
@@ -1056,6 +1028,37 @@ public class QuoteServiceImpl implements QuoteService {
 		return condition;
 	}
 	
+	@Override
+	public List<QuoteDO> getEstPriceQuotes(AccountDO accountDO) {
+		List<QuoteDO> quoteDOList = null;
+		if(accountDO.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)){
+			List<Quote> quoteList = Util.toList(quoteDAO.findByEstPrice());
+			logger.debug("quoteList for estPrice --------------> "+ quoteList.size());
+			quoteDOList = getQuoteDetails(quoteList);
+		}else{
+			List<Quote> quoteList = Util.toList(quoteDAO.findByEstPrice(accountDO.getDealerId()));
+			logger.debug("quoteList for estPrice --------------> "+ quoteList.size());
+			quoteDOList = getQuoteDetails(quoteList);
+		}
+		return quoteDOList;
+	}
+	
+	@Override
+	public List<QuoteDO> getPurchaseReqQuotes(AccountDO accountDO) {
+		List<QuoteDO> quoteDOList = null;
+		if(accountDO.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)){
+			List<Quote> quoteList = Util.toList(quoteDAO.findByPurRequested());
+			logger.debug("quoteList for purchaseReq--------------> "+ quoteList.size());
+			quoteDOList = getQuoteDetails(quoteList);
+		}else{
+			List<Quote> quoteList = Util.toList(quoteDAO.findByPurRequested(accountDO.getDealerId()));
+			logger.debug("quoteList for purchaseReq --------------> "+ quoteList.size());
+			quoteDOList = getQuoteDetails(quoteList);
+		}
+		return quoteDOList;
+	}
+	
+	@Override
 	public WorklistDO getWorklistCount()
 	{
 		WorklistDO worklistDO = new WorklistDO();

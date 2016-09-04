@@ -115,9 +115,6 @@ public class Quote implements Serializable {
 	@Column(name="other_prov")
 	private String otherProv;
 
-	@Column(name="pr_id")
-	private int prId;
-
 	@Column(name="pt_hours")
 	private int ptHours;
 
@@ -147,6 +144,10 @@ public class Quote implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="machine_uoe")
 	private UseOfEquip useOfEquip;
+	
+	@ManyToOne
+	@JoinColumn(name="pr_id")
+	private Sprogram program;
 
 	public Quote() {
 	}
@@ -389,14 +390,6 @@ public class Quote implements Serializable {
 		this.otherProv = otherProv;
 	}
 
-	public int getPrId() {
-		return this.prId;
-	}
-
-	public void setPrId(int prId) {
-		this.prId = prId;
-	}
-
 	public int getPtHours() {
 		return this.ptHours;
 	}
@@ -499,6 +492,20 @@ public class Quote implements Serializable {
 	 */
 	public void setCoverageType(String coverageType) {
 		this.coverageType = coverageType;
+	}
+
+	/**
+	 * @return the program
+	 */
+	public Sprogram getProgram() {
+		return program;
+	}
+
+	/**
+	 * @param program the program to set
+	 */
+	public void setProgram(Sprogram program) {
+		this.program = program;
 	}
 	
 }

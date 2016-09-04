@@ -1,6 +1,5 @@
 package com.agg.application.model;
 
-import java.sql.Timestamp;
 import java.util.Date;
 
 public class QuoteDO {
@@ -35,7 +34,7 @@ public class QuoteDO {
 
 	private short isArchive;
 
-	private Timestamp lastUpdate;
+	private Date lastUpdate;
 
 	private int machineHours;
 
@@ -166,6 +165,16 @@ public class QuoteDO {
 	private String estSaleDateStr;
 	
 	private CustomerInfoDO customerInfoDO;
+	
+	private String program;
+	
+	private double adjustedBasePrice;
+	
+	private double adjustedLol;
+	
+	private String specialConsiderations;
+	
+	private String condsForCoverage;
 		
 	public CustomerInfoDO getCustomerInfoDO() {
 		return customerInfoDO;
@@ -343,11 +352,11 @@ public class QuoteDO {
 		this.isArchive = isArchive;
 	}
 
-	public Timestamp getLastUpdate() {
+	public Date getLastUpdate() {
 		return this.lastUpdate;
 	}
 
-	public void setLastUpdate(Timestamp lastUpdate) {
+	public void setLastUpdate(Date lastUpdate) {
 		this.lastUpdate = lastUpdate;
 	}
 
@@ -1093,6 +1102,76 @@ public class QuoteDO {
 	 */
 	public void setEstSaleDateStr(String estSaleDateStr) {
 		this.estSaleDateStr = estSaleDateStr;
+	}
+
+	/**
+	 * @return the program
+	 */
+	public String getProgram() {
+		return program;
+	}
+
+	/**
+	 * @param program the program to set
+	 */
+	public void setProgram(String program) {
+		this.program = program;
+	}
+
+	/**
+	 * @return the adjustedBasePrice
+	 */
+	public double getAdjustedBasePrice() {
+		return adjustedBasePrice;
+	}
+
+	/**
+	 * @param adjustedBasePrice the adjustedBasePrice to set
+	 */
+	public void setAdjustedBasePrice(double adjustedBasePrice) {
+		this.adjustedBasePrice = adjustedBasePrice;
+	}
+
+	/**
+	 * @return the adjustedLol
+	 */
+	public double getAdjustedLol() {
+		return adjustedLol;
+	}
+
+	/**
+	 * @param adjustedLol the adjustedLol to set
+	 */
+	public void setAdjustedLol(double adjustedLol) {
+		this.adjustedLol = adjustedLol;
+	}
+
+	/**
+	 * @return the specialConsiderations
+	 */
+	public String getSpecialConsiderations() {
+		return specialConsiderations;
+	}
+
+	/**
+	 * @param specialConsiderations the specialConsiderations to set
+	 */
+	public void setSpecialConsiderations(String specialConsiderations) {
+		this.specialConsiderations = specialConsiderations;
+	}
+
+	/**
+	 * @return the condsForCoverage
+	 */
+	public String getCondsForCoverage() {
+		return condsForCoverage;
+	}
+
+	/**
+	 * @param condsForCoverage the condsForCoverage to set
+	 */
+	public void setCondsForCoverage(String condsForCoverage) {
+		this.condsForCoverage = condsForCoverage;
 	}
 	
 }

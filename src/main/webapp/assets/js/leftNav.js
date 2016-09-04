@@ -716,8 +716,7 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 		
 		$scope.quote.coverageEndDate = new Date($scope.quote.coverageEndDate);
 		$scope.quote.estSaleDate = new Date($scope.quote.estSaleDate);
-		//$scope.coverageEndDate = new Date($scope.quote.coverageEndDate);
-		//$scope.estSaleDate = new Date($scope.quote.estSaleDate);
+		$scope.quote.lastUpdate = new Date($scope.quote.lastUpdate);
 		
         if($scope.quote.coverageExpired != null && $scope.quote.coverageExpired == true){
     		$scope.machineCondition = 'Used';
@@ -741,8 +740,11 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 		$scope.disabled= false;
 	}
 	
-	$scope.updateQuote = function(){
-		quoteService.updateQuote($scope.quote, $scope);
+	$scope.updateQuote = function(quoteForm){
+		alert(quoteForm.$valid);
+		if(quoteForm.$valid){
+			quoteService.updateQuote($scope.quote, $scope);
+		}
 	}
 	
 	$scope.archiveQuote = function(){
@@ -753,12 +755,16 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 		}
 	}
 	
-	$scope.invoiceQuote = function(){
-		quoteService.invoiceQuote($scope.quote, $scope);
+	$scope.invoiceQuote = function(quoteForm){
+		if(quoteForm.$valid){
+			quoteService.invoiceQuote($scope.quote, $scope);
+		}
 	}
 	
-	$scope.createContract = function(){
-		
+	$scope.createContract = function(quoteForm){
+		if(quoteForm.$valid){
+			
+		}
 	}
 	
 	$scope.printQuote = function(quotePrintType){
@@ -770,5 +776,18 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 	}
 	
 })
+.directive('convertToNumber', function() {
+    return {
+        require: 'ngModel',
+        link: function(scope, element, attrs, ngModel) {
+          ngModel.$parsers.push(function(val) {
+            return parseInt(val, 10);
+          });
+          ngModel.$formatters.push(function(val) {
+            return '' + val;
+          });
+        }
+      };
+   });
 
 

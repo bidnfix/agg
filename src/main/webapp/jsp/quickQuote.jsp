@@ -1,5 +1,6 @@
 <!-- Article main content -->
 <article class="col-md-9 maincontent">
+	<form class="form-horizontal" name="quoteInfoForm" id="quoteInfoForm" novalidate angular-validator>
 	<header class="page-header">
              	<div class="col-md-6 col-sm-12">
 		<div class="sec-title">
@@ -10,12 +11,12 @@
                      </div>
                      <div class="col-md-6 col-sm-12">
                      	<button class="btn btn-primary pull-right mar-right" ng-click="editQuote()">Edit</button>
-                     	<button class="btn btn-primary pull-right mar-right" ng-click="updateQuote()">Update</button>
+                     	<button class="btn btn-primary pull-right mar-right" ng-click="quoteInfoForm.$valid && updateQuote(quoteInfoForm)">Update</button>
                      	<button class="btn btn-primary pull-right mar-right" ng-click="archiveQuote()">Archive</button>
-                     	<button class="btn btn-primary pull-right mar-right" ng-click="invoiceQuote()" disabled="disabled">Invoice</button>
+                     	<button class="btn btn-primary pull-right mar-right" ng-click="invoiceQuote(quoteInfoForm)" disabled="disabled">Invoice</button>
                      	<button class="btn btn-primary pull-right mar-right" ng-click="printQuote('dealer')">Dealer Quote Summary</button>
                      	<button class="btn btn-primary pull-right mar-right" ng-click="printQuote('customer')">Customer Quote Summary</button>
-                     	<button class="btn btn-primary pull-right mar-right" ng-click="createContract()" disabled="disabled">Create Contract</button>
+                     	<button class="btn btn-primary pull-right mar-right" ng-click="createContract(quoteInfoForm)" disabled="disabled">Create Contract</button>
                      </div>
 	</header>
              
@@ -28,19 +29,19 @@
                      <div class="col-md-6 no-pad pad10-right">
                        <div class="form-group">
                          <label>Assign Dealer</label>
-                         <select class="form-control" name="dealer" ng-model="quote.dealerDO" id="dealer" ng-options="dealer.name for dealer in dealerList track by dealer.id" ng-change="displayDealerText(quote.dealerDO)" required="required" ng-disabled="disabled">
+                         <select class="form-control" name="dealer" ng-model="quote.dealerDO" id="dealer" ng-options="dealer.name for dealer in dealerList track by dealer.id" ng-change="displayDealerText(quote.dealerDO)"  validate-on="dirty" required="required" ng-disabled="disabled">
 							<option value="">Select Dealer</option>
 						 </select>
                        </div>
                        <div class="form-group">
                          <label>Manufacturer</label>
-                         <select class="form-control" name="manufacturer" ng-model="quote.manufacturerDO" ng-options="manufacturerObj.name for manufacturerObj in manufacturerList track by manufacturerObj.id" ng-change="getMachineModel(quote.manufacturerDO)" required="required" ng-disabled="disabled">
+                         <select class="form-control" name="manufacturer" ng-model="quote.manufacturerDO" ng-options="manufacturerObj.name for manufacturerObj in manufacturerList track by manufacturerObj.id" ng-change="getMachineModel(quote.manufacturerDO)"  validate-on="dirty" required="required" ng-disabled="disabled">
 							<option value="">Select Manufacturer</option>
 	     				 </select> 
                        </div>
                        <div class="form-group">
                          <label>Model</label>
-                         <select class="form-control" name="machineModel" ng-model="quote.machineInfoDO" ng-options="machineModel.model group by machineModel.machineType for machineModel in machineModelList track by machineModel.machineId" required="required" ng-disabled="disabled">
+                         <select class="form-control" name="machineModel" ng-model="quote.machineInfoDO" ng-options="machineModel.model group by machineModel.machineType for machineModel in machineModelList track by machineModel.machineId"  validate-on="dirty" required="required" ng-disabled="disabled">
 							<option value="">Select Model</option>
 						</select>
                        </div>
@@ -50,7 +51,7 @@
                        </div>
                        <div class="form-group">
                          <label>Serial Number</label>
-                         <input type="text" id="serialNumber" name="serialNumber" ng-model="quote.serialNumber" placeholder="Serial Number" class="form-control" required="required" ng-disabled="disabled">
+                         <input type="text" id="serialNumber" name="serialNumber" ng-model="quote.serialNumber" placeholder="Serial Number" class="form-control"  validate-on="dirty" required="required" ng-disabled="disabled">
                        </div>
                        <div class="form-group">
                          <label>Retail Price</label>
@@ -58,7 +59,7 @@
                        </div>
                        <div class="form-group">
                          <label>Meter Hours</label>
-                         <input type="text" id="meterHours" name="meterHours" ng-model="quote.meterHours" placeholder="Meter Hours" class="form-control" required="required" ng-disabled="disabled">
+                         <input type="text" id="meterHours" name="meterHours" ng-model="quote.meterHours" placeholder="Meter Hours" class="form-control"  validate-on="dirty" required="required" ng-disabled="disabled">
                        </div>
                        <div class="form-group">
                          <label>Model Year</label>
@@ -70,7 +71,7 @@
                        </div>
                        <div class="form-group">
                          <label>Use of Equipment</label>
-                         <select name="equipment" ng-model="quote.useOfEquipmentDO" class="form-control" ng-options="equipmentObj.equipName for equipmentObj in useOfEquipmentDOList track by equipmentObj.id" required="required" ng-disabled="disabled">
+                         <select name="equipment" ng-model="quote.useOfEquipmentDO" class="form-control" ng-options="equipmentObj.equipName for equipmentObj in useOfEquipmentDOList track by equipmentObj.id"  validate-on="dirty" required="required" ng-disabled="disabled">
 							<option value="">Use of Equipment</option>
 						 </select>
                        </div>
@@ -89,22 +90,22 @@
                        </div>
                        <div class="form-group">
                          <label>Deductible</label>
-                         <select name="deductiblePrice" ng-model="quote.deductiblePrice" class="form-control" ng-options="deductibleAmt for deductibleAmt in deductibleAmtList track by deductibleAmt" required="required" ng-disabled="disabled">
+                         <select name="deductiblePrice" ng-model="quote.deductiblePrice" class="form-control" ng-options="deductibleAmt for deductibleAmt in deductibleAmtList track by deductibleAmt"  validate-on="dirty" required="required" ng-disabled="disabled">
 						 </select>
                        </div>
                        <div class="form-group">
                          <label>Coverage Term</label>
-                         <select name="coverageTerm" ng-model="quote.coverageTerm" class="form-control" ng-options="coverageTermVal for coverageTermVal in coverageTermList track by coverageTermVal" required="required" ng-disabled="disabled">
+                         <select name="coverageTerm" ng-model="quote.coverageTerm" class="form-control" ng-options="coverageTermVal for coverageTermVal in coverageTermList track by coverageTermVal"  validate-on="dirty" required="required" ng-disabled="disabled">
 						 </select>
                        </div>
                        <div class="form-group">
                          <label>Covered Hours</label>
-                         <select name="coverageHours" ng-model="quote.coverageHours" class="form-control" ng-options="coverageLevelHour for coverageLevelHour in coverageLevelHoursList track by coverageLevelHour" required="required" ng-disabled="disabled">
+                         <select name="coverageHours" ng-model="quote.coverageHours" class="form-control" ng-options="coverageLevelHour for coverageLevelHour in coverageLevelHoursList track by coverageLevelHour"  validate-on="dirty" required="required" ng-disabled="disabled">
 						 </select>
                        </div>
                        <div class="form-group">
                          <label>Coverage Type</label>
-                         <select name="coverageType" ng-model="quote.coverageType" class="form-control" required="required" ng-disabled="disabled">
+                         <select name="coverageType" ng-model="quote.coverageType" class="form-control"  validate-on="dirty" required="required" ng-disabled="disabled">
                          	<option value="PT">Powertrain</option>
 			                <option value="PH">Powertrain + Hydraulic</option>
 			                <option value="PL">Powertrain + Hydraulic + Platform</option>
@@ -117,7 +118,7 @@
                        <div class="form-group">
                          <label>Estimated Sale Date</label>
                          <div class="input-group">
-                           <input type="date" id="estSaleDate" name="estSaleDate" ng-model="quote.estSaleDate" class="form-control" required="required" ng-disabled="disabled">
+                           <input type="date" id="estSaleDate" name="estSaleDate" ng-model="quote.estSaleDate" class="form-control"  validate-on="dirty" required="required" ng-disabled="disabled">
                            <!-- <input type="text" class="form-control" aria-describedby="basic-addon2"> -->
                            <!-- <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span> -->
                          </div>
@@ -129,7 +130,7 @@
                        </div>
                        <div class="form-group">
                          <label>Dealer Markup</label>
-                         <input type="text" id="dealerMarkup" name="dealerMarkup" ng-model="quote.dealerMarkup" placeholder="Dealer Markup" class="form-control" required="required" ng-disabled="disabled">
+                         <input type="text" id="dealerMarkup" name="dealerMarkup" ng-model="quote.dealerMarkup" placeholder="Dealer Markup" class="form-control"  validate-on="dirty" required="required" ng-disabled="disabled">
                        </div>
                        <div class="form-group">
                          <label>Markup Type</label>
@@ -177,10 +178,10 @@
                        <br clear="all">
                         <br clear="all">
                        <h3>Customer Information</h3>
-                     <div class="col-xs-12 no-pad">
+                     <div class="col-xs-12 border-bottom no-pad">
                        <div class="form-group">
                          <label>Name/Nickname</label>
-                         <input type="text" id="dealerName" name="dealerName" ng-model="quote.dealerName" placeholder="Dealer Name" class="form-control" required="required" ng-disabled="disabled">
+                         <input type="text" id="dealerName" name="dealerName" ng-model="quote.dealerName" placeholder="Dealer Name" class="form-control"  validate-on="dirty" required="required" ng-disabled="disabled">
                        </div>
                        <div class="form-group">
                          <label>Address</label>
@@ -192,7 +193,7 @@
                        </div>
                        <div class="form-group">
                          <label>State/Province</label>
-                         <select class="form-control" name="dealerState" ng-model="quote.dealerState" id="dealerState" required="required" ng-disabled="disabled">
+                         <select class="form-control" name="dealerState" ng-model="quote.dealerState" id="dealerState"  validate-on="dirty" required="required" ng-disabled="disabled">
 							<option value="">Select State/Province</option>
 							<option value="AL">Alabama</option>
 							<option value="AK">Alaska</option>
@@ -262,32 +263,77 @@
                        </div>
                        <div class="form-group">
                          <label>Zip</label>
-                         <input type="text" id="dealerZip" name="dealerZip" ng-model="quote.dealerZip" placeholder="Zip" class="form-control" required="required" ng-disabled="disabled">
+                         <input type="text" id="dealerZip" name="dealerZip" ng-model="quote.dealerZip" placeholder="Zip" class="form-control"  validate-on="dirty" required="required" ng-disabled="disabled">
                        </div>
                        <div class="form-group">
                          <label>Phone Number</label>
-                         <input type="text" id="dealerPhone" name="dealerPhone" ng-model="quote.dealerPhone" placeholder="Phone Number" class="form-control" required="required" ng-disabled="disabled">
+                         <input type="text" id="dealerPhone" name="dealerPhone" ng-model="quote.dealerPhone" placeholder="Phone Number" class="form-control"  validate-on="dirty" required="required" ng-disabled="disabled">
                        </div>
                        <div class="form-group">
                          <label>Email</label>
-                         <input type="text" id="dealerEmail" name="dealerEmail" ng-model="quote.dealerEmail" placeholder="Email" class="form-control" required="required" ng-disabled="disabled">
+                         <input type="text" id="dealerEmail" name="dealerEmail" ng-model="quote.dealerEmail" placeholder="Email" class="form-control"  validate-on="dirty" required="required" ng-disabled="disabled">
                        </div>
                        <div class="checkbox">
                          <label>
-                           <input type="checkbox" id="custUnderstandCoverage" name="custUnderstandCoverage" ng-model="quote.custUnderstandCoverage" ng-value="true" ng-checked="true" required="required" ng-disabled="disabled"> Customer understands coverage.
+                           <input type="checkbox" id="custUnderstandCoverage" name="custUnderstandCoverage" ng-model="quote.custUnderstandCoverage" ng-value="true" ng-checked="true" required="required"  validate-on="dirty" ng-disabled="disabled"> Customer understands coverage.
                          </label>
                        </div>
                        <div class="checkbox">
                          <label>
-                           <input type="checkbox" id="custRemorsePeriod" name="custRemorsePeriod" ng-model="quote.custRemorsePeriod" ng-value="true" ng-checked="true" required="required" ng-disabled="disabled"> Customer is aware of 90-day remorse period.
+                           <input type="checkbox" id="custRemorsePeriod" name="custRemorsePeriod" ng-model="quote.custRemorsePeriod" ng-value="true" ng-checked="true" required="required"  validate-on="dirty" ng-disabled="disabled"> Customer is aware of 90-day remorse period.
                          </label>
                        </div>
                      </div>
+                     <div class="col-xs-12 pad10-top">
+							 <div class="form-group">
+								<label>Program</label>
+								<p>{{(quote.program != null)?quote.program:"N/A"}}</p>
+							  </div>
+							  <div class="form-group">
+								<label>Base Price</label>
+								<p>{{quote.quoteBasePrice | currency:"$":0}}</p>
+							  </div>
+							  <div class="form-group">
+								<label>Admin Adjusted Price</label>
+								 <input type="text" id="adjustedBasePrice" name="adjustedBasePrice" ng-model="quote.adjustedBasePrice" class="form-control">
+							  </div>
+							  <div class="form-group">
+								<label>Limit of Liability</label>
+								<p>{{quote.machineInfoDO.lol | currency:"$":0}}</p>
+							  </div>
+							  <div class="form-group">
+								<label>Admin Adjusted LOL</label>
+								 <input type="text" id="adjustedLol" name="adjustedLol" ng-model="quote.adjustedLol" class="form-control">
+							  </div>
+							  <div class="form-group">
+								<label>Current Status</label>
+								<select class="form-control" name="status" ng-model="quote.status" convert-to-number id="status"  validate-on="dirty" required="required">
+								  <option value="1">Estimating Price</option>
+								  <option value="4">Purchase Requested</option>
+								  <option value="5">Invoiced</option>
+								</select>
+							  </div>
+							  <div class="form-group">
+								<label>Last Update</label>
+								<p>{{quote.lastUpdate | date:'MM/dd/yyyy'}}</p>
+							  </div>
+							  <div class="form-group">
+								<label>Group Assignment</label>
+								<p>&nbsp;</p>
+							  </div>
+							  <div class="form-group">
+								<label>Special Considerations</label>
+								<textarea class="form-control" placeholder="" ng-model="quote.specialConsiderations" disabled="disabled"></textarea>
+							  </div>
+							  <div class="form-group">
+								<label>Conditions for Coverage</label>
+								<textarea class="form-control" placeholder="" ng-model="quote.condsForCoverage" disabled="disabled"></textarea>
+							  </div>
+						</div>
                    </div>
-
              	</div>
              </div>
-
+			</form>
 <!-- end data table section -->
              
 </article>

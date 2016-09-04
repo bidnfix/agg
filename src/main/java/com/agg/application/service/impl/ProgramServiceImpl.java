@@ -257,7 +257,8 @@ public class ProgramServiceImpl implements ProgramService {
 			
 			quote.setIsArchive((short)0);
 			quote.setCreateDate(date);
-			quote.setPrId(0);
+			//TODO program object needs to set
+			//quote.setPrId(0);
 			quote.setServicingDealer(0);
 			quote.setLastUpdate(date);
 			

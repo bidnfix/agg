@@ -20,14 +20,8 @@ public class AdminAdjustment implements Serializable {
 	@Column(name="quote_id")
 	private String quoteId;
 
-	@Column(name="base_price_ph")
-	private double basePricePh;
-
-	@Column(name="base_price_pl")
-	private double basePricePl;
-
-	@Column(name="base_price_pt")
-	private double basePricePt;
+	@Column(name="base_price")
+	private double basePrice;
 
 	@Lob
 	@Column(name="c_conditions")
@@ -81,28 +75,18 @@ public class AdminAdjustment implements Serializable {
 		this.quoteId = quoteId;
 	}
 
-	public double getBasePricePh() {
-		return this.basePricePh;
+	/**
+	 * @return the basePrice
+	 */
+	public double getBasePrice() {
+		return basePrice;
 	}
 
-	public void setBasePricePh(double basePricePh) {
-		this.basePricePh = basePricePh;
-	}
-
-	public double getBasePricePl() {
-		return this.basePricePl;
-	}
-
-	public void setBasePricePl(double basePricePl) {
-		this.basePricePl = basePricePl;
-	}
-
-	public double getBasePricePt() {
-		return this.basePricePt;
-	}
-
-	public void setBasePricePt(double basePricePt) {
-		this.basePricePt = basePricePt;
+	/**
+	 * @param basePrice the basePrice to set
+	 */
+	public void setBasePrice(double basePrice) {
+		this.basePrice = basePrice;
 	}
 
 	public String getCConditions() {
