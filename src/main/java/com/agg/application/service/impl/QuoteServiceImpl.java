@@ -122,7 +122,7 @@ public class QuoteServiceImpl implements QuoteService {
 			int groupId = new Long(machineInfo.getGroupConstant().getGroupId()).intValue();
 			logger.info("groupId: "+groupId);
 			//if manufacturers coverage date expires then consider as used(2) otherwise new(1);
-			byte condition = coverageExpired ? (byte)1 : (byte)2;
+			byte condition = coverageExpired ? (byte)2 : (byte)1;
 			List<Integer> deductibleAmtList = pricingDAO.findDeductibleAmount(condition, groupId);
 			List<Integer> coverageTermList = pricingDAO.findCoverageTerm(condition, groupId, deductibleAmtList);
 			
@@ -143,7 +143,7 @@ public class QuoteServiceImpl implements QuoteService {
 			int groupId = new Long(machineInfo.getGroupConstant().getGroupId()).intValue();
 			logger.info("groupId: "+groupId);
 			//if manufacturers coverage date expires then consider as used(2) otherwise new(1);
-			byte condition = coverageExpired ? (byte)1 : (byte)2;
+			byte condition = coverageExpired ? (byte)2 : (byte)1;
 			
 			pricingDOList = pricingDAO.findCoverageLevelPricing(condition, groupId, deductibleAmt, coverageTerm);
 			logger.info("pricingDOList size: "+pricingDOList.size());

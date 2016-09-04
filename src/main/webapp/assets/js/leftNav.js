@@ -432,7 +432,16 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService, $
 				//saveing machineInfo
 				quoteService.saveMachineInfo($scope.quote, $scope);
 				
-				var coverageExpired = ($scope.quote.coverageExpired != null && $scope.quoteBasePrice == true)?true:false;
+				var coverageExpired = true;
+				if($scope.quote.coverageExpired != null && $scope.quote.coverageExpired == true){
+					coverageExpired = true;
+				}else if($scope.quote.coverageEndDate != null && ($scope.quote.coverageEndDate > $scope.date)){
+					coverageExpired = false;
+				}else{
+					coverageExpired = true;
+				}
+				
+				//var coverageExpired = ($scope.quote.coverageExpired != null && $scope.quote.coverageExpired == true)?true:false;
 				var machineId = $scope.quote.machineInfoDO.machineId;
 				$http.get("/agg/quote/coverageDeductInfo/"+coverageExpired+"/"+machineId)
 				.then(function(response) {
@@ -532,7 +541,15 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService, $
 		$scope.selectedCloumn = "";
 		$scope.mouseoverRow = "";
 		$scope.mouseoverCloumn = "";
-		var coverageExpired = ($scope.quote.coverageExpired != null && $scope.quoteBasePrice == true)?true:false;
+		//var coverageExpired = ($scope.quote.coverageExpired != null && $scope.quoteBasePrice == true)?true:false;
+		var coverageExpired = true;
+		if($scope.quote.coverageExpired != null && $scope.quote.coverageExpired == true){
+			coverageExpired = true;
+		}else if($scope.quote.coverageEndDate != null && ($scope.quote.coverageEndDate > $scope.date)){
+			coverageExpired = false;
+		}else{
+			coverageExpired = true;
+		}
 		var machineId = $scope.quote.machineInfoDO.machineId;
 		$scope.coverageTermSelected = coverageTerm;
 		$scope.deductiblePriceSelected = deductiblePrice;
