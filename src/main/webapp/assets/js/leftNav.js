@@ -109,6 +109,10 @@ routingApp.config(['$routeProvider',
                     	  templateUrl: '../../jsp/quotes.jsp',
                     	  controller: 'EstPriceQuotesController'
                       }).
+                      when('/agg/purchaseReqQuotes', {
+                    	  templateUrl: '../../jsp/quotes.jsp',
+                    	  controller: 'PurReqQuotesController'
+                      }).
                       otherwise({
                     	  redirectTo: '/agg/home'
                       });
@@ -663,7 +667,22 @@ routingApp.controller('QuotesDetailController', function($scope, $http, $timeout
 })
 
 routingApp.controller('EstPriceQuotesController', function($scope, $http, $timeout) {
-	$http.get("/agg/estPriceQuotes")
+	$http.get("/agg/estimatedPriceQuotes")
+	.then(function(response) {
+        $scope.quoteList = response.data.data;
+        $timeout(function () {
+        	$('#quotesTbl').DataTable();
+        }, 300);
+    });
+	
+	/*$scope.viewQuote = function(id, quoteId){
+		alert(id+" "+quoteId);
+		return '../../jsp/pendingDealers.jsp';
+	}*/
+})
+
+routingApp.controller('PurReqQuotesController', function($scope, $http, $timeout) {
+	$http.get("/agg/purchaseRequestedQuotes")
 	.then(function(response) {
         $scope.quoteList = response.data.data;
         $timeout(function () {

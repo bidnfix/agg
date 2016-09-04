@@ -663,14 +663,28 @@ public class QuoteServiceImpl implements QuoteService {
 		List<QuoteDO> quoteDOList = null;
 		if(accountDO.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)){
 			List<Quote> quoteList = Util.toList(quoteDAO.findByEstPrice());
-			logger.debug("quoteList --------------> "+ quoteList.size());
+			logger.debug("quoteList for estPrice --------------> "+ quoteList.size());
 			quoteDOList = getQuoteDetails(quoteList);
 		}else{
 			List<Quote> quoteList = Util.toList(quoteDAO.findByEstPrice(accountDO.getDealerId()));
-			logger.debug("quoteList --------------> "+ quoteList.size());
+			logger.debug("quoteList for estPrice --------------> "+ quoteList.size());
 			quoteDOList = getQuoteDetails(quoteList);
 		}
-		
+		return quoteDOList;
+	}
+	
+	@Override
+	public List<QuoteDO> getPurchaseReqQuotes(AccountDO accountDO) {
+		List<QuoteDO> quoteDOList = null;
+		if(accountDO.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)){
+			List<Quote> quoteList = Util.toList(quoteDAO.findByPurRequested());
+			logger.debug("quoteList for purchaseReq--------------> "+ quoteList.size());
+			quoteDOList = getQuoteDetails(quoteList);
+		}else{
+			List<Quote> quoteList = Util.toList(quoteDAO.findByPurRequested(accountDO.getDealerId()));
+			logger.debug("quoteList for purchaseReq --------------> "+ quoteList.size());
+			quoteDOList = getQuoteDetails(quoteList);
+		}
 		return quoteDOList;
 	}
 	

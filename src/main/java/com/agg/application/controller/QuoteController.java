@@ -312,13 +312,33 @@ public class QuoteController extends BaseController {
 		return opResult;
 	}
 	
-	@RequestMapping(value = "/estPriceQuotes", method = RequestMethod.GET)
-	public Result getEstPriceQuotes(Model model, HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value = "/estimatedPriceQuotes", method = RequestMethod.GET)
+	public Result getestPriceQuotes(Model model, HttpServletRequest request, HttpServletResponse response) {
 		Result opResult = null;
 		if (!sessionExists(request)){
 			opResult = new Result("failure", "Invalid Login", null);
 		}else{
 			opResult = new Result("success", null, quoteService.getEstPriceQuotes(getAccountDetails(request)));
+			
+			/*List<QuoteDO> quoteDOList = quoteService.getEstPriceQuotes(getAccountDetails(request));
+			model.addAttribute("quoteDOList",quoteDOList);
+			opResult = new Result("success", null, model);*/
+		}
+		
+		return opResult;
+	}
+	
+	@RequestMapping(value = "/purchaseRequestedQuotes", method = RequestMethod.GET)
+	public Result getpurchaseReqQuotes(Model model, HttpServletRequest request, HttpServletResponse response) {
+		Result opResult = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			opResult = new Result("success", null, quoteService.getEstPriceQuotes(getAccountDetails(request)));
+			
+			/*List<QuoteDO> quoteDOList = quoteService.getEstPriceQuotes(getAccountDetails(request));
+			model.addAttribute("quoteDOList",quoteDOList);
+			opResult = new Result("success", null, model);*/
 		}
 		
 		return opResult;

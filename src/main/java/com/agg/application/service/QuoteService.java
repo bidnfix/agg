@@ -41,4 +41,6 @@ public interface QuoteService {
 	public WorklistDO getWorklistCount();
 	
 	public List<QuoteDO> getEstPriceQuotes(AccountDO accountDO);
+	
+	public List<QuoteDO> getPurchaseReqQuotes(AccountDO accountDO);
 }

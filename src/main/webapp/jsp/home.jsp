@@ -40,7 +40,7 @@
 				</li>
                 
                 <li>
-					<a href="#/agg/dealers">Purchase Requested<span class="badge">{{purchaseReq}}</span></a>
+					<a href="#/agg/purchaseReqQuotes">Purchase Requested<span class="badge">{{purchaseReq}}</span></a>
 				</li>
 				
                 
