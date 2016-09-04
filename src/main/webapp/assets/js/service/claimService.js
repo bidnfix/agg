@@ -14,6 +14,9 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', functi
 		initClaimAddForm = function($scope){
 			$scope.isSubmitDisabled = false;
 			$scope.claim={};
+			$scope.claim.deductible = $scope.contractInfoList.deductible;
+			$scope.claim.lol = $scope.contractInfoList.lol;
+			$scope.claim.availabeLol = $scope.contractInfoList.availabeLol;
 			$scope.claim.contractId = $scope.contractInfoList.contractId;
 			$scope.claim.serial = $scope.contractInfoList.machineSerialNo;
 			$scope.claim.manf = $scope.contractInfoList.manufacturerDO.name;

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,7 +23,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.agg.application.model.AccountDO;
 import com.agg.application.model.ClaimLaborDO;
+import com.agg.application.model.ClaimMailDO;
 import com.agg.application.model.ClaimPartDO;
 import com.agg.application.model.ClaimsDO;
 import com.agg.application.model.ContractDO;
@@ -32,6 +36,8 @@ import com.agg.application.service.ClaimsService;
 import com.agg.application.service.ContractsService;
 import com.agg.application.service.DealerService;
 import com.agg.application.service.QuoteService;
+import com.agg.application.service.UserService;
+import com.agg.application.utils.ClaimMail;
 import com.agg.application.utils.Util;
 import com.agg.application.vo.ClaimPartVO;
 import com.agg.application.vo.ClaimPreAuthVO;
@@ -54,6 +60,9 @@ public class ClaimsController extends BaseController {
 	
 	@Autowired
 	private ContractsService contractsService;
+	
+	@Autowired
+	private UserService userService;
 
 	/*@RequestMapping(value = "/claimsInfo", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
 	public @ResponseBody Result claimsInfo(ModelMap model, HttpServletResponse response) {
@@ -107,9 +116,9 @@ public class ClaimsController extends BaseController {
 			ClaimsDO claimsDO = new ClaimsDO();
 			claimsDO.setClaimId(claimsVO.getClaimId());
 			claimsDO.setContractId(claimsVO.getContractId());
-			
+			DealerDO dealerDO = null;
 			if(null != claimsVO.getContractId()){
-				DealerDO dealerDO = contractsService.getDealer(claimsVO.getContractId());
+				dealerDO= contractsService.getDealer(claimsVO.getContractId());
 				if(null != dealerDO){
 					claimsDO.setDealerId((int)dealerDO.getId());
 				}
@@ -153,6 +162,22 @@ public class ClaimsController extends BaseController {
 			claimLaborDO.setRate(claimsVO.getLaborHourlyRate());
 			claimsDO.setClaimLaborDO(claimLaborDO);
 			Long id = claimsService.saveClaim(claimsDO);
+			if(id != 0 ){
+				ClaimMail mail = new ClaimMail();
+				mail.setUserService(userService);
+				ClaimMailDO claimMailDO = new ClaimMailDO();
+				claimMailDO.setClaimID(String.valueOf(id));
+				claimMailDO.setDealerName(dealerDO.getFirstName());
+				claimMailDO.setContractId(claimsDO.getContractId());
+				claimMailDO.setTotalLaborCost(String.valueOf(claimLaborDO.getLaborHrs() * claimLaborDO.getRate()));
+				claimMailDO.setTotalPartsCost(claimsDO.getClaimPartDO());
+				claimMailDO.setTotalOtherCosts(String.valueOf(claimsDO.getRequestedOtherCharges1() + claimsDO.getRequestedOtherCharges2()));
+				claimMailDO.setDeductible(String.valueOf(claimsVO.getDeductible()));
+				claimMailDO.setLol(String.valueOf(claimsVO.getLol()));
+				claimMailDO.setAvailableLol(String.valueOf(claimsVO.getAvailableLol()));
+				mail.setClaimMailDO(claimMailDO);
+				new Thread(mail).start();
+			}
 			return new Result("success", null, id);
 		}
 	}
@@ -160,25 +185,35 @@ public class ClaimsController extends BaseController {
 	@RequestMapping(value = "/preAuthClaimReq", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
 	public @ResponseBody Result getPreAuthClaimRequest(HttpServletRequest request, HttpServletResponse response) {
 		logger.info("Inside getPreAuthClaimRequest()");
-		//if(!sessionExists(request)){
-			//return new Result("failure", "Session Expired", null);
-		//}else{
+		if(!sessionExists(request)){
+			return new Result("failure", "Session Expired", null);
+		}else{
 			Map<String, Object> map = new HashMap<>();
-			List<ClaimsDO> cliamsList = claimsService.getClaimsByCStatus(Util.getClaimStatusCode("pre_authorized_requested"));
+			List<ClaimsDO> cliamsList = null;
+			AccountDO account = getAccountDetails(request);
+			if("admin".equals(account.getRoleName())){
+				cliamsList = claimsService.getClaimsByCStatus(Util.getClaimStatusCode("pre_authorized_requested"));
+			}else{
+				cliamsList = claimsService.getClaimsByCStatus(Util.getClaimStatusCode("pre_authorized_requested"), (int)account.getDealerId());
+			}
+			
 			logger.info("preAuthClaims size: "+cliamsList.size());
 			map.put("preAuthClaimList", cliamsList);
 			return new Result("success", null, map);
-		//}
+		}
 	}
 	
 	@RequestMapping(value = "/preAuthClaimReq", method = RequestMethod.PUT, consumes = MediaType.ALL_VALUE)
 	public @ResponseBody Result UpdatePreAuthClaimRequestUpdate(@RequestBody ClaimPreAuthVO claimPreAuthVO, HttpServletRequest request, HttpServletResponse response) {
 		logger.info("Inside UpdatePreAuthClaimRequestUpdate()");
-		//if(!sessionExists(request)){
-			//return new Result("failure", "Session Expired", null);
-		//}else{
+		if(!sessionExists(request)){
+			return new Result("failure", "Session Expired", null);
+		}else{
 			claimsService.updateStatus(claimPreAuthVO.getId(), Util.getClaimStatusCode(claimPreAuthVO.getcStatus()));
 			return new Result("success", null, "status updated");
-		//}
+		}
 	}
+	
 }
+
+

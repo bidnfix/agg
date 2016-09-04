@@ -44,7 +44,59 @@ public class ClaimsVO {
 	private int laborHourlyRate;
 	private List<ClaimPartVO> claimPartVOList;
 	private byte cStatusValue;
+	private int deductible;
+	private int lol;
+	private int availableLol;
+	private String extComments;
 	
+	/**
+	 * @return the deductible
+	 */
+	public int getDeductible() {
+		return deductible;
+	}
+	/**
+	 * @param deductible the deductible to set
+	 */
+	public void setDeductible(int deductible) {
+		this.deductible = deductible;
+	}
+	/**
+	 * @return the lol
+	 */
+	public int getLol() {
+		return lol;
+	}
+	/**
+	 * @param lol the lol to set
+	 */
+	public void setLol(int lol) {
+		this.lol = lol;
+	}
+	/**
+	 * @return the availableLol
+	 */
+	public int getAvailableLol() {
+		return availableLol;
+	}
+	/**
+	 * @param availableLol the availableLol to set
+	 */
+	public void setAvailableLol(int availableLol) {
+		this.availableLol = availableLol;
+	}
+	/**
+	 * @return the extComments
+	 */
+	public String getExtComments() {
+		return extComments;
+	}
+	/**
+	 * @param extComments the extComments to set
+	 */
+	public void setExtComments(String extComments) {
+		this.extComments = extComments;
+	}
 	/**
 	 * 
 	 */
