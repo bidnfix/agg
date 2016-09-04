@@ -106,6 +106,8 @@ public class QuoteDO {
 	
 	private MachineInfoDO machineInfoDO;
 	
+	private ProgramDO programDO;
+	
 	private int horsePower;
 	
 	private String serialNumber;
@@ -194,6 +196,14 @@ public class QuoteDO {
 
 	public String getQuoteId() {
 		return quoteId;
+	}
+
+	public ProgramDO getProgramDO() {
+		return programDO;
+	}
+
+	public void setProgramDO(ProgramDO programDO) {
+		this.programDO = programDO;
 	}
 
 	public void setQuoteId(String quoteId) {

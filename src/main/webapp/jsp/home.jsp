@@ -69,113 +69,48 @@
 
 	<!-- data table section -->
 
-	<div class="inner-main">
-		<form class="form-horizontal" role="form">
-			<h2>Registration Form</h2>
-			<div class="form-group">
-				<label for="firstName" class="col-sm-3 control-label">Full
-					Name</label>
-				<div class="col-sm-9">
-					<input type="text" id="firstName" placeholder="Full Name"
-						class="form-control" autofocus> <span class="help-block">Last
-						Name, First Name, eg.: Smith, Harry</span>
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="email" class="col-sm-3 control-label">Email</label>
-				<div class="col-sm-9">
-					<input type="email" id="email" placeholder="Email"
-						class="form-control">
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="password" class="col-sm-3 control-label">Password</label>
-				<div class="col-sm-9">
-					<input type="password" id="password" placeholder="Password"
-						class="form-control">
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="birthDate" class="col-sm-3 control-label">Date
-					of Birth</label>
-				<div class="col-sm-9">
-					<input type="date" id="birthDate" class="form-control">
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="country" class="col-sm-3 control-label">Country</label>
-				<div class="col-sm-9">
-					<select id="country" class="form-control">
-						<option>Afghanistan</option>
-						<option>Bahamas</option>
-						<option>Cambodia</option>
-						<option>Denmark</option>
-						<option>Ecuador</option>
-						<option>Fiji</option>
-						<option>Gabon</option>
-						<option>Haiti</option>
-					</select>
-				</div>
-			</div>
-			<!-- /.form-group -->
-			<div class="form-group">
-				<label class="control-label col-sm-3">Gender</label>
-				<div class="col-sm-6">
-					<div class="row">
-						<div class="col-sm-4">
-							<label class="radio-inline"> <input type="radio"
-								id="femaleRadio" value="Female">Female
-							</label>
-						</div>
-						<div class="col-sm-4">
-							<label class="radio-inline"> <input type="radio"
-								id="maleRadio" value="Male">Male
-							</label>
-						</div>
-						<div class="col-sm-4">
-							<label class="radio-inline"> <input type="radio"
-								id="uncknownRadio" value="Unknown">Unknown
-							</label>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- /.form-group -->
-			<div class="form-group">
-				<label class="control-label col-sm-3">Meal Preference</label>
-				<div class="col-sm-9">
-					<div class="checkbox">
-						<label> <input type="checkbox" id="calorieCheckbox"
-							value="Low calorie">Low calorie
-						</label>
-					</div>
-					<div class="checkbox">
-						<label> <input type="checkbox" id="saltCheckbox"
-							value="Low salt">Low salt
-						</label>
-					</div>
-				</div>
-			</div>
-			<!-- /.form-group -->
-			<div class="form-group">
-				<div class="col-sm-9 col-sm-offset-3">
-					<div class="checkbox">
-						<label> <input type="checkbox">I accept <a
-							href="#">terms</a>
-						</label>
-					</div>
-				</div>
-			</div>
-			<!-- /.form-group -->
-			<div class="form-group">
-				<div class="col-sm-9 col-sm-offset-3">
-					<button type="submit" class="btn btn-primary btn-block">Add
-						New Item</button>
-				</div>
-			</div>
-		</form>
-		<!-- /form -->
-	</div>
+	<table id="quotesTbl" class="table table-striped table-bordered" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+            	<th>ID</th>
+                <th>Dealership</th>
+                <th>Sales Contact</th>
+                <th>Model</th>
+                <th>Est. Sale Date</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
+        </thead>
+ 
+        <tfoot>
+           <tr>
+            	<th>ID</th>
+                <th>Dealership</th>
+                <th>Sales Contact</th>
+                <th>Model</th>
+                <th>Est. Sale Date</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
+        </tfoot>
+ 
+        <tbody>
+            <tr ng-repeat="quote in quoteList">
+            	<td>{{quote.quoteId}}</td>
+            	<td>{{quote.dealerDO.name}}</td>
+                <td>{{quote.dealerName}}</td>
+                <td>{{quote.machineInfoDO.model}}</td>
+                <td>{{quote.estSaleDate |  date:"MM/dd/yyyy"}}</td>
+                <td>{{quote.statusDesc}}</td>
+                <td>
+                	<div class="manage-sec"><!-- <a href="#"><img src="../assets/images/delete-icon.png" alt="Delete" title="Delete"/></a> -->
+                		<!-- <a ng-click="viewQuote(quote.id, quote.quoteId)"><img src="../assets/images/edit-icon.png" alt="Edit" title="Edit"/></a> -->
+                		<a href="#/agg/viewQuote/{{quote.id}}/{{quote.quoteId}}"><img src="../assets/images/edit-icon.png" alt="View" title="View"/></a>
+                	</div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 	<!--inner main-->
 
 	<!-- end data table section -->

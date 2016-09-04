@@ -106,11 +106,11 @@ routingApp.config(['$routeProvider',
                     	  controller: 'QuoteDetailController'
                       }).
                       when('/agg/estPriceQuotes', {
-                    	  templateUrl: '../../jsp/quotes.jsp',
+                    	  templateUrl: '../../jsp/home.jsp',
                     	  controller: 'EstPriceQuotesController'
                       }).
                       when('/agg/purchaseReqQuotes', {
-                    	  templateUrl: '../../jsp/quotes.jsp',
+                    	  templateUrl: '../../jsp/home.jsp',
                     	  controller: 'PurReqQuotesController'
                       }).
                       otherwise({
@@ -233,6 +233,7 @@ routingApp.controller('HomeController', function($scope, $http) {
     	$scope.estPrice = response.data.data.worklistDO.estPrice;
     	$scope.invoiced = response.data.data.worklistDO.invoiced;
     	$scope.purchaseReq = response.data.data.worklistDO.purchaseReq;
+    	$scope.quoteList = response.data.data.quoteList;
     });
 });
 
