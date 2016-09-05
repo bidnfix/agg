@@ -11,13 +11,11 @@
 			</div>
                      </div>
                      <div class="col-md-6 col-sm-12">
-                     	<button class="btn btn-primary pull-right mar-right" ng-click="editQuote()">Edit</button>
-                     	<button class="btn btn-primary pull-right mar-right" ng-click="quoteInfoForm.$valid && updateQuote(quoteInfoForm)">Update</button>
-                     	<button class="btn btn-primary pull-right mar-right" ng-click="archiveQuote()">Archive</button>
-                     	<button class="btn btn-primary pull-right mar-right" ng-click="quoteInfoForm.$valid && invoiceQuote(quoteInfoForm)" ng-disabled="purchaseRequested">Invoice</button>
-                     	<button class="btn btn-primary pull-right mar-right" ng-click="printQuote('dealer')">Dealer Quote Summary</button>
-                     	<button class="btn btn-primary pull-right mar-right" ng-click="printQuote('customer')">Customer Quote Summary</button>
-                     	<button class="btn btn-primary pull-right mar-right" ng-click="quoteInfoForm.$valid && createContract(quoteInfoForm)" ng-disabled="invoiced">Create Contract</button>
+                     	<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="editQuote()">Edit</button>
+                     	<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="quoteInfoForm.$valid && updateQuote(quoteInfoForm)">Update</button>
+                     	<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="archiveQuote()">Archive</button>
+                     	<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="quoteInfoForm.$valid && invoiceQuote(quoteInfoForm)" ng-disabled="purchaseRequested">Invoice</button>
+                     	<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="quoteInfoForm.$valid && createContract(quoteInfoForm)" ng-disabled="invoiced">Create Contract</button>
                      </div>
 	</header>
              
@@ -180,6 +178,22 @@
                          </div>
                          <div class="col-xs-6 no-pad">
                             {{(quote.dealerMarkupPrice + quote.quoteBasePrice) | currency:"$":0}}
+                         </div>
+                       </div>
+                       <div class="col-xs-12 no-pad clearfix">
+                         <div class="col-xs-6 no-pad">
+                           Dealer Quote Summary:
+                         </div>
+                         <div class="col-xs-6 no-pad">
+                            <button class="btn btn-primary btn-xs mar-right" ng-click="printQuote('dealer')">View</button>
+                         </div>
+                       </div>
+                        <div class="col-xs-12 no-pad clearfix">
+                         <div class="col-xs-6 no-pad">
+                           Customer Quote Summary:
+                         </div>
+                         <div class="col-xs-6 no-pad">
+                            <button class="btn btn-primary btn-xs mar-right" ng-click="printQuote('customer')">View</button>
                          </div>
                        </div>
                        </div>

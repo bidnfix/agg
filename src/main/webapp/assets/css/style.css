@@ -1073,3 +1073,15 @@ span .man-field {
  .form-control{
     background: #fff !important;
  }
+ .btn-xs {
+    border-radius: 3px !important;
+    font-size: 12px !important;
+    line-height: 1.5 !important;
+    padding: 1px 5px !important;
+}
+.btn-sm {
+    border-radius: 3px !important;
+    font-size: 12px !important;
+    line-height: 1.5 !important;
+    padding: 5px 10px !important;
+}
