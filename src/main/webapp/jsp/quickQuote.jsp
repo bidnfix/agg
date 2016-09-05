@@ -42,7 +42,7 @@
                        </div>
                        <div class="form-group">
                          <label>Model</label>
-                         <select class="form-control" name="machineModel" ng-model="quote.machineInfoDO" ng-options="machineModel.model group by machineModel.machineType for machineModel in machineModelList track by machineModel.machineId"  validate-on="dirty" required="required" ng-disabled="disabled">
+                         <select class="form-control" name="machineModel" ng-model="quote.machineInfoDO" ng-options="machineModel.model group by machineModel.machineType for machineModel in machineModelList track by machineModel.machineId" ng-change="getCoverageDetails(quote.machineInfoDO)"  validate-on="dirty" required="required" ng-disabled="disabled">
 							<option value="">Select Model</option>
 						</select>
                        </div>
@@ -92,24 +92,31 @@
                        <div class="form-group">
                          <label>Deductible</label>
                          <select name="deductiblePrice" ng-model="quote.deductiblePrice" class="form-control" ng-options="deductibleAmt for deductibleAmt in deductibleAmtList track by deductibleAmt"  validate-on="dirty" required="required" ng-disabled="disabled" ng-change="getCoveragePriceLevels()">
+                         	<option value="">Select Deductible</option>
 						 </select>
                        </div>
                        <div class="form-group">
                          <label>Coverage Term</label>
                          <select name="coverageTerm" ng-model="quote.coverageTerm" class="form-control" ng-options="coverageTermVal for coverageTermVal in coverageTermList track by coverageTermVal"  validate-on="dirty" required="required" ng-disabled="disabled" ng-change="getCoveragePriceLevels()">
+                         	<option value="">Select Coverage Term</option>
 						 </select>
                        </div>
                        <div class="form-group">
                          <label>Covered Hours</label>
                          <select name="coverageHours" ng-model="quote.coverageHours" class="form-control" ng-options="coverageLevelHour for coverageLevelHour in coverageLevelHoursList track by coverageLevelHour"  validate-on="dirty" required="required" ng-disabled="disabled" ng-change="getCoveragePriceLevels()">
+                         	<option value="">Select Covered Hours</option>
 						 </select>
                        </div>
                        <div class="form-group">
                          <label>Coverage Type</label>
                          <select name="coverageType" ng-model="quote.coverageType" class="form-control"  validate-on="dirty" required="required" ng-disabled="disabled">
-                         	<option value="PT">Powertrain</option>
+                         	<option value="">Select Coverage Type</option>
+                         	<option ng-repeat="ctype in quote.coverageTypeSet" value="{{ctype}}" ng-selected="{{quote.coverageType == ctype}}">
+                         		{{(ctype == 'PH')?"Powertrain + Hydraulic":(ctype == 'PT')?"Powertrain":"Powertrain + Hydraulic + Platform"}}
+                         	</option>
+                         	<!-- <option value="PT">Powertrain</option>
 			                <option value="PH">Powertrain + Hydraulic</option>
-			                <option value="PL">Powertrain + Hydraulic + Platform</option>
+			                <option value="PL">Powertrain + Hydraulic + Platform</option> -->
 						 </select>
                        </div>
                        <div class="form-group">

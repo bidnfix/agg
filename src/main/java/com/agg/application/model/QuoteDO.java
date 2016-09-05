@@ -1,6 +1,7 @@
 package com.agg.application.model;
 
 import java.util.Date;
+import java.util.Set;
 
 public class QuoteDO {
 	
@@ -185,6 +186,8 @@ public class QuoteDO {
 	private int expirationHours;
 	
 	private String dealHistory;
+	
+	private Set<String> coverageTypeSet;
 		
 	public CustomerInfoDO getCustomerInfoDO() {
 		return customerInfoDO;
@@ -1246,6 +1249,20 @@ public class QuoteDO {
 	 */
 	public void setDealHistory(String dealHistory) {
 		this.dealHistory = dealHistory;
+	}
+
+	/**
+	 * @return the coverageTypeSet
+	 */
+	public Set<String> getCoverageTypeSet() {
+		return coverageTypeSet;
+	}
+
+	/**
+	 * @param coverageTypeSet the coverageTypeSet to set
+	 */
+	public void setCoverageTypeSet(Set<String> coverageTypeSet) {
+		this.coverageTypeSet = coverageTypeSet;
 	}
 	
 }

@@ -6,9 +6,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 
 import javax.activation.DataSource;
 import javax.mail.util.ByteArrayDataSource;
@@ -769,6 +771,7 @@ public class QuoteServiceImpl implements QuoteService {
 			if(quote.getMachineSaleDate() != null){
 				quoteDO.setEstSaleDateStr(dateFormat.format(quote.getMachineSaleDate()));
 			}
+			quoteDO.setOtherProv(quote.getOtherProv());
 			quoteDO.setDealerMarkup(quote.getDealerMarkup());
 			quoteDO.setDealerMarkupType(quote.getDealerMarkupType());
 			quoteDO.setDeductiblePrice(quote.getDeductAmount());
@@ -827,6 +830,37 @@ public class QuoteServiceImpl implements QuoteService {
 				quoteDO.setExpirationHours(adminAdjustment.getExpirationHours());
 				quoteDO.setDealHistory(adminAdjustment.getDealHistory());
 			}
+			
+			if(quote.getCoverageLevelHours() > 0){
+				boolean coverageExpired = true;
+				if(quoteDO.isCoverageExpired()){
+					coverageExpired = true;
+		    	}else if(quoteDO.getCoverageEndDate() != null && quoteDO.getCoverageEndDate().after(new Date())){
+		    		coverageExpired = false;
+		    	}
+				
+				List<PricingDO> pricingDOList = getCoveragePriceDetils(coverageExpired, quoteDO.getMachineInfoDO().getMachineId(), 
+						new Double(quoteDO.getDeductiblePrice()).intValue(), quoteDO.getCoverageTerm(), quote.getCoverageLevelHours());
+				Set<String> coverageTypeSet = null;
+				if(pricingDOList != null && !pricingDOList.isEmpty()){
+					coverageTypeSet = new HashSet<String>();
+					for(PricingDO pricingDO : pricingDOList){
+						if(pricingDO.getPhBasePrice() > 0){
+							coverageTypeSet.add("PH");
+						}
+						if(pricingDO.getPlBasePrice() > 0){
+							coverageTypeSet.add("PL");
+						}
+						if(pricingDO.getPtBasePrice() > 0){
+							coverageTypeSet.add("PT");
+						}
+					}
+					quoteDO.setCoverageTypeSet(coverageTypeSet);
+					logger.info("coverageTypeSet size: "+coverageTypeSet.size());
+				}
+				
+			}
+			
 		}
 		
 		return quoteDO;
@@ -913,8 +947,27 @@ public class QuoteServiceImpl implements QuoteService {
 			quote.setCoverageTerm(quoteDO.getCoverageTerm());
 			quote.setCoverageLevelHours(quoteDO.getCoverageHours());
 			quote.setCoverageType(quoteDO.getCoverageType());
-			//TODO
-			//quote.setCoveragePrice(quoteDO.getQuoteBasePrice());
+			
+			boolean coverageExpired = true;
+			if(quoteDO.isCoverageExpired()){
+				coverageExpired = true;
+	    	}else if(quoteDO.getCoverageEndDate() != null && quoteDO.getCoverageEndDate().after(new Date())){
+	    		coverageExpired = false;
+	    	}
+			List<PricingDO> pricingDOList = getCoveragePriceDetils(coverageExpired, quoteDO.getMachineInfoDO().getMachineId(), 
+					new Double(quoteDO.getDeductiblePrice()).intValue(), quoteDO.getCoverageTerm(), quote.getCoverageLevelHours());
+			if(pricingDOList != null && !pricingDOList.isEmpty()){
+				PricingDO pricingDO = pricingDOList.get(0);
+				if(quoteDO.getCoverageType() != null){
+					if(quoteDO.getCoverageType().equals("PT")){
+						quote.setCoveragePrice(pricingDO.getPtBasePrice());
+					}else if(quoteDO.getCoverageType().equals("PH")){
+						quote.setCoveragePrice(pricingDO.getPhBasePrice());
+					}else if(quoteDO.getCoverageType().equals("PL")){
+						quote.setCoveragePrice(pricingDO.getPlBasePrice());
+					}
+				}
+			}
 			
 			//quote.setIsArchive((short)0);
 			//quote.setCreateDate(new Date());
@@ -922,8 +975,9 @@ public class QuoteServiceImpl implements QuoteService {
 			quote.setServicingDealer(0);
 			quote.setLastUpdate(new Date());
 			
-			//TODO
-			//quote.setStatus((byte)4);
+			if(quoteDO.getStatus() > quote.getStatus()){
+				quote.setStatus(quoteDO.getStatus());
+			}
 			
 			CustomerInfo customerInfo = customerInfoDAO.findOne(quoteDO.getQuoteId());
 			if(customerInfo != null){
@@ -1029,8 +1083,27 @@ public class QuoteServiceImpl implements QuoteService {
 			quote.setCoverageTerm(quoteDO.getCoverageTerm());
 			quote.setCoverageLevelHours(quoteDO.getCoverageHours());
 			quote.setCoverageType(quoteDO.getCoverageType());
-			//TODO
-			//quote.setCoveragePrice(quoteDO.getQuoteBasePrice());
+			
+			boolean coverageExpired = true;
+			if(quoteDO.isCoverageExpired()){
+				coverageExpired = true;
+	    	}else if(quoteDO.getCoverageEndDate() != null && quoteDO.getCoverageEndDate().after(new Date())){
+	    		coverageExpired = false;
+	    	}
+			List<PricingDO> pricingDOList = getCoveragePriceDetils(coverageExpired, quoteDO.getMachineInfoDO().getMachineId(), 
+					new Double(quoteDO.getDeductiblePrice()).intValue(), quoteDO.getCoverageTerm(), quote.getCoverageLevelHours());
+			if(pricingDOList != null && !pricingDOList.isEmpty()){
+				PricingDO pricingDO = pricingDOList.get(0);
+				if(quoteDO.getCoverageType() != null){
+					if(quoteDO.getCoverageType().equals("PT")){
+						quote.setCoveragePrice(pricingDO.getPtBasePrice());
+					}else if(quoteDO.getCoverageType().equals("PH")){
+						quote.setCoveragePrice(pricingDO.getPhBasePrice());
+					}else if(quoteDO.getCoverageType().equals("PL")){
+						quote.setCoveragePrice(pricingDO.getPlBasePrice());
+					}
+				}
+			}
 			
 			//quote.setIsArchive((short)0);
 			//quote.setCreateDate(new Date());

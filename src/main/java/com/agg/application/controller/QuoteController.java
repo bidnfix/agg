@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.agg.application.model.AccountDO;
 import com.agg.application.model.DealerDO;
 import com.agg.application.model.MachineInfoDO;
 import com.agg.application.model.ManufacturerDO;
@@ -29,11 +28,9 @@ import com.agg.application.model.PricingDO;
 import com.agg.application.model.QuoteDO;
 import com.agg.application.model.ReportDO;
 import com.agg.application.model.Result;
-import com.agg.application.model.WorklistDO;
 import com.agg.application.service.DealerService;
 import com.agg.application.service.MachineService;
 import com.agg.application.service.QuoteService;
-import com.agg.application.utils.AggConstants;
 
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JREmptyDataSource;
@@ -87,7 +84,15 @@ public class QuoteController extends BaseController {
 			model.addAttribute("coverageTermList", coverageTermList);
 			if(deductibleAmtList.size() > 0 && coverageTermList.size() > 0){
 				List<PricingDO> pricingDOList = quoteService.getCoveragePriceDetils(coverageExpired, machineId, deductibleAmtList.get(0).intValue(), coverageTermList.get(0).intValue(), 0);
+				List<Integer> coverageLevelHoursList = null;
+				if(pricingDOList != null && !pricingDOList.isEmpty()){
+					coverageLevelHoursList = new ArrayList<Integer>();
+					for(PricingDO pricingDO : pricingDOList){
+						coverageLevelHoursList.add(pricingDO.getCoverageLevelHours());
+					}
+				}
 				model.addAttribute("pricingDOList", pricingDOList);
+				model.addAttribute("coverageLevelHoursList", coverageLevelHoursList);
 			}
 			
 			opResult = new Result("success", "Quote Coverage and Deductible Info", model);

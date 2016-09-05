@@ -434,7 +434,7 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService, $
 			if(index == 1){
 				quoteService.saveWarrantyInfo($scope.quote, $scope);
 			}else if(index == 2){
-				//saveing machineInfo
+				//saving machineInfo
 				quoteService.saveMachineInfo($scope.quote, $scope);
 				
 				var coverageExpired = true;
@@ -767,6 +767,68 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 		}
 	}
 	
+	$scope.getCoverageDetails = function (machineInfoDO){
+		var coverageExpired = true;
+		if($scope.quote.coverageExpired != null && $scope.quote.coverageExpired == true){
+			coverageExpired = true;
+		}else if($scope.quote.coverageEndDate != null && ($scope.quote.coverageEndDate > $scope.date)){
+			coverageExpired = false;
+		}else{
+			coverageExpired = true;
+		}
+		
+		var machineId = machineInfoDO.machineId;
+		$http.get("/agg/quote/coverageDeductInfo/"+coverageExpired+"/"+machineId)
+		.then(function(response) {
+			$scope.deductibleAmtList = response.data.data.deductibleAmtList;
+			$scope.coverageTermList = response.data.data.coverageTermList;
+			$scope.pricingDOList = response.data.data.pricingDOList;
+			$scope.coverageLevelHoursList = response.data.data.coverageLevelHoursList;
+			
+			$scope.quote.coverageTerm = $scope.coverageTermList[0];
+			$scope.quote.deductiblePrice = $scope.deductibleAmtList[0];
+			$scope.quote.coverageHours = 0;
+		});
+	}
+	
+	$scope.getCoveragePriceLevels = function(){
+		var coverageExpired = true;
+		if($scope.quote.coverageExpired != null && $scope.quote.coverageExpired == true){
+			coverageExpired = true;
+		}else if($scope.quote.coverageEndDate != null && ($scope.quote.coverageEndDate > $scope.date)){
+			coverageExpired = false;
+		}else{
+			coverageExpired = true;
+		}
+		var machineId = $scope.quote.machineInfoDO.machineId;
+		var deductiblePrice = $scope.quote.deductiblePrice;
+		var coverageTerm = $scope.quote.coverageTerm;
+		var coverageHrs = $scope.quote.coverageHours;
+		$scope.quote.coverageTypeSet = [];
+		$scope.quote.coverageType = "";
+		$http.get("/agg/quote/coverageLevelPrice/"+coverageExpired+"/"+machineId+"/"+deductiblePrice+"/"+coverageTerm+"/"+coverageHrs)
+		.then(function(response) {
+			$scope.pricingDOList = response.data.data;
+			var phBasePriceCond = true;
+			var plBasePriceCond = true;
+			var ptBasePriceCond = true;
+			angular.forEach($scope.pricingDOList, function(pricingDO, key){
+				if(pricingDO.phBasePrice > 0 && phBasePriceCond){
+					$scope.quote.coverageTypeSet.push("PH");
+					phBasePriceCond = false;
+				}
+				if(pricingDO.plBasePrice > 0 && plBasePriceCond){
+					$scope.quote.coverageTypeSet.push("PL");
+					plBasePriceCond = false;
+				}
+				if(pricingDO.ptBasePrice > 0 && ptBasePriceCond){
+					$scope.quote.coverageTypeSet.push("PT");
+					ptBasePriceCond = false;
+				}
+		    });
+		});  
+	}
+	
 	$scope.editQuote = function(){
 		$scope.disabled= false;
 	}
@@ -830,28 +892,6 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 		}else if(quotePrintType == 'customer'){
 			$window.open('/agg/quote/report/customer/'+$scope.quote.quoteId);
 		}
-	}
-	
-	$scope.getCoveragePriceLevels = function(){
-		var coverageExpired = true;
-		if($scope.quote.coverageExpired != null && $scope.quote.coverageExpired == true){
-			coverageExpired = true;
-		}else if($scope.quote.coverageEndDate != null && ($scope.quote.coverageEndDate > $scope.date)){
-			coverageExpired = false;
-		}else{
-			coverageExpired = true;
-		}
-		var machineId = $scope.quote.machineInfoDO.machineId;
-		var deductiblePrice = $scope.quote.deductiblePrice;
-		var coverageTerm = $scope.quote.coverageTerm;
-		var coverageHrs = $scope.quote.coverageHours;
-		$http.get("/agg/quote/coverageLevelPrice/"+coverageExpired+"/"+machineId+"/"+deductiblePrice+"/"+coverageTerm+"/"+coverageHrs)
-		.then(function(response) {
-			$scope.pricingDOList = response.data.data;
-			angular.forEach($scope.pricingDOList, function(pricingDO, key){
-		      alert(pricingDO.ptBasePrice);
-		    });
-		});  
 	}
 	
 	$scope.getMachineModel = function(manufacturerDO){
