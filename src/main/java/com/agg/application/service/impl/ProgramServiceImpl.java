@@ -218,22 +218,38 @@ public class ProgramServiceImpl implements ProgramService {
 			quotePK.setQuoteId(quoteId);
 			quote.setId(quotePK);
 			
+			logger.debug("quoteDO.getProgramDO()"+quoteDO.getProgramDO().getcTerm());
+			logger.debug("quoteDO.getProgramDO()"+quoteDO.getProgramDO().getDeductible());
+			logger.debug("quoteDO.getProgramDO()"+quoteDO.getProgramDO().getCost());
+			
+			quote.setCoverageTerm(quoteDO.getProgramDO().getcTerm());
+			
 			if(quoteDO.getProgramDO() != null)
 			{
 				quote.setProgram(programDAO.findOne(Long.valueOf(quoteDO.getProgramDO().getPrId())));
-				logger.debug("quote..getProgramDO "+quoteDO.getProgramDO().getPrId());
+				//logger.debug("quote..getProgramDO "+quoteDO.getProgramDO().getPrId());
+				quote.setCoverageTerm(quoteDO.getProgramDO().getcTerm());
+				quote.setDeductAmount(quoteDO.getProgramDO().getDeductible());
+				quote.setCoverageLevelHours(quoteDO.getProgramDO().getcHours());
+				quote.setCoverageTerm(quoteDO.getProgramDO().getcTerm());
+				quote.setCoverageType(quoteDO.getProgramDO().getcType());
 			}
 			
 			if(quoteDO.getManufacturerDO() != null)
 			{
-				quote.setManufacturer(manufacturerDAO.findOne(Long.valueOf(quoteDO.getManufacturerDO().getId())));
+				Manufacturer manf = manufacturerDAO.findOne(Long.valueOf(quoteDO.getManufacturerDO().getId()));
+				quote.setManufacturer(manf);
+				quote.setManfName(manf.getManfName());
 				logger.debug("quote..getManufacturer "+quote.getManufacturer());
 			}
 			
 			if(quoteDO.getMachineInfoDO() != null)
 			{
-				quote.setMachineInfo(machineInfoDAO.findOne(Long.valueOf(quoteDO.getMachineInfoDO().getMachineId())));
-				logger.debug("quote..getManufacturer "+quote.getMachineInfo());
+				logger.debug("quoteDO.getMachineInfoDO().getMachineId() "+quoteDO.getMachineInfoDO().getMachineId());
+				MachineInfo machineInfo = machineInfoDAO.findOne(Long.valueOf(quoteDO.getMachineInfoDO().getMachineId()));
+				quote.setMachineInfo(machineInfo);
+				quote.setMachineModel(machineInfo.getModel());
+				logger.debug("quote..getMachineInfoDO "+quote.getMachineInfo());
 			}
 			
 			logger.info("accountDO.getDealerId() "+accountDO.getDealerId());
@@ -248,6 +264,8 @@ public class ProgramServiceImpl implements ProgramService {
 				quote.setDealer(dealerDAO.findOne(Long.valueOf(quoteDO.getDealerDO().getId())));
 				logger.debug("quote..getDealerDO "+quoteDO.getDealerDO().getId());
 			}
+			
+			quote.setMachineSerial(quoteDO.getMachineSerial());
 			
 			quote.setManfExpired((byte)0);
 			quote.setManfEndDate(date);
