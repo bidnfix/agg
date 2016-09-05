@@ -1,6 +1,7 @@
 package com.agg.application.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -85,7 +86,7 @@ public class QuoteController extends BaseController {
 			model.addAttribute("deductibleAmtList", deductibleAmtList);
 			model.addAttribute("coverageTermList", coverageTermList);
 			if(deductibleAmtList.size() > 0 && coverageTermList.size() > 0){
-				List<PricingDO> pricingDOList = quoteService.getCoveragePriceDetils(coverageExpired, machineId, deductibleAmtList.get(0).intValue(), coverageTermList.get(0).intValue());
+				List<PricingDO> pricingDOList = quoteService.getCoveragePriceDetils(coverageExpired, machineId, deductibleAmtList.get(0).intValue(), coverageTermList.get(0).intValue(), 0);
 				model.addAttribute("pricingDOList", pricingDOList);
 			}
 			
@@ -95,15 +96,17 @@ public class QuoteController extends BaseController {
 		return opResult;
 	}
 	
-	@RequestMapping(value = "/quote/coverageLevelPrice/{coverageExpired}/{machineId}/{deductiblePrice}/{coverageTerm}", method = RequestMethod.GET)
+	@RequestMapping(value = "/quote/coverageLevelPrice/{coverageExpired}/{machineId}/{deductiblePrice}/{coverageTerm}/{coverageHours}", method = RequestMethod.GET)
 	public @ResponseBody Result getQuoteCoverageLevelPrice(HttpServletRequest request, HttpServletResponse response,
-			Model model, @PathVariable boolean coverageExpired, @PathVariable long machineId, @PathVariable int deductiblePrice, @PathVariable int coverageTerm) {
-		logger.debug("In getQuoteCoverageLevelPrice with coverageExpired: "+coverageExpired+" machineId: "+machineId+" ");
+			Model model, @PathVariable boolean coverageExpired, @PathVariable long machineId, @PathVariable int deductiblePrice, @PathVariable int coverageTerm, 
+			@PathVariable int coverageHours) {
+		logger.debug("In getQuoteCoverageLevelPrice with coverageExpired: "+coverageExpired+" machineId: "+machineId+" deductiblePrice: "+deductiblePrice
+				+" coverageTerm: "+coverageTerm+" coverageHours: "+coverageHours);
 		Result opResult = null;
 		if (!sessionExists(request)){
 			opResult = new Result("failure", "Invalid Login", null);
 		}else{
-			List<PricingDO> pricingDOList = quoteService.getCoveragePriceDetils(coverageExpired, machineId, deductiblePrice, coverageTerm);
+			List<PricingDO> pricingDOList = quoteService.getCoveragePriceDetils(coverageExpired, machineId, deductiblePrice, coverageTerm, coverageHours);
 			
 			opResult = new Result("success", "Quote Coverage Level Price Info", pricingDOList);
 		}
@@ -111,21 +114,15 @@ public class QuoteController extends BaseController {
 		return opResult;
 	}
 	
-	@RequestMapping(value = "/quote/userInfo", method = RequestMethod.GET)
-	public @ResponseBody Result getUserInfo(HttpServletRequest request, HttpServletResponse response, Model model) {
+	@RequestMapping(value = "/quote/userInfo/{dealerId}", method = RequestMethod.GET)
+	public @ResponseBody Result getUserInfo(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable("dealerId") long dealerId) {
 		logger.debug("In getUserInfo");
 		Result opResult = null;
 		if (!sessionExists(request)){
 			opResult = new Result("failure", "Invalid Login", null);
 		}else{
-			AccountDO accountDO = getAccountDetails(request);
-			DealerDO  dealerDO = null;
-			if(accountDO.getRoleName().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)){
-				dealerDO = new DealerDO();
-				dealerDO.setName(accountDO.getFirstName()+" "+accountDO.getLastName());
-			}else{
-				dealerDO = dealerService.getDealerInfo(accountDO.getId());
-			}
+			
+			DealerDO dealerDO = dealerService.getDealerInfo(dealerId);
 			
 			opResult = new Result("success", "Quote Info", dealerDO);
 		}
@@ -265,10 +262,17 @@ public class QuoteController extends BaseController {
 			if(quoteDO != null){
 				List<DealerDO> dealerDOList = dealerService.getActiveDealers(getAccountDetails(request));
 				List<ManufacturerDO> manufacturerDOList = machineService.getManufacturerDetails();
-				Map<String, List<Integer>> deductCoverageMap = quoteService.getDeductableCoverageTermDetails(quoteDO.isCoverageExpired(), 
+				boolean coverageExpired = true;
+				if(quoteDO.isCoverageExpired()){
+					coverageExpired = true;
+		    	}else if(quoteDO.getCoverageEndDate() != null && quoteDO.getCoverageEndDate().after(new Date())){
+		    		coverageExpired = false;
+		    	}
+				Map<String, List<Integer>> deductCoverageMap = quoteService.getDeductableCoverageTermDetails(coverageExpired, 
 						quoteDO.getMachineInfoDO().getMachineId());
-				List<PricingDO> pricingDOList = quoteService.getCoveragePriceDetils(quoteDO.isCoverageExpired(), 
-						quoteDO.getMachineInfoDO().getMachineId(), new Double(quoteDO.getDeductiblePrice()).intValue(), quoteDO.getCoverageTerm());
+				
+				List<PricingDO> pricingDOList = quoteService.getCoveragePriceDetils(coverageExpired, 
+						quoteDO.getMachineInfoDO().getMachineId(), new Double(quoteDO.getDeductiblePrice()).intValue(), quoteDO.getCoverageTerm(), 0);
 				List<MachineInfoDO> machineModels = machineService.getManfModel(Integer.valueOf(String.valueOf(quoteDO.getManufacturerDO().getId())));
 				List<Integer> coverageLevelHoursList = null;
 				if(pricingDOList != null && !pricingDOList.isEmpty()){
@@ -334,7 +338,7 @@ public class QuoteController extends BaseController {
 		if (!sessionExists(request)){
 			opResult = new Result("failure", "Invalid Login", null);
 		}else{
-			opResult = new Result("success", null, quoteService.getPurchaseReqQuotes(getAccountDetails(request)));
+			opResult = new Result("success", null, quoteService.getEstPriceQuotes(getAccountDetails(request)));
 			
 			List<QuoteDO> quoteDOList = quoteService.getEstPriceQuotes(getAccountDetails(request));
 			model.addAttribute("quoteDOList",quoteDOList);
@@ -391,9 +395,33 @@ public class QuoteController extends BaseController {
 		}else{
 			logger.info("quoteId: "+quoteDO.getQuoteId()+" and id: "+quoteDO.getId());
 			
-			boolean isQuoteInvoiced = quoteService.invoiceQuote(quoteDO);
+			StringBuffer url = request.getRequestURL();
+			String uri = request.getRequestURI();
+			String appUrl = url.substring(0, url.length() - uri.length());
+			logger.info("appUrl: "+appUrl);
+			
+			boolean isQuoteInvoiced = quoteService.invoiceQuote(quoteDO, getAccountDetails(request), appUrl);
 			
 			logger.info("isQuoteInvoiced: "+isQuoteInvoiced);
+			
+			opResult = new Result("success", "Quote Info", quoteDO);
+		}
+		
+		return opResult;
+	}
+	
+	@RequestMapping(value = "/quote/createContract", method = RequestMethod.POST)
+	public @ResponseBody Result createContract(@RequestBody  QuoteDO quoteDO, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{
+		logger.debug("In createContract");
+		Result opResult = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			logger.info("quoteId: "+quoteDO.getQuoteId()+" and id: "+quoteDO.getId());
+			
+			boolean isContractCreated = quoteService.createContract(quoteDO, getAccountDetails(request));
+			
+			logger.info("isContractCreated: "+isContractCreated);
 			
 			opResult = new Result("success", "Quote Info", quoteDO);
 		}

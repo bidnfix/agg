@@ -113,6 +113,10 @@ routingApp.config(['$routeProvider',
                     	  templateUrl: '../../jsp/home.jsp',
                     	  controller: 'PurReqQuotesController'
                       }).
+                      when('/agg/contracts', {
+                    	  templateUrl: '../../jsp/contracts.jsp',
+                    	  controller: 'ContractsController'
+                      }).
                       otherwise({
                     	  redirectTo: '/agg/home'
                       });
@@ -554,7 +558,7 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService, $
 		var machineId = $scope.quote.machineInfoDO.machineId;
 		$scope.coverageTermSelected = coverageTerm;
 		$scope.deductiblePriceSelected = deductiblePrice;
-		$http.get("/agg/quote/coverageLevelPrice/"+coverageExpired+"/"+machineId+"/"+deductiblePrice+"/"+coverageTerm)
+		$http.get("/agg/quote/coverageLevelPrice/"+coverageExpired+"/"+machineId+"/"+deductiblePrice+"/"+coverageTerm+"/0")
 		.then(function(response) {
 			$scope.pricingDOList = response.data.data;
 		});  
@@ -566,7 +570,7 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService, $
 	}
 	
 	$scope.getDealerInfo = function(){
-		$http.get("/agg/quote/userInfo")
+		$http.get("/agg/quote/userInfo/"+$scope.quote.dealerDO.id)
 		.then(function(response) {
 			var dealrDO = response.data.data;
 			$scope.quote.dealerName = dealrDO.name;
@@ -720,6 +724,9 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 	$scope.quote = {};
 	$scope.date = new Date();
 	$scope.disabled= true;
+	$scope.purchaseRequested = true;
+	$scope.invoiced = true;
+	
 	$http.get("/agg/quoteInfo/"+$routeParams.quoteId+"/"+$routeParams.quoteCode)
 	.then(function(response) {
         $scope.dealerList = response.data.data.dealerDOList;
@@ -735,6 +742,12 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 		$scope.quote.coverageEndDate = new Date($scope.quote.coverageEndDate);
 		$scope.quote.estSaleDate = new Date($scope.quote.estSaleDate);
 		$scope.quote.lastUpdate = new Date($scope.quote.lastUpdate);
+		
+		if($scope.quote.status == 4){
+			$scope.purchaseRequested = false;
+		}else if($scope.quote.status == 5){
+			$scope.invoiced = false;
+		}
 		
         if($scope.quote.coverageExpired != null && $scope.quote.coverageExpired == true){
     		$scope.machineCondition = 'Used';
@@ -781,7 +794,33 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 	
 	$scope.createContract = function(quoteForm){
 		if(quoteForm.$valid){
+			if($scope.machineCondition == "New"){
+				var expDate = $scope.quote.coverageEndDate;
+				expDate = new Date(new Date(expDate).setMonth(expDate.getMonth()+$scope.quote.coverageTerm));
+				var manfCoverageHrs = 0;
+				if($scope.quote.coverageType == 'PT'){
+					manfCoverageHrs = $scope.quote.powerTrainHours;
+				}else if($scope.quote.coverageType == 'PH'){
+					manfCoverageHrs = $scope.quote.hydraulicsHours;
+				}else if($scope.quote.coverageType == 'PL'){
+					manfCoverageHrs = $scope.quote.fullMachineHours;
+				}
+				$scope.quote.expirationDate = expDate;
+				$scope.quote.expirationHours = manfCoverageHrs + $scope.quote.coverageHours;
+			}else{
+				var expDate = new Date();
+				expDate = new Date(new Date(expDate).setMonth(expDate.getMonth()+$scope.quote.coverageTerm));
+				$scope.quote.expirationDate = expDate;
+				$scope.quote.expirationHours = $scope.quote.meterHours + $scope.quote.coverageHours;
+			}
+			$scope.quote.inceptionDate = new Date();
 			
+			var x = screen.width/4;
+		    var y = screen.height/9;
+		    showMask('popup_mask');
+		    $('#contractCreatePopup').css("left", x+"px");
+		    $('#contractCreatePopup').css("top", y+"px");
+		    $('#contractCreatePopup').show();
 		}
 	}
 	
@@ -792,6 +831,42 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 			$window.open('/agg/quote/report/customer/'+$scope.quote.quoteId);
 		}
 	}
+	
+	$scope.getCoveragePriceLevels = function(){
+		var coverageExpired = true;
+		if($scope.quote.coverageExpired != null && $scope.quote.coverageExpired == true){
+			coverageExpired = true;
+		}else if($scope.quote.coverageEndDate != null && ($scope.quote.coverageEndDate > $scope.date)){
+			coverageExpired = false;
+		}else{
+			coverageExpired = true;
+		}
+		var machineId = $scope.quote.machineInfoDO.machineId;
+		var deductiblePrice = $scope.quote.deductiblePrice;
+		var coverageTerm = $scope.quote.coverageTerm;
+		var coverageHrs = $scope.quote.coverageHours;
+		$http.get("/agg/quote/coverageLevelPrice/"+coverageExpired+"/"+machineId+"/"+deductiblePrice+"/"+coverageTerm+"/"+coverageHrs)
+		.then(function(response) {
+			$scope.pricingDOList = response.data.data;
+			angular.forEach($scope.pricingDOList, function(pricingDO, key){
+		      alert(pricingDO.ptBasePrice);
+		    });
+		});  
+	}
+	
+	$scope.getMachineModel = function(manufacturerDO){
+		if(manufacturerDO != null){
+			 $http.get("/agg/manfModel/"+manufacturerDO.id)
+			    .then(function(response) {
+			        $scope.machineModelList = response.data.data.machineModelList;
+			    });
+		}
+	}
+	
+    $scope.submitCreateContract = function(){
+    	alert("in submitCreateContract");
+    	quoteService.createContract($scope.quote, $scope);
+    }
 	
 })
 .directive('convertToNumber', function() {
@@ -808,4 +883,12 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
       };
    });
 
-
+routingApp.controller('ContractsController', function($scope, $http, $timeout, $window) {
+	$http.get("/agg/contracts")
+	.then(function(response) {
+        $scope.contractList = response.data.data.contractDOList;
+        $timeout(function () {
+        	$('#contractsTbl').DataTable();
+        }, 300);
+    });
+})

@@ -20,10 +20,12 @@ import com.agg.application.entity.Contracts;
 import com.agg.application.entity.Dealer;
 import com.agg.application.entity.Manufacturer;
 import com.agg.application.entity.Quote;
+import com.agg.application.model.AccountDO;
 import com.agg.application.model.ContractDO;
 import com.agg.application.model.DealerDO;
 import com.agg.application.model.ManufacturerDO;
 import com.agg.application.service.ContractsService;
+import com.agg.application.utils.AggConstants;
 import com.agg.application.utils.Util;
 
 /**
@@ -79,8 +81,13 @@ public class ContractsServiceImpl implements ContractsService{
 	 * @see com.agg.application.service.ContractsService#getAllContracts()
 	 */
 	@Override
-	public List<ContractDO> getAllContracts() {
-		List<Contracts> contracts = Util.toList(contractDAO.findAll());
+	public List<ContractDO> getAllContracts(AccountDO accountDO) {
+		List<Contracts> contracts = null;
+		if(accountDO.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)){
+			contracts = Util.toList(contractDAO.findAll());
+		}else{
+			contracts = Util.toList(contractDAO.findByDealerId(accountDO.getDealerId()));
+		}
 		return formatEntityToDO(contracts);
 	}
 	

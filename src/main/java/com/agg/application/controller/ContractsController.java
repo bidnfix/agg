@@ -43,36 +43,51 @@ public class ContractsController extends BaseController{
 	@RequestMapping(value = "/contract", method = RequestMethod.POST)
 	public @ResponseBody Result addContract(@RequestBody ContractDO contractDO, BindingResult result,
 			HttpServletRequest request, HttpServletResponse response) {
-		
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(new Date());
-		cal.set(Calendar.DAY_OF_MONTH, cal.get(Calendar.DAY_OF_MONTH)-6);
-		Date inceptionDate = cal.getTime();
-		
-		cal.setTime(new Date());
-		cal.set(Calendar.DAY_OF_MONTH, cal.get(Calendar.DAY_OF_MONTH)+6);
-		Date expirationDate = cal.getTime();
-		
-		contractDO.setInceptionDate(inceptionDate);
-		contractDO.setExpirationDate(expirationDate);
-		contractDO.setLastUpdatedDate(new Date());
-		
-		long contractID = contractService.saveContract(contractDO);
-		return new Result("success", "", contractID);
+		Result opResult = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(new Date());
+			cal.set(Calendar.DAY_OF_MONTH, cal.get(Calendar.DAY_OF_MONTH)-6);
+			Date inceptionDate = cal.getTime();
+			
+			cal.setTime(new Date());
+			cal.set(Calendar.DAY_OF_MONTH, cal.get(Calendar.DAY_OF_MONTH)+6);
+			Date expirationDate = cal.getTime();
+			
+			contractDO.setInceptionDate(inceptionDate);
+			contractDO.setExpirationDate(expirationDate);
+			contractDO.setLastUpdatedDate(new Date());
+			
+			long contractID = contractService.saveContract(contractDO);
+			opResult = new Result("success", "", contractID);
+		}
+		return opResult;
 	}
 	
 	@RequestMapping(value = "/contracts", method = RequestMethod.GET)
 	public @ResponseBody Result getContracts(HttpServletRequest request, HttpServletResponse response, Model model) {
-		return new Result("success", "", model.addAttribute(contractService.getAllContracts()));
+		Result opResult = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			opResult = new Result("success", "", model.addAttribute(contractService.getAllContracts(getAccountDetails(request))));
+		}
+		return opResult;
 	}
 	
 	@RequestMapping(value = "/contracts/machineserialno/search/{term}", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
 	public @ResponseBody Result getContractsByMachineSerialNo(@PathVariable String term, HttpServletRequest request, HttpServletResponse response, Model model) {
 		Result result = null;
-		if(Util.isNotEmptyString(term)){
-			result = new Result("success", "", model.addAttribute(contractService.getAllContractsByMachineSerialNo(term)));
+		if (!sessionExists(request)){
+			result = new Result("failure", "Invalid Login", null);
 		}else{
-			result = new Result("failure", "invalid search term", null);
+			if(Util.isNotEmptyString(term)){
+				result = new Result("success", "", model.addAttribute(contractService.getAllContractsByMachineSerialNo(term)));
+			}else{
+				result = new Result("failure", "invalid search term", null);
+			}
 		}
 		return result;
 	}

@@ -62,6 +62,11 @@ public class AggConstants {
 			+ "Our responsibility begins when the Manufacturer's coverage ends. Coverage is for the specified time period in months or hours of use, "
 			+ "whichever is reached first.";
 	
+	public static final String INVOICE_REPORT_OUT_STANDING_DESC = "Thank you for choosing AgGuard, we appreciate your business. This invoice reflects the information "
+			+ "provided in your request for an extended service Contract based on the current terms and conditions provided on our website. "
+			+ "It is extremely important for you to double-check the details reflected on this invoice before remitting payment. Inaccurate information may void the "
+			+ "extended service Contract.";
+	
 	
 	
 	

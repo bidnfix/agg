@@ -1,4 +1,5 @@
 <!-- Article main content -->
+<%@include file="contractCreatePopup.jsp" %>
 <article class="col-md-9 maincontent">
 	<form class="form-horizontal" name="quoteInfoForm" id="quoteInfoForm" novalidate angular-validator>
 	<header class="page-header">
@@ -13,10 +14,10 @@
                      	<button class="btn btn-primary pull-right mar-right" ng-click="editQuote()">Edit</button>
                      	<button class="btn btn-primary pull-right mar-right" ng-click="quoteInfoForm.$valid && updateQuote(quoteInfoForm)">Update</button>
                      	<button class="btn btn-primary pull-right mar-right" ng-click="archiveQuote()">Archive</button>
-                     	<button class="btn btn-primary pull-right mar-right" ng-click="invoiceQuote(quoteInfoForm)" disabled="disabled">Invoice</button>
+                     	<button class="btn btn-primary pull-right mar-right" ng-click="quoteInfoForm.$valid && invoiceQuote(quoteInfoForm)" ng-disabled="purchaseRequested">Invoice</button>
                      	<button class="btn btn-primary pull-right mar-right" ng-click="printQuote('dealer')">Dealer Quote Summary</button>
                      	<button class="btn btn-primary pull-right mar-right" ng-click="printQuote('customer')">Customer Quote Summary</button>
-                     	<button class="btn btn-primary pull-right mar-right" ng-click="createContract(quoteInfoForm)" disabled="disabled">Create Contract</button>
+                     	<button class="btn btn-primary pull-right mar-right" ng-click="quoteInfoForm.$valid && createContract(quoteInfoForm)" ng-disabled="invoiced">Create Contract</button>
                      </div>
 	</header>
              
@@ -90,17 +91,17 @@
                        </div>
                        <div class="form-group">
                          <label>Deductible</label>
-                         <select name="deductiblePrice" ng-model="quote.deductiblePrice" class="form-control" ng-options="deductibleAmt for deductibleAmt in deductibleAmtList track by deductibleAmt"  validate-on="dirty" required="required" ng-disabled="disabled">
+                         <select name="deductiblePrice" ng-model="quote.deductiblePrice" class="form-control" ng-options="deductibleAmt for deductibleAmt in deductibleAmtList track by deductibleAmt"  validate-on="dirty" required="required" ng-disabled="disabled" ng-change="getCoveragePriceLevels()">
 						 </select>
                        </div>
                        <div class="form-group">
                          <label>Coverage Term</label>
-                         <select name="coverageTerm" ng-model="quote.coverageTerm" class="form-control" ng-options="coverageTermVal for coverageTermVal in coverageTermList track by coverageTermVal"  validate-on="dirty" required="required" ng-disabled="disabled">
+                         <select name="coverageTerm" ng-model="quote.coverageTerm" class="form-control" ng-options="coverageTermVal for coverageTermVal in coverageTermList track by coverageTermVal"  validate-on="dirty" required="required" ng-disabled="disabled" ng-change="getCoveragePriceLevels()">
 						 </select>
                        </div>
                        <div class="form-group">
                          <label>Covered Hours</label>
-                         <select name="coverageHours" ng-model="quote.coverageHours" class="form-control" ng-options="coverageLevelHour for coverageLevelHour in coverageLevelHoursList track by coverageLevelHour"  validate-on="dirty" required="required" ng-disabled="disabled">
+                         <select name="coverageHours" ng-model="quote.coverageHours" class="form-control" ng-options="coverageLevelHour for coverageLevelHour in coverageLevelHoursList track by coverageLevelHour"  validate-on="dirty" required="required" ng-disabled="disabled" ng-change="getCoveragePriceLevels()">
 						 </select>
                        </div>
                        <div class="form-group">
@@ -319,15 +320,15 @@
 							  </div>
 							  <div class="form-group">
 								<label>Group Assignment</label>
-								<p>&nbsp;</p>
+								<p>{{(quote.groupId > 0)?quote.groupId:"&nbsp;"}}</p>
 							  </div>
 							  <div class="form-group">
 								<label>Special Considerations</label>
-								<textarea class="form-control" placeholder="" ng-model="quote.specialConsiderations" disabled="disabled"></textarea>
+								<textarea class="form-control" placeholder="" ng-model="quote.specialConsiderations" ng-disabled="disabled"></textarea>
 							  </div>
 							  <div class="form-group">
 								<label>Conditions for Coverage</label>
-								<textarea class="form-control" placeholder="" ng-model="quote.condsForCoverage" disabled="disabled"></textarea>
+								<textarea class="form-control" placeholder="" ng-model="quote.condsForCoverage" ng-disabled="disabled"></textarea>
 							  </div>
 						</div>
                    </div>

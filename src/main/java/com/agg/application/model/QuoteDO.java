@@ -177,6 +177,14 @@ public class QuoteDO {
 	private String specialConsiderations;
 	
 	private String condsForCoverage;
+	
+	private Date inceptionDate;
+	
+	private Date expirationDate;
+	
+	private int expirationHours;
+	
+	private String dealHistory;
 		
 	public CustomerInfoDO getCustomerInfoDO() {
 		return customerInfoDO;
@@ -1182,6 +1190,62 @@ public class QuoteDO {
 	 */
 	public void setCondsForCoverage(String condsForCoverage) {
 		this.condsForCoverage = condsForCoverage;
+	}
+
+	/**
+	 * @return the inceptionDate
+	 */
+	public Date getInceptionDate() {
+		return inceptionDate;
+	}
+
+	/**
+	 * @param inceptionDate the inceptionDate to set
+	 */
+	public void setInceptionDate(Date inceptionDate) {
+		this.inceptionDate = inceptionDate;
+	}
+
+	/**
+	 * @return the expirationDate
+	 */
+	public Date getExpirationDate() {
+		return expirationDate;
+	}
+
+	/**
+	 * @param expirationDate the expirationDate to set
+	 */
+	public void setExpirationDate(Date expirationDate) {
+		this.expirationDate = expirationDate;
+	}
+
+	/**
+	 * @return the expirationHours
+	 */
+	public int getExpirationHours() {
+		return expirationHours;
+	}
+
+	/**
+	 * @param expirationHours the expirationHours to set
+	 */
+	public void setExpirationHours(int expirationHours) {
+		this.expirationHours = expirationHours;
+	}
+
+	/**
+	 * @return the dealHistory
+	 */
+	public String getDealHistory() {
+		return dealHistory;
+	}
+
+	/**
+	 * @param dealHistory the dealHistory to set
+	 */
+	public void setDealHistory(String dealHistory) {
+		this.dealHistory = dealHistory;
 	}
 	
 }

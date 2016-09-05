@@ -108,7 +108,7 @@ routingApp.factory('quoteService', function($http, $q, $window) {
 							$scope.quote.quoteId = response.data.data.quoteId;
 							$scope.quote.id = response.data.data.id;
 							$scope.quote.statusDesc = response.data.data.statusDesc;
-							//$window.location.href = '#/agg/dealers';
+							$window.location.href = '#/agg/quotes';
 						} else {
 							alert('error in adding Quote Coverage Info: '+response.data.errMessage)
 							//$('#errMsg').html(response.data.errMessage);
@@ -124,7 +124,7 @@ routingApp.factory('quoteService', function($http, $q, $window) {
 					function(response) {
 						//alert(response.data.status);
 						if (response.data.status == 'success') {
-							$window.location.href = '#/agg/quotesInfo';
+							$window.location.href = '#/agg/quotes';
 						} else {
 							alert('error in archiving Quote: '+response.data.errMessage)
 							//$('#errMsg').html(response.data.errMessage);
@@ -140,7 +140,7 @@ routingApp.factory('quoteService', function($http, $q, $window) {
 					function(response) {
 						//alert(response.data.status);
 						if (response.data.status == 'success') {
-							$window.location.href = '#/agg/quotesInfo';
+							$window.location.href = '#/agg/quotes';
 						} else {
 							alert('error in updating Quote: '+response.data.errMessage)
 							//$('#errMsg').html(response.data.errMessage);
@@ -156,7 +156,7 @@ routingApp.factory('quoteService', function($http, $q, $window) {
 					function(response) {
 						//alert(response.data.status);
 						if (response.data.status == 'success') {
-							$window.location.href = '#/agg/quotesInfo';
+							$window.location.href = '#/agg/quotes';
 						} else {
 							alert('error in invoicing Quote: '+response.data.errMessage)
 							//$('#errMsg').html(response.data.errMessage);
@@ -164,6 +164,23 @@ routingApp.factory('quoteService', function($http, $q, $window) {
 						
 					}, function(errResponse) {
 						alert('Error while invoicing Quote');
+						return $q.reject(errResponse);
+					});
+		},
+		createContract : function(quote, $scope) {
+			return $http.post('/agg/quote/createContract', quote).then(
+					function(response) {
+						//alert(response.data.status);
+						if (response.data.status == 'success') {
+							closePopup('contractCreatePopup');
+							$window.location.href = '#/agg/contracts';
+						} else {
+							alert('error in creating Contract: '+response.data.errMessage)
+							//$('#errMsg').html(response.data.errMessage);
+						}
+						
+					}, function(errResponse) {
+						alert('Error while creating Contract');
 						return $q.reject(errResponse);
 					});
 		}

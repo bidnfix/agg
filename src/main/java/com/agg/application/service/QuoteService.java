@@ -16,7 +16,7 @@ public interface QuoteService {
 
 	public Map<String, List<Integer>> getDeductableCoverageTermDetails(boolean coverageExpired, long machineId);
 
-	public List<PricingDO> getCoveragePriceDetils(boolean coverageExpired, long machineId, int deductibleAmt, int coverageTerm);
+	public List<PricingDO> getCoveragePriceDetils(boolean coverageExpired, long machineId, int deductibleAmt, int coverageTerm, int coverageHours);
 	
 	public void saveWarrantyInfo(QuoteDO quoteDO);
 	
@@ -36,11 +36,13 @@ public interface QuoteService {
 
 	public boolean updateQuote(QuoteDO quoteDO);
 
-	public boolean invoiceQuote(QuoteDO quoteDO);
+	public boolean invoiceQuote(QuoteDO quoteDO, AccountDO accountDO, String appUrl) throws Exception;
 	
 	public WorklistDO getWorklistCount();
 	
 	public List<QuoteDO> getEstPriceQuotes(AccountDO accountDO);
 	
 	public List<QuoteDO> getPurchaseReqQuotes(AccountDO accountDO);
+
+	public boolean createContract(QuoteDO quoteDO, AccountDO accountDO);
 }

@@ -67,6 +67,10 @@ public class ReportDO {
 	private String quotePrice;
 	
 	private String dealerMarkup;
+	
+	private String invoiceDate;
+	
+	private String amountDue;
 
 	/**
 	 * @return the dealerName
@@ -528,6 +532,34 @@ public class ReportDO {
 	 */
 	public void setDealerMarkup(String dealerMarkup) {
 		this.dealerMarkup = dealerMarkup;
+	}
+
+	/**
+	 * @return the invoiceDate
+	 */
+	public String getInvoiceDate() {
+		return invoiceDate;
+	}
+
+	/**
+	 * @param invoiceDate the invoiceDate to set
+	 */
+	public void setInvoiceDate(String invoiceDate) {
+		this.invoiceDate = invoiceDate;
+	}
+
+	/**
+	 * @return the amountDue
+	 */
+	public String getAmountDue() {
+		return amountDue;
+	}
+
+	/**
+	 * @param amountDue the amountDue to set
+	 */
+	public void setAmountDue(String amountDue) {
+		this.amountDue = amountDue;
 	}
 	
 }

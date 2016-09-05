@@ -1,6 +1,7 @@
 package com.agg.application.utils;
 
 import javax.activation.DataSource;
+import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import org.slf4j.Logger;
@@ -44,7 +45,7 @@ public class EmailSender {
         try {
             MimeMessage mail = javaMailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(mail, true);
-            helper.setTo(to);
+            helper.setTo(InternetAddress.parse(to));
             helper.setSubject(subject);
             helper.setText(text, isHtml);
             if(aAttachment != null){

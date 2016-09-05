@@ -1,9 +1,16 @@
 package com.agg.application.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.Date;
-import java.sql.Timestamp;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 
 /**
@@ -55,8 +62,9 @@ public class AdminAdjustment implements Serializable {
 	@Column(name="invoice_ver")
 	private String invoiceVer;
 
+	@Temporal(TemporalType.DATE)
 	@Column(name="last_update")
-	private Timestamp lastUpdate;
+	private Date lastUpdate;
 
 	private double lol;
 
@@ -161,11 +169,11 @@ public class AdminAdjustment implements Serializable {
 		this.invoiceVer = invoiceVer;
 	}
 
-	public Timestamp getLastUpdate() {
+	public Date getLastUpdate() {
 		return this.lastUpdate;
 	}
 
-	public void setLastUpdate(Timestamp lastUpdate) {
+	public void setLastUpdate(Date lastUpdate) {
 		this.lastUpdate = lastUpdate;
 	}
 
