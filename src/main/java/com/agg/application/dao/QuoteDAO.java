@@ -32,19 +32,39 @@ public interface QuoteDAO extends CrudRepository<Quote, QuotePK> {
 	@Query("SELECT COUNT(*) FROM Quote q WHERE q.status=5")
 	public int countByInvoiced();
 	
-	@Query("SELECT q FROM Quote q WHERE q.status=1")
-	public List<Quote> findByEstPrice();
+	@Query("SELECT COUNT(*) FROM Quote q WHERE q.status=1 and q.dealer.id = :dealerId")
+	public int countByEstPrice(@Param("dealerId")long dealerId);
 	
-	@Query("SELECT q FROM Quote q WHERE q.status=1 and q.dealer.id = :dealerId")
-	public List<Quote> findByEstPrice(@Param("dealerId")long dealerId);
+	@Query("SELECT COUNT(*) FROM Quote q WHERE q.status=4 and q.dealer.id = :dealerId")
+	public int countByPurRequested(@Param("dealerId")long dealerId);
 	
-	@Query("SELECT q FROM Quote q WHERE q.status=4")
-	public List<Quote> findByPurRequested();
+	@Query("SELECT COUNT(*) FROM Quote q WHERE q.status=5 and q.dealer.id = :dealerId")
+	public int countByInvoiced(@Param("dealerId")long dealerId);
 	
-	@Query("SELECT q FROM Quote q WHERE q.status=4 and q.dealer.id = :dealerId")
-	public List<Quote> findByPurRequested(@Param("dealerId")long dealerId);
+	/*@Query("SELECT q FROM Quote q WHERE q.status=1")
+	public List<Quote> findByEstPrice();*/
 	
-	@Query("SELECT q FROM Quote q WHERE q.status=5")
-	public List<Quote> findByInvoiced();
+	/*@Query("SELECT q FROM Quote q WHERE q.status=1 and q.dealer.id = :dealerId")
+	public List<Quote> findByEstPrice(@Param("dealerId")long dealerId);*/
+	
+	/*@Query("SELECT q FROM Quote q WHERE q.status=4")
+	public List<Quote> findByPurRequested();*/
+	
+	/*@Query("SELECT q FROM Quote q WHERE q.status=4 and q.dealer.id = :dealerId")
+	public List<Quote> findByPurRequested(@Param("status")byte status, @Param("dealerId")long dealerId);
+	*/
+	/*@Query("SELECT q FROM Quote q WHERE q.status=5")
+	public List<Quote> findByInvoiced();*/
+	
+	public List<Quote> findByStatus(byte status);
+	
+/*	@Query("SELECT q FROM Quote q WHERE q.status= :status and q.dealer.id = :dealerId")
+	public List<Quote> findByStatus(@Param("status")byte status, @Param("dealerId")long dealerId);
+*/	
+	public List<Quote> findByStatusAndDealerId(@Param("status")byte status, @Param("dealerId")long dealerId);
+	
+	/*@Query("SELECT q FROM Quote q WHERE q.status= :status and q.dealer.id = :dealerId")
+	public List<Quote> findByInvoiced(@Param("status")byte status, @Param("dealerId")long dealerId);*/
+	
 	
 }

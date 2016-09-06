@@ -839,7 +839,7 @@ public class QuoteServiceImpl implements QuoteService {
 		    		coverageExpired = false;
 		    	}
 				
-				List<PricingDO> pricingDOList = getCoveragePriceDetils(coverageExpired, quoteDO.getMachineInfoDO().getMachineId(), 
+				List<PricingDO> pricingDOList = getCoveragePriceDetils(coverageExpired, (quoteDO.getMachineInfoDO()!=null)?quoteDO.getMachineInfoDO().getMachineId():0, 
 						new Double(quoteDO.getDeductiblePrice()).intValue(), quoteDO.getCoverageTerm(), quote.getCoverageLevelHours());
 				Set<String> coverageTypeSet = null;
 				if(pricingDOList != null && !pricingDOList.isEmpty()){
@@ -1201,12 +1201,10 @@ public class QuoteServiceImpl implements QuoteService {
 					logger.info("emailStatus: "+emailStatus.getStatus());
 					logger.info("Dealer Quote pdf Attachment emailed successfully");
 				}
-				
 				condition = true;
 			}
 			
 		}
-		
 		return condition;
 	}
 	
@@ -1214,12 +1212,13 @@ public class QuoteServiceImpl implements QuoteService {
 	public List<QuoteDO> getEstPriceQuotes(AccountDO accountDO) {
 		List<QuoteDO> quoteDOList = null;
 		if(accountDO.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)){
-			List<Quote> quoteList = Util.toList(quoteDAO.findByEstPrice());
+			List<Quote> quoteList = Util.toList(quoteDAO.findByStatus(AggConstants.B_QUOTE_STATUS_ESTIMATING_PRICE));
 			logger.debug("quoteList for estPrice --------------> "+ quoteList.size());
 			quoteDOList = getQuoteDetails(quoteList);
 		}else{
-			List<Quote> quoteList = Util.toList(quoteDAO.findByEstPrice(accountDO.getDealerId()));
+			List<Quote> quoteList = Util.toList(quoteDAO.findByStatusAndDealerId(AggConstants.B_QUOTE_STATUS_ESTIMATING_PRICE, accountDO.getDealerId()));
 			logger.debug("quoteList for estPrice --------------> "+ quoteList.size());
+			logger.debug("quoteList for estPrice --------------> "+ quoteList.get(0).getDealer().getName());
 			quoteDOList = getQuoteDetails(quoteList);
 		}
 		return quoteDOList;
@@ -1229,11 +1228,11 @@ public class QuoteServiceImpl implements QuoteService {
 	public List<QuoteDO> getPurchaseReqQuotes(AccountDO accountDO) {
 		List<QuoteDO> quoteDOList = null;
 		if(accountDO.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)){
-			List<Quote> quoteList = Util.toList(quoteDAO.findByPurRequested());
+			List<Quote> quoteList = Util.toList(quoteDAO.findByStatus(AggConstants.B_QUOTE_STATUS_PURCHASE_REQUESTED));
 			logger.debug("quoteList for purchaseReq--------------> "+ quoteList.size());
 			quoteDOList = getQuoteDetails(quoteList);
 		}else{
-			List<Quote> quoteList = Util.toList(quoteDAO.findByPurRequested(accountDO.getDealerId()));
+			List<Quote> quoteList = Util.toList(quoteDAO.findByStatusAndDealerId(AggConstants.B_QUOTE_STATUS_PURCHASE_REQUESTED, accountDO.getDealerId()));
 			logger.debug("quoteList for purchaseReq --------------> "+ quoteList.size());
 			quoteDOList = getQuoteDetails(quoteList);
 		}
@@ -1241,14 +1240,41 @@ public class QuoteServiceImpl implements QuoteService {
 	}
 	
 	@Override
-	public WorklistDO getWorklistCount()
+	public List<QuoteDO> getInvoicedQuotes(AccountDO accountDO) {
+		List<QuoteDO> quoteDOList = null;
+		if(accountDO.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)){
+			List<Quote> quoteList = Util.toList(quoteDAO.findByStatus(AggConstants.B_QUOTE_STATUS_INVOICED));
+			logger.debug("quoteList for getInvoicedQuotes--------------> "+ quoteList.size());
+			quoteDOList = getQuoteDetails(quoteList);
+		}else{
+			List<Quote> quoteList = Util.toList(quoteDAO.findByStatusAndDealerId(AggConstants.B_QUOTE_STATUS_INVOICED, accountDO.getDealerId()));
+			logger.debug("quoteList for getInvoicedQuotes--------------> "+ quoteList.size());
+			quoteDOList = getQuoteDetails(quoteList);
+		}
+		return quoteDOList;
+	}
+	
+	@Override
+	public WorklistDO getWorklistCount(AccountDO accountDO)
 	{
 		WorklistDO worklistDO = new WorklistDO();
-		int estPrice = quoteDAO.countByEstPrice();
+		int estPrice = 0; 
+		int purchaseReq = 0;
+		int invoiced = 0;
+		
+		if(accountDO.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)){
+			estPrice = quoteDAO.countByEstPrice();
+			purchaseReq = quoteDAO.countByPurRequested();
+			invoiced = quoteDAO.countByInvoiced();
+			
+		}else{
+			estPrice = quoteDAO.countByEstPrice(accountDO.getDealerId());
+			purchaseReq = quoteDAO.countByPurRequested(accountDO.getDealerId());
+			invoiced = quoteDAO.countByInvoiced(accountDO.getDealerId());
+		}
+				
 		worklistDO.setEstPrice(estPrice);
-		int purchaseReq = quoteDAO.countByPurRequested();
 		worklistDO.setPurchaseReq(purchaseReq);
-		int invoiced = quoteDAO.countByInvoiced();
 		worklistDO.setInvoiced(invoiced);
 		logger.debug("estPrice -->"+estPrice);
 		return worklistDO;

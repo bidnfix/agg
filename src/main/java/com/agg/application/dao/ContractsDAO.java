@@ -26,4 +26,6 @@ public interface ContractsDAO extends CrudRepository<Contracts, Long>{
 	
 	@Query("SELECT c FROM Contracts c, Quote q WHERE c.quoteId = q.id.id and  q.dealer.id = :dealerId")
 	List<Contracts> findByDealerId(@Param("dealerId") long dealerId);
+	
+	List<Contracts> findByStatus(byte status);
 }

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.agg.application.model.QuoteDO;
 import com.agg.application.model.Result;
 import com.agg.application.model.WorklistDO;
+import com.agg.application.service.ContractsService;
 import com.agg.application.service.QuoteService;
 
 @RestController
@@ -27,6 +28,9 @@ public class WorklistController extends BaseController{
 
 	@Autowired
 	private QuoteService quoteService;
+
+	@Autowired
+	private ContractsService contractsService;	
 	
 	@RequestMapping(value = "/worklist", method = RequestMethod.GET)
 	public @ResponseBody Result getWorklistInfo(HttpServletRequest request, HttpServletResponse response, Model model) {
@@ -36,7 +40,7 @@ public class WorklistController extends BaseController{
 			opResult = new Result("failure", "Invalid Login", null);
 		}else{
 			
-			WorklistDO worklistDO = quoteService.getWorklistCount();
+			WorklistDO worklistDO = quoteService.getWorklistCount(getAccountDetails(request));
 			model.addAttribute("worklistDO", worklistDO);
 			List<QuoteDO> quoteList = quoteService.getPurchaseReqQuotes(getAccountDetails(request));
 			model.addAttribute("quoteList", quoteList);
@@ -77,5 +81,33 @@ public class WorklistController extends BaseController{
 		
 		return opResult;
 	}
+	
+	@RequestMapping(value = "/invoicedQuotes", method = RequestMethod.GET)
+	public Result getInvoicedQuotes(Model model, HttpServletRequest request, HttpServletResponse response) {
+		Result opResult = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			opResult = new Result("success", null, quoteService.getInvoicedQuotes(getAccountDetails(request)));
+			
+			/*List<QuoteDO> quoteDOList = quoteService.getEstPriceQuotes(getAccountDetails(request));
+			model.addAttribute("quoteDOList",quoteDOList);
+			opResult = new Result("success", null, model);*/
+		}
+		
+		return opResult;
+	}
+	
+	@RequestMapping(value = "/activeContracts", method = RequestMethod.GET)
+	public Result getActiveContracts(Model model, HttpServletRequest request, HttpServletResponse response) {
+		Result opResult = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			opResult = new Result("success", "", model.addAttribute(contractsService.getActiveContracts(getAccountDetails(request))));
+		}
+		return opResult;
+	}
+	
 
 }

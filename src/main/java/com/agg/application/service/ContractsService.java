@@ -18,4 +18,6 @@ public interface ContractsService {
 	List<ContractDO> getAllContracts(AccountDO accountDO);
 	List<ContractDO> getAllContractsByMachineSerialNo(String machineSerialNo);
 	DealerDO getDealer(final String contractId);
+	List<ContractDO> getActiveContracts(AccountDO accountDO);
+	List<ContractDO> getInactiveContracts(AccountDO accountDO);
 }

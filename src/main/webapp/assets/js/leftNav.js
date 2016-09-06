@@ -113,6 +113,10 @@ routingApp.config(['$routeProvider',
                     	  templateUrl: '../../jsp/home.jsp',
                     	  controller: 'PurReqQuotesController'
                       }).
+                      when('/agg/invoiced', {
+                    	  templateUrl: '../../jsp/home.jsp',
+                    	  controller: 'InvoicedController'
+                      }).
                       when('/agg/contracts', {
                     	  templateUrl: '../../jsp/contracts.jsp',
                     	  controller: 'ContractsController'
@@ -718,6 +722,20 @@ routingApp.controller('PurReqQuotesController', function($scope, $http, $timeout
 	}*/
 })
 
+routingApp.controller('InvoicedController', function($scope, $http, $timeout) {
+	$http.get("/agg/invoicedQuotes")
+	.then(function(response) {
+        $scope.quoteList = response.data.data;
+        $timeout(function () {
+        	$('#quotesTbl').DataTable();
+        }, 300);
+    });
+	
+	/*$scope.viewQuote = function(id, quoteId){
+		alert(id+" "+quoteId);
+		return '../../jsp/pendingDealers.jsp';
+	}*/
+})
 
 routingApp.controller('QuoteDetailController', function($scope, $http, $timeout, $routeParams, $route, $window, quoteService) {
 	//alert($routeParams.quoteId+" - "+$routeParams.quoteCode);

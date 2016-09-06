@@ -38,11 +38,13 @@ public interface QuoteService {
 
 	public boolean invoiceQuote(QuoteDO quoteDO, AccountDO accountDO, String appUrl) throws Exception;
 	
-	public WorklistDO getWorklistCount();
+	public WorklistDO getWorklistCount(AccountDO accountDO);
 	
 	public List<QuoteDO> getEstPriceQuotes(AccountDO accountDO);
 	
 	public List<QuoteDO> getPurchaseReqQuotes(AccountDO accountDO);
+	
+	public List<QuoteDO> getInvoicedQuotes(AccountDO accountDO);
 
 	public boolean createContract(QuoteDO quoteDO, AccountDO accountDO);
 }

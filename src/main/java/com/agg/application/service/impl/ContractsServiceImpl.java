@@ -162,4 +162,27 @@ public class ContractsServiceImpl implements ContractsService{
 		}
 		return dealerDO;
 	}
+	
+	@Override
+	public List<ContractDO> getActiveContracts(AccountDO accountDO) {
+		List<Contracts> contracts = null;
+		if(accountDO.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)){
+			contracts = Util.toList(contractDAO.findByStatus(AggConstants.B_ACTIVE_CONTRACT));
+		}else{
+			contracts = Util.toList(contractDAO.findByStatus(AggConstants.B_ACTIVE_CONTRACT));
+		}
+		return formatEntityToDO(contracts);
+	}
+	
+	@Override
+	public List<ContractDO> getInactiveContracts(AccountDO accountDO) {
+		List<Contracts> contracts = null;
+		if(accountDO.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)){
+			contracts = Util.toList(contractDAO.findByStatus(AggConstants.B_INACTIVE_CONTRACT));
+		}else{
+			contracts = Util.toList(contractDAO.findByStatus(AggConstants.B_INACTIVE_CONTRACT));
+		}
+		return formatEntityToDO(contracts);
+	}
+	
 }

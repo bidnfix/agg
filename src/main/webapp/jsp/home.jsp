@@ -36,7 +36,7 @@
 					<a href="#/agg/estPriceQuotes">Estimating Price<span class="badge">{{estPrice}}</span></a>
 				</li>
 				<li>
-					<a href="#/agg/pendingDealers">Invoiced<span class="badge">{{invoiced}}</span></a>
+					<a href="#/agg/invoiced">Invoiced<span class="badge">{{invoiced}}</span></a>
 				</li>
                 
                 <li>
