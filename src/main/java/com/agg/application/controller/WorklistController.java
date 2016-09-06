@@ -109,5 +109,16 @@ public class WorklistController extends BaseController{
 		return opResult;
 	}
 	
+	@RequestMapping(value = "/inactiveContracts", method = RequestMethod.GET)
+	public Result getInactiveContracts(Model model, HttpServletRequest request, HttpServletResponse response) {
+		Result opResult = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			opResult = new Result("success", "", model.addAttribute(contractsService.getInactiveContracts(getAccountDetails(request))));
+		}
+		return opResult;
+	}
+	
 
 }

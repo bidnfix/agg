@@ -24,11 +24,11 @@
 		<div id="navbar">
 			<ul class="nav navbar-nav ">
 				<li>
-					<a href="#/agg/pendingDealers">Expired Contract<span class="badge">{{pendingDealers}}</span></a>
+					<a href="#/agg/inactiveContract">Expired Contract<span class="badge">{{pendingDealers}}</span></a>
 				</li>
                 
                 <li>
-					<a href="#/agg/dealers">Active Contract<span class="badge">{{activeDealers}}</span></a>
+					<a href="#/agg/activeContract">Active Contract<span class="badge">{{activeDealers}}</span></a>
 				</li>
 				
                 
@@ -68,8 +68,7 @@
 	</nav>
 
 	<!-- data table section -->
-
-	<table id="quotesTbl" class="table table-striped table-bordered" cellspacing="0" width="100%">
+	<table id="quotesTbl" class="table table-striped table-bordered" cellspacing="0" width="100%" ng-disbale="{{(quoteList != null && quoteList.size >0)?false:true}}">
         <thead>
             <tr>
             	<th>ID</th>
@@ -112,6 +111,54 @@
         </tbody>
     </table>
 	<!--inner main-->
+	
+	
+	
+	<table id="contractsTbl" class="table table-striped table-bordered" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+            	<th>ID</th>
+                <th>Serial</th>
+                <th>LOL</th>
+                <th>Inception Date</th>
+                <th>Expiration Date</th>
+                <th>Expiration Hours</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
+        </thead>
+ 
+        <tfoot>
+           <tr>
+            	<th>ID</th>
+                <th>Serial</th>
+                <th>LOL</th>
+                <th>Inception Date</th>
+                <th>Expiration Date</th>
+                <th>Expiration Hours</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
+        </tfoot>
+ 
+        <tbody>
+            <tr ng-repeat="contract in contractList">
+            	<td>{{contract.contractId}}</td>
+            	<td>{{contract.machineSerialNo}}</td>
+                <td>{{contract.lol}}</td>
+                <td>{{contract.inceptionDate |  date:"MM/dd/yyyy"}}</td>
+                <td>{{contract.expirationDate |  date:"MM/dd/yyyy"}}</td>
+                <td>{{contract.expirationUsageHours}}</td>
+                <td>{{(contract.status == 1)?"Active":(contract.status == 2)?"Expired":(contract.status == 3)?"Cancelled":"Archived"}}</td>
+                <td>
+                	<div class="manage-sec"><!-- <a href="#"><img src="../assets/images/delete-icon.png" alt="Delete" title="Delete"/></a> -->
+                		<!-- <a ng-click="viewQuote(quote.id, quote.quoteId)"><img src="../assets/images/edit-icon.png" alt="Edit" title="Edit"/></a> -->
+                		<!-- <a href="#"> --><img src="../assets/images/edit-icon.png" alt="View" title="View"/><!-- </a> -->
+                	</div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 
 	<!-- end data table section -->
 

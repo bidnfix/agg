@@ -117,6 +117,14 @@ routingApp.config(['$routeProvider',
                     	  templateUrl: '../../jsp/home.jsp',
                     	  controller: 'InvoicedController'
                       }).
+                      when('/agg/activeContract', {
+                    	  templateUrl: '../../jsp/home.jsp',
+                    	  controller: 'ActiveContractController'
+                      }).
+                      when('/agg/inactiveContract', {
+                    	  templateUrl: '../../jsp/home.jsp',
+                    	  controller: 'InactiveContractController'
+                      }).
                       when('/agg/contracts', {
                     	  templateUrl: '../../jsp/contracts.jsp',
                     	  controller: 'ContractsController'
@@ -726,6 +734,37 @@ routingApp.controller('InvoicedController', function($scope, $http, $timeout) {
 	$http.get("/agg/invoicedQuotes")
 	.then(function(response) {
         $scope.quoteList = response.data.data;
+        $timeout(function () {
+        	$('#quotesTbl').DataTable();
+        }, 300);
+    });
+	
+	/*$scope.viewQuote = function(id, quoteId){
+		alert(id+" "+quoteId);
+		return '../../jsp/pendingDealers.jsp';
+	}*/
+})
+
+
+routingApp.controller('ActiveContractController', function($scope, $http, $timeout) {
+	$http.get("/agg/activeContracts")
+	.then(function(response) {
+		$scope.contractList = response.data.data.contractDOList;
+        $timeout(function () {
+        	$('#quotesTbl').DataTable();
+        }, 300);
+    });
+	
+	/*$scope.viewQuote = function(id, quoteId){
+		alert(id+" "+quoteId);
+		return '../../jsp/pendingDealers.jsp';
+	}*/
+})
+
+routingApp.controller('InactiveContractController', function($scope, $http, $timeout) {
+	$http.get("/agg/inactiveContracts")
+	.then(function(response) {
+		$scope.contractList = response.data.data.contractDOList;
         $timeout(function () {
         	$('#quotesTbl').DataTable();
         }, 300);
