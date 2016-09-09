@@ -28,38 +28,25 @@
 				</li>
                 
                 <li>
-					<a href="#/agg/activeContract">Active Contract<span class="badge">{{activeDealers}}</span></a>
+					<a ng-click="getActiveContracts()">Active Contract<span class="badge">{{activeDealers}}</span></a>
 				</li>
 				
                 
                 <li>
-					<a href="#/agg/estPriceQuotes">Estimating Price<span class="badge">{{estPrice}}</span></a>
+					<a ng-click="getEstQuotes()">Estimating Price<span class="badge">{{estPrice}}</span></a>
 				</li>
 				<li>
-					<a href="#/agg/invoiced">Invoiced<span class="badge">{{invoiced}}</span></a>
+					<a ng-click="getInvoicedQuotes()">Invoiced<span class="badge">{{invoiced}}</span></a>
 				</li>
                 
                 <li>
-					<a href="#/agg/purchaseReqQuotes">Purchase Requested<span class="badge">{{purchaseReq}}</span></a>
+					<a ng-click="getReqQuotes()">Purchase Requested<span class="badge">{{purchaseReq}}</span></a>
 				</li>
 				
                 
                 <li>
 					<a href="#/agg/dealers">Claims<span class="badge">{{terminatedDealers}}</span></a>
 				</li>
-                <!--
-                <li>
-					<a href="#"> Invoiced  <span class="badge">24</span></a>
-				</li>
-                
-                <li>
-					<a href="#"> Purchase Requested <span class="badge">6</span></a>
-				</li>
-                
-                <li>
-					<a href="#"> Claims <span class="badge">112</span></a>
-				</li>
-				-->
 				
 			</ul>
 			
@@ -68,7 +55,7 @@
 	</nav>
 
 	<!-- data table section -->
-	<table id="quotesTbl" class="table table-striped table-bordered" cellspacing="0" width="100%" ng-disbale="{{(quoteList != null && quoteList.size >0)?false:true}}">
+	<table id="quotesTbl" class="table table-striped table-bordered" cellspacing="0" width="100%" ng-hide="{{(quoteList != null && quoteList.size >0)?false:true}}">
         <thead>
             <tr>
             	<th>ID</th>

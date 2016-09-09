@@ -251,6 +251,40 @@ routingApp.controller('HomeController', function($scope, $http) {
     	$scope.purchaseReq = response.data.data.worklistDO.purchaseReq;
     	$scope.quoteList = response.data.data.quoteList;
     });
+	
+	$scope.getEstQuotes = function(){
+		alert(1);
+		$http.get("/agg/estimatedPriceQuotes")
+		.then(function(response) {
+	        $scope.quoteList = response.data.data;
+	        $timeout(function () {
+	        	$('#quotesTbl').DataTable();
+	        }, 300);
+	    });
+	}
+	
+	$scope.getInvoicedQuotes = function(){
+		alert(2);
+		$http.get("/agg/invoicedQuotes")
+		.then(function(response) {
+	        $scope.quoteList = response.data.data;
+	        $timeout(function () {
+	        	$('#quotesTbl').DataTable();
+	        }, 300);
+	    });
+	}
+	
+	$scope.getReqQuotes = function(){
+		alert(3);
+		$http.get("/agg/purchaseRequestedQuotes")
+		.then(function(response) {
+	        $scope.quoteList = response.data.data;
+	        $timeout(function () {
+	        	$('#quotesTbl').DataTable();
+	        }, 300);
+	    });
+	}
+	
 });
 
 
