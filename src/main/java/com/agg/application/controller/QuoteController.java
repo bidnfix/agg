@@ -273,12 +273,19 @@ public class QuoteController extends BaseController {
 		    	}else if(quoteDO.getCoverageEndDate() != null && quoteDO.getCoverageEndDate().after(new Date())){
 		    		coverageExpired = false;
 		    	}
-				Map<String, List<Integer>> deductCoverageMap = quoteService.getDeductableCoverageTermDetails(coverageExpired, 
-						quoteDO.getMachineInfoDO().getMachineId());
-				
-				List<PricingDO> pricingDOList = quoteService.getCoveragePriceDetils(coverageExpired, 
-						quoteDO.getMachineInfoDO().getMachineId(), new Double(quoteDO.getDeductiblePrice()).intValue(), quoteDO.getCoverageTerm(), 0);
-				List<MachineInfoDO> machineModels = machineService.getManfModel(Integer.valueOf(String.valueOf(quoteDO.getManufacturerDO().getId())));
+				Map<String, List<Integer>> deductCoverageMap = null;
+				List<PricingDO> pricingDOList = null;
+				List<MachineInfoDO> machineModels = null;
+				if(quoteDO.getMachineInfoDO() != null){
+					deductCoverageMap = quoteService.getDeductableCoverageTermDetails(coverageExpired, 
+							quoteDO.getMachineInfoDO().getMachineId());
+					
+					pricingDOList = quoteService.getCoveragePriceDetils(coverageExpired, 
+							quoteDO.getMachineInfoDO().getMachineId(), new Double(quoteDO.getDeductiblePrice()).intValue(), quoteDO.getCoverageTerm(), 0);
+				}
+				if(quoteDO.getManufacturerDO() != null){
+					machineModels = machineService.getManfModel(Integer.valueOf(String.valueOf(quoteDO.getManufacturerDO().getId())));
+				}
 				List<Integer> coverageLevelHoursList = null;
 				if(pricingDOList != null && !pricingDOList.isEmpty()){
 					coverageLevelHoursList = new ArrayList<Integer>();
@@ -286,10 +293,13 @@ public class QuoteController extends BaseController {
 						coverageLevelHoursList.add(pricingDO.getCoverageLevelHours());
 					}
 				}
-				List<Integer> deductibleAmtList = deductCoverageMap.get("deductibleAmtList");
-				List<Integer> coverageTermList = deductCoverageMap.get("coverageTermList");
-				model.addAttribute("deductibleAmtList", deductibleAmtList);
-				model.addAttribute("coverageTermList", coverageTermList);
+				if(deductCoverageMap != null){
+					List<Integer> deductibleAmtList = deductCoverageMap.get("deductibleAmtList");
+					List<Integer> coverageTermList = deductCoverageMap.get("coverageTermList");
+					model.addAttribute("deductibleAmtList", deductibleAmtList);
+					model.addAttribute("coverageTermList", coverageTermList);
+				}
+				
 				model.addAttribute("pricingDOList", pricingDOList);
 				model.addAttribute("dealerDOList", dealerDOList);
 				model.addAttribute("manufacturerDOList", manufacturerDOList);

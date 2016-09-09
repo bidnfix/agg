@@ -834,6 +834,8 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 			coverageExpired = true;
 		}
 		
+		$scope.quote.groupId = machineInfoDO.groupId;
+		
 		var machineId = machineInfoDO.machineId;
 		$http.get("/agg/quote/coverageDeductInfo/"+coverageExpired+"/"+machineId)
 		.then(function(response) {
@@ -884,6 +886,18 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 				}
 		    });
 		});  
+	}
+	
+	$scope.changeQuoteBasePrice = function(coverageType){
+		angular.forEach($scope.pricingDOList, function(pricingDO, key){
+			if(coverageType == "PH"){
+				$scope.quote.quoteBasePrice = pricingDO.phBasePrice;
+			}else if(coverageType == "PL"){
+				$scope.quote.quoteBasePrice = pricingDO.plBasePrice;
+			}else if(coverageType == "PT"){
+				$scope.quote.quoteBasePrice = pricingDO.ptBasePrice;
+			}
+		});
 	}
 	
 	$scope.editQuote = function(){

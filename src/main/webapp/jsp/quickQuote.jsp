@@ -107,7 +107,7 @@
                        </div>
                        <div class="form-group">
                          <label>Coverage Type</label>
-                         <select name="coverageType" ng-model="quote.coverageType" class="form-control"  validate-on="dirty" required="required" ng-disabled="disabled">
+                         <select name="coverageType" ng-model="quote.coverageType" class="form-control"  validate-on="dirty" required="required" ng-disabled="disabled" ng-change="changeQuoteBasePrice(quote.coverageType)">
                          	<option value="">Select Coverage Type</option>
                          	<option ng-repeat="ctype in quote.coverageTypeSet" value="{{ctype}}" ng-selected="{{quote.coverageType == ctype}}">
                          		{{(ctype == 'PH')?"Powertrain + Hydraulic":(ctype == 'PT')?"Powertrain":"Powertrain + Hydraulic + Platform"}}

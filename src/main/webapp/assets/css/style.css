@@ -956,10 +956,6 @@ ul li.has-subnav .accordion-btn {
 }
 }
 
-
-.mar-bot{
-	margin-bottom:25px!important;}
-	
 .err-msg{
 	color: #BB1818 !important;
 	padding-bottom: 12px;
@@ -985,11 +981,22 @@ span .man-field {
 	color: #f40a0a;
 }
 
+
+
+
+.mar-bot{
+	margin-bottom:25px!important;}
+.no-pad{
+    padding: 0px !important;
+}
 .pad10{
     padding: 10px !important;
 }
 .pad10-left{
     padding-left: 10px !important;
+}
+.pad20-left{
+    padding-left: 20px !important;
 }
 .pad10-right{
     padding-right: 10px !important;
@@ -997,20 +1004,35 @@ span .man-field {
 .pad10-top{
     padding-top: 10px !important;
 }
+.pad5-left{
+    padding-left: 5px !important;
+}
 .border{
     border:1px #eee solid;
 }
 .marg10{
     margin: 10px !important;
 }
+.marg10-left{
+    margin-left: 10px !important;
+}
+.marg10-right{
+    margin-right: 10px !important;
+}
 .marg10-bottom{
     margin-bottom: 10px !important;
+}
+.marg10-top{
+    margin-top: 10px !important;
 }
 .border-left{
     border-left:1px #c3c1c1 solid;
 }
 .border-bottom{
     border-bottom:1px #c3c1c1 solid;
+}
+.border-right{
+    border-right:1px #c3c1c1 solid;
 }
 .f-l{
     float: left !important;
@@ -1028,6 +1050,14 @@ span .man-field {
     width: 49% !important;
     float: left;
 }
+.agf1 .form-group label:after{
+    content: " :";
+}
+.agf1 .form-group p{
+    width: 49% !important;
+    float: left;
+}
+
 .agf1 .form-group .form-control{
     width: 49% !important;
 }
@@ -1049,8 +1079,8 @@ span .man-field {
     background: #EEEEEE !important;
 }
 .agf1 .btn{
-    font-size: 14px !important;
-    padding: 10px 15px !important;
+    font-size: 14px;
+    padding: 10px 15px;
  }
 .agf1 .inner-main{
     background: #fff !important;
@@ -1084,4 +1114,28 @@ span .man-field {
     font-size: 12px !important;
     line-height: 1.5 !important;
     padding: 5px 10px !important;
+}
+.c-tabs-nav__link{
+    padding: 5px 0px !important;
+}.c-tab{
+    background-color: #EEEEEE !important;
+}
+.ag-tab-title{
+    background: #fff none repeat scroll 0 0 !important;
+    font-size: 16px !important;
+    margin: 0px -15px 0 !important;
+    padding: 10px !important;
+    width: 104% !important;
+    border-bottom: 1px solid #d1d1d1;
+    color: #205F9F !important;
+}
+.t-r{
+    text-align: right !important;
+}
+.t-c{
+    text-align: center !important;
+}
+.agf1 .fa-info-circle{
+    color: #205F9F !important;
+    font-size: 20px !important;
 }
