@@ -66,6 +66,10 @@ routingApp.config(['$routeProvider',
                     	  templateUrl: '../../jsp/preAuthReqClaim.jsp',
                     	  controller: 'ClaimsPreAuthController'
                       }).
+                      when('/agg/adjudicateClaim', {
+                    	  templateUrl: '../../jsp/adjudicateClaim.jsp',
+                    	  controller: 'ClaimsAdjudicateController'
+                      }).
                       when('/agg/editClaim', {
                     	  templateUrl: '../../jsp/fileaClaim.jsp',
                     	  controller: 'ClaimsController'
