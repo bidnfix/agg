@@ -55,7 +55,7 @@
 	</nav>
 
 	<!-- data table section -->
-	<table id="quotesTbl" class="table table-striped table-bordered" cellspacing="0" width="100%" ng-hide="{{(quoteList != null && quoteList.size >0)?false:true}}">
+	<table id="quotesTbl" class="table table-striped table-bordered" cellspacing="0" width="100%" >
         <thead>
             <tr>
             	<th>ID</th>

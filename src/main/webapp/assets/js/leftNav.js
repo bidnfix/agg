@@ -109,18 +109,6 @@ routingApp.config(['$routeProvider',
                     	  templateUrl: '../../jsp/quickQuote.jsp',
                     	  controller: 'QuoteDetailController'
                       }).
-                      when('/agg/estPriceQuotes', {
-                    	  templateUrl: '../../jsp/home.jsp',
-                    	  controller: 'EstPriceQuotesController'
-                      }).
-                      when('/agg/purchaseReqQuotes', {
-                    	  templateUrl: '../../jsp/home.jsp',
-                    	  controller: 'PurReqQuotesController'
-                      }).
-                      when('/agg/invoiced', {
-                    	  templateUrl: '../../jsp/home.jsp',
-                    	  controller: 'InvoicedController'
-                      }).
                       when('/agg/activeContract', {
                     	  templateUrl: '../../jsp/home.jsp',
                     	  controller: 'ActiveContractController'
@@ -738,51 +726,6 @@ routingApp.controller('QuotesDetailController', function($scope, $http, $timeout
 	}*/
 })
 
-routingApp.controller('EstPriceQuotesController', function($scope, $http, $timeout) {
-	$http.get("/agg/estimatedPriceQuotes")
-	.then(function(response) {
-        $scope.quoteList = response.data.data;
-        $timeout(function () {
-        	$('#quotesTbl').DataTable();
-        }, 300);
-    });
-	
-	/*$scope.viewQuote = function(id, quoteId){
-		alert(id+" "+quoteId);
-		return '../../jsp/pendingDealers.jsp';
-	}*/
-})
-
-routingApp.controller('PurReqQuotesController', function($scope, $http, $timeout) {
-	$http.get("/agg/purchaseRequestedQuotes")
-	.then(function(response) {
-        $scope.quoteList = response.data.data;
-        $timeout(function () {
-        	$('#quotesTbl').DataTable();
-        }, 300);
-    });
-	
-	/*$scope.viewQuote = function(id, quoteId){
-		alert(id+" "+quoteId);
-		return '../../jsp/pendingDealers.jsp';
-	}*/
-})
-
-routingApp.controller('InvoicedController', function($scope, $http, $timeout) {
-	$http.get("/agg/invoicedQuotes")
-	.then(function(response) {
-        $scope.quoteList = response.data.data;
-        $timeout(function () {
-        	$('#quotesTbl').DataTable();
-        }, 300);
-    });
-	
-	/*$scope.viewQuote = function(id, quoteId){
-		alert(id+" "+quoteId);
-		return '../../jsp/pendingDealers.jsp';
-	}*/
-})
-
 
 routingApp.controller('ActiveContractController', function($scope, $http, $timeout) {
 	$http.get("/agg/activeContracts")
@@ -793,10 +736,6 @@ routingApp.controller('ActiveContractController', function($scope, $http, $timeo
         }, 300);
     });
 	
-	/*$scope.viewQuote = function(id, quoteId){
-		alert(id+" "+quoteId);
-		return '../../jsp/pendingDealers.jsp';
-	}*/
 })
 
 routingApp.controller('InactiveContractController', function($scope, $http, $timeout) {
@@ -808,10 +747,6 @@ routingApp.controller('InactiveContractController', function($scope, $http, $tim
         }, 300);
     });
 	
-	/*$scope.viewQuote = function(id, quoteId){
-		alert(id+" "+quoteId);
-		return '../../jsp/pendingDealers.jsp';
-	}*/
 })
 
 routingApp.controller('QuoteDetailController', function($scope, $http, $timeout, $routeParams, $route, $window, quoteService) {
