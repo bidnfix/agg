@@ -194,32 +194,22 @@
 	                       <p>Please upload pdf versions of quotes and any pictures showing the damage.</p>
 	                       <br>
 	                        <div class="col-sm-12">
-	                        <div class="col-sm-6">
-	                          <div class="form-group">
-	                          <label>File</label>
-	                          <input type="file" id="">
-	                          </div>
-	                        </div>
-	                        </div>
-	                        <div class="col-sm-12">
-	                        <div class="col-sm-6">
-	                          <div class="form-group">
-	                          <label>File</label>
-	                          <input type="file" id="">
-	                          </div>
-	                        </div>
+		                        <div class="col-sm-6">
+		                          <div class="form-group">
+		                          <label>File</label>
+		                          	<input type="file" id="" name="files" multiple onchange="angular.element(this).scope().addAttachment(this)">
+		                          </div>
+		                        </div>
 	                        </div>
 	                        <div class="col-sm-12">
-	                        <div class="col-sm-6">
-	                          <div class="form-group">
-	                          <label>File</label>
-	                          <input type="file" id="">
-	                          </div>
+	                        	<ul>
+							        <li ng-repeat="file in attachments">{{file.name}}</li>
+							    </ul>
 	                        </div>
-	                        </div>
-	                        <div class="col-sm-12 marg10-bottom">
-	                        <a class="btn btn-primary btn-sm" href="#"> more</a>
-	                        </div>
+	                        
+	                        <!-- <div class="col-sm-12 marg10-bottom">
+	                        	<button class="btn btn-primary btn-sm" valur="more"></button>
+	                        </div> -->
 	                    </div>
 	
 	              	</div>

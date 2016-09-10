@@ -3,6 +3,8 @@
  */
 package com.agg.application.vo;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * @author htamada
  *

@@ -3,6 +3,7 @@
 routingApp.controller('ClaimsController', ['$scope', 'claimService', '$http', '$timeout', function($scope, claimService, $http, $timeout) {
 	$scope.serialNo='';
 	$scope.claim={};
+	$scope.claim.attachments=[];
 	$scope.submitClaim = function() {
 		claimService.saveClaim($scope.claim);
     };
@@ -21,7 +22,7 @@ routingApp.controller('ClaimsController', ['$scope', 'claimService', '$http', '$
     	claimService.selectContract($scope, data);
     };
     $scope.onClickSubmitClaim = function(){
-    	claimService.saveClaim($scope.claim, $scope.newClaimClick);
+    	claimService.saveClaim($scope.claim, $scope.attachments, $scope.newClaimClick);
     };
     
     $scope.calcTotalPartLine = function(index){
@@ -45,6 +46,15 @@ routingApp.controller('ClaimsController', ['$scope', 'claimService', '$http', '$
     $scope.reqSubmit = function(){
     	//claimService.saveClaim($scope.claim, 'pre_authorized_requested');
     	$scope.newClaimClick='Pending';
+    };
+    
+    $scope.addAttachment = function (e) {
+        $scope.$apply(function () {
+        	$scope.attachments = $scope.claim.attachments || [];
+            for (var i = 0; i < e.files.length; i++) {
+            	$scope.attachments.push(e.files[i])
+            }
+        });
     };
 }]);
 

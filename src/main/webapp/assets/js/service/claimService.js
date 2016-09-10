@@ -102,11 +102,11 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', functi
     			}
     		});
 		},
-		saveClaim : function(claim, status) {
+		saveClaim : function(claim, files, status) {
 			alert('in saveClaim');
 			claim.cStatus = status;
 			console.log(JSON.stringify(claim));
-			return $http.post('/agg/saveClaim', claim).then(
+			/*return $http.post('/agg/saveClaim', claim).then(
 					function(response) {
 						alert(response.data.status);
 						if (response.data.status == 'success') {
@@ -119,7 +119,20 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', functi
 					}, function(errResponse) {
 						alert('Error while creating program');
 						return $q.reject(errResponse);
-					});
+					});*/
+			var fd = new FormData();
+			fd.append('data', angular.toJson(claim));
+			fd.append('files', files);
+			return $http({
+		        method: 'POST',
+		        url: '/agg/saveClaim',
+		        headers: {'Content-Type': undefined},
+		        data: fd,
+		        transformRequest: angular.identity
+		        })
+		       .success(function(data, status) {
+		             alert("success");
+		        });
 		},
 		selectContract : selectContract,
 		calcTotalPartLine : calcTotalPartLine,

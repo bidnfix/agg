@@ -1,11 +1,10 @@
 package com.agg.application.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,7 +28,6 @@ import com.agg.application.model.ClaimLaborDO;
 import com.agg.application.model.ClaimMailDO;
 import com.agg.application.model.ClaimPartDO;
 import com.agg.application.model.ClaimsDO;
-import com.agg.application.model.ContractDO;
 import com.agg.application.model.DealerDO;
 import com.agg.application.model.QuoteDO;
 import com.agg.application.model.Result;
@@ -42,6 +41,10 @@ import com.agg.application.utils.Util;
 import com.agg.application.vo.ClaimPartVO;
 import com.agg.application.vo.ClaimPreAuthVO;
 import com.agg.application.vo.ClaimsVO;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 
 @RestController
 @RequestMapping("/agg")
@@ -107,8 +110,24 @@ public class ClaimsController extends BaseController {
 	}*/
 	
 	@RequestMapping(value = "/saveClaim", method = RequestMethod.POST)
-	public @ResponseBody Result saveClaim(@RequestBody ClaimsVO claimsVO, BindingResult result,
+	public @ResponseBody Result saveClaim(@ModelAttribute("data") Object data, @ModelAttribute("files") Object fileList, BindingResult result,
 			HttpServletRequest request, HttpServletResponse response) {
+		ClaimsVO claimsVO = null;
+		claimsVO = new Gson().fromJson(data.toString(), ClaimsVO.class);
+		//ClaimsVO claimsVO = new ClaimsVO();
+		/*List<MultipartFile> files = fileList;
+
+		List<String> fileNames = new ArrayList<String>();
+		
+		if(null != files && files.size() > 0) {
+			for (MultipartFile multipartFile : files) {
+
+				String fileName = multipartFile.getOriginalFilename();
+				fileNames.add(fileName);
+				//Handle file content - multipartFile.getInputStream()
+
+			}
+		}*/
 		logger.debug("In saveClaim ");
 		if(!sessionExists(request)){
 			return new Result("failure", "Session Expired", null);
