@@ -51,8 +51,9 @@
 			<div class="form-group">
 				<label for="group id" class="col-sm-3 control-label">Group ID</label>
 				<div class="col-sm-9">
-				<select name="groupId" ng-model="machine.groupDO" id="groupId" required="required">
-						<option data-toggle="tooltip" title="{{groupDO.tips}}" tooltip-placement="top" ng-repeat="groupDO in groupList track by groupDO.groupId">{{groupDO.groupId}}</option>
+				<select name="groupId" ng-model="machine.groupDO" id="groupId" required="required" ng-options="groupDO.groupId for groupDO in groupList track by groupDO.groupId">
+						<!-- <option data-toggle="tooltip" title="{{groupDO.tips}}" tooltip-placement="top" value="{{groupDO}}" 
+						ng-repeat="groupDO in groupList track by groupDO.groupId">{{groupDO.groupId}}</option> -->
 				</select>
 				</div>
 			</div>
