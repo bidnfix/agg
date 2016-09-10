@@ -1,14 +1,7 @@
 'use strict';
 
 routingApp.controller('ClaimsController', ['$scope', 'claimService', '$http', '$timeout', function($scope, claimService, $http, $timeout) {
-	/*$http.get("/agg/claimsInfo")
-    .then(function(response) {
-    	$scope.quoteDOList = response.data.data.quoteInfoList;
-    	//alert(response.data.data.quoteInfoList)
-        $timeout(function () {
-        	$('#table1').DataTable();
-        }, 500);
-    });*/
+	$scope.serialNo='';
 	$scope.claim={};
 	$scope.submitClaim = function() {
 		claimService.saveClaim($scope.claim);
@@ -28,7 +21,7 @@ routingApp.controller('ClaimsController', ['$scope', 'claimService', '$http', '$
     	claimService.selectContract($scope, data);
     };
     $scope.onClickSubmitClaim = function(){
-    	claimService.saveClaim($scope.claim, 'Pending');
+    	claimService.saveClaim($scope.claim, $scope.newClaimClick);
     };
     
     $scope.calcTotalPartLine = function(index){
@@ -40,11 +33,18 @@ routingApp.controller('ClaimsController', ['$scope', 'claimService', '$http', '$
     };
     
     $scope.saveAsDraft = function(){
-    	claimService.saveClaim($scope.claim, 'Draft');
+    	//claimService.saveClaim($scope.claim, 'Draft');
+    	$scope.newClaimClick='Draft';
     };
     
     $scope.reqAuth = function(){
-    	claimService.saveClaim($scope.claim, 'pre_authorized_requested');
+    	//claimService.saveClaim($scope.claim, 'pre_authorized_requested');
+    	$scope.newClaimClick='pre_authorized_requested';
+    };
+    
+    $scope.reqSubmit = function(){
+    	//claimService.saveClaim($scope.claim, 'pre_authorized_requested');
+    	$scope.newClaimClick='Pending';
     };
 }]);
 
@@ -57,5 +57,17 @@ routingApp.controller('ClaimsPreAuthController', function($scope, $http, claimPr
 	
 	$scope.reqAuth = function(status){
 		claimPreAuthReqService.reqAuth($scope, status);
+	};
+});
+
+routingApp.controller('ClaimsAdjudicateController', function($scope, $http, claimsAdjudicateService, $window){
+	claimsAdjudicateService.init($scope);
+	
+	$scope.onClickSelectClaim = function(claim){
+		claimsAdjudicateService.selectClaim($scope, claim);
+	};
+	
+	$scope.reqAuth = function(status){
+		claimsAdjudicateService.reqAuth($scope, status);
 	};
 });

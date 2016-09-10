@@ -8,6 +8,7 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', functi
 	var selectContract = function($scope, data){
 			$scope.contractInfoList = data;
 			$scope.showActiveContractDetails = false;
+			$scope.showSearchClaim = false;
 			$scope.showContractDetails = true;
 			initClaimAddForm($scope);
 		},
@@ -177,6 +178,71 @@ routingApp.factory('claimPreAuthReqService', ['$http', '$q', '$window', '$timeou
 	reqAuth = function($scope, status){
 		if(status === 'pre_authorized_approved_with_adjustments' || status === 'pre_authorized_rejected'){
 			if($scope.preAuthClaim.extComment){
+				submit($scope, status);
+			}
+		}
+		if(status === 'pre_authorized_approved'){
+			submit($scope, status);
+		}
+	};
+	
+	return {
+		init : init,
+		selectClaim : selectClaim,
+		reqAuth : reqAuth
+	}
+}]);
+
+routingApp.factory('claimsAdjudicateService', ['$http', '$q', '$window', '$timeout', function($http, $q, $window, $timeout){
+	var init = function($scope){
+		$http.get("/agg/preAuthClaimReq")
+	    .then(function(response) {
+	    	$scope.adjudicateClaimList = response.data.data.preAuthClaimList;
+	    });
+	},
+	calcCost = function(adjudicateClaim){
+		if(adjudicateClaim){
+			adjudicateClaim.totalPartCost = 0;
+			if(adjudicateClaim.claimPartDO){
+				for(var i in adjudicateClaim.claimPartDO){
+					adjudicateClaim.totalPartCost += adjudicateClaim.claimPartDO[i].qty * adjudicateClaim.claimPartDO[i].unitPrice;
+				}
+			}
+			adjudicateClaim.totalClaimCost = (adjudicateClaim.claimLaborDO.laborHrs * adjudicateClaim.claimLaborDO.rate) + adjudicateClaim.totalPartCost
+				+ adjudicateClaim.requestedOtherCharges1 + adjudicateClaim.requestedOtherCharges2;
+		}
+	},
+	selectClaim = function($scope, claim){
+		$scope.showPreAuthClaimList = false;
+		$scope.adjudicateClaim = claim;
+		calcCost($scope.adjudicateClaim);
+		$scope.extCommentFlag = true;
+	},
+	submit = function($scope, status){
+		var data = {};
+		data.id = $scope.adjudicateClaim.id;
+		data.cStatus = status;
+		if($scope.adjudicateClaim.extComment){
+			data.extComment = $scope.adjudicateClaim.extComment;
+		}
+		$http.put('/agg/preAuthClaimReq', data).then(
+				function(response) {
+					alert(response.data.status);
+					if (response.data.status == 'success') {
+						$window.location = '#/agg/fileClaim';
+					} else {
+						alert('error in adding program: '+response.data.errMessage)
+						//$('#errMsg').html(response.data.errMessage);
+					}
+					
+				}, function(errResponse) {
+					alert('Error while creating program');
+					return $q.reject(errResponse);
+				});
+	},
+	reqAuth = function($scope, status){
+		if(status === 'pre_authorized_approved_with_adjustments' || status === 'pre_authorized_rejected'){
+			if($scope.adjudicateClaim.extComment){
 				submit($scope, status);
 			}
 		}
