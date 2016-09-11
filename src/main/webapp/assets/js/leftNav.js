@@ -56,7 +56,7 @@ routingApp.config(['$routeProvider',
                       }).
                       when('/agg/claimsInfo', {
                     	  templateUrl: '../../jsp/claimsInfo.jsp',
-                    	  controller: 'ClaimsController'
+                    	  controller: 'ClaimsInfoController'
                       }).
                       when('/agg/fileClaim', {
                     	  templateUrl: '../../jsp/fileClaim.jsp',
@@ -108,14 +108,6 @@ routingApp.config(['$routeProvider',
                       when('/agg/viewQuote/:quoteId/:quoteCode', {
                     	  templateUrl: '../../jsp/quickQuote.jsp',
                     	  controller: 'QuoteDetailController'
-                      }).
-                      when('/agg/activeContract', {
-                    	  templateUrl: '../../jsp/home.jsp',
-                    	  controller: 'ActiveContractController'
-                      }).
-                      when('/agg/inactiveContract', {
-                    	  templateUrl: '../../jsp/home.jsp',
-                    	  controller: 'InactiveContractController'
                       }).
                       when('/agg/contracts', {
                     	  templateUrl: '../../jsp/contracts.jsp',
@@ -238,6 +230,10 @@ routingApp.controller('HomeController', function($scope, $http) {
         //$scope.activeDealers = response.data.data.activeDealers;
         //$scope.pendingDealers = response.data.data.pendingDealers;
         //$scope.terminatedDealers = response.data.data.terminatedDealers;
+    	//Sample to avoid null
+    	//$scope.program.manufacturerDO = $scope.program.manufacturerDO || {};
+    	//$scope.program.manufacturerDO.name = programDO.manufacturerDO.name;
+    	
     	$scope.estPrice = response.data.data.worklistDO.estPrice;
     	$scope.invoiced = response.data.data.worklistDO.invoiced;
     	$scope.purchaseReq = response.data.data.worklistDO.purchaseReq;
@@ -271,6 +267,28 @@ routingApp.controller('HomeController', function($scope, $http) {
 		$http.get("/agg/purchaseRequestedQuotes")
 		.then(function(response) {
 	        $scope.quoteList = response.data.data;
+	        $timeout(function () {
+	        	$('#quotesTbl').DataTable();
+	        }, 300);
+	    });
+	}
+	
+	$scope.getActiveContracts = function()
+	{
+		$http.get("/agg/activeContracts")
+		.then(function(response) {
+			//$scope.contractList = response.data.data.contractDOList;
+	        $timeout(function () {
+	        	$('#quotesTbl').DataTable();
+	        }, 300);
+	    });
+	}
+	
+	$scope.getInactiveContracts = function()
+	{
+		$http.get("/agg/inactiveContracts")
+		.then(function(response) {
+			//$scope.contractList = response.data.data.contractDOList;
 	        $timeout(function () {
 	        	$('#quotesTbl').DataTable();
 	        }, 300);
@@ -727,7 +745,7 @@ routingApp.controller('QuotesDetailController', function($scope, $http, $timeout
 })
 
 
-routingApp.controller('ActiveContractController', function($scope, $http, $timeout) {
+/*routingApp.controller('ActiveContractController', function($scope, $http, $timeout) {
 	$http.get("/agg/activeContracts")
 	.then(function(response) {
 		$scope.contractList = response.data.data.contractDOList;
@@ -747,7 +765,19 @@ routingApp.controller('InactiveContractController', function($scope, $http, $tim
         }, 300);
     });
 	
+})*/
+
+routingApp.controller('ClaimsInfoController', function($scope, $http, $timeout) {
+	$http.get("/agg/getClaimsInfo")
+	.then(function(response) {
+		 $scope.quoteDOList = response.data.data.quoteDOList;
+        $timeout(function () {
+        	$('#quotesTbl').DataTable();
+        }, 300);
+    });
+	
 })
+
 
 routingApp.controller('QuoteDetailController', function($scope, $http, $timeout, $routeParams, $route, $window, quoteService) {
 	//alert($routeParams.quoteId+" - "+$routeParams.quoteCode);

@@ -17,30 +17,36 @@
         <thead>
             <tr>
             	<th>ID</th>
+                <th>Customer</th>
+                <th>Dealer Contact</th>
+                <th>Serial</th>
                 <th>Manufacturer</th>
                 <th>Model</th>
-                <th>Serial</th>
-                <th>Coverage Type</th>
+                <th>Status</th>
             </tr>
         </thead>
  
         <tfoot>
             <tr>
             	<th>ID</th>
+                <th>Customer</th>
+                <th>Dealer Contact</th>
+                <th>Serial</th>
                 <th>Manufacturer</th>
                 <th>Model</th>
-                <th>Serial</th>
-                <th>Coverage Type</th>
+                <th>Status</th>
             </tr>
         </tfoot>
  
         <tbody>
             <tr ng-repeat="quote in quoteDOList" >
-                <td><a style="cursor: pointer;" ng-click="editClaim(quote.id.quoteId)">{{quote.id.quoteId}}</a></td>
+                <td>{{quote.id.quoteId}}</td>
+                <td>{{quote.customerInfoDO.name}}</td>
+                <td>{{quote.dealerDO.name}}</td>
+                <td>{{quote.serialNumber}}</td>
                 <td>{{quote.manufacturerDO.name}}</td>
-                <td>{{quote.machineModel}}</td>
-                <td>{{quote.machineSerial}}</td>
-                <td>{{quote.coverageTerm}}</td>
+                <td>{{quote.machineInfoDO.model}}</td>
+                <td>{{quote.status}}</td>
             </tr>
         </tbody>
     </table>

@@ -24,7 +24,7 @@
 		<div id="navbar">
 			<ul class="nav navbar-nav ">
 				<li>
-					<a href="#/agg/inactiveContract">Expired Contract<span class="badge">{{pendingDealers}}</span></a>
+					<a ng-click="getInactiveContracts()">Expired Contract<span class="badge">{{inactiveDealers}}</span></a>
 				</li>
                 
                 <li>

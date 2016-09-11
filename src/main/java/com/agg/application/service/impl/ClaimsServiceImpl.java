@@ -15,16 +15,23 @@ import org.springframework.transaction.annotation.Transactional;
 import com.agg.application.dao.ClaimLaborDAO;
 import com.agg.application.dao.ClaimPartDAO;
 import com.agg.application.dao.ClaimsDAO;
+import com.agg.application.dao.DealerDAO;
+import com.agg.application.dao.MachineInfoDAO;
 import com.agg.application.dao.ManufacturerDAO;
 import com.agg.application.dao.QuoteDAO;
 import com.agg.application.entity.ClaimLabor;
 import com.agg.application.entity.ClaimPart;
 import com.agg.application.entity.Claims;
+import com.agg.application.entity.Dealer;
+import com.agg.application.entity.MachineInfo;
 import com.agg.application.entity.Manufacturer;
 import com.agg.application.entity.Quote;
 import com.agg.application.model.ClaimLaborDO;
 import com.agg.application.model.ClaimPartDO;
 import com.agg.application.model.ClaimsDO;
+import com.agg.application.model.CustomerInfoDO;
+import com.agg.application.model.DealerDO;
+import com.agg.application.model.MachineInfoDO;
 import com.agg.application.model.ManufacturerDO;
 import com.agg.application.model.QuoteDO;
 import com.agg.application.service.ClaimsService;
@@ -50,6 +57,12 @@ public class ClaimsServiceImpl implements ClaimsService {
 	@Autowired
 	private ClaimLaborDAO claimLaborDAO;
 	
+	@Autowired
+	private DealerDAO dealerDAO;
+	
+	@Autowired
+	private MachineInfoDAO machineInfoDAO;
+	
 	
 	public List<QuoteDO> getClaimsInfo()
 	{
@@ -62,6 +75,9 @@ public class ClaimsServiceImpl implements ClaimsService {
 			quoteDOList = new ArrayList<QuoteDO>();
 			QuoteDO quoteDO = null;
 			ManufacturerDO manufacturerDO = null; 
+			CustomerInfoDO customerInfoDO = null; 
+			DealerDO dealerDO = null; 
+			MachineInfoDO machineInfoDO = null; 
 			Quote quote = null;
 			/*ManufacturerDO manufacturerDO = null;
 			MachineTypeDO machineTypeDO = null;*/
@@ -70,20 +86,40 @@ public class ClaimsServiceImpl implements ClaimsService {
 			while(it.hasNext()){
 				quoteDO = new QuoteDO();
 				manufacturerDO = new ManufacturerDO();
+				customerInfoDO = new CustomerInfoDO(); 
+				dealerDO = new DealerDO(); 
+				machineInfoDO = new MachineInfoDO(); 
 				quote = it.next();
 				//logger.debug("machineInfo.getMachineType() " +machineInfo.getMachineType().getMachineType());
 				quoteDO.setId(quote.getId().getId());
 				quoteDO.setQuoteId(quote.getId().getQuoteId());
 				
 				//logger.debug("__quote id "+quote.getId().getQuoteId()+ "  "+quote.getId().getId());
-				
-				Manufacturer manf = manufacturerDAO.findOne(Long.valueOf(quote.getManufacturer().getManfId()));
-				
-				manufacturerDO.setId(quote.getManufacturer().getManfId());
-				manufacturerDO.setName(manf.getManfName());
-				
-				quoteDO.setManufacturerDO(manufacturerDO);
-				
+				if(quote.getManufacturer() != null)
+				{
+					Manufacturer manf = manufacturerDAO.findOne(Long.valueOf(quote.getManufacturer().getManfId()));
+					
+					manufacturerDO.setId(quote.getManufacturer().getManfId());
+					manufacturerDO.setName(manf.getManfName());
+					
+					quoteDO.setManufacturerDO(manufacturerDO);
+				}
+				//CustomerInfo customerInfo = CustomerInfoDAO.findOne(Long.valueOf(quote.getc));
+				if(quote.getDealer() != null)
+				{
+					Dealer dealer = dealerDAO.findOne(Long.valueOf(quote.getDealer().getId()));
+					dealerDO.setId(dealer.getId());
+					dealerDO.setName(dealer.getName());
+					quoteDO.setDealerDO(dealerDO);
+					
+				}
+				if(quote.getMachineInfo() != null)
+				{
+					MachineInfo machineInfo = machineInfoDAO.findOne(Long.valueOf(quote.getMachineInfo().getMachineId()));
+					machineInfoDO.setMachineId(machineInfo.getMachineId());
+					machineInfoDO.setModel(machineInfo.getModel());
+					quoteDO.setMachineInfoDO(machineInfoDO);
+				}
 				
 				quoteDO.setMachineModel(quote.getMachineModel());
 				quoteDO.setMachineSerial(quote.getMachineSerial());
@@ -346,5 +382,7 @@ public class ClaimsServiceImpl implements ClaimsService {
 	public void updateStatus(int id, byte status) {
 		claimsDAO.updateStatus(id, status);
 	}
+	
+	
 	
 }
