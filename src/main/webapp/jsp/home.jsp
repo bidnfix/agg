@@ -24,11 +24,11 @@
 		<div id="navbar">
 			<ul class="nav navbar-nav ">
 				<li>
-					<a ng-click="getInactiveContracts()">Expired Contract<span class="badge">{{inactiveDealers}}</span></a>
+					<a ng-click="getInactiveContracts()">Expired Contract<span class="badge">{{expContracts}}</span></a>
 				</li>
                 
                 <li>
-					<a ng-click="getActiveContracts()">Active Contract<span class="badge">{{activeDealers}}</span></a>
+					<a ng-click="getActiveContracts()">Active Contract<span class="badge">{{actContracts}}</span></a>
 				</li>
 				
                 

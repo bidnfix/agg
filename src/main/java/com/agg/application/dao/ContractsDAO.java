@@ -18,6 +18,7 @@ import com.agg.application.entity.Contracts;
  */
 @Component
 public interface ContractsDAO extends CrudRepository<Contracts, Long>{
+	
 	@Query("SELECT c FROM Contracts c WHERE c.machineSerialNo LIKE CONCAT('%', :machineSerialNo, '%') ")
 	List<Contracts> findByMachineSerialNo(@Param("machineSerialNo") String machineSerialNo);
 	
@@ -28,4 +29,10 @@ public interface ContractsDAO extends CrudRepository<Contracts, Long>{
 	List<Contracts> findByDealerId(@Param("dealerId") long dealerId);
 	
 	List<Contracts> findByStatus(byte status);
+	
+	@Query("SELECT COUNT(*) FROM Contracts c WHERE c.status= :status")
+	public int countByStatus(@Param("status")byte status);
+	
+	/*@Query("SELECT COUNT(*) FROM Contracts c WHERE c.status= :status and c.dealer.id = :dealerId")
+	public int countByStatus(@Param("status")byte status, @Param("dealerId")long dealerId);*/
 }

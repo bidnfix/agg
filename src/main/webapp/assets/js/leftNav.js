@@ -234,6 +234,9 @@ routingApp.controller('HomeController', function($scope, $http) {
     	//$scope.program.manufacturerDO = $scope.program.manufacturerDO || {};
     	//$scope.program.manufacturerDO.name = programDO.manufacturerDO.name;
     	
+    	$scope.worklistDO = $scope.worklistDO || {};
+    	$scope.expContracts = response.data.data.worklistDO.expContracts;
+    	$scope.actContracts = response.data.data.worklistDO.actContracts;
     	$scope.estPrice = response.data.data.worklistDO.estPrice;
     	$scope.invoiced = response.data.data.worklistDO.invoiced;
     	$scope.purchaseReq = response.data.data.worklistDO.purchaseReq;

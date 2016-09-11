@@ -1263,21 +1263,31 @@ public class QuoteServiceImpl implements QuoteService {
 		int estPrice = 0; 
 		int purchaseReq = 0;
 		int invoiced = 0;
+		int activeContract = 0;
+		int inactiveContract = 0;
 		
 		if(accountDO.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)){
 			estPrice = quoteDAO.countByEstPrice();
 			purchaseReq = quoteDAO.countByPurRequested();
 			invoiced = quoteDAO.countByInvoiced();
 			
+			activeContract = contractsDAO.countByStatus(AggConstants.B_ACTIVE_CONTRACT);
+			inactiveContract = contractsDAO.countByStatus(AggConstants.B_INACTIVE_CONTRACT);
+			
 		}else{
 			estPrice = quoteDAO.countByEstPrice(accountDO.getDealerId());
 			purchaseReq = quoteDAO.countByPurRequested(accountDO.getDealerId());
 			invoiced = quoteDAO.countByInvoiced(accountDO.getDealerId());
+			activeContract = contractsDAO.countByStatus(AggConstants.B_ACTIVE_CONTRACT/*, accountDO.getDealerId()*/);
+			inactiveContract = contractsDAO.countByStatus(AggConstants.B_INACTIVE_CONTRACT/*, accountDO.getDealerId()*/);
 		}
 				
 		worklistDO.setEstPrice(estPrice);
 		worklistDO.setPurchaseReq(purchaseReq);
 		worklistDO.setInvoiced(invoiced);
+		worklistDO.setActContracts(activeContract);
+		worklistDO.setExpContracts(inactiveContract);
+		
 		logger.debug("estPrice -->"+estPrice);
 		return worklistDO;
 	}
