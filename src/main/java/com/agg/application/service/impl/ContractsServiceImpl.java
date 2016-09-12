@@ -167,9 +167,9 @@ public class ContractsServiceImpl implements ContractsService{
 	public List<ContractDO> getActiveContracts(AccountDO accountDO) {
 		List<Contracts> contracts = null;
 		if(accountDO.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)){
-			contracts = Util.toList(contractDAO.findByStatus(AggConstants.B_ACTIVE_CONTRACT));
+			contracts = Util.toList(contractDAO.findActive());
 		}else{
-			contracts = Util.toList(contractDAO.findByStatus(AggConstants.B_ACTIVE_CONTRACT));
+			contracts = Util.toList(contractDAO.findActiveByDealerId(accountDO.getDealerId()));
 		}
 		return formatEntityToDO(contracts);
 	}
@@ -178,9 +178,9 @@ public class ContractsServiceImpl implements ContractsService{
 	public List<ContractDO> getInactiveContracts(AccountDO accountDO) {
 		List<Contracts> contracts = null;
 		if(accountDO.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)){
-			contracts = Util.toList(contractDAO.findByStatus(AggConstants.B_INACTIVE_CONTRACT));
+			contracts = Util.toList(contractDAO.findInactive());
 		}else{
-			contracts = Util.toList(contractDAO.findByStatus(AggConstants.B_INACTIVE_CONTRACT));
+			contracts = Util.toList(contractDAO.findInactiveByDealerId(accountDO.getDealerId()));
 		}
 		return formatEntityToDO(contracts);
 	}

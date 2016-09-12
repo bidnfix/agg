@@ -146,8 +146,8 @@
             </tr>
         </tbody>
     </table>
-
-	<!-- end data table section -->
+    
+   	<!-- end data table section -->
 
 </article>
 <!-- /Article -->

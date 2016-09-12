@@ -1271,15 +1271,20 @@ public class QuoteServiceImpl implements QuoteService {
 			purchaseReq = quoteDAO.countByPurRequested();
 			invoiced = quoteDAO.countByInvoiced();
 			
-			activeContract = contractsDAO.countByStatus(AggConstants.B_ACTIVE_CONTRACT);
-			inactiveContract = contractsDAO.countByStatus(AggConstants.B_INACTIVE_CONTRACT);
+			//activeContract = contractsDAO.countByStatus(AggConstants.B_ACTIVE_CONTRACT);
+			//inactiveContract = contractsDAO.countByStatus(AggConstants.B_INACTIVE_CONTRACT);
+			
+			activeContract = contractsDAO.countByActive();
+			inactiveContract = contractsDAO.countByInactive();
 			
 		}else{
 			estPrice = quoteDAO.countByEstPrice(accountDO.getDealerId());
 			purchaseReq = quoteDAO.countByPurRequested(accountDO.getDealerId());
 			invoiced = quoteDAO.countByInvoiced(accountDO.getDealerId());
-			activeContract = contractsDAO.countByStatus(AggConstants.B_ACTIVE_CONTRACT/*, accountDO.getDealerId()*/);
-			inactiveContract = contractsDAO.countByStatus(AggConstants.B_INACTIVE_CONTRACT/*, accountDO.getDealerId()*/);
+			/*activeContract = contractsDAO.countByStatus(AggConstants.B_ACTIVE_CONTRACT, accountDO.getDealerId());
+			inactiveContract = contractsDAO.countByStatus(AggConstants.B_INACTIVE_CONTRACT, accountDO.getDealerId());*/
+			activeContract = contractsDAO.countByActive();
+			inactiveContract = contractsDAO.countByInactive();
 		}
 				
 		worklistDO.setEstPrice(estPrice);

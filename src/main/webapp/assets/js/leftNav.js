@@ -280,7 +280,7 @@ routingApp.controller('HomeController', function($scope, $http) {
 	{
 		$http.get("/agg/activeContracts")
 		.then(function(response) {
-			//$scope.contractList = response.data.data.contractDOList;
+			$scope.contractList = response.data.data.contractDOList;
 	        $timeout(function () {
 	        	$('#quotesTbl').DataTable();
 	        }, 300);
@@ -291,7 +291,7 @@ routingApp.controller('HomeController', function($scope, $http) {
 	{
 		$http.get("/agg/inactiveContracts")
 		.then(function(response) {
-			//$scope.contractList = response.data.data.contractDOList;
+			$scope.contractList = response.data.data.contractDOList;
 	        $timeout(function () {
 	        	$('#quotesTbl').DataTable();
 	        }, 300);
