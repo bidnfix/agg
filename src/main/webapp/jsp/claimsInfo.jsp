@@ -13,7 +13,7 @@
              
 	 <!-- data table section -->
              
-     <table id="table1" class="table table-striped table-bordered" cellspacing="0" width="100%">
+     <table id="claimsTbl" class="table table-striped table-bordered" cellspacing="0" width="100%">
         <thead>
             <tr>
             	<th>ID</th>

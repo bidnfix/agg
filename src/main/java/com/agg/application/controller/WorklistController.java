@@ -42,8 +42,8 @@ public class WorklistController extends BaseController{
 			
 			WorklistDO worklistDO = quoteService.getWorklistCount(getAccountDetails(request));
 			model.addAttribute("worklistDO", worklistDO);
-			/*List<QuoteDO> quoteList = quoteService.getPurchaseReqQuotes(getAccountDetails(request));
-			model.addAttribute("quoteList", quoteList);*/
+			List<QuoteDO> quoteList = quoteService.getPurchaseReqQuotes(getAccountDetails(request));
+			model.addAttribute("quoteList", quoteList);
 			opResult = new Result("success", null, model);
 		}
 		
