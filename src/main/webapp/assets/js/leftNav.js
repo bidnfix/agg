@@ -244,6 +244,11 @@ routingApp.controller('HomeController', function($scope, $http, $timeout) {
     	$scope.purchaseReq = response.data.data.worklistDO.purchaseReq;
     	$scope.quoteList = response.data.data.quoteList;
     	if($scope.quoteList != null){
+    		$timeout(function () {
+	        	$('#quotesTbl').DataTable();
+	        }, 300);
+    		
+    		$('#contractsTbl').parents('div.dataTables_wrapper').first().hide();
     		$scope.contractsFlag = true;
     		$scope.quotesFlag = false;
     	}
