@@ -46,7 +46,10 @@
                 <td>{{claimDO.serial}}</td>
                 <td>{{claimDO.manufacturer}}</td>
                 <td>{{claimDO.machineModel}}</td>
-                <td>{{claimDO.cStatus}}</td>
+                <td>{{(claimDO.cStatus === 1)?"Open":(claimDO.cStatus === 2)?"Pre-Auth Requested":(claimDO.cStatus === 3)?"Submitted":
+                (claimDO.cStatus === 4)?"Closed":(claimDO.cStatus === 5)?"Pre-Auth Approved":(claimDO.cStatus === 6)?"Pre-Auth Rejected":
+                (claimDO.cStatus === 7)?"Approved with adjustment":(claimDO.cStatus === 8)?"Pre-Auth Pending":"Draft"}}</td>
+                
             </tr>
         </tbody>
     </table>

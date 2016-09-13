@@ -32,13 +32,13 @@
 			<div class="form-group">
 				<label for="userName" class="col-sm-3 control-label">Discovered</label>
 				<div class="col-sm-9">
-					 <input type="date" ng-model="report.discDate" value="{{date | date:'yyyy-MM-dd'}}">
+					 <input type="date" ng-model="report.discDate" value="{{date | date:'yyyy-MM-dd'}}" class="form-control">
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="FixedBy" class="col-sm-3 control-label">Fixed by</label>
 				<div class="col-sm-9">
-					<input type="date" ng-model="report.FixByDate" value="{{date | date:'yyyy-MM-dd'}}" />
+					<input type="date" ng-model="report.FixByDate" value="{{date | date:'yyyy-MM-dd'}}" class="form-control"/>
 				</div>
 			</div>
 			<div class="form-group">

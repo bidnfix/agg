@@ -23,7 +23,7 @@
 							name="programName" ng-model="program.programDO"
 							ng-options="program.name for program in programList"
 							ng-change="getProgDetails(program.programDO)" validate-on="dirty"
-							required="required" ng-disabled="disabled">
+							required="required" ng-disabled="disabled" class="form-control">
 							<option value="">Select Program</option>
 						</select>
 					</div>
@@ -42,7 +42,7 @@
 							ng-model="program.machineInfoDO"
 							ng-options="machineInfooDO.model for machineInfooDO in program.machineInfoDOList"
 							ng-change="getRemProgDetails(program.machineInfoDO)"
-							validate-on="dirty" required="required" ng-disabled="disabled">
+							validate-on="dirty" required="required" ng-disabled="disabled" class="form-control">
 							<option value="">Select Model</option>
 						</select>
 					</div>

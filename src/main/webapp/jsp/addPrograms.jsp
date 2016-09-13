@@ -26,7 +26,7 @@
 			<div class="form-group">
 				<label for="name" class="col-sm-3 control-label">Assign a Dealer</label>
 				<div class="col-sm-9">
-					<select name="dealer" ng-model="program.dealerDO" ng-options="dealer.name for dealer in dealerList">
+					<select name="dealer" ng-model="program.dealerDO" ng-options="dealer.name for dealer in dealerList" class="form-control">
          				 <!-- <option ng:repeat="machine in manufacturerList" value="{{dealer.id}}">{{dealer.userName}}</option> -->
      				</select> 
 				</div>
@@ -35,7 +35,7 @@
 				<label for="name" class="col-sm-3 control-label">Manufacturer</label>
 				<div class="col-sm-9">
 					<select name="machine" ng-model="program.manufacturerDO" ng-options="machine.name for machine in manufacturerList" 
-					ng-change="getManfModel()">
+					ng-change="getManfModel()" class="form-control">
      				</select> 
 				</div>
 			</div>
@@ -46,7 +46,7 @@
 					<!--  <select name="machine" ng-model="program.modelDO" ng-options="machine.name for machine in modelList">
      				</select> -->
      				<select size="5" id="myselection" multiple ng-multiple="true"
-			        ng-model="program.machineInfoDOList" ng-options="machine.model for machine in machineModelList">
+			        ng-model="program.machineInfoDOList" ng-options="machine.model for machine in machineModelList" class="form-control">
 			      </select> 
 				</div>
 			</div>
