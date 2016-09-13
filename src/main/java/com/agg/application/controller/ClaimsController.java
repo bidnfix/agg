@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,7 +26,6 @@ import com.agg.application.model.ClaimLaborDO;
 import com.agg.application.model.ClaimMailDO;
 import com.agg.application.model.ClaimPartDO;
 import com.agg.application.model.ClaimsDO;
-import com.agg.application.model.ContractDO;
 import com.agg.application.model.DealerDO;
 import com.agg.application.model.QuoteDO;
 import com.agg.application.model.Result;
@@ -220,9 +217,11 @@ public class ClaimsController extends BaseController {
 		if(!sessionExists(request)){
 			return new Result("failure", "Session Expired", null);
 		}else{
-			List<QuoteDO> quoteInfoList = claimsService.getClaimsInfo();
-			logger.info("quoteInfoList size: "+quoteInfoList.size());
-			model.put("quoteDOList", quoteInfoList);
+			List<ClaimsDO> claimsInfoList = claimsService.getClaimsInfo(getAccountDetails(request));
+			if(claimsInfoList != null){
+				logger.info("claimsInfoList size: "+claimsInfoList.size());
+			}
+			model.put("claimDOList", claimsInfoList);
 			return new Result("success", null, model);
 		}
 	}

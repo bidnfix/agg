@@ -39,14 +39,14 @@
         </tfoot>
  
         <tbody>
-            <tr ng-repeat="quote in quoteDOList" >
-                <td>{{quote.id.quoteId}}</td>
-                <td>{{quote.customerInfoDO.name}}</td>
-                <td>{{quote.dealerDO.name}}</td>
-                <td>{{quote.serialNumber}}</td>
-                <td>{{quote.manufacturerDO.name}}</td>
-                <td>{{quote.machineInfoDO.model}}</td>
-                <td>{{quote.status}}</td>
+            <tr ng-repeat="claimDO in claimDOList" >
+                <td>{{claimDO.claimId}}</td>
+                <td>{{claimDO.custName}}</td>
+                <td>{{claimDO.dealerName}}</td>
+                <td>{{claimDO.serial}}</td>
+                <td>{{claimDO.manufacturer}}</td>
+                <td>{{claimDO.machineModel}}</td>
+                <td>{{claimDO.cStatus}}</td>
             </tr>
         </tbody>
     </table>

@@ -809,7 +809,7 @@ routingApp.controller('InactiveContractController', function($scope, $http, $tim
 routingApp.controller('ClaimsInfoController', function($scope, $http, $timeout) {
 	$http.get("/agg/getClaimsInfo")
 	.then(function(response) {
-		 $scope.quoteDOList = response.data.data.quoteDOList;
+		 $scope.claimDOList = response.data.data.claimDOList;
         $timeout(function () {
         	$('#claimsTbl').DataTable();
         }, 300);
