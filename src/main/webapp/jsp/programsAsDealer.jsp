@@ -112,7 +112,7 @@
 					</div>
 					<br clear="all"> <br clear="all">
 					<h3>Customer Information</h3>
-					<div class="col-xs-12 border-bottom no-pad">
+					<div class="col-xs-12 no-pad">
 						<div class="form-group">
 							<label>Name</label> <input type="text" id="custName" name="custName"
 													ng-model="program.customerInfoDO.name" placeholder="Name" class="form-control"

@@ -1045,6 +1045,7 @@ span .man-field {
 .agf1 .form-group{
     width: 100% !important;
     margin-bottom: 10px !important;
+    margin-left: 0 !important;
 }
 .agf1 .form-group label{
     width: 49% !important;
