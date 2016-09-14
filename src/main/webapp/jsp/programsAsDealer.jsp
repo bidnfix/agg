@@ -29,7 +29,7 @@
 					</div>
 					<div class="form-group">
 						<label>Dealer</label>
-						<p>{{program.dealerDO.name}}</p>
+						<p>&nbsp;&nbsp;&nbsp;{{program.dealerDO.name}}</p>
 					</div>
 					<div class="form-group">
 						<label>Manufacturer</label> <input type="text"
