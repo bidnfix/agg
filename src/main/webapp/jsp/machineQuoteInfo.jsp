@@ -126,10 +126,9 @@
 							<input type="date" id="estSaleDate" name="estSaleDate"
 								ng-model="quote.estSaleDate" class="form-control"
 								min="{{date | date:'yyyy-MM-dd'}}"
-								value="{{date | date:'MM/dd/yyyy'}}" required="required"
-								aria-describedby="basic-addon2"> <span
+								value="{{date | date:'MM/dd/yyyy'}}" required="required"> <!-- <span
 								class="input-group-addon"><i
-								class="glyphicon glyphicon-calendar"></i></span>
+								class="glyphicon glyphicon-calendar"></i></span> -->
 						</div>
 					</div>
 				</div>

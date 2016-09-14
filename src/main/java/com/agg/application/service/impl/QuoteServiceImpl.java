@@ -1149,7 +1149,9 @@ public class QuoteServiceImpl implements QuoteService {
 			
 			if(quote != null && quote.getId() != null){
 				logger.info("quoteId: "+quote.getId().getQuoteId()+" and id: "+quote.getId().getId());
-				if(quote.getStatus() == 1){
+				if(quote.getIsArchive() == 1){
+					quoteDO.setStatusDesc(AggConstants.QUOTE_STATUS_ACRHIVE);
+				}else if(quote.getStatus() == 1){
 					quoteDO.setStatusDesc(AggConstants.QUOTE_STATUS_ESTIMATING_PRICE);
 				}else if(quote.getStatus() == 4){
 					quoteDO.setStatusDesc(AggConstants.QUOTE_STATUS_PURCHASE_REQUESTED);
