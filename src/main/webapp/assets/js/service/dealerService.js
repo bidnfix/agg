@@ -3,9 +3,10 @@
 routingApp.factory('dealerService', function($http, $q, $window) {
 			return {
 				saveDealer : function(dealer) {
+					showSpinner();
 					return $http.post('/agg/addDealer', dealer).then(
 							function(response) {
-								alert(response.data.status);
+								//alert(response.data.status);
 								if (response.data.status == 'success') {
 									//$window.location = '/agg/home';
 									$window.location.href = '#/agg/dealers';
@@ -13,11 +14,12 @@ routingApp.factory('dealerService', function($http, $q, $window) {
 									alert('error in adding dealer: '+response.data.errMessage)
 									//$('#errMsg').html(response.data.errMessage);
 								}
-								
+								hideSpinner();
 							}, function(errResponse) {
 								alert('Error while creating dealer');
 								return $q.reject(errResponse);
 							});
+					
 				},
 				editDealer : function(dealer, $scope, editDealerCond) {
 					return $http.post('/agg/editDealer', dealer).then(

@@ -248,6 +248,8 @@ public class ProgramServiceImpl implements ProgramService {
 				MachineInfo machineInfo = machineInfoDAO.findOne(Long.valueOf(quoteDO.getMachineInfoDO().getMachineId()));
 				quote.setMachineInfo(machineInfo);
 				quote.setMachineModel(machineInfo.getModel());
+				quote.setGroupId(new Long(machineInfo.getGroupConstant().getGroupId()).intValue());
+				
 				logger.debug("quote..getMachineInfoDO "+quote.getMachineInfo());
 			}
 			
@@ -284,6 +286,8 @@ public class ProgramServiceImpl implements ProgramService {
 			
 			quote.setServicingDealer(0);
 			quote.setLastUpdate(date);
+			
+			quote.setStatus((byte)4);
 			
 			quote = quoteDAO.save(quote);
 			

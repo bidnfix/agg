@@ -510,6 +510,10 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService, $
 		$scope.dealerList = response.data.data.dealerDOList;
 		$scope.manufacturerList = response.data.data.manufacturerDOList;
 		$scope.useOfEquipmentDOList = response.data.data.useOfEquipmentDOList;
+		
+		if($scope.dealerList.length == 1){
+			$scope.quote.dealerDO = $scope.dealerList[0];
+		}
 	});  
 
 	var myTabs = tabs({
@@ -825,6 +829,8 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 	$scope.disabled= true;
 	$scope.purchaseRequested = true;
 	$scope.invoiced = true;
+	$scope.readOnlyFlag = false;
+	$scope.editableFlag = true;
 	
 	$http.get("/agg/quoteInfo/"+$routeParams.quoteId+"/"+$routeParams.quoteCode)
 	.then(function(response) {
@@ -944,6 +950,8 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 	
 	$scope.editQuote = function(){
 		$scope.disabled= false;
+		$scope.readOnlyFlag = true;
+		$scope.editableFlag = false;
 	}
 	
 	$scope.updateQuote = function(quoteForm){

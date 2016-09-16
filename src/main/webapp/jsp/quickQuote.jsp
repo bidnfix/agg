@@ -25,7 +25,7 @@
              <div class="inner-main">
                    
                    <div class="col-xs-12 agf1 main-login pad10-top">
-                     <div class="col-md-6 no-pad pad10-right">
+                     <div class="col-md-6 no-pad pad10-right" ng-hide="editableFlag">
                        <div class="form-group">
                          <label>Assign Dealer</label>
                          <select class="form-control" name="dealer" ng-model="quote.dealerDO" id="dealer" ng-options="dealer.name for dealer in dealerList track by dealer.id" ng-change="displayDealerText(quote.dealerDO)"  validate-on="dirty" required="required" ng-disabled="disabled">
@@ -151,6 +151,111 @@
                        </div>
 
                      </div>
+                     
+                     <div class="col-md-6 no-pad pad10-right" ng-hide="readOnlyFlag">
+                          <div class="form-group">
+                            <label>Assign Dealer</label>
+                            <p>
+                              {{quote.dealerDO.name}}
+                            </p>
+                          </div>
+                          <div class="form-group">
+                            <label>Manufacturer</label>
+                            <p>
+                              {{quote.manufacturerDO.name}}
+                            </p>
+                          </div>
+                          <div class="form-group">
+                            <label>Model</label>
+                            <p>
+                              {{quote.machineInfoDO.model}}
+                            </p>
+                          </div>
+                          <div class="form-group">
+                            <label>Horsepower</label>
+                            <p>
+                              {{quote.horsePower}}
+                            </p>
+                          </div>
+                          <div class="form-group">
+                            <label>Serial Number</label>
+                            <p>{{quote.serialNumber}}</p>
+                          </div>
+                          <div class="form-group">
+                            <label>Retail Price</label>
+                            <p>{{quote.retailPrice}}</p>
+                          </div>
+                          <div class="form-group">
+                            <label>Meter Hours</label>
+                            <p>{{quote.meterHours}}</p>
+                          </div>
+                          <div class="form-group">
+                            <label>Model Year</label>
+                            <p>{{quote.modelYear}}</p>
+                          </div>
+                          <div class="form-group">
+                            <label>Condition</label>
+                            <p>{{machineCondition}}</p>
+                          </div>
+                          <div class="form-group">
+                            <label>Use of Equipment</label>
+                            <p>{{quote.useOfEquipmentDO.equipName}}</p>
+                          </div>
+                          <div class="form-group">
+                            <label>MFG End Date</label>
+                            <p>{{quote.coverageEndDate |  date:"MM/dd/yyyy"}}</p>
+                          </div>
+                          <div class="checkbox">
+                            <label>
+                              <input type="checkbox" id="coverageExpired" name="coverageExpired"
+									 ng-model="quote.coverageExpired" value="true" ng-disabled="true"> Check here if the Manufacturer's Coverage has expired.
+                            </label>
+                          </div>
+                          <div class="form-group">
+                            <label>Deductible</label>
+                             <p>{{quote.deductiblePrice | currency:"$":0}}</p>
+                          </div>
+                          <div class="form-group">
+                            <label>Coverage Term</label>
+                            <p>{{(quote.coverageTerm != null)? quote.coverageTerm+"&nbsp;mos.":""}}</p>
+                          </div>
+                          <div class="form-group">
+                            <label>Covered Hours</label>
+                            <p>{{quote.coverageHours}}</p>
+                          </div>
+                          <div class="form-group">
+                            <label>Coverage Type</label>
+                            <p>{{quote.coverageType}}</p>
+                          </div>
+                          <div class="form-group">
+                            <label>Limit of Liability</label>
+                            <p>{{quote.machineInfoDO.lol | currency:"$":0}}</p>
+                          </div>
+                          <div class="form-group">
+                            <label>Estimated Sale Date</label>
+                            <p>{{quote.estSaleDate |  date:"MM/dd/yyyy"}}</p>
+                          </div>
+                          <div class="form-group">
+                            <label>Additional Unit Information</label>
+                            <p>{{quote.otherProv}}</p>
+                          </div>
+                          <div class="form-group">
+                            <label>Dealer Markup</label>
+                            <p>{{quote.dealerMarkup}}</p>
+                          </div>
+                          <div class="form-group">
+                            <label>Markup Type</label>
+                            <div class="agform-radio">
+                             <label class="radio-inline">
+	                           <input type="radio" id="dealerMarkupVlaue" name="dealerMarkupVlaue" ng-model="quote.dealerMarkupType" value="price" class="" ng-disabled="true"> Price
+	                         </label>
+	                         <label class="radio-inline">
+	                           <input type="radio" id="dealerMarkupVlaue" name="dealerMarkupVlaue" ng-model="quote.dealerMarkupType" value="percent" class="" ng-disabled="true">  Percent
+	                         </label>
+                            </div>
+                          </div>
+
+                        </div>
 
 
 
