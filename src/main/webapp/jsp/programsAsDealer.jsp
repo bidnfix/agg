@@ -21,7 +21,7 @@
 					<div class="form-group">
 						<label>Select a Program</label> <select class="form-control"
 							name="programName" ng-model="program.programDO"
-							ng-options="program.name for program in programList"
+							ng-options="program.name for program in programList | orderBy:'name'"
 							ng-change="getProgDetails(program.programDO)" validate-on="dirty"
 							required="required" ng-disabled="disabled" class="form-control">
 							<option value="">Select Program</option>
@@ -40,7 +40,7 @@
 					<div class="form-group">
 						<label>Model</label> <select class="form-control" name="modelName"
 							ng-model="program.machineInfoDO"
-							ng-options="machineInfooDO.model for machineInfooDO in program.machineInfoDOList"
+							ng-options="machineInfooDO.model for machineInfooDO in program.machineInfoDOList | orderBy:'model'"
 							ng-change="getRemProgDetails(program.machineInfoDO)"
 							validate-on="dirty" required="required" ng-disabled="disabled" class="form-control">
 							<option value="">Select Model</option>
