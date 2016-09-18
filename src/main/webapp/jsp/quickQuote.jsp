@@ -76,11 +76,9 @@
                        </div>
                        <div class="form-group">
                          <label>MFG End Date</label>
-                         <div class="input-group">
-                           <input type="date" id="coverageEndDate" name="coverageEndDate" ng-model="quote.coverageEndDate" class="form-control" ng-disabled="disabled">
+                         <input type="date" id="coverageEndDate" name="coverageEndDate" ng-model="quote.coverageEndDate" class="form-control" ng-disabled="disabled">
                            <!-- <input type="text" class="form-control" aria-describedby="basic-addon2"> -->
                            <!-- <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span> -->
-                         </div>
                        </div>
                        <div class="checkbox">
                          <label>
@@ -123,11 +121,9 @@
                        </div>
                        <div class="form-group">
                          <label>Estimated Sale Date</label>
-                         <div class="input-group">
                            <input type="date" id="estSaleDate" name="estSaleDate" ng-model="quote.estSaleDate" class="form-control"  validate-on="dirty" required="required" ng-disabled="disabled">
                            <!-- <input type="text" class="form-control" aria-describedby="basic-addon2"> -->
                            <!-- <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span> -->
-                         </div>
                        </div>
                        <div class="form-group">
                          <label>Additional Unit Information</label>

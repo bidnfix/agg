@@ -974,7 +974,7 @@ ul li.has-subnav .accordion-btn {
 }
 .mouseovercol {
 	background-color:#b8c159 !important;
-	color:white;
+	color:#FFF !important;
 	font-weight:bold;
 }
 span .man-field {
@@ -1143,4 +1143,10 @@ span .man-field {
 
 ul.nav.navbar-nav.pull-right h4 {
     color: #fff;
+}
+
+.worksheet-no-marg{ padding:10px 5px !important; margin:0px !important; }
+
+.selectedcol a, mouseovercol a:hover,  mouseovercol a, mouseovercol{
+color:#fff !important;
 }

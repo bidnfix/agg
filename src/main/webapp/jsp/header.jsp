@@ -8,7 +8,8 @@
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav pull-right">
         <li><h4>Logged in User: ${user.firstName}&nbsp;${user.lastName}&nbsp;(${user.username})</h4></li>
-        <li><a href="/agg/logout"><img src="/assets/images/logout.png" alt="" width="40" height="40"></a></li>
+        <!-- <li><a href="/agg/logout"><img src="/assets/images/logout.png" alt="" width="40" height="40"></a></li> -->
+        <li><a href="/agg/logout" style="padding:0px !important; margin:11px; !important;background:none !important; "><i style="font-size:24px; color:#B8C159;" class="fa fa-power-off"></i></a></li>
       </ul>
     </div>
     <!--/.nav-collapse --> 

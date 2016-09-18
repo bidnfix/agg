@@ -24,28 +24,28 @@
 		<div id="navbar">
 			<ul class="nav navbar-nav ">
 				<li>
-					<a ng-click="getInactiveContracts()">Expired Contract<span class="badge">{{expContracts}}</span></a>
+					<a class="worksheet-no-marg" ng-click="getInactiveContracts()">Expired Contract<span class="badge">{{expContracts}}</span></a>
 				</li>
                 
                 <li>
-					<a ng-click="getActiveContracts()">Active Contract<span class="badge">{{actContracts}}</span></a>
+					<a class="worksheet-no-marg" ng-click="getActiveContracts()">Active Contract<span class="badge">{{actContracts}}</span></a>
 				</li>
 				
                 
                 <li>
-					<a ng-click="getEstQuotes()">Estimating Price<span class="badge">{{estPrice}}</span></a>
+					<a class="worksheet-no-marg" ng-click="getEstQuotes()">Estimating Price<span class="badge">{{estPrice}}</span></a>
 				</li>
 				<li>
-					<a ng-click="getInvoicedQuotes()">Invoiced<span class="badge">{{invoiced}}</span></a>
+					<a class="worksheet-no-marg" ng-click="getInvoicedQuotes()">Invoiced<span class="badge">{{invoiced}}</span></a>
 				</li>
                 
                 <li>
-					<a ng-click="getReqQuotes()">Purchase Requested<span class="badge">{{purchaseReq}}</span></a>
+					<a class="worksheet-no-marg" ng-click="getReqQuotes()">Purchase Requested<span class="badge">{{purchaseReq}}</span></a>
 				</li>
 				
                 
                 <li>
-					<a href="#/agg/dealers">Claims<span class="badge">{{terminatedDealers}}</span></a>
+					<a class="worksheet-no-marg" href="#/agg/dealers">Claims<span class="badge">{{terminatedDealers}}</span></a>
 				</li>
 				
 			</ul>
@@ -55,7 +55,7 @@
 	</nav>
 
 	<!-- data table section -->
-	<table id="quotesTbl" class="table table-striped table-bordered" cellspacing="0" width="100%" ng-hide="quotesFlag">
+	<table id="quotesTbl" class="table table-striped table-bordered marg10-top" cellspacing="0" width="100%" ng-hide="quotesFlag">
         <thead>
             <tr>
             	<th>ID</th>
@@ -101,7 +101,7 @@
 	
 	
 	
-	<table id="contractsTbl" class="table table-striped table-bordered" cellspacing="0" width="100%" ng-hide="contractsFlag">
+	<table id="contractsTbl" class="table table-striped table-bordered marg10-top" cellspacing="0" width="100%" ng-hide="contractsFlag">
         <thead>
             <tr>
             	<th>ID</th>
