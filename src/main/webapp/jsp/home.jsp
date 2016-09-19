@@ -18,7 +18,7 @@
 				href="#">Back</a>
 		</div> -->
 	</header>
-	<nav class="navbar navbar-findcond ">
+	<nav class="navbar navbar-findcond marg10-bottom">
     <!--<div class="container">-->
 		
 		<div id="navbar">
@@ -55,7 +55,7 @@
 	</nav>
 
 	<!-- data table section -->
-	<table id="quotesTbl" class="table table-striped table-bordered marg10-top" cellspacing="0" width="100%" ng-hide="quotesFlag">
+	<table id="quotesTbl" class="table table-striped table-bordered" cellspacing="0" width="100%" ng-hide="quotesFlag">
         <thead>
             <tr>
             	<th>ID</th>
@@ -101,7 +101,7 @@
 	
 	
 	
-	<table id="contractsTbl" class="table table-striped table-bordered marg10-top" cellspacing="0" width="100%" ng-hide="contractsFlag">
+	<table id="contractsTbl" class="table table-striped table-bordered" cellspacing="0" width="100%" ng-hide="contractsFlag">
         <thead>
             <tr>
             	<th>ID</th>
