@@ -149,6 +149,8 @@ public class QuoteServiceImpl implements QuoteService {
 
 	@Override
 	public List<PricingDO> getCoveragePriceDetils(boolean coverageExpired, long machineId, int deductibleAmt, int coverageTerm, int coverageHours) {
+		logger.info("Inside getCoveragePriceDetils with coverageExpired: "+coverageExpired+" machineId: "+machineId
+				+" deductibleAmt: "+deductibleAmt+" coverageTerm: "+coverageTerm+" coverageHours: "+coverageHours);
 		MachineInfo machineInfo = machineInfoDAO.findOne(machineId);
 		List<PricingDO> pricingDOList = null;
 		if(machineInfo != null){

@@ -487,6 +487,13 @@ routingApp.controller("activateTabCtrl", function($scope, $timeout) {
         });
     	var tabId = $event.target.id;
     	$('#'+tabId).css({"background":"#205f9f", "color":"#fff"});
+    	
+    	//TODO
+    	/*$('#menu > ul.nav li a').click(function(e) {
+    	    var $this = $(this);
+    	    $this.parent().siblings().removeClass('active').end().addClass('active');
+    	    e.preventDefault();
+    	});*/
     }    
 });
 
