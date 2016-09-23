@@ -418,18 +418,22 @@
 								<label>Base Price</label>
 								<p>{{quote.quoteBasePrice | currency:"$":0}}</p>
 							  </div>
-							  <div class="form-group">
-								<label>Admin Adjusted Price</label>
-								 <input type="text" id="adjustedBasePrice" name="adjustedBasePrice" ng-model="quote.adjustedBasePrice" class="form-control" ng-blur="updateAdjustedPrice(quote.adjustedBasePrice)">
-							  </div>
+							  <c:if test="${user.roleDO.accountType eq 'admin'}">
+								  <div class="form-group">
+									<label>Admin Adjusted Price</label>
+									 <input type="text" id="adjustedBasePrice" name="adjustedBasePrice" ng-model="quote.adjustedBasePrice" class="form-control" ng-blur="updateAdjustedPrice(quote.adjustedBasePrice)">
+								  </div>
+							  </c:if>
 							  <div class="form-group">
 								<label>Limit of Liability</label>
 								<p>{{quote.machineInfoDO.lol | currency:"$":0}}</p>
 							  </div>
-							  <div class="form-group">
-								<label>Admin Adjusted LOL</label>
-								 <input type="text" id="adjustedLol" name="adjustedLol" ng-model="quote.adjustedLol" class="form-control" value="{{quote.machineInfoDO.lol}}" ng-value="quote.machineInfoDO.lol">
-							  </div>
+							  <c:if test="${user.roleDO.accountType eq 'admin'}">
+								  <div class="form-group">
+									<label>Admin Adjusted LOL</label>
+									 <input type="text" id="adjustedLol" name="adjustedLol" ng-model="quote.adjustedLol" class="form-control" value="{{quote.machineInfoDO.lol}}" ng-value="quote.machineInfoDO.lol">
+								  </div>
+							  </c:if>
 							  <div class="form-group">
 								<label>Current Status</label>
 								<c:choose>
