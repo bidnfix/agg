@@ -1,3 +1,5 @@
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!-- Article main content -->
 <%@include file="contractCreatePopup.jsp" %>
 <article class="col-md-9 maincontent">
@@ -132,16 +134,16 @@
                        </div>
                        <div class="form-group">
                          <label>Dealer Markup</label>
-                         <input type="text" id="dealerMarkup" name="dealerMarkup" ng-model="quote.dealerMarkup" placeholder="Dealer Markup" class="form-control"  validate-on="dirty" required="required" ng-disabled="disabled">
+                         <input type="text" id="dealerMarkup" name="dealerMarkup" ng-model="quote.dealerMarkup" placeholder="Dealer Markup" class="form-control"  validate-on="dirty" required="required" ng-disabled="disabled" ng-blur="getDealerMarkupPrice()">
                        </div>
                        <div class="form-group">
                          <label>Markup Type</label>
                          <div class="agform-radio">
                          <label class="radio-inline">
-                           <input type="radio" id="dealerMarkupVlaue" name="dealerMarkupVlaue" ng-model="quote.dealerMarkupType" value="price" class="" ng-disabled="disabled"> Price
+                           <input type="radio" id="dealerMarkupVlaue" name="dealerMarkupVlaue" ng-model="quote.dealerMarkupType" value="price" class="" ng-disabled="disabled" ng-change="getDealerMarkupPrice()"> Price
                          </label>
                          <label class="radio-inline">
-                           <input type="radio" id="dealerMarkupVlaue" name="dealerMarkupVlaue" ng-model="quote.dealerMarkupType" value="percent" class="" ng-disabled="disabled">  Percent
+                           <input type="radio" id="dealerMarkupVlaue" name="dealerMarkupVlaue" ng-model="quote.dealerMarkupType" value="percent" class="" ng-disabled="disabled" ng-change="getDealerMarkupPrice()">  Percent
                          </label>
                          </div>
                        </div>
@@ -418,7 +420,7 @@
 							  </div>
 							  <div class="form-group">
 								<label>Admin Adjusted Price</label>
-								 <input type="text" id="adjustedBasePrice" name="adjustedBasePrice" ng-model="quote.adjustedBasePrice" class="form-control">
+								 <input type="text" id="adjustedBasePrice" name="adjustedBasePrice" ng-model="quote.adjustedBasePrice" class="form-control" ng-blur="updateAdjustedPrice(quote.adjustedBasePrice)">
 							  </div>
 							  <div class="form-group">
 								<label>Limit of Liability</label>
@@ -426,15 +428,22 @@
 							  </div>
 							  <div class="form-group">
 								<label>Admin Adjusted LOL</label>
-								 <input type="text" id="adjustedLol" name="adjustedLol" ng-model="quote.adjustedLol" class="form-control">
+								 <input type="text" id="adjustedLol" name="adjustedLol" ng-model="quote.adjustedLol" class="form-control" value="{{quote.machineInfoDO.lol}}" ng-value="quote.machineInfoDO.lol">
 							  </div>
 							  <div class="form-group">
 								<label>Current Status</label>
-								<select class="form-control" name="status" ng-model="quote.status" convert-to-number id="status"  validate-on="dirty" required="required">
-								  <option value="1">Estimating Price</option>
-								  <option value="4">Purchase Requested</option>
-								  <option value="5">Invoiced</option>
-								</select>
+								<c:choose>
+								 	<c:when test="${user.roleDO.accountType eq 'admin'}">
+								        <select class="form-control" name="status" ng-model="quote.status" convert-to-number id="status"  validate-on="dirty" required="required">
+										  <option value="1">Estimating Price</option>
+										  <option value="4">Purchase Requested</option>
+										  <option value="5">Invoiced</option>
+										</select>
+								    </c:when>
+								    <c:otherwise>
+								        <p>{{quote.statusDesc}}</p>
+								    </c:otherwise>
+								</c:choose>
 							  </div>
 							  <div class="form-group">
 								<label>Last Update</label>

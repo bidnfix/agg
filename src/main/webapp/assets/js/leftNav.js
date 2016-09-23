@@ -850,6 +850,7 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 		$scope.pricingDOList = response.data.data.pricingDOList;
 		$scope.coverageLevelHoursList = response.data.data.coverageLevelHoursList;
 		$scope.quote = response.data.data.quote;
+		$scope.quote.adjustedLol = $scope.quote.machineInfoDO.lol;
 		
 		$scope.quote.coverageEndDate = new Date($scope.quote.coverageEndDate);
 		$scope.quote.estSaleDate = new Date($scope.quote.estSaleDate);
@@ -890,6 +891,7 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 		}
 		
 		$scope.quote.groupId = machineInfoDO.groupId;
+		$scope.quote.adjustedLol = machineInfoDO.lol;
 		
 		var machineId = machineInfoDO.machineId;
 		$http.get("/agg/quote/coverageDeductInfo/"+coverageExpired+"/"+machineId)
@@ -953,6 +955,16 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 				$scope.quote.quoteBasePrice = pricingDO.ptBasePrice;
 			}
 		});
+		
+		$scope.getDealerMarkupPrice();
+	}
+	
+	$scope.getDealerMarkupPrice = function(){
+		if($scope.quote.dealerMarkupType == 'price'){
+			$scope.quote.dealerMarkupPrice = parseInt($scope.quote.dealerMarkup);
+		}else{
+			$scope.quote.dealerMarkupPrice = parseInt((($scope.quote.quoteBasePrice * parseInt($scope.quote.dealerMarkup))/100));
+		}
 	}
 	
 	$scope.editQuote = function(){
@@ -1032,8 +1044,13 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 	}
 	
     $scope.submitCreateContract = function(){
-    	alert("in submitCreateContract");
+    	//alert("in submitCreateContract");
     	quoteService.createContract($scope.quote, $scope);
+    }
+    
+    $scope.updateAdjustedPrice = function(adjustedPrice){
+    	$scope.quote.quoteBasePrice = parseInt(adjustedPrice);
+    	$scope.getDealerMarkupPrice();
     }
 	
 })
