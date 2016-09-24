@@ -21,6 +21,7 @@
 <link rel="stylesheet" href="/assets/css/hover.css">
 <link rel="stylesheet" href="/assets/css/mask.css">
 <link rel="stylesheet" href="/assets/css/tab-style.css" >
+<link rel="stylesheet" href="/assets/css/spinner.css" >
 
 <!--data table css-->
 <link href="/assets/css/dataTables.bootstrap.min.css" rel="stylesheet">
@@ -35,6 +36,7 @@
 </head>
 <body ng-app="aggRoutingApp">
 	<div class="mask" id="popup_mask" style="z-index: 10001; display: none;"> </div>
+	<jsp:include page="spinner.jsp"></jsp:include>
 	<jsp:include page="header.jsp"></jsp:include>
 	<div class="container"> 
 		<div class="row">

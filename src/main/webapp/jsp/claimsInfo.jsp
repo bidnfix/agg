@@ -13,34 +13,43 @@
              
 	 <!-- data table section -->
              
-     <table id="table1" class="table table-striped table-bordered" cellspacing="0" width="100%">
+     <table id="claimsTbl" class="table table-striped table-bordered" cellspacing="0" width="100%">
         <thead>
             <tr>
             	<th>ID</th>
+                <th>Customer</th>
+                <th>Dealer Contact</th>
+                <th>Serial</th>
                 <th>Manufacturer</th>
                 <th>Model</th>
-                <th>Serial</th>
-                <th>Coverage Type</th>
+                <th>Status</th>
             </tr>
         </thead>
  
         <tfoot>
             <tr>
             	<th>ID</th>
+                <th>Customer</th>
+                <th>Dealer Contact</th>
+                <th>Serial</th>
                 <th>Manufacturer</th>
                 <th>Model</th>
-                <th>Serial</th>
-                <th>Coverage Type</th>
+                <th>Status</th>
             </tr>
         </tfoot>
  
         <tbody>
-            <tr ng-repeat="quote in quoteDOList" >
-                <td><a style="cursor: pointer;" ng-click="editClaim(quote.id.quoteId)">{{quote.id.quoteId}}</a></td>
-                <td>{{quote.manufacturerDO.name}}</td>
-                <td>{{quote.machineModel}}</td>
-                <td>{{quote.machineSerial}}</td>
-                <td>{{quote.coverageTerm}}</td>
+            <tr ng-repeat="claimDO in claimDOList" >
+                <td>{{claimDO.claimId}}</td>
+                <td>{{claimDO.custName}}</td>
+                <td>{{claimDO.dealerName}}</td>
+                <td>{{claimDO.serial}}</td>
+                <td>{{claimDO.manufacturer}}</td>
+                <td>{{claimDO.machineModel}}</td>
+                <td>{{(claimDO.cStatus === 1)?"Open":(claimDO.cStatus === 2)?"Pre-Auth Requested":(claimDO.cStatus === 3)?"Submitted":
+                (claimDO.cStatus === 4)?"Closed":(claimDO.cStatus === 5)?"Pre-Auth Approved":(claimDO.cStatus === 6)?"Pre-Auth Rejected":
+                (claimDO.cStatus === 7)?"Approved with adjustment":(claimDO.cStatus === 8)?"Pre-Auth Pending":"Draft"}}</td>
+                
             </tr>
         </tbody>
     </table>

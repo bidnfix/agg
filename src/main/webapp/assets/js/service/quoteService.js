@@ -99,6 +99,7 @@ routingApp.factory('quoteService', function($http, $q, $window) {
 					});
 		},
 		savePurchanseInfo : function(quote, $scope) {
+			showSpinner();
 			return $http.post('/agg/quote/addQuote/purchaseInfo', quote).then(
 					function(response) {
 						//alert(response.data.status);
@@ -113,6 +114,7 @@ routingApp.factory('quoteService', function($http, $q, $window) {
 							alert('error in adding Quote Coverage Info: '+response.data.errMessage)
 							//$('#errMsg').html(response.data.errMessage);
 						}
+						hideSpinner();
 						
 					}, function(errResponse) {
 						alert('Error while saving Quote');

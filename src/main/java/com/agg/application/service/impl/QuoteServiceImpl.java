@@ -149,6 +149,8 @@ public class QuoteServiceImpl implements QuoteService {
 
 	@Override
 	public List<PricingDO> getCoveragePriceDetils(boolean coverageExpired, long machineId, int deductibleAmt, int coverageTerm, int coverageHours) {
+		logger.info("Inside getCoveragePriceDetils with coverageExpired: "+coverageExpired+" machineId: "+machineId
+				+" deductibleAmt: "+deductibleAmt+" coverageTerm: "+coverageTerm+" coverageHours: "+coverageHours);
 		MachineInfo machineInfo = machineInfoDAO.findOne(machineId);
 		List<PricingDO> pricingDOList = null;
 		if(machineInfo != null){
@@ -995,6 +997,7 @@ public class QuoteServiceImpl implements QuoteService {
 			customerInfo.setState(quoteDO.getDealerState());
 			customerInfo.setUnderstand((quoteDO.isCustUnderstandCoverage())?(byte)1:(byte)0);
 			customerInfo.setZip(quoteDO.getDealerZip());
+			customerInfo.setLastUpdate(new Date());
 			
 			//TODO
 			customerInfoDAO.save(customerInfo);
@@ -1149,7 +1152,9 @@ public class QuoteServiceImpl implements QuoteService {
 			
 			if(quote != null && quote.getId() != null){
 				logger.info("quoteId: "+quote.getId().getQuoteId()+" and id: "+quote.getId().getId());
-				if(quote.getStatus() == 1){
+				if(quote.getIsArchive() == 1){
+					quoteDO.setStatusDesc(AggConstants.QUOTE_STATUS_ACRHIVE);
+				}else if(quote.getStatus() == 1){
 					quoteDO.setStatusDesc(AggConstants.QUOTE_STATUS_ESTIMATING_PRICE);
 				}else if(quote.getStatus() == 4){
 					quoteDO.setStatusDesc(AggConstants.QUOTE_STATUS_PURCHASE_REQUESTED);
@@ -1263,21 +1268,36 @@ public class QuoteServiceImpl implements QuoteService {
 		int estPrice = 0; 
 		int purchaseReq = 0;
 		int invoiced = 0;
+		int activeContract = 0;
+		int inactiveContract = 0;
 		
 		if(accountDO.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)){
 			estPrice = quoteDAO.countByEstPrice();
 			purchaseReq = quoteDAO.countByPurRequested();
 			invoiced = quoteDAO.countByInvoiced();
 			
+			//activeContract = contractsDAO.countByStatus(AggConstants.B_ACTIVE_CONTRACT);
+			//inactiveContract = contractsDAO.countByStatus(AggConstants.B_INACTIVE_CONTRACT);
+			
+			activeContract = contractsDAO.countByActive();
+			inactiveContract = contractsDAO.countByInactive();
+			
 		}else{
 			estPrice = quoteDAO.countByEstPrice(accountDO.getDealerId());
 			purchaseReq = quoteDAO.countByPurRequested(accountDO.getDealerId());
 			invoiced = quoteDAO.countByInvoiced(accountDO.getDealerId());
+			/*activeContract = contractsDAO.countByStatus(AggConstants.B_ACTIVE_CONTRACT, accountDO.getDealerId());
+			inactiveContract = contractsDAO.countByStatus(AggConstants.B_INACTIVE_CONTRACT, accountDO.getDealerId());*/
+			activeContract = contractsDAO.countByActive();
+			inactiveContract = contractsDAO.countByInactive();
 		}
 				
 		worklistDO.setEstPrice(estPrice);
 		worklistDO.setPurchaseReq(purchaseReq);
 		worklistDO.setInvoiced(invoiced);
+		worklistDO.setActContracts(activeContract);
+		worklistDO.setExpContracts(inactiveContract);
+		
 		logger.debug("estPrice -->"+estPrice);
 		return worklistDO;
 	}

@@ -354,7 +354,7 @@ public class DealerServiceImpl implements DealerService {
 					dealerDO.setUserName(account.getUserName());
 					dealerDO.setFirstName(account.getFirstName());
 					dealerDO.setLastName(account.getLastName());
-					dealerDO.setPassword(account.getPassword());
+					//dealerDO.setPassword(account.getPassword());
 					
 					roleDO = new RoleDO();
 					roleDO.setId(role.getRId());

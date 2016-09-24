@@ -1,3 +1,5 @@
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!-- Article main content -->
 <%@include file="contractCreatePopup.jsp" %>
 <article class="col-md-9 maincontent">
@@ -25,7 +27,7 @@
              <div class="inner-main">
                    
                    <div class="col-xs-12 agf1 main-login pad10-top">
-                     <div class="col-md-6 no-pad pad10-right">
+                     <div class="col-md-6 no-pad pad10-right" ng-hide="editableFlag">
                        <div class="form-group">
                          <label>Assign Dealer</label>
                          <select class="form-control" name="dealer" ng-model="quote.dealerDO" id="dealer" ng-options="dealer.name for dealer in dealerList track by dealer.id" ng-change="displayDealerText(quote.dealerDO)"  validate-on="dirty" required="required" ng-disabled="disabled">
@@ -76,11 +78,9 @@
                        </div>
                        <div class="form-group">
                          <label>MFG End Date</label>
-                         <div class="input-group">
-                           <input type="date" id="coverageEndDate" name="coverageEndDate" ng-model="quote.coverageEndDate" class="form-control" ng-disabled="disabled">
+                         <input type="date" id="coverageEndDate" name="coverageEndDate" ng-model="quote.coverageEndDate" class="form-control" ng-disabled="disabled">
                            <!-- <input type="text" class="form-control" aria-describedby="basic-addon2"> -->
                            <!-- <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span> -->
-                         </div>
                        </div>
                        <div class="checkbox">
                          <label>
@@ -123,11 +123,9 @@
                        </div>
                        <div class="form-group">
                          <label>Estimated Sale Date</label>
-                         <div class="input-group">
                            <input type="date" id="estSaleDate" name="estSaleDate" ng-model="quote.estSaleDate" class="form-control"  validate-on="dirty" required="required" ng-disabled="disabled">
                            <!-- <input type="text" class="form-control" aria-describedby="basic-addon2"> -->
                            <!-- <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span> -->
-                         </div>
                        </div>
                        <div class="form-group">
                          <label>Additional Unit Information</label>
@@ -136,21 +134,126 @@
                        </div>
                        <div class="form-group">
                          <label>Dealer Markup</label>
-                         <input type="text" id="dealerMarkup" name="dealerMarkup" ng-model="quote.dealerMarkup" placeholder="Dealer Markup" class="form-control"  validate-on="dirty" required="required" ng-disabled="disabled">
+                         <input type="text" id="dealerMarkup" name="dealerMarkup" ng-model="quote.dealerMarkup" placeholder="Dealer Markup" class="form-control"  validate-on="dirty" required="required" ng-disabled="disabled" ng-blur="getDealerMarkupPrice()">
                        </div>
                        <div class="form-group">
                          <label>Markup Type</label>
                          <div class="agform-radio">
                          <label class="radio-inline">
-                           <input type="radio" id="dealerMarkupVlaue" name="dealerMarkupVlaue" ng-model="quote.dealerMarkupType" value="price" class="" ng-disabled="disabled"> Price
+                           <input type="radio" id="dealerMarkupVlaue" name="dealerMarkupVlaue" ng-model="quote.dealerMarkupType" value="price" class="" ng-disabled="disabled" ng-change="getDealerMarkupPrice()"> Price
                          </label>
                          <label class="radio-inline">
-                           <input type="radio" id="dealerMarkupVlaue" name="dealerMarkupVlaue" ng-model="quote.dealerMarkupType" value="percent" class="" ng-disabled="disabled">  Percent
+                           <input type="radio" id="dealerMarkupVlaue" name="dealerMarkupVlaue" ng-model="quote.dealerMarkupType" value="percent" class="" ng-disabled="disabled" ng-change="getDealerMarkupPrice()">  Percent
                          </label>
                          </div>
                        </div>
 
                      </div>
+                     
+                     <div class="col-md-6 no-pad pad10-right" ng-hide="readOnlyFlag">
+                          <div class="form-group">
+                            <label>Assign Dealer</label>
+                            <p>
+                              {{quote.dealerDO.name}}
+                            </p>
+                          </div>
+                          <div class="form-group">
+                            <label>Manufacturer</label>
+                            <p>
+                              {{quote.manufacturerDO.name}}
+                            </p>
+                          </div>
+                          <div class="form-group">
+                            <label>Model</label>
+                            <p>
+                              {{quote.machineInfoDO.model}}
+                            </p>
+                          </div>
+                          <div class="form-group">
+                            <label>Horsepower</label>
+                            <p>
+                              {{quote.horsePower}}
+                            </p>
+                          </div>
+                          <div class="form-group">
+                            <label>Serial Number</label>
+                            <p>{{quote.serialNumber}}</p>
+                          </div>
+                          <div class="form-group">
+                            <label>Retail Price</label>
+                            <p>{{quote.retailPrice}}</p>
+                          </div>
+                          <div class="form-group">
+                            <label>Meter Hours</label>
+                            <p>{{quote.meterHours}}</p>
+                          </div>
+                          <div class="form-group">
+                            <label>Model Year</label>
+                            <p>{{quote.modelYear}}</p>
+                          </div>
+                          <div class="form-group">
+                            <label>Condition</label>
+                            <p>{{machineCondition}}</p>
+                          </div>
+                          <div class="form-group">
+                            <label>Use of Equipment</label>
+                            <p>{{quote.useOfEquipmentDO.equipName}}</p>
+                          </div>
+                          <div class="form-group">
+                            <label>MFG End Date</label>
+                            <p>{{quote.coverageEndDate |  date:"MM/dd/yyyy"}}</p>
+                          </div>
+                          <div class="checkbox">
+                            <label>
+                              <input type="checkbox" id="coverageExpired" name="coverageExpired"
+									 ng-model="quote.coverageExpired" value="true" ng-disabled="true"> Check here if the Manufacturer's Coverage has expired.
+                            </label>
+                          </div>
+                          <div class="form-group">
+                            <label>Deductible</label>
+                             <p>{{quote.deductiblePrice | currency:"$":0}}</p>
+                          </div>
+                          <div class="form-group">
+                            <label>Coverage Term</label>
+                            <p>{{(quote.coverageTerm != null)? quote.coverageTerm+"&nbsp;mos.":""}}</p>
+                          </div>
+                          <div class="form-group">
+                            <label>Covered Hours</label>
+                            <p>{{quote.coverageHours}}</p>
+                          </div>
+                          <div class="form-group">
+                            <label>Coverage Type</label>
+                            <p>{{quote.coverageType}}</p>
+                          </div>
+                          <div class="form-group">
+                            <label>Limit of Liability</label>
+                            <p>{{quote.machineInfoDO.lol | currency:"$":0}}</p>
+                          </div>
+                          <div class="form-group">
+                            <label>Estimated Sale Date</label>
+                            <p>{{quote.estSaleDate |  date:"MM/dd/yyyy"}}</p>
+                          </div>
+                          <div class="form-group">
+                            <label>Additional Unit Information</label>
+                            <p>{{quote.otherProv}}</p>
+                          </div>
+                          <div class="form-group">
+                            <label>Dealer Markup</label>
+                            <p>{{quote.dealerMarkup}}</p>
+                          </div>
+                          <div class="form-group">
+                            <label>Markup Type</label>
+                            <div class="agform-radio">
+                             <label class="radio-inline">
+	                           <input type="radio" id="dealerMarkupVlaue" name="dealerMarkupVlaue" ng-model="quote.dealerMarkupType" value="price" class="" ng-disabled="true"> Price
+	                         </label>
+	                         <label class="radio-inline">
+	                           <input type="radio" id="dealerMarkupVlaue" name="dealerMarkupVlaue" ng-model="quote.dealerMarkupType" value="percent" class="" ng-disabled="true">  Percent
+	                         </label>
+                            </div>
+                          </div>
+
+                        </div>
 
 
 
@@ -297,12 +400,12 @@
                        </div>
                        <div class="checkbox">
                          <label>
-                           <input type="checkbox" id="custUnderstandCoverage" name="custUnderstandCoverage" ng-model="quote.custUnderstandCoverage" ng-value="true" ng-checked="true" required="required"  validate-on="dirty" ng-disabled="disabled"> Customer understands coverage.
+                           <input type="checkbox" id="custUnderstandCoverage" name="custUnderstandCoverage" ng-model="quote.custUnderstandCoverage" ng-value="true" required="required"  validate-on="dirty" ng-disabled="disabled"> Customer understands coverage.
                          </label>
                        </div>
                        <div class="checkbox">
                          <label>
-                           <input type="checkbox" id="custRemorsePeriod" name="custRemorsePeriod" ng-model="quote.custRemorsePeriod" ng-value="true" ng-checked="true" required="required"  validate-on="dirty" ng-disabled="disabled"> Customer is aware of 90-day remorse period.
+                           <input type="checkbox" id="custRemorsePeriod" name="custRemorsePeriod" ng-model="quote.custRemorsePeriod" ng-value="true" required="required"  validate-on="dirty" ng-disabled="disabled"> Customer is aware of 90-day remorse period.
                          </label>
                        </div>
                      </div>
@@ -315,25 +418,36 @@
 								<label>Base Price</label>
 								<p>{{quote.quoteBasePrice | currency:"$":0}}</p>
 							  </div>
-							  <div class="form-group">
-								<label>Admin Adjusted Price</label>
-								 <input type="text" id="adjustedBasePrice" name="adjustedBasePrice" ng-model="quote.adjustedBasePrice" class="form-control">
-							  </div>
+							  <c:if test="${user.roleDO.accountType eq 'admin'}">
+								  <div class="form-group">
+									<label>Admin Adjusted Price</label>
+									 <input type="text" id="adjustedBasePrice" name="adjustedBasePrice" ng-model="quote.adjustedBasePrice" class="form-control" ng-blur="updateAdjustedPrice(quote.adjustedBasePrice)">
+								  </div>
+							  </c:if>
 							  <div class="form-group">
 								<label>Limit of Liability</label>
 								<p>{{quote.machineInfoDO.lol | currency:"$":0}}</p>
 							  </div>
-							  <div class="form-group">
-								<label>Admin Adjusted LOL</label>
-								 <input type="text" id="adjustedLol" name="adjustedLol" ng-model="quote.adjustedLol" class="form-control">
-							  </div>
+							  <c:if test="${user.roleDO.accountType eq 'admin'}">
+								  <div class="form-group">
+									<label>Admin Adjusted LOL</label>
+									 <input type="text" id="adjustedLol" name="adjustedLol" ng-model="quote.adjustedLol" class="form-control" value="{{quote.machineInfoDO.lol}}" ng-value="quote.machineInfoDO.lol">
+								  </div>
+							  </c:if>
 							  <div class="form-group">
 								<label>Current Status</label>
-								<select class="form-control" name="status" ng-model="quote.status" convert-to-number id="status"  validate-on="dirty" required="required">
-								  <option value="1">Estimating Price</option>
-								  <option value="4">Purchase Requested</option>
-								  <option value="5">Invoiced</option>
-								</select>
+								<c:choose>
+								 	<c:when test="${user.roleDO.accountType eq 'admin'}">
+								        <select class="form-control" name="status" ng-model="quote.status" convert-to-number id="status"  validate-on="dirty" required="required">
+										  <option value="1">Estimating Price</option>
+										  <option value="4">Purchase Requested</option>
+										  <option value="5">Invoiced</option>
+										</select>
+								    </c:when>
+								    <c:otherwise>
+								        <p>{{quote.statusDesc}}</p>
+								    </c:otherwise>
+								</c:choose>
 							  </div>
 							  <div class="form-group">
 								<label>Last Update</label>

@@ -3,9 +3,10 @@
 routingApp.factory('dealerService', function($http, $q, $window) {
 			return {
 				saveDealer : function(dealer) {
+					showSpinner();
 					return $http.post('/agg/addDealer', dealer).then(
 							function(response) {
-								alert(response.data.status);
+								//alert(response.data.status);
 								if (response.data.status == 'success') {
 									//$window.location = '/agg/home';
 									$window.location.href = '#/agg/dealers';
@@ -13,16 +14,17 @@ routingApp.factory('dealerService', function($http, $q, $window) {
 									alert('error in adding dealer: '+response.data.errMessage)
 									//$('#errMsg').html(response.data.errMessage);
 								}
-								
+								hideSpinner();
 							}, function(errResponse) {
 								alert('Error while creating dealer');
 								return $q.reject(errResponse);
 							});
+					
 				},
 				editDealer : function(dealer, $scope, editDealerCond) {
 					return $http.post('/agg/editDealer', dealer).then(
 							function(response) {
-								alert(response.data.status);
+								//alert(response.data.status);
 								if (response.data.status == 'success') {
 									//$window.location = '/agg/home';
 									closePopup('dealerEditPopup');
@@ -60,7 +62,7 @@ routingApp.factory('locationService', function($http, $q, $window) {
 		saveLocation : function(location) {
 			return $http.post('/agg/addLocation', location).then(
 					function(response) {
-						alert(response.data.status);
+						//alert(response.data.status);
 						if (response.data.status == 'success') {
 							$window.location = '/agg/home';
 						} else {
@@ -83,7 +85,7 @@ routingApp.factory('userService', function($http, $q, $window) {
 		saveUser : function(user) {
 			return $http.post('/agg/addUser', user).then(
 					function(response) {
-						alert(response.data.status);
+						//alert(response.data.status);
 						if (response.data.status == 'success') {
 							//$window.location = '/agg/home';
 							$window.location.href = '#/agg/users';
@@ -100,7 +102,7 @@ routingApp.factory('userService', function($http, $q, $window) {
 		editUser : function(user, $scope) {
 			return $http.post('/agg/editUser', user).then(
 					function(response) {
-						alert(response.data.status);
+						//alert(response.data.status);
 						if (response.data.status == 'success') {
 							closePopup('userEditPopup');
 							//$window.location.href = '#/agg/dealers';

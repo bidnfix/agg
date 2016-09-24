@@ -29,6 +29,20 @@ public class ClaimsDO {
 	private int approvedOtherCharges2;
 	private List<ClaimPartDO> claimPartDO;
 	private ClaimLaborDO claimLaborDO;
+	private String custName;
+	private String dealerName;
+	private String manufacturer;
+	private String machineModel;
+	
+	public ClaimsDO(String claimId, String custName, String dealerName, String serialNo, String manfName, String machineModel, byte status){
+		this.claimId = claimId;
+		this.custName = custName;
+		this.dealerName = dealerName;
+		this.serial = serialNo;
+		this.manufacturer = manfName;
+		this.machineModel = machineModel;
+		this.cStatus = status;
+	}
 	/**
 	 * 
 	 */
@@ -324,4 +338,29 @@ public class ClaimsDO {
 	public void setClaimLaborDO(ClaimLaborDO claimLaborDO) {
 		this.claimLaborDO = claimLaborDO;
 	}
+	public String getCustName() {
+		return custName;
+	}
+	public void setCustName(String custName) {
+		this.custName = custName;
+	}
+	public String getDealerName() {
+		return dealerName;
+	}
+	public void setDealerName(String dealerName) {
+		this.dealerName = dealerName;
+	}
+	public String getManufacturer() {
+		return manufacturer;
+	}
+	public void setManufacturer(String manufacturer) {
+		this.manufacturer = manufacturer;
+	}
+	public String getMachineModel() {
+		return machineModel;
+	}
+	public void setMachineModel(String machineModel) {
+		this.machineModel = machineModel;
+	}
+	
 }

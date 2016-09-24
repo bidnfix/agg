@@ -7,7 +7,7 @@ routingApp.factory('machineService', function($http, $q, $window) {
 							function(response) {
 								//alert(response.data.status);
 								if (response.data.status == 'success') {
-									$window.location = '/agg/home';
+									$window.location = '/agg/machineInfo';
 								} else {
 									alert('error in adding machine: '+response.data.errMessage)
 									//$('#errMsg').html(response.data.errMessage);

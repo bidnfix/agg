@@ -59,10 +59,9 @@
 						<div class="input-group">
 							<input type="date" id="coverageEndDate" name="coverageEndDate"
 								min="{{date | date:'yyyy-MM-dd'}}"
-								ng-model="quote.coverageEndDate" class="form-control"
-								aria-describedby="basic-addon2"> <span
+								ng-model="quote.coverageEndDate" class="form-control"><!--  <span
 								class="input-group-addon"><i
-								class="glyphicon glyphicon-calendar"></i></span>
+								class="glyphicon glyphicon-calendar"></i></span> -->
 						</div>
 						<input type="checkbox" id="coverageEndDateUnknown"
 							name="coverageEndDateUnknown"

@@ -210,7 +210,6 @@ public class ProgramServiceImpl implements ProgramService {
 		if(quoteDO != null)
 		{
 			CustomerInfoDO custDO = quoteDO.getCustomerInfoDO();
-			//logger.debug("CustDO "+custDO);
 			Quote quote = new Quote();
 			String quoteId = Util.getQuoteId(AggConstants.CHARSET_AZ_09, AggConstants.QUOTE_ID_LENGTH);
 			logger.info("created quoteId: "+quoteId);
@@ -249,15 +248,12 @@ public class ProgramServiceImpl implements ProgramService {
 				MachineInfo machineInfo = machineInfoDAO.findOne(Long.valueOf(quoteDO.getMachineInfoDO().getMachineId()));
 				quote.setMachineInfo(machineInfo);
 				quote.setMachineModel(machineInfo.getModel());
+				quote.setGroupId(new Long(machineInfo.getGroupConstant().getGroupId()).intValue());
+				
 				logger.debug("quote..getMachineInfoDO "+quote.getMachineInfo());
 			}
 			
 			logger.info("accountDO.getDealerId() "+accountDO.getDealerId());
-			
-			/*if(accountDO.getDealerId() > 0)
-			{
-				quote.setDealer(dealerDAO.findOne(accountDO.getDealerId()));
-			}*/
 			
 			if(quoteDO.getDealerDO() != null)
 			{
@@ -281,20 +277,24 @@ public class ProgramServiceImpl implements ProgramService {
 			
 			quote.setIsArchive((short)0);
 			quote.setCreateDate(date);
-			//TODO program object needs to set
-			//quote.setPrId(0);
+			
+			if(quoteDO.getProgramDO() != null)
+			{
+				Sprogram program = programDAO.findOne(Long.valueOf(quoteDO.getProgramDO().getPrId()));
+				quote.setProgram(program);
+			}
+			
 			quote.setServicingDealer(0);
 			quote.setLastUpdate(date);
 			
+			quote.setStatus((byte)4);
+			
 			quote = quoteDAO.save(quote);
 			
-			logger.debug("quote.getId().getId() "+quote.getId().getId());
 			generatedQuoteId = quote.getId().getId();
 			
-			if(/*quote != null && quote.getId() != null & */custDO != null)
+			if(custDO != null)
 			{
-				
-				//generatedQuoteId = quote.getId().getId();
 				CustomerInfo custInfo = new CustomerInfo();
 				custInfo.setQuoteId(quoteId);
 				custInfo.setName(custDO.getName());

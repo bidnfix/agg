@@ -21,15 +21,15 @@
 					<div class="form-group">
 						<label>Select a Program</label> <select class="form-control"
 							name="programName" ng-model="program.programDO"
-							ng-options="program.name for program in programList"
+							ng-options="program.name for program in programList | orderBy:'name'"
 							ng-change="getProgDetails(program.programDO)" validate-on="dirty"
-							required="required" ng-disabled="disabled">
+							required="required" ng-disabled="disabled" class="form-control">
 							<option value="">Select Program</option>
 						</select>
 					</div>
 					<div class="form-group">
 						<label>Dealer</label>
-						<p>{{program.dealerDO.name}}</p>
+						<p>&nbsp;&nbsp;&nbsp;{{program.dealerDO.name}}</p>
 					</div>
 					<div class="form-group">
 						<label>Manufacturer</label> <input type="text"
@@ -40,9 +40,9 @@
 					<div class="form-group">
 						<label>Model</label> <select class="form-control" name="modelName"
 							ng-model="program.machineInfoDO"
-							ng-options="machineInfooDO.model for machineInfooDO in program.machineInfoDOList"
+							ng-options="machineInfooDO.model for machineInfooDO in program.machineInfoDOList | orderBy:'model'"
 							ng-change="getRemProgDetails(program.machineInfoDO)"
-							validate-on="dirty" required="required" ng-disabled="disabled">
+							validate-on="dirty" required="required" ng-disabled="disabled" class="form-control">
 							<option value="">Select Model</option>
 						</select>
 					</div>
@@ -112,7 +112,7 @@
 					</div>
 					<br clear="all"> <br clear="all">
 					<h3>Customer Information</h3>
-					<div class="col-xs-12 border-bottom no-pad">
+					<div class="col-xs-12 no-pad">
 						<div class="form-group">
 							<label>Name</label> <input type="text" id="custName" name="custName"
 													ng-model="program.customerInfoDO.name" placeholder="Name" class="form-control"

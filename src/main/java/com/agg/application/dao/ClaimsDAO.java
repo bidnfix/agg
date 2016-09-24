@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.agg.application.entity.Claims;
+import com.agg.application.model.ClaimsDO;
 
 @Component
 public interface ClaimsDAO extends CrudRepository<Claims, Long> {
@@ -23,4 +24,23 @@ public interface ClaimsDAO extends CrudRepository<Claims, Long> {
 	@Transactional
 	@Query("UPDATE Claims c SET c.cStatus = :cStatus WHERE c.id = :id ")
 	void updateStatus(@Param("id") int id, @Param("cStatus") byte cStatus);
+	
+	@Query("select new com.agg.application.model.ClaimsDO(claims.claimId, cus.name, dealer.name, claims.serial, quotes.manfName, "
+			+ "quotes.machineModel, claims.cStatus) from "
+			+ "Claims claims, Contracts contracts, Quote quotes, CustomerInfo cus, Dealer dealer "
+			+ "where claims.contractId = contracts.contractId "
+			+ "and contracts.quoteId = quotes.id.id "
+			+ "and quotes.id.quoteId = cus.quoteId "
+			+ "and claims.dealerId = :dealerId "
+			+ "and claims.dealerId = dealer.id")
+	List<ClaimsDO> findClaimsInfo(@Param("dealerId") int dealerId);
+	
+	@Query("select new com.agg.application.model.ClaimsDO(claims.claimId, cus.name, dealer.name, claims.serial, quotes.manfName, "
+			+ "quotes.machineModel, claims.cStatus) from "
+			+ "Claims claims, Contracts contracts, Quote quotes, CustomerInfo cus, Dealer dealer "
+			+ "where claims.contractId = contracts.contractId "
+			+ "and contracts.quoteId = quotes.id.id "
+			+ "and quotes.id.quoteId = cus.quoteId "
+			+ "and claims.dealerId = dealer.id")
+	List<ClaimsDO> findClaimsInfo();
 }

@@ -121,13 +121,13 @@ public class QuoteController extends BaseController {
 	
 	@RequestMapping(value = "/quote/userInfo/{dealerId}", method = RequestMethod.GET)
 	public @ResponseBody Result getUserInfo(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable("dealerId") long dealerId) {
-		logger.debug("In getUserInfo");
+		logger.debug("In getUserInfo with dealerId: "+dealerId);
 		Result opResult = null;
 		if (!sessionExists(request)){
 			opResult = new Result("failure", "Invalid Login", null);
 		}else{
 			
-			DealerDO dealerDO = dealerService.getDealerInfo(dealerId);
+			DealerDO dealerDO = dealerService.getDealer(dealerId);
 			
 			opResult = new Result("success", "Quote Info", dealerDO);
 		}

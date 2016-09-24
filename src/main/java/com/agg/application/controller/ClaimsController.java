@@ -233,6 +233,21 @@ public class ClaimsController extends BaseController {
 		}
 	}
 	
+	@RequestMapping(value = "/getClaimsInfo", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+	public @ResponseBody Result getClaimsInfo(Map<String, Object> model, HttpServletRequest request, HttpServletResponse response) {
+		logger.info("Inside getClaimsInfo()");
+		if(!sessionExists(request)){
+			return new Result("failure", "Session Expired", null);
+		}else{
+			List<ClaimsDO> claimsInfoList = claimsService.getClaimsInfo(getAccountDetails(request));
+			if(claimsInfoList != null){
+				logger.info("claimsInfoList size: "+claimsInfoList.size());
+			}
+			model.put("claimDOList", claimsInfoList);
+			return new Result("success", null, model);
+		}
+	}
+	
 }
 
 
