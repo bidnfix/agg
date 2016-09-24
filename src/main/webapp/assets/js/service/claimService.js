@@ -153,7 +153,8 @@ routingApp.factory('claimPreAuthReqService', ['$http', '$q', '$window', '$timeou
 			preAuthClaim.totalPartCost = 0;
 			if(preAuthClaim.claimPartDO){
 				for(var i in preAuthClaim.claimPartDO){
-					preAuthClaim.totalPartCost += preAuthClaim.claimPartDO[i].qty * preAuthClaim.claimPartDO[i].unitPrice;
+					preAuthClaim.claimPartDO[i].partsTotal = preAuthClaim.claimPartDO[i].qty * preAuthClaim.claimPartDO[i].unitPrice;
+					preAuthClaim.totalPartCost += preAuthClaim.claimPartDO[i].partsTotal;
 				}
 			}
 			preAuthClaim.totalClaimCost = (preAuthClaim.claimLaborDO.laborHrs * preAuthClaim.claimLaborDO.rate) + preAuthClaim.totalPartCost
@@ -163,6 +164,7 @@ routingApp.factory('claimPreAuthReqService', ['$http', '$q', '$window', '$timeou
 	selectClaim = function($scope, claim){
 		$scope.showPreAuthClaimList = false;
 		$scope.preAuthClaim = claim;
+		$scope.preAuthClaim.totalLaborCost = $scope.preAuthClaim.claimLaborDO.laborHrs * $scope.preAuthClaim.claimLaborDO.rate;
 		calcCost($scope.preAuthClaim);
 		$scope.extCommentFlag = true;
 	},
