@@ -33,7 +33,20 @@ public class ClaimsDO {
 	private String dealerName;
 	private String manufacturer;
 	private String machineModel;
+	private ContractDO contractDO;
 	
+	/**
+	 * @return the contractDO
+	 */
+	public ContractDO getContractDO() {
+		return contractDO;
+	}
+	/**
+	 * @param contractDO the contractDO to set
+	 */
+	public void setContractDO(ContractDO contractDO) {
+		this.contractDO = contractDO;
+	}
 	public ClaimsDO(String claimId, String custName, String dealerName, String serialNo, String manfName, String machineModel, byte status){
 		this.claimId = claimId;
 		this.custName = custName;

@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.agg.application.dao.ClaimLaborDAO;
 import com.agg.application.dao.ClaimPartDAO;
 import com.agg.application.dao.ClaimsDAO;
+import com.agg.application.dao.ContractsDAO;
 import com.agg.application.dao.DealerDAO;
 import com.agg.application.dao.MachineInfoDAO;
 import com.agg.application.dao.ManufacturerDAO;
@@ -21,12 +22,14 @@ import com.agg.application.dao.QuoteDAO;
 import com.agg.application.entity.ClaimLabor;
 import com.agg.application.entity.ClaimPart;
 import com.agg.application.entity.Claims;
+import com.agg.application.entity.Contracts;
 import com.agg.application.entity.Manufacturer;
 import com.agg.application.entity.Quote;
 import com.agg.application.model.AccountDO;
 import com.agg.application.model.ClaimLaborDO;
 import com.agg.application.model.ClaimPartDO;
 import com.agg.application.model.ClaimsDO;
+import com.agg.application.model.ContractDO;
 import com.agg.application.model.ManufacturerDO;
 import com.agg.application.model.QuoteDO;
 import com.agg.application.service.ClaimsService;
@@ -58,6 +61,9 @@ public class ClaimsServiceImpl implements ClaimsService {
 	
 	@Autowired
 	private MachineInfoDAO machineInfoDAO;
+	
+	@Autowired
+	private ContractsDAO contractsDAO;
 	
 	
 	public List<ClaimsDO> getClaimsInfo(AccountDO accountDO){
@@ -207,42 +213,58 @@ public class ClaimsServiceImpl implements ClaimsService {
 	 * @see com.agg.application.service.ClaimsService#getClaimsByCStatus(byte)
 	 */
 	@Override
-	public List<ClaimsDO> getClaimsByCStatus(byte cStatus) {
+	public List<ClaimsDO> getClaimsByCStatus(byte cStatus, boolean contractInfo) {
 		List<Claims> claimsList = claimsDAO.findAllByCStatus(cStatus);
 		List<ClaimLabor> claimsLaborList = null;
 		List<ClaimPart> claimPartList = null;
+		List<Contracts> contractsList = null;
+		List<String> contractIdList = new ArrayList<>();
 		List<Integer> claimIdList = new ArrayList<>();
 		for(Claims claims : claimsList){
 			claimIdList.add(claims.getId());
+			if(contractInfo){
+				contractIdList.add(claims.getContractId());
+			}
 		}
 		if(!claimIdList.isEmpty()){
 			claimsLaborList = claimLaborDAO.findAllByClaimID(claimIdList);
 			claimPartList = claimPartDAO.findAllByClaimID(claimIdList);
+			if(contractInfo && !contractIdList.isEmpty()){
+				contractsList = contractsDAO.findAllByContractID(contractIdList);
+			}
 		}
-		return ConvertClaimToClaimsDO(claimsList, claimsLaborList, claimPartList);
+		return ConvertClaimToClaimsDO(claimsList, claimsLaborList, claimPartList, contractsList);
 	}
 	
 	@Override
-	public List<ClaimsDO> getClaimsByCStatus(byte cStatus, int dealerId) {
+	public List<ClaimsDO> getClaimsByCStatus(byte cStatus, int dealerId, boolean contractInfo) {
 		List<Claims> claimsList = claimsDAO.findAllByCStatus(cStatus, dealerId);
 		List<ClaimLabor> claimsLaborList = null;
 		List<ClaimPart> claimPartList = null;
+		List<Contracts> contractsList = null;
 		List<Integer> claimIdList = new ArrayList<>();
+		List<String> contractIdList = new ArrayList<>();
 		for(Claims claims : claimsList){
 			claimIdList.add(claims.getId());
+			if(contractInfo){
+				contractIdList.add(claims.getContractId());
+			}
 		}
 		if(!claimIdList.isEmpty()){
 			claimsLaborList = claimLaborDAO.findAllByClaimID(claimIdList);
 			claimPartList = claimPartDAO.findAllByClaimID(claimIdList);
+			if(contractInfo && !contractIdList.isEmpty()){
+				contractsList = contractsDAO.findAllByContractID(contractIdList);
+			}
 		}
-		return ConvertClaimToClaimsDO(claimsList, claimsLaborList, claimPartList);
+		return ConvertClaimToClaimsDO(claimsList, claimsLaborList, claimPartList, contractsList);
 	}
 	
-	private List<ClaimsDO> ConvertClaimToClaimsDO(List<Claims> claimsList, List<ClaimLabor> claimsLaborList, List<ClaimPart> claimPartList){
+	private List<ClaimsDO> ConvertClaimToClaimsDO(List<Claims> claimsList, List<ClaimLabor> claimsLaborList, List<ClaimPart> claimPartList, List<Contracts> contractsList){
 		List<ClaimsDO> claimsDOList = new ArrayList<>();
 		Map<Integer, ClaimLabor> laborMap = new HashMap<>();
 		Map<Integer, List<ClaimPart>> partMap = new HashMap<>();
-		
+		Map<String, Contracts> contractsMap = new HashMap<>();
 		if(null != claimsLaborList){
 			for(ClaimLabor claimLabor : claimsLaborList){
 				laborMap.put(claimLabor.getClaimId(), claimLabor);
@@ -258,6 +280,11 @@ public class ClaimsServiceImpl implements ClaimsService {
 					clList.add(claimPart);
 					partMap.put(claimPart.getClaimId(), clList);
 				}
+			}
+		}
+		if(null != contractsList){
+			for(Contracts contract :contractsList){
+				contractsMap.put(contract.getContractId(), contract);
 			}
 		}
 		if(null != claimsList && !claimsList.isEmpty()){
@@ -310,6 +337,16 @@ public class ClaimsServiceImpl implements ClaimsService {
 						cpl.add(partDO);
 					}
 					claimDO.setClaimPartDO(cpl);
+				}
+				
+				if(null != contractsMap.get(claim.getContractId())){
+					ContractDO contractDO = new ContractDO();
+					Contracts con = contractsMap.get(claim.getContractId());
+					contractDO.setContractId(con.getContractId());
+					contractDO.setDeductible(con.getDeductible());
+					contractDO.setLol(con.getLol());
+					contractDO.setAvailabeLol(con.getAvailabeLol());
+					claimDO.setContractDO(contractDO);
 				}
 				
 				claimsDOList.add(claimDO);

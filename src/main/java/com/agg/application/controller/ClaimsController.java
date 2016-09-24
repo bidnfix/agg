@@ -211,9 +211,9 @@ public class ClaimsController extends BaseController {
 			List<ClaimsDO> cliamsList = null;
 			AccountDO account = getAccountDetails(request);
 			if("admin".equals(account.getRoleName())){
-				cliamsList = claimsService.getClaimsByCStatus(Util.getClaimStatusCode("pre_authorized_requested"));
+				cliamsList = claimsService.getClaimsByCStatus(Util.getClaimStatusCode("pre_authorized_requested"), false);
 			}else{
-				cliamsList = claimsService.getClaimsByCStatus(Util.getClaimStatusCode("pre_authorized_requested"), (int)account.getDealerId());
+				cliamsList = claimsService.getClaimsByCStatus(Util.getClaimStatusCode("pre_authorized_requested"), (int)account.getDealerId(), false);
 			}
 			
 			logger.info("preAuthClaims size: "+cliamsList.size());
@@ -246,6 +246,32 @@ public class ClaimsController extends BaseController {
 			model.put("claimDOList", claimsInfoList);
 			return new Result("success", null, model);
 		}
+	}
+	
+	@RequestMapping(value = "/adjudicateClaim", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+	public @ResponseBody Result getAdjudicateClaim(HttpServletRequest request, HttpServletResponse response) {
+		logger.info("Inside getAdjudicateClaim()");
+		if(!sessionExists(request)){
+			return new Result("failure", "Session Expired", null);
+		}else{
+			Map<String, Object> map = new HashMap<>();
+			List<ClaimsDO> cliamsList = getClaimByStatus(Util.getClaimStatusCode("pre_authorized_requested"), request, true);
+			
+			logger.info("preAuthClaims size: "+cliamsList.size());
+			map.put("preAuthClaimList", cliamsList);
+			return new Result("success", null, map);
+		}
+	}
+	
+	private List<ClaimsDO> getClaimByStatus(final byte statusCode, HttpServletRequest request, boolean contractInfo){
+		List<ClaimsDO> cliamsList = null;
+		AccountDO account = getAccountDetails(request);
+		if("admin".equals(account.getRoleName())){
+			cliamsList = claimsService.getClaimsByCStatus(statusCode, contractInfo);
+		}else{
+			cliamsList = claimsService.getClaimsByCStatus(statusCode, (int)account.getDealerId(), contractInfo);
+		}
+		return cliamsList;
 	}
 	
 }

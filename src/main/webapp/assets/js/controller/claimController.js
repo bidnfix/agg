@@ -77,6 +77,10 @@ routingApp.controller('ClaimsAdjudicateController', function($scope, $http, clai
 		claimsAdjudicateService.selectClaim($scope, claim);
 	};
 	
+	$scope.onClickBackToList = function(){
+		claimsAdjudicateService.backToList($scope);
+	};
+	
 	$scope.reqAuth = function(status){
 		claimsAdjudicateService.reqAuth($scope, status);
 	};

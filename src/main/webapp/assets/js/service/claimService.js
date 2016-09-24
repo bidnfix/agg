@@ -210,7 +210,7 @@ routingApp.factory('claimPreAuthReqService', ['$http', '$q', '$window', '$timeou
 
 routingApp.factory('claimsAdjudicateService', ['$http', '$q', '$window', '$timeout', function($http, $q, $window, $timeout){
 	var init = function($scope){
-		$http.get("/agg/preAuthClaimReq")
+		$http.get("/agg/adjudicateClaim")
 	    .then(function(response) {
 	    	$scope.adjudicateClaimList = response.data.data.preAuthClaimList;
 	    });
@@ -220,18 +220,39 @@ routingApp.factory('claimsAdjudicateService', ['$http', '$q', '$window', '$timeo
 			adjudicateClaim.totalPartCost = 0;
 			if(adjudicateClaim.claimPartDO){
 				for(var i in adjudicateClaim.claimPartDO){
-					adjudicateClaim.totalPartCost += adjudicateClaim.claimPartDO[i].qty * adjudicateClaim.claimPartDO[i].unitPrice;
+					adjudicateClaim.claimPartDO[i].partsTotal = adjudicateClaim.claimPartDO[i].qty * adjudicateClaim.claimPartDO[i].unitPrice;
+					adjudicateClaim.totalPartCost += adjudicateClaim.claimPartDO[i].partsTotal;
 				}
 			}
-			adjudicateClaim.totalClaimCost = (adjudicateClaim.claimLaborDO.laborHrs * adjudicateClaim.claimLaborDO.rate) + adjudicateClaim.totalPartCost
+			adjudicateClaim.totalLaborCost = (adjudicateClaim.claimLaborDO.laborHrs * adjudicateClaim.claimLaborDO.rate);
+			adjudicateClaim.totalClaimCost = adjudicateClaim.totalLaborCost  + adjudicateClaim.totalPartCost
 				+ adjudicateClaim.requestedOtherCharges1 + adjudicateClaim.requestedOtherCharges2;
 		}
 	},
 	selectClaim = function($scope, claim){
-		$scope.showPreAuthClaimList = false;
+		$scope.showAdjudicateClaimList = false;
 		$scope.adjudicateClaim = claim;
 		calcCost($scope.adjudicateClaim);
-		$scope.extCommentFlag = true;
+		$scope.$watch('adjudicateClaim.claimLaborDO.adjustedLaborHrs * adjudicateClaim.claimLaborDO.adjustedRate', function(value){
+			$scope.adjudicateClaim.adjustedTotalLaborCost = value;
+		});
+		
+		$scope.$watch('adjudicateClaim.adjustedOther1Cost + adjudicateClaim.adjustedOther2Cost', function(value){
+			$scope.adjudicateClaim.totalAdjustedOthersCost = value;
+		});
+		
+		$scope.$watchCollection('[adjudicateClaim.adjustedTotalLaborCost, adjudicateClaim.totalAdjustedPartsCost, adjudicateClaim.totalAdjustedOthersCost]', function(newValues){
+			$scope.adjudicateClaim.totalAdjustedClaimsCost = parseInt(newValues[0]) + parseInt(newValues[1]) + parseInt(newValues[2]);
+		});
+		
+		$scope.$watch('adjudicateClaim.totalAdjustedClaimsCost', function(value){
+			var reimbursedAmount = $scope.adjudicateClaim.contractDO.availabeLol - ($scope.adjudicateClaim.totalAdjustedClaimsCost - $scope.adjudicateClaim.contractDO.deductible);
+			if(reimbursedAmount < 0){
+				$scope.adjudicateClaim.totalReimbursedCost = $scope.adjudicateClaim.contractDO.availabeLol;
+			}else{
+				$scope.adjudicateClaim.totalReimbursedCost = $scope.adjudicateClaim.totalAdjustedClaimsCost;
+			}
+		});
 	},
 	submit = function($scope, status){
 		var data = {};
@@ -264,11 +285,16 @@ routingApp.factory('claimsAdjudicateService', ['$http', '$q', '$window', '$timeo
 		if(status === 'pre_authorized_approved'){
 			submit($scope, status);
 		}
+	},
+	backToList = function($scope){
+		$scope.showAdjudicateClaimList = true;
+		$scope.adjudicateClaim = {};
 	};
 	
 	return {
 		init : init,
 		selectClaim : selectClaim,
-		reqAuth : reqAuth
+		reqAuth : reqAuth,
+		backToList : backToList
 	}
 }]);

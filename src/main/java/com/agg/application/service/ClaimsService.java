@@ -12,7 +12,7 @@ public interface ClaimsService {
 	List<QuoteDO> getClaimInfoBySerialNumber(final String serialNo);
 	QuoteDO getClaimInfo(String ClaimId);
 	Long saveClaim(ClaimsDO claimsDO);
-	List<ClaimsDO> getClaimsByCStatus(byte cStatus);
-	List<ClaimsDO> getClaimsByCStatus(byte cStatus, int dealerId);
+	List<ClaimsDO> getClaimsByCStatus(byte cStatus, boolean contractInfo);
+	List<ClaimsDO> getClaimsByCStatus(byte cStatus, int dealerId, boolean contractInfo);
 	void updateStatus(final int id, final byte status);
 }
