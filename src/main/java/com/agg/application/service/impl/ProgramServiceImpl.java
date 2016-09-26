@@ -314,23 +314,87 @@ public class ProgramServiceImpl implements ProgramService {
 
 	@Override
 	public ProgramDO getProgram(Long id) {
-		Sprogram sProgram = programDAO.findOne(id);
-		ProgramDO program = new ProgramDO();
-		program.setPrId(sProgram.getPrId());
-		program.setName(sProgram.getPrName());
-		program.setDesc(sProgram.getPrDesc());
-		program.setcType(sProgram.getPrCType());
+		Sprogram program = programDAO.findOne(id);
+		//ProgramDO programDO = new ProgramDO();
 		
-		DealerDO dealerDO = new DealerDO();
-		Dealer dealer = sProgram.getDealer();
-		if(dealer!=null)
+		ProgramDO programDO = null;
+		//Sprogram program = null;
+		DealerDO dealerDO = null;
+		ManufacturerDO manfDO = null;
+		List<MachineInfoDO> machineInfoDOList = null; 
+		
+		if(program != null)
 		{
-			dealerDO.setName(dealer.getName());
-			dealerDO.setId(dealer.getId());
-		}
-		program.setDealerDO(dealerDO);
+			programDO = new ProgramDO();
 		
-		return program;
+			/*programDO.setPrId(program.getPrId());
+			programDO.setName(program.getPrName());
+			programDO.setDesc(program.getPrDesc());
+			programDO.setcType(program.getPrCType());
+			
+			DealerDO dealerDO = new DealerDO();
+			Dealer dealer = program.getDealer();
+			if(dealer!=null)
+			{
+				dealerDO.setName(dealer.getName());
+				dealerDO.setId(dealer.getId());
+			}
+			programDO.setDealerDO(dealerDO);*/
+	
+			
+			programDO.setName(program.getPrName());
+			programDO.setcType(program.getPrCType());
+			programDO.setPrId(program.getPrId());
+			programDO.setCondition(program.getPrCondition());
+			programDO.setcType(program.getPrCType());
+			programDO.setcTerm(program.getPrCTerm());
+			programDO.setcHours(program.getPrCHours());
+			programDO.setDeductible(program.getPrDeductible());
+			programDO.setLol(program.getPrLol());
+			programDO.setCost(program.getPrCost());
+			programDO.setDesc(program.getPrDesc());
+			
+			dealerDO = new DealerDO();
+			Dealer dealer = program.getDealer();
+			if(dealer!=null)
+			{
+				dealerDO.setName(dealer.getName());
+				dealerDO.setId(dealer.getId());
+			}
+			programDO.setDealerDO(dealerDO);
+			
+			manfDO = new ManufacturerDO();
+			Manufacturer manf = program.getManufacturer();
+			if(manf!=null)
+			{
+				manfDO.setName(manf.getManfName());
+				manfDO.setId(manf.getManfId());
+			}
+			programDO.setManufacturerDO(manfDO);
+			
+			machineInfoDOList = new ArrayList<MachineInfoDO>();
+			List<MachineInfo> machineInfoLst = program.getMachineInfos();
+			if(machineInfoLst!=null)
+			{
+				for(MachineInfo macineInfo : machineInfoLst)
+				{
+					MachineInfoDO macInfDO = new MachineInfoDO();
+					macInfDO.setModel(macineInfo.getModel());
+					macInfDO.setMachineId(macineInfo.getMachineId());
+					macInfDO.setModelYear(macineInfo.getModelYear());
+					macInfDO.setMachineId(macineInfo.getMachineId());
+					
+					machineInfoDOList.add(macInfDO);
+				}
+				programDO.setMachineInfoDOList(machineInfoDOList);
+			}
+			programDO.setDealerDO(dealerDO);
+		
+		}
+	
+		
+		
+		return programDO;
 	}
 
 	@Override
