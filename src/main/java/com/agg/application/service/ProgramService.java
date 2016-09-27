@@ -12,7 +12,7 @@ public interface ProgramService {
 
 	Long saveProgram(ProgramDO program);
 	
-	int saveProgramsAsDealr(QuoteDO quoteDO, AccountDO accountDO);
+	int saveProgramsAsDealr(QuoteDO quoteDO, AccountDO accountDO, String appUrl) throws Exception;
 
 	ProgramDO getProgram(Long id, AccountDO accountDO);	
 

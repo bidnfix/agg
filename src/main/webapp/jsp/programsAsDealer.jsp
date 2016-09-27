@@ -79,7 +79,7 @@
 
 
 				<div class="col-md-6 no-pad pad10-left border-left">
-				<h3>Customer Information</h3>
+				<h3>Program Details</h3>
                         <div class="col-xs-12 border-bottom no-pad">
 						<div class="form-group">
 							<label>Condition</label> 

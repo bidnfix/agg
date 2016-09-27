@@ -1,16 +1,26 @@
 package com.agg.application.service.impl;
 
+import java.io.ByteArrayOutputStream;
 import java.sql.Timestamp;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
+import javax.activation.DataSource;
+import javax.mail.util.ByteArrayDataSource;
 import javax.transaction.Transactional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 
 import com.agg.application.dao.AccountDAO;
@@ -20,6 +30,7 @@ import com.agg.application.dao.MachineInfoDAO;
 import com.agg.application.dao.ManufacturerDAO;
 import com.agg.application.dao.ProgramDAO;
 import com.agg.application.dao.QuoteDAO;
+import com.agg.application.dao.UseOfEquipmentDAO;
 import com.agg.application.entity.Account;
 import com.agg.application.entity.CustomerInfo;
 import com.agg.application.entity.Dealer;
@@ -35,13 +46,27 @@ import com.agg.application.model.MachineInfoDO;
 import com.agg.application.model.ManufacturerDO;
 import com.agg.application.model.ProgramDO;
 import com.agg.application.model.QuoteDO;
+import com.agg.application.model.ReportDO;
 import com.agg.application.service.ProgramService;
 import com.agg.application.utils.AggConstants;
+import com.agg.application.utils.EmailSender;
+import com.agg.application.utils.EmailStatus;
 import com.agg.application.utils.Util;
+
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.JREmptyDataSource;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 @Service
 public class ProgramServiceImpl implements ProgramService {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+	
+	private static final SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 	
 	@Autowired
 	ProgramDAO programDAO;
@@ -63,6 +88,18 @@ public class ProgramServiceImpl implements ProgramService {
 	
 	@Autowired
 	private CustomerInfoDAO customerInfoDAO;
+	
+	@Autowired
+	private UseOfEquipmentDAO useOfEquipmentDAO;
+	
+	@Autowired
+	EmailSender emailSender;
+	
+	@Autowired
+    private ResourceLoader resourceLoader;
+	
+	@Value("${admin.email}")
+	private String adminEmail;
 	
 	@Override
 	public List<ProgramDO> getPrograms(AccountDO accountDO) {
@@ -201,11 +238,157 @@ public class ProgramServiceImpl implements ProgramService {
 	}
 	
 	@Override
-	public int saveProgramsAsDealr(QuoteDO quoteDO, AccountDO accountDO) {
+	@Transactional
+	public int saveProgramsAsDealr(QuoteDO quoteDO, AccountDO accountDO, String appUrl) throws Exception{
 		logger.debug("In saveProgramsAsDealr");
 		Timestamp date = new Timestamp(new Date().getTime());
 		
+		if(quoteDO != null)
+		{
+			CustomerInfoDO custDO = quoteDO.getCustomerInfoDO();
+			Quote quote = new Quote();
+			String quoteId = Util.getQuoteId(AggConstants.CHARSET_AZ_09, AggConstants.QUOTE_ID_LENGTH);
+			logger.info("created quoteId: "+quoteId);
+			QuotePK quotePK = new QuotePK();
+			quotePK.setQuoteId(quoteId);
+			quote.setId(quotePK);
+			
+			quote.setDealer(dealerDAO.findOne(quoteDO.getDealerDO().getId()));
+			quote.setManfExpired((quoteDO.isCoverageExpired())?(byte)1:(byte)0);
+			quote.setManfEndDate(quoteDO.getCoverageEndDate());
+			//quote.setManfEndKnown((quoteDO.isCoverageEndDateUnknown())?(byte)1:(byte)0);
+			quote.setManfEndKnown((byte)1);
+			quote.setManfVerified((quoteDO.isCoverageEndDateVerified())?(byte)1:(byte)0);
+			quote.setPtHours(quoteDO.getPowerTrainHours());
+			quote.setPtMonths(quoteDO.getPowerTrainMonths());
+			quote.setHHours(quoteDO.getHydraulicsHours());
+			quote.setHMonths(quoteDO.getHydraulicsMonths());
+			quote.setMachineHours(quoteDO.getFullMachineHours());
+			quote.setMachineMonths(quoteDO.getFullMachineMonths());
+			quote.setOtherProv("");
+			
+			Manufacturer manufacturer = manufacturerDAO.findOne(quoteDO.getManufacturerDO().getId());
+			if(manufacturer != null){
+				quote.setManufacturer(manufacturer);
+				quote.setManfName(manufacturer.getManfName());
+			}
+			
+			MachineInfo machineInfo = machineInfoDAO.findOne(quoteDO.getMachineInfoDO().getMachineId());
+			if(machineInfo != null){
+				quote.setMachineModel(machineInfo.getModel());
+				quote.setMachineInfo(machineInfo);
+				quote.setGroupId(new Long(machineInfo.getGroupConstant().getGroupId()).intValue());
+			}
+			
+			quote.setMachinePower(quoteDO.getHorsePower());
+			quote.setMachineSerial(quoteDO.getSerialNumber());
+			quote.setMachineRetailPrice(quoteDO.getRetailPrice());
+			quote.setMachineMeterHours(quoteDO.getMeterHours());
+			quote.setMachineYear(quoteDO.getModelYear());
+			//quote.setUseOfEquip(useOfEquipmentDAO.findOne(quoteDO.getUseOfEquipmentDO().getId()));
+			quote.setMachineSaleDate(quoteDO.getEstSaleDate());
+			
+			quote.setDealerMarkupType("price");
+			quote.setDealerMarkup(quoteDO.getDealerMarkup());
+			quote.setDeductAmount(quoteDO.getDeductible());
+			quote.setCoverageTerm(quoteDO.getcTerm());
+			quote.setCoverageLevelHours(quoteDO.getcHours());
+			quote.setCoverageType(quoteDO.getcType());
+			quote.setCoveragePrice(quoteDO.getCost());
+			
+			quote.setIsArchive((short)0);
+			quote.setCreateDate(new Date());
+			if(quoteDO.getProgramDO() != null)
+			{
+				
+				quote.setProgram(programDAO.findOne(quoteDO.getProgramDO().getPrId()));
+			}
+			
+			quote.setServicingDealer(0);
+			quote.setLastUpdate(new Date());
+			
+			//purchased status to 4
+			quote.setStatus((byte)4);
+			
+			/*CustomerInfo customerInfo = new CustomerInfo();
+			customerInfo.setQuoteId(quoteId);
+			customerInfo.setAddress(quoteDO.getDealerAddress());
+			customerInfo.setCity(quoteDO.getDealerCity());
+			customerInfo.setEmail(quoteDO.getDealerEmail());
+			customerInfo.setName(quoteDO.getDealerName());
+			customerInfo.setPhone(quoteDO.getDealerPhone());
+			customerInfo.setRemorse((quoteDO.isCustRemorsePeriod())?(byte)1:(byte)0);
+			customerInfo.setState(quoteDO.getDealerState());
+			customerInfo.setUnderstand((quoteDO.isCustUnderstandCoverage())?(byte)1:(byte)0);
+			customerInfo.setZip(quoteDO.getDealerZip());
+			customerInfo.setLastUpdate(new Date());
+			
+			//TODO
+			customerInfoDAO.save(customerInfo);*/
+			
+			quote = quoteDAO.save(quote);
+			
+			if(custDO != null)
+			{
+				CustomerInfo custInfo = new CustomerInfo();
+				custInfo.setQuoteId(quoteId);
+				custInfo.setName(custDO.getName());
+				custInfo.setAddress(custDO.getAddress());
+				custInfo.setCity(custDO.getCity());
+				custInfo.setState(custDO.getState());
+				custInfo.setZip(custDO.getZip());
+				custInfo.setPhone(custDO.getPhone());
+				custInfo.setEmail(custDO.getEmail());
+				custInfo.setRemorse((quoteDO.isCustRemorsePeriod())?(byte)1:(byte)0);
+				custInfo.setUnderstand((quoteDO.isCustUnderstandCoverage())?(byte)1:(byte)0);
+				custInfo.setLastUpdate(date);
+				custInfo = customerInfoDAO.save(custInfo);
+			}
+			
+			if(quote != null && quote.getId() != null){
+				logger.info("quoteId: "+quote.getId().getQuoteId()+" and id: "+quote.getId().getId());
+				quoteDO.setQuoteId(quote.getId().getQuoteId());
+				quoteDO.setId(quote.getId().getId());
+				if(quote.getStatus() == 1){
+					quoteDO.setStatusDesc(AggConstants.QUOTE_STATUS_ESTIMATING_PRICE);
+				}else if(quote.getStatus() == 4){
+					quoteDO.setStatusDesc(AggConstants.QUOTE_STATUS_PURCHASE_REQUESTED);
+				}else if(quote.getStatus() == 5){
+					quoteDO.setStatusDesc(AggConstants.QUOTE_STATUS_INVOICED);
+				}
+			}
+			
+			//******** Code for report which being commented for now ********//
+			/*
+			Map<String, Object> parameterMap = new HashMap<String, Object>();
+			parameterMap.put("imagePath", appUrl+"/assets/images/logo.png");
+			
+			List<ReportDO> reportDOList = new ArrayList<ReportDO>();
+			reportDOList.add(getQuoteReportDO(quoteDO));
+			JRDataSource jrDataSource = null;
+			if(!reportDOList.isEmpty()){
+				jrDataSource = new JRBeanCollectionDataSource(reportDOList);
+			}else{
+				jrDataSource = new JREmptyDataSource();
+			}
+			JasperReport jasperReport = JasperCompileManager.compileReport(resourceLoader.getResource("classpath:/jrxml/rpt_dealerQuote.jrxml").getInputStream());
+			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameterMap, jrDataSource);
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			JasperExportManager.exportReportToPdfStream(jasperPrint, baos);
+			DataSource pdfAttachment =  new ByteArrayDataSource(baos.toByteArray(), "application/pdf");
+			String subject = "Dealer Quote: "+quoteDO.getQuoteId()+" pdf";
+			String emailBody = "PFA Dealer Quote: "+quoteDO.getQuoteId()+" details.";
+			EmailStatus emailStatus = emailSender.sendMailAsAttachment(adminEmail, subject, emailBody, pdfAttachment, "dealerQuote");
+			if(emailStatus != null){
+				logger.info("emailStatus: "+emailStatus.getStatus());
+				logger.info("Dealer Quote pdf Attachment emailed successfully");
+			}
+			*/
+		}
 		
+		return 0;
+		
+		/*
 		int generatedQuoteId = 0;
 		if(quoteDO != null)
 		{
@@ -309,7 +492,9 @@ public class ProgramServiceImpl implements ProgramService {
 				
 			}
 		}
-		return generatedQuoteId;
+		return generatedQuoteId;*/
+		
+		
 	}
 
 	@Override
@@ -470,5 +655,50 @@ public class ProgramServiceImpl implements ProgramService {
 		return progEnt.getPrId();
 	}
 	
+	private ReportDO getQuoteReportDO(QuoteDO quoteDO) throws Exception{
+		ReportDO reportDO = new ReportDO();
+		
+		//SimpleDateFormat reportDateFormat = new SimpleDateFormat("MM/dd/yyyy");
+		Locale locale = new Locale("en", "US");
+		NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
+		
+		reportDO.setDealerName(quoteDO.getDealerDO().getName());
+		reportDO.setQuoteDate((quoteDO.getEstSaleDate() != null)?dateFormat.format(quoteDO.getEstSaleDate()):"");
+		//TODO
+		reportDO.setAttn("");
+		//TODO
+		reportDO.setQuoteExpires("");
+		reportDO.setQuoteId(quoteDO.getQuoteId());
+		reportDO.setAddress(quoteDO.getDealerAddress()+", "+quoteDO.getDealerState()+" "+quoteDO.getDealerZip());
+		reportDO.setOutStandingDesc(AggConstants.QUOTE_REPORT_OUT_STANDING_DESC);
+		reportDO.setManufacturerName(quoteDO.getManufacturerDO().getName());
+		reportDO.setModelName(quoteDO.getMachineInfoDO().getModel());
+		reportDO.setModelSerialNo(quoteDO.getSerialNumber());
+		//reportDO.setEquipment(quoteDO.getUseOfEquipmentDO().getEquipName());
+		reportDO.setRetailPrice(currencyFormat.format(quoteDO.getRetailPrice()));
+		reportDO.setCurrentHours(quoteDO.getMeterHours()+"");
+		reportDO.setMachineStatus(quoteDO.getMachineCondition());
+		reportDO.setEmail(quoteDO.getDealerEmail());
+		reportDO.setPhone(quoteDO.getDealerPhone());
+		reportDO.setCoverageDesc(AggConstants.QUOTE_REPORT_COVERAGE_DESC);
+		reportDO.setCoverageTerm(quoteDO.getCoverageTerm());
+		reportDO.setCoverageHours(quoteDO.getCoverageHours());
+		reportDO.setDeductibleAmount(currencyFormat.format(quoteDO.getDeductiblePrice()));
+		reportDO.setCoverageType(quoteDO.getCoverageTypeDesc());
+		reportDO.setPowerTrainMonths(quoteDO.getPowerTrainMonths());
+		reportDO.setPowerTrainHours(quoteDO.getPowerTrainHours());
+		reportDO.setHydraulicMonths(quoteDO.getHydraulicsMonths());
+		reportDO.setHydraulicHours(quoteDO.getHydraulicsHours());
+		reportDO.setFullMachineHours(quoteDO.getFullMachineHours());
+		reportDO.setFullMachineMonths(quoteDO.getFullMachineMonths());
+		reportDO.setWarrantyEndDate((quoteDO.getCoverageEndDate() != null)?dateFormat.format(quoteDO.getCoverageEndDate()):"");
+		reportDO.setLimitOfLiability(currencyFormat.format(quoteDO.getMachineInfoDO().getLol()));
+		reportDO.setPrice(currencyFormat.format(quoteDO.getCustomerPrice()));
+		reportDO.setQuotePrice(currencyFormat.format(quoteDO.getQuoteBasePrice()));
+		reportDO.setDealerMarkup(currencyFormat.format(quoteDO.getDealerMarkupPrice()));
+		reportDO.setSpecialConsiderationDesc("None");
+		
+		return reportDO;
+	}
 }
 

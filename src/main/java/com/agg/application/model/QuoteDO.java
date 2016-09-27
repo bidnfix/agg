@@ -188,7 +188,78 @@ public class QuoteDO {
 	private String dealHistory;
 	
 	private Set<String> coverageTypeSet;
-		
+	
+	//Added for view as dealer
+	private int cHours;
+
+	private int cTerm;
+
+	private String cType;
+
+	private byte condition;
+
+	private int cost;
+
+	private int deductible;
+
+	private String desc;
+	
+	public int getcHours() {
+		return cHours;
+	}
+
+	public void setcHours(int cHours) {
+		this.cHours = cHours;
+	}
+
+	public int getcTerm() {
+		return cTerm;
+	}
+
+	public void setcTerm(int cTerm) {
+		this.cTerm = cTerm;
+	}
+
+	public String getcType() {
+		return cType;
+	}
+
+	public void setcType(String cType) {
+		this.cType = cType;
+	}
+
+	public byte getCondition() {
+		return condition;
+	}
+
+	public void setCondition(byte condition) {
+		this.condition = condition;
+	}
+
+	public int getCost() {
+		return cost;
+	}
+
+	public void setCost(int cost) {
+		this.cost = cost;
+	}
+
+	public int getDeductible() {
+		return deductible;
+	}
+
+	public void setDeductible(int deductible) {
+		this.deductible = deductible;
+	}
+
+	public String getDesc() {
+		return desc;
+	}
+
+	public void setDesc(String desc) {
+		this.desc = desc;
+	}
+
 	public CustomerInfoDO getCustomerInfoDO() {
 		return customerInfoDO;
 	}

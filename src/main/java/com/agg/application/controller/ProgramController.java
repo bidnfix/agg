@@ -90,10 +90,14 @@ public class ProgramController extends BaseController {
 	
 	@RequestMapping(value = "/saveProgramsAsDealr", method = RequestMethod.POST)
 	public @ResponseBody Result saveProgramsAsDealr(@RequestBody QuoteDO quoteDO, BindingResult result,
-			HttpServletRequest request, HttpServletResponse response) {
+			HttpServletRequest request, HttpServletResponse response) throws Exception{
 		logger.debug("In saveProgramsAsDealr");
+		
+		StringBuffer url = request.getRequestURL();
+		String uri = request.getRequestURI();
+		String appUrl = url.substring(0, url.length() - uri.length());
 
-		int id = programService.saveProgramsAsDealr(quoteDO, getAccountDetails(request));
+		int id = programService.saveProgramsAsDealr(quoteDO, getAccountDetails(request), appUrl);
 		logger.debug("Quote id :"+id);
 		return new Result("success", null, id);
 	}
