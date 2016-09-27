@@ -128,6 +128,20 @@
 								value="{{date | date:'MM/dd/yyyy'}}" required="required"> <!-- <span
 								class="input-group-addon"><i
 								class="glyphicon glyphicon-calendar"></i></span> -->
+							<!-- <div class="input-group">
+							<input type="text" class="form-control" 
+			                   datepicker-popup="MM/dd/yyyy" 
+			                   is-open="valuationDatePickerIsOpen" 
+			                   ng-click="valuationDatePickerOpen()" 
+			                   ng-model="quote.estSaleDate" 
+			                   required="required"/>
+				            <span class="input-group-btn">
+				              <button type="button" class="btn btn-default" 
+				                      ng-click="valuationDatePickerOpen($event)">
+				                <i class="glyphicon glyphicon-calendar"></i>
+				              </button>
+				            </span>
+				            </div> -->
 					</div>
 				</div>
 

@@ -516,6 +516,19 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService, $
 	
 	$scope.date = new Date();
 	
+	//datepicker changes
+	
+	/*$scope.valuationDatePickerIsOpen = false;
+	$scope.opens = [];
+	
+	$scope.valuationDatePickerOpen = function ($event) {
+      if ($event) {
+          $event.preventDefault();
+          $event.stopPropagation(); // This is the magic
+      }
+      $scope.valuationDatePickerIsOpen = true;
+    };*/
+	
 	$http.get("/agg/quoteInfo")
 	.then(function(response) {
 		$scope.dealerList = response.data.data.dealerDOList;
