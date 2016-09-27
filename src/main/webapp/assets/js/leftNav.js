@@ -380,8 +380,12 @@ routingApp.controller('GetProgramsController', function($scope, programService, 
 		alert(programId);
 		$http.get("/agg/programs/"+programId)
 	    .then(function(response) {
+	    	
+	    	$scope.program = $scope.program || {};
 	        $scope.program = response.data.data.program;
-	        alert($scope.program.prId);
+	        $scope.manufacturerList = response.data.data.manufacturerList;
+	        $scope.dealerList = response.data.data.dealerList;
+	        //alert($scope.program.prId);
 	       /* $scope.dealer = {
 	        	userName: $scope.dealerr.userName,	
 	        	state: $scope.dealerr.state
@@ -397,7 +401,7 @@ routingApp.controller('GetProgramsController', function($scope, programService, 
     };
     
     $scope.editProgramDetails = function() {
-		alert("In editProgram");
+		//alert("In editProgram");
 		programService.editProgram($scope.program, $scope);
     };
     

@@ -14,7 +14,7 @@ public interface ProgramService {
 	
 	int saveProgramsAsDealr(QuoteDO quoteDO, AccountDO accountDO);
 
-	ProgramDO getProgram(Long id);	
+	ProgramDO getProgram(Long id, AccountDO accountDO);	
 
 	void deleteProgram(Long id);
 	

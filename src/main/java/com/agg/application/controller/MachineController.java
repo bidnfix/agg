@@ -57,16 +57,6 @@ public class MachineController extends BaseController {
 		return new Result("success", null, model);	
 	}
 	
-	/*@RequestMapping(value = "/machineType/{typeId}", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
-	public @ResponseBody Result machineType(ModelMap model, HttpServletResponse response, @PathVariable String typeId) {
-		logger.info("Inside machineType() with typeId: "+typeId);
-		if(typeId != null && !typeId.isEmpty()){
-			List<ManufacturerDO> machineTypes = machineService.getMachineTypeById(Integer.valueOf(typeId));
-			model.put("machineTypeList", machineTypes);
-		}
-		return new Result("success", null, model);	
-	}*/
-	
 	@RequestMapping(value = "/machineModel/{typeId}", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
 	public @ResponseBody Result machineModel(ModelMap model, HttpServletResponse response, @PathVariable String typeId) {
 		logger.info("Inside machineModel() with typeId: "+typeId);

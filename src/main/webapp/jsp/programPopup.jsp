@@ -15,7 +15,7 @@
 			<div class="form-group">
 				<label for="name" class="col-sm-3 control-label">Assign a Dealer</label>
 				<div class="col-sm-9">
-					<select name="dealer" ng-model="program.dealerDO" ng-options="dealer.name for dealer in dealerList | orderBy:'name'" class="form-control">
+					<select name="dealer" ng-model="program.dealerDO" ng-options="dealer.name for dealer in dealerList | orderBy:'name' track by dealer.id" class="form-control">
          				 <!-- <option ng:repeat="machine in manufacturerList" value="{{dealer.id}}">{{dealer.userName}}</option> -->
      				</select> 
 				</div>
@@ -23,7 +23,7 @@
 			<div class="form-group">
 				<label for="name" class="col-sm-3 control-label">Manufacturer</label>
 				<div class="col-sm-9">
-					<select name="machine" ng-model="program.manufacturerDO" ng-options="machine.name for machine in manufacturerList | orderBy:'name'" 
+					<select name="machine" ng-model="program.manufacturerDO" ng-options="machine.name for machine in manufacturerList | orderBy:'name' track by machine.machineId" 
 					ng-change="getManfModel()" class="form-control">
      				</select> 
 				</div>
