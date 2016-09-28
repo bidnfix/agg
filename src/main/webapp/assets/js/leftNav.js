@@ -540,7 +540,7 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService, $
 	
 	//datepicker changes
 	
-	/*$scope.valuationDatePickerIsOpen = false;
+	$scope.valuationDatePickerIsOpen = false;
 	$scope.opens = [];
 	
 	$scope.valuationDatePickerOpen = function ($event) {
@@ -549,7 +549,12 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService, $
           $event.stopPropagation(); // This is the magic
       }
       $scope.valuationDatePickerIsOpen = true;
-    };*/
+    };
+    
+    $scope.dateOptions = {
+		format: "MM/dd/yyyy",
+	    showWeeks: false
+	};
 	
 	$http.get("/agg/quoteInfo")
 	.then(function(response) {
@@ -891,6 +896,7 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 		$scope.quote = response.data.data.quote;
 		$scope.quote.adjustedLol = $scope.quote.machineInfoDO.lol;
 		
+		$scope.quote.dealerMarkupTypee = $scope.quote.dealerMarkupType;
 		$scope.quote.coverageEndDate = new Date($scope.quote.coverageEndDate);
 		$scope.quote.estSaleDate = new Date($scope.quote.estSaleDate);
 		$scope.quote.lastUpdate = new Date($scope.quote.lastUpdate);
