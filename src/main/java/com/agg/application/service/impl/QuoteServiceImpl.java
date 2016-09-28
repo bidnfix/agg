@@ -1133,6 +1133,7 @@ public class QuoteServiceImpl implements QuoteService {
 			customerInfo.setState(quoteDO.getDealerState());
 			customerInfo.setUnderstand((quoteDO.isCustUnderstandCoverage())?(byte)1:(byte)0);
 			customerInfo.setZip(quoteDO.getDealerZip());
+			customerInfo.setLastUpdate(new Date());
 			
 			//TODO
 			customerInfoDAO.save(customerInfo);
