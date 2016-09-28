@@ -122,26 +122,28 @@
 							tooltip-trigger tooltip-animation="false"
 							tooltip="The 'estimated sale date' is your best guess as to when you will complete the sale.  We use this date for follow-up and to make sure coverage is in place when you need it."
 							tooltip-placement="top"></i> *Estimated Sale Date</label>
-							<input type="date" id="estSaleDate" name="estSaleDate"
+							<!-- <input type="date" id="estSaleDate" name="estSaleDate"
 								ng-model="quote.estSaleDate" class="form-control"
 								min="{{date | date:'yyyy-MM-dd'}}"
-								value="{{date | date:'MM/dd/yyyy'}}" required="required"> <!-- <span
+								value="{{date | date:'MM/dd/yyyy'}}" required="required"> --> <!-- <span
 								class="input-group-addon"><i
 								class="glyphicon glyphicon-calendar"></i></span> -->
-							<!-- <div class="input-group">
-							<input type="text" class="form-control" 
-			                   datepicker-popup="MM/dd/yyyy" 
-			                   is-open="valuationDatePickerIsOpen" 
-			                   ng-click="valuationDatePickerOpen()" 
-			                   ng-model="quote.estSaleDate" 
-			                   required="required"/>
-				            <span class="input-group-btn">
-				              <button type="button" class="btn btn-default" 
-				                      ng-click="valuationDatePickerOpen($event)">
-				                <i class="glyphicon glyphicon-calendar"></i>
-				              </button>
-				            </span>
-				            </div> -->
+							<div class="input-group">
+								<input type="text" class="form-control" 
+				                   datepicker-popup="MM/dd/yyyy"
+				                   datepicker-options="dateOptions" 
+				                   is-open="valuationDatePickerIsOpen" 
+				                   ng-click="valuationDatePickerOpen()"
+				                   min-date="date"
+				                   ng-model="quote.estSaleDate" 
+				                   required="required"/>
+					            <span class="input-group-btn">
+					              <button type="button" class="btn btn-default" 
+					                      ng-click="valuationDatePickerOpen($event)">
+					                <i class="glyphicon glyphicon-calendar"></i>
+					              </button>
+					            </span>
+				            </div>
 					</div>
 				</div>
 

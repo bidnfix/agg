@@ -245,10 +245,10 @@
                             <label>Markup Type</label>
                             <div class="agform-radio">
                              <label class="radio-inline">
-	                           <input type="radio" id="dealerMarkupVlaue" name="dealerMarkupVlaue" ng-model="quote.dealerMarkupType" value="price" class="" ng-disabled="true"> Price
+	                           <input type="radio" id="dealerMarkupVlauee" name="dealerMarkupVlauee" ng-model="quote.dealerMarkupTypee" value="price" class="" ng-disabled="true"> Price
 	                         </label>
 	                         <label class="radio-inline">
-	                           <input type="radio" id="dealerMarkupVlaue" name="dealerMarkupVlaue" ng-model="quote.dealerMarkupType" value="percent" class="" ng-disabled="true">  Percent
+	                           <input type="radio" id="dealerMarkupVlauee" name="dealerMarkupVlauee" ng-model="quote.dealerMarkupTypee" value="percent" class="" ng-disabled="true">  Percent
 	                         </label>
                             </div>
                           </div>
