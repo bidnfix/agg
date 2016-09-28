@@ -24,6 +24,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.agg.application.dao.AdminAdjustmentDAO;
+import com.agg.application.dao.ClaimsDAO;
 import com.agg.application.dao.ContractsDAO;
 import com.agg.application.dao.CustomerInfoDAO;
 import com.agg.application.dao.DealerDAO;
@@ -92,6 +93,9 @@ public class QuoteServiceImpl implements QuoteService {
 	
 	@Autowired
 	private AdminAdjustmentDAO adminAdjustmentDAO;
+	
+	@Autowired
+	private ClaimsDAO claimsDAO;
 	
 	@Value("${admin.email}")
 	private String adminEmail;
@@ -1265,11 +1269,12 @@ public class QuoteServiceImpl implements QuoteService {
 	public WorklistDO getWorklistCount(AccountDO accountDO)
 	{
 		WorklistDO worklistDO = new WorklistDO();
-		int estPrice = 0; 
-		int purchaseReq = 0;
-		int invoiced = 0;
-		int activeContract = 0;
-		int inactiveContract = 0;
+		long estPrice = 0; 
+		long purchaseReq = 0;
+		long invoiced = 0;
+		long activeContract = 0;
+		long inactiveContract = 0;
+		long claims = 0;
 		
 		if(accountDO.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)){
 			estPrice = quoteDAO.countByEstPrice();
@@ -1281,6 +1286,7 @@ public class QuoteServiceImpl implements QuoteService {
 			
 			activeContract = contractsDAO.countByActive();
 			inactiveContract = contractsDAO.countByInactive();
+			claims = claimsDAO.count();
 			
 		}else{
 			estPrice = quoteDAO.countByEstPrice(accountDO.getDealerId());
@@ -1290,6 +1296,7 @@ public class QuoteServiceImpl implements QuoteService {
 			inactiveContract = contractsDAO.countByStatus(AggConstants.B_INACTIVE_CONTRACT, accountDO.getDealerId());*/
 			activeContract = contractsDAO.countByActive();
 			inactiveContract = contractsDAO.countByInactive();
+			claims = claimsDAO.count();
 		}
 				
 		worklistDO.setEstPrice(estPrice);
@@ -1297,7 +1304,9 @@ public class QuoteServiceImpl implements QuoteService {
 		worklistDO.setInvoiced(invoiced);
 		worklistDO.setActContracts(activeContract);
 		worklistDO.setExpContracts(inactiveContract);
+		worklistDO.setClaims(claims);
 		
+		logger.debug("claims -->"+claims);
 		logger.debug("estPrice -->"+estPrice);
 		return worklistDO;
 	}

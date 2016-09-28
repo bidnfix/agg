@@ -2,64 +2,64 @@ package com.agg.application.model;
 
 public class WorklistDO {
 	
-	private int expContracts;
+	private long expContracts;
 	
-	private int actContracts;
+	private long actContracts;
 	
-	private int estPrice;
+	private long estPrice;
 	
-	private int invoiced;
+	private long invoiced;
 	
-	private int purchaseReq;
+	private long purchaseReq;
 	
-	private int claims;
+	private long claims;
 
-	public int getExpContracts() {
+	public long getExpContracts() {
 		return expContracts;
 	}
 
-	public void setExpContracts(int expContracts) {
+	public void setExpContracts(long expContracts) {
 		this.expContracts = expContracts;
 	}
 
-	public int getActContracts() {
+	public long getActContracts() {
 		return actContracts;
 	}
 
-	public void setActContracts(int actContracts) {
+	public void setActContracts(long actContracts) {
 		this.actContracts = actContracts;
 	}
 
-	public int getEstPrice() {
+	public long getEstPrice() {
 		return estPrice;
 	}
 
-	public void setEstPrice(int estPrice) {
+	public void setEstPrice(long estPrice) {
 		this.estPrice = estPrice;
 	}
 
-	public int getInvoiced() {
+	public long getInvoiced() {
 		return invoiced;
 	}
 
-	public void setInvoiced(int invoiced) {
+	public void setInvoiced(long invoiced) {
 		this.invoiced = invoiced;
 	}
 
-	public int getPurchaseReq() {
+	public long getPurchaseReq() {
 		return purchaseReq;
 	}
 
-	public void setPurchaseReq(int purchaseReq) {
+	public void setPurchaseReq(long purchaseReq) {
 		this.purchaseReq = purchaseReq;
 	}
 
-	public int getClaims() {
+	public long getClaims() {
 		return claims;
 	}
 
-	public void setClaims(int claims) {
+	public void setClaims(long claims) {
 		this.claims = claims;
 	}
-		
+
 }

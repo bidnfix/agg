@@ -227,42 +227,41 @@ routingApp.controller('AddUserController', function($scope, $http) {
 routingApp.controller('HomeController', function($scope, $http, $timeout) {
 	$scope.contractsFlag = true;
 	$scope.quotesFlag = true;
+	$scope.claimsFlag = true;
 	$http.get("/agg/worklist")
     .then(function(response) {
-        //$scope.activeDealers = response.data.data.activeDealers;
-        //$scope.pendingDealers = response.data.data.pendingDealers;
-        //$scope.terminatedDealers = response.data.data.terminatedDealers;
-    	//Sample to avoid null
-    	//$scope.program.manufacturerDO = $scope.program.manufacturerDO || {};
-    	//$scope.program.manufacturerDO.name = programDO.manufacturerDO.name;
-    	
     	$scope.worklistDO = $scope.worklistDO || {};
     	$scope.expContracts = response.data.data.worklistDO.expContracts;
     	$scope.actContracts = response.data.data.worklistDO.actContracts;
     	$scope.estPrice = response.data.data.worklistDO.estPrice;
     	$scope.invoiced = response.data.data.worklistDO.invoiced;
     	$scope.purchaseReq = response.data.data.worklistDO.purchaseReq;
+    	$scope.claims = response.data.data.worklistDO.claims;
     	$scope.quoteList = response.data.data.quoteList;
+    	
     	if($scope.quoteList != null){
     		$timeout(function () {
 	        	$('#quotesTbl').DataTable();
 	        }, 300);
     		
     		$('#contractsTbl').parents('div.dataTables_wrapper').first().hide();
+    		$('#claimsTbl').parents('div.dataTables_wrapper').first().hide();
     		$scope.contractsFlag = true;
     		$scope.quotesFlag = false;
+    		$scope.claimsFlag = true;
     	}
     });
 	
 	$scope.getEstQuotes = function(){
-		alert(1);
 		$http.get("/agg/estimatedPriceQuotes")
 		.then(function(response) {
 	        $scope.quoteList = response.data.data;
 	        if($scope.quoteList != null){
 	    		$scope.contractsFlag = true;
 	    		$scope.quotesFlag = false;
+	    		$scope.claimsFlag = true;
 	    		$('#contractsTbl').parents('div.dataTables_wrapper').first().hide();
+	    		$('#claimsTbl').parents('div.dataTables_wrapper').first().hide();
 	    	}
 	        $timeout(function () {
 	        	$('#quotesTbl').DataTable();
@@ -271,14 +270,15 @@ routingApp.controller('HomeController', function($scope, $http, $timeout) {
 	}
 	
 	$scope.getInvoicedQuotes = function(){
-		alert(2);
 		$http.get("/agg/invoicedQuotes")
 		.then(function(response) {
 	        $scope.quoteList = response.data.data;
 	        if($scope.quoteList != null){
 	    		$scope.contractsFlag = true;
 	    		$scope.quotesFlag = false;
+	    		$scope.claimsFlag = true;
 	    		$('#contractsTbl').parents('div.dataTables_wrapper').first().hide();
+	    		$('#claimsTbl').parents('div.dataTables_wrapper').first().hide();
 	    	}
 	        $timeout(function () {
 	        	$('#quotesTbl').DataTable();
@@ -287,14 +287,15 @@ routingApp.controller('HomeController', function($scope, $http, $timeout) {
 	}
 	
 	$scope.getReqQuotes = function(){
-		alert(3);
 		$http.get("/agg/purchaseRequestedQuotes")
 		.then(function(response) {
 	        $scope.quoteList = response.data.data;
 	        if($scope.quoteList != null){
 	    		$scope.contractsFlag = true;
 	    		$scope.quotesFlag = false;
+	    		$scope.claimsFlag = true;
 	    		$('#contractsTbl').parents('div.dataTables_wrapper').first().hide();
+	    		$('#claimsTbl').parents('div.dataTables_wrapper').first().hide();
 	    	}
 	        $timeout(function () {
 	        	$('#quotesTbl').DataTable();
@@ -310,10 +311,29 @@ routingApp.controller('HomeController', function($scope, $http, $timeout) {
 			if($scope.contractList != null){
 	    		$scope.contractsFlag = false;
 	    		$scope.quotesFlag = true;
+	    		$scope.claimsFlag = true;
 	    		$('#quotesTbl').parents('div.dataTables_wrapper').first().hide();
+	    		$('#claimsTbl').parents('div.dataTables_wrapper').first().hide();
 	    	}
 	        $timeout(function () {
 	        	$('#contractsTbl').DataTable();
+	        }, 300);
+	    });
+	}
+	
+	$scope.getClaims = function(){
+		$http.get("/agg/getClaimsInfo")
+		.then(function(response) {
+			$scope.claimDOList = response.data.data.claimDOList;
+	        if($scope.quoteList != null){
+	    		$scope.contractsFlag = true;
+	    		$scope.quotesFlag = true;
+	    		$scope.claimsFlag = false;
+	    		$('#contractsTbl').parents('div.dataTables_wrapper').first().hide();
+	    		$('#quotesTbl').parents('div.dataTables_wrapper').first().hide();
+	    	}
+	        $timeout(function () {
+	        	$('#quotesTbl').DataTable();
 	        }, 300);
 	    });
 	}
@@ -326,7 +346,9 @@ routingApp.controller('HomeController', function($scope, $http, $timeout) {
 			if($scope.contractList != null){
 	    		$scope.contractsFlag = false;
 	    		$scope.quotesFlag = true;
+	    		$scope.claimsFlag = true;
 	    		$('#quotesTbl').parents('div.dataTables_wrapper').first().hide();
+	    		$('#claimsTbl').parents('div.dataTables_wrapper').first().hide();
 	    	}
 	        $timeout(function () {
 	        	$('#contractsTbl').DataTable();
