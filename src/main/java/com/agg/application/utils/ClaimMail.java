@@ -5,6 +5,8 @@ package com.agg.application.utils;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.agg.application.model.AccountDO;
 import com.agg.application.model.ClaimMailDO;
 import com.agg.application.model.RoleDO;
@@ -20,6 +22,9 @@ public class ClaimMail implements Runnable{
 	private String subject = "Claim Request for Pre-authorization – %s – %s";
 	private String toMailAddress;
 	private UserService userService;
+	
+	@Autowired
+	EmailSender emailSender;
 	
 	/**
 	 * @return the userService
@@ -49,7 +54,7 @@ public class ClaimMail implements Runnable{
 			for(UserDO admin: adminAccounts){
 				claimMailDO.setUserFirstName(admin.getFirstName());
 				toMailAddress=admin.getEmail();
-				EmailStatus emailStatus = new EmailSender().sendMailAsText(toMailAddress, 
+				EmailStatus emailStatus = emailSender.sendMailAsText(toMailAddress, 
 						String.format(subject, claimMailDO.getClaimID(), claimMailDO.getDealerName()), buildClaimMailBody());
 			}
 		}

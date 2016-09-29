@@ -68,8 +68,9 @@ public class Claims implements Serializable {
 	@Column(name="c_status")
 	private byte cStatus;
 	
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="last_update")
-	private Timestamp lastUpdate;
+	private Date lastUpdate;
 	
 	@Column(name="requested_other_charges1")
 	private int requestedOtherCharges1;
@@ -306,14 +307,14 @@ public class Claims implements Serializable {
 	/**
 	 * @return the lastUpdate
 	 */
-	public Timestamp getLastUpdate() {
+	public Date getLastUpdate() {
 		return lastUpdate;
 	}
 
 	/**
 	 * @param lastUpdate the lastUpdate to set
 	 */
-	public void setLastUpdate(Timestamp lastUpdate) {
+	public void setLastUpdate(Date lastUpdate) {
 		this.lastUpdate = lastUpdate;
 	}
 

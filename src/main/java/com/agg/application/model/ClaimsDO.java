@@ -20,7 +20,7 @@ public class ClaimsDO {
 	private String correctiveAction;
 	private byte isArchived;
 	private byte cStatus;
-	private Timestamp lastUpdate;
+	private Date lastUpdate;
 	private int requestedOtherCharges1;
 	private int requestedOtherCharges2;
 	private int totalAdjustedPartsCost;
@@ -246,13 +246,13 @@ public class ClaimsDO {
 	/**
 	 * @return the lastUpdate
 	 */
-	public Timestamp getLastUpdate() {
+	public Date getLastUpdate() {
 		return lastUpdate;
 	}
 	/**
 	 * @param lastUpdate the lastUpdate to set
 	 */
-	public void setLastUpdate(Timestamp lastUpdate) {
+	public void setLastUpdate(Date lastUpdate) {
 		this.lastUpdate = lastUpdate;
 	}
 	/**
