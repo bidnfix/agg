@@ -1,6 +1,7 @@
 package com.agg.application.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -182,6 +183,7 @@ public class ClaimsServiceImpl implements ClaimsService {
 		claim.setTotalAdjustedLaborCost(claimsDO.getTotalAdjustedLaborCost());
 		claim.setApprovedOtherCharges1(claimsDO.getApprovedOtherCharges1());
 		claim.setApprovedOtherCharges2(claimsDO.getApprovedOtherCharges2());
+		claim.setLastUpdate(new Date()); 
 		
 		Claims newClaim = claimsDAO.save(claim);
 		
