@@ -243,7 +243,7 @@ routingApp.controller('HomeController', function($scope, $http, $timeout) {
     		$timeout(function () {
 	        	$('#quotesTbl').DataTable();
 	        }, 300);
-    		
+    		$('#quotesTbl').parents('div.dataTables_wrapper').first().show();
     		$('#contractsTbl').parents('div.dataTables_wrapper').first().hide();
     		$('#claimsTbl').parents('div.dataTables_wrapper').first().hide();
     		$scope.contractsFlag = true;
@@ -260,6 +260,7 @@ routingApp.controller('HomeController', function($scope, $http, $timeout) {
 	    		$scope.contractsFlag = true;
 	    		$scope.quotesFlag = false;
 	    		$scope.claimsFlag = true;
+				$('#quotesTbl').parents('div.dataTables_wrapper').first().show();
 	    		$('#contractsTbl').parents('div.dataTables_wrapper').first().hide();
 	    		$('#claimsTbl').parents('div.dataTables_wrapper').first().hide();
 	    	}
@@ -277,6 +278,7 @@ routingApp.controller('HomeController', function($scope, $http, $timeout) {
 	    		$scope.contractsFlag = true;
 	    		$scope.quotesFlag = false;
 	    		$scope.claimsFlag = true;
+				$('#quotesTbl').parents('div.dataTables_wrapper').first().show();
 	    		$('#contractsTbl').parents('div.dataTables_wrapper').first().hide();
 	    		$('#claimsTbl').parents('div.dataTables_wrapper').first().hide();
 	    	}
@@ -294,6 +296,7 @@ routingApp.controller('HomeController', function($scope, $http, $timeout) {
 	    		$scope.contractsFlag = true;
 	    		$scope.quotesFlag = false;
 	    		$scope.claimsFlag = true;
+				$('#quotesTbl').parents('div.dataTables_wrapper').first().show();
 	    		$('#contractsTbl').parents('div.dataTables_wrapper').first().hide();
 	    		$('#claimsTbl').parents('div.dataTables_wrapper').first().hide();
 	    	}
@@ -312,6 +315,7 @@ routingApp.controller('HomeController', function($scope, $http, $timeout) {
 	    		$scope.contractsFlag = false;
 	    		$scope.quotesFlag = true;
 	    		$scope.claimsFlag = true;
+				$('#contractsTbl').parents('div.dataTables_wrapper').first().show();
 	    		$('#quotesTbl').parents('div.dataTables_wrapper').first().hide();
 	    		$('#claimsTbl').parents('div.dataTables_wrapper').first().hide();
 	    	}
@@ -329,11 +333,12 @@ routingApp.controller('HomeController', function($scope, $http, $timeout) {
 	    		$scope.contractsFlag = true;
 	    		$scope.quotesFlag = true;
 	    		$scope.claimsFlag = false;
+				$('#claimsTbl').parents('div.dataTables_wrapper').first().show();
 	    		$('#contractsTbl').parents('div.dataTables_wrapper').first().hide();
 	    		$('#quotesTbl').parents('div.dataTables_wrapper').first().hide();
 	    	}
 	        $timeout(function () {
-	        	$('#quotesTbl').DataTable();
+	        	$('#claimsTbl').DataTable();
 	        }, 300);
 	    });
 	}
@@ -347,6 +352,7 @@ routingApp.controller('HomeController', function($scope, $http, $timeout) {
 	    		$scope.contractsFlag = false;
 	    		$scope.quotesFlag = true;
 	    		$scope.claimsFlag = true;
+				$('#contractsTbl').parents('div.dataTables_wrapper').first().show();
 	    		$('#quotesTbl').parents('div.dataTables_wrapper').first().hide();
 	    		$('#claimsTbl').parents('div.dataTables_wrapper').first().hide();
 	    	}
