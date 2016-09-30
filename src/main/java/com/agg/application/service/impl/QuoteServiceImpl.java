@@ -864,7 +864,7 @@ public class QuoteServiceImpl implements QuoteService {
 						}
 					}
 					quoteDO.setCoverageTypeSet(coverageTypeSet);
-					logger.info("coverageTypeSet size: "+coverageTypeSet.size());
+					//logger.info("coverageTypeSet size: "+coverageTypeSet.size());
 				}
 				
 			}
@@ -1225,12 +1225,12 @@ public class QuoteServiceImpl implements QuoteService {
 		List<QuoteDO> quoteDOList = null;
 		if(accountDO.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)){
 			List<Quote> quoteList = Util.toList(quoteDAO.findByStatus(AggConstants.B_QUOTE_STATUS_ESTIMATING_PRICE));
-			logger.debug("quoteList for estPrice --------------> "+ quoteList.size());
+			//logger.debug("quoteList for estPrice --------------> "+ quoteList.size());
 			quoteDOList = getQuoteDetails(quoteList);
 		}else{
 			List<Quote> quoteList = Util.toList(quoteDAO.findByStatusAndDealerId(AggConstants.B_QUOTE_STATUS_ESTIMATING_PRICE, accountDO.getDealerId()));
-			logger.debug("quoteList for estPrice --------------> "+ quoteList.size());
-			logger.debug("quoteList for estPrice --------------> "+ quoteList.get(0).getDealer().getName());
+			//logger.debug("quoteList for estPrice --------------> "+ quoteList.size());
+			//logger.debug("quoteList for estPrice --------------> "+ quoteList.get(0).getDealer().getName());
 			quoteDOList = getQuoteDetails(quoteList);
 		}
 		return quoteDOList;
@@ -1241,11 +1241,11 @@ public class QuoteServiceImpl implements QuoteService {
 		List<QuoteDO> quoteDOList = null;
 		if(accountDO.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)){
 			List<Quote> quoteList = Util.toList(quoteDAO.findByStatus(AggConstants.B_QUOTE_STATUS_PURCHASE_REQUESTED));
-			logger.debug("quoteList for purchaseReq--------------> "+ quoteList.size());
+			//logger.debug("quoteList for purchaseReq--------------> "+ quoteList.size());
 			quoteDOList = getQuoteDetails(quoteList);
 		}else{
 			List<Quote> quoteList = Util.toList(quoteDAO.findByStatusAndDealerId(AggConstants.B_QUOTE_STATUS_PURCHASE_REQUESTED, accountDO.getDealerId()));
-			logger.debug("quoteList for purchaseReq --------------> "+ quoteList.size());
+			//logger.debug("quoteList for purchaseReq --------------> "+ quoteList.size());
 			quoteDOList = getQuoteDetails(quoteList);
 		}
 		return quoteDOList;
@@ -1256,11 +1256,11 @@ public class QuoteServiceImpl implements QuoteService {
 		List<QuoteDO> quoteDOList = null;
 		if(accountDO.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)){
 			List<Quote> quoteList = Util.toList(quoteDAO.findByStatus(AggConstants.B_QUOTE_STATUS_INVOICED));
-			logger.debug("quoteList for getInvoicedQuotes--------------> "+ quoteList.size());
+			//logger.debug("quoteList for getInvoicedQuotes--------------> "+ quoteList.size());
 			quoteDOList = getQuoteDetails(quoteList);
 		}else{
 			List<Quote> quoteList = Util.toList(quoteDAO.findByStatusAndDealerId(AggConstants.B_QUOTE_STATUS_INVOICED, accountDO.getDealerId()));
-			logger.debug("quoteList for getInvoicedQuotes--------------> "+ quoteList.size());
+			//logger.debug("quoteList for getInvoicedQuotes--------------> "+ quoteList.size());
 			quoteDOList = getQuoteDetails(quoteList);
 		}
 		return quoteDOList;

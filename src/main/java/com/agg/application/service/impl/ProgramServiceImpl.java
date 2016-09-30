@@ -1,19 +1,14 @@
 package com.agg.application.service.impl;
 
-import java.io.ByteArrayOutputStream;
 import java.sql.Timestamp;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
-import javax.activation.DataSource;
-import javax.mail.util.ByteArrayDataSource;
 import javax.transaction.Transactional;
 
 import org.slf4j.Logger;
@@ -50,17 +45,7 @@ import com.agg.application.model.ReportDO;
 import com.agg.application.service.ProgramService;
 import com.agg.application.utils.AggConstants;
 import com.agg.application.utils.EmailSender;
-import com.agg.application.utils.EmailStatus;
 import com.agg.application.utils.Util;
-
-import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.JREmptyDataSource;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 @Service
 public class ProgramServiceImpl implements ProgramService {
@@ -116,7 +101,7 @@ public class ProgramServiceImpl implements ProgramService {
 		
 		List<ProgramDO> programDOList = null;
 		if(!programList.isEmpty()){
-			logger.debug("programList size:"+programList.size());
+			//logger.debug("programList size:"+programList.size());
 			programDOList = new ArrayList<ProgramDO>();
 			ProgramDO programDO = null;
 			Sprogram program = null;
@@ -196,7 +181,7 @@ public class ProgramServiceImpl implements ProgramService {
 		progEnt.setPrAServicing((byte) 1);
 		progEnt.setPrCondition((byte) 1);
 		progEnt.setPrCType(program.getcType());
-		logger.debug("-->"+program.getDealerDO());
+		//logger.debug("-->"+program.getDealerDO());
 		progEnt.setDealer(dealerDAO.findOne(Long.valueOf(program.getDealerDO().getId())));
 		//progEnt.setDealer(dealerDAO.findOne(Long.valueOf(14)));
 		progEnt.setPrGroup(program.getGroup());
@@ -221,11 +206,11 @@ public class ProgramServiceImpl implements ProgramService {
 		List<MachineInfo> machineInfoList = new ArrayList<MachineInfo>();
 		for(MachineInfoDO machineInfoDO : machineInfoDOs)
 		{
-			logger.debug("--machineInfoDO--"+machineInfoDO.getMachineId());
+			//logger.debug("--machineInfoDO--"+machineInfoDO.getMachineId());
 			machineInfo = machineInfoDAO.findOne(machineInfoDO.getMachineId());
 			if(machineInfo!=null)
 			{
-				logger.debug("--machineInfo --"+machineInfo.getMachineId());
+				//logger.debug("--machineInfo --"+machineInfo.getMachineId());
 				machineInfoList.add(machineInfo);
 			}
 		}
@@ -593,68 +578,73 @@ public class ProgramServiceImpl implements ProgramService {
 	@Override
 	@Transactional
 	public long editProgram(ProgramDO program) {
-		logger.debug("In editProgram : "+program.getPrId());
-		Sprogram progEnt = programDAO.findOne(program.getPrId());
-		Timestamp date = new Timestamp(new Date().getTime());
-		
-		/*sProgram.setPrDesc(programDO.getDesc());
-		sProgram.setPrDesc(programDO.getDesc());
-		sProgram.setDealer(dealerDAO.findOne(Long.valueOf(programDO.getDealerDO().getId())));
-
-		sProgram.setPrLastUpdate(date);*/
-		
-		
-		
-		
-		progEnt.setPrName(program.getName());
-		progEnt.setPrDesc(program.getDesc());
-		progEnt.setPrIsActive((byte) 1);
-		progEnt.setPrAServicing((byte) 1);
-		progEnt.setPrCondition((byte) 1);
-		progEnt.setPrCType(program.getcType());
-		logger.debug("-->"+program.getDealerDO());
-		progEnt.setDealer(dealerDAO.findOne(Long.valueOf(program.getDealerDO().getId())));
-		//progEnt.setDealer(dealerDAO.findOne(Long.valueOf(14)));
-		progEnt.setPrGroup(program.getGroup());
-		progEnt.setPrDeductible(program.getDeductible());
-		progEnt.setPrCType(program.getcType());
-		progEnt.setPrCHours(program.getcHours());
-		progEnt.setPrCTerm(program.getcTerm());
-		progEnt.setPrCost(program.getCost());
-		progEnt.setPrLol(program.getLol());
-		progEnt.setPrIsArchive((byte)0);
-		progEnt.setPrAServicing((byte)1);
-		progEnt.setManufacturer(manufacturerDAO.findOne(Long.valueOf(program.getManufacturerDO().getId())));
-		//progEnt.setManufacturer(manufacturerDAO.findOne(Long.valueOf(8)));
-		//TODO To be implemented after dealer services
-		//progEnt.setDealer(dealer);
-		
-		List<MachineInfoDO> machineInfoDOs =  program.getMachineInfoDOList();
-		
-		
-		
-		MachineInfo machineInfo = null;
-		List<MachineInfo> machineInfoList = new ArrayList<MachineInfo>();
-		for(MachineInfoDO machineInfoDO : machineInfoDOs)
+		//logger.debug("In editProgram : "+program.getPrId());
+		if(program != null)
 		{
-			logger.debug("--machineInfoDO--"+machineInfoDO.getMachineId());
-			machineInfo = machineInfoDAO.findOne(machineInfoDO.getMachineId());
-			if(machineInfo!=null)
+			Sprogram progEnt = programDAO.findOne(program.getPrId());
+			Timestamp date = new Timestamp(new Date().getTime());
+			
+			/*sProgram.setPrDesc(programDO.getDesc());
+			sProgram.setPrDesc(programDO.getDesc());
+			sProgram.setDealer(dealerDAO.findOne(Long.valueOf(programDO.getDealerDO().getId())));
+	
+			sProgram.setPrLastUpdate(date);*/
+			
+			progEnt.setPrName(program.getName());
+			progEnt.setPrDesc(program.getDesc());
+			progEnt.setPrIsActive((byte) 1);
+			progEnt.setPrAServicing((byte) 1);
+			progEnt.setPrCondition((byte) 1);
+			progEnt.setPrCType(program.getcType());
+			//logger.debug("-->"+program.getDealerDO());
+			if(program.getDealerDO() != null)
 			{
-				logger.debug("--machineInfo --"+machineInfo.getMachineId());
-				machineInfoList.add(machineInfo);
+				progEnt.setDealer(dealerDAO.findOne(Long.valueOf(program.getDealerDO().getId())));
 			}
+			//progEnt.setDealer(dealerDAO.findOne(Long.valueOf(14)));
+			progEnt.setPrGroup(program.getGroup());
+			progEnt.setPrDeductible(program.getDeductible());
+			progEnt.setPrCType(program.getcType());
+			progEnt.setPrCHours(program.getcHours());
+			progEnt.setPrCTerm(program.getcTerm());
+			progEnt.setPrCost(program.getCost());
+			progEnt.setPrLol(program.getLol());
+			progEnt.setPrIsArchive((byte)0);
+			progEnt.setPrAServicing((byte)1);
+			if(program.getManufacturerDO() != null)
+			{
+				progEnt.setManufacturer(manufacturerDAO.findOne(Long.valueOf(program.getManufacturerDO().getId())));
+			}
+			//progEnt.setManufacturer(manufacturerDAO.findOne(Long.valueOf(8)));
+			//TODO To be implemented after dealer services
+			//progEnt.setDealer(dealer);
+			
+			List<MachineInfoDO> machineInfoDOs =  program.getMachineInfoDOList();
+			
+			MachineInfo machineInfo = null;
+			List<MachineInfo> machineInfoList = new ArrayList<MachineInfo>();
+			for(MachineInfoDO machineInfoDO : machineInfoDOs)
+			{
+				//logger.debug("--machineInfoDO--"+machineInfoDO.getMachineId());
+				machineInfo = machineInfoDAO.findOne(machineInfoDO.getMachineId());
+				if(machineInfo!=null)
+				{
+					//logger.debug("--machineInfo --"+machineInfo.getMachineId());
+					machineInfoList.add(machineInfo);
+				}
+			}
+			
+			progEnt.setMachineInfos(machineInfoList);
+			
+			progEnt.setPrLastUpdate(date);
+			
+			
+			
+			progEnt = programDAO.save(progEnt);
+			
+			return progEnt.getPrId();
 		}
-		
-		progEnt.setMachineInfos(machineInfoList);
-		
-		progEnt.setPrLastUpdate(date);
-		
-		
-		
-		progEnt = programDAO.save(progEnt);
-		
-		return progEnt.getPrId();
+		return 0;
 	}
 	
 	private ReportDO getQuoteReportDO(QuoteDO quoteDO) throws Exception{
