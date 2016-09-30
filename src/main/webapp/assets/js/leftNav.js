@@ -162,7 +162,6 @@ routingApp.controller('GetDealerController', function($scope, dealerService, $ht
     };
     
     $scope.submitEditDealer = function(){
-    	alert("in submitEditDealer");
     	dealerService.editDealer($scope.dealer, $scope, ctrlOptions.getAllDealers);
     }
 })
@@ -405,7 +404,7 @@ routingApp.controller('GetProgramsController', function($scope, programService, 
     });
 	
 	$scope.editProgram = function(programId) {
-		alert(programId);
+		//alert(programId);
 		$http.get("/agg/programs/"+programId)
 	    .then(function(response) {
 	    	
@@ -490,7 +489,6 @@ routingApp.controller('ProgramAsDealerController', function($scope, programServi
 	 }
    
    $scope.submitProgramAsDel = function() {
-		alert("In submitProgramAsDel");
 		programService.submitProgramAsDealr($scope.program, $scope);
    };
 });
@@ -811,7 +809,6 @@ routingApp.controller('GetUserController', function($scope, userService, $http, 
     };
     
     $scope.submitEditUser = function(){
-    	alert("in submitEditUser");
     	userService.editUser($scope.user, $scope);
     }
 })
@@ -1025,7 +1022,7 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 	}
 	
 	$scope.updateQuote = function(quoteForm){
-		alert(quoteForm.$valid);
+		//alert(quoteForm.$valid);
 		if(quoteForm.$valid){
 			quoteService.updateQuote($scope.quote, $scope);
 		}

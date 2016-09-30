@@ -142,7 +142,7 @@ public class MachineServiceImpl implements MachineService {
 				machineDOList.add(machineDO);
 			}
 		}
-		logger.debug(""+machineDOList.size());
+		//logger.debug(""+machineDOList.size());
 		return machineDOList;
 	}
 	
@@ -207,7 +207,7 @@ public class MachineServiceImpl implements MachineService {
 				manufacturerDOList.add(manufacturerDO);
 			}
 		}
-		logger.debug(""+manufacturerDOList.size());
+		//logger.debug(""+manufacturerDOList.size());
 		return manufacturerDOList;
 	}
 	
@@ -251,7 +251,7 @@ public class MachineServiceImpl implements MachineService {
 				machineTypeDOList.add(machineTypeDO);
 			}
 		}
-		logger.debug("Machine Type List size: "+machineTypeDOList.size());
+		//logger.debug("Machine Type List size: "+machineTypeDOList.size());
 		return machineTypeDOList;
 	}
 	
@@ -286,7 +286,7 @@ public class MachineServiceImpl implements MachineService {
 				machineModelDOList.add(machineModelDO);
 			}
 		}
-		logger.debug("Machine Type List size: "+machineModelDOList.size());
+		//logger.debug("Machine Type List size: "+machineModelDOList.size());
 		return machineModelDOList;
 	}
 	
@@ -314,7 +314,7 @@ public class MachineServiceImpl implements MachineService {
 				machineInfoDOList.add(machineInfoDO);
 			}
 		}
-		logger.debug("Machine Type List size: "+machineInfoDOList.size());
+//		logger.debug("Machine Type List size: "+machineInfoDOList.size());
 		return machineInfoDOList;
 	}
 
@@ -415,7 +415,7 @@ public class MachineServiceImpl implements MachineService {
 				groupDOList.add(groupDO);
 			}
 		}
-		logger.debug("Groups size: "+groupDOList.size());
+		//logger.debug("Groups size: "+groupDOList.size());
 		return groupDOList;
 	}
 }

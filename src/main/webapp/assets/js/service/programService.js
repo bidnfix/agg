@@ -5,7 +5,7 @@ routingApp.factory('programService', function($http, $q, $window) {
 				saveProgram : function(program) {
 					return $http.post('/agg/postPrograms', program).then(
 							function(response) {
-								alert(response.data.status);
+								//alert(response.data.status);
 								if (response.data.status == 'success') {
 									$window.location = '#/agg/programs';
 								} else {
@@ -47,7 +47,6 @@ routingApp.factory('programService', function($http, $q, $window) {
 				submitProgramAsDealr : function(program) {
 					return $http.post('/agg/saveProgramsAsDealr', program).then(
 							function(response) {
-								alert("in submitProgramAsDealr");
 								alert(response.data.status);
 								if (response.data.status == 'success') {
 									$window.location = '#/agg/programs';

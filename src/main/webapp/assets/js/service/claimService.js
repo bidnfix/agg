@@ -63,7 +63,7 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', functi
 		getPreAuthRequest = function(){
 			return $http.post('/agg/saveClaim', claim).then(
 					function(response) {
-						alert(response.data.status);
+						//alert(response.data.status);
 						if (response.data.status == 'success') {
 							$window.location = '#/agg/fileClaim';
 						} else {
@@ -103,7 +103,7 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', functi
     		});
 		},
 		saveClaim : function(claim, files, status) {
-			alert('in saveClaim');
+			//alert('in saveClaim');
 			claim.cStatus = status;
 			console.log(JSON.stringify(claim));
 			/*return $http.post('/agg/saveClaim', claim).then(
@@ -177,7 +177,7 @@ routingApp.factory('claimPreAuthReqService', ['$http', '$q', '$window', '$timeou
 		}
 		$http.put('/agg/preAuthClaimReq', data).then(
 				function(response) {
-					alert(response.data.status);
+					//alert(response.data.status);
 					if (response.data.status == 'success') {
 						$window.location = '#/agg/fileClaim';
 					} else {

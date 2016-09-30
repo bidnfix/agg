@@ -180,7 +180,7 @@ public class ProgramServiceImpl implements ProgramService {
 				programDOList.add(programDO);
 			}
 		}
-		logger.debug(""+programDOList.size());
+		//logger.debug(""+programDOList.size());
 		
 		return programDOList;
 	}
@@ -272,12 +272,14 @@ public class ProgramServiceImpl implements ProgramService {
 				quote.setManufacturer(manufacturer);
 				quote.setManfName(manufacturer.getManfName());
 			}
-			
-			MachineInfo machineInfo = machineInfoDAO.findOne(quoteDO.getMachineInfoDO().getMachineId());
-			if(machineInfo != null){
-				quote.setMachineModel(machineInfo.getModel());
-				quote.setMachineInfo(machineInfo);
-				quote.setGroupId(new Long(machineInfo.getGroupConstant().getGroupId()).intValue());
+			if(quoteDO.getMachineInfoDO() != null)
+			{			
+				MachineInfo machineInfo = machineInfoDAO.findOne(quoteDO.getMachineInfoDO().getMachineId());
+				if(machineInfo != null){
+					quote.setMachineModel(machineInfo.getModel());
+					quote.setMachineInfo(machineInfo);
+					quote.setGroupId(new Long(machineInfo.getGroupConstant().getGroupId()).intValue());
+				}
 			}
 			
 			quote.setMachinePower(quoteDO.getHorsePower());
