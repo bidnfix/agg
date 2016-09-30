@@ -208,7 +208,7 @@ public class QuoteController extends BaseController {
 		return opResult;
 	}
 	
-	@RequestMapping(value = "/quote/report/{reportType}/{quoteId}", method = RequestMethod.GET)
+	@RequestMapping(value = "/quote/report/{reportType}/{quoteId}", method = RequestMethod.GET, produces="application/pdf;charset=UTF-8")
 	public ModelAndView showQuoteReport(@PathVariable String reportType, @PathVariable String quoteId, ModelAndView modelAndView, HttpServletRequest request, 
 			HttpServletResponse response, ModelMap modelMap) throws Exception{
 		logger.debug("In showQuoteReport with reportType: "+reportType+" and quoteId: "+quoteId);
