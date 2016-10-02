@@ -48,8 +48,14 @@
 					</div>
 					<div class="form-group">
 						<label>Model Year</label> <input type="text" id="modelYear"
-							name="modelYear" ng-model="program2.modelYear"
+							name="modelYear" ng-model="program.modelYear"
 							placeholder="Model Year" class="form-control" validate-on="dirty"
+							required="required" ng-disabled="disabled">
+					</div>
+					<div class="form-group">
+						<label>Serial Number</label> <input type="text" id="modelYear"
+							name="serialNumber" ng-model="program.serialNumber"
+							placeholder="Serial Number" class="form-control" validate-on="dirty"
 							required="required" ng-disabled="disabled">
 					</div>
 					<div class="form-group">
@@ -87,7 +93,7 @@
 						</div>
 						<div class="form-group">
 							<label>Type of Coverage</label> 
-						<p>{{program.cType}}</p>
+						<p>{{(program.cType=="PT")?"Powertrain":(program.cType=="PH")?"Powertrain + Hydraulic":(program.cType=="PL")?"Powertrain + Hydraulic + Platform":""}}</p>
 						</div>
 						<div class="form-group">
 							<label>Coverage Term</label> <p>{{program.cTerm}}</p>
@@ -96,13 +102,13 @@
 							<label>Hours Covered</label> <p>{{program.cHours}}</p>
 						</div>
 						<div class="form-group">
-							<label>Deductible</label><p>{{program.deductible}}</p>
+							<label>Deductible</label><p>&#36;{{program.deductible}}</p>
 						</div>
 						<div class="form-group">
-							<label>Limit of Liability</label> <p>{{program.lol}}</p>
+							<label>Limit of Liability</label> <p>&#36;{{program.lol}}</p>
 						</div>
 						<div class="form-group">
-							<label>Cost</label> <p>{{program.cost}}</p>
+							<label>Cost</label> <p>&#36;{{program.cost}}</p>
 						</div>
 						<div class="form-group">
 							<label>Program Description</label>

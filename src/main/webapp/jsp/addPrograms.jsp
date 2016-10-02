@@ -90,13 +90,13 @@
 					<label for="coverageTerm" class="col-sm-3 control-label">Coverage Type</label>
 				<div class="col-sm-4">
 				<dl>
-					<input type="radio" id="PT" name="PT" ng-model="program.cType" class="" value="PT"> PT
+					<input type="radio" id="PT" name="PT" ng-model="program.cType" class="" value="PT"> Powertrain
 				</dl>
 				<dl>
-					<input type="radio" id="PH" name="PH" ng-model="program.cType" class="" value="PH"> PH
+					<input type="radio" id="PH" name="PH" ng-model="program.cType" class="" value="PH"> Powertrain + Hydraulic
 				</dl>
 				<dl>
-					<input type="radio" id="PF" name="PF" ng-model="program.cType" class="" value="PF"> PF
+					<input type="radio" id="PL" name="PF" ng-model="program.cType" class="" value="PL"> Powertrain + Hydraulic + Platform
 				</dl>
 				</div>
 				</div>
