@@ -56,12 +56,13 @@
 					<input type="text" ng-model="program.name" id="name" name="name" placeholder="Program Name" class="form-control" required="required">
 				</div>
 			</div>
-			<div class="form-group">
+			<!-- <div class="form-group">
 				<label for="name" class="col-sm-3 control-label">Group</label>
 				<div class="col-sm-9">
 					<input type="text" ng-model="program.group" id="group" name="group" class="form-control" required="required" value="{{group}}" ng-readonly=true>
 				</div>
 			</div>
+			 -->
 			<div class="form-group">
 					<label for="coverageTerm" class="col-sm-3 control-label">Active?</label>
 					<div class="col-sm-4">
@@ -69,6 +70,7 @@
 						<input type="radio" id="inactive" name="inactive" ng-model="program.isActive" class="" value="0"> No
 					</div>
 				</div>
+				<!-- 
 				<div class="form-group">
 					<label for="coverageTerm" class="col-sm-3 control-label">Allow for Servicing Dealer?</label>
 					<div class="col-sm-4">
@@ -76,6 +78,7 @@
 						<input type="radio" id="donotallow" name="donotallow" ng-model="program.aServicing" class="" value="0"> No
 					</div>
 				</div>
+				 -->
 				<div class="form-group">
 					<label for="coverageTerm" class="col-sm-3 control-label">Condition</label>
 					<div class="col-sm-4">
@@ -86,9 +89,15 @@
 				<div class="form-group">
 					<label for="coverageTerm" class="col-sm-3 control-label">Coverage Type</label>
 				<div class="col-sm-4">
+				<dl>
 					<input type="radio" id="PT" name="PT" ng-model="program.cType" class="" value="PT"> PT
+				</dl>
+				<dl>
 					<input type="radio" id="PH" name="PH" ng-model="program.cType" class="" value="PH"> PH
+				</dl>
+				<dl>
 					<input type="radio" id="PF" name="PF" ng-model="program.cType" class="" value="PF"> PF
+				</dl>
 				</div>
 				</div>
 				
