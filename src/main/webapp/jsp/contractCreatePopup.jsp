@@ -15,7 +15,7 @@
 			<div class="form-group">
 				<label for="contact" class="col-sm-3 control-label">Inception/Start Date</label>
 				<div class="col-sm-9">
-					<input type="date" id="inceptionDate" name="inceptionDate" ng-model="quote.inceptionDate" min="{{date | date:'yyyy-MM-dd'}}" class="form-control" required="required">
+					<input type="date" id="inceptionDate" name="inceptionDate" ng-model="quote.inceptionDate" min="{{date | date:'yyyy-MM-dd'}}" class="form-control" required="required" ng-blur="updateExpirationDate()">
 				</div>
 			</div>
 			<div class="form-group">

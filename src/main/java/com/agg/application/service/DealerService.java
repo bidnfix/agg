@@ -48,4 +48,6 @@ public interface DealerService {
 
 	public DealerDO getDealerInfo(long accountId);
 
+	public boolean isUserNameExists(String userName);
+
 }

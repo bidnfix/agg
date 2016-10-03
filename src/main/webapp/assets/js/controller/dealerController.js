@@ -2,10 +2,25 @@
 
 routingApp.controller('dealerController', function($scope, dealerService, $location, $http) {
 	$scope.dealer={};
+	$scope.isUserExists = false;
 	$scope.submitDealer = function() {
 		//alert("in submitDealer");
-		dealerService.saveDealer($scope.dealer);
+		if(!isUserExists){
+			dealerService.saveDealer($scope.dealer);
+		}
+		
     };
+    
+    $scope.isUserNameExists = function(userName){
+    	$http.post("/agg/isUserNameExists", userName)
+        .then(function(response) {
+        	//alert(response.data.data.programList);
+        	$scope.isUserExists = response.data.data;
+            if($scope.isUserExists){
+            	alert("Dealer with Username '"+userName+"' already exists!");
+            }
+        });
+    }
 });
 
 routingApp.controller('locationController', function($scope, locationService, $location) {

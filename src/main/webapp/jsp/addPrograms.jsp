@@ -26,7 +26,7 @@
 			<div class="form-group">
 				<label for="name" class="col-sm-3 control-label">Assign a Dealer</label>
 				<div class="col-sm-9">
-					<select name="dealer" ng-model="program.dealerDO" ng-options="dealer.name for dealer in dealerList | orderBy:'name'" class="form-control">
+					<select name="dealer" ng-model="program.dealerDO" ng-options="dealer.name+' - '+dealer.city for dealer in dealerList | orderBy:'name'" class="form-control">
          				 <!-- <option ng:repeat="machine in manufacturerList" value="{{dealer.id}}">{{dealer.userName}}</option> -->
      				</select> 
 				</div>

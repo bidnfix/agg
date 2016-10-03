@@ -252,4 +252,17 @@ public class DealerController extends BaseController {
 		
 		return opResult;
 	}
+	
+	@RequestMapping(value = "/isUserNameExists", method = RequestMethod.POST)
+	public @ResponseBody Result isUserNameExists(@RequestBody String userName, HttpServletRequest request, HttpServletResponse response, Model model) {
+		logger.debug("In isUserNameExists with userName: "+userName);
+		Result opResult = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			opResult = new Result("success", "Dealer User Info", dealerService.isUserNameExists(userName));
+		}
+		
+		return opResult;
+	}
 }

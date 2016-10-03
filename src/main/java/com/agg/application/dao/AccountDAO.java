@@ -15,4 +15,6 @@ public interface AccountDAO extends CrudRepository<Account, Long>{
 	List<Account> findByRoleRId(long roleId);
 	
 	List<Account> findByDealerId(long dealerId);
+	
+	Account findByUserNameIgnoreCase(String userName);
 }

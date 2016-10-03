@@ -81,7 +81,7 @@ public class DealerServiceImpl implements DealerService {
 		logger.debug("In getActiveDealers");
 		List<Dealer> dealerList = null;
 		if(accountDO.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)){
-			dealerList = dealerDAO.findByStatus(AggConstants.ACTIVE);
+			dealerList = dealerDAO.findByStatusOrderByNameAsc(AggConstants.ACTIVE);
 		}else{
 			Account account = accountDAO.findOne(accountDO.getId());
 			if(account != null){
@@ -96,7 +96,7 @@ public class DealerServiceImpl implements DealerService {
 	@Override
 	public List<DealerDO> getPendingDealers() {
 		logger.debug("In getPendingDealers");
-		List<Dealer> dealerList = Util.toList(dealerDAO.findByStatus(AggConstants.PENDING));
+		List<Dealer> dealerList = Util.toList(dealerDAO.findByStatusOrderByNameAsc(AggConstants.PENDING));
 		
 		return getDealerDOList(dealerList);
 	}
@@ -668,6 +668,16 @@ public class DealerServiceImpl implements DealerService {
 			dealerDO = getDealer(account.getDealer().getId());
 		}
 		return dealerDO;
+	}
+
+	@Override
+	public boolean isUserNameExists(String userName) {
+		Account account = accountDAO.findByUserNameIgnoreCase(userName);
+		boolean cond = false;
+		if(account != null){
+			cond = true;
+		}
+		return cond;
 	}
 
 }

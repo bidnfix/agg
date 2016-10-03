@@ -11,6 +11,8 @@ import javax.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.agg.application.dao.GroupConstantDAO;
@@ -190,7 +192,7 @@ public class MachineServiceImpl implements MachineService {
 	@Override
 	public List<ManufacturerDO> getManufacturerDetails() {
 		logger.debug("Inside getManufacturerDetails()");
-		List<Manufacturer>  manufacturerModels =  Lists.newArrayList(manufacturerDAO.findAll());
+		List<Manufacturer>  manufacturerModels =  Lists.newArrayList(manufacturerDAO.findAll(new Sort(Direction.ASC, "manfName")));
 		
 		List<ManufacturerDO> manufacturerDOList = null;
 		if(!manufacturerModels.isEmpty()){
@@ -258,7 +260,7 @@ public class MachineServiceImpl implements MachineService {
 	@Override
 	public List<MachineModelDO> getMachineModel(int typeId) {
 		logger.debug("Inside getMachineModelById()");
-		List<MachineInfo>  machineModelList =  machineInfoDAO.findByMachineTypeMachineTypeId(typeId);
+		List<MachineInfo>  machineModelList =  machineInfoDAO.findByMachineTypeMachineTypeIdOrderByModelAsc(typeId);
 		List<MachineModelDO> machineModelDOList = null;
 		if(machineModelList != null && !machineModelList.isEmpty()){
 			machineModelDOList = new ArrayList<MachineModelDO>();
@@ -293,7 +295,7 @@ public class MachineServiceImpl implements MachineService {
 	@Override
 	public List<MachineInfoDO> getManfModel(long manfId) {
 		logger.debug("Inside getManfModel()");
-		List<MachineInfo>  machineInfoList =  machineInfoDAO.findByManufacturerManfId(manfId);
+		List<MachineInfo>  machineInfoList =  machineInfoDAO.findByManufacturerManfIdOrderByModelAsc(manfId);
 		List<MachineInfoDO> machineInfoDOList = null;
 		if(machineInfoList != null && !machineInfoList.isEmpty()){
 			machineInfoDOList = new ArrayList<MachineInfoDO>();

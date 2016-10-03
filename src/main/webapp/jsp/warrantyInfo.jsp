@@ -23,7 +23,7 @@
 				<div class="col-xs-12 no-pad marg10-top marg10-bottom clearfix">
 					<select class="form-control col-sm-6" name="dealer"
 						ng-model="quote.dealerDO" id="dealer"
-						ng-options="dealer.name for dealer in dealerList track by dealer.id"
+						ng-options="dealer.name+' - '+dealer.city for dealer in dealerList track by dealer.id"
 						ng-change="displayDealerText(quote.dealerDO)" required>
 						<option value="">Select Dealer</option>
 					</select>

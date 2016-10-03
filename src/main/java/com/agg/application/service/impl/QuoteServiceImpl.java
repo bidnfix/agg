@@ -743,6 +743,7 @@ public class QuoteServiceImpl implements QuoteService {
 				quoteDO.setManufacturerDO(manufacturerDO);
 			}
 			
+			AdminAdjustment adminAdjustment = adminAdjustmentDAO.findOne(quote.getId().getQuoteId());
 			MachineInfo machineInfo = quote.getMachineInfo();
 			if(machineInfo != null){
 				MachineInfoDO machineInfoDO = new MachineInfoDO();
@@ -752,8 +753,18 @@ public class QuoteServiceImpl implements QuoteService {
 				machineInfoDO.setModelYear(machineInfo.getModelYear());
 				machineInfoDO.setEPower(machineInfo.getEPower());
 				machineInfoDO.setLol(machineInfo.getGroupConstant().getLol());
+				if(quote.getProgram() != null){
+					machineInfoDO.setLol(quote.getProgram().getPrLol());
+				}
+				if(adminAdjustment != null && adminAdjustment.getLol() > 0){
+					machineInfoDO.setLol(adminAdjustment.getLol());
+				}
 				
 				quoteDO.setMachineInfoDO(machineInfoDO);
+			}
+			
+			if(quote.getProgram() != null){
+				quoteDO.setProgram(quote.getProgram().getPrName());
 			}
 			
 			quoteDO.setGroupId(quote.getGroupId());
@@ -787,6 +798,9 @@ public class QuoteServiceImpl implements QuoteService {
 			quoteDO.setCoverageHours(quote.getCoverageLevelHours());
 			quoteDO.setCoverageType(quote.getCoverageType());
 			quoteDO.setQuoteBasePrice(quote.getCoveragePrice());
+			if(adminAdjustment != null && adminAdjustment.getBasePrice() > 0){
+				quoteDO.setQuoteBasePrice(adminAdjustment.getBasePrice());
+			}
 			quoteDO.setStatus(quote.getStatus());
 			quoteDO.setLastUpdate(quote.getLastUpdate());
 			String statusDesc = "";
@@ -827,7 +841,6 @@ public class QuoteServiceImpl implements QuoteService {
 				quoteDO.setCustUnderstandCoverage((customerInfo.getUnderstand() == 1)?true:false);
 			}
 			
-			AdminAdjustment adminAdjustment = adminAdjustmentDAO.findOne(quote.getId().getQuoteId());
 			if(adminAdjustment != null){
 				quoteDO.setAdjustedBasePrice(adminAdjustment.getBasePrice());
 				quoteDO.setAdjustedLol(adminAdjustment.getLol());
@@ -1052,7 +1065,8 @@ public class QuoteServiceImpl implements QuoteService {
 			quote = quoteDAO.findByIdQuoteId(quoteDO.getQuoteId());
 		}
 		if(quote != null){
-			quote.setDealer(dealerDAO.findOne(quoteDO.getDealerDO().getId()));
+			Dealer dealer = dealerDAO.findOne(quoteDO.getDealerDO().getId());
+			quote.setDealer(dealer);
 			quote.setManfExpired((quoteDO.isCoverageExpired())?(byte)1:(byte)0);
 			quote.setManfEndDate(quoteDO.getCoverageEndDate());
 			//quote.setManfEndKnown((quoteDO.isCoverageEndDateUnknown())?(byte)1:(byte)0);
@@ -1170,14 +1184,21 @@ public class QuoteServiceImpl implements QuoteService {
 				String email = null;
 				if(accountDO.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)){
 					email = adminEmail;
+					if(dealer != null && dealer.getInvoiceEmail() != null){
+						if(email != null){
+							email += "," + dealer.getInvoiceEmail();
+						}else{
+							email = dealer.getInvoiceEmail();
+						}
+					}
 				}else{
 					long dealerId = accountDO.getDealerId();
 					if(dealerId > 0){
-						Dealer dealer = dealerDAO.findOne(dealerId);
-						if(dealer != null){
-							email = dealer.getInvoiceEmail();
-							if(dealer.getCode() != dealer.getParentCode()){
-								Dealer parentDealer = dealerDAO.findByCode(dealer.getParentCode());
+						Dealer dealerr = dealerDAO.findOne(dealerId);
+						if(dealerr != null){
+							email = dealerr.getInvoiceEmail();
+							if(dealerr.getCode() != dealerr.getParentCode()){
+								Dealer parentDealer = dealerDAO.findByCode(dealerr.getParentCode());
 								if(parentDealer != null){
 									if(email != null){
 										email += "," + parentDealer.getInvoiceEmail();
@@ -1211,7 +1232,7 @@ public class QuoteServiceImpl implements QuoteService {
 				EmailStatus emailStatus = emailSender.sendMailAsAttachment(email, subject, emailBody, pdfAttachment, "dealerInvoice");
 				if(emailStatus != null){
 					logger.info("emailStatus: "+emailStatus.getStatus());
-					logger.info("Dealer Quote pdf Attachment emailed successfully");
+					logger.info("Dealer Quote pdf Attachment emailed successfully to "+email);
 				}
 				condition = true;
 			}

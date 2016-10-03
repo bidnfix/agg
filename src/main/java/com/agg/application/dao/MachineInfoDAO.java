@@ -10,7 +10,7 @@ import com.agg.application.entity.MachineInfo;
 @Component
 public interface MachineInfoDAO extends CrudRepository<MachineInfo, Long> {
 
-	List<MachineInfo> findByMachineTypeMachineTypeId(int typeId);
+	List<MachineInfo> findByMachineTypeMachineTypeIdOrderByModelAsc(int typeId);
 	
-	List<MachineInfo> findByManufacturerManfId(long manfId);
+	List<MachineInfo> findByManufacturerManfIdOrderByModelAsc(long manfId);
 }
