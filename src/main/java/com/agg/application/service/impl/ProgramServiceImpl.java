@@ -250,6 +250,7 @@ public class ProgramServiceImpl implements ProgramService {
 			quote.setHMonths(quoteDO.getHydraulicsMonths());
 			quote.setMachineHours(quoteDO.getFullMachineHours());
 			quote.setMachineMonths(quoteDO.getFullMachineMonths());
+			quote.setMachineMeterHours(quoteDO.getMachineMeterHours());
 			quote.setOtherProv("");
 			
 			Manufacturer manufacturer = manufacturerDAO.findOne(quoteDO.getManufacturerDO().getId());
@@ -270,7 +271,6 @@ public class ProgramServiceImpl implements ProgramService {
 			quote.setMachinePower(quoteDO.getHorsePower());
 			quote.setMachineSerial(quoteDO.getSerialNumber());
 			quote.setMachineRetailPrice(quoteDO.getRetailPrice());
-			quote.setMachineMeterHours(quoteDO.getMeterHours());
 			quote.setMachineYear(quoteDO.getModelYear());
 			//quote.setUseOfEquip(useOfEquipmentDAO.findOne(quoteDO.getUseOfEquipmentDO().getId()));
 			quote.setMachineSaleDate(quoteDO.getEstSaleDate());

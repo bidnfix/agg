@@ -60,16 +60,24 @@
 					</div>
 					<div class="form-group">
 						<label>Hours at Enrollment</label> <input type="text"
-							id="enrollment" name="addenrollmentress1"
-							ng-model="program.enrolement" placeholder="Hours at Enrollment"
+							id="machineMeterHours" name="machineMeterHours"
+							ng-model="program.machineMeterHours" placeholder="Hours at Enrollment"
 							class="form-control" ng-disabled="disabled">
 					</div>
-					<div class="form-group">
+					<div class="form-group" ng-if="program.condition == 1">
+						<label>MFG Coverage Ends</label> <input type="date"
+							id="coverage" name="coverage" ng-model="program.coverageEndDate"
+							placeholder="Manufacturer Coverage end date" class="form-control"
+							validate-on="dirty" required="required" ng-disabled="disabled">
+					</div>
+					
+					<div class="form-group" ng-if="program.condition == 0">
 						<label>Start Date of Coverage</label> <input type="date"
-							id="coverage" name="coverage" ng-model="program.coverage"
+							id="estSaleDate" name="estSaleDate" ng-model="program.estSaleDate"
 							placeholder="Start Date of Coverage" class="form-control"
 							validate-on="dirty" required="required" ng-disabled="disabled">
 					</div>
+					
 					<div class="form-group">
 						<label>Unusual Provisions</label> <input type="textarea"
 							id="provisions" name="provisions" ng-model="program.provisions"
@@ -89,7 +97,7 @@
                         <div class="col-xs-12 border-bottom no-pad">
 						<div class="form-group">
 							<label>Condition</label> 
-							<p>{{program.condition}}</p>
+							<p>{{(program.condition == 1)?"New":(program.condition == 0)?"Used":""}}</p>
 						</div>
 						<div class="form-group">
 							<label>Type of Coverage</label> 
@@ -102,13 +110,13 @@
 							<label>Hours Covered</label> <p>{{program.cHours}}</p>
 						</div>
 						<div class="form-group">
-							<label>Deductible</label><p>&#36;{{program.deductible}}</p>
+							<label>Deductible</label><p>{{program.deductible | currency:"$":0}}</p>
 						</div>
 						<div class="form-group">
-							<label>Limit of Liability</label> <p>&#36;{{program.lol}}</p>
+							<label>Limit of Liability</label> <p>{{program.lol | currency:"$":0}}</p>
 						</div>
 						<div class="form-group">
-							<label>Cost</label> <p>&#36;{{program.cost}}</p>
+							<label>Cost</label> <p>{{program.cost | currency:"$":0}}</p>
 						</div>
 						<div class="form-group">
 							<label>Program Description</label>
