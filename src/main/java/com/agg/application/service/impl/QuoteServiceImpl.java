@@ -980,12 +980,16 @@ public class QuoteServiceImpl implements QuoteService {
 			if(pricingDOList != null && !pricingDOList.isEmpty()){
 				PricingDO pricingDO = pricingDOList.get(0);
 				if(quoteDO.getCoverageType() != null){
-					if(quoteDO.getCoverageType().equals("PT")){
-						quote.setCoveragePrice(pricingDO.getPtBasePrice());
-					}else if(quoteDO.getCoverageType().equals("PH")){
-						quote.setCoveragePrice(pricingDO.getPhBasePrice());
-					}else if(quoteDO.getCoverageType().equals("PL")){
-						quote.setCoveragePrice(pricingDO.getPlBasePrice());
+					if(quote.getProgram() != null){
+						quote.setCoveragePrice(quote.getProgram().getPrCost());
+					}else{
+						if(quoteDO.getCoverageType().equals("PT")){
+							quote.setCoveragePrice(pricingDO.getPtBasePrice());
+						}else if(quoteDO.getCoverageType().equals("PH")){
+							quote.setCoveragePrice(pricingDO.getPhBasePrice());
+						}else if(quoteDO.getCoverageType().equals("PL")){
+							quote.setCoveragePrice(pricingDO.getPlBasePrice());
+						}
 					}
 				}
 			}

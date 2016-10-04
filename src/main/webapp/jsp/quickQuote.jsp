@@ -32,50 +32,43 @@
                      <div class="col-md-6 no-pad pad10-right" ng-hide="editableFlag">
                        <div class="form-group">
                          <label>Assign Dealer</label>
-                         <c:choose>
-						 	<c:when test="${quote.program eq null}">
-						         <select class="form-control" name="dealer" ng-model="quote.dealerDO" id="dealer" ng-options="dealer.name+' - '+dealer.city for dealer in dealerList track by dealer.id" ng-change="displayDealerText(quote.dealerDO)"  validate-on="dirty" required="required" ng-disabled="disabled">
+                         	<div ng-if="quote.program == null">
+						        <select class="form-control" name="dealer" ng-model="quote.dealerDO" id="dealer" ng-options="dealer.name+' - '+dealer.city for dealer in dealerList track by dealer.id" ng-change="displayDealerText(quote.dealerDO)"  validate-on="dirty" required="required" ng-disabled="disabled">
 									<option value="">Select Dealer</option>
-								 </select>
-						    </c:when>
-						    <c:otherwise>
-						        <p>{{quote.dealerDO.name - quote.dealerDO.city}}</p>
-						    </c:otherwise>
-						 </c:choose>
+								</select>
+					   		</div>
+					   		<div ng-else>
+					        	<p>{{quote.dealerDO.name}}{{(quote.dealerDO.city != null)?' - '+quote.dealerDO.city:""}}</p>
+					        </div>
+						  
                        </div>
                        <div class="form-group">
                          <label>Manufacturer</label>
-                         <c:choose>
-						 	<c:when test="${quote.program eq null}">
-						         <select class="form-control" name="manufacturer" ng-model="quote.manufacturerDO" ng-options="manufacturerObj.name for manufacturerObj in manufacturerList track by manufacturerObj.id" ng-change="getMachineModel(quote.manufacturerDO)"  validate-on="dirty" required="required" ng-disabled="disabled">
-									<option value="">Select Manufacturer</option>
-			     				 </select>
-						    </c:when>
-						    <c:otherwise>
-						        <p>{{quote.manufacturerDO.name}}</p>
-						    </c:otherwise>
-						 </c:choose>
+                         	<div ng-if="quote.program == null">
+					         <select class="form-control" name="manufacturer" ng-model="quote.manufacturerDO" ng-options="manufacturerObj.name for manufacturerObj in manufacturerList track by manufacturerObj.id" ng-change="getMachineModel(quote.manufacturerDO)"  validate-on="dirty" required="required" ng-disabled="disabled">
+								<option value="">Select Manufacturer</option>
+		     				 </select>
+					   		</div>
+					   		<div ng-else>
+					        <p>{{quote.manufacturerDO.name}}</p>
+						    </div>
                        </div>
-                       <c:if test="${quote.program eq null}">
-                       	<div class="form-group">
-                           <label>Machine Type</label>
-                           <p>
-                             {{quote.machineInfoDO.machineType}}
-                           </p>
-                         </div>
-                       </c:if>
+                       <div class="form-group"  ng-if="quote.program == null">
+                         <label>Machine Type</label>
+                         <p>
+                           {{quote.machineInfoDO.machineType}}
+                         </p>
+                       </div>
                        <div class="form-group">
                          <label>Model</label>
-                         <c:choose>
-						 	<c:when test="${quote.program eq null}">
-						        <select class="form-control" name="machineModel" ng-model="quote.machineInfoDO" ng-options="machineModel.model group by machineModel.machineType for machineModel in machineModelList track by machineModel.machineId" ng-change="getCoverageDetails(quote.machineInfoDO)"  validate-on="dirty" required="required" ng-disabled="disabled">
-									<option value="">Select Model</option>
-								</select>
-						    </c:when>
-						    <c:otherwise>
-						        <p>{{quote.machineInfoDO.model}}</p>
-						    </c:otherwise>
-						 </c:choose>
+                         <div ng-if="quote.program == null">
+					        <select class="form-control" name="machineModel" ng-model="quote.machineInfoDO" ng-options="machineModel.model group by machineModel.machineType for machineModel in machineModelList track by machineModel.machineId" ng-change="getCoverageDetails(quote.machineInfoDO)"  validate-on="dirty" required="required" ng-disabled="disabled">
+								<option value="">Select Model</option>
+							</select>
+						 </div>
+						 <div ng-else>
+						    <p>{{quote.machineInfoDO.model}}</p>
+						 </div>
                        </div>
                        <div class="form-group">
                          <label>Horsepower</label>
@@ -120,61 +113,53 @@
                        </div>
                        <div class="form-group">
                          <label>Deductible</label>
-                         <c:choose>
-						 	<c:when test="${quote.program eq null}">
+                         <div ng-if="quote.program == null">
 						     <select name="deductiblePrice" ng-model="quote.deductiblePrice" class="form-control" ng-options="deductibleAmt for deductibleAmt in deductibleAmtList track by deductibleAmt"  validate-on="dirty" required="required" ng-disabled="disabled" ng-change="getCoveragePriceLevels()">
 	                         	<option value="">Select Deductible</option>
 							 </select>
-						    </c:when>
-						    <c:otherwise>
-						        <p>{{quote.deductiblePrice | currency:"$":0}}</p>
-						    </c:otherwise>
-						 </c:choose>
+						 </div>
+						 <div ng-else>
+						     <p>{{quote.deductiblePrice | currency:"$":0}}</p>
+						 </div>
                        </div>
                        <div class="form-group">
                          <label>Coverage Term</label>
-                         <c:choose>
-						 	<c:when test="${quote.program eq null}">
+                         <div ng-if="quote.program == null">
 						     <select name="coverageTerm" ng-model="quote.coverageTerm" class="form-control" ng-options="coverageTermVal for coverageTermVal in coverageTermList track by coverageTermVal"  validate-on="dirty" required="required" ng-disabled="disabled" ng-change="getCoveragePriceLevels()">
 	                         	<option value="">Select Coverage Term</option>
 							 </select>
-						    </c:when>
-						    <c:otherwise>
-						        <p>{{(quote.coverageTerm != null)? quote.coverageTerm+"&nbsp;mos.":""}}</p>
-						    </c:otherwise>
-						 </c:choose>
+						</div>
+						<div ng-else>
+						     <p>{{(quote.coverageTerm != null)? quote.coverageTerm+"&nbsp;mos.":""}}</p>
+						</div>
                        </div>
                        <div class="form-group">
                          <label>Covered Hours</label>
-                         <c:choose>
-						 	<c:when test="${quote.program eq null}">
+                         <div ng-if="quote.program == null">
 						     <select name="coverageHours" ng-model="quote.coverageHours" class="form-control" ng-options="coverageLevelHour for coverageLevelHour in coverageLevelHoursList track by coverageLevelHour"  validate-on="dirty" required="required" ng-disabled="disabled" ng-change="getCoveragePriceLevels()">
 	                         	<option value="">Select Covered Hours</option>
 							 </select>
-						    </c:when>
-						    <c:otherwise>
-						        <p>{{quote.coverageHours}}</p>
-						    </c:otherwise>
-						 </c:choose>
+						</div>
+						<div ng-else>
+						     <p>{{quote.coverageHours}}</p>
+						</div>
                        </div>
                        <div class="form-group">
                          <label>Coverage Type</label>
-                         <c:choose>
-						 	<c:when test="${quote.program eq null}">
+                         <div ng-if="quote.program == null">
 						     <select name="coverageType" ng-model="quote.coverageType" class="form-control"  validate-on="dirty" required="required" ng-disabled="disabled" ng-change="changeQuoteBasePrice(quote.coverageType)">
 	                         	<option value="">Select Coverage Type</option>
 	                         	<option ng-repeat="ctype in quote.coverageTypeSet" value="{{ctype}}" ng-selected="{{quote.coverageType == ctype}}">
-	                         		{{(ctype == 'PH')?"Powertrain + Hydraulic":(ctype == 'PT')?"Powertrain":"Powertrain + Hydraulic + Platform"}}
+	                         		{{(ctype == 'PH')?"Powertrain + Hydraulic":(ctype == 'PT')?"Powertrain":(ctype == 'PL')?"Powertrain + Hydraulic + Platform":""}}
 	                         	</option>
 	                         	<!-- <option value="PT">Powertrain</option>
 				                <option value="PH">Powertrain + Hydraulic</option>
 				                <option value="PL">Powertrain + Hydraulic + Platform</option> -->
 							 </select>
-						    </c:when>
-						    <c:otherwise>
-						        <p>{{(quote.coverageType == 'PH')?"Powertrain + Hydraulic":(quote.coverageType == 'PT')?"Powertrain":"Powertrain + Hydraulic + Platform"}}</p>
-						    </c:otherwise>
-						 </c:choose>
+						</div>
+						<div ng-else>
+						        <p>{{(quote.coverageType == 'PH')?"Powertrain + Hydraulic":(quote.coverageType == 'PT')?"Powertrain":(ctype == 'PL')?"Powertrain + Hydraulic + Platform":""}}</p>
+						</div>
                        </div>
                        <div class="form-group">
                          <label>Limit of Liability</label>
@@ -213,7 +198,7 @@
                           <div class="form-group">
                             <label>Assign Dealer</label>
                             <p>
-                              {{quote.dealerDO.name}}
+                              {{quote.dealerDO.name}}{{(quote.dealerDO.city != null)?' - '+quote.dealerDO.city:""}}
                             </p>
                           </div>
                           <div class="form-group">
