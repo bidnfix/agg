@@ -646,9 +646,22 @@ public class QuoteServiceImpl implements QuoteService {
 			reportDO.setFullMachineHours(quote.getMachineHours());
 			reportDO.setFullMachineMonths(quote.getMachineMonths());
 			reportDO.setWarrantyEndDate((quote.getManfEndDate() != null)?dateFormat.format(quote.getManfEndDate()):"");
-			reportDO.setLimitOfLiability(currencyFormat.format(quote.getMachineInfo().getGroupConstant().getLol()));
-			String dealerMarkupType = quote.getDealerMarkupType();
+			double lol = quote.getMachineInfo().getGroupConstant().getLol();
 			double coveragePrice = quote.getCoveragePrice();
+			AdminAdjustment adminAdjustment = adminAdjustmentDAO.findOne(quote.getId().getQuoteId());
+			if(quote.getProgram() != null){
+				lol = quote.getProgram().getPrLol();
+			}
+			if(adminAdjustment != null){
+				if(adminAdjustment.getLol() > 0){
+					lol = adminAdjustment.getLol();
+				}
+				if(adminAdjustment.getBasePrice() > 0){
+					coveragePrice = adminAdjustment.getBasePrice();
+				}
+			}
+			reportDO.setLimitOfLiability(currencyFormat.format(lol));
+			String dealerMarkupType = quote.getDealerMarkupType();
 			double customerPrice = 0.0;
 			double dealerMarkupPrice = 0.0;
 			if(dealerMarkupType != null && !dealerMarkupType.isEmpty()){
@@ -717,6 +730,7 @@ public class QuoteServiceImpl implements QuoteService {
 				dealerDO.setName(dealer.getName());
 				dealerDO.setInvoiceEmail(dealer.getInvoiceEmail());
 				dealerDO.setMarketEmail(dealer.getMarketEmail());
+				dealerDO.setCity(dealer.getCity());
 				
 				quoteDO.setDealerDO(dealerDO);
 			}
@@ -842,8 +856,19 @@ public class QuoteServiceImpl implements QuoteService {
 			}
 			
 			if(adminAdjustment != null){
-				quoteDO.setAdjustedBasePrice(adminAdjustment.getBasePrice());
-				quoteDO.setAdjustedLol(adminAdjustment.getLol());
+				if(adminAdjustment.getBasePrice() > 0){
+					quoteDO.setAdjustedBasePrice(adminAdjustment.getBasePrice());
+				}else{
+					quoteDO.setAdjustedBasePrice(quote.getCoveragePrice());
+				}
+				if(adminAdjustment.getLol() > 0){
+					quoteDO.setAdjustedLol(adminAdjustment.getLol());
+				}else{
+					if(quoteDO.getMachineInfoDO() != null){
+						quoteDO.setAdjustedLol(quoteDO.getMachineInfoDO().getLol());
+					}
+				}
+				
 				quoteDO.setSpecialConsiderations(adminAdjustment.getSpecialConsideration());
 				quoteDO.setCondsForCoverage(adminAdjustment.getCConditions());
 				quoteDO.setInceptionDate(adminAdjustment.getInceptionDate());

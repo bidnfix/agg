@@ -898,6 +898,8 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 		$scope.coverageLevelHoursList = response.data.data.coverageLevelHoursList;
 		$scope.quote = response.data.data.quote;
 		$scope.quote.adjustedLol = $scope.quote.machineInfoDO.lol;
+		$scope.quote.adjustedBasePrice = $scope.quote.quoteBasePrice;
+		
 		
 		$scope.quote.dealerMarkupTypee = $scope.quote.dealerMarkupType;
 		$scope.quote.coverageEndDate = new Date($scope.quote.coverageEndDate);
