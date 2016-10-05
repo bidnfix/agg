@@ -155,7 +155,7 @@ public class MachineServiceImpl implements MachineService {
 		MachineDO machineDO = null;
 		ManufacturerDO manufacturerDO = null;
 		MachineTypeDO machineTypeDO = null;
-		GroupDO groupDO = null;
+		//GroupDO groupDO = null;
 		
 		if(machine != null){
 			machineDO = new MachineDO();
@@ -179,9 +179,9 @@ public class MachineServiceImpl implements MachineService {
 			machineDO.setModel(machine.getModel());
 			machineDO.setEnginePower(machine.getPower());
 			
-			groupDO = new GroupDO();
-			groupDO.setGroupId(machine.getGroupConstant().getGroupId());
-			machineDO.setGroupDO(groupDO);
+			//groupDO = new GroupDO();
+			//groupDO.setGroupId(machine.getGroupConstant().getGroupId());
+			machineDO.setGroupId(machine.getGroupConstant().getGroupId());
 		}
 		
 		logger.debug("In getMachine : "+machineDO);
@@ -341,7 +341,7 @@ public class MachineServiceImpl implements MachineService {
 		//macineInfo.setRetailPrice(machineDO.getRetailPrice());
 		//macineInfo.setBasePrice(machineDO.getBasePrice());
 
-		machineInfo.setGroupConstant(groupConstantDAO.findOne(Long.valueOf(machineDO.getGroupDO().getGroupId())));
+		machineInfo.setGroupConstant(groupConstantDAO.findOne(Long.valueOf(machineDO.getGroupId())));
 		
 
 		machineInfo.setLastUpdate(date);
@@ -371,8 +371,9 @@ public class MachineServiceImpl implements MachineService {
 		//macineInfo.setePower(machineModelDO.getePower());
 		//macineInfo.setRetailPrice(machineDO.getRetailPrice());
 		//macineInfo.setBasePrice(machineDO.getBasePrice());
+		logger.debug("machineDO.getGroupId() -->"+machineDO.getGroupId());
 
-		machineInfo.setGroupConstant(groupConstantDAO.findOne(Long.valueOf(machineDO.getGroupDO().getGroupId())));
+		machineInfo.setGroupConstant(groupConstantDAO.findOne(Long.valueOf(machineDO.getGroupId())));
 		
 
 		machineInfo.setLastUpdate(date);

@@ -16,6 +16,8 @@ public class MachineDO {
 	
 	private long machineId;
 	
+	private long groupId;
+	
 	
 
 	public long getMachineId() {
@@ -73,6 +75,13 @@ public class MachineDO {
 	public void setGroupDO(GroupDO groupDO) {
 		this.groupDO = groupDO;
 	}
-	
+
+	public long getGroupId() {
+		return groupId;
+	}
+
+	public void setGroupId(long groupId) {
+		this.groupId = groupId;
+	}
 	
 }
