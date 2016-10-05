@@ -121,6 +121,8 @@ public class DealerServiceImpl implements DealerService {
 			RoleDO roleDO = null;
 			Role role = null;
 			List<Account> accounts = null;
+			DealerDO parentDealerDO = null;
+			Dealer parentDealer = null;
 			
 			for(Dealer dealer : dealerList){
 				dealerDO = new DealerDO();
@@ -155,6 +157,28 @@ public class DealerServiceImpl implements DealerService {
 				dealerDO.setZip(dealer.getZip());
 				dealerDO.setStatus(dealer.getStatus());
 				dealerDO.setParentCode(dealer.getParentCode());
+				
+				//fetching parent dealer details
+				if(dealer.getCode() != dealer.getParentCode()){
+					parentDealer = dealerDAO.findByCode(dealer.getParentCode());
+					if(parentDealer != null){
+						parentDealerDO = new DealerDO();
+						parentDealerDO.setCode(parentDealer.getCode());
+						parentDealerDO.setName(parentDealer.getName());
+						parentDealerDO.setParentCode(parentDealer.getParentCode());
+						parentDealerDO.setCity(parentDealer.getCity());
+						
+						dealerDO.setParentDealerDO(parentDealerDO);
+					}
+				}else if(dealer.getCode() == dealer.getParentCode()){
+					parentDealerDO = new DealerDO();
+					parentDealerDO.setCode(dealer.getCode());
+					parentDealerDO.setName(dealer.getName());
+					parentDealerDO.setParentCode(dealer.getParentCode());
+					parentDealerDO.setCity(dealer.getCity());
+					
+					dealerDO.setParentDealerDO(parentDealerDO);
+				}
 				
 				dealerDOList.add(dealerDO);
 			}

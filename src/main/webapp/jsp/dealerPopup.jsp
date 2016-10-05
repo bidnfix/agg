@@ -180,7 +180,7 @@
 			<div class="form-group">
 				<label for="parentDealer" class="col-sm-3 control-label">Parent Dealer</label>
 				<div class="col-sm-9">
-					<select class="form-control" name="parentDealer" id="parentDealer" ng-options="parentDealer.name for parentDealer in parentDealerList track by parentDealer.parentCode" ng-model="dealer.parentDealerDO" required="required">
+					<select class="form-control" name="parentDealer" id="parentDealer" ng-options="parentDealer.name+' - '+parentDealer.city for parentDealer in parentDealerList track by parentDealer.parentCode" ng-model="dealer.parentDealerDO" required="required">
 						<option value="">Select Parent</option>
 					</select>
 				</div>
