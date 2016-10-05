@@ -86,7 +86,7 @@
 				</div>
 				<div class="form-group">
 					<label for="coverageTerm" class="col-sm-3 control-label">Coverage Type</label>
-				<div class="col-sm-4">
+				<div class="col-sm-8">
 				<dl>
 					<input type="radio" id="PT" name="PT" ng-model="program.cType" class="" value="PT"> Powertrain
 				</dl>
