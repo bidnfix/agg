@@ -140,6 +140,7 @@ public class MachineServiceImpl implements MachineService {
 				groupDO = new GroupDO();
 				groupDO.setGroupId(machineInfo.getGroupConstant().getGroupId());
 				machineDO.setGroupDO(groupDO);
+				machineDO.setGroupId(machineInfo.getGroupConstant().getGroupId());
 				
 				machineDOList.add(machineDO);
 			}
