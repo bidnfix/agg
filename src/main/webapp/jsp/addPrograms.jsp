@@ -5,16 +5,14 @@
 		<div class="col-md-6 col-sm-12">
 			<div class="sec-title">
 
-				<h2 class="wow animated bounceInLeft">Program Management</h2>
+				<h3 class="wow animated bounceInLeft">Program Management</h3>
 				<p class="wow animated bounceInRight">&nbsp;</p>
 			</div>
 		</div>
 		<div class="col-md-6 col-sm-12">
 			<a
-				class="btn btn-primary pull-right mar-right animated fadeInRightBig hvr-pulse"
-				href="add-new.html">Add New</a><a
 				class="btn btn-primary pull-right animated fadeInLeftBig  hvr-pulse mar-right"
-				href="#">Back</a>
+				href="#/agg/programs">Back</a>
 		</div>
 	</header>
 
@@ -22,7 +20,7 @@
 
 	<div class="inner-main" ng-controller="programController">
 		<form class="form-horizontal" role="form" ng-submit="submitProgram()">
-			<h2>Add Program</h2>
+			<h3 align="center">Add Program</h3>
 			<div class="form-group">
 				<label for="name" class="col-sm-3 control-label">Assign a Dealer</label>
 				<div class="col-sm-9">

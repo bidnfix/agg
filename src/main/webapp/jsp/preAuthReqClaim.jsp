@@ -4,7 +4,7 @@
 			<header class="page-header">
 	              	<div class="col-md-6 col-sm-12">
 						<div class="sec-title">
-							<h2 class="wow animated bounceInLeft">Pre-authorization Request Claims</h2>
+							<h3 class="wow animated bounceInLeft">Pre-authorization Request Claims</h3>
 						</div>
                     </div>
 			</header>

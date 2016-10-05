@@ -5,7 +5,7 @@
 		<div class="col-md-6 col-sm-12">
 			<div class="sec-title">
 
-				<h2 class="wow animated bounceInLeft">Dealer Management</h2>
+				<h3 class="wow animated bounceInLeft">Dealer Management</h3>
 				<p class="wow animated bounceInRight">&nbsp;</p>
 			</div>
 		</div>
@@ -23,7 +23,7 @@
 
 	<div class="inner-main" ng-controller="dealerController">
 		<form class="form-horizontal" role="form" ng-submit="submitDealer()">
-			<h2>Add Dealer</h2>
+			<h3 align="center">Add Dealer</h3>
 			<div class="form-group">
 				<label for="userName" class="col-sm-3 control-label">Username</label>
 				<div class="col-sm-9">

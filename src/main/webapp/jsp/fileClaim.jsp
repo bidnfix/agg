@@ -4,7 +4,7 @@
 			<header class="page-header">
 	              	<div class="col-md-6 col-sm-12">
 						<div class="sec-title">
-							<h2 class="wow animated bounceInLeft">File a Claim</h2>
+							<h3 class="wow animated bounceInLeft">File a Claim</h3>
 						</div>
                     </div>
 			</header>

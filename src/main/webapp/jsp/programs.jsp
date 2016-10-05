@@ -7,7 +7,7 @@
              	<div class="col-md-8 col-sm-12">
 		<div class="sec-title">
                      
-				<h2 class="wow animated bounceInLeft">Programs Info</h2>
+				<h3 class="wow animated bounceInLeft">Programs Info</h3>
 			</div>
                      </div>
                      <c:if test="${user.roleName eq 'admin'}">
@@ -48,7 +48,7 @@
 	                		<!-- <a ng-click="deleteProgram(program.prId)">
 	                		<img src="../assets/images/delete-icon.png" alt="Delete" title="Delete"/></a> -->
 	                		<a ng-click="editProgram(program.prId)">
-	                		<img src="../assets/images/edit-icon.png" alt="Edit" title="Edit"/></a>
+	                		<img src="../assets/images/edit-pencil.png" alt="Edit" title="Edit"/></a>
 	                	</div>
 	                </td>
                 </c:if>

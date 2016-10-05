@@ -6,7 +6,7 @@
              	<div class="col-md-8 col-sm-12">
 		<div class="sec-title">
                      
-				<h2 class="wow animated bounceInLeft">Machine Information</h2>
+				<h3 class="wow animated bounceInLeft">Machine Information</h3>
 			</div>
                      </div>
                      <div class="col-md-4 col-sm-12"><a class="btn btn-primary pull-right  hvr-pulse" href="#/agg/addMachine">Add New</a></div>
@@ -46,7 +46,7 @@
                 <td>{{machine.enginePower}}</td>
                 <td>{{machine.groupDO.groupId}}</td>
                 <td><div class="manage-sec"><!-- <a href="#"><img src="../assets/images/delete-icon.png" alt="Delete" title="Delete"/></a> -->
-                		<a ng-click="editMachine(machine.machineId)"><img src="../assets/images/edit-icon.png" alt="Edit" title="Edit"/></a>
+                		<a ng-click="editMachine(machine.machineId)"><img src="../assets/images/edit-pencil.png" alt="Edit" title="Edit"/></a>
                 	</div>
                 </td>
             </tr>

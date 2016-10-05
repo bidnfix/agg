@@ -5,7 +5,7 @@
              	<div class="col-md-8 col-sm-12">
 		<div class="sec-title">
                      
-				<h2 class="wow animated bounceInLeft">Pending Dealer Info</h2>
+				<h3 class="wow animated bounceInLeft">Pending Dealer Info</h3>
 				<!-- <p class="wow animated bounceInRight">The Key Features of our Tool</p> -->
 			</div>
                      </div>
@@ -56,7 +56,7 @@
                 <td>{{(dealer.status === 0)?"Terminated":(dealer.status === 1)?"Active":"Pending"}}</td>
                 <td>
                 	<div class="manage-sec"><!-- <a href="#"><img src="../assets/images/delete-icon.png" alt="Delete" title="Delete"/></a> -->
-                		<a ng-click="editDealer(dealer.id)"><img src="../assets/images/edit-icon.png" alt="Edit" title="Edit"/></a>
+                		<a ng-click="editDealer(dealer.id)"><img src="../assets/images/edit-pencil.png" alt="Edit" title="Edit"/></a>
                 	</div>
                 </td>
             </tr>

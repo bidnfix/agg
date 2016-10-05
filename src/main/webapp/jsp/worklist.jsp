@@ -4,7 +4,7 @@
              	<div class="col-md-8 col-sm-12">
 		<div class="sec-title">
                      
-				<h2 class="wow animated bounceInLeft">Quotes Info</h2>
+				<h3 class="wow animated bounceInLeft">Quotes Info</h3>
 				<!-- <p class="wow animated bounceInRight">The Key Features of our Tool</p> -->
 			</div>
                      </div>
@@ -50,7 +50,7 @@
                 <td>
                 	<div class="manage-sec"><!-- <a href="#"><img src="../assets/images/delete-icon.png" alt="Delete" title="Delete"/></a> -->
                 		<!-- <a ng-click="viewQuote(quote.id, quote.quoteId)"><img src="../assets/images/edit-icon.png" alt="Edit" title="Edit"/></a> -->
-                		<a href="#/agg/viewQuote/{{quote.id}}/{{quote.quoteId}}"><img src="../assets/images/edit-icon.png" alt="View" title="View"/></a>
+                		<a href="#/agg/viewQuote/{{quote.id}}/{{quote.quoteId}}"><img src="../assets/images/edit-pencil.png" alt="View" title="View"/></a>
                 	</div>
                 </td>
             </tr>

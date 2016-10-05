@@ -8,7 +8,7 @@
              	<div class="col-md-6 col-sm-12">
 		<div class="sec-title">
                      
-				<h2 class="wow animated bounceInLeft">Quick Quote</h2>
+				<h3 class="wow animated bounceInLeft">Quick Quote</h3>
 				<p class="wow animated bounceInRight">Quote #: {{quote.quoteId}}</p>
 			</div>
                      </div>

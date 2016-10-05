@@ -11,7 +11,7 @@
 	
 		<div class="modal-body">
 		<form class="form-horizontal" role="form" ng-submit="editProgramDetails()">
-			<h2>Edit Program</h2>
+			<h3>Edit Program</h3>
 			<div class="form-group">
 				<label for="name" class="col-sm-3 control-label">Assign a Dealer</label>
 				<div class="col-sm-9">

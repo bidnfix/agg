@@ -4,7 +4,7 @@
              	<div class="col-md-8 col-sm-12">
 		<div class="sec-title">
                      
-				<h2 class="wow animated bounceInLeft">Claims Information</h2>
+				<h3 class="wow animated bounceInLeft">Claims Information</h3>
 			</div>
                      </div>
                      <div class="col-md-4 col-sm-12"><a class="btn btn-primary pull-right  hvr-pulse" href="#/agg/fileClaim">Add New</a></div>
