@@ -43,7 +43,7 @@
 			<div class="form-group">
 				<label for="userName" class="col-sm-3 control-label">Username</label>
 				<div class="col-sm-9">
-					<input type="text" id="userName" name="userName" ng-model="user.userName" placeholder="Username" class="form-control" required="required">
+					<input type="text" id="userName" name="userName" ng-model="user.userName" placeholder="Username" class="form-control" required="required" ng-blur="isUserNameExists(user.userName)">
 				</div>
 			</div>
 			<div class="form-group">
