@@ -20,4 +20,6 @@ public interface ContractsService {
 	DealerDO getDealer(final String contractId);
 	List<ContractDO> getActiveContracts(AccountDO accountDO);
 	List<ContractDO> getInactiveContracts(AccountDO accountDO);
+	ContractDO getContract(long id, String contractId);
+	boolean updateContract(ContractDO contractDO);
 }

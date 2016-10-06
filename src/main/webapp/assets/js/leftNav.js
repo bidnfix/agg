@@ -113,6 +113,10 @@ routingApp.config(['$routeProvider',
                     	  templateUrl: '../../jsp/contracts.jsp',
                     	  controller: 'ContractsController'
                       }).
+                      when('/agg/viewContract/:contractId/:contractCode', {
+                    	  templateUrl: '../../jsp/editContract.jsp',
+                    	  controller: 'ContractDetailController'
+                      }).
                       otherwise({
                     	  redirectTo: '/agg/home'
                       });
@@ -1149,3 +1153,32 @@ routingApp.controller('ContractsController', function($scope, $http, $timeout, $
         }, 300);
     });
 })
+
+routingApp.controller('ContractDetailController', function($scope, $http, $timeout, $window, $routeParams, contractService) {
+	$scope.contract = {};
+	$http.get("/agg/contractInfo/"+$routeParams.contractId+"/"+$routeParams.contractCode)
+	.then(function(response) {
+        $scope.contract = response.data.data.contractDO;
+        $scope.contract.inceptionDate = new Date($scope.contract.inceptionDate);
+        $scope.contract.expirationDate = new Date($scope.contract.expirationDate);
+    });
+	
+	$scope.updateContract = function(contractInfoForm){
+		if(contractInfoForm.$valid){
+			contractService.updateContract($scope.contract);
+		}
+	}
+})
+.directive('convertToNumber', function() {
+    return {
+        require: 'ngModel',
+        link: function(scope, element, attrs, ngModel) {
+          ngModel.$parsers.push(function(val) {
+            return parseInt(val, 10);
+          });
+          ngModel.$formatters.push(function(val) {
+            return '' + val;
+          });
+        }
+      };
+   });

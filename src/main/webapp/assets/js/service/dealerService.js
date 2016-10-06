@@ -17,6 +17,7 @@ routingApp.factory('dealerService', function($http, $q, $window) {
 								hideSpinner();
 							}, function(errResponse) {
 								alert('Error while creating dealer');
+								hideSpinner();
 								return $q.reject(errResponse);
 							});
 					

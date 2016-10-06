@@ -3,6 +3,7 @@
  */
 package com.agg.application.service.impl;
 
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -101,10 +102,11 @@ public class ContractsServiceImpl implements ContractsService{
 	}
 	
 	private List<ContractDO> formatEntityToDO(final List<Contracts> contractsList){
-		List<ContractDO> contractsDOList = new LinkedList<>();
+		List<ContractDO> contractsDOList = new LinkedList<ContractDO>();
 		ManufacturerDO manufacturerDO = null;
+		ContractDO contractDO = null;
 		for(Contracts item : contractsList){
-			ContractDO contractDO = new ContractDO();
+			contractDO = new ContractDO();
 			contractDO.setId(item.getId());
 			contractDO.setContractId(item.getContractId());
 			contractDO.setQuoteId(item.getQuoteId());
@@ -121,7 +123,7 @@ public class ContractsServiceImpl implements ContractsService{
 			contractDO.setExpirationUsageHours(item.getExpirationUsageHours());
 			contractDO.setComments(item.getComments());
 			contractDO.setLastUpdatedDate(item.getLastUpdatedDate());
-			contractsDOList.add(contractDO);
+			
 			Quote quote = quoteDAO.findOne((int)item.getQuoteId());
 			if(null != quote){
 				manufacturerDO = new ManufacturerDO();
@@ -131,6 +133,8 @@ public class ContractsServiceImpl implements ContractsService{
 				contractDO.setManufacturerDO(manufacturerDO);
 				contractDO.setMachineModel(quote.getMachineModel());
 			}
+			
+			contractsDOList.add(contractDO);
 		}
 		return contractsDOList;
 	}
@@ -183,6 +187,37 @@ public class ContractsServiceImpl implements ContractsService{
 			contracts = Util.toList(contractDAO.findInactiveByDealerId(accountDO.getDealerId()));
 		}
 		return formatEntityToDO(contracts);
+	}
+
+	@Override
+	public ContractDO getContract(long id, String contractId) {
+		List<Contracts> contractsList = contractDAO.findByIdAndContractId(id, contractId);
+		List<ContractDO> contractDOList = formatEntityToDO(contractsList);
+		if(contractDOList != null && !contractDOList.isEmpty()){
+			return contractDOList.get(0);
+		}
+		
+		return null;
+	}
+
+	@Override
+	public boolean updateContract(ContractDO contractDO) {
+		List<Contracts> contractsList = contractDAO.findByIdAndContractId(contractDO.getId(), contractDO.getContractId());
+		boolean cond = false;
+		if(contractsList != null && !contractsList.isEmpty()){
+			Contracts contracts = contractsList.get(0);
+			contracts.setAvailabeLol(contractDO.getAvailabeLol());
+			contracts.setInceptionDate(contractDO.getInceptionDate());
+			contracts.setExpirationDate(contractDO.getExpirationDate());
+			contracts.setComments(contractDO.getComments());
+			contracts.setStatus(contractDO.getStatus());
+			contracts.setLastUpdatedDate(new Date());
+			
+			contractDAO.save(contracts);
+			
+			cond = true;
+		}
+		return cond;
 	}
 	
 }

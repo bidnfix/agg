@@ -77,5 +77,6 @@
 	<script src="/assets/js/service/claimService.js"></script>
 	<script src="/assets/js/angular-validator.js"></script>
 	<script src="/assets/js/service/quoteService.js"></script>
+	<script src="/assets/js/service/contractService.js"></script>
 </body>
 </html>

@@ -35,7 +35,7 @@ import com.agg.application.utils.Util;
 @RestController
 @RequestMapping("/agg")
 public class ContractsController extends BaseController{
-	private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@Autowired
 	private ContractsService contractService ;
@@ -77,6 +77,18 @@ public class ContractsController extends BaseController{
 		return opResult;
 	}
 	
+	@RequestMapping(value = "/contractInfo/{id}/{contractId}", method = RequestMethod.GET)
+	public @ResponseBody Result viewContract(@PathVariable long id, @PathVariable String contractId, HttpServletRequest request, HttpServletResponse response, Model model) {
+		logger.debug("Inside viewContract with id: "+id+" and code: "+contractId);
+		Result opResult = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			opResult = new Result("success", "", model.addAttribute(contractService.getContract(id, contractId)));
+		}
+		return opResult;
+	}
+	
 	@RequestMapping(value = "/contracts/machineserialno/search/{term}", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
 	public @ResponseBody Result getContractsByMachineSerialNo(@PathVariable String term, HttpServletRequest request, HttpServletResponse response, Model model) {
 		Result result = null;
@@ -90,5 +102,17 @@ public class ContractsController extends BaseController{
 			}
 		}
 		return result;
+	}
+	
+	@RequestMapping(value = "/updateContract", method = RequestMethod.POST)
+	public @ResponseBody Result updateContract(@RequestBody ContractDO contractDO, HttpServletRequest request, HttpServletResponse response, Model model) {
+		logger.debug("Inside updateContract with code: "+contractDO.getContractId());
+		Result opResult = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			opResult = new Result("success", "", contractService.updateContract(contractDO));
+		}
+		return opResult;
 	}
 }
