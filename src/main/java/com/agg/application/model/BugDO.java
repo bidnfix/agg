@@ -1,13 +1,7 @@
 package com.agg.application.model;
 
-import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.Lob;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  * The persistent class for the claims database table.
@@ -16,18 +10,34 @@ import javax.persistence.TemporalType;
 public class BugDO {
 	private static final long serialVersionUID = 1L;
 
-	private long Id;
+	private long id;
 
 	private Timestamp createdOn;
 
 	private String description;
+	
+	private Date discovered;
+
+	private Date fixBy;
+
+	private String notes;
+
+	private int priority;
+
+	private int reportedBy;
+
+	private int status;
+
+	private String url;
+
+	private String userAgent;
 
 	public long getId() {
-		return Id;
+		return id;
 	}
 
 	public void setId(long id) {
-		Id = id;
+		id = id;
 	}
 
 	public Timestamp getCreatedOn() {
@@ -114,20 +124,5 @@ public class BugDO {
 		return serialVersionUID;
 	}
 
-	private Date discovered;
-
-	private Date fixBy;
-
-	private String notes;
-
-	private int priority;
-
-	private int reportedBy;
-
-	private int status;
-
-	private String url;
-
-	private String userAgent;
 
 }

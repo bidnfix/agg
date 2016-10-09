@@ -3,6 +3,7 @@ package com.agg.application.service.impl;
 import java.sql.Timestamp;
 import java.util.Date;
 
+import org.jfree.util.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +47,7 @@ public class ReportBugServiceImpl implements ReportBugService {
 	public Integer getBugId() {
 		
 		Integer bugId = reportBugDAO.findMaxReportId();
+		logger.debug("bugId -- "+bugId);
 		
 		return bugId;
 	}

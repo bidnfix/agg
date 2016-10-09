@@ -34,7 +34,7 @@ public class ReportBugController extends BaseController {
 	@RequestMapping(value = "/postBug", method = RequestMethod.POST)
 	public @ResponseBody Result saveOrEditBug(@RequestBody BugDO bug, BindingResult result,
 			HttpServletRequest request, HttpServletResponse response) {
-		logger.debug("In addPrograms ");
+		logger.debug("In saveOrEditBug ");
 
 		Long id = reportBugService.saveBug(bug);
 		return new Result("success", null, id);
@@ -44,7 +44,7 @@ public class ReportBugController extends BaseController {
 	public @ResponseBody Result bugId(ModelMap model, HttpServletResponse response) {
 		logger.info("Inside bugId()");
 		Integer bugId = reportBugService.getBugId();
-		model.put("bugId", bugId);
+		model.put("bugId", bugId+1);
 		return new Result("success", null, model);	
 	}
 	

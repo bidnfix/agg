@@ -10,14 +10,8 @@
 			</div>
 		</div>
 		<div class="col-md-6 col-sm-12">
-			<!-- <a
-				class="btn btn-primary pull-right mar-right animated fadeInRightBig hvr-pulse"
-				href="add-new.html">Add New</a><a
-				class="btn btn-primary pull-right animated fadeInLeftBig  hvr-pulse mar-right"
-				href="#">Back</a> -->
 		</div>
 	</header>
-
 
 	<!-- data table section -->
 
@@ -25,9 +19,7 @@
 		<form class="form-horizontal" role="form" ng-submit="submitBug()">
 			<div class="form-group">
 				<label for="ID" class="col-sm-3 control-label">ID</label>
-				<div class="col-sm-9">
-					<input type="text" id="ID" name="userName" ng-model="bugId" class="form-control" readonly="readonly">
-				</div>
+				<p>{{bugId}}</p>
 			</div>
 			<div class="form-group">
 				<label for="userName" class="col-sm-3 control-label">Discovered</label>

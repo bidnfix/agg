@@ -45,12 +45,13 @@
 					<input type="text" ng-model="program.name" id="name" name="name" placeholder="Program Name" class="form-control" required="required">
 				</div>
 			</div>
-			<div class="form-group">
+			<!-- <div class="form-group">
 				<label for="name" class="col-sm-3 control-label">Group</label>
 				<div class="col-sm-9">
 					<input type="text" ng-model="program.group" id="group" name="group" class="form-control" required="required" value="{{group}}" ng-readonly=true>
 				</div>
 			</div>
+			 -->
 			<div class="form-group">
 					<label for="coverageTerm" class="col-sm-3 control-label">Active?</label>
 					<div class="col-sm-4">

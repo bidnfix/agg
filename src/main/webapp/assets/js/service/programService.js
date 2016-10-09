@@ -3,6 +3,7 @@
 routingApp.factory('programService', function($http, $q, $window) {
 			return {
 				saveProgram : function(program) {
+					showSpinner();
 					return $http.post('/agg/postPrograms', program).then(
 							function(response) {
 								//alert(response.data.status);
@@ -12,14 +13,16 @@ routingApp.factory('programService', function($http, $q, $window) {
 									alert('error in adding program: '+response.data.errMessage)
 									//$('#errMsg').html(response.data.errMessage);
 								}
-								
+								hideSpinner();
 							}, function(errResponse) {
 								alert('Error while creating program');
+								hideSpinner();
 								return $q.reject(errResponse);
 							});
 				},
 			
 				editProgram : function(program, $scope) {
+					showSpinner();
 					return $http.post('/agg/editProgram', program).then(
 							function(response) {
 								//alert(response.data.status);
@@ -37,14 +40,16 @@ routingApp.factory('programService', function($http, $q, $window) {
 									alert('error in adding program: '+response.data.errMessage)
 									//$('#errMsg').html(response.data.errMessage);
 								}
-								
+								hideSpinner();
 							}, function(errResponse) {
 								alert('Error while creating machine');
+								hideSpinner();
 								return $q.reject(errResponse);
 							});
 				},
 				
 				submitProgramAsDealr : function(program) {
+					showSpinner();
 					return $http.post('/agg/saveProgramsAsDealr', program).then(
 							function(response) {
 								alert(response.data.status);
@@ -54,9 +59,10 @@ routingApp.factory('programService', function($http, $q, $window) {
 									alert('error in adding program: '+response.data.errMessage)
 									//$('#errMsg').html(response.data.errMessage);
 								}
-								
+								hideSpinner();
 							}, function(errResponse) {
 								alert('Error while creating program');
+								hideSpinner();
 								return $q.reject(errResponse);
 							});
 				}

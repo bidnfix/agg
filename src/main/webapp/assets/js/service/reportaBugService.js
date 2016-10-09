@@ -3,6 +3,7 @@
 routingApp.factory('reportaBugService', function($http, $q, $window) {
 			return {
 				saveBug : function(bug) {
+					showSpinner();
 					return $http.post('/agg/postBug', bug).then(
 							function(response) {
 								alert(response.data.status);
@@ -12,9 +13,10 @@ routingApp.factory('reportaBugService', function($http, $q, $window) {
 									alert('error in adding program: '+response.data.errMessage)
 									//$('#errMsg').html(response.data.errMessage);
 								}
-								
+								hideSpinner();
 							}, function(errResponse) {
 								alert('Error while creating program');
+								hideSpinner();
 								return $q.reject(errResponse);
 							});
 				}

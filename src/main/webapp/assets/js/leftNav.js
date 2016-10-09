@@ -772,19 +772,10 @@ routingApp.controller('ReportBugController', function($scope, $http) {
 	
 	$http.get("/agg/bugId")
     .then(function(response) {
+    	alert(response.data.data.bugId);
         $scope.bugId = response.data.data.bugId;
     });
 	
-	/*
-	$http.get("/agg/reportaBug")
-	.then(function(response) {
-		$scope.dealerList = response.data.data.dealerDOList;
-		$scope.manufacturerList = response.data.data.manufacturerDOList;
-	});  
-
-	function MyCtrl($scope, $filter) {
-	    $scope.date = $filter("date")(Date.now(), 'yyyy-MM-dd');
-	};*/
 });
 
 routingApp.controller('GetUserController', function($scope, userService, $http, $timeout) {
