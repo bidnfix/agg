@@ -1183,7 +1183,19 @@ color:#fff !important;
 }
 
 @media (max-width: 991px) {
-.border-left {
-    border-left:none;
+	.border-left {
+	    border-left:none;
+	}
 }
+
+input[type=radio]{
+    margin: 5px 0 0 !important;
+    margin-top: 1px \9;
+    line-height: normal;
+}
+
+input[type=checkbox] {
+    margin: 10px 0 0 !important;
+    margin-top: 1px \9;
+    line-height: normal;
 }
