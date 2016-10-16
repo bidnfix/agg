@@ -27,8 +27,10 @@
 	 <!-- data table section -->
              
              <div class="inner-main">
-                   
                    <div class="col-xs-12 agf1 main-login pad10-top">
+                   	 <div class="alert alert-success">
+					  <spring:message code="quick.quote.update.msg"/>
+					 </div>
                      <div class="col-md-6 no-pad pad10-right" ng-hide="editableFlag">
                        <div class="form-group">
                          <label>Assign Dealer</label>
