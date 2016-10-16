@@ -1,5 +1,5 @@
 	<!-- Article main content -->
-			<article class="col-md-9 maincontent">
+			<article id="addQuoteDiv" class="col-md-9 maincontent">
       <div class="col-xs-12 no-pad marg10-top border clearfix">
         <div class="col-sm-3">
           Dealer: <br><span style="color:#B8C159">{{(quote.dealerDO.name != null && quote.dealerDO.name != "")?quote.dealerDO.name:""}}</span>

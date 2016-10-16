@@ -25,6 +25,7 @@ label {
     color: #4c4b4b;
 	font-weight:normal!important;
 	font-size:14px!important;
+	line-height: 24px;
 }
 .herotxt {
     background: #205f9f none repeat scroll 0 0;
@@ -830,8 +831,8 @@ input[type="password"] {
     border-radius: 0;
     color: #4c4b4b;
     font-size: 14px;
-    height: 42px;
-    padding: 10px 12px;
+    height: 35px;
+    padding: 5px 12px;
 }
 select.input-sm {
     height: 42px !important;
@@ -1044,7 +1045,7 @@ span .man-field {
  /* V2 */
 .agf1 .form-group{
     width: 100% !important;
-    margin-bottom: 10px !important;
+    margin-bottom: 5px !important;
     margin-left: 0 !important;
 }
 .agf1 .form-group label{
@@ -1149,4 +1150,40 @@ ul.nav.navbar-nav.pull-right h4 {
 
 .selectedcol a, mouseovercol a:hover,  mouseovercol a, mouseovercol{
 color:#fff !important;
+}
+
+#addQuoteDiv.col-md-9{
+	position: initial !important;
+}
+
+#addQuoteDiv.col-md-9 .col-xs-12{
+	position: initial !important;
+}
+
+#addQuoteDiv .col-sm-12{
+	position: initial !important;
+}
+
+#addQuoteDiv .col-sm-12 .col-sm-6{
+	position: initial !important;
+}
+
+/* centered columns styles */
+.row-centered {
+   text-align:center;
+}
+ 
+.col-centered {
+   display:inline-block;
+   float:none;
+   /* reset the text-align */
+   text-align:left;
+   /* inline-block space fix */
+   margin-right:-4px;
+}
+
+@media (max-width: 991px) {
+.border-left {
+    border-left:none;
+}
 }

@@ -98,9 +98,11 @@
 						</div>
 					</div>
 				</div>
-				<div class="form-group ">
-					<button class="btn btn-primary btn-lg btn-block login-button"
-						type="submit">Submit</button>
+				<div class="col-sm-12 no-pad t-c marg10-bottom">
+					<div class="col-md-6 col-centered">
+							<button class="btn btn-primary btn-lg btn-block login-button"
+								type="submit">Submit</button>
+					</div>
 				</div>
 			</div>
 		</div>
