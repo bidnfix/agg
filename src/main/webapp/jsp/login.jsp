@@ -25,7 +25,7 @@
 </head>
 <body ng-app="aggApp">
 <!-- Fixed navbar -->
-<div class="navbar navbar-inverse navbar-fixed-top headroom" >
+<div id="loginDiv" class="navbar navbar-inverse navbar-fixed-top headroom" >
   <div class="container">
     <div class="navbar-header"> 
       <!-- Button for smallest screens -->
