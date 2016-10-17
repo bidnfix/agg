@@ -15,7 +15,7 @@
 
 	<!-- data table section -->
 
-	<div class="inner-main" ng-controller="bugController">
+	<div class="inner-main" ng-controller="ReportBugController">
 		<form class="form-horizontal" role="form" ng-submit="submitBug()">
 			<div class="form-group">
 				<label for="ID" class="col-sm-3 control-label">ID</label>

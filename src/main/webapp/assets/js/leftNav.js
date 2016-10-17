@@ -243,6 +243,8 @@ routingApp.controller('HomeController', function($scope, $http, $timeout) {
     	$scope.quoteList = response.data.data.quoteList;
     	
     	if($scope.quoteList != null){
+    		$('#quotesTbl').dataTable().fnClearTable();
+    		$('#quotesTbl').dataTable().fnDestroy();
     		$timeout(function () {
 	        	$('#quotesTbl').DataTable();
 	        }, 300);
@@ -260,6 +262,8 @@ routingApp.controller('HomeController', function($scope, $http, $timeout) {
 		.then(function(response) {
 	        $scope.quoteList = response.data.data;
 	        if($scope.quoteList != null){
+	        	$('#quotesTbl').dataTable().fnClearTable();
+	        	$('#quotesTbl').dataTable().fnDestroy();
 	    		$scope.contractsFlag = true;
 	    		$scope.quotesFlag = false;
 	    		$scope.claimsFlag = true;
@@ -278,6 +282,8 @@ routingApp.controller('HomeController', function($scope, $http, $timeout) {
 		.then(function(response) {
 	        $scope.quoteList = response.data.data;
 	        if($scope.quoteList != null){
+	        	$('#quotesTbl').dataTable().fnClearTable();
+	        	$('#quotesTbl').dataTable().fnDestroy();
 	    		$scope.contractsFlag = true;
 	    		$scope.quotesFlag = false;
 	    		$scope.claimsFlag = true;
@@ -766,7 +772,7 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService, $
 	}
 });
 
-routingApp.controller('ReportBugController', function($scope, $http) {
+routingApp.controller('ReportBugController', function($scope, $http, reportaBugService) {
 	$scope.report={};
 	$scope.date = new Date()
 	
@@ -775,6 +781,10 @@ routingApp.controller('ReportBugController', function($scope, $http) {
     	alert(response.data.data.bugId);
         $scope.bugId = response.data.data.bugId;
     });
+	
+	$scope.submitBug = function() {
+		reportaBugService.saveBug($scope.report);
+    };
 	
 });
 

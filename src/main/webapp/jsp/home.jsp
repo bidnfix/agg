@@ -1,4 +1,5 @@
-
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!-- Article main content -->
 <article class="col-md-9 maincontent" ng-controller="HomeController">
 	<header class="page-header">
@@ -143,10 +144,10 @@
 	                		<!-- <a ng-click="viewQuote(quote.id, quote.quoteId)"><img src="../assets/images/edit-icon.png" alt="Edit" title="Edit"/></a> -->
 	                		<c:choose>
 	                			<c:when test="${user.roleDO.accountType eq 'admin'}">
-	                				<a href="#/agg/viewContract/{{contract.id}}/{{contract.contractId}}"><img src="../assets/images/edit-icon.png" alt="View" title="View"/></a>
+	                				<a href="#/agg/viewContract/{{contract.id}}/{{contract.contractId}}"><img src="../assets/images/edit-pencil.png" alt="View" title="View"/></a>
 	                			</c:when>
 	                			<c:otherwise>
-	                				<img src="../assets/images/edit-icon.png" alt="View" title="View"/>
+	                				<img src="../assets/images/edit-pencil.png" alt="View" title="View"/>
 	                			</c:otherwise>
 	                		</c:choose>
 	                	</div>
