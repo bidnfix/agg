@@ -69,7 +69,7 @@
                 <div class="inner-main">
                 	
                     <div class="main-login main-center" ng-controller="registrationController">
-                    <h2 class="mar-bot">Dealer Registration</h2>
+                    <h3 class="mar-bot">Dealer Registration</h3>
                     <p class="success-msg" id="successMsg" hidden="true"></p>
                     <p class="err-msg" id="errMsg" hidden="true"></p>
                     <form role="form" ng-submit="submitDealer()">

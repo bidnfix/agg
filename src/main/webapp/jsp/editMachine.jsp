@@ -4,7 +4,7 @@
 		<div class="col-md-6 col-sm-12">
 			<div class="sec-title">
 
-				<h2 class="wow animated bounceInLeft">Edit Machine</h2>
+				<h3 class="wow animated bounceInLeft">Edit Machine</h3>
 				<!-- <p class="wow animated bounceInRight">The Key Features of our
 					Tool</p> -->
 			</div>
