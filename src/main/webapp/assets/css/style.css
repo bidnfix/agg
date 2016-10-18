@@ -108,7 +108,7 @@ element.style {
     color: #fff !important;
 }
 .btn {
-    background: #85e556 none repeat scroll 0 0;
+    /* background: #85e556 none repeat scroll 0 0; */
     color: #3a3a3a !important;
     font-size: 18px;
 }
@@ -603,7 +603,7 @@ nav#filter a.current {
     background-color: #fff;
     border-radius: 2px;
     box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
-   /*  overflow: hidden; */
+    /* overflow: hidden; */
 }
 .main-center {
     margin: 0 auto;
@@ -1082,7 +1082,8 @@ span .man-field {
 }
 .agf1 .btn{
     font-size: 14px;
-    padding: 10px 15px;
+    /* padding: 10px 15px; */
+	padding: 7px 15px 6px 15px;
  }
 .agf1 .inner-main{
     background: #fff !important;
@@ -1115,7 +1116,7 @@ span .man-field {
     border-radius: 3px !important;
     font-size: 12px !important;
     line-height: 1.5 !important;
-    padding: 5px 10px !important;
+    padding: 5px 8px !important;
 }
 .c-tabs-nav__link{
     padding: 5px 0px !important;

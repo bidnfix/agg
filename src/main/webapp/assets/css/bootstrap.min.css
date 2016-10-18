@@ -3374,7 +3374,9 @@ input[type=submit].btn-block, input[type=reset].btn-block, input[type=button].bt
 
 .btn-group .btn+.btn, .btn-group .btn+.btn-group, .btn-group .btn-group+.btn,
 	.btn-group .btn-group+.btn-group {
-	margin-left: -1px
+	margin-left: -1px;
+	border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
 }
 
 .btn-toolbar {
@@ -3395,7 +3397,9 @@ input[type=submit].btn-block, input[type=reset].btn-block, input[type=button].bt
 }
 
 .btn-group>.btn:first-child {
-	margin-left: 0
+	margin-left: 0;
+	border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
 }
 
 .btn-group>.btn:first-child:not (:last-child ):not (.dropdown-toggle ){
