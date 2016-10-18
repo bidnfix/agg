@@ -1,5 +1,6 @@
 package com.agg.application.service.impl;
 
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
@@ -11,6 +12,7 @@ import javax.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
@@ -323,7 +325,7 @@ public class MachineServiceImpl implements MachineService {
 
 	@Override
 	@Transactional
-	public long saveMachineInfo(MachineDO machineDO) {
+	public long saveMachineInfo(MachineDO machineDO) throws Exception{
 		logger.debug("In saveMachineInfo");
 		MachineInfo machineInfo = new MachineInfo();
 		Timestamp date = new Timestamp(new Date().getTime());
@@ -346,8 +348,8 @@ public class MachineServiceImpl implements MachineService {
 		
 
 		machineInfo.setLastUpdate(date);
-		
 		machineInfo = machineInfoDAO.save(machineInfo);
+			
 		
 		return machineInfo.getMachineId();
 	}
@@ -379,7 +381,12 @@ public class MachineServiceImpl implements MachineService {
 
 		machineInfo.setLastUpdate(date);
 		
-		machineInfo = machineInfoDAO.save(machineInfo);
+		try {
+			machineInfo = machineInfoDAO.save(machineInfo);
+		}
+	    catch (DataIntegrityViolationException e) {
+	    	logger.error("Machine already exist");
+	    }	
 		
 		return machineInfo.getMachineId();
 	}

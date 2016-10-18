@@ -1,5 +1,6 @@
 package com.agg.application.service;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import com.agg.application.model.GroupDO;
@@ -22,7 +23,7 @@ public interface MachineService {
 	
 	public List<MachineInfoDO> getManfModel(long manfId);
 	
-	public long saveMachineInfo(MachineDO machineDO);
+	public long saveMachineInfo(MachineDO machineDO) throws Exception;
 	
 	public long editMachineInfo(MachineDO machineDO);
 	

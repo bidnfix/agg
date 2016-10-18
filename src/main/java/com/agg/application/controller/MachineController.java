@@ -1,5 +1,6 @@
 package com.agg.application.controller;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.MediaType;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -18,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.agg.application.model.DealerDO;
 import com.agg.application.model.GroupDO;
 import com.agg.application.model.MachineDO;
 import com.agg.application.model.MachineInfoDO;
@@ -87,7 +88,7 @@ public class MachineController extends BaseController {
 	
 	@RequestMapping(value = "/saveMachine", method = RequestMethod.POST)
 	public @ResponseBody Result saveMachine(@RequestBody MachineDO machineDO, BindingResult result,
-			HttpServletRequest request, HttpServletResponse response) {
+			HttpServletRequest request, HttpServletResponse response) throws Exception {
 		logger.debug("In saveOrEditMachine with groupId: "+machineDO.getGroupId());
 		Result opResult = null;
 		/*if (!sessionExists(request)){
@@ -97,7 +98,18 @@ public class MachineController extends BaseController {
 				opResult = new Result("failure", "Invalid dealer form field values", null);
 			}*/
 	
-			long id = machineService.saveMachineInfo(machineDO);
+		long id = 0;
+			try
+			{
+				id = machineService.saveMachineInfo(machineDO);
+			}catch (Exception e) {
+		    	if (e instanceof DataIntegrityViolationException) {
+		    		logger.error("Machine already exist");
+		    		throw new Exception("Machine already exist");
+		        } else {
+		        	throw e;
+		        }
+		    }
 			if(id > 0){
 				opResult = new Result("success", "Machine created successfully", null);
 			}
