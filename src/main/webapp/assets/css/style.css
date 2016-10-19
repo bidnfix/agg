@@ -861,6 +861,7 @@ select.input-sm {
     margin: 40px 0 20px;
     /* overflow: hidden !important; */
     padding-bottom: 9px;
+    min-height: 60px;
 }
 [role="form"] {
     background-color: #fff;
@@ -1194,7 +1195,7 @@ input[type=radio]{
 }
 
 input[type=checkbox] {
-    margin: 10px 0 0 ;
+    margin: 6px 0 0 ;
 }
 
 .alert{

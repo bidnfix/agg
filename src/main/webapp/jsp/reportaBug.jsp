@@ -19,7 +19,9 @@
 		<form class="form-horizontal" role="form" ng-submit="submitBug()">
 			<div class="form-group">
 				<label for="ID" class="col-sm-3 control-label">ID</label>
-				<p>{{bugId}}</p>
+				<div class="col-sm-9">
+					<p class="help-block">{{bugId}}</p>
+				</div>
 			</div>
 			<div class="form-group">
 				<label for="userName" class="col-sm-3 control-label">Discovered</label>
