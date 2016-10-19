@@ -219,5 +219,10 @@ public class ContractsServiceImpl implements ContractsService{
 		}
 		return cond;
 	}
+
+	@Override
+	public int getContractsCount(String contractId) {
+		return contractDAO.getContractsCount(contractId);
+	}
 	
 }

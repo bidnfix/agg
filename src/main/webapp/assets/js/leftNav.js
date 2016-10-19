@@ -1,6 +1,6 @@
 'use strict';
 
-var routingApp = angular.module('aggRoutingApp',['ngRoute', 'ui.bootstrap', 'angularValidator']);
+var routingApp = angular.module('aggRoutingApp',['ngRoute', 'ui.bootstrap', 'angularValidator', 'angularModalService']);
 
 routingApp.config(['$routeProvider',
                   function($routeProvider) {
@@ -59,7 +59,7 @@ routingApp.config(['$routeProvider',
                     	  controller: 'ClaimsInfoController'
                       }).
                       when('/agg/fileClaim', {
-                    	  templateUrl: '../../jsp/fileClaim.jsp',
+                    	  templateUrl: '../../jsp/fileaClaim.jsp',
                     	  controller: 'ClaimsController'
                       }).
                       when('/agg/preauthClaim', {
@@ -121,6 +121,19 @@ routingApp.config(['$routeProvider',
                     	  redirectTo: '/agg/home'
                       });
                 }]);
+//Fileupload directive
+routingApp.directive('ngFiles', ['$parse', function ($parse) {
+    function fn_link(scope, element, attrs) {
+        var onChange = $parse(attrs.ngFiles);
+        element.on('change', function (event) {
+            onChange(scope, { $files: event.target.files });
+        });
+    };
+
+    return {
+        link: fn_link
+    }
+}]);
 
 routingApp.controller('GetDealerController', function($scope, dealerService, $http, $timeout, ctrlOptions) {
 	$scope.dealer={};

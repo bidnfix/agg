@@ -1,11 +1,11 @@
 'use strict';
 
-routingApp.controller('ClaimsController', ['$scope', 'claimService', '$http', '$timeout', function($scope, claimService, $http, $timeout) {
+routingApp.controller('ClaimsController', ['$scope', 'claimService', '$http', '$timeout', '$filter', function($scope, claimService, $http, $timeout, $filter) {
 	$scope.serialNo='';
 	$scope.claim={};
 	$scope.claim.attachments=[];
 	$scope.submitClaim = function() {
-		claimService.saveClaim($scope.claim);
+		claimService.saveClaim($scope);
     };
 	$scope.edit = function(claimId) {
 		$http.get("/agg/editClaim")
@@ -22,7 +22,7 @@ routingApp.controller('ClaimsController', ['$scope', 'claimService', '$http', '$
     	claimService.selectContract($scope, data);
     };
     $scope.onClickSubmitClaim = function(){
-    	claimService.saveClaim($scope.claim, $scope.attachments, $scope.newClaimClick);
+    	claimService.saveClaim($scope);
     };
     
     $scope.calcTotalPartLine = function(index){
@@ -33,18 +33,23 @@ routingApp.controller('ClaimsController', ['$scope', 'claimService', '$http', '$
     	claimService.calcTotalPartCost($scope.claim);
     };
     
+    $scope.calcTotalLabourLine = function(index){
+    	claimService.calcTotalLabourLine($scope.claim, index);
+    };
+    
+    $scope.calcTotalLabourCost = function(){
+    	claimService.calcTotalLabourCost($scope.claim);
+    };
+    
     $scope.saveAsDraft = function(){
-    	//claimService.saveClaim($scope.claim, 'Draft');
     	$scope.newClaimClick='Draft';
     };
     
     $scope.reqAuth = function(){
-    	//claimService.saveClaim($scope.claim, 'pre_authorized_requested');
     	$scope.newClaimClick='pre_authorized_requested';
     };
     
     $scope.reqSubmit = function(){
-    	//claimService.saveClaim($scope.claim, 'pre_authorized_requested');
     	$scope.newClaimClick='Pending';
     };
     
@@ -55,6 +60,14 @@ routingApp.controller('ClaimsController', ['$scope', 'claimService', '$http', '$
             	$scope.attachments.push(e.files[i])
             }
         });
+    };
+    
+    $scope.onClickBackToList = function(){
+    	claimService.showContractList($scope);
+	};
+	
+	$scope.getTheFiles = function ($files) {
+    	claimService.collectAttachments($scope, $files);
     };
 }]);
 
@@ -68,12 +81,17 @@ routingApp.controller('ClaimsPreAuthController', function($scope, $http, claimPr
 	$scope.reqAuth = function(status){
 		claimPreAuthReqService.reqAuth($scope, status);
 	};
+	
+	$scope.onClickBackToList = function(){
+		claimPreAuthReqService.showClaimList($scope);
+	};
 });
 
-routingApp.controller('ClaimsAdjudicateController', function($scope, $http, claimsAdjudicateService, $window){
+routingApp.controller('ClaimsAdjudicateController', function($scope, $http, claimsAdjudicateService, ModalService, $window){
 	claimsAdjudicateService.init($scope);
 	
 	$scope.onClickSelectClaim = function(claim){
+		claim.attachments=[];
 		claimsAdjudicateService.selectClaim($scope, claim);
 	};
 	
@@ -84,4 +102,36 @@ routingApp.controller('ClaimsAdjudicateController', function($scope, $http, clai
 	$scope.reqAuth = function(status){
 		claimsAdjudicateService.reqAuth($scope, status);
 	};
+	
+	$scope.calcOnChange = function(){
+		claimsAdjudicateService.calcAdjustmentsOnChange($scope);
+    };
+    
+    $scope.getTheFiles = function ($files) {
+    	claimsAdjudicateService.collectAttachments($scope, $files);
+    };
+    
+    $scope.onClickClose = function(){
+    	ModalService.showModal({
+            templateUrl: 'modal.html',
+            controller: "ModalController"
+        }).then(function(modal) {
+            modal.element.show();
+            modal.close.then(function(result) {
+                if(result === 'Yes'){
+                	claimsAdjudicateService.submit($scope);
+                }
+            });
+        });
+    	claimsAdjudicateService.submit($scope);
+    };
+    
 });
+
+routingApp.controller('ModalController', function($scope, close) {
+	  
+	 $scope.close = function(result) {
+	 	close(result, 500); // close, but give 500ms for bootstrap to animate
+	 };
+
+	});

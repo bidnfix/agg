@@ -1,6 +1,6 @@
 package com.agg.application.controller;
 
-import java.io.IOException;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -20,12 +20,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.thymeleaf.context.Context;
 
+import com.agg.application.entity.Claims;
 import com.agg.application.model.AccountDO;
+import com.agg.application.model.ClaimFileDO;
 import com.agg.application.model.ClaimLaborDO;
-import com.agg.application.model.ClaimMailDO;
 import com.agg.application.model.ClaimPartDO;
 import com.agg.application.model.ClaimsDO;
 import com.agg.application.model.DealerDO;
@@ -37,20 +41,23 @@ import com.agg.application.service.DealerService;
 import com.agg.application.service.QuoteService;
 import com.agg.application.service.UserService;
 import com.agg.application.utils.ClaimMail;
+import com.agg.application.utils.EmailSender;
+import com.agg.application.utils.PreAuthMail;
 import com.agg.application.utils.Util;
+import com.agg.application.vo.AdjudicateClaimFormVO;
+import com.agg.application.vo.ClaimLabourVO;
 import com.agg.application.vo.ClaimPartVO;
 import com.agg.application.vo.ClaimPreAuthVO;
 import com.agg.application.vo.ClaimsVO;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 @RestController
 @RequestMapping("/agg")
 public class ClaimsController extends BaseController {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+	private static final String UPLOAD_FOLDER_NAME = "/uploads/"; 
+	public static String uploadingdir = System.getProperty("user.dir") + UPLOAD_FOLDER_NAME;
 
 	@Autowired
 	private ClaimsService claimsService;
@@ -66,16 +73,10 @@ public class ClaimsController extends BaseController {
 	
 	@Autowired
 	private UserService userService;
-
-	/*@RequestMapping(value = "/claimsInfo", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
-	public @ResponseBody Result claimsInfo(ModelMap model, HttpServletResponse response) {
-		logger.info("Inside claimsInfo()");
-		List<QuoteDO> quoteInfoList = claimsService.getClaimsInfo();
-		logger.info("quoteInfoList size: "+quoteInfoList.size());
-		model.put("quoteInfoList", quoteInfoList);
-		return new Result("success", null, model);	
-	}*/
 	
+	@Autowired
+	EmailSender emailSender;
+
 	@RequestMapping(value = "/editClaim", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
 	public @ResponseBody Result machineModel(ModelMap model, HttpServletResponse response/*, @PathVariable String claimId*/) {
 		String claimId = "GoR1858";
@@ -99,35 +100,13 @@ public class ClaimsController extends BaseController {
 			return new Result("success", null, model);
 		}
 	}
-	
-	/*@RequestMapping(value = "/searchClaim/{id}", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
-	public @ResponseBody Result searchClaim(@PathVariable String id, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
-		logger.info("Inside claimsInfo()");
-		List<QuoteDO> quoteInfoList = claimsService.getClaimInfoBySerialNumber(id);
-		logger.info("quoteInfoList size: "+quoteInfoList.size());
-		model.put("quoteInfoList", quoteInfoList);
-		return new Result("success", null, model);	
-	}*/
-	
+
 	@RequestMapping(value = "/saveClaim", method = RequestMethod.POST)
-	public @ResponseBody Result saveClaim(@ModelAttribute("data") Object data, @ModelAttribute("files") Object fileList, BindingResult result,
+	public @ResponseBody Result saveClaim(@ModelAttribute("data") Object data,  @RequestParam("files") List<MultipartFile> fileList, BindingResult result,
 			HttpServletRequest request, HttpServletResponse response) {
-		ClaimsVO claimsVO = null;
-		claimsVO = new Gson().fromJson(data.toString(), ClaimsVO.class);
-		//ClaimsVO claimsVO = new ClaimsVO();
-		/*List<MultipartFile> files = fileList;
-
-		List<String> fileNames = new ArrayList<String>();
-		
-		if(null != files && files.size() > 0) {
-			for (MultipartFile multipartFile : files) {
-
-				String fileName = multipartFile.getOriginalFilename();
-				fileNames.add(fileName);
-				//Handle file content - multipartFile.getInputStream()
-
-			}
-		}*/
+		uploadingdir = request.getServletContext().getRealPath("/uploads/");
+		new File(uploadingdir).mkdirs();
+		ClaimsVO claimsVO = new GsonBuilder().setDateFormat("yyyy-MM-dd").create().fromJson(data.toString(), ClaimsVO.class);
 		logger.debug("In saveClaim ");
 		if(!sessionExists(request)){
 			return new Result("failure", "Session Expired", null);
@@ -174,27 +153,56 @@ public class ClaimsController extends BaseController {
 				claimsDO.setClaimPartDO(partDO);
 			}
 			
-			ClaimLaborDO claimLaborDO = new ClaimLaborDO();
-			claimLaborDO.setLaborNo(claimsVO.getLaborNo());
-			claimLaborDO.setLaborDescr(claimsVO.getLaborDescr());
-			claimLaborDO.setLaborHrs(claimsVO.getLaborHrs());
-			claimLaborDO.setRate(claimsVO.getLaborHourlyRate());
-			claimsDO.setClaimLaborDO(claimLaborDO);
-			Long id = claimsService.saveClaim(claimsDO);
-			if(id != 0 ){
+			if(null != claimsVO.getClaimLabourVOList() && !claimsVO.getClaimLabourVOList().isEmpty()){
+				List<ClaimLaborDO> labourDO = new ArrayList<>();
+				for(ClaimLabourVO labourVO : claimsVO.getClaimLabourVOList()){
+					ClaimLaborDO claimLabourDO = new ClaimLaborDO();
+					claimLabourDO.setLaborNo(labourVO.getLaborNo());
+					claimLabourDO.setLaborDescr(labourVO.getLaborDescr());
+					claimLabourDO.setLaborHrs(labourVO.getLaborHrs());
+					claimLabourDO.setRate(labourVO.getLaborHourlyRate());
+					labourDO.add(claimLabourDO);
+				}
+				claimsDO.setClaimLaborDO(labourDO);
+			}
+			List<ClaimFileDO> claimFileDO = new ArrayList<>();
+			for(MultipartFile uploadedFile : fileList) {
+				String fName = String.format("%s_%s", System.currentTimeMillis(), uploadedFile.getOriginalFilename());
+				ClaimFileDO fileDO = new ClaimFileDO();
+	            File file = new File(String.format("%s%s%s", uploadingdir, File.separator, fName));
+	            try {
+	            	fileDO.setFileName(Util.getBaseURL(request) + UPLOAD_FOLDER_NAME + fName);
+	            	claimFileDO.add(fileDO);
+					uploadedFile.transferTo(file);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+	        }
+			claimsDO.setClaimFileDO(claimFileDO);
+			Claims claim = claimsService.saveClaim(claimsDO);
+			Long id = (null != claim) ? (long)claim.getId() : -1; 
+			if(id != -1 ){
 				ClaimMail mail = new ClaimMail();
+				int partsCost = calcTotalPartsCost(claimsDO.getClaimPartDO());
+				int laborsCost = calcTotalLaborsCost(claimsDO.getClaimLaborDO());
+				int otherCost = claimsDO.getRequestedOtherCharges1() + claimsDO.getRequestedOtherCharges2();
+				String dealerFirstName = dealerService.getDealer(claim.getDealerId()).getFirstName();
+				Context context = new Context();
+				context.setVariable("claimNo", claimsDO.getClaimId());
+				context.setVariable("dealerName", dealerFirstName);
+				context.setVariable("contractNo", claimsDO.getContractId());
+				context.setVariable("totalLaborCost", laborsCost);
+				context.setVariable("totalPartsCost", partsCost);
+				context.setVariable("totalOtherCost", otherCost);
+				context.setVariable("totalClaimCost", (partsCost + laborsCost + otherCost));
+				context.setVariable("deductible", claimsVO.getDeductible());
+				context.setVariable("lol", claimsVO.getLol());
+				context.setVariable("availableLol", claimsVO.getAvailableLol());
+				context.setVariable("externalComments", "");
+				mail.setContext(context);
+				mail.setEmailSender(emailSender);
 				mail.setUserService(userService);
-				ClaimMailDO claimMailDO = new ClaimMailDO();
-				claimMailDO.setClaimID(String.valueOf(id));
-				claimMailDO.setDealerName(dealerDO.getFirstName());
-				claimMailDO.setContractId(claimsDO.getContractId());
-				claimMailDO.setTotalLaborCost(String.valueOf(claimLaborDO.getLaborHrs() * claimLaborDO.getRate()));
-				claimMailDO.setTotalPartsCost(claimsDO.getClaimPartDO());
-				claimMailDO.setTotalOtherCosts(String.valueOf(claimsDO.getRequestedOtherCharges1() + claimsDO.getRequestedOtherCharges2()));
-				claimMailDO.setDeductible(String.valueOf(claimsVO.getDeductible()));
-				claimMailDO.setLol(String.valueOf(claimsVO.getLol()));
-				claimMailDO.setAvailableLol(String.valueOf(claimsVO.getAvailableLol()));
-				mail.setClaimMailDO(claimMailDO);
 				new Thread(mail).start();
 			}
 			return new Result("success", null, id);
@@ -228,7 +236,17 @@ public class ClaimsController extends BaseController {
 		if(!sessionExists(request)){
 			return new Result("failure", "Session Expired", null);
 		}else{
-			claimsService.updateStatus(claimPreAuthVO.getId(), Util.getClaimStatusCode(claimPreAuthVO.getcStatus()));
+			int dealerId = (int)getAccountDetails(request).getDealerId();
+			claimsService.updateStatus(claimPreAuthVO.getId(), Util.getClaimStatusCode(claimPreAuthVO.getcStatus()), dealerId, claimPreAuthVO.getExtComment());
+			PreAuthMail mail = new PreAuthMail();
+			Context context = new Context();
+			context.setVariable("claimNo", claimPreAuthVO.getId());
+			context.setVariable("externalComments", claimPreAuthVO.getExtComment());
+			mail.setContext(context);
+			mail.setEmailSender(emailSender);
+			mail.setUserService(userService);
+			
+			new Thread(mail).start();
 			return new Result("success", null, "status updated");
 		}
 	}
@@ -263,6 +281,60 @@ public class ClaimsController extends BaseController {
 		}
 	}
 	
+	@RequestMapping(value = "/adjudicateClaim", method = RequestMethod.POST)
+	public @ResponseBody Result adjudicateClaim(@ModelAttribute("data") Object data,  @RequestParam("files") List<MultipartFile> fileList, BindingResult result,
+			HttpServletRequest request, HttpServletResponse response) {
+		uploadingdir = request.getServletContext().getRealPath("/uploads/");
+		new File(uploadingdir).mkdirs();
+		AdjudicateClaimFormVO vo = new GsonBuilder().setDateFormat("yyyy-MM-dd").create().fromJson(data.toString(), AdjudicateClaimFormVO.class);
+		logger.debug("In adjudicateClaim ");
+		int id = -1;
+		if(!sessionExists(request)){
+			return new Result("failure", "Session Expired", null);
+		}else{
+			ClaimsDO claimsDO = new ClaimsDO();
+			claimsDO.setId(vo.getId());
+			claimsDO.setTotalAdjustedPartsCost(vo.getTotalAdjustmentPartsCost());
+			claimsDO.setTotalAdjustedLaborCost(vo.getTotalAdjustmentLaborsCost());
+			claimsDO.setApprovedOtherCharges1(vo.getRequestedOtherCharges1());
+			claimsDO.setApprovedOtherCharges2(vo.getRequestedOtherCharges2());
+			List<ClaimFileDO> claimFileDO = new ArrayList<>();
+			for(MultipartFile uploadedFile : fileList) {
+				String fName = String.format("%s_%s", System.currentTimeMillis(), uploadedFile.getOriginalFilename());
+				ClaimFileDO fileDO = new ClaimFileDO();
+	            File file = new File(String.format("%s%s%s", uploadingdir, File.separator, fName));
+	            try {
+	            	fileDO.setFileName(Util.getBaseURL(request) + UPLOAD_FOLDER_NAME + fName);
+	            	claimFileDO.add(fileDO);
+					uploadedFile.transferTo(file);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+	        }
+			if(!claimFileDO.isEmpty()){
+				claimsDO.setClaimFileDO(claimFileDO);
+			}
+			id = claimsService.updateClaimAdjudicate(claimsDO);
+			
+			/*if(id != -1 ){
+				ClaimMail mail = new ClaimMail();
+				mail.setUserService(userService);
+				ClaimMailDO claimMailDO = new ClaimMailDO();
+				claimMailDO.setClaimID(String.valueOf(id));
+				claimMailDO.setDealerName(dealerDO.getFirstName());
+				claimMailDO.setContractId(claimsDO.getContractId());
+				claimMailDO.setTotalPartsCost(claimsDO.getClaimPartDO());
+				claimMailDO.setTotalOtherCosts(String.valueOf(claimsDO.getRequestedOtherCharges1() + claimsDO.getRequestedOtherCharges2()));
+				claimMailDO.setDeductible(String.valueOf(claimsVO.getDeductible()));
+				claimMailDO.setLol(String.valueOf(claimsVO.getLol()));
+				claimMailDO.setAvailableLol(String.valueOf(claimsVO.getAvailableLol()));
+				mail.setClaimMailDO(claimMailDO);
+				new Thread(mail).start();
+			}*/
+		}
+		return (-1 == id) ? new Result("failure", null, "") : new Result("success", null, id);
+	}
+	
 	private List<ClaimsDO> getClaimByStatus(final byte statusCode, HttpServletRequest request, boolean contractInfo){
 		List<ClaimsDO> cliamsList = null;
 		AccountDO account = getAccountDetails(request);
@@ -274,6 +346,25 @@ public class ClaimsController extends BaseController {
 		return cliamsList;
 	}
 	
+	public int calcTotalPartsCost(List<ClaimPartDO> parts){
+		int sum = 0;
+		if(null != parts){
+			for(ClaimPartDO part : parts){
+				sum += (part.getQty() * part.getUnitPrice());
+			}
+		}
+		return sum;
+	}
+	
+	public int calcTotalLaborsCost(List<ClaimLaborDO> labors){
+		int sum = 0;
+		if(null != labors){
+			for(ClaimLaborDO labor : labors){
+				sum += (labor.getLaborHrs() * labor.getRate());
+			}
+		}
+		return sum;
+	}
 }
 
 

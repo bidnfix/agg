@@ -15,6 +15,7 @@ public class ClaimFile implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue
 	private int id;
 
 	@Column(name="claim_id")

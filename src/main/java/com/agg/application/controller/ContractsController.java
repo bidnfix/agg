@@ -3,8 +3,12 @@
  */
 package com.agg.application.controller;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -77,6 +81,18 @@ public class ContractsController extends BaseController{
 		return opResult;
 	}
 	
+	@RequestMapping(value = "/contracts/count/{contractId}", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+	public @ResponseBody Result getContractsCount(@PathVariable String contractId, HttpServletRequest request, HttpServletResponse response, Model model) {
+		logger.debug("Inside getContractsCount with id: "+contractId);
+		Result opResult = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			int count = contractService.getContractsCount(contractId);
+			opResult = new Result("success", "", model.addAttribute("count", count));
+		}
+		return opResult;
+	}
 	@RequestMapping(value = "/contractInfo/{id}/{contractId}", method = RequestMethod.GET)
 	public @ResponseBody Result viewContract(@PathVariable long id, @PathVariable String contractId, HttpServletRequest request, HttpServletResponse response, Model model) {
 		logger.debug("Inside viewContract with id: "+id+" and code: "+contractId);
@@ -96,7 +112,9 @@ public class ContractsController extends BaseController{
 			result = new Result("failure", "Invalid Login", null);
 		}else{
 			if(Util.isNotEmptyString(term)){
-				result = new Result("success", "", model.addAttribute(contractService.getAllContractsByMachineSerialNo(term)));
+				List<ContractDO> responseDO = contractService.getAllContractsByMachineSerialNo(term);
+				List<Map<String, Object>> contractDOList = formatGetContracts(responseDO);
+				result = new Result("success", "", model.addAttribute("contractDOList",contractDOList));
 			}else{
 				result = new Result("failure", "invalid search term", null);
 			}
@@ -114,5 +132,24 @@ public class ContractsController extends BaseController{
 			opResult = new Result("success", "", contractService.updateContract(contractDO));
 		}
 		return opResult;
+	}
+	
+	private List<Map<String, Object>> formatGetContracts(final List<ContractDO> contractsList){
+		List<Map<String, Object>> responseList = new ArrayList<>();
+		for(ContractDO item : contractsList){
+			Map<String, Object> itemMap = new HashMap<>();
+			itemMap.put("contractID", item.getContractId());
+			itemMap.put("machineSerialNo", item.getMachineSerialNo());
+			itemMap.put("manfactureName", item.getManufacturerDO().getName());
+			itemMap.put("machineModel", item.getMachineModel());
+			itemMap.put("coverageType", item.getCoverageType());
+			itemMap.put("expirationDate", item.getExpirationDate());
+			itemMap.put("usageHoursCovered", item.getExpirationUsageHours());
+			itemMap.put("lol", item.getLol());
+			itemMap.put("availableLol", item.getAvailabeLol());
+			itemMap.put("deductible", item.getDeductible());
+			responseList.add(itemMap);
+		}
+		return responseList;
 	}
 }

@@ -13,7 +13,7 @@ import com.agg.application.entity.Claims;
 import com.agg.application.model.ClaimsDO;
 
 @Component
-public interface ClaimsDAO extends CrudRepository<Claims, Long> {
+public interface ClaimsDAO extends CrudRepository<Claims, Integer> {
 	@Query("SELECT c FROM Claims c WHERE c.cStatus = :cStatus")
 	List<Claims> findAllByCStatus(@Param("cStatus") byte cStatus);
 	

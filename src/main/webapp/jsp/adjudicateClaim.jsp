@@ -31,195 +31,258 @@
 	
 	<!-- Article main content -->
 		<article class="col-md-9 maincontent" ng-if='!showAdjudicateClaimList'>
-			<header class="page-header">
-              	<div class="col-md-6 col-sm-12">
+				<header class="page-header">
+                	<div class="col-md-6 col-sm-12">
 					<div class="sec-title">
-						<h2 class="wow animated bounceInLeft">Adjudicate a Claim</h2>
-						<p class="wow animated bounceInRight">Contract #: {{adjudicateClaim.contractId}}</p>
-					</div>
-                </div>
-                <div class="col-md-6 col-sm-12"><a class="btn btn-primary pull-right btn-sm mar-right" ng-click="onClickBackToList()">Back</a></div>
-			</header>
+                        
+							<h2 class="wow animated bounceInLeft">Adjudicate a Claim</h2>
+							<p class="wow animated bounceInRight">Contract #: {{adjudicateClaim.contractId}}</p>
+						</div>
+                        </div>
+                        <div class="col-md-6 col-sm-12"><a class="btn btn-primary pull-right btn-sm mar-right" ng-click="onClickBackToList()">Back</a></div>
+				</header>
+                
+                
+				 <!-- data table section -->
+                
+                <div class="inner-main">
+                     <form name="newClaimForm" ng-submit="onClickSubmitClaim()">   
+                      <div class="col-xs-12 agf1 main-login pad10-top">
+                        <div class="col-xs-12 no-pad clearfix">
+                        <div class="col-md-6 no-pad pad10-right">
+                         <span class="ag-tab-title col-xs-12 no-pad marg10-bottom">Claim Information</span>
+                         <br clear="all">
+                         <br>
+                          <div class="form-group pad10-top">
+                            <label>Serial Number</label>
+                            {{adjudicateClaim.serial}}
+                          </div>
+                          <!-- <div class="form-group">
+                            <label>Manufacturer</label>
+                            <input type="text" class="form-control" ng-model="contractInfoList.manfactureName" ng-readonly=true>
+                          </div>
+                          <div class="form-group">
+                            <label>Model Number</label>
+                            <input type="text" class="form-control" ng-model="contractInfoList.machineModel" ng-readonly=true>
+                          </div>
+                          <div class="form-group">
+                            <label>Coverage Type</label>
+                            <input type="text" class="form-control" ng-model="contractInfoList.coverageType" ng-readonly=true>
+                          </div> -->
+                          <div class="form-group">
+                            <label>Failure Date</label>
+                            <div class="input-group">
+                            	{{adjudicateClaim.failDate | date:'yyyy-MM-dd'}}
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label>Reported On</label>
+                            <div class="input-group">
+                            	{{adjudicateClaim.reportDate | date:'yyyy-MM-dd'}}
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label>Work Order Number</label>
+                            {{adjudicateClaim.workOrder}}
+                          </div>
+                          <div class="form-group">
+                            <label>Hours @ Breakdown</label>
+                            {{adjudicateClaim.hoursBreakDown}}
+                          </div>
+                          <div class="form-group">
+                            <label>Other Charge 1 ($)</label>
+                            <input type="text" class="form-control" ng-model="adjustments.requestedOtherCharges1" required="required"  ng-change="calcOnChange()">
+                          </div>
+                          <div class="form-group">
+                            <label>Other Charge 2 ($)</label>
+                            <input type="text" class="form-control" ng-model="adjustments.requestedOtherCharges2" required="required"  ng-change="calcOnChange()">
+                          </div>
+                          <div class="form-group">
+                            <label>Total Claim ($)</label>
+                            {{adjustments.totalClaimCost}}
+                          </div>
+                        </div>
 
-			 <!-- data table section -->
-             	<div class="inner-main">
-             		<form name="newClaimForm" ng-submit="onClickSubmitClaim()">
-                    <div class="col-xs-12 agf1 main-login pad10-top">
-	                    <div class="col-xs-12">
-	                      If the repair estimate is over $1,000 or if diagnostic cost is over $500, then the repair facility must contact AgGuard before proceeding with the repair-unless a higher amount for that has been authorized by AgGuard. Failure to pre-notify us could disqualify the Claim.
-	                    </div>
-                    	<div class="col-xs-12 no-pad clearfix">
-	                      <div class="col-md-6 no-pad pad10-right">
-	                       <span class="ag-tab-title col-xs-12 no-pad marg10-bottom">Claim Information</span>
-	                       <br clear="all">
-	                       <br>
-	                        <div class="form-group pad10-top">
-	                          <label for="_sno">Serial Number</label>
-	                          <input type="text" id="_sno" name="_sno" class="form-control" ng-model="adjudicateClaim.serial" ng-readonly=true>
-	                        </div>
-	                        <!-- <div class="form-group">
-	                          <label>Manufacturer</label>
-	                          <input type="text" class="form-control" ng-model="preAuthClaim.manufacturerDO.name" ng-readonly=true>
-	                        </div>
-	                        <div class="form-group">
-	                          <label>Model Number</label>
-	                          <input type="text" class="form-control" ng-model="preAuthClaim.machineModel" ng-readonly=true>
-	                        </div> -->
-	                        <div class="form-group">
-	                          <label>Coverage Type</label>
-	                          <select class="form-control">
-	                            <option>Select</option>
-	                          </select>
-	                        </div>
-	                        <div class="form-group">
-	                          <label>Failure Date</label>
-	                          <div class="input-group">
-	                            <input type="date" class="form-control" aria-describedby="basic-addon2" value="{{adjudicateClaim.failDate | date:'yyyy-MM-dd'}}" ng-readonly=true>
-	                            <!-- <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span> -->
-	                          </div>
-	                        </div>
-	                        <div class="form-group">
-	                          <label>Reported On</label>
-	                          <div class="input-group">
-	                            <input type="date" class="form-control" aria-describedby="basic-addon2" value="{{adjudicateClaim.reportDate | date:'yyyy-MM-dd'}}" ng-readonly=true>
-	                            <!-- <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span> -->
-	                          </div>
-	                        </div>
-	                        <div class="form-group">
-	                          <label for="_wo">Work Order Number</label>
-	                          <input type="text" id="_wo" name="_wo" class="form-control" ng-model="adjudicateClaim.workOrder" ng-readonly=true>
-	                        </div>
-	                        <div class="form-group">
-	                          <label>Hours @ Breakdown</label>
-	                          <input type="number" class="form-control" ng-model="adjudicateClaim.hoursBreakDown" ng-readonly=true>
-	                        </div>	                        
-	                        <div class="form-group">
-	                          <label>Labor Total Hours</label>
-	                          <input type="number" class="form-control" ng-model="adjudicateClaim.claimLaborDO.laborHrs" ng-readonly=true>
-	                        </div>
-	                        <div class="form-group">
-	                          <label>Hourly Rate ($)</label>
-	                          <input type="number" class="form-control" ng-model="adjudicateClaim.claimLaborDO.rate" ng-readonly=true>
-	                        </div>
-	                        <div class="form-group">
-	                          <label>Labor Cost($)</label>
-	                          <input type="number" class="form-control" ng-model="adjudicateClaim.totalLaborCost" ng-readonly=true>
-	                        </div>
-	                        <div data-ng-repeat="claimPartVO in adjudicateClaim.claimPartDO">
-	                        	<div class="form-group">
-		                          <label>Part #</label>
-		                          <input type="text" class="form-control" ng-model="claimPartVO.partNo" required="required">
-		                        </div>
-		                        <div class="form-group">
-		                          <label>Part Description</label>
-		                          <input type="text" class="form-control" ng-model="claimPartVO.partDescr" required="required">
-		                        </div>
-		                        <div class="form-group">
-		                          <label>Quantity</label>
-		                          <input type="number" class="form-control" ng-model="claimPartVO.qty" required="required" ng-change="calcTotalPartLine($index)">
-		                        </div>
-		                        <div class="form-group">
-		                          <label>Unit Price ($)</label>
-		                          <input type="number" class="form-control" ng-model="claimPartVO.unitPrice" required="required" ng-change="calcTotalPartLine($index)">
-		                        </div>
-		                        <div class="form-group">
-		                          <label>Part Total ($)</label>
-		                          <input type="number" class="form-control" ng-model="claimPartVO.partsTotal" ng-readonly=true>
-		                        </div>
-	                        </div>
-	                        <div class="form-group">
-	                          <label>Parts Total ($)</label>
-	                          <input type="number" class="form-control" ng-model="adjudicateClaim.totalPartCost" ng-readonly=true>
-	                        </div>
-	                        <div class="form-group">
-	                          <label>Other Charge 1 ($)</label>
-	                          <input type="number" class="form-control" ng-model="adjudicateClaim.requestedOtherCharges1" ng-readonly=true>
-	                        </div>
-	                        <div class="form-group">
-	                          <label>Other Charge 2 ($)</label>
-	                          <input type="number" class="form-control" ng-model="adjudicateClaim.requestedOtherCharges2" ng-readonly=true>
-	                        </div>
-	                        <div class="form-group">
-	                          <label>Total Claim ($)</label>
-	                          <input type="number" class="form-control" ng-model="adjudicateClaim.totalClaimCost" ng-readonly=true>
-	                        </div>
-	                      </div>
-	
-	
-	
-	                      <div class="col-md-6 no-pad pad10-left border-left">
-	                      <span class="ag-tab-title col-xs-12 no-pad marg10-bottom" style="margin-left:-10px !important;">Details</span>
-	                       <br clear="all">
-	                       <br>
-	                        <br clear="all">
-	                      
-	                      <div class="col-xs-12 no-pad">
-	                        <div class="form-group">
-	                          <label>Customer Complaint</label>
-	                          <textarea class="form-control" rows="2" ng-model="adjudicateClaim.custComplaint" ng-readonly=true></textarea>
-	                        </div>
-	                        <div class="form-group">
-	                          <label>Cause of Failure</label>
-	                          <textarea class="form-control" rows="5" ng-model="adjudicateClaim.causeFail" ng-readonly=true></textarea>
-	                        </div>
-	                        <div class="form-group">
-	                          <label>Corrective Action</label>
-	                          <textarea class="form-control" rows="2" ng-model="adjudicateClaim.correctiveAction" ng-readonly=true></textarea>
-	                        </div>
-	                        <div class="form-group">
-	                          <label>Comments</label>
-	                          <textarea class="form-control" rows="2" ng-model="adjudicateClaim.extComment" ng-required="extCommentFlag" ng-trim=true></textarea>
-	                        </div>
-	                        <div class="form-group">
-	                          <label>Adjusted Labor Total Hours</label>
-	                          <input type="number" class="form-control" ng-model="adjudicateClaim.claimLaborDO.adjustedLaborHrs">
-	                        </div>
-	                        <div class="form-group">
-	                          <label>Adjusted Hourly Rate ($)</label>
-	                          <input type="number" class="form-control" ng-model="adjudicateClaim.claimLaborDO.adjustedRate">
-	                        </div>
-	                        <div class="form-group">
-	                          <label>Total Adj Labor Cost($)</label>
-	                          <input type="number" class="form-control" ng-model="adjudicateClaim.adjustedTotalLaborCost" ng-readonly=true>
-	                        </div>
-	                        <div class="form-group">
-	                          <label>Total Adj Parts Cost($)</label>
-	                          <input type="number" class="form-control" ng-model="adjudicateClaim.totalAdjustedPartsCost">
-	                        </div>
-	                        <div class="form-group">
-	                          <label>Adjusted Other(1) Cost ($)</label>
-	                          <input type="number" class="form-control" ng-model="adjudicateClaim.adjustedOther1Cost">
-	                        </div>
-	                        <div class="form-group">
-	                          <label>Adjusted Other(2) Cost ($)</label>
-	                          <input type="number" class="form-control" ng-model="adjudicateClaim.adjustedOther2Cost">
-	                        </div>
-	                        <div class="form-group">
-	                          <label>Total Adj Other Costs ($)</label>
-	                          <input type="number" class="form-control" ng-model="adjudicateClaim.totalAdjustedOthersCost" ng-readonly=true>
-	                        </div>
-	                        <div class="form-group">
-	                          <label>Total Adj Claim Costs ($)</label>
-	                          <input type="number" class="form-control" ng-model="adjudicateClaim.totalAdjustedClaimsCost" ng-readonly=true>
-	                        </div>
-	                        <div class="form-group">
-	                          <label>Total Re-imbursed Amount ($)</label>
-	                          <input type="number" class="form-control" ng-model="adjudicateClaim.totalReimbursedCost" ng-readonly=true>
-	                        </div>
-	                      </div>
-	                    </div>
-	                    </div>
-	              	</div>
-					<div class="col-sm-12 no-pad t-c marg10-top marg10-bottom">
-			          <button type="button" class="btn btn-primary" ng-click="reqAuth('pre_authorized_approved')">Pre-authorization Approved</button>
-			          <button type="submit" class="btn btn-primary" ng-click="reqAuth('pre_authorized_approved_with_adjustments')">Pre-auth Approved with Adjustments</button>
-			          <button type="submit" class="btn btn-primary" ng-click="reqAuth('pre_authorized_rejected')">Pre-authorization Rejected</button>
-		        	</div>
-		        	</form>
+						
+
+
+                        <div class="col-md-6 no-pad">
+                        <span class="ag-tab-title col-xs-12 no-pad marg10-bottom  pad20-left" style="margin-left:-10px !important;">Details</span>
+                        <div class="col-xs-12 no-pad pad10-left border-left">
+                         <br clear="all">
+                        
+                        <div class="col-xs-12 no-pad">
+                          <div class="form-group">
+                            <label>Customer Complaint</label>
+                            {{adjudicateClaim.custComplaint}}
+                          </div>
+                          <div class="form-group">
+                            <label>Cause of Failure</label>
+                            {{adjudicateClaim.causeFail}}
+                          </div>
+                          <div class="form-group">
+                            <label>Corrective Action</label>
+                            {{adjudicateClaim.correctiveAction}}
+                          </div>
+                        </div>
+                      </div>
+                      </div>
+                      </div>
+					<div class="col-xs-12 no-pad pad10-top">
+                         <span class="ag-tab-title col-xs-12 no-pad marg10-bottom">File Attachments</span>
+                         <br clear="all">
+                         <p>Please upload pdf versions of quotes and any pictures showing the damage.</p>
+                         <br>
+                          <div class="col-sm-12">
+                          <div class="col-sm-6">
+                            <div class="form-group">
+                            <label>File</label>
+                            <input type="file" id="" name="files" multiple ng-files="getTheFiles($files)">
+                            </div>
+                          </div>
+                          </div>
+                       <!--    <div class="col-sm-12">
+                          <div class="col-sm-6">
+                            <div class="form-group">
+                            <label>File</label>
+                            <input type="file" id="">
+                            </div>
+                          </div>
+                          </div>
+                          <div class="col-sm-12">
+                          <div class="col-sm-6">
+                            <div class="form-group">
+                            <label>File</label>
+                            <input type="file" id="">
+                            </div>
+                          </div>
+                          </div>
+                          <div class="col-sm-12 marg10-bottom">
+                          <a class="btn btn-primary btn-sm" href="#"> more</a>
+                          </div> -->
+                      </div>
+
+                      <div class="col-xs-12 no-pad pad10-top">
+                         <span class="ag-tab-title col-xs-12 no-pad marg10-bottom">Claim Details</span>
+                         <br clear="all">
+                        
+                         <br>
+                          <div class="col-sm-12">
+                          <div class="col-xs-12 no-pad table-responsive clearfix">
+                            <table class="table table-bordered">
+                              <thead>
+                                <tr>
+                                  <th class="col-sm-2">Part #</th>
+                                  <th class="col-sm-4">Description</th>
+                                  <th class="col-sm-1">Quantity</th>
+                                  <th class="col-sm-2">Unit Price</th>
+                                  <th class="t-r col-sm-2">Part Total</th>
+                                </tr>
+                              </thead>
+                               <tbody data-ng-repeat="claimPartVO in adjustments.parts">
+                                <tr>
+                                  <td><input type="text" class="form-control" name="" ng-model="claimPartVO.partNo" ng-readonly=true></td>
+                                  <td><input type="text" class="form-control" name="" ng-model="claimPartVO.partDescr" ng-readonly=true></td>
+                                  <td><input type="number" class="form-control" name="" ng-model="claimPartVO.qty" required="required" ng-change="calcOnChange()"></td>
+                                  <td><input type="number" class="form-control" name="" ng-model="claimPartVO.unitPrice" required="required" ng-change="calcOnChange()"></td>
+                                  <td class="t-r">{{claimPartVO.partsTotal | currency}}</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                            <div class="col-sm-12">
+                            <div class="col-sm-6">
+                            </div>
+                             <div class="col-sm-6">
+                            <div class="col-sm-8 no-pad">
+                              Total Requested Parts Cost
+                            </div>
+                            <div class="col-sm-4 t-r">
+                              {{adjudicateClaim.totalPartCost | currency}}
+                            </div>
+                            <div class="col-sm-8 no-pad">
+                              Total Adjusted Labor Cost
+                            </div>
+                            <div class="col-sm-4 t-r">
+                              {{adjustments.totalAdjustmentPartsCost | currency}}
+                            </div>  
+                            </div>
+                              
+                            </div>
+                          </div>
+                          <br clear="all">
+                          <div class="col-xs-12 no-pad table-responsive clearfix">
+                            <table class="table table-bordered">
+                              <thead>
+                                <tr>
+                                  <th class="col-sm-2">Labor #</th>
+                                  <th class="col-sm-4">Description</th>
+                                  <th class="col-sm-1">Hours</th>
+                                  <th class="col-sm-2">Hourly Rate</th>
+                                  <th class="t-r col-sm-2">Total</th>
+                                </tr>
+                              </thead>
+                              <tbody data-ng-repeat="claimLabourVO in adjustments.labors">
+                                <tr>
+                                  <td><input type="text" class="form-control" name="" ng-model="claimLabourVO.laborNo" ng-readonly=true></td>
+                                  <td><input type="text" class="form-control" name="" ng-model="claimLabourVO.laborDescr" ng-readonly=true></td>
+                                  <td><input type="number" class="form-control" name="" ng-model="claimLabourVO.laborHrs" required="required" ng-change="calcOnChange()"></td>
+                                  <td><input type="number" class="form-control" name="" ng-model="claimLabourVO.rate" required="required" ng-change="calcOnChange()"></td>
+                                  <td class="t-r">{{claimLabourVO.laborsTotal | currency}}</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                            <div class="col-sm-12">
+                            <div class="col-sm-6">
+                            </div>
+                            <div class="col-sm-6">
+                            <div class="col-sm-8 no-pad">
+                              Total Requested Labor Cost
+                            </div>
+                            <div class="col-sm-4 t-r">
+                              {{adjudicateClaim.totalLaborCost | currency}}
+                            </div>
+                            <div class="col-sm-8 no-pad">
+                              Total Adjusted Labor Cost
+                            </div>
+                            <div class="col-sm-4 t-r">
+                                  {{adjustments.totalAdjustmentLaborsCost | currency}}                         
+                            </div>  
+                            </div>
+                              
+                            </div>
+                          </div>
+                          <br clear="all">
+                          </div>
+                      </div>
+                </div>
+				<div class="col-sm-12 no-pad t-c marg10-top marg10-bottom">
+		          <button type="submit" class="btn btn-primary" ng-click="onClickClose()"> Close Claim</button>
+	            </div>
+	            </form>
 				</div>
-		
-		<!-- end data table section -->
-	              
-		</article>
+			
+			<!-- end data table section -->
+			<!-- The actual modal template, just a bit o bootstrap -->
+     <script type="text/ng-template" id="modal.html">
+         <div class="modal fade">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" ng-click="close('No')" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title"></h4>
+              </div>
+              <div class="modal-body">
+                <p>You are about to pay the dealer claim {{adjudicateClaim.claimId}}, an amount of {{adjustments.tra}}. This action cannot be reversed. Are you sure you want to continue?</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" ng-click="close('No')" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" ng-click="close('Yes')" class="btn btn-primary" data-dismiss="modal">Confirm</button>
+              </div>
+            </div>
+          </div>
+        </div>
+     </script>
+                
+			</article>
 	<!-- /Article -->
 </div>

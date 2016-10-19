@@ -37,11 +37,8 @@ public class ClaimsVO {
 	private int totalAdjustedLaborCost;
 	private int approvedOtherCharges1;
 	private int approvedOtherCharges2;
-	private String laborNo;
-	private String laborDescr;
-	private int laborHrs;
-	private int laborHourlyRate;
 	private List<ClaimPartVO> claimPartVOList;
+	private List<ClaimLabourVO> claimLabourVOList;
 	private byte cStatusValue;
 	private int deductible;
 	private int lol;
@@ -120,6 +117,19 @@ public class ClaimsVO {
 	 */
 	public String getClaimId() {
 		return claimId;
+	}
+	
+	/**
+	 * @return the claimLabourVOList
+	 */
+	public List<ClaimLabourVO> getClaimLabourVOList() {
+		return claimLabourVOList;
+	}
+	/**
+	 * @param claimLabourVOList the claimLabourVOList to set
+	 */
+	public void setClaimLabourVOList(List<ClaimLabourVO> claimLabourVOList) {
+		this.claimLabourVOList = claimLabourVOList;
 	}
 	/**
 	 * @param claimId the claimId to set
@@ -366,54 +376,6 @@ public class ClaimsVO {
 	 */
 	public void setApprovedOtherCharges2(int approvedOtherCharges2) {
 		this.approvedOtherCharges2 = approvedOtherCharges2;
-	}
-	/**
-	 * @return the laborNo
-	 */
-	public String getLaborNo() {
-		return laborNo;
-	}
-	/**
-	 * @param laborNo the laborNo to set
-	 */
-	public void setLaborNo(String laborNo) {
-		this.laborNo = laborNo;
-	}
-	/**
-	 * @return the laborDescr
-	 */
-	public String getLaborDescr() {
-		return laborDescr;
-	}
-	/**
-	 * @param laborDescr the laborDescr to set
-	 */
-	public void setLaborDescr(String laborDescr) {
-		this.laborDescr = laborDescr;
-	}
-	/**
-	 * @return the laborHrs
-	 */
-	public int getLaborHrs() {
-		return laborHrs;
-	}
-	/**
-	 * @param laborHrs the laborHrs to set
-	 */
-	public void setLaborHrs(int laborHrs) {
-		this.laborHrs = laborHrs;
-	}
-	/**
-	 * @return the laborHourlyRate
-	 */
-	public int getLaborHourlyRate() {
-		return laborHourlyRate;
-	}
-	/**
-	 * @param laborHourlyRate the laborHourlyRate to set
-	 */
-	public void setLaborHourlyRate(int laborHourlyRate) {
-		this.laborHourlyRate = laborHourlyRate;
 	}
 	/**
 	 * @return the claimPartVOList

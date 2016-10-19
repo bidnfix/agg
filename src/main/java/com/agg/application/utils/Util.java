@@ -1,9 +1,13 @@
 package com.agg.application.utils;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import javax.servlet.http.HttpServletRequest;
 
 public class Util {
 	private static final String EMPTY = ""; 
@@ -100,5 +104,23 @@ public class Util {
 				cStatusValue = 0;
 		}
 		return cStatusValue;
+	}
+	
+	/**
+	 * @param request
+	 * @return
+	 */
+	public static String getBaseURL(HttpServletRequest request) {
+		String url = "";
+		try {
+			url = new URL(request.getScheme(), 
+			        request.getServerName(), 
+			        request.getServerPort(), 
+			        request.getContextPath()).toString();
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return url;
 	}
 }

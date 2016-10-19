@@ -58,4 +58,7 @@ public interface ContractsDAO extends CrudRepository<Contracts, Long>{
 	List<Contracts> findInactiveByDealerId(@Param("dealerId") long dealerId);
 	
 	List<Contracts> findByIdAndContractId(long id, String contractId);
+	
+	@Query("SELECT COUNT(*) AS contractsCount FROM Contracts c WHERE c.contractId = :contractId")
+	int getContractsCount(@Param("contractId") String contractId);
 }

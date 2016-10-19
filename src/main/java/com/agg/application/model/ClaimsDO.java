@@ -5,6 +5,18 @@ import java.util.Date;
 import java.util.List;
 
 public class ClaimsDO {
+	/**
+	 * @return the coverageType
+	 */
+	public String getCoverageType() {
+		return coverageType;
+	}
+	/**
+	 * @param coverageType the coverageType to set
+	 */
+	public void setCoverageType(String coverageType) {
+		this.coverageType = coverageType;
+	}
 	private int id;
 	private String claimId;
 	private String contractId;
@@ -28,13 +40,21 @@ public class ClaimsDO {
 	private int approvedOtherCharges1;
 	private int approvedOtherCharges2;
 	private List<ClaimPartDO> claimPartDO;
-	private ClaimLaborDO claimLaborDO;
+	private List<ClaimLaborDO> claimLaborDO;
 	private String custName;
 	private String dealerName;
 	private String manufacturer;
 	private String machineModel;
 	private ContractDO contractDO;
+	private List<ClaimFileDO> claimFileDO;
+	private String coverageType; 
 	
+	public List<ClaimFileDO> getClaimFileDO() {
+		return claimFileDO;
+	}
+	public void setClaimFileDO(List<ClaimFileDO> claimFileDO) {
+		this.claimFileDO = claimFileDO;
+	}
 	/**
 	 * @return the contractDO
 	 */
@@ -339,16 +359,11 @@ public class ClaimsDO {
 	public void setClaimPartDO(List<ClaimPartDO> claimPartDO) {
 		this.claimPartDO = claimPartDO;
 	}
-	/**
-	 * @return the claimLaborDO
-	 */
-	public ClaimLaborDO getClaimLaborDO() {
+	
+	public List<ClaimLaborDO> getClaimLaborDO() {
 		return claimLaborDO;
 	}
-	/**
-	 * @param claimLaborDO the claimLaborDO to set
-	 */
-	public void setClaimLaborDO(ClaimLaborDO claimLaborDO) {
+	public void setClaimLaborDO(List<ClaimLaborDO> claimLaborDO) {
 		this.claimLaborDO = claimLaborDO;
 	}
 	public String getCustName() {

@@ -31,8 +31,12 @@
 	<script src="/assets/js/html5shiv.js"></script>
 	<script src="/assets/js/respond.min.js"></script>
 	<![endif]-->
+	<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/jquery.dataTables.min.js"></script>
+	<script src="/assets/js/dataTables.bootstrap.min.js"></script>
 <script src="/assets/js/angular.min.js"></script>
 <script src="/assets/js/angular-route.min.js"></script>
+<script src="/assets/js/angular-modal-service.min.js"></script>
 </head>
 <body ng-app="aggRoutingApp">
 	<div class="mask" id="popup_mask" style="z-index: 10001; display: none;"> </div>
