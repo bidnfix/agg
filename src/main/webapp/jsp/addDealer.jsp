@@ -24,6 +24,7 @@
 	<div class="inner-main" ng-controller="dealerController">
 		<form class="form-horizontal" role="form" ng-submit="submitDealer()">
 			<h3 align="center">Add Dealer</h3>
+			<div id="dealerErrorMsg" class="alert alert-danger text-center hidden"></div>
 			<div class="form-group">
 				<label for="userName" class="col-sm-3 control-label">Username</label>
 				<div class="col-sm-9">

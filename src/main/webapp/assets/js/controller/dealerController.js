@@ -17,7 +17,11 @@ routingApp.controller('dealerController', function($scope, dealerService, $locat
         	//alert(response.data.data.programList);
         	$scope.isUserExists = response.data.data;
             if($scope.isUserExists){
-            	alert("Dealer with Username '"+userName+"' already exists!");
+            	//alert("Dealer with Username '"+userName+"' already exists!");
+            	$('#dealerErrorMsg').html("Dealer with Username '<strong>"+userName+"</strong>' already exists!");
+            	$('#dealerErrorMsg').removeClass('hidden');
+            }else{
+            	$('#dealerErrorMsg').addClass('hidden');
             }
         });
     }
@@ -48,7 +52,11 @@ routingApp.controller('userController', function($scope, userService, $location,
         	//alert(response.data.data.programList);
         	$scope.isUserExists = response.data.data;
             if($scope.isUserExists){
-            	alert("User with Username '"+userName+"' already exists!");
+            	//alert("User with Username '"+userName+"' already exists!");
+            	$('#userErrorMsg').html("User with Username '<strong>"+userName+"</strong>' already exists!");
+            	$('#userErrorMsg').removeClass('hidden');
+            }else{
+            	$('#userErrorMsg').addClass('hidden');
             }
         });
     }
