@@ -65,17 +65,52 @@
 							class="form-control" ng-disabled="disabled">
 					</div>
 					<div class="form-group" ng-if="program.condition == 1">
-						<label>MFG Coverage Ends</label> <input type="date"
+						<label>MFG Coverage Ends</label> 
+						<!-- <input type="date"
 							id="coverage" name="coverage" ng-model="program.coverageEndDate"
 							placeholder="Manufacturer Coverage end date" class="form-control"
-							validate-on="dirty" required="required" ng-disabled="disabled">
+							validate-on="dirty" required="required" ng-disabled="disabled"> -->
+						<div class="input-group">
+                           <input type="text" class="form-control" 
+				                   datepicker-popup="MM/dd/yyyy"
+				                   datepicker-options="dateOptions" 
+				                   is-open="coverageEndDatePickerIsOpen" 
+				                   ng-click="coverageEndDatePickerOpen()"
+				                   ng-model="program.coverageEndDate"
+				                   validate-on="dirty" 
+				                   required="required"/>
+							<span class="input-group-btn">
+				              <button type="button" class="btn btn-default" 
+				                      ng-click="coverageEndDatePickerOpen($event)">
+				                <i class="glyphicon glyphicon-calendar"></i>
+				              </button>
+				            </span>
+				        </div>
 					</div>
 					
 					<div class="form-group" ng-if="program.condition == 0">
-						<label>Start Date of Coverage</label> <input type="date"
+						<label>Start Date of Coverage</label> 
+							<!-- <input type="date"
 							id="estSaleDate" name="estSaleDate" ng-model="program.estSaleDate"
 							placeholder="Start Date of Coverage" class="form-control"
-							validate-on="dirty" required="required" ng-disabled="disabled">
+							validate-on="dirty" required="required" ng-disabled="disabled"> -->
+						
+						<div class="input-group">
+                           <input type="text" class="form-control" 
+				                   datepicker-popup="MM/dd/yyyy"
+				                   datepicker-options="dateOptions" 
+				                   is-open="estSaleDatePickerIsOpen" 
+				                   ng-click="estSaleDatePickerOpen()"
+				                   ng-model="program.estSaleDate"
+				                   validate-on="dirty"
+				                   required="required"/>
+							<span class="input-group-btn">
+				              <button type="button" class="btn btn-default" 
+				                      ng-click="estSaleDatePickerOpen($event)">
+				                <i class="glyphicon glyphicon-calendar"></i>
+				              </button>
+				            </span>
+				       </div>
 					</div>
 					
 					<div class="form-group">

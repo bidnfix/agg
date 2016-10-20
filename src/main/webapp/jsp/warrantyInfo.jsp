@@ -57,11 +57,26 @@
 					</div>
 					<div class="col-sm-5">
 						<div class="input-group">
-							<input type="date" id="coverageEndDate" name="coverageEndDate"
+							<!-- <input type="date" id="coverageEndDate" name="coverageEndDate"
 								min="{{date | date:'yyyy-MM-dd'}}"
-								ng-model="quote.coverageEndDate" class="form-control"><!--  <span
+								ng-model="quote.coverageEndDate" class="form-control"> 
+								<span
 								class="input-group-addon"><i
-								class="glyphicon glyphicon-calendar"></i></span> -->
+								class="glyphicon glyphicon-calendar"></i></span>
+								-->
+								<input type="text" class="form-control" 
+				                   datepicker-popup="MM/dd/yyyy"
+				                   datepicker-options="dateOptions" 
+				                   is-open="valuationDatePickerIsOpen" 
+				                   ng-click="valuationDatePickerOpen()"
+				                   ng-model="quote.coverageEndDate" 
+				                   required="required"/>
+								<span class="input-group-btn">
+					              <button type="button" class="btn btn-default" 
+					                      ng-click="valuationDatePickerOpen($event)">
+					                <i class="glyphicon glyphicon-calendar"></i>
+					              </button>
+					            </span>
 						</div>
 						<input type="checkbox" id="coverageEndDateUnknown"
 							name="coverageEndDateUnknown"

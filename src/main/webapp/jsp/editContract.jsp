@@ -34,16 +34,50 @@
 							validate-on="dirty" required="required">
 					</div>
 					<div class="form-group">
-						<label>Inception Date</label> <input type="date"
+						<label>Inception Date</label> 
+						<!-- <input type="date"
 							id="inceptionDate" name="inceptionDate" ng-model="contract.inceptionDate"
 							placeholder="Inception Date" class="form-control"
-							validate-on="dirty" required="required">
+							validate-on="dirty" required="required"> -->
+						<div class="input-group">
+							<input type="text" class="form-control" 
+			                   datepicker-popup="MM/dd/yyyy"
+			                   datepicker-options="dateOptions" 
+			                   is-open="inceptionDatePickerIsOpen" 
+			                   ng-click="inceptionDatePickerOpen()"
+			                   ng-model="contract.inceptionDate"
+			                   validate-on="dirty"
+			                   required="required"/>
+				            <span class="input-group-btn">
+				              <button type="button" class="btn btn-default" 
+				                      ng-click="inceptionDatePickerOpen($event)">
+				                <i class="glyphicon glyphicon-calendar"></i>
+				              </button>
+				            </span>
+		            	</div>
 					</div>
 					<div class="form-group">
-						<label>Expiration Date</label> <input type="date"
+						<label>Expiration Date</label> 
+							<!-- <input type="date"
 							id="expirationDate" name="expirationDate" ng-model="contract.expirationDate"
 							placeholder="Expiration Date" class="form-control"
-							validate-on="dirty" required="required">
+							validate-on="dirty" required="required"> -->
+						<div class="input-group">
+							<input type="text" class="form-control" 
+			                   datepicker-popup="MM/dd/yyyy"
+			                   datepicker-options="dateOptions" 
+			                   is-open="expirationDatePickerIsOpen" 
+			                   ng-click="expirationDatePickerOpen()"
+			                   ng-model="contract.expirationDate"
+			                   validate-on="dirty"
+			                   required="required"/>
+				            <span class="input-group-btn">
+				              <button type="button" class="btn btn-default" 
+				                      ng-click="expirationDatePickerOpen($event)">
+				                <i class="glyphicon glyphicon-calendar"></i>
+				              </button>
+				            </span>
+		            	</div>
 					</div>
 					<div class="form-group">
 						<label>Expiration Usage Hours</label>

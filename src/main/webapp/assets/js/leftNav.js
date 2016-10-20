@@ -482,6 +482,33 @@ routingApp.controller('AddProgramsController', function($scope, $http) {
 
 routingApp.controller('ProgramAsDealerController', function($scope, programService, $http) {
 	//alert("in ProgramAsDealerController");
+	
+	//datepicker changes
+	
+	$scope.opens = [];
+	$scope.dateOptions = {
+		format: "MM/dd/yyyy",
+	    showWeeks: false
+	};
+	
+	$scope.coverageEndDatePickerIsOpen = false;
+	$scope.coverageEndDatePickerOpen = function ($event) {
+      if ($event) {
+          $event.preventDefault();
+          $event.stopPropagation(); // This is the magic
+      }
+      $scope.coverageEndDatePickerIsOpen = true;
+    };
+    
+    $scope.estSaleDatePickerIsOpen = false;
+    $scope.estSaleDatePickerOpen = function ($event) {
+        if ($event) {
+            $event.preventDefault();
+            $event.stopPropagation(); // This is the magic
+        }
+        $scope.estSaleDatePickerIsOpen = true;
+    };
+	
 	$http.get("/agg/programAsDealer")
     .then(function(response) {
     	//alert(response.data.data.programList);
@@ -904,6 +931,51 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 	$scope.readOnlyFlag = false;
 	$scope.editableFlag = true;
 	
+	//datepicker changes
+	
+	$scope.valuationDatePickerIsOpen = false;
+	$scope.opens = [];
+	
+	$scope.valuationDatePickerOpen = function ($event) {
+      if ($event) {
+          $event.preventDefault();
+          $event.stopPropagation(); // This is the magic
+      }
+      $scope.valuationDatePickerIsOpen = true;
+    };
+    
+    $scope.dateOptions = {
+		format: "MM/dd/yyyy",
+	    showWeeks: false
+	};
+    
+    $scope.estSaleDatePickerIsOpen = false;
+    $scope.estSaleDatePickerOpen = function ($event) {
+        if ($event) {
+            $event.preventDefault();
+            $event.stopPropagation(); // This is the magic
+        }
+        $scope.estSaleDatePickerIsOpen = true;
+    };
+    
+    $scope.inceptionDatePickerIsOpen = false;
+    $scope.inceptionDatePickerOpen = function ($event) {
+        if ($event) {
+            $event.preventDefault();
+            $event.stopPropagation(); // This is the magic
+        }
+        $scope.inceptionDatePickerIsOpen = true;
+    };
+    
+    $scope.expirationDatePickerIsOpen = false;
+    $scope.expirationDatePickerOpen = function ($event) {
+        if ($event) {
+            $event.preventDefault();
+            $event.stopPropagation(); // This is the magic
+        }
+        $scope.expirationDatePickerIsOpen = true;
+    };
+	
 	$http.get("/agg/quoteInfo/"+$routeParams.quoteId+"/"+$routeParams.quoteCode)
 	.then(function(response) {
         $scope.dealerList = response.data.data.dealerDOList;
@@ -1170,6 +1242,34 @@ routingApp.controller('ContractsController', function($scope, $http, $timeout, $
 
 routingApp.controller('ContractDetailController', function($scope, $http, $timeout, $window, $routeParams, contractService) {
 	$scope.contract = {};
+	
+	//datepicker changes
+	
+	$scope.opens = [];
+    
+    $scope.dateOptions = {
+		format: "MM/dd/yyyy",
+	    showWeeks: false
+	};
+    
+    $scope.inceptionDatePickerIsOpen = false;
+    $scope.inceptionDatePickerOpen = function ($event) {
+        if ($event) {
+            $event.preventDefault();
+            $event.stopPropagation(); // This is the magic
+        }
+        $scope.inceptionDatePickerIsOpen = true;
+    };
+    
+    $scope.expirationDatePickerIsOpen = false;
+    $scope.expirationDatePickerOpen = function ($event) {
+        if ($event) {
+            $event.preventDefault();
+            $event.stopPropagation(); // This is the magic
+        }
+        $scope.expirationDatePickerIsOpen = true;
+    };
+	
 	$http.get("/agg/contractInfo/"+$routeParams.contractId+"/"+$routeParams.contractCode)
 	.then(function(response) {
         $scope.contract = response.data.data.contractDO;

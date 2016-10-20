@@ -12,16 +12,49 @@
 	<div class="modal-body">
 		<!-- <a class="btn btn-primary pull-right fadeInLeftBig  hvr-pulse mar-right" onclick="closePopup('dealerEditPopup')">CLOSE</a> -->
 		<form class="form-horizontal" role="form" ng-submit="submitCreateContract()">
-			<div class="form-group">
+			<div class="agf1 form-group">
 				<label for="contact" class="col-sm-3 control-label">Inception/Start Date</label>
 				<div class="col-sm-9">
-					<input type="date" id="inceptionDate" name="inceptionDate" ng-model="quote.inceptionDate" min="{{date | date:'yyyy-MM-dd'}}" class="form-control" required="required" ng-blur="updateExpirationDate()">
+					<!-- <input type="date" id="inceptionDate" name="inceptionDate" ng-model="quote.inceptionDate" min="{{date | date:'yyyy-MM-dd'}}" class="form-control" required="required" ng-blur="updateExpirationDate()"> -->
+					<div class="input-group">
+						<input type="text" class="form-control" 
+		                   datepicker-popup="MM/dd/yyyy"
+		                   datepicker-options="dateOptions" 
+		                   is-open="inceptionDatePickerIsOpen" 
+		                   ng-click="inceptionDatePickerOpen()"
+		                   min-date="date"
+		                   ng-model="quote.inceptionDate"
+		                   ng-blur="updateExpirationDate()" 
+		                   required="required"/>
+			            <span class="input-group-btn">
+			              <button type="button" class="btn btn-default" 
+			                      ng-click="inceptionDatePickerOpen($event)">
+			                <i class="glyphicon glyphicon-calendar"></i>
+			              </button>
+			            </span>
+		            </div>
 				</div>
 			</div>
-			<div class="form-group">
+			<div class="agf1 form-group">
 				<label for="contact" class="col-sm-3 control-label">Expiration Date</label>
 				<div class="col-sm-9">
-					<input type="date" id="expirationDate" name="expirationDate" ng-model="quote.expirationDate" min="{{date | date:'yyyy-MM-dd'}}" class="form-control" required="required">
+					<!-- <input type="date" id="expirationDate" name="expirationDate" ng-model="quote.expirationDate" min="{{date | date:'yyyy-MM-dd'}}" class="form-control" required="required"> -->
+					<div class="input-group">
+						<input type="text" class="form-control" 
+		                   datepicker-popup="MM/dd/yyyy"
+		                   datepicker-options="dateOptions" 
+		                   is-open="expirationDatePickerIsOpen" 
+		                   ng-click="expirationDatePickerOpen()"
+		                   min-date="date"
+		                   ng-model="quote.expirationDate"
+		                   required="required"/>
+			            <span class="input-group-btn">
+			              <button type="button" class="btn btn-default" 
+			                      ng-click="expirationDatePickerOpen($event)">
+			                <i class="glyphicon glyphicon-calendar"></i>
+			              </button>
+			            </span>
+		            </div>
 				</div>
 			</div>
 			<div class="form-group">
