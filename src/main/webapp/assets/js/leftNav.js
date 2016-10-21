@@ -483,8 +483,11 @@ routingApp.controller('AddProgramsController', function($scope, $http) {
 routingApp.controller('ProgramAsDealerController', function($scope, programService, $http) {
 	//alert("in ProgramAsDealerController");
 	
-	//datepicker changes
+	$scope.coverageStartDateDisabled = true;
+	$scope.mfgCoverageDisabled = true;
 	
+	
+	//datepicker changes
 	$scope.opens = [];
 	$scope.dateOptions = {
 		format: "MM/dd/yyyy",
@@ -535,6 +538,13 @@ routingApp.controller('ProgramAsDealerController', function($scope, programServi
 		 $scope.program.dealerDO.id = programDO.dealerDO.id;
 		 $scope.program.dealerDO.name = programDO.dealerDO.name;
 		 
+		 if(programDO.condition == 0){
+			$scope.coverageStartDateDisabled = false;
+			$scope.mfgCoverageDisabled = true;
+		 }else if(programDO.condition == 1){
+			$scope.coverageStartDateDisabled = true;
+			$scope.mfgCoverageDisabled = false;
+		 }
 
 	 }
    
@@ -814,8 +824,35 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService, $
 
 routingApp.controller('ReportBugController', function($scope, $http, reportaBugService) {
 	$scope.report={};
-	$scope.date = new Date()
+	$scope.date = new Date();
+	$scope.report.discDate = new Date();
+	$scope.report.FixByDate = new Date();
 	
+	//datepicker changes
+	$scope.opens = [];
+	$scope.dateOptions = {
+		format: "MM/dd/yyyy",
+	    showWeeks: false
+	};
+	
+	$scope.discDatePickerIsOpen = false;
+	$scope.discDatePickerOpen = function ($event) {
+      if ($event) {
+          $event.preventDefault();
+          $event.stopPropagation(); // This is the magic
+      }
+      $scope.discDatePickerIsOpen = true;
+    };
+    
+    $scope.fixByDatePickerIsOpen = false;
+	$scope.fixByDatePickerOpen = function ($event) {
+      if ($event) {
+          $event.preventDefault();
+          $event.stopPropagation(); // This is the magic
+      }
+      $scope.fixByDatePickerIsOpen = true;
+    };
+    
 	$http.get("/agg/bugId")
     .then(function(response) {
     	//alert(response.data.data.bugId);

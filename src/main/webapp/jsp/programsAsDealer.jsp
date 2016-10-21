@@ -64,7 +64,7 @@
 							ng-model="program.machineMeterHours" placeholder="Hours at Enrollment"
 							class="form-control" ng-disabled="disabled">
 					</div>
-					<div class="form-group" ng-if="program.condition == 1">
+					<div class="form-group" ng-hide="mfgCoverageDisabled">
 						<label>MFG Coverage Ends</label> 
 						<!-- <input type="date"
 							id="coverage" name="coverage" ng-model="program.coverageEndDate"
@@ -88,7 +88,7 @@
 				        </div>
 					</div>
 					
-					<div class="form-group" ng-if="program.condition == 0">
+					<div class="form-group" ng-hide="coverageStartDateDisabled">
 						<label>Start Date of Coverage</label> 
 							<!-- <input type="date"
 							id="estSaleDate" name="estSaleDate" ng-model="program.estSaleDate"

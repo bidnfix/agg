@@ -23,16 +23,44 @@
 					<p class="help-block">{{bugId}}</p>
 				</div>
 			</div>
-			<div class="form-group">
+			<div class="agf1 form-group">
 				<label for="userName" class="col-sm-3 control-label">Discovered</label>
 				<div class="col-sm-9">
-					 <input type="date" ng-model="report.discDate" value="{{date | date:'yyyy-MM-dd'}}" class="form-control">
+					 <!-- <input type="date" ng-model="report.discDate" value="{{date | date:'yyyy-MM-dd'}}" class="form-control"> -->
+					 <div class="input-group">
+                          <input type="text" class="form-control" 
+			                   datepicker-popup="MM/dd/yyyy"
+			                   datepicker-options="dateOptions" 
+			                   is-open="discDatePickerIsOpen" 
+			                   ng-click="discDatePickerOpen()"
+			                   ng-model="report.discDate"/>
+						<span class="input-group-btn">
+			              <button type="button" class="btn btn-default" 
+			                      ng-click="discDatePickerOpen($event)">
+			                <i class="glyphicon glyphicon-calendar"></i>
+			              </button>
+			            </span>
+			        </div>
 				</div>
 			</div>
-			<div class="form-group">
+			<div class="agf1 form-group">
 				<label for="FixedBy" class="col-sm-3 control-label">Fixed by</label>
 				<div class="col-sm-9">
-					<input type="date" ng-model="report.FixByDate" value="{{date | date:'yyyy-MM-dd'}}" class="form-control"/>
+					<!-- <input type="date" ng-model="report.FixByDate" value="{{date | date:'yyyy-MM-dd'}}" class="form-control"/> -->
+					<div class="input-group">
+                          <input type="text" class="form-control" 
+			                   datepicker-popup="MM/dd/yyyy"
+			                   datepicker-options="dateOptions" 
+			                   is-open="fixByDatePickerIsOpen" 
+			                   ng-click="fixByDatePickerOpen()"
+			                   ng-model="report.FixByDate"/>
+						<span class="input-group-btn">
+			              <button type="button" class="btn btn-default" 
+			                      ng-click="fixByDatePickerOpen($event)">
+			                <i class="glyphicon glyphicon-calendar"></i>
+			              </button>
+			            </span>
+			        </div>
 				</div>
 			</div>
 			<div class="form-group">
