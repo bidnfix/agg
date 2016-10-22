@@ -59,7 +59,7 @@
                 	<div class="col-md-6 col-sm-12">
 					<div class="sec-title">
                         
-							<h2 class="wow animated bounceInLeft">New Claim</h2>
+							<h3 class="wow animated bounceInLeft">New Claim</h3>
 							<p class="wow animated bounceInRight">Claim #: {{claim.claimId}}</p>
 						</div>
                         </div>

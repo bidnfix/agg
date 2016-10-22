@@ -105,6 +105,7 @@ public class ClaimsController extends BaseController {
 	public @ResponseBody Result saveClaim(@ModelAttribute("data") Object data,  @RequestParam("files") List<MultipartFile> fileList, BindingResult result,
 			HttpServletRequest request, HttpServletResponse response) {
 		uploadingdir = request.getServletContext().getRealPath("/uploads/");
+		logger.debug("Directory for image upload: "+uploadingdir);
 		new File(uploadingdir).mkdirs();
 		ClaimsVO claimsVO = new GsonBuilder().setDateFormat("yyyy-MM-dd").create().fromJson(data.toString(), ClaimsVO.class);
 		logger.debug("In saveClaim ");
@@ -231,7 +232,7 @@ public class ClaimsController extends BaseController {
 	}
 	
 	@RequestMapping(value = "/preAuthClaimReq", method = RequestMethod.PUT, consumes = MediaType.ALL_VALUE)
-	public @ResponseBody Result UpdatePreAuthClaimRequestUpdate(@RequestBody ClaimPreAuthVO claimPreAuthVO, HttpServletRequest request, HttpServletResponse response) {
+	public @ResponseBody Result updatePreAuthClaimRequestUpdate(@RequestBody ClaimPreAuthVO claimPreAuthVO, HttpServletRequest request, HttpServletResponse response) {
 		logger.info("Inside UpdatePreAuthClaimRequestUpdate()");
 		if(!sessionExists(request)){
 			return new Result("failure", "Session Expired", null);
