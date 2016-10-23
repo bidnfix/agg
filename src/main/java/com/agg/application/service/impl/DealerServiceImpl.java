@@ -189,7 +189,7 @@ public class DealerServiceImpl implements DealerService {
 
 	@Override
 	@Transactional
-	public long saveDealer(DealerDO dealerDO, AccountDO accountDO, boolean dealerRegistration) {
+	public long saveDealer(DealerDO dealerDO, AccountDO accountDO, boolean dealerRegistration) throws Exception {
 		logger.debug("In saveDealer");
 		Dealer dealer = new Dealer();
 		Timestamp date = new Timestamp(new Date().getTime());

@@ -30,7 +30,7 @@ routingApp.factory('quoteService', function($http, $q, $window) {
 							
 							//$window.location.href = '#/agg/dealers';
 						} else {
-							alert('error in adding Quote Warranty Info: '+response.data.errMessage)
+							alert('Error in adding Quote Warranty Info: '+response.data.errMessage)
 							//$('#errMsg').html(response.data.errMessage);
 						}
 						
@@ -68,7 +68,7 @@ routingApp.factory('quoteService', function($http, $q, $window) {
 							
 							//$window.location.href = '#/agg/dealers';
 						} else {
-							alert('error in adding Quote Machine Info: '+response.data.errMessage)
+							alert('Error in adding Quote Machine Info: '+response.data.errMessage)
 							//$('#errMsg').html(response.data.errMessage);
 						}
 						
@@ -89,7 +89,7 @@ routingApp.factory('quoteService', function($http, $q, $window) {
 							$scope.quote.statusDesc = response.data.data.statusDesc;
 							//$window.location.href = '#/agg/dealers';
 						} else {
-							alert('error in adding Quote Coverage Info: '+response.data.errMessage)
+							alert('Error in adding Quote Coverage Info: '+response.data.errMessage)
 							//$('#errMsg').html(response.data.errMessage);
 						}
 						
@@ -111,7 +111,7 @@ routingApp.factory('quoteService', function($http, $q, $window) {
 							$scope.quote.statusDesc = response.data.data.statusDesc;
 							$window.location.href = '#/agg/quotes';
 						} else {
-							alert('error in adding Quote Coverage Info: '+response.data.errMessage)
+							alert('Error in adding Quote Coverage Info: '+response.data.errMessage)
 							//$('#errMsg').html(response.data.errMessage);
 						}
 						hideSpinner();

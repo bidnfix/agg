@@ -11,7 +11,7 @@ routingApp.factory('dealerService', function($http, $q, $window) {
 									//$window.location = '/agg/home';
 									$window.location.href = '#/agg/dealers';
 								} else {
-									alert('error in adding dealer: '+response.data.errMessage)
+									alert('Error in adding dealer: '+response.data.errMessage)
 									//$('#errMsg').html(response.data.errMessage);
 								}
 								hideSpinner();
@@ -67,7 +67,7 @@ routingApp.factory('locationService', function($http, $q, $window) {
 						if (response.data.status == 'success') {
 							$window.location = '/agg/home';
 						} else {
-							alert('error in adding location: '+response.data.errMessage)
+							alert('Error in adding location: '+response.data.errMessage)
 							//$('#errMsg').html(response.data.errMessage);
 						}
 						
@@ -91,7 +91,7 @@ routingApp.factory('userService', function($http, $q, $window) {
 							//$window.location = '/agg/home';
 							$window.location.href = '#/agg/users';
 						} else {
-							alert('error in adding user: '+response.data.errMessage)
+							alert('Error in adding user: '+response.data.errMessage)
 							//$('#errMsg').html(response.data.errMessage);
 						}
 						

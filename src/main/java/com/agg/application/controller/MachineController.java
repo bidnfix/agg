@@ -105,7 +105,7 @@ public class MachineController extends BaseController {
 			}catch (Exception e) {
 		    	if (e instanceof DataIntegrityViolationException) {
 		    		logger.error("Machine already exist");
-		    		throw new Exception("Machine already exist");
+		    		throw new Exception("Machine already exists");
 		        } else {
 		        	throw e;
 		        }

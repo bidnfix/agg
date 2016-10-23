@@ -18,7 +18,7 @@ public class ExceptionAdvice {
 	@ResponseBody
 	public Result fieldValidation(Exception exception) throws JsonProcessingException {
 		logger.error("Exception: ", exception);
-		return new Result("failure", exception.getMessage(), null);
+		return new Result("Failure", exception.getMessage(), null);
 	}
 
 }

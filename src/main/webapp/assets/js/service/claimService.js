@@ -92,7 +92,7 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
 						if (response.data.status == 'success') {
 							$window.location = '#/agg/fileClaim';
 						} else {
-							alert('error in adding program: '+response.data.errMessage)
+							alert('Error in adding program: '+response.data.errMessage)
 							//$('#errMsg').html(response.data.errMessage);
 						}
 						
@@ -228,7 +228,7 @@ routingApp.factory('claimPreAuthReqService', ['$http', '$q', '$window', '$timeou
 					if (response.data.status == 'success') {
 						$window.location = '#/agg/fileClaim';
 					} else {
-						alert('error in adding program: '+response.data.errMessage)
+						alert('Error in adding program: '+response.data.errMessage)
 						//$('#errMsg').html(response.data.errMessage);
 					}
 					

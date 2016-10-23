@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -69,7 +70,7 @@ public class DealerController extends BaseController {
 
 	@RequestMapping(value = "/addDealer", method = RequestMethod.POST)
 	public @ResponseBody Result saveOrEditDealer(@RequestBody DealerDO dealerDO, BindingResult result,
-			HttpServletRequest request, HttpServletResponse response) {
+			HttpServletRequest request, HttpServletResponse response) throws Exception{
 		logger.debug("In saveOrEditDealer user: "+dealerDO.getUserName());
 		Result opResult = null;
 		if (!sessionExists(request)){
@@ -78,8 +79,18 @@ public class DealerController extends BaseController {
 			if (result.hasErrors()){
 				opResult = new Result("failure", "Invalid dealer form field values", null);
 			}
-	
-			long id = dealerService.saveDealer(dealerDO, getAccountDetails(request), false);
+			long id = 0;
+			try
+			{
+				id = dealerService.saveDealer(dealerDO, getAccountDetails(request), false);
+			}catch (Exception e) {
+		    	if (e instanceof DataIntegrityViolationException) {
+		    		logger.error("Machine already exist");
+		    		throw new Exception("Dealer already exists");
+		        } else {
+		        	throw e;
+		        }
+		    }
 			if(id > 0){
 				opResult = new Result("success", "Invalid dealer form field values", null);
 			}
