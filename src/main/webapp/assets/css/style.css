@@ -1148,7 +1148,7 @@ ul.nav.navbar-nav.pull-right h4 {
     color: #fff;
 }
 
-.worksheet-no-marg{ padding:10px 5px !important; margin:0px !important; }
+.worksheet-no-marg{ padding:15px 4px !important; margin:0px !important; }/*padding:10px 5px*/
 
 .selectedcol a, mouseovercol a:hover,  mouseovercol a, mouseovercol{
 color:#fff !important;

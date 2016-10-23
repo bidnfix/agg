@@ -3954,7 +3954,7 @@ textarea.input-group-sm>.form-control, textarea.input-group-sm>.input-group-addo
 
 @media ( min-width :768px) {
 	.navbar {
-		border-radius: 4px
+		border-radius: 2px
 	}
 }
 
