@@ -75,7 +75,7 @@
 
 <!-- Intro -->
 <section class="herotxt">
-  <div class="container sectionBox">
+  <div class="container sectionBox home_width">
 <div class="row">
                 <div class="col-md-6 col-sm-12">
                     

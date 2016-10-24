@@ -85,7 +85,7 @@ public class DealerController extends BaseController {
 				id = dealerService.saveDealer(dealerDO, getAccountDetails(request), false);
 			}catch (Exception e) {
 		    	if (e instanceof DataIntegrityViolationException) {
-		    		logger.error("Machine already exist");
+		    		logger.error("Dealer already exists");
 		    		throw new Exception("Dealer already exists");
 		        } else {
 		        	throw e;
