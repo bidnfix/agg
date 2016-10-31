@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -57,7 +58,7 @@ public class ClaimsController extends BaseController {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	private static final String UPLOAD_FOLDER_NAME = "/uploads/"; 
-	public static String uploadingdir = System.getProperty("user.dir") + UPLOAD_FOLDER_NAME;
+	//public static String uploadingdir = System.getProperty("user.dir") + UPLOAD_FOLDER_NAME;
 
 	@Autowired
 	private ClaimsService claimsService;
@@ -76,6 +77,9 @@ public class ClaimsController extends BaseController {
 	
 	@Autowired
 	EmailSender emailSender;
+	
+	@Value("${file.upload.dir}")
+	private String uploadingdir;
 
 	@RequestMapping(value = "/editClaim", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
 	public @ResponseBody Result machineModel(ModelMap model, HttpServletResponse response/*, @PathVariable String claimId*/) {
@@ -103,10 +107,13 @@ public class ClaimsController extends BaseController {
 
 	@RequestMapping(value = "/saveClaim", method = RequestMethod.POST)
 	public @ResponseBody Result saveClaim(@ModelAttribute("data") Object data,  @RequestParam("files") List<MultipartFile> fileList, BindingResult result,
-			HttpServletRequest request, HttpServletResponse response) {
-		uploadingdir = request.getServletContext().getRealPath("/uploads/");
+			HttpServletRequest request, HttpServletResponse response) throws Exception{
+		//uploadingdir = request.getServletContext().getRealPath("/uploads/");
+		//uploadingdir = request.getServletContext().getResource("/uploads/").getFile();
+		//logger.debug("paths: "+request.getServletContext().getResource("/uploads/"));
+		
 		logger.debug("Directory for image upload: "+uploadingdir);
-		new File(uploadingdir).mkdirs();
+		
 		ClaimsVO claimsVO = new GsonBuilder().setDateFormat("yyyy-MM-dd").create().fromJson(data.toString(), ClaimsVO.class);
 		logger.debug("In saveClaim ");
 		if(!sessionExists(request)){
