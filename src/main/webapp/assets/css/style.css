@@ -1215,3 +1215,7 @@ input[type=checkbox] {
 .home_width { 
 	width:1170px;
 }
+
+.registration_overflow{
+	overflow: hidden;
+}

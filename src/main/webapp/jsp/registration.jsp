@@ -68,7 +68,7 @@
                 
                 <div class="inner-main">
                 	
-                    <div class="main-login main-center" ng-controller="registrationController">
+                    <div class="main-login main-center registration_overflow" ng-controller="registrationController">
                     <h3 class="mar-bot">Dealer Registration</h3>
                     <p class="success-msg" id="successMsg" hidden="true"></p>
                     <p class="err-msg" id="errMsg" hidden="true"></p>
