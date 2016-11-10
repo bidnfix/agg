@@ -1,15 +1,19 @@
 package com.agg.application.service.impl;
 
+import java.io.ByteArrayOutputStream;
 import java.sql.Timestamp;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
-import javax.transaction.Transactional;
+import javax.activation.DataSource;
+import javax.mail.util.ByteArrayDataSource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.agg.application.dao.AccountDAO;
 import com.agg.application.dao.CustomerInfoDAO;
@@ -45,7 +50,17 @@ import com.agg.application.model.ReportDO;
 import com.agg.application.service.ProgramService;
 import com.agg.application.utils.AggConstants;
 import com.agg.application.utils.EmailSender;
+import com.agg.application.utils.EmailStatus;
 import com.agg.application.utils.Util;
+
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.JREmptyDataSource;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 @Service
 public class ProgramServiceImpl implements ProgramService {
@@ -346,7 +361,7 @@ public class ProgramServiceImpl implements ProgramService {
 			}
 			
 			//******** Code for report which being commented for now ********//
-			/*
+			
 			Map<String, Object> parameterMap = new HashMap<String, Object>();
 			parameterMap.put("imagePath", appUrl+"/assets/images/logo.png");
 			
@@ -370,7 +385,7 @@ public class ProgramServiceImpl implements ProgramService {
 				logger.info("emailStatus: "+emailStatus.getStatus());
 				logger.info("Dealer Quote pdf Attachment emailed successfully");
 			}
-			*/
+			
 		}
 		
 		return 0;
