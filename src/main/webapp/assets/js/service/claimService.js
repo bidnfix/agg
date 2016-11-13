@@ -11,15 +11,13 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
 			getContractCount($scope, initClaimAddForm);
 		},
 		getContractCount = function($scope, initFunc){
-			var count = 0;
-			$http.get("/agg/contracts/count/" + $scope.contractInfoList.contractID)
+			$http.get("/agg/claims/count/" + $scope.contractInfoList.contractID)
 			.then(function(response) {
 				if(response.data.status === 'success'){
 					$scope.contractInfoList.count =  parseInt(response.data.data.count) + 1;
 					initFunc($scope);
 				}
 			});
-			return count;
 		},
 		initClaimAddForm = function($scope){
 			$scope.isSubmitDisabled = false;

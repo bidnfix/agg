@@ -474,6 +474,14 @@ public class ClaimsServiceImpl implements ClaimsService {
 		return (null == res) ? -1 : res.getId();
 	}
 
+	/* (non-Javadoc)
+	 * @see com.agg.application.service.ClaimsService#getContractsCount(java.lang.String)
+	 */
+	@Override
+	public int getContractsCount(String contractId) {
+		return claimsDAO.getContractsCount(contractId);
+	}
+
 	
 	
 	

@@ -18,4 +18,5 @@ public interface ClaimsService {
 	void updateStatus(final int id, final byte status, int dealerId, String extComment);
 	int updateClaimAdjudicate(ClaimsDO claim);
 	ClaimsDO getClaim(int claimId);
+	int getContractsCount(String contractId);
 }

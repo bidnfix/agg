@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -281,7 +282,7 @@ public class ClaimsController extends BaseController {
 			return new Result("failure", "Session Expired", null);
 		}else{
 			Map<String, Object> map = new HashMap<>();
-			List<ClaimsDO> cliamsList = getClaimByStatus(Util.getClaimStatusCode("pre_authorized_requested"), request, true);
+			List<ClaimsDO> cliamsList = getClaimByStatus(Util.getClaimStatusCode("pre_authorized_approved_with_adjustments"), request, true);
 			
 			logger.info("preAuthClaims size: "+cliamsList.size());
 			map.put("preAuthClaimList", cliamsList);
@@ -372,6 +373,19 @@ public class ClaimsController extends BaseController {
 			}
 		}
 		return sum;
+	}
+	
+	@RequestMapping(value = "/claims/count/{contractId}", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+	public @ResponseBody Result getContractsCount(@PathVariable String contractId, HttpServletRequest request, HttpServletResponse response, Model model) {
+		logger.debug("Inside getContractsCount with id: "+contractId);
+		Result opResult = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			int count = claimsService.getContractsCount(contractId);
+			opResult = new Result("success", "", model.addAttribute("count", count));
+		}
+		return opResult;
 	}
 }
 

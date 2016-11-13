@@ -36,7 +36,7 @@
 					<div class="sec-title">
                         
 							<h2 class="wow animated bounceInLeft">Pre-authorization Request Claims</h2>
-							<p class="wow animated bounceInRight">Contract #: {{preAuthClaim.contractId}}</p>
+							<p class="wow animated bounceInRight">Claim #: {{preAuthClaim.claimId}}</p>
 						</div>
                         </div>
                         <div class="col-md-6 col-sm-12"><a class="btn btn-primary pull-right btn-sm mar-right" ng-click="onClickBackToList()">Back</a></div>
