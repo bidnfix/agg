@@ -122,6 +122,19 @@ public class ContractsController extends BaseController{
 		return result;
 	}
 	
+	@RequestMapping(value = "/contracts", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+	public @ResponseBody Result getActiveContracts(HttpServletRequest request, HttpServletResponse response, Model model) {
+		Result result = null;
+		if (!sessionExists(request)){
+			result = new Result("failure", "Invalid Login", null);
+		}else{
+			List<ContractDO> responseDO = contractService.getActiveContracts();
+			List<Map<String, Object>> contractDOList = formatGetContracts(responseDO);
+			result = new Result("success", "", model.addAttribute("contractDOList",contractDOList));
+		}
+		return result;
+	}
+	
 	@RequestMapping(value = "/updateContract", method = RequestMethod.POST)
 	public @ResponseBody Result updateContract(@RequestBody ContractDO contractDO, HttpServletRequest request, HttpServletResponse response, Model model) {
 		logger.debug("Inside updateContract with code: "+contractDO.getContractId());

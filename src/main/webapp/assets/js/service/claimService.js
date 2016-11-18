@@ -155,6 +155,30 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
     			}
     		});
 		},
+		getAllContracts : function($scope){
+			$scope.showContractDetails = false;
+			$http.get("/agg/contracts")
+    		.then(function(response) {
+    			if(response.data.status === 'success'){
+    				if(response.data.data.contractDOList.length === 1){
+    					selectContract($scope, response.data.data.contractDOList[0]);
+    				}else {
+    					$scope.showContractDetails = false;
+    					if(response.data.data.contractDOList.length > 1){
+    						$scope.showActiveContractDetails = true;
+    						$scope.contractDOList = response.data.data.contractDOList;
+    						 $timeout(function () {
+    					        	$('#contractsTable').DataTable();
+    						 }, 500);
+    					}else{
+    						console.log('no records found');
+    					}
+    				}
+    			}else{
+    				$scope.showContractDetails = false;
+    			}
+    		});
+		},
 		saveClaim : function($scope) {
 			alert('in saveClaim');
 			var claim = $scope.claim;

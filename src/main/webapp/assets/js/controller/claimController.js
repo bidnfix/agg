@@ -16,6 +16,8 @@ routingApp.controller('ClaimsController', ['$scope', 'claimService', '$http', '$
     $scope.onClickSearchSerialNo = function(){
     	if($scope.serialNo){
     		claimService.getSerialNumberInfo($scope);
+    	}else{
+    		claimService.getAllContracts($scope);
     	}
     };
     $scope.onClickSelectContract = function(data){
