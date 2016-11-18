@@ -74,6 +74,10 @@ routingApp.config(['$routeProvider',
                     	  templateUrl: '../../jsp/fileaClaim.jsp',
                     	  controller: 'ClaimsController'
                       }).
+                      when('/agg/draftClaim', {
+                    	  templateUrl: '../../jsp/draftClaim.jsp',
+                    	  controller: 'ClaimsDraftsController'
+                      }).
                       when('/agg/addQuote', {
                     	  templateUrl: '../../jsp/addQuote.jsp',
                     	  controller: 'QuoteController'

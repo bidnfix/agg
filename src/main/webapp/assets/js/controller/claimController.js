@@ -71,6 +71,59 @@ routingApp.controller('ClaimsController', ['$scope', 'claimService', '$http', '$
     };
 }]);
 
+routingApp.controller('ClaimsDraftsController', function($scope, $http, claimDraftService, $window){
+	claimDraftService.getDraftClaims($scope);
+	
+	$scope.onClickBackToList = function(){
+		claimDraftService.showClaimList($scope);
+	};
+	
+	$scope.onClickSelectClaim = function(claim){
+		claimDraftService.selectClaim($scope, claim);
+	};
+	
+	$scope.calcTotalPartLine = function(index){
+		claimDraftService.calcTotalPartLine($scope.claim, index);
+    };
+    
+    $scope.calcTotalPartCost = function(){
+    	claimDraftService.calcTotalPartCost($scope.claim);
+    };
+    
+    $scope.calcTotalLabourLine = function(index){
+    	claimDraftService.calcTotalLabourLine($scope.claim, index);
+    };
+    
+    $scope.calcTotalLabourCost = function(){
+    	claimDraftService.calcTotalLabourCost($scope.claim);
+    };
+    
+    $scope.saveAsDraft = function(){
+    	$scope.newClaimClick='Draft';
+    };
+    
+    $scope.reqAuth = function(){
+    	$scope.newClaimClick='pre_authorized_requested';
+    };
+    
+    $scope.reqSubmit = function(){
+    	$scope.newClaimClick='Pending';
+    };
+    
+    $scope.addAttachment = function (e) {
+        $scope.$apply(function () {
+        	$scope.attachments = $scope.claim.attachments || [];
+            for (var i = 0; i < e.files.length; i++) {
+            	$scope.attachments.push(e.files[i])
+            }
+        });
+    };
+    
+    $scope.onClickSubmitClaim = function(){
+    	claimDraftService.saveClaim($scope);
+    };
+});
+
 routingApp.controller('ClaimsPreAuthController', function($scope, $http, claimPreAuthReqService, $window){
 	claimPreAuthReqService.init($scope);
 	

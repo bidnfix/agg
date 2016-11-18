@@ -4,6 +4,17 @@
 
 'use strict';
 
+var commons = {
+		renameJsonPropertyName : function(data, propName, newPropName){
+			data.forEach(function(e) {
+				   if(e.hasOwnProperty(propName)){
+					   e[newPropName] = e[propName];
+					   delete e[propName];
+				   }    
+				});
+		}
+}
+
 routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filter', function($http, $q, $window, $timeout, $filter){
 	var selectContract = function($scope, data){
 			$scope.contractInfoList = data;
@@ -52,7 +63,11 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
 		updateDate = function(date, days){
 			if(!date){
 				date = new Date();
+			}else {
+				date = new Date(date);
 			}
+			
+			console.log(typeof date);
 			return new Date(date.getTime()  + (days*24*60*60*1000));
 		},
 		calcTotalPartLine = function(claim, index){
@@ -365,5 +380,225 @@ routingApp.factory('claimsAdjudicateService', ['$http', '$q', '$window', '$timeo
 		backToList : backToList,
 		calcAdjustmentsOnChange : calcAdjustmentsOnChange,
 		collectAttachments : collectAttachments
+	}
+}]);
+
+routingApp.factory('claimDraftService', ['$http', '$q', '$window', '$timeout', '$filter', function($http, $q, $window, $timeout, $filter){
+	var  init = function($scope){
+			console.log('draft init service');
+			$http.get("/agg/draftClaim")
+		    .then(function(response) {
+		    	$scope.draftsClaimList = response.data.data.draftClaimList;
+		    });
+		},
+		showClaimList = function($scope){
+			alert(JSON.stringify($scope.draftsClaimList));
+			$scope.showDraftsClaimList = false;
+		},
+		selectClaim = function($scope, claim){
+			$scope.showDraftsClaimList = false;
+			$scope.contractInfoList = {};
+			$scope.claim = {};
+			$scope.claim.deductible = 200;
+			$scope.claim.lol = 42500;
+			$scope.claim.availabeLol = 42500;
+			$scope.claim.contractId = claim.contractId;
+			$scope.claim.serial = claim.serial;
+			$scope.claim.manf = claim.manufacturer;
+			$scope.claim.model = claim.machineModel;
+			$scope.claim.claimId = claim.claimId;
+			$scope.claim.workOrder = claim.workOrder;
+			$scope.claim.hoursBreakDown = claim.hoursBreakDown;
+			$scope.claim.requestedOtherCharges1 = claim.requestedOtherCharges1;
+			$scope.claim.requestedOtherCharges2 = claim.requestedOtherCharges2;
+			$scope.claim.custComplaint = claim.custComplaint;
+			$scope.claim.causeFail = claim.causeFail;
+			$scope.claim.correctiveAction = claim.correctiveAction;
+			$scope.todayDate = new Date();
+			$scope.failureDateValid = updateDate($scope.todayDate, -1);
+			$scope.contractInfoList.machineSerialNo = claim.serial;
+			$scope.contractInfoList.manfactureName = claim.manufacturer;
+			$scope.contractInfoList.machineModel = claim.machineModel;
+			$scope.contractInfoList.coverageType = claim.coverageType;
+			$scope.claim.claimPartVOList = claim.claimPartDO;
+			$scope.claim.claimLabourVOList = claim.claimLaborDO;
+			$scope.claim.failDate = new Date(claim.failDate);
+			$scope.claim.reportDate = new Date(claim.reportDate);
+			if(!$scope.claim.claimPartVOList){
+				$scope.claim.claimPartVOList = [];
+				$scope.claim.claimPartVOList.push({});
+			}
+			 if(!$scope.claim.claimLabourVOList){
+				 $scope.claim.claimLabourVOList = [];
+					$scope.claim.claimLabourVOList.push({});
+			 }
+			commons.renameJsonPropertyName($scope.claim.claimLabourVOList, "rate", "laborHourlyRate");
+			$scope.todayDate = new Date();
+			$scope.failureDateValid = updateDate($scope.todayDate, -1);
+			calcCost($scope.claim);
+			$scope.$watchCollection('[claim.totalLaborCost, claim.partsTotalCost, claim.requestedOtherCharges1, claim.requestedOtherCharges2]', function(newValues){
+				if($scope.claim){
+					$scope.claim.totalClaimCost = parseInt(newValues[0]) + parseInt(newValues[1]) + parseInt(newValues[2]) + parseInt(newValues[3]);
+					$scope.isSubmitDisabled = $scope.claim.totalClaimCost > 1500;
+				}
+			});
+			$scope.$watch('claim.reportDate', function(newValues){
+				if($scope.claim){
+					$scope.failureDateValid = updateDate($scope.claim.reportDate, -1);
+				}
+			});
+			//$scope.claim.totalLaborCost = $scope.claim.claimLaborDO.laborHrs * $scope.claim.claimLaborDO.rate;
+			$scope.extCommentFlag = true;
+			
+		},
+		updateDate = function(date, days){
+			if(!date){
+				date = new Date();
+			}else {
+				date = new Date(date);
+			}
+			
+			console.log(typeof date);
+			return new Date(date.getTime()  + (days*24*60*60*1000));
+		},
+		calcTotalPartLine = function(claim, index){
+			if((claim.claimPartVOList[index].qty >= 0) && (claim.claimPartVOList[index].unitPrice >= 0)){
+				claim.claimPartVOList[index].partsTotal = claim.claimPartVOList[index].qty * claim.claimPartVOList[index].unitPrice;
+				calcTotalPartCost(claim);
+			}
+		},
+		calcTotalPartCost = function(claim){
+			claim.partsTotalCost = 0;
+			angular.forEach(claim.claimPartVOList, function(claimPartVO, index){
+				if(claimPartVO.partsTotal >= 0){
+					claim.partsTotalCost += claimPartVO.partsTotal;
+				}
+			});
+		},
+		calcTotalLabourLine = function(claim, index){
+			if((claim.claimLabourVOList[index].laborHrs >= 0) && (claim.claimLabourVOList[index].laborHourlyRate >= 0)){
+				claim.claimLabourVOList[index].labourTotal = claim.claimLabourVOList[index].laborHrs * claim.claimLabourVOList[index].laborHourlyRate;
+				calcTotalLabourCost(claim);
+			}
+		},
+		calcTotalLabourCost = function(claim){
+			claim.totalLaborCost = 0;
+			angular.forEach(claim.claimLabourVOList, function(claimLabourVO, index){
+				if(claimLabourVO.labourTotal >= 0){
+					claim.totalLaborCost += claimLabourVO.labourTotal;
+				}
+			});
+		},
+		getPreAuthRequest = function(){
+			return $http.post('/agg/saveClaim', claim).then(
+					function(response) {
+						//alert(response.data.status);
+						if (response.data.status == 'success') {
+							$window.location = '#/agg/fileClaim';
+						} else {
+							alert('Error in adding program: '+response.data.errMessage)
+							//$('#errMsg').html(response.data.errMessage);
+						}
+						
+					}, function(errResponse) {
+						alert('Error while creating program');
+						return $q.reject(errResponse);
+					});
+		},
+		hideContractList = function($scope){
+			$scope.showSearchClaim = false;
+			$scope.showActiveContractDetails = false;
+			$scope.showContractDetails = true;
+		},
+		showClaimList = function($scope){
+			$scope.showDraftsClaimList = true;
+			$scope.claim = undefined;
+		},
+		collectAttachments = function ($scope, $files) {
+			$scope.attachments = $files || [];
+	    },
+	    calcCost = function(claim){
+			if(claim){
+				claim.partsTotalCost = 0;
+				claim.totalLaborCost = 0;
+				if(claim.claimPartVOList){
+					for(var i in claim.claimPartVOList){
+						claim.claimPartVOList[i].partsTotal = claim.claimPartVOList[i].qty * claim.claimPartVOList[i].unitPrice;
+						claim.partsTotalCost += claim.claimPartVOList[i].partsTotal;
+					}
+				}
+				if(claim.claimLabourVOList){
+					for(var i in claim.claimLabourVOList){
+						claim.claimLabourVOList[i].labourTotal = claim.claimLabourVOList[i].laborHrs * claim.claimLabourVOList[i].laborHourlyRate;
+						claim.totalLaborCost += claim.claimLabourVOList[i].labourTotal;
+					}
+				}
+				claim.totalClaimCost = claim.totalLaborCost + claim.partsTotalCost
+					+ claim.requestedOtherCharges1 + claim.requestedOtherCharges2;
+			}
+		};
+		
+	return {
+		getSerialNumberInfo : function($scope){
+			$scope.showContractDetails = false;
+			$http.get("/agg/contracts/machineserialno/search/" + $scope.serialNo)
+    		.then(function(response) {
+    			if(response.data.status === 'success'){
+    				if(response.data.data.contractDOList.length === 1){
+    					selectContract($scope, response.data.data.contractDOList[0]);
+    				}else {
+    					$scope.showContractDetails = false;
+    					if(response.data.data.contractDOList.length > 1){
+    						$scope.showActiveContractDetails = true;
+    						$scope.contractDOList = response.data.data.contractDOList;
+    						 $timeout(function () {
+    					        	$('#contractsTable').DataTable();
+    						 }, 500);
+    					}else{
+    						console.log('no records found');
+    					}
+    				}
+    			}else{
+    				$scope.showContractDetails = false;
+    			}
+    		});
+		},
+		saveClaim : function($scope) {
+			alert('in saveClaim');
+			var claim = $scope.claim;
+			claim.reportDate = $filter('date')(claim.reportDate, 'yyyy-MM-dd');
+			claim.failDate = $filter('date')(claim.failDate, 'yyyy-MM-dd');
+			claim.cStatus = $scope.newClaimClick;
+			console.log(angular.toJson(claim));
+			var fd = new FormData();
+			fd.append('data', angular.toJson(claim));
+			 angular.forEach($scope.attachments, function (value, key) {
+				 fd.append('files', value);
+		        });
+			return $http({
+		        method: 'POST',
+		        url: '/agg/saveClaim',
+		        headers: {'Content-Type': undefined},
+		        data: fd,
+		        transformRequest: angular.identity
+		        })
+		       .success(function(data, status) {
+		    	   if(status === 200 && data.status === "success"){
+		    		   alert("success");
+		    		   $window.location.href = '#/agg/fileClaim';
+		    	   }else{
+		    		   alert("failed");
+		    	   }
+		        });
+		},
+		calcTotalPartLine : calcTotalPartLine,
+		calcTotalPartCost : calcTotalPartCost,
+		calcTotalLabourLine : calcTotalLabourLine,
+		calcTotalLabourCost : calcTotalLabourCost,
+		getPreAuthRequest : getPreAuthRequest,
+		showClaimList : showClaimList,
+		collectAttachments : collectAttachments,
+		selectClaim : selectClaim,
+		getDraftClaims : init
 	}
 }]);

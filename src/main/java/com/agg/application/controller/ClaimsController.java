@@ -239,6 +239,27 @@ public class ClaimsController extends BaseController {
 		}
 	}
 	
+	@RequestMapping(value = "/draftClaim", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+	public @ResponseBody Result getDraftClaimRequest(HttpServletRequest request, HttpServletResponse response) {
+		logger.info("Inside getDraftClaimRequest()");
+		if(!sessionExists(request)){
+			return new Result("failure", "Session Expired", null);
+		}else{
+			Map<String, Object> map = new HashMap<>();
+			List<ClaimsDO> cliamsList = null;
+			AccountDO account = getAccountDetails(request);
+			if("admin".equals(account.getRoleName())){
+				cliamsList = claimsService.getClaimsByCStatus(Util.getClaimStatusCode("draft"), false);
+			}else{
+				cliamsList = claimsService.getClaimsByCStatus(Util.getClaimStatusCode("draft"), (int)account.getDealerId(), false);
+			}
+			
+			logger.info("draft claims size: "+cliamsList.size());
+			map.put("draftClaimList", cliamsList);
+			return new Result("success", null, map);
+		}
+	}
+	
 	@RequestMapping(value = "/preAuthClaimReq", method = RequestMethod.PUT, consumes = MediaType.ALL_VALUE)
 	public @ResponseBody Result updatePreAuthClaimRequestUpdate(@RequestBody ClaimPreAuthVO claimPreAuthVO, HttpServletRequest request, HttpServletResponse response) {
 		logger.info("Inside UpdatePreAuthClaimRequestUpdate()");
