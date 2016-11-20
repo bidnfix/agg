@@ -225,7 +225,9 @@ routingApp.factory('claimPreAuthReqService', ['$http', '$q', '$window', '$timeou
 	var init = function($scope){
 		$http.get("/agg/preAuthClaimReq")
 	    .then(function(response) {
-	    	$scope.preAuthClaimList = response.data.data.preAuthClaimList;
+	    	if(response.data.data){
+	    		$scope.preAuthClaimList = response.data.data.preAuthClaimList;
+	    	}
 	    });
 	},
 	calcCost = function(preAuthClaim){

@@ -145,7 +145,19 @@
                       </div>
                       </div>
                       </div>
-
+					<div class="col-xs-12 no-pad pad10-top" ng-if="preAuthClaim.claimFileDO">
+						<span class="ag-tab-title col-xs-12 no-pad marg10-bottom">Uploaded Documents</span>
+                         <br clear="all">
+                        
+                         <br>
+                         <div class="col-sm-12">
+							<table>
+								<tbody data-ng-repeat="ufile in preAuthClaim.claimFileDO">
+									<tr><td><a href="{{ufile.fileName}}">{{$index}}</</a></td></tr>
+								</tbody>
+							</table>
+							</div>
+					</div>	
 
                       <div class="col-xs-12 no-pad pad10-top">
                          <span class="ag-tab-title col-xs-12 no-pad marg10-bottom">Claim Details</span>
