@@ -140,6 +140,7 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
 		
 	return {
 		getSerialNumberInfo : function($scope){
+			showSpinner();
 			$scope.showContractDetails = false;
 			$http.get("/agg/contracts/machineserialno/search/" + $scope.serialNo)
     		.then(function(response) {
@@ -155,6 +156,7 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
     					        	$('#contractsTable').DataTable();
     						 }, 500);
     					}else{
+    						hideSpinner();
     						console.log('no records found');
     					}
     				}
@@ -162,8 +164,10 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
     				$scope.showContractDetails = false;
     			}
     		});
+			hideSpinner();
 		},
 		getAllContracts : function($scope){
+			showSpinner();
 			$scope.showContractDetails = false;
 			$http.get("/agg/contracts")
     		.then(function(response) {
@@ -179,6 +183,7 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
     					        	$('#contractsTable').DataTable();
     						 }, 500);
     					}else{
+    						hideSpinner();
     						console.log('no records found');
     					}
     				}
@@ -186,9 +191,11 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
     				$scope.showContractDetails = false;
     			}
     		});
+			hideSpinner();
 		},
 		saveClaim : function($scope, $route) {
-			alert('in saveClaim');
+			showSpinner();
+			//alert('in saveClaim');
 			var claim = $scope.claim;
 			claim.reportDate = $filter('date')(claim.reportDate, 'yyyy-MM-dd');
 			claim.failDate = $filter('date')(claim.failDate, 'yyyy-MM-dd');
@@ -207,6 +214,7 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
 		        transformRequest: angular.identity
 		        })
 		       .success(function(data, status) {
+		    	   hideSpinner();
 		    	   if(status === 200 && data.status === "success"){
 		    		   alert("success");
 		    		   $route.reload();
@@ -214,6 +222,7 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
 		    		   alert("failed");
 		    	   }
 		        });
+			hideSpinner();
 		},
 		selectContract : selectContract,
 		calcTotalPartLine : calcTotalPartLine,
@@ -312,8 +321,8 @@ routingApp.factory('claimsAdjudicateService', ['$http', '$q', '$window', '$timeo
 	    .then(function(response) {
 	    	//$scope.adjudicateClaimList = response.data.data.preAuthClaimList;
 	    	console.log(angular.toJson(response));
-	    	$scope.editFlag = true;
-	    	//$scope.editFlag = (response.data.data.roleList.accountType === 'admin') ? false : true;
+	    	//$scope.editFlag = true;
+	    	$scope.editFlag = (response.data.data.roleList.accountType === 'admin') ? false : true;
 	    	$scope.commentFlag = true; 
 	    });
 		$http.get("/agg/adjudicateClaim")
@@ -616,6 +625,7 @@ routingApp.factory('claimDraftService', ['$http', '$q', '$window', '$timeout', '
 		
 	return {
 		getSerialNumberInfo : function($scope){
+			showSpinner();
 			$scope.showContractDetails = false;
 			$http.get("/agg/contracts/machineserialno/search/" + $scope.serialNo)
     		.then(function(response) {
@@ -631,16 +641,18 @@ routingApp.factory('claimDraftService', ['$http', '$q', '$window', '$timeout', '
     					        	$('#contractsTable').DataTable();
     						 }, 500);
     					}else{
+    						hideSpinner();
     						console.log('no records found');
     					}
     				}
     			}else{
     				$scope.showContractDetails = false;
     			}
+    			hideSpinner();
     		});
 		},
 		saveClaim : function($scope) {
-			alert('in saveClaim');
+			showSpinner();
 			var claim = $scope.claim;
 			claim.reportDate = $filter('date')(claim.reportDate, 'yyyy-MM-dd');
 			claim.failDate = $filter('date')(claim.failDate, 'yyyy-MM-dd');
@@ -659,13 +671,16 @@ routingApp.factory('claimDraftService', ['$http', '$q', '$window', '$timeout', '
 		        transformRequest: angular.identity
 		        })
 		       .success(function(data, status) {
+		    	   hideSpinner();
 		    	   if(status === 200 && data.status === "success"){
 		    		   alert("success");
 		    		   $window.location.href = '#/agg/fileClaim';
 		    	   }else{
+		    		   hideSpinner();
 		    		   alert("failed");
 		    	   }
 		        });
+			hideSpinner();
 		},
 		calcTotalPartLine : calcTotalPartLine,
 		calcTotalPartCost : calcTotalPartCost,
