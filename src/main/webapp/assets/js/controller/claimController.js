@@ -1,6 +1,6 @@
 'use strict';
 
-routingApp.controller('ClaimsController', ['$scope', 'claimService', '$http', '$timeout', '$filter', function($scope, claimService, $http, $timeout, $filter) {
+routingApp.controller('ClaimsController', ['$scope', 'claimService', '$http', '$timeout', '$filter', '$route', function($scope, claimService, $http, $timeout, $filter, $route) {
 	$scope.serialNo='';
 	$scope.claim={};
 	$scope.claim.attachments=[];
@@ -24,7 +24,7 @@ routingApp.controller('ClaimsController', ['$scope', 'claimService', '$http', '$
     	claimService.selectContract($scope, data);
     };
     $scope.onClickSubmitClaim = function(){
-    	claimService.saveClaim($scope);
+    	claimService.saveClaim($scope, $route);
     };
     
     $scope.calcTotalPartLine = function(index){

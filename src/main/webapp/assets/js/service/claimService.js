@@ -119,12 +119,15 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
 			$scope.showActiveContractDetails = false;
 			$scope.showContractDetails = true;
 		},
-		showContractList = function($scope){
+		showContractList = function($scope, $route){
 			$scope.showContractDetails = false;
 			if($scope.contractDOList.length > 1){
 				$scope.showActiveContractDetails = true;
+				$scope.showSearchClaim = true;
+			}else{
+				$route.reload();
 			}
-			$scope.showSearchClaim = true;
+			
 		},
 		collectAttachments = function ($scope, $files) {
 			$scope.attachments = $files || [];
@@ -179,7 +182,7 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
     			}
     		});
 		},
-		saveClaim : function($scope) {
+		saveClaim : function($scope, $route) {
 			alert('in saveClaim');
 			var claim = $scope.claim;
 			claim.reportDate = $filter('date')(claim.reportDate, 'yyyy-MM-dd');
@@ -201,7 +204,7 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
 		       .success(function(data, status) {
 		    	   if(status === 200 && data.status === "success"){
 		    		   alert("success");
-		    		   $window.location.href = '#/agg/fileClaim';
+		    		   $route.reload();
 		    	   }else{
 		    		   alert("failed");
 		    	   }
