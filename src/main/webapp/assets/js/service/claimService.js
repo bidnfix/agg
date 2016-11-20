@@ -301,6 +301,14 @@ routingApp.factory('claimPreAuthReqService', ['$http', '$q', '$window', '$timeou
 
 routingApp.factory('claimsAdjudicateService', ['$http', '$q', '$window', '$timeout', function($http, $q, $window, $timeout){
 	var init = function($scope){
+		$http.get("/agg/currentUserRole")
+	    .then(function(response) {
+	    	//$scope.adjudicateClaimList = response.data.data.preAuthClaimList;
+	    	console.log(angular.toJson(response));
+	    	$scope.editFlag = true;
+	    	//$scope.editFlag = (response.data.data.roleList.accountType === 'admin') ? false : true;
+	    	$scope.commentFlag = true; 
+	    });
 		$http.get("/agg/adjudicateClaim")
 	    .then(function(response) {
 	    	$scope.adjudicateClaimList = response.data.data.preAuthClaimList;
@@ -370,24 +378,58 @@ routingApp.factory('claimsAdjudicateService', ['$http', '$q', '$window', '$timeo
 		$scope.adjustments.totalClaimCost = 0;
 		calcAdjusmentCost($scope.adjustments);
 	},
+	updateClaimStatus = function(data){
+		$http.put('/agg/preAuthClaimReq', data).then(
+				function(response) {
+					if (response.data.status == 'success') {
+						$window.location = '#/agg/fileClaim';
+					} else {
+						alert('Error in adding program: '+response.data.errMessage)
+					}
+					
+				}, function(errResponse) {
+					alert('Error while creating program');
+					return $q.reject(errResponse);
+			});
+	},
 	submit = function($scope){
-		$scope.adjustments.id = $scope.adjudicateClaim.id;
-		var fd = new FormData();
-		fd.append('data', angular.toJson($scope.adjustments));
-		 angular.forEach($scope.attachments, function (value, key) {
-			 fd.append('files', value);
-	        });
-		 return $http({
-		        method: 'POST',
-		        url: '/agg/adjudicateClaim',
-		        headers: {'Content-Type': undefined},
-		        data: fd,
-		        transformRequest: angular.identity
-		        })
-		       .success(function(data, status) {
-		             alert("success");
-		             $window.location.href = '#/agg/fileClaim';
+		if($scope.editFlag){
+			var data = {};
+			data.id = $scope.adjudicateClaim.id;
+			
+			if($scope.click === 3){
+				$window.location.href = '#/agg/fileClaim';
+			}else{
+				if($scope.adjustments.extComment){
+					data.extComment = $scope.adjustments.extComment;
+				}
+				if($scope.click === 2){
+					data.cStatus = 'cancel';
+					updateClaimStatus(data);
+				}else if($scope.click === 1){
+					data.cStatus = 'pre_authorized_approved_with_adjustments';
+					updateClaimStatus(data);
+				}
+			}
+		}else{
+			$scope.adjustments.id = $scope.adjudicateClaim.id;
+			var fd = new FormData();
+			fd.append('data', angular.toJson($scope.adjustments));
+			 angular.forEach($scope.attachments, function (value, key) {
+				 fd.append('files', value);
 		        });
+			 return $http({
+			        method: 'POST',
+			        url: '/agg/adjudicateClaim',
+			        headers: {'Content-Type': undefined},
+			        data: fd,
+			        transformRequest: angular.identity
+			        })
+			       .success(function(data, status) {
+			             alert("success");
+			             $window.location.href = '#/agg/fileClaim';
+			        });
+		}
 	},
 	backToList = function($scope){
 		$scope.showAdjudicateClaimList = true;

@@ -142,7 +142,7 @@ routingApp.controller('ClaimsPreAuthController', function($scope, $http, claimPr
 	};
 });
 
-routingApp.controller('ClaimsAdjudicateController', function($scope, $http, claimsAdjudicateService, ModalService, $window){
+routingApp.controller('ClaimsAdjudicateController', ['$scope', '$http', 'claimsAdjudicateService', 'ModalService', '$window', '$route', function($scope, $http, claimsAdjudicateService, ModalService, $window, $route){
 	claimsAdjudicateService.init($scope);
 	
 	$scope.onClickSelectClaim = function(claim){
@@ -167,21 +167,25 @@ routingApp.controller('ClaimsAdjudicateController', function($scope, $http, clai
     };
     
     $scope.onClickClose = function(){
-    	ModalService.showModal({
-            templateUrl: 'modal.html',
-            controller: "ModalController"
-        }).then(function(modal) {
-            modal.element.show();
-            modal.close.then(function(result) {
-                if(result === 'Yes'){
-                	claimsAdjudicateService.submit($scope);
-                }
-            });
-        });
-    	claimsAdjudicateService.submit($scope);
+    	$scope.commentFlag = false;
+    	$scope.click = 3;
     };
     
-});
+    $scope.onClickUpdate = function(){
+    	$scope.commentFlag = true;
+    	$scope.click = 1;
+    };
+    
+    $scope.onClickCancel = function(){
+    	$scope.commentFlag = false;
+    	$scope.click = 2;
+    };
+    
+    $scope.onClickSubmitClaim = function(){
+    	claimsAdjudicateService.submit($scope);
+	};
+    
+}]);
 
 routingApp.controller('ModalController', function($scope, close) {
 	  

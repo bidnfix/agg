@@ -100,6 +100,9 @@ public class Util {
 			case "draft":
 				cStatusValue = AggConstants.CLAIM_STATUS_DRAFT;
 				break;
+			case "cancel":
+				cStatusValue = AggConstants.CLAIM_STATUS_CANCEL;
+				break;
 			default:
 				cStatusValue = 0;
 		}

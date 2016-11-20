@@ -91,11 +91,11 @@
                           </div>
                           <div class="form-group">
                             <label>Other Charge 1 ($)</label>
-                            <input type="text" class="form-control" ng-model="adjustments.requestedOtherCharges1" required="required"  ng-change="calcOnChange()">
+                            <input type="text" class="form-control" ng-model="adjustments.requestedOtherCharges1" required="required" ng-readonly= "{{editFlag}}" ng-change="calcOnChange()">
                           </div>
                           <div class="form-group">
                             <label>Other Charge 2 ($)</label>
-                            <input type="text" class="form-control" ng-model="adjustments.requestedOtherCharges2" required="required"  ng-change="calcOnChange()">
+                            <input type="text" class="form-control" ng-model="adjustments.requestedOtherCharges2" required="required" ng-readonly= "{{editFlag}}" ng-change="calcOnChange()">
                           </div>
                           <div class="form-group">
                             <label>Total Claim ($)</label>
@@ -128,7 +128,7 @@
                       </div>
                       </div>
                       </div>
-					<div class="col-xs-12 no-pad pad10-top">
+					<div class="col-xs-12 no-pad pad10-top" ng-if="!editFlag">
                          <span class="ag-tab-title col-xs-12 no-pad marg10-bottom">File Attachments</span>
                          <br clear="all">
                          <p>Please upload pdf versions of quotes and any pictures showing the damage.</p>
@@ -183,8 +183,8 @@
                                 <tr>
                                   <td><input type="text" class="form-control" name="" ng-model="claimPartVO.partNo" ng-readonly=true></td>
                                   <td><input type="text" class="form-control" name="" ng-model="claimPartVO.partDescr" ng-readonly=true></td>
-                                  <td><input type="number" class="form-control" name="" ng-model="claimPartVO.qty" required="required" ng-change="calcOnChange()"></td>
-                                  <td><input type="number" class="form-control" name="" ng-model="claimPartVO.unitPrice" required="required" ng-change="calcOnChange()"></td>
+                                  <td><input type="number" class="form-control" name="" ng-model="claimPartVO.qty" required="required" ng-readonly= "{{editFlag}}" ng-change="calcOnChange()"></td>
+                                  <td><input type="number" class="form-control" name="" ng-model="claimPartVO.unitPrice" required="required" ng-readonly= "{{editFlag}}" ng-change="calcOnChange()"></td>
                                   <td class="t-r">{{claimPartVO.partsTotal | currency}}</td>
                                 </tr>
                               </tbody>
@@ -225,8 +225,8 @@
                                 <tr>
                                   <td><input type="text" class="form-control" name="" ng-model="claimLabourVO.laborNo" ng-readonly=true></td>
                                   <td><input type="text" class="form-control" name="" ng-model="claimLabourVO.laborDescr" ng-readonly=true></td>
-                                  <td><input type="number" class="form-control" name="" ng-model="claimLabourVO.laborHrs" required="required" ng-change="calcOnChange()"></td>
-                                  <td><input type="number" class="form-control" name="" ng-model="claimLabourVO.rate" required="required" ng-change="calcOnChange()"></td>
+                                  <td><input type="number" class="form-control" name="" ng-model="claimLabourVO.laborHrs" required="required" ng-readonly= "{{editFlag}}" ng-change="calcOnChange()"></td>
+                                  <td><input type="number" class="form-control" name="" ng-model="claimLabourVO.rate" required="required" ng-readonly= "{{editFlag}}" ng-change="calcOnChange()"></td>
                                   <td class="t-r">{{claimLabourVO.laborsTotal | currency}}</td>
                                 </tr>
                               </tbody>
@@ -252,11 +252,43 @@
                             </div>
                           </div>
                           <br clear="all">
+                          <br>
+                          <div class="col-sm-12">
+                           <!--  <div class="form-group clearfix">
+                              <label>Customer Complaint</label>
+                              <p>{{preAuthClaim.custComplaint}}</p>
+                            </div>
+                            <div class="form-group clearfix">
+                              <label>Corrective Actions</label>
+                              <p>{{preAuthClaim.causeFail}}</p>
+                            </div>
+                            <div class="form-group clearfix">
+                              <label>Cause of Failure</label>
+                              <p>{{preAuthClaim.correctiveAction}}</p>
+                            </div> -->
+
+                            <div class="form-group clearfix">
+                              <span class="col-sm-3 no-pad">External Comments :</span> 
+                                <div class="col-sm-9 no-pad border">
+                                <div class="col-sm-4">
+                                  <b>Date/Time</b><br>
+                                  June 21 2016
+                                </div>
+                                <div class="col-sm-8">
+                                  <b>Comment</b><br>
+                                  Text comes here..
+                                </div>
+                                  <textarea class="form-control" style="width:100% !important;" rows="3" ng-model="adjustments.extComment" ng-required="commentFlag" ng-trim=true></textarea>
+                                </div>
+                            </div>
+                          </div>
                           </div>
                       </div>
                 </div>
 				<div class="col-sm-12 no-pad t-c marg10-top marg10-bottom">
-		          <button type="submit" class="btn btn-primary" ng-click="onClickClose()"> Close Claim</button>
+					<button type="submit" class="btn btn-primary" ng-click="onClickUpdate()" ng-if="editFlag">Update Claim</button>
+					<button type="submit" class="btn btn-primary" ng-click="onClickCancel()" ng-if="editFlag">Cancel Claim</button>
+		        	<button type="submit" class="btn btn-primary" ng-click="onClickClose()"> Close Claim</button>
 	            </div>
 	            </form>
 				</div>

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.agg.application.model.AccountDO;
 import com.agg.application.model.Result;
 import com.agg.application.model.UserDO;
 import com.agg.application.service.DealerService;
@@ -102,6 +103,21 @@ public class UserController extends BaseController {
 				opResult = new Result("success", "User edited successfully", null);
 			}
 			
+		}
+		
+		return opResult;
+	}
+	
+	@RequestMapping(value = "/currentUserRole", method = RequestMethod.GET)
+	public @ResponseBody Result getCuurentUser(HttpServletRequest request, HttpServletResponse response, Model model) {
+		logger.debug("In getUser");
+		Result opResult = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			AccountDO account= getAccountDetails(request);
+			model.addAttribute("roleList", account.getRoleDO());
+			opResult = new Result("success", "User Info", model);
 		}
 		
 		return opResult;
