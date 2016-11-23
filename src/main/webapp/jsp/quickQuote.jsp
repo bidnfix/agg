@@ -36,7 +36,7 @@
 									<option value="">Select Dealer</option>
 								</select>
 					   		</div>
-					   		<div ng-else>
+					   		<div  ng-if="quote.program != null">
 					        	<p>{{quote.dealerDO.name}}{{(quote.dealerDO.city != null)?' - '+quote.dealerDO.city:""}}</p>
 					        </div>
 						  
@@ -48,7 +48,7 @@
 								<option value="">Select Manufacturer</option>
 		     				 </select>
 					   		</div>
-					   		<div ng-else>
+					   		<div ng-if="quote.program != null">
 					        <p>{{quote.manufacturerDO.name}}</p>
 						    </div>
                        </div>
@@ -65,7 +65,7 @@
 								<option value="">Select Model</option>
 							</select>
 						 </div>
-						 <div ng-else>
+						 <div ng-if="quote.program != null">
 						    <p>{{quote.machineInfoDO.model}}</p>
 						 </div>
                        </div>
@@ -132,7 +132,7 @@
 	                         	<option value="">Select Deductible</option>
 							 </select>
 						 </div>
-						 <div ng-else>
+						 <div ng-if="quote.program != null">
 						     <p>{{quote.deductiblePrice | currency:"$":0}}</p>
 						 </div>
                        </div>
@@ -143,7 +143,7 @@
 	                         	<option value="">Select Coverage Term</option>
 							 </select>
 						</div>
-						<div ng-else>
+						<div ng-if="quote.program != null">
 						     <p>{{(quote.coverageTerm != null)? quote.coverageTerm+"&nbsp;mos.":""}}</p>
 						</div>
                        </div>
@@ -154,7 +154,7 @@
 	                         	<option value="">Select Covered Hours</option>
 							 </select>
 						</div>
-						<div ng-else>
+						<div ng-if="quote.program != null">
 						     <p>{{quote.coverageHours}}</p>
 						</div>
                        </div>
@@ -171,7 +171,7 @@
 				                <option value="PL">Powertrain + Hydraulic + Platform</option> -->
 							 </select>
 						</div>
-						<div ng-else>
+						<div ng-if="quote.program != null">
 						        <p>{{(quote.coverageType == 'PH')?"Powertrain + Hydraulic":(quote.coverageType == 'PT')?"Powertrain":(ctype == 'PL')?"Powertrain + Hydraulic + Platform":""}}</p>
 						</div>
                        </div>

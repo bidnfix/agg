@@ -112,6 +112,9 @@ public class ClaimsController extends BaseController {
 		//uploadingdir = request.getServletContext().getRealPath("/uploads/");
 		//uploadingdir = request.getServletContext().getResource("/uploads/").getFile();
 		//logger.debug("paths: "+request.getServletContext().getResource("/uploads/"));
+		logger.debug("Session Realpath: "+request.getSession().getServletContext().getRealPath("/"));
+		logger.debug("Request Realpath: "+request.getServletContext().getRealPath("/"));
+		logger.debug("system user.dir path: "+System.getProperty("user.dir"));
 		
 		logger.debug("Directory for image upload: "+uploadingdir);
 		

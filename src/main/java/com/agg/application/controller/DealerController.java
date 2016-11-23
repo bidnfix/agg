@@ -92,7 +92,7 @@ public class DealerController extends BaseController {
 		        }
 		    }
 			if(id > 0){
-				opResult = new Result("success", "Invalid dealer form field values", null);
+				opResult = new Result("success", "Dealer added successfully", id);
 			}
 			
 		}
@@ -140,14 +140,36 @@ public class DealerController extends BaseController {
 	}
 	
 	@RequestMapping(value = "/dealerInfo", method = RequestMethod.GET)
-	public @ResponseBody Result getDealers(HttpServletRequest request, HttpServletResponse response) {
+	public @ResponseBody Result getDealers(HttpServletRequest request, HttpServletResponse response, Model model) {
 		logger.debug("In getDealers");
 		Result opResult = null;
 		if (!sessionExists(request)){
 			opResult = new Result("failure", "Invalid Login", null);
 		}else{
 			List<DealerDO> dealerDOList = dealerService.getDealers();
-			opResult = new Result("success", "Dealer Info", dealerDOList);
+			model.addAttribute("dealerDOList", dealerDOList);
+			opResult = new Result("success", "Dealer Info", model);
+		}
+		
+		return opResult;
+	}
+	
+	@RequestMapping(value = "/dealerInfo/{dealerId}", method = RequestMethod.GET)
+	public @ResponseBody Result getDealers(@PathVariable long dealerId, HttpServletRequest request, HttpServletResponse response, Model model) {
+		logger.debug("In getDealers");
+		Result opResult = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			if(dealerId != 0){
+				DealerDO dealerDO = dealerService.getDealer(dealerId);
+				if(dealerDO != null){
+					model.addAttribute("dealerName", dealerDO.getName());
+				}
+			}
+			List<DealerDO> dealerDOList = dealerService.getDealers();
+			model.addAttribute("dealerDOList", dealerDOList);
+			opResult = new Result("success", "Dealer Info", model);
 		}
 		
 		return opResult;

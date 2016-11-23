@@ -16,6 +16,17 @@ routingApp.config(['$routeProvider',
                   	         }
                   	      }
 	                  }).
+	                  when('/agg/dealers/:dealerId', {
+	                  	  templateUrl: '../../jsp/dealers.jsp',
+	                  	  controller: 'GetDealerController',
+                  		  resolve: {
+                  	         ctrlOptions: function () {
+                  	            return {
+                  	              getAllDealers: true,
+                  	            };
+                  	         }
+                  	      }
+	                  }).
                       when('/agg/addDealer', {
                     	  templateUrl: '../../jsp/addDealer.jsp',
                     	  controller: 'AddDealerController'	  
@@ -139,16 +150,25 @@ routingApp.directive('ngFiles', ['$parse', function ($parse) {
     }
 }]);
 
-routingApp.controller('GetDealerController', function($scope, dealerService, $http, $timeout, ctrlOptions) {
+routingApp.controller('GetDealerController', function($scope, dealerService, $http, $timeout, ctrlOptions, $routeParams, $route) {
 	$scope.dealer={};
 	if(ctrlOptions.getAllDealers){
-		$http.get("/agg/dealerInfo")
+		var dealerUrl = "/agg/dealerInfo";
+		if($routeParams.dealerId != null){
+			dealerUrl = dealerUrl+"/"+$routeParams.dealerId;
+		}
+		$http.get(dealerUrl)
 		.then(function(response) {
-	        $scope.dealerList = response.data.data;
+	        $scope.dealerList = response.data.data.dealerDOList;
+	        if(response.data.data.dealerName != null){
+	        	$('#dealerAddInfoMsg').html("Dealer '<strong>"+response.data.data.dealerName+"</strong>' successfully added");
+            	$('#dealerAddInfoMsg').removeClass('hidden');
+	        }
 	        $timeout(function () {
 	        	$('#dealerTbl').DataTable();
 	        }, 300);
 	    });
+		
 	}else{
 		$http.get("/agg/pendingDealerInfo")
 		.then(function(response) {

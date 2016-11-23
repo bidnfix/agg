@@ -110,7 +110,20 @@ public class ProgramServiceImpl implements ProgramService {
 		}else{
 			Account account = accountDAO.findOne(accountDO.getId());
 			if(account != null){
-				programList = programDAO.findByDealerId(account.getDealer().getId());
+				Dealer dealer = account.getDealer();
+				if(dealer != null){
+					if(dealer.getCode() == dealer.getParentCode()){
+						//fetching dealer program details.
+						programList = programDAO.findByDealerId(dealer.getId());
+					}else{
+						Dealer parentDealer = dealerDAO.findByCode(dealer.getParentCode());
+						if(parentDealer != null){
+							//fetching dealer and parent dealer program details.
+							programList = programDAO.findByDealerIds(dealer.getId(), parentDealer.getId());
+						}
+					}
+				}
+				
 			}
 		}
 		

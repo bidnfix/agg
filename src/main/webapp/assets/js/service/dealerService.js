@@ -6,10 +6,15 @@ routingApp.factory('dealerService', function($http, $q, $window) {
 					showSpinner();
 					return $http.post('/agg/addDealer', dealer).then(
 							function(response) {
-								//alert(response.data.status);
+								alert(response.data.data);
 								if (response.data.status == 'success') {
 									//$window.location = '/agg/home';
-									$window.location.href = '#/agg/dealers';
+									if(response.data.data != null && response.data.data > 0){
+										$window.location.href = '#/agg/dealers/'+response.data.data;
+									}else{
+										$window.location.href = '#/agg/dealers';
+									}
+									
 								} else {
 									alert('Error in adding dealer: '+response.data.errMessage)
 									//$('#errMsg').html(response.data.errMessage);
