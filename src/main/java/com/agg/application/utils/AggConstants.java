@@ -28,6 +28,8 @@ public class AggConstants {
 	
 	public static final String QUOTE_STATUS_ACRHIVE = "Archive";
 	
+	public static final String QUOTE_STATUS_CLOSED = "Closed";
+	
 	public static final byte B_QUOTE_STATUS_ESTIMATING_PRICE = 1;
 	
 	public static final byte B_QUOTE_STATUS_PURCHASE_REQUESTED = 4;
@@ -35,6 +37,8 @@ public class AggConstants {
 	public static final byte B_QUOTE_STATUS_INVOICED = 5;
 	
 	public static final byte B_QUOTE_STATUS_ACRHIVE = 0;
+	
+	public static final byte B_QUOTE_STATUS_CLOSED = 6;
 	
 	public static final byte B_ACTIVE_CONTRACT = 1;
 	

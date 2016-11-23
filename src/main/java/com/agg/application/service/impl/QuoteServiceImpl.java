@@ -189,7 +189,7 @@ public class QuoteServiceImpl implements QuoteService {
 				quotePK.setQuoteId(quoteDO.getQuoteId());
 				
 				quote.setId(quotePK);
-				quote.setStatus((byte)1);
+				quote.setStatus(AggConstants.B_QUOTE_STATUS_ESTIMATING_PRICE);
 			}
 		}else{
 			quote = new Quote();
@@ -199,7 +199,7 @@ public class QuoteServiceImpl implements QuoteService {
 			quotePK.setQuoteId(quoteId);
 			
 			quote.setId(quotePK);
-			quote.setStatus((byte)1);
+			quote.setStatus(AggConstants.B_QUOTE_STATUS_ESTIMATING_PRICE);
 		}
 		quote.setDealer(dealerDAO.findOne(quoteDO.getDealerDO().getId()));
 		quote.setManfExpired((quoteDO.isCoverageExpired())?(byte)1:(byte)0);
@@ -226,12 +226,14 @@ public class QuoteServiceImpl implements QuoteService {
 			logger.info("quoteId: "+quote.getId().getQuoteId()+" and id: "+quote.getId().getId());
 			quoteDO.setQuoteId(quote.getId().getQuoteId());
 			quoteDO.setId(quote.getId().getId());
-			if(quote.getStatus() == 1){
+			if(quote.getStatus() == AggConstants.B_QUOTE_STATUS_ESTIMATING_PRICE){
 				quoteDO.setStatusDesc(AggConstants.QUOTE_STATUS_ESTIMATING_PRICE);
-			}else if(quote.getStatus() == 4){
+			}else if(quote.getStatus() == AggConstants.B_QUOTE_STATUS_PURCHASE_REQUESTED){
 				quoteDO.setStatusDesc(AggConstants.QUOTE_STATUS_PURCHASE_REQUESTED);
-			}else if(quote.getStatus() == 5){
+			}else if(quote.getStatus() == AggConstants.B_QUOTE_STATUS_INVOICED){
 				quoteDO.setStatusDesc(AggConstants.QUOTE_STATUS_INVOICED);
+			}else if(quote.getStatus() == AggConstants.B_QUOTE_STATUS_CLOSED){
+				quoteDO.setStatusDesc(AggConstants.QUOTE_STATUS_CLOSED);
 			}
 		}
 	}
@@ -250,7 +252,7 @@ public class QuoteServiceImpl implements QuoteService {
 				quotePK.setQuoteId(quoteDO.getQuoteId());
 				
 				quote.setId(quotePK);
-				quote.setStatus((byte)1);
+				quote.setStatus(AggConstants.B_QUOTE_STATUS_ESTIMATING_PRICE);
 			}
 		}
 		if(quote != null){
@@ -299,12 +301,14 @@ public class QuoteServiceImpl implements QuoteService {
 				logger.info("quoteId: "+quote.getId().getQuoteId()+" and id: "+quote.getId().getId());
 				quoteDO.setQuoteId(quote.getId().getQuoteId());
 				quoteDO.setId(quote.getId().getId());
-				if(quote.getStatus() == 1){
+				if(quote.getStatus() == AggConstants.B_QUOTE_STATUS_ESTIMATING_PRICE){
 					quoteDO.setStatusDesc(AggConstants.QUOTE_STATUS_ESTIMATING_PRICE);
-				}else if(quote.getStatus() == 4){
+				}else if(quote.getStatus() == AggConstants.B_QUOTE_STATUS_PURCHASE_REQUESTED){
 					quoteDO.setStatusDesc(AggConstants.QUOTE_STATUS_PURCHASE_REQUESTED);
-				}else if(quote.getStatus() == 5){
+				}else if(quote.getStatus() == AggConstants.B_QUOTE_STATUS_INVOICED){
 					quoteDO.setStatusDesc(AggConstants.QUOTE_STATUS_INVOICED);
+				}else if(quote.getStatus() == AggConstants.B_QUOTE_STATUS_CLOSED){
+					quoteDO.setStatusDesc(AggConstants.QUOTE_STATUS_CLOSED);
 				}
 			}
 		
@@ -326,7 +330,7 @@ public class QuoteServiceImpl implements QuoteService {
 				quotePK.setQuoteId(quoteDO.getQuoteId());
 				
 				quote.setId(quotePK);
-				quote.setStatus((byte)1);
+				quote.setStatus(AggConstants.B_QUOTE_STATUS_ESTIMATING_PRICE);
 			}
 		}
 		if(quote != null){
@@ -400,12 +404,14 @@ public class QuoteServiceImpl implements QuoteService {
 				logger.info("quoteId: "+quote.getId().getQuoteId()+" and id: "+quote.getId().getId());
 				quoteDO.setQuoteId(quote.getId().getQuoteId());
 				quoteDO.setId(quote.getId().getId());
-				if(quote.getStatus() == 1){
+				if(quote.getStatus() == AggConstants.B_QUOTE_STATUS_ESTIMATING_PRICE){
 					quoteDO.setStatusDesc(AggConstants.QUOTE_STATUS_ESTIMATING_PRICE);
-				}else if(quote.getStatus() == 4){
+				}else if(quote.getStatus() == AggConstants.B_QUOTE_STATUS_PURCHASE_REQUESTED){
 					quoteDO.setStatusDesc(AggConstants.QUOTE_STATUS_PURCHASE_REQUESTED);
-				}else if(quote.getStatus() == 5){
+				}else if(quote.getStatus() == AggConstants.B_QUOTE_STATUS_INVOICED){
 					quoteDO.setStatusDesc(AggConstants.QUOTE_STATUS_INVOICED);
+				}else if(quote.getStatus() == AggConstants.B_QUOTE_STATUS_CLOSED){
+					quoteDO.setStatusDesc(AggConstants.QUOTE_STATUS_CLOSED);
 				}
 			}
 		
@@ -427,7 +433,7 @@ public class QuoteServiceImpl implements QuoteService {
 				quotePK.setQuoteId(quoteDO.getQuoteId());
 				
 				quote.setId(quotePK);
-				quote.setStatus((byte)1);
+				quote.setStatus(AggConstants.B_QUOTE_STATUS_ESTIMATING_PRICE);
 			}
 		}
 		if(quote != null){
@@ -480,7 +486,7 @@ public class QuoteServiceImpl implements QuoteService {
 			quote.setLastUpdate(new Date());
 			
 			//purchased status to 4
-			quote.setStatus((byte)4);
+			quote.setStatus(AggConstants.B_QUOTE_STATUS_PURCHASE_REQUESTED);
 			
 			CustomerInfo customerInfo = new CustomerInfo();
 			customerInfo.setQuoteId(quoteDO.getQuoteId());
@@ -504,12 +510,14 @@ public class QuoteServiceImpl implements QuoteService {
 				logger.info("quoteId: "+quote.getId().getQuoteId()+" and id: "+quote.getId().getId());
 				quoteDO.setQuoteId(quote.getId().getQuoteId());
 				quoteDO.setId(quote.getId().getId());
-				if(quote.getStatus() == 1){
+				if(quote.getStatus() == AggConstants.B_QUOTE_STATUS_ESTIMATING_PRICE){
 					quoteDO.setStatusDesc(AggConstants.QUOTE_STATUS_ESTIMATING_PRICE);
-				}else if(quote.getStatus() == 4){
+				}else if(quote.getStatus() == AggConstants.B_QUOTE_STATUS_PURCHASE_REQUESTED){
 					quoteDO.setStatusDesc(AggConstants.QUOTE_STATUS_PURCHASE_REQUESTED);
-				}else if(quote.getStatus() == 5){
+				}else if(quote.getStatus() == AggConstants.B_QUOTE_STATUS_INVOICED){
 					quoteDO.setStatusDesc(AggConstants.QUOTE_STATUS_INVOICED);
+				}else if(quote.getStatus() == AggConstants.B_QUOTE_STATUS_CLOSED){
+					quoteDO.setStatusDesc(AggConstants.QUOTE_STATUS_CLOSED);
 				}
 			}
 			
@@ -818,14 +826,16 @@ public class QuoteServiceImpl implements QuoteService {
 			quoteDO.setStatus(quote.getStatus());
 			quoteDO.setLastUpdate(quote.getLastUpdate());
 			String statusDesc = "";
-			if(quote.getStatus() == 0){
+			if(quote.getStatus() == AggConstants.B_QUOTE_STATUS_ACRHIVE){
 				statusDesc = AggConstants.QUOTE_STATUS_ACRHIVE;
-			}else if(quote.getStatus() == 1){
+			}else if(quote.getStatus() == AggConstants.B_QUOTE_STATUS_ESTIMATING_PRICE){
 				statusDesc = AggConstants.QUOTE_STATUS_ESTIMATING_PRICE;
-			}else if(quote.getStatus() == 4){
+			}else if(quote.getStatus() == AggConstants.B_QUOTE_STATUS_PURCHASE_REQUESTED){
 				statusDesc = AggConstants.QUOTE_STATUS_PURCHASE_REQUESTED;
-			}else if(quote.getStatus() == 5){
+			}else if(quote.getStatus() == AggConstants.B_QUOTE_STATUS_INVOICED){
 				statusDesc = AggConstants.QUOTE_STATUS_INVOICED;
+			}else if(quote.getStatus() == AggConstants.B_QUOTE_STATUS_CLOSED){
+				statusDesc = AggConstants.QUOTE_STATUS_CLOSED;
 			}
 			quoteDO.setStatusDesc(statusDesc);
 			quoteDO.setStatus(quote.getStatus());
@@ -1066,12 +1076,14 @@ public class QuoteServiceImpl implements QuoteService {
 			
 			if(quote != null && quote.getId() != null){
 				logger.info("quoteId: "+quote.getId().getQuoteId()+" and id: "+quote.getId().getId());
-				if(quote.getStatus() == 1){
+				if(quote.getStatus() == AggConstants.B_QUOTE_STATUS_ESTIMATING_PRICE){
 					quoteDO.setStatusDesc(AggConstants.QUOTE_STATUS_ESTIMATING_PRICE);
-				}else if(quote.getStatus() == 4){
+				}else if(quote.getStatus() == AggConstants.B_QUOTE_STATUS_PURCHASE_REQUESTED){
 					quoteDO.setStatusDesc(AggConstants.QUOTE_STATUS_PURCHASE_REQUESTED);
-				}else if(quote.getStatus() == 5){
+				}else if(quote.getStatus() == AggConstants.B_QUOTE_STATUS_INVOICED){
 					quoteDO.setStatusDesc(AggConstants.QUOTE_STATUS_INVOICED);
+				}else if(quote.getStatus() == AggConstants.B_QUOTE_STATUS_CLOSED){
+					quoteDO.setStatusDesc(AggConstants.QUOTE_STATUS_CLOSED);
 				}
 				
 				condition = true;
@@ -1163,7 +1175,7 @@ public class QuoteServiceImpl implements QuoteService {
 			quote.setServicingDealer(0);
 			quote.setLastUpdate(new Date());
 			
-			quote.setStatus((byte)5);
+			quote.setStatus(AggConstants.B_QUOTE_STATUS_INVOICED);
 			
 			CustomerInfo customerInfo = new CustomerInfo();
 			customerInfo.setQuoteId(quoteDO.getQuoteId());
@@ -1202,12 +1214,14 @@ public class QuoteServiceImpl implements QuoteService {
 				logger.info("quoteId: "+quote.getId().getQuoteId()+" and id: "+quote.getId().getId());
 				if(quote.getIsArchive() == 1){
 					quoteDO.setStatusDesc(AggConstants.QUOTE_STATUS_ACRHIVE);
-				}else if(quote.getStatus() == 1){
+				}else if(quote.getStatus() == AggConstants.B_QUOTE_STATUS_ESTIMATING_PRICE){
 					quoteDO.setStatusDesc(AggConstants.QUOTE_STATUS_ESTIMATING_PRICE);
-				}else if(quote.getStatus() == 4){
+				}else if(quote.getStatus() == AggConstants.B_QUOTE_STATUS_PURCHASE_REQUESTED){
 					quoteDO.setStatusDesc(AggConstants.QUOTE_STATUS_PURCHASE_REQUESTED);
-				}else if(quote.getStatus() == 5){
+				}else if(quote.getStatus() == AggConstants.B_QUOTE_STATUS_INVOICED){
 					quoteDO.setStatusDesc(AggConstants.QUOTE_STATUS_INVOICED);
+				}else if(quote.getStatus() == AggConstants.B_QUOTE_STATUS_CLOSED){
+					quoteDO.setStatusDesc(AggConstants.QUOTE_STATUS_CLOSED);
 				}
 				
 				String email = null;
@@ -1451,7 +1465,7 @@ public class QuoteServiceImpl implements QuoteService {
 		
 		contracts = contractsDAO.save(contracts);
 		
-		quote.setStatus((byte)6);
+		quote.setStatus(AggConstants.B_QUOTE_STATUS_CLOSED);
 		quoteDAO.save(quote);
 		
 		//TODO send Active Contract mail 
