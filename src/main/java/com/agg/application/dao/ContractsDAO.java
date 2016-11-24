@@ -39,8 +39,14 @@ public interface ContractsDAO extends CrudRepository<Contracts, Long>{
 	@Query("SELECT COUNT(*) FROM Contracts c WHERE c.status= 1")
 	public int countByActive();
 	
+	@Query("SELECT COUNT(*) FROM Contracts c, Quote q WHERE c.status= 1 and  c.quoteId = q.id.id and  q.dealer.id = :dealerId")
+	public int countActiveContractByDealer(@Param("dealerId") long dealerId);
+	
 	@Query("SELECT COUNT(*) FROM Contracts c WHERE c.status= 0")
 	public int countByInactive();
+	
+	@Query("SELECT COUNT(*) FROM Contracts c, Quote q WHERE c.status= 0 and  c.quoteId = q.id.id and  q.dealer.id = :dealerId")
+	public int countInActiveContractByDealer(@Param("dealerId") long dealerId);
 	
 	/*@Query("SELECT COUNT(*) FROM Contracts c WHERE c.status= :status and c.dealer.id = :dealerId")
 	public int countByStatus(@Param("status")byte status, @Param("dealerId")long dealerId);*/

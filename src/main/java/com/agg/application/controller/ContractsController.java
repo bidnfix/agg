@@ -70,8 +70,9 @@ public class ContractsController extends BaseController{
 		return opResult;
 	}
 	
-	@RequestMapping(value = "/contracts", method = RequestMethod.GET)
+	@RequestMapping(value = "/contractsInfo", method = RequestMethod.GET)
 	public @ResponseBody Result getContracts(HttpServletRequest request, HttpServletResponse response, Model model) {
+		logger.debug("Inside getContracts method");
 		Result opResult = null;
 		if (!sessionExists(request)){
 			opResult = new Result("failure", "Invalid Login", null);

@@ -12,7 +12,7 @@
 				<p class="wow animated bounceInRight">Quote #: {{quote.quoteId}}</p>
 			</div>
                      </div>
-                     <div class="col-md-6 col-sm-12">
+                     <div class="col-md-6 col-sm-12" ng-if="quote.status!=6 && quote.isArchive=0">
                      	<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="editQuote()">Edit</button>
                      	<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="quoteInfoForm.$valid && updateQuote(quoteInfoForm)">Update</button>
                      	<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="archiveQuote()">Archive</button>
@@ -521,6 +521,7 @@
 										  <option value="1">Estimating Price</option>
 										  <option value="4">Purchase Requested</option>
 										  <option value="5">Invoiced</option>
+										  <option value="6">Closed</option>
 										</select>
 								    </c:when>
 								    <c:otherwise>

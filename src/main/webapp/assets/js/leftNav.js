@@ -163,6 +163,11 @@ routingApp.controller('GetDealerController', function($scope, dealerService, $ht
 	        if(response.data.data.dealerName != null){
 	        	$('#dealerAddInfoMsg').html("Dealer '<strong>"+response.data.data.dealerName+"</strong>' successfully added");
             	$('#dealerAddInfoMsg').removeClass('hidden');
+            	window.setTimeout(function() {
+        		  $("#dealerAddInfoMsg").fadeTo(500, 0).slideUp(500, function(){
+        		    $(this).remove(); 
+        		  });
+        		}, 3000);
 	        }
 	        $timeout(function () {
 	        	$('#dealerTbl').DataTable();
@@ -1292,7 +1297,7 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
    });
 
 routingApp.controller('ContractsController', function($scope, $http, $timeout, $window) {
-	$http.get("/agg/contracts")
+	$http.get("/agg/contractsInfo")
 	.then(function(response) {
         $scope.contractList = response.data.data.contractDOList;
         $timeout(function () {

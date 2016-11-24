@@ -102,6 +102,7 @@ public class ContractsServiceImpl implements ContractsService{
 	}
 	
 	private List<ContractDO> formatEntityToDO(final List<Contracts> contractsList){
+		LOGGER.debug("Inside formatEntityToDO method with contractsList size: "+contractsList.size());
 		List<ContractDO> contractsDOList = new LinkedList<ContractDO>();
 		ManufacturerDO manufacturerDO = null;
 		ContractDO contractDO = null;

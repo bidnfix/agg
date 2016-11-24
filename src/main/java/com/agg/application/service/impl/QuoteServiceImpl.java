@@ -1359,9 +1359,9 @@ public class QuoteServiceImpl implements QuoteService {
 			invoiced = quoteDAO.countByInvoiced(accountDO.getDealerId());
 			/*activeContract = contractsDAO.countByStatus(AggConstants.B_ACTIVE_CONTRACT, accountDO.getDealerId());
 			inactiveContract = contractsDAO.countByStatus(AggConstants.B_INACTIVE_CONTRACT, accountDO.getDealerId());*/
-			activeContract = contractsDAO.countByActive();
-			inactiveContract = contractsDAO.countByInactive();
-			claims = claimsDAO.count();
+			activeContract = contractsDAO.countActiveContractByDealer(accountDO.getDealerId());
+			inactiveContract = contractsDAO.countInActiveContractByDealer(accountDO.getDealerId());
+			claims = claimsDAO.findClaimsCountByDealer(new Long(accountDO.getDealerId()).intValue());
 		}
 				
 		worklistDO.setEstPrice(estPrice);
