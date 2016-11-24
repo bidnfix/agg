@@ -284,26 +284,27 @@ routingApp.controller('HomeController', function($scope, $http, $timeout) {
     	$scope.claims = response.data.data.worklistDO.claims;
     	$scope.quoteList = response.data.data.quoteList;
     	
-    	if($scope.quoteList != null){
+    	//if($scope.quoteList != null){
     		$('#quotesTbl').dataTable().fnClearTable();
     		$('#quotesTbl').dataTable().fnDestroy();
-    		$timeout(function () {
-	        	$('#quotesTbl').DataTable();
-	        }, 300);
     		$('#quotesTbl').parents('div.dataTables_wrapper').first().show();
     		$('#contractsTbl').parents('div.dataTables_wrapper').first().hide();
     		$('#claimsTbl').parents('div.dataTables_wrapper').first().hide();
     		$scope.contractsFlag = true;
     		$scope.quotesFlag = false;
     		$scope.claimsFlag = true;
-    	}
+    	//}
+    	
+    	$timeout(function () {
+        	$('#quotesTbl').DataTable();
+        }, 300);
     });
 	
 	$scope.getEstQuotes = function(){
 		$http.get("/agg/estimatedPriceQuotes")
 		.then(function(response) {
 	        $scope.quoteList = response.data.data;
-	        if($scope.quoteList != null){
+	        //if($scope.quoteList != null){
 	        	$('#quotesTbl').dataTable().fnClearTable();
 	        	$('#quotesTbl').dataTable().fnDestroy();
 	    		$scope.contractsFlag = true;
@@ -312,7 +313,7 @@ routingApp.controller('HomeController', function($scope, $http, $timeout) {
 				$('#quotesTbl').parents('div.dataTables_wrapper').first().show();
 	    		$('#contractsTbl').parents('div.dataTables_wrapper').first().hide();
 	    		$('#claimsTbl').parents('div.dataTables_wrapper').first().hide();
-	    	}
+	    	//}
 	        $timeout(function () {
 	        	$('#quotesTbl').DataTable();
 	        }, 300);
@@ -323,7 +324,7 @@ routingApp.controller('HomeController', function($scope, $http, $timeout) {
 		$http.get("/agg/invoicedQuotes")
 		.then(function(response) {
 	        $scope.quoteList = response.data.data;
-	        if($scope.quoteList != null){
+	        //if($scope.quoteList != null){
 	        	$('#quotesTbl').dataTable().fnClearTable();
 	        	$('#quotesTbl').dataTable().fnDestroy();
 	    		$scope.contractsFlag = true;
@@ -332,7 +333,7 @@ routingApp.controller('HomeController', function($scope, $http, $timeout) {
 				$('#quotesTbl').parents('div.dataTables_wrapper').first().show();
 	    		$('#contractsTbl').parents('div.dataTables_wrapper').first().hide();
 	    		$('#claimsTbl').parents('div.dataTables_wrapper').first().hide();
-	    	}
+	    	//}
 	        $timeout(function () {
 	        	$('#quotesTbl').DataTable();
 	        }, 300);
@@ -343,14 +344,14 @@ routingApp.controller('HomeController', function($scope, $http, $timeout) {
 		$http.get("/agg/purchaseRequestedQuotes")
 		.then(function(response) {
 	        $scope.quoteList = response.data.data;
-	        if($scope.quoteList != null){
+	        //if($scope.quoteList != null){
 	    		$scope.contractsFlag = true;
 	    		$scope.quotesFlag = false;
 	    		$scope.claimsFlag = true;
 				$('#quotesTbl').parents('div.dataTables_wrapper').first().show();
 	    		$('#contractsTbl').parents('div.dataTables_wrapper').first().hide();
 	    		$('#claimsTbl').parents('div.dataTables_wrapper').first().hide();
-	    	}
+	    	//}
 	        $timeout(function () {
 	        	$('#quotesTbl').DataTable();
 	        }, 300);
@@ -362,14 +363,14 @@ routingApp.controller('HomeController', function($scope, $http, $timeout) {
 		$http.get("/agg/activeContracts")
 		.then(function(response) {
 			$scope.contractList = response.data.data.contractDOList;
-			if($scope.contractList != null){
+			//if($scope.contractList != null){
 	    		$scope.contractsFlag = false;
 	    		$scope.quotesFlag = true;
 	    		$scope.claimsFlag = true;
 				$('#contractsTbl').parents('div.dataTables_wrapper').first().show();
 	    		$('#quotesTbl').parents('div.dataTables_wrapper').first().hide();
 	    		$('#claimsTbl').parents('div.dataTables_wrapper').first().hide();
-	    	}
+	    	//}
 	        $timeout(function () {
 	        	$('#contractsTbl').DataTable();
 	        }, 300);
@@ -380,14 +381,14 @@ routingApp.controller('HomeController', function($scope, $http, $timeout) {
 		$http.get("/agg/getClaimsInfo")
 		.then(function(response) {
 			$scope.claimDOList = response.data.data.claimDOList;
-	        if($scope.quoteList != null){
+	        //if($scope.quoteList != null){
 	    		$scope.contractsFlag = true;
 	    		$scope.quotesFlag = true;
 	    		$scope.claimsFlag = false;
 				$('#claimsTbl').parents('div.dataTables_wrapper').first().show();
 	    		$('#contractsTbl').parents('div.dataTables_wrapper').first().hide();
 	    		$('#quotesTbl').parents('div.dataTables_wrapper').first().hide();
-	    	}
+	    	//}
 	        $timeout(function () {
 	        	$('#claimsTbl').DataTable();
 	        }, 300);
@@ -399,14 +400,14 @@ routingApp.controller('HomeController', function($scope, $http, $timeout) {
 		$http.get("/agg/inactiveContracts")
 		.then(function(response) {
 			$scope.contractList = response.data.data.contractDOList;
-			if($scope.contractList != null){
+			//if($scope.contractList != null){
 	    		$scope.contractsFlag = false;
 	    		$scope.quotesFlag = true;
 	    		$scope.claimsFlag = true;
 				$('#contractsTbl').parents('div.dataTables_wrapper').first().show();
 	    		$('#quotesTbl').parents('div.dataTables_wrapper').first().hide();
 	    		$('#claimsTbl').parents('div.dataTables_wrapper').first().hide();
-	    	}
+	    	//}
 	        $timeout(function () {
 	        	$('#contractsTbl').DataTable();
 	        }, 300);
