@@ -11,6 +11,7 @@
 		</div>
 		<div class="col-md-6 col-sm-12">
 		</div>
+		<div class="col-md-4 col-sm-12"><a class="btn btn-primary pull-right  hvr-pulse" href="#/agg/bugInfo">List View</a></div>
 	</header>
 
 	<!-- data table section -->

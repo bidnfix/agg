@@ -48,4 +48,13 @@ public class ReportBugController extends BaseController {
 		return new Result("success", null, model);	
 	}
 	
+	@RequestMapping(value = "/getBugInfo", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+	public @ResponseBody Result bugInfo(ModelMap model, HttpServletResponse response) {
+		logger.debug("In getBugInfo ");
+
+		List<BugDO> bugLists = reportBugService.getBugs();
+		model.put("bugDOList", bugLists);
+		return new Result("success", null, bugLists);
+	}
+	
 }

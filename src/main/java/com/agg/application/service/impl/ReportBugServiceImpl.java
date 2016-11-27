@@ -1,9 +1,11 @@
 package com.agg.application.service.impl;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
-import org.jfree.util.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import com.agg.application.dao.ReportBugDAO;
 import com.agg.application.entity.BugReport;
 import com.agg.application.model.BugDO;
 import com.agg.application.service.ReportBugService;
+import com.google.common.collect.Lists;
 
 @Service
 public class ReportBugServiceImpl implements ReportBugService {
@@ -50,6 +53,38 @@ public class ReportBugServiceImpl implements ReportBugService {
 		logger.debug("bugId -- "+bugId);
 		
 		return bugId;
+	}
+	
+	public List<BugDO> getBugs(){
+		
+		List<BugReport>  bugInfoList =  Lists.newArrayList(reportBugDAO.findAll());
+
+		List<BugDO> bugDOList = null;
+		if(!bugInfoList.isEmpty()){
+			logger.debug("bugInfoList size:"+bugInfoList.size());
+			bugDOList = new ArrayList<BugDO>();
+			BugDO bugDO = null;
+			BugReport bugReport = null;
+			
+			Iterator<BugReport> it = bugInfoList.iterator();
+			while(it.hasNext()){
+				bugDO = new BugDO();
+				bugReport = it.next();
+						    	
+				bugDO.setId(bugReport.getId());
+				bugDO.setDescription(bugReport.getDescription());
+				bugDO.setDiscovered(bugReport.getDiscovered());
+				bugDO.setFixBy(bugReport.getFixBy());
+				bugDO.setNotes(bugReport.getNotes());
+				bugDO.setPriority(bugReport.getPriority());
+				bugDO.setStatus(bugReport.getStatus());
+				bugDO.setUrl(bugReport.getUrl());
+				bugDO.setUserAgent(bugReport.getUserAgent());
+				
+				bugDOList.add(bugDO);
+			}
+		}
+		return bugDOList;
 	}
 	
 	

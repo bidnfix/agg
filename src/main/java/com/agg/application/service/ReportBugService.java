@@ -9,5 +9,6 @@ public interface ReportBugService {
 
 	public Long saveBug(BugDO bugDO);
 	public Integer getBugId();
+	public List<BugDO> getBugs();
 	
 }

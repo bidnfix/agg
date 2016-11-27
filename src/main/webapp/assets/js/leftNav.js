@@ -116,6 +116,10 @@ routingApp.config(['$routeProvider',
                     	  templateUrl: '../../jsp/reportaBug.jsp',
                     	  controller: 'ReportBugController'
                       }).
+                      when('/agg/bugInfo', {
+                    	  templateUrl: '../../jsp/bugInfo.jsp',
+                    	  controller: 'BugInfoController'
+                      }).
                       when('/agg/quotes', {
                     	  templateUrl: '../../jsp/quotes.jsp',
                     	  controller: 'QuotesDetailController'
@@ -893,6 +897,16 @@ routingApp.controller('ReportBugController', function($scope, $http, reportaBugS
 		reportaBugService.saveBug($scope.report);
     };
 	
+});
+
+routingApp.controller('BugInfoController', function($scope, $http, $timeout) {
+	 $http.get("/agg/getBugInfo")
+	    .then(function(response) {
+	        $scope.bugDOList = response.data.data;
+	        $timeout(function () {
+	        	$('#userTbl').DataTable();
+	        }, 300);
+	    });
 });
 
 routingApp.controller('GetUserController', function($scope, userService, $http, $timeout) {
