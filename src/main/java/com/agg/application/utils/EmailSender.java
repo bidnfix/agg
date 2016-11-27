@@ -34,6 +34,12 @@ public class EmailSender {
     }
     
     public EmailStatus sendMailAsAttachment(String to, String subject, String body, DataSource aAttachment, String attachmentName) {
+    	 DataSource[] aAttachments = {aAttachment};
+    	 String[] attachmentNames = {attachmentName};
+        return sendMail(to, subject, body, false, aAttachments, attachmentNames);
+    }
+    
+    public EmailStatus sendMailAsAttachment(String to, String subject, String body, DataSource[] aAttachment, String[] attachmentName) {
         return sendMail(to, subject, body, false, aAttachment, attachmentName);
     }
  
@@ -41,15 +47,22 @@ public class EmailSender {
         return sendMail(to, subject, htmlBody, true, null, null);
     }
  
-    private EmailStatus sendMail(String to, String subject, String text, Boolean isHtml, DataSource aAttachment, String attachmentName) {
+    private EmailStatus sendMail(String to, String subject, String text, Boolean isHtml, DataSource[] aAttachments, String[] attachmentNames) {
         try {
             MimeMessage mail = javaMailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(mail, true);
             helper.setTo(InternetAddress.parse(to));
             helper.setSubject(subject);
             helper.setText(text, isHtml);
-            if(aAttachment != null){
-            	helper.addAttachment(attachmentName, aAttachment);
+            if(aAttachments != null){
+            	if(aAttachments.length == attachmentNames.length){
+            		for(int i=0; i<aAttachments.length; i++){
+            			helper.addAttachment(attachmentNames[i], aAttachments[i]);
+            		}
+            	}else{
+            		throw new Exception("Files and its names length are not matching");
+            	}
+            	
             }
             javaMailSender.send(mail);
             logger.info("Send email '{}' to: {}", subject, to);

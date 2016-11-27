@@ -43,6 +43,7 @@ import com.agg.application.entity.Quote;
 import com.agg.application.entity.QuotePK;
 import com.agg.application.entity.UseOfEquip;
 import com.agg.application.model.AccountDO;
+import com.agg.application.model.ContractReportDO;
 import com.agg.application.model.DealerDO;
 import com.agg.application.model.MachineInfoDO;
 import com.agg.application.model.ManufacturerDO;
@@ -539,7 +540,7 @@ public class QuoteServiceImpl implements QuoteService {
 			DataSource pdfAttachment =  new ByteArrayDataSource(baos.toByteArray(), "application/pdf");
 			String subject = "Dealer Quote: "+quoteDO.getQuoteId()+" pdf";
 			String emailBody = "PFA Dealer Quote: "+quoteDO.getQuoteId()+" details.";
-			EmailStatus emailStatus = emailSender.sendMailAsAttachment(adminEmail, subject, emailBody, pdfAttachment, "dealerQuote");
+			EmailStatus emailStatus = emailSender.sendMailAsAttachment(adminEmail, subject, emailBody, pdfAttachment, "dealerQuote-"+quoteDO.getQuoteId());
 			if(emailStatus != null){
 				logger.info("emailStatus: "+emailStatus.getStatus());
 				logger.info("Dealer Quote pdf Attachment emailed successfully");
@@ -739,6 +740,11 @@ public class QuoteServiceImpl implements QuoteService {
 				dealerDO.setInvoiceEmail(dealer.getInvoiceEmail());
 				dealerDO.setMarketEmail(dealer.getMarketEmail());
 				dealerDO.setCity(dealer.getCity());
+				dealerDO.setAddress1(dealer.getAddress());
+				dealerDO.setAddress2(dealer.getAddress2());
+				dealerDO.setState(dealer.getState());
+				dealerDO.setZip(dealer.getZip());
+				dealerDO.setPhone(dealer.getPhone());
 				
 				quoteDO.setDealerDO(dealerDO);
 			}
@@ -1272,7 +1278,7 @@ public class QuoteServiceImpl implements QuoteService {
 				DataSource pdfAttachment =  new ByteArrayDataSource(baos.toByteArray(), "application/pdf");
 				String subject = "Dealer Invoice: "+quoteDO.getQuoteId()+" pdf";
 				String emailBody = "PFA Dealer Invoice: "+quoteDO.getQuoteId()+" details.";
-				EmailStatus emailStatus = emailSender.sendMailAsAttachment(email, subject, emailBody, pdfAttachment, "dealerInvoice");
+				EmailStatus emailStatus = emailSender.sendMailAsAttachment(email, subject, emailBody, pdfAttachment, "dealerInvoice-"+quoteDO.getQuoteId());
 				if(emailStatus != null){
 					logger.info("emailStatus: "+emailStatus.getStatus());
 					logger.info("Dealer Quote pdf Attachment emailed successfully to "+email);
@@ -1426,7 +1432,7 @@ public class QuoteServiceImpl implements QuoteService {
 
 	@Override
 	@Transactional
-	public boolean createContract(QuoteDO quoteDO, AccountDO accountDO) {
+	public boolean createContract(QuoteDO quoteDO, AccountDO accountDO, String appUrl) throws Exception{
 		boolean condition = false;
 		
 		AdminAdjustment adminAdjustment = adminAdjustmentDAO.findOne(quoteDO.getQuoteId());
@@ -1471,7 +1477,100 @@ public class QuoteServiceImpl implements QuoteService {
 		
 		condition = true;
 		
+		Map<String, Object> parameterMap = new HashMap<String, Object>();
+		parameterMap.put("imagePath", appUrl+"/assets/images/logo.png");
+		
+		JRDataSource jrDataSource = null;
+		DataSource[] pdfAttachments = new DataSource[2];
+		List<ContractReportDO> reportDOList = null;
+		JasperReport jasperReport = null;
+		JasperPrint jasperPrint = null;
+		ByteArrayOutputStream baos = null;
+		DataSource pdfAttachment = null;
+		
+		reportDOList = new ArrayList<ContractReportDO>();
+		reportDOList.add(getContractReportDO(quoteDO));
+		if(!reportDOList.isEmpty()){
+			jrDataSource = new JRBeanCollectionDataSource(reportDOList);
+		}else{
+			jrDataSource = new JREmptyDataSource();
+		}
+		jasperReport = JasperCompileManager.compileReport(resourceLoader.getResource("classpath:/jrxml/rpt_contractDetails.jrxml").getInputStream());
+		jasperPrint = JasperFillManager.fillReport(jasperReport, parameterMap, jrDataSource);
+		baos = new ByteArrayOutputStream();
+		JasperExportManager.exportReportToPdfStream(jasperPrint, baos);
+		pdfAttachment =  new ByteArrayDataSource(baos.toByteArray(), "application/pdf");
+		pdfAttachments[0] = pdfAttachment;
+		
+		
+		if(!reportDOList.isEmpty()){
+			jrDataSource = new JRBeanCollectionDataSource(reportDOList);
+		}else{
+			jrDataSource = new JREmptyDataSource();
+		}
+		jasperReport = JasperCompileManager.compileReport(resourceLoader.getResource("classpath:/jrxml/rpt_coverageDetails.jrxml").getInputStream());
+		jasperPrint = JasperFillManager.fillReport(jasperReport, parameterMap, jrDataSource);
+		baos = new ByteArrayOutputStream();
+		JasperExportManager.exportReportToPdfStream(jasperPrint, baos);
+		pdfAttachment =  new ByteArrayDataSource(baos.toByteArray(), "application/pdf");
+		pdfAttachments[1] = pdfAttachment;
+		
+		String[] fileNames = {"ContractDetails-"+contracts.getContractId(),"CoverageDetails-"+contracts.getContractId()};
+		
+		
+		String subject = "Contract Details: "+contracts.getContractId()+" pdf files";
+		String emailBody = "PFA Contract Details: "+contracts.getContractId()+" details.";
+		EmailStatus emailStatus = emailSender.sendMailAsAttachment(quoteDO.getDealerEmail()+","+quoteDO.getDealerDO().getInvoiceEmail(), subject, emailBody, pdfAttachments, fileNames);
+		if(emailStatus != null){
+			logger.info("emailStatus: "+emailStatus.getStatus());
+			logger.info("Contract pdf Attachment files emailed successfully to "+quoteDO.getDealerEmail()+" & "+quoteDO.getDealerDO().getInvoiceEmail());
+		}
+		
 		return condition;
+	}
+
+	private ContractReportDO getContractReportDO(QuoteDO quoteDO) throws Exception{
+		ContractReportDO reportDO = new ContractReportDO();
+		
+		Locale locale = new Locale("en", "US");
+		NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
+		
+		reportDO.setContractId("CR-"+quoteDO.getQuoteId());
+		reportDO.setInceptionDate((quoteDO.getInceptionDate() != null)?dateFormat.format(quoteDO.getInceptionDate()):"");
+		reportDO.setCoverageTerm(quoteDO.getCoverageTerm());
+		reportDO.setCoverageHours(quoteDO.getCoverageHours());
+		reportDO.setExpirationDate((quoteDO.getExpirationDate() != null)?dateFormat.format(quoteDO.getExpirationDate()):"");
+		reportDO.setDeductibleAmount(currencyFormat.format(quoteDO.getDeductAmount()));
+		reportDO.setExpirationHours(quoteDO.getExpirationHours()+"");
+		reportDO.setCoverageType(quoteDO.getCoverageType());
+		reportDO.setLol(currencyFormat.format(quoteDO.getAdjustedLol()));
+		reportDO.setManufacturer(quoteDO.getManufacturerDO().getName());
+		reportDO.setSerialNo(quoteDO.getSerialNumber());
+		reportDO.setMachineModel(quoteDO.getMachineInfoDO().getModel());
+		reportDO.setManfEndDate((quoteDO.getCoverageEndDate() != null)?dateFormat.format(quoteDO.getCoverageEndDate()):"");
+		reportDO.setUseOfEquipment(quoteDO.getUseOfEquipmentDO().getEquipName());
+		reportDO.setMachineHours(quoteDO.getMeterHours());
+		reportDO.setCustomerAddress1(quoteDO.getDealerAddress());
+		reportDO.setCustomerAddress2(quoteDO.getDealerCity()+" "+quoteDO.getDealerState());
+		reportDO.setCustomerAddress3(quoteDO.getDealerZip());
+		reportDO.setCustomerContact(quoteDO.getDealerAddress());
+		reportDO.setCustomerPhone(quoteDO.getDealerPhone());
+		reportDO.setCustomerEmail(quoteDO.getDealerEmail());
+		reportDO.setDealerAddress1(quoteDO.getDealerDO().getAddress1());
+		reportDO.setDealerAddress2(quoteDO.getDealerDO().getAddress2());
+		reportDO.setDealerAddress3(quoteDO.getDealerCity()+" "+quoteDO.getDealerState()+" "+quoteDO.getDealerZip());
+		reportDO.setDealerContact(quoteDO.getDealerDO().getAddress1());
+		reportDO.setDealerEmail(quoteDO.getDealerDO().getInvoiceEmail());
+		reportDO.setDealerPhone(quoteDO.getDealerDO().getPhone());
+		reportDO.setServiceProviderAddr1(quoteDO.getDealerDO().getAddress1());
+		reportDO.setServiceProviderAddr2(quoteDO.getDealerDO().getAddress2());
+		reportDO.setServiceProviderAddr3(quoteDO.getDealerCity()+" "+quoteDO.getDealerState()+" "+quoteDO.getDealerZip());
+		reportDO.setServiceProviderContact(quoteDO.getDealerDO().getAddress1());
+		reportDO.setServiceProviderEmail(quoteDO.getDealerDO().getInvoiceEmail());
+		reportDO.setServiceProviderPhone(quoteDO.getDealerDO().getPhone());
+		reportDO.setSpecialConsiderations(quoteDO.getSpecialConsiderations());
+		
+		return reportDO;
 	}
 
 }

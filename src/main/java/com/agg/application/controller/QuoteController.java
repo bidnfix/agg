@@ -434,7 +434,12 @@ public class QuoteController extends BaseController {
 		}else{
 			logger.info("quoteId: "+quoteDO.getQuoteId()+" and id: "+quoteDO.getId());
 			
-			boolean isContractCreated = quoteService.createContract(quoteDO, getAccountDetails(request));
+			StringBuffer url = request.getRequestURL();
+			String uri = request.getRequestURI();
+			String appUrl = url.substring(0, url.length() - uri.length());
+			logger.info("appUrl: "+appUrl);
+			
+			boolean isContractCreated = quoteService.createContract(quoteDO, getAccountDetails(request), appUrl);
 			
 			logger.info("isContractCreated: "+isContractCreated);
 			
