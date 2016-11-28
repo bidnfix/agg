@@ -10,6 +10,8 @@ public class AggConstants {
 	
 	public static final String DEALER_ADMIN = "Dealer Admin";
 	
+	public static final String ROLE_ADMIN = "admin";
+	
 	public static final String ACCOUNT_TYPE_DEALER = "dealer";
 	
 	public static final String ACCOUNT_TYPE_ADMIN = "admin";

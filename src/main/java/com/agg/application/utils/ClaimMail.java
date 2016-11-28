@@ -8,6 +8,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.thymeleaf.context.Context;
 
 import com.agg.application.model.AccountDO;
@@ -25,6 +26,11 @@ public class ClaimMail implements Runnable{
 	private Context context;
 	private EmailSender emailSender;
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+	
+	private String toEmail;
+	
+	private String adminName;
+	
 	
 	/**
 	 * @return the userService
@@ -59,26 +65,37 @@ public class ClaimMail implements Runnable{
 	public void setEmailSender(EmailSender emailSender) {
 		this.emailSender = emailSender;
 	}
+	
+	public String getToEmail() {
+		return toEmail;
+	}
+
+	public void setToEmail(String toEmail) {
+		this.toEmail = toEmail;
+	}
+	
+	public String getAdminName() {
+		return adminName;
+	}
+
+	public void setAdminName(String adminName) {
+		this.adminName = adminName;
+	}
 
 	@Override
 	public void run() {
 		String subject = String.format("Claim Request for Pre-authorization – %s – %s", context.getVariables().get("claimNo").toString(), 
 				context.getVariables().get("dealerName").toString());
-		AccountDO accountDO = new AccountDO();
-		RoleDO role = new RoleDO();
-		role.setAccountType(AggConstants.ACCOUNT_TYPE_ADMIN);
-		accountDO.setRoleDO(role);
-		List<UserDO> adminAccounts = userService.getUsers(accountDO);
+		List<AccountDO> adminAccounts = userService.getAdminDetails();
 		if(null != adminAccounts && !adminAccounts.isEmpty()){
-			for(UserDO admin: adminAccounts){
-				context.setVariable("userFirstName", admin.getFirstName());
-				//admin.getEmail();
-				EmailStatus emailStatus = emailSender.sendMailAsHtml("hariverma.tamada@gmail.com", subject, "email/fileaclaim-template", context);
-				logger.info("email status: "+emailStatus.isSuccess());
-				if(emailStatus.isSuccess()){
-					logger.info(String.format("New claim %s from dealer %s, approval mail send to admin %s  ", context.getVariables().get("claimNo").toString(), 
-							context.getVariables().get("dealerName").toString(), emailStatus.getTo(), "successfully"));
-				}
+			logger.debug("adminAccounts size: "+adminAccounts.size());
+			context.setVariable("userFirstName", adminAccounts.get(0).getFirstName());
+			//admin.getEmail();
+			EmailStatus emailStatus = emailSender.sendMailAsHtml(toEmail, subject, "email/fileaclaim-template", context);
+			logger.info("email status: "+emailStatus.isSuccess());
+			if(emailStatus.isSuccess()){
+				logger.info(String.format("New claim %s from dealer %s, approval mail send to admin %s  ", context.getVariables().get("claimNo").toString(), 
+						context.getVariables().get("dealerName").toString(), emailStatus.getTo(), "successfully"));
 			}
 		}
 	}

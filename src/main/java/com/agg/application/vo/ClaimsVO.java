@@ -42,7 +42,7 @@ public class ClaimsVO {
 	private byte cStatusValue;
 	private int deductible;
 	private int lol;
-	private int availableLol;
+	private int availabeLol;
 	private String extComments;
 	
 	/**
@@ -69,17 +69,12 @@ public class ClaimsVO {
 	public void setLol(int lol) {
 		this.lol = lol;
 	}
-	/**
-	 * @return the availableLol
-	 */
-	public int getAvailableLol() {
-		return availableLol;
+	
+	public int getAvailabeLol() {
+		return availabeLol;
 	}
-	/**
-	 * @param availableLol the availableLol to set
-	 */
-	public void setAvailableLol(int availableLol) {
-		this.availableLol = availableLol;
+	public void setAvailabeLol(int availabeLol) {
+		this.availabeLol = availabeLol;
 	}
 	/**
 	 * @return the extComments

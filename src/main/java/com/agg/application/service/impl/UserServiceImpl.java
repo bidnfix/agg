@@ -53,6 +53,29 @@ public class UserServiceImpl implements UserService {
 		return getUserDOList(accountList);
 	}
 	
+	public List<AccountDO> getAdminDetails(){
+		List<AccountDO> accountDOList = null;
+		List<Account> accounts = accountDAO.findByRoleRTitle(AggConstants.ROLE_ADMIN);
+		if(accounts != null){
+			accountDOList = new ArrayList<AccountDO>();
+			AccountDO accountDO = null;
+			for(Account account : accounts){
+				accountDO = new AccountDO();
+				accountDO.setFirstName(account.getFirstName());
+				accountDO.setLastName(account.getLastName());
+				accountDO.setId(account.getId());
+				accountDO.setRoleName(account.getRole().getRTitle());
+				accountDO.setStatus(account.getStatus());
+				accountDO.setUsername(account.getUserName());
+				
+				accountDOList.add(accountDO);
+			}
+			
+		}
+			
+		return accountDOList;
+	}
+	
 	@Override
 	public UserDO getUser(long userId) {
 		logger.debug("In getUser");

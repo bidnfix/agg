@@ -14,5 +14,7 @@ public interface UserService {
 	public long editUser(UserDO userDO, AccountDO accountDetails);
 
 	//public long saveDealerUser(UserDO userDO, AccountDO accountDO);
+	
+	public List<AccountDO> getAdminDetails();
 
 }

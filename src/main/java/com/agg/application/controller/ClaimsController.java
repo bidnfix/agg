@@ -79,6 +79,9 @@ public class ClaimsController extends BaseController {
 	@Autowired
 	EmailSender emailSender;
 	
+	@Value("${admin.email}")
+	private String adminEmail;
+	
 	@Value("${file.upload.dir}")
 	private String uploadingdir;
 
@@ -210,11 +213,12 @@ public class ClaimsController extends BaseController {
 				context.setVariable("totalClaimCost", (partsCost + laborsCost + otherCost));
 				context.setVariable("deductible", claimsVO.getDeductible());
 				context.setVariable("lol", claimsVO.getLol());
-				context.setVariable("availableLol", claimsVO.getAvailableLol());
+				context.setVariable("availableLol", claimsVO.getAvailabeLol());
 				context.setVariable("externalComments", "");
 				mail.setContext(context);
 				mail.setEmailSender(emailSender);
 				mail.setUserService(userService);
+				mail.setToEmail(adminEmail);
 				new Thread(mail).start();
 			}
 			return new Result("success", null, id);
