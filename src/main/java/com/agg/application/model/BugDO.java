@@ -37,7 +37,7 @@ public class BugDO {
 	}
 
 	public void setId(long id) {
-		id = id;
+		this.id = id;
 	}
 
 	public Timestamp getCreatedOn() {

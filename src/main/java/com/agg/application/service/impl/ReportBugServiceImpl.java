@@ -55,6 +55,7 @@ public class ReportBugServiceImpl implements ReportBugService {
 		return bugId;
 	}
 	
+	@Override
 	public List<BugDO> getBugs(){
 		
 		List<BugReport>  bugInfoList =  Lists.newArrayList(reportBugDAO.findAll());
@@ -70,6 +71,8 @@ public class ReportBugServiceImpl implements ReportBugService {
 			while(it.hasNext()){
 				bugDO = new BugDO();
 				bugReport = it.next();
+				
+				logger.debug("bugReport.getId() " + bugReport.getId());
 						    	
 				bugDO.setId(bugReport.getId());
 				bugDO.setDescription(bugReport.getDescription());
@@ -85,6 +88,30 @@ public class ReportBugServiceImpl implements ReportBugService {
 			}
 		}
 		return bugDOList;
+	}
+	
+	@Override
+	public BugDO getBug(long id){
+		
+		BugReport  bugReport =  reportBugDAO.findOne(id);
+
+			BugDO bugDO = null;
+			if(bugReport != null){
+				bugDO = new BugDO();
+				
+				logger.debug("bugReport.getId() " + bugReport.getId());
+				bugDO.setId(bugReport.getId());
+				bugDO.setDescription(bugReport.getDescription());
+				bugDO.setDiscovered(bugReport.getDiscovered());
+				bugDO.setFixBy(bugReport.getFixBy());
+				bugDO.setNotes(bugReport.getNotes());
+				bugDO.setPriority(bugReport.getPriority());
+				bugDO.setStatus(bugReport.getStatus());
+				bugDO.setUrl(bugReport.getUrl());
+				bugDO.setUserAgent(bugReport.getUserAgent());
+			}
+		
+		return bugDO;
 	}
 	
 	

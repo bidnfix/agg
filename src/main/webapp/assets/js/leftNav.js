@@ -907,6 +907,27 @@ routingApp.controller('BugInfoController', function($scope, $http, $timeout) {
 	        	$('#userTbl').DataTable();
 	        }, 300);
 	    });
+	 
+	 $scope.editBug = function(bugId) {
+			alert(bugId);
+			$http.get("/agg/bug/"+bugId)
+		    .then(function(response) {
+		        $scope.bug = response.data.data.bug;
+		        alert(response.data.data.bug.description);
+		    });
+			
+			var x = screen.width/4;
+		    var y = screen.height/9;
+		    showMask('popup_mask');
+		    $('#bugEditPopup').css("left", x+"px");
+		    $('#bugEditPopup').css("top", y+"px");
+		    $('#bugEditPopup').show();
+		};
+		
+		$scope.editSubmitBug = function() {
+			//alert("In submitMachine");
+			reportaBugService.editBugInfo($scope.bug, $scope);
+	    };
 });
 
 routingApp.controller('GetUserController', function($scope, userService, $http, $timeout) {

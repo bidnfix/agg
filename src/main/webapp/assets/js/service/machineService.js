@@ -38,12 +38,12 @@ routingApp.factory('machineService', function($http, $q, $window) {
 							            }
 							        }
 								} else {
-									alert('Error in adding machine: '+response.data.errMessage)
+									alert('Error in updating machine: '+response.data.errMessage)
 									//$('#errMsg').html(response.data.errMessage);
 								}
 								hideSpinner();
 							}, function(errResponse) {
-								alert('Error while creating machine');
+								alert('Error while updating machine');
 								hideSpinner();
 								return $q.reject(errResponse);
 							});

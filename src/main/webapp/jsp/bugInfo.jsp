@@ -1,6 +1,6 @@
 
 <!-- Article main content -->
-<%@include file="machinePopup.jsp" %>
+<%@include file="bugPopup.jsp" %>
 <article class="col-md-9 maincontent">
 	<header class="page-header">
              	<div class="col-md-8 col-sm-12">
@@ -46,7 +46,7 @@
                 <td>{{bug.description}}</td>
                 <td>{{bug.status}}</td>
                 <td><div class="manage-sec"><!-- <a href="#"><img src="../assets/images/delete-icon.png" alt="Delete" title="Delete"/></a> -->
-                		<a ng-click="editMachine(machine.machineId)"><img src="../assets/images/edit-pencil.png" alt="Edit" title="Edit"/></a>
+                		<a ng-click="editBug(bug.id)"><img src="../assets/images/edit-pencil.png" alt="Edit" title="Edit"/></a>
                 	</div>
                 </td>
             </tr>
