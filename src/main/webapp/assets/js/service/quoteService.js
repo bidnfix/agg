@@ -122,6 +122,7 @@ routingApp.factory('quoteService', function($http, $q, $window) {
 					});
 		},
 		archiveQuote : function(quote, $scope) {
+			showSpinner();
 			return $http.post('/agg/quote/archiveQuote', quote).then(
 					function(response) {
 						//alert(response.data.status);
@@ -131,6 +132,7 @@ routingApp.factory('quoteService', function($http, $q, $window) {
 							alert('error in archiving Quote: '+response.data.errMessage)
 							//$('#errMsg').html(response.data.errMessage);
 						}
+						hideSpinner();
 						
 					}, function(errResponse) {
 						alert('Error while archiving Quote');
@@ -138,6 +140,7 @@ routingApp.factory('quoteService', function($http, $q, $window) {
 					});
 		},
 		updateQuote : function(quote, $scope) {
+			showSpinner();
 			return $http.post('/agg/quote/updateQuote', quote).then(
 					function(response) {
 						//alert(response.data.status);
@@ -147,6 +150,7 @@ routingApp.factory('quoteService', function($http, $q, $window) {
 							alert('error in updating Quote: '+response.data.errMessage)
 							//$('#errMsg').html(response.data.errMessage);
 						}
+						hideSpinner();
 						
 					}, function(errResponse) {
 						alert('Error while updating Quote');
@@ -154,6 +158,7 @@ routingApp.factory('quoteService', function($http, $q, $window) {
 					});
 		},
 		invoiceQuote : function(quote, $scope) {
+			showSpinner();
 			return $http.post('/agg/quote/invoiceQuote', quote).then(
 					function(response) {
 						//alert(response.data.status);
@@ -163,6 +168,7 @@ routingApp.factory('quoteService', function($http, $q, $window) {
 							alert('error in invoicing Quote: '+response.data.errMessage)
 							//$('#errMsg').html(response.data.errMessage);
 						}
+						hideSpinner();
 						
 					}, function(errResponse) {
 						alert('Error while invoicing Quote');
@@ -170,6 +176,7 @@ routingApp.factory('quoteService', function($http, $q, $window) {
 					});
 		},
 		createContract : function(quote, $scope) {
+			showSpinner();
 			return $http.post('/agg/quote/createContract', quote).then(
 					function(response) {
 						//alert(response.data.status);
@@ -180,6 +187,7 @@ routingApp.factory('quoteService', function($http, $q, $window) {
 							alert('error in creating Contract: '+response.data.errMessage)
 							//$('#errMsg').html(response.data.errMessage);
 						}
+						hideSpinner();
 						
 					}, function(errResponse) {
 						alert('Error while creating Contract');
