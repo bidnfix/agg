@@ -4,6 +4,33 @@ routingApp.controller('ClaimsController', ['$scope', 'claimService', '$http', '$
 	$scope.serialNo='';
 	$scope.claim={};
 	$scope.claim.attachments=[];
+	
+	//datepicker changes
+	$scope.failureDatePickerIsOpen = false;
+	$scope.opens = [];
+	
+	$scope.failureDatePickerOpen = function ($event) {
+      if ($event) {
+          $event.preventDefault();
+          $event.stopPropagation(); // This is the magic
+      }
+      $scope.failureDatePickerIsOpen = true;
+    };
+    
+    $scope.reportDatePickerIsOpen = false;
+    $scope.reportDatePickerOpen = function ($event) {
+        if ($event) {
+            $event.preventDefault();
+            $event.stopPropagation(); // This is the magic
+        }
+        $scope.reportDatePickerIsOpen = true;
+    };
+    
+    $scope.dateOptions = {
+		format: "MM/dd/yyyy",
+	    showWeeks: false
+	};
+	
 	$scope.submitClaim = function() {
 		claimService.saveClaim($scope);
     };

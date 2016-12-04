@@ -30,24 +30,54 @@
 				<div class="form-group">
 					<label>Failure Date</label>
 					<div class="input-group">
-						<input type="date" class="form-control"
+						<!-- <input type="date" class="form-control"
 							aria-describedby="basic-addon2" ng-model="claim.failDate"
 							value="{{claim.failDate | date:'yyyy-MM-dd'}}"
 							ngMax="{{failureDateValid}}"
 							max="{{failureDateValid | date:'yyyy-MM-dd'}}"
-							required="required">
+							required="required"> -->
 						<!-- <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span> -->
+						<input type="text" class="form-control" 
+			                   datepicker-popup="MM/dd/yyyy"
+			                   datepicker-options="dateOptions" 
+			                   is-open="failureDatePickerIsOpen" 
+			                   ng-click="failureDatePickerOpen()"
+			                   ng-model="claim.failDate" 
+			                   max-date="failureDateValid"
+			                   required="required"
+			                   value="{{claim.failDate | date:'yyyy-MM-dd'}}"/>
+						<span class="input-group-btn">
+			              <button type="button" class="btn btn-default" 
+			                      ng-click="failureDatePickerOpen($event)">
+			                <i class="glyphicon glyphicon-calendar"></i>
+			              </button>
+			            </span>
 					</div>
 				</div>
 				<div class="form-group">
 					<label>Reported On</label>
 					<div class="input-group">
-						<input type="date" class="form-control"
+						<!-- <input type="date" class="form-control"
 							aria-describedby="basic-addon2" ng-model="claim.reportDate"
 							value="{{claim.reportDate | date:'yyyy-MM-dd'}}"
 							ngMax="{{todayDate}}" max="{{todayDate | date:'yyyy-MM-dd'}}"
-							required="required">
+							required="required"> -->
 						<!-- <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span> -->
+						<input type="text" class="form-control" 
+			                   datepicker-popup="MM/dd/yyyy"
+			                   datepicker-options="dateOptions" 
+			                   is-open="reportDatePickerIsOpen" 
+			                   ng-click="reportDatePickerOpen()"
+			                   ng-model="claim.reportDate" 
+			                   max-date="todayDate"
+			                   required="required"
+			                   value="{{claim.reportDate | date:'yyyy-MM-dd'}}"/>
+						<span class="input-group-btn">
+			              <button type="button" class="btn btn-default" 
+			                      ng-click="reportDatePickerOpen($event)">
+			                <i class="glyphicon glyphicon-calendar"></i>
+			              </button>
+			            </span>
 					</div>
 				</div>
 				<div class="form-group">

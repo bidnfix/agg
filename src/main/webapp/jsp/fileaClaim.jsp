@@ -54,7 +54,7 @@
 		</article>
 	<!-- /Article -->
 	<!-- Article main content -->
-			<article class="col-md-9 maincontent" ng-if='showContractDetails'>
+			<article class="col-md-9 maincontent" ng-show="showContractDetails">
 				<header class="page-header">
                 	<div class="col-md-6 col-sm-12">
 					<div class="sec-title">
