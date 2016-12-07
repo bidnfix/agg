@@ -7,6 +7,61 @@
 			us could disqualify the Claim.</div>
 		<div class="col-xs-12 no-pad clearfix">
 			<div class="col-md-6 no-pad pad10-right">
+				<span class="ag-tab-title col-xs-12 no-pad marg10-bottom">Contract
+					Information</span> <br clear="all"> <br>
+				<div class="form-group pad10-top">
+					<label>Contract ID</label>
+					<p>{{contractInfoList.contractID}}</p>
+				</div>
+				<div class="form-group">
+					<label>Manufacturer</label>
+					<p>{{contractInfoList.manfactureName}}</p>
+				</div>
+				<div class="form-group">
+					<label>Contract Expiration Date</label>
+					<p>{{contractInfoList.expirationDate |  date:"MM/dd/yyyy"}}</p>
+				</div>
+				<div class="form-group">
+					<label>Limit of Liability (LOL)</label>
+					<p>{{contractInfoList.lol | currency:"$":0}}</p>
+				</div>
+				<div class="form-group">
+					<label>Deductible</label>
+					<p>{{contractInfoList.deductible | currency:"$":0}}</p>
+				</div>
+			</div>
+
+			<div class="col-md-6 no-pad">
+				<span
+					class="ag-tab-title col-xs-12 no-pad marg10-bottom  pad20-left"
+					style="margin-left: -10px !important;">&nbsp;</span>
+				<div class="col-xs-12 no-pad pad10-left">
+					<br clear="all">
+
+					<div class="col-xs-12 no-pad">
+						<div class="form-group">
+							<label>Serial/VIN #</label>
+							<p>{{contractInfoList.machineSerialNo}}</p>
+						</div>
+						<div class="form-group">
+							<label>Model</label>
+							<p>{{contractInfoList.machineModel}}</p>
+						</div>
+						<div class="form-group">
+							<label>Usage Hours covered</label>
+							<p>{{contractInfoList.usageHoursCovered}}</p>
+						</div>
+						<div class="form-group">
+							<label>Available LOL</label>
+							<p>{{contractInfoList.availableLol | currency:"$":0}}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="col-xs-12 no-pad clearfix">
+			<div class="col-md-6 no-pad pad10-right">
 				<span class="ag-tab-title col-xs-12 no-pad marg10-bottom">Claim
 					Information</span> <br clear="all"> <br>
 				<div class="form-group pad10-top">

@@ -425,7 +425,7 @@ public class ClaimsServiceImpl implements ClaimsService {
 						partDO.setPartDescr(cp.getPartDescr());
 						partDO.setPartNo(cp.getPartNo());
 						partDO.setQty(cp.getQty());
-						partDO.setUnitPrice(cp.getQty());
+						partDO.setUnitPrice(cp.getUnitPrice());
 						cpl.add(partDO);
 					}
 					claimDO.setClaimPartDO(cpl);
