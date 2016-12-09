@@ -29,6 +29,7 @@ import com.agg.application.entity.ClaimNote;
 import com.agg.application.entity.ClaimPart;
 import com.agg.application.entity.Claims;
 import com.agg.application.entity.Contracts;
+import com.agg.application.entity.Dealer;
 import com.agg.application.entity.Manufacturer;
 import com.agg.application.entity.Quote;
 import com.agg.application.model.AccountDO;
@@ -37,6 +38,7 @@ import com.agg.application.model.ClaimLaborDO;
 import com.agg.application.model.ClaimPartDO;
 import com.agg.application.model.ClaimsDO;
 import com.agg.application.model.ContractDO;
+import com.agg.application.model.DealerDO;
 import com.agg.application.model.ManufacturerDO;
 import com.agg.application.model.QuoteDO;
 import com.agg.application.service.ClaimsService;
@@ -275,13 +277,13 @@ public class ClaimsServiceImpl implements ClaimsService {
 	@Override
 	public ClaimsDO getClaim(int claimId){
 		Claims claim = claimsDAO.findOne(claimId);
-		List<Claims> claimsList = new ArrayList<>();
+		List<Claims> claimsList = new ArrayList<Claims>();
 		claimsList.add(claim);
 		List<ClaimLabor> claimsLaborList = null;
 		List<ClaimPart> claimPartList = null;
 		List<Contracts> contractsList = null;
-		List<String> contractIdList = new ArrayList<>();
-		List<Integer> claimIdList = new ArrayList<>();
+		List<String> contractIdList = new ArrayList<String>();
+		List<Integer> claimIdList = new ArrayList<Integer>();
 		List<ClaimFile> claimFileList = null;
 		for(Claims claims : claimsList){
 			claimIdList.add(claims.getId());
@@ -372,12 +374,30 @@ public class ClaimsServiceImpl implements ClaimsService {
 			}
 		}
 		if(null != claimsList && !claimsList.isEmpty()){
+			Dealer dealer = null;
+			DealerDO dealerDO = null;
+			ClaimsDO claimDO = null;
 			for(Claims claim : claimsList){
-				ClaimsDO claimDO = new ClaimsDO();
+				claimDO = new ClaimsDO();
 				claimDO.setId(claim.getId());
 				claimDO.setClaimId(claim.getClaimId());
 				claimDO.setContractId(claim.getContractId());
 				claimDO.setDealerId(claim.getDealerId());
+				if(claim.getDealerId() > 0){
+					dealer = dealerDAO.findOne(Long.valueOf(claim.getDealerId()));
+					if(dealer != null){
+						dealerDO = new DealerDO();
+						dealerDO.setInvoiceEmail(dealer.getInvoiceEmail());
+						dealerDO.setName(dealer.getName());
+						dealerDO.setId(dealer.getId());
+						dealerDO.setMarketEmail(dealer.getMarketEmail());
+						dealerDO.setAddress1(dealer.getAddress());
+						dealerDO.setDealerUrl(dealer.getUrl());
+						
+						claimDO.setDealerDO(dealerDO);
+					}
+					
+				}
 				claimDO.setSerial(claim.getSerial());
 				claimDO.setFailDate(claim.getFailDate());
 				claimDO.setReportDate(claim.getReportDate());

@@ -3,6 +3,7 @@
  */
 package com.agg.application.utils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -92,6 +93,14 @@ public class PreAuthMail implements Runnable{
 		int partsCost = con.calcTotalLaborsCost(claimsDO.getClaimLaborDO());
 		int laborsCost = con.calcTotalPartsCost(claimsDO.getClaimPartDO());
 		int otherCost = claimsDO.getRequestedOtherCharges1() + claimsDO.getRequestedOtherCharges2();
+		if(toEmailList == null){
+			toEmailList = new ArrayList<String>();
+		}
+		if(claimsDO.getDealerDO() != null && claimsDO.getDealerDO().getInvoiceEmail() != null && !claimsDO.getDealerDO().getInvoiceEmail().isEmpty()){
+			toEmailList.add(claimsDO.getDealerDO().getInvoiceEmail());
+		}
+		
+		
 		
 		context.setVariable("claimNo", claimsDO.getClaimId());
 		context.setVariable("contractNo", claimsDO.getContractId());

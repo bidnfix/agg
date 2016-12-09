@@ -282,6 +282,7 @@ public class ClaimsController extends BaseController {
 			mail.setContext(context);
 			mail.setEmailSender(emailSender);
 			mail.setUserService(userService);
+			mail.setClaimsService(claimsService);
 			
 			new Thread(mail).start();
 			return new Result("success", null, "status updated");
