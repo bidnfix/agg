@@ -71,7 +71,8 @@ routingApp.controller('ClaimsController', ['$scope', 'claimService', '$http', '$
     };
     
     $scope.saveAsDraft = function(){
-    	$scope.newClaimClick='Draft';
+    	$scope.newClaimClick='Draft';    	
+    	claimService.saveClaim($scope, $route);
     };
     
     $scope.reqAuth = function(){

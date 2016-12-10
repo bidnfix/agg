@@ -52,6 +52,8 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
 			$scope.claim.partsTotalCost = 0;
 			$scope.claim.requestedOtherCharges1 = 0;
 			$scope.claim.requestedOtherCharges2 = 0;
+			$scope.claim.failDate = $scope.failureDateValid;
+			$scope.claim.reportDate = $scope.todayDate;
 			
 			/*$scope.$watch('claim.laborHrs * claim.laborHourlyRate', function(value){
 				$scope.claim.totalLaborCost = value;
