@@ -47,8 +47,7 @@ public class ClaimsDO {
 	private String machineModel;
 	private ContractDO contractDO;
 	private List<ClaimFileDO> claimFileDO;
-	private String coverageType;
-	private DealerDO dealerDO;
+	private String coverageType; 
 	
 	public List<ClaimFileDO> getClaimFileDO() {
 		return claimFileDO;
@@ -390,12 +389,6 @@ public class ClaimsDO {
 	}
 	public void setMachineModel(String machineModel) {
 		this.machineModel = machineModel;
-	}
-	public DealerDO getDealerDO() {
-		return dealerDO;
-	}
-	public void setDealerDO(DealerDO dealerDO) {
-		this.dealerDO = dealerDO;
 	}
 	
 }
