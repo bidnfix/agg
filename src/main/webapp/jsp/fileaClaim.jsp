@@ -1,4 +1,4 @@
-<div ng-controller="ClaimsController" ng-init="showSearchClaim=true;showContractDetails=false; showActiveContractDetails=false">
+<div ng-controller="ClaimsController">
 	<!-- Article main content -->
 		<article class="col-md-9 maincontent" ng-show="showSearchClaim">
 			<header class="page-header">

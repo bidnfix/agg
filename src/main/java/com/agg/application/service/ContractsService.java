@@ -24,4 +24,5 @@ public interface ContractsService {
 	boolean updateContract(ContractDO contractDO);
 	int getContractsCount(String contractId);
 	List<ContractDO> getActiveContracts();
+	ContractDO getContract(String contractId);
 }

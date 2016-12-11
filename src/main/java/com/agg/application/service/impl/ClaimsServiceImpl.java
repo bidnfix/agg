@@ -176,6 +176,7 @@ public class ClaimsServiceImpl implements ClaimsService {
 	public Claims saveClaim(ClaimsDO claimsDO)
 	{
 		Claims claim = new Claims();
+		claim.setId(claimsDO.getId());
 		claim.setClaimId(claimsDO.getClaimId());
 		claim.setContractId(claimsDO.getContractId());
 		claim.setDealerId(claimsDO.getDealerId());
@@ -204,6 +205,7 @@ public class ClaimsServiceImpl implements ClaimsService {
 			List<ClaimPart> claimPartList = new ArrayList<>();
 			for(ClaimPartDO claimPartDO : claimsDO.getClaimPartDO()){
 				ClaimPart claimPart = new ClaimPart();
+				claimPart.setId(claimPartDO.getId());
 				claimPart.setClaimId(newClaim.getId());
 				claimPart.setPartNo(claimPartDO.getPartNo());
 				claimPart.setPartDescr(claimPartDO.getPartDescr());
@@ -218,6 +220,7 @@ public class ClaimsServiceImpl implements ClaimsService {
 			List<ClaimLabor> claimLaborList = new ArrayList<>();
 			for(ClaimLaborDO laborDO : claimsDO.getClaimLaborDO()){
 				ClaimLabor claimLabor = new ClaimLabor();
+				claimLabor.setId(laborDO.getId());
 				claimLabor.setLaborNo(laborDO.getLaborNo());
 				claimLabor.setLaborDescr(laborDO.getLaborDescr());
 				claimLabor.setLaborHrs(laborDO.getLaborHrs());
@@ -275,6 +278,32 @@ public class ClaimsServiceImpl implements ClaimsService {
 	@Override
 	public ClaimsDO getClaim(int claimId){
 		Claims claim = claimsDAO.findOne(claimId);
+		List<Claims> claimsList = new ArrayList<>();
+		claimsList.add(claim);
+		List<ClaimLabor> claimsLaborList = null;
+		List<ClaimPart> claimPartList = null;
+		List<Contracts> contractsList = null;
+		List<String> contractIdList = new ArrayList<>();
+		List<Integer> claimIdList = new ArrayList<>();
+		List<ClaimFile> claimFileList = null;
+		for(Claims claims : claimsList){
+			claimIdList.add(claims.getId());
+			contractIdList.add(claims.getContractId());
+		}
+		if(!claimIdList.isEmpty()){
+			claimsLaborList = claimLaborDAO.findAllByClaimID(claimIdList);
+			claimPartList = claimPartDAO.findAllByClaimID(claimIdList);
+			if(!contractIdList.isEmpty()){
+				contractsList = contractsDAO.findAllByContractID(contractIdList);
+			}
+		}
+		List<ClaimsDO> list = ConvertClaimToClaimsDO(claimsList, claimsLaborList, claimPartList, contractsList, claimFileList);
+		return (list.isEmpty()) ? null : list.get(0);
+	}
+	
+	@Override
+	public ClaimsDO getClaim(String claimId){
+		Claims claim = claimsDAO.findClaimsByClaimId(claimId);
 		List<Claims> claimsList = new ArrayList<>();
 		claimsList.add(claim);
 		List<ClaimLabor> claimsLaborList = null;
@@ -450,6 +479,13 @@ public class ClaimsServiceImpl implements ClaimsService {
 					contractDO.setDeductible(con.getDeductible());
 					contractDO.setLol(con.getLol());
 					contractDO.setAvailabeLol(con.getAvailabeLol());
+					contractDO.setCoverageTermMonths(con.getCoverageTermMonths());
+					contractDO.setExpirationUsageHours(con.getExpirationUsageHours());
+					contractDO.setCoverageLevelHours(con.getCoverageLevelHours());
+					contractDO.setExpirationDate(con.getExpirationDate());
+					contractDO.setMachineModel(quote.getMachineModel());
+					contractDO.setMachineSerialNo(con.getMachineSerialNo());
+					contractDO.setCoverageType(con.getCoverageType());
 					claimDO.setContractDO(contractDO);
 				}
 				

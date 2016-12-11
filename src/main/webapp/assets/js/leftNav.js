@@ -73,6 +73,10 @@ routingApp.config(['$routeProvider',
                     	  templateUrl: '../../jsp/fileaClaim.jsp',
                     	  controller: 'ClaimsController'
                       }).
+                      when('/agg/fileClaim/:claimId', {
+                    	  templateUrl: '../../jsp/fileaClaim.jsp',
+                    	  controller: 'ClaimsController'
+                      }).
                       when('/agg/preauthClaim', {
                     	  templateUrl: '../../jsp/preAuthReqClaim.jsp',
                     	  controller: 'ClaimsPreAuthController'
@@ -1011,7 +1015,7 @@ routingApp.controller('InactiveContractController', function($scope, $http, $tim
 	
 })*/
 
-routingApp.controller('ClaimsInfoController', function($scope, $http, $timeout) {
+routingApp.controller('ClaimsInfoController', function($scope, $http, $timeout, $window) {
 	$http.get("/agg/getClaimsInfo")
 	.then(function(response) {
 		 $scope.claimDOList = response.data.data.claimDOList;
@@ -1019,6 +1023,12 @@ routingApp.controller('ClaimsInfoController', function($scope, $http, $timeout) 
         	$('#claimsTbl').DataTable();
         }, 300);
     });
+	
+	$scope.editClaimByDealer = function(claimId, status){
+		if(status === 9){
+			$window.location = '#/agg/fileClaim/' + claimId;
+		}
+	};
 	
 })
 

@@ -1,6 +1,7 @@
 package com.agg.application.vo;
 
 public class ClaimLabourVO {
+	private int id;
 	private String laborNo;
 	private String laborDescr;
 	private int laborHrs;
@@ -12,6 +13,21 @@ public class ClaimLabourVO {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	/**
+	 * @return the id
+	 */
+	public int getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	/**
 	 * @return the laborNo
 	 */

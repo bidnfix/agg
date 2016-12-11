@@ -19,4 +19,5 @@ public interface ClaimsService {
 	int updateClaimAdjudicate(ClaimsDO claim);
 	ClaimsDO getClaim(int claimId);
 	int getContractsCount(String contractId);
+	ClaimsDO getClaim(String claimId);
 }

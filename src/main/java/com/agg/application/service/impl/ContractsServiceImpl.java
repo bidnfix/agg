@@ -3,6 +3,7 @@
  */
 package com.agg.application.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -200,6 +201,19 @@ public class ContractsServiceImpl implements ContractsService{
 	@Override
 	public ContractDO getContract(long id, String contractId) {
 		List<Contracts> contractsList = contractDAO.findByIdAndContractId(id, contractId);
+		List<ContractDO> contractDOList = formatEntityToDO(contractsList);
+		if(contractDOList != null && !contractDOList.isEmpty()){
+			return contractDOList.get(0);
+		}
+		
+		return null;
+	}
+	
+	@Override
+	public ContractDO getContract(String contractId) {
+		Contracts contracts = contractDAO.findByContractId(contractId);
+		List<Contracts> contractsList = new ArrayList<Contracts>();
+		contractsList.add(contracts);
 		List<ContractDO> contractDOList = formatEntityToDO(contractsList);
 		if(contractDOList != null && !contractDOList.isEmpty()){
 			return contractDOList.get(0);

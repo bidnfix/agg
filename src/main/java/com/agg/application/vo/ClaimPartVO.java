@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  *
  */
 public class ClaimPartVO {
+	private int id;
 	private String partNo;
 	private String partDescr;
 	private int qty;
@@ -21,6 +22,24 @@ public class ClaimPartVO {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	
+	/**
+	 * @return the id
+	 */
+	public int getId() {
+		return id;
+	}
+
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(int id) {
+		this.id = id;
+	}
+
+
 	/**
 	 * @return the partNo
 	 */

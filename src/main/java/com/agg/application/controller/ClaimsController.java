@@ -136,7 +136,7 @@ public class ClaimsController extends BaseController {
 					claimsDO.setDealerId((int)dealerDO.getId());
 				}
 			}
-			
+			claimsDO.setId(claimsVO.getId());
 			claimsDO.setSerial(claimsVO.getSerial());
 			claimsDO.setFailDate(claimsVO.getFailDate());
 			claimsDO.setReportDate(claimsVO.getReportDate());
@@ -159,6 +159,9 @@ public class ClaimsController extends BaseController {
 				List<ClaimPartDO> partDO = new ArrayList<>();
 				for(ClaimPartVO partVO : claimsVO.getClaimPartVOList()){
 					ClaimPartDO claimPartDO = new ClaimPartDO();
+					if(partVO.getId() > 0){
+						claimPartDO.setId(partVO.getId());
+					}
 					claimPartDO.setPartNo(partVO.getPartNo());
 					claimPartDO.setPartDescr(partVO.getPartDescr());
 					claimPartDO.setQty(partVO.getQty());
@@ -172,6 +175,9 @@ public class ClaimsController extends BaseController {
 				List<ClaimLaborDO> labourDO = new ArrayList<>();
 				for(ClaimLabourVO labourVO : claimsVO.getClaimLabourVOList()){
 					ClaimLaborDO claimLabourDO = new ClaimLaborDO();
+					if(labourVO.getId() > 0){
+						claimLabourDO.setId(labourVO.getId());
+					}
 					claimLabourDO.setLaborNo(labourVO.getLaborNo());
 					claimLabourDO.setLaborDescr(labourVO.getLaborDescr());
 					claimLabourDO.setLaborHrs(labourVO.getLaborHrs());
@@ -412,6 +418,19 @@ public class ClaimsController extends BaseController {
 		}else{
 			int count = claimsService.getContractsCount(contractId);
 			opResult = new Result("success", "", model.addAttribute("count", count));
+		}
+		return opResult;
+	}
+	
+	@RequestMapping(value = "/claims/{claimId}", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+	public @ResponseBody Result getClaimById(@PathVariable String claimId, HttpServletRequest request, HttpServletResponse response, Model model) {
+		logger.debug("Inside getClaimById with id: "+claimId);
+		Result opResult = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			ClaimsDO claimDO = claimsService.getClaim(claimId);
+			opResult = new Result("success", "", model.addAttribute("claim", claimDO));
 		}
 		return opResult;
 	}

@@ -49,4 +49,7 @@ public interface ClaimsDAO extends CrudRepository<Claims, Integer> {
 	
 	@Query("SELECT COUNT(*) FROM Claims c WHERE c.dealerId = :dealerId")
 	long findClaimsCountByDealer(@Param("dealerId") int dealerId);
+	
+	@Query("SELECT c FROM Claims c WHERE c.claimId = :claimId")
+	Claims findClaimsByClaimId(@Param("claimId")String claimId);
 }

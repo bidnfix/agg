@@ -1,10 +1,16 @@
 'use strict';
 
-routingApp.controller('ClaimsController', ['$scope', 'claimService', '$http', '$timeout', '$filter', '$route', function($scope, claimService, $http, $timeout, $filter, $route) {
+routingApp.controller('ClaimsController', ['$scope', 'claimService', '$http', '$timeout', '$filter', '$route', '$routeParams', function($scope, claimService, $http, $timeout, $filter, $route, $routeParams) {
 	$scope.serialNo='';
 	$scope.claim={};
 	$scope.claim.attachments=[];
-	
+	if($routeParams.claimId){
+		claimService.draft($scope, $routeParams.claimId);
+	}else{
+		$scope.showSearchClaim=true;
+		$scope.showContractDetails=false; 
+		$scope.showActiveContractDetails=false;
+	}
 	//datepicker changes
 	$scope.failureDatePickerIsOpen = false;
 	$scope.opens = [];

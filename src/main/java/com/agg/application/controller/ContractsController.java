@@ -106,6 +106,18 @@ public class ContractsController extends BaseController{
 		return opResult;
 	}
 	
+	@RequestMapping(value = "/contracts/{contractId}", method = RequestMethod.GET)
+	public @ResponseBody Result viewContract1(@PathVariable String contractId, HttpServletRequest request, HttpServletResponse response, Model model) {
+		logger.debug("Inside viewContract with contract id: "+contractId);
+		Result opResult = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			opResult = new Result("success", "", model.addAttribute(contractService.getContract(contractId)));
+		}
+		return opResult;
+	}
+	
 	@RequestMapping(value = "/contracts/machineserialno/search/{term}", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
 	public @ResponseBody Result getContractsByMachineSerialNo(@PathVariable String term, HttpServletRequest request, HttpServletResponse response, Model model) {
 		Result result = null;

@@ -5,18 +5,80 @@
 'use strict';
 
 var commons = {
-		renameJsonPropertyName : function(data, propName, newPropName){
+		renameJsonPropertyNameArray : function(data, propName, newPropName){
 			data.forEach(function(e) {
 				   if(e.hasOwnProperty(propName)){
 					   e[newPropName] = e[propName];
 					   delete e[propName];
 				   }    
 				});
+		},
+		renameJsonPropertyName : function(data, propName, newPropName){
+		   if(data.hasOwnProperty(propName)){
+			   data[newPropName] = data[propName];
+			   delete data[propName];
+		   }    
 		}
 }
 
 routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filter', function($http, $q, $window, $timeout, $filter){
-	var selectContract = function($scope, data){
+	
+	var draft = function($scope, claimId){
+			$scope.fromDraftFlag = true;
+			$scope.showSearchClaim = false;
+			$scope.showActiveContractDetails = false;
+			$scope.showContractDetails = false;
+			$http.get("/agg/claims/" + claimId)
+			.then(function(response) {
+				if(response.data.status === 'success'){
+					if(response.data.data.claim){
+						var claim = response.data.data.claim;
+						$scope.contractInfoList =  claim.contractDO;
+						$scope.claim = {};
+						$scope.claim.id = claim.id;
+						$scope.claim.claimId = claim.claimId;
+						$scope.claim.deductible = $scope.contractInfoList.deductible;
+						$scope.claim.lol = $scope.contractInfoList.lol;
+						$scope.claim.availabeLol = $scope.contractInfoList.availabeLol;
+						$scope.claim.contractId = $scope.contractInfoList.contractId;
+						$scope.claim.serial = $scope.contractInfoList.machineSerialNo;
+						$scope.claim.manf = claim.manufacturer;
+						$scope.claim.model = $scope.contractInfoList.machineModel;
+						$scope.claim.failDate = claim.failDate;
+						$scope.claim.reportDate = claim.reportDate;
+						$scope.claim.workOrder = claim.workOrder;
+						$scope.claim.hoursBreakDown = claim.hoursBreakDown,
+						$scope.claim.custComplaint = claim.custComplaint,
+						$scope.claim.causeFail = claim.causeFail,
+						$scope.claim.correctiveAction = claim.correctiveAction,
+						$scope.claim.requestedOtherCharges1 = claim.requestedOtherCharges1;
+						$scope.claim.requestedOtherCharges2 = claim.requestedOtherCharges2;
+						claim.claimPartDO = (claim.claimPartDO === null) ? [] : claim.claimPartDO;
+						$scope.claim.claimPartVOList = claim.claimPartDO;
+						
+						claim.claimLaborDO = (claim.claimLaborDO === null) ? [] : claim.claimLaborDO;
+						commons.renameJsonPropertyNameArray(claim.claimLaborDO, "rate", "laborHourlyRate");
+						$scope.claim.claimLabourVOList = claim.claimLaborDO;
+						$scope.contractInfoList.manfactureName = claim.manufacturer;
+						commons.renameJsonPropertyName($scope.contractInfoList, 'contractId', 'contractID');
+						commons.renameJsonPropertyName($scope.contractInfoList, 'coverageLevelHours', 'usageHoursCovered');
+						commons.renameJsonPropertyName($scope.contractInfoList,  'availabeLol', 'availableLol');
+						initClaimAddForm($scope, false);
+					}
+					//getContract($scope, $scope.claim.contractId);
+				}
+			});			
+		},
+		getContract = function($scope, contractid){
+			$http.get("/agg/contracts/" + contractid)
+			.then(function(response) {
+				if(response.data.status === 'success'){
+					$scope.contractInfoList =  response.data.data.contractDO;
+					
+				}
+			});	
+		},
+		selectContract = function($scope, data){
 			$scope.contractInfoList = data;
 			hideContractList($scope);
 			getContractCount($scope, initClaimAddForm);
@@ -26,38 +88,52 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
 			.then(function(response) {
 				if(response.data.status === 'success'){
 					$scope.contractInfoList.count =  parseInt(response.data.data.count) + 1;
-					initFunc($scope);
+					initFunc($scope, true);
 				}
 			});
 		},
-		initClaimAddForm = function($scope){
+		initClaimAddForm = function($scope, flag){
 			$scope.isSubmitDisabled = false;
-			$scope.claim={};
-			$scope.claim.deductible = $scope.contractInfoList.deductible;
-			$scope.claim.lol = $scope.contractInfoList.lol;
-			$scope.claim.availabeLol = $scope.contractInfoList.availableLol;
-			$scope.claim.contractId = $scope.contractInfoList.contractID;
-			$scope.claim.serial = $scope.contractInfoList.machineSerialNo;
-			$scope.claim.manf = $scope.contractInfoList.manfactureName;
-			$scope.claim.model = $scope.contractInfoList.machineModel;
-			$scope.claim.claimId = $scope.contractInfoList.contractID + '-' + $scope.contractInfoList.count;
-			$scope.claim.claimPartVOList = [];
-			$scope.claim.claimPartVOList.push({});
-			$scope.claim.claimLabourVOList = [];
-			$scope.claim.claimLabourVOList.push({});
-			$scope.todayDate = new Date();
-			$scope.failureDateValid = updateDate($scope.todayDate, -1);
-			$scope.claim.totalClaimCost = 0;
-			$scope.claim.totalLaborCost = 0;
-			$scope.claim.partsTotalCost = 0;
-			$scope.claim.requestedOtherCharges1 = 0;
-			$scope.claim.requestedOtherCharges2 = 0;
-			$scope.claim.failDate = $scope.failureDateValid;
-			$scope.claim.reportDate = $scope.todayDate;
 			
-			/*$scope.$watch('claim.laborHrs * claim.laborHourlyRate', function(value){
-				$scope.claim.totalLaborCost = value;
-			});*/
+			if(flag){
+				$scope.fromDraftFlag = false;
+				$scope.claim={};
+				$scope.claim.deductible = $scope.contractInfoList.deductible;
+				$scope.claim.lol = $scope.contractInfoList.lol;
+				$scope.claim.availabeLol = $scope.contractInfoList.availableLol;
+				$scope.claim.contractId = $scope.contractInfoList.contractID;
+				$scope.claim.serial = $scope.contractInfoList.serial;
+				$scope.claim.manf = $scope.contractInfoList.manfactureName;
+				$scope.claim.model = $scope.contractInfoList.machineModel;
+				$scope.claim.claimId = $scope.contractInfoList.contractID + '-' + $scope.contractInfoList.count;
+				$scope.claim.claimPartVOList = [];
+				$scope.claim.claimPartVOList.push({});
+				$scope.claim.claimLabourVOList = [];
+				$scope.claim.claimLabourVOList.push({});
+				$scope.todayDate = new Date();
+				$scope.failureDateValid = updateDate($scope.todayDate, -1);
+				$scope.claim.totalClaimCost = 0;
+				$scope.claim.totalLaborCost = 0;
+				$scope.claim.partsTotalCost = 0;
+				$scope.claim.requestedOtherCharges1 = 0;
+				$scope.claim.requestedOtherCharges2 = 0;
+				$scope.claim.failDate = $scope.failureDateValid;
+				$scope.claim.reportDate = $scope.todayDate;
+			}else{
+				$scope.claim.totalClaimCost = 0;
+				$scope.claim.totalLaborCost = 0;
+				$scope.claim.partsTotalCost = 0;
+				angular.forEach($scope.claim.claimPartVOList, function(claimPartVO, index){
+					calcTotalPartLine($scope.claim, index);
+				});
+				
+				angular.forEach($scope.claim.claimLabourVOList, function(claimLaborVO, index){
+					calcTotalLabourLine($scope.claim, index);
+				});
+				calcTotalPartCost($scope.claim);
+				calcTotalLabourCost($scope.claim);
+				hideContractList($scope);
+			}
 			
 			$scope.$watchCollection('[claim.totalLaborCost, claim.partsTotalCost, claim.requestedOtherCharges1, claim.requestedOtherCharges2]', function(newValues){
 				$scope.claim.totalClaimCost = parseInt(newValues[0]) + parseInt(newValues[1]) + parseInt(newValues[2]) + parseInt(newValues[3]);
@@ -219,7 +295,12 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
 		    	   hideSpinner();
 		    	   if(status === 200 && data.status === "success"){
 		    		   alert("success");
-		    		   $route.reload();
+		    		   if(!$scope.fromDraftFlag){
+		    			   $route.reload();
+		    		   }else{
+		    			   $window.location = '#/agg/fileClaim';
+		    		   }
+		    		   
 		    	   }else{
 		    		   alert("failed");
 		    	   }
@@ -233,7 +314,8 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
 		calcTotalLabourCost : calcTotalLabourCost,
 		getPreAuthRequest : getPreAuthRequest,
 		showContractList : showContractList,
-		collectAttachments : collectAttachments
+		collectAttachments : collectAttachments,
+		draft : draft
 	}
 }]);
 
@@ -519,7 +601,7 @@ routingApp.factory('claimDraftService', ['$http', '$q', '$window', '$timeout', '
 				 $scope.claim.claimLabourVOList = [];
 					$scope.claim.claimLabourVOList.push({});
 			 }
-			commons.renameJsonPropertyName($scope.claim.claimLabourVOList, "rate", "laborHourlyRate");
+			commons.renameJsonPropertyNameArray($scope.claim.claimLabourVOList, "rate", "laborHourlyRate");
 			$scope.todayDate = new Date();
 			$scope.failureDateValid = updateDate($scope.todayDate, -1);
 			calcCost($scope.claim);
