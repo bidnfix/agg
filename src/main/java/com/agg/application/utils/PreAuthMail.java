@@ -3,6 +3,7 @@
  */
 package com.agg.application.utils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -93,6 +94,13 @@ public class PreAuthMail implements Runnable{
 		int laborsCost = con.calcTotalPartsCost(claimsDO.getClaimPartDO());
 		int otherCost = claimsDO.getRequestedOtherCharges1() + claimsDO.getRequestedOtherCharges2();
 		
+		if(toEmailList == null){
+			toEmailList = new ArrayList<String>();
+		}
+		if(claimsDO.getDealerDO() != null && claimsDO.getDealerDO().getInvoiceEmail() != null && !claimsDO.getDealerDO().getInvoiceEmail().isEmpty()){
+			toEmailList.add(claimsDO.getDealerDO().getInvoiceEmail());
+		}
+		
 		context.setVariable("claimNo", claimsDO.getClaimId());
 		context.setVariable("contractNo", claimsDO.getContractId());
 		context.setVariable("totalLaborCost", laborsCost);
@@ -103,6 +111,19 @@ public class PreAuthMail implements Runnable{
 		context.setVariable("lol", claimsDO.getContractDO().getLol());
 		context.setVariable("availableLol", claimsDO.getContractDO().getAvailabeLol());
 		context.setVariable("externalComments", "");
+		
+		String statusDesc = "";
+		if(claimsDO.getcStatus() != 0){
+			if(claimsDO.getcStatus() == AggConstants.CLAIM_STATUS_PRE_AUTHORIZED_APPROVED){
+				statusDesc = AggConstants.CLAIM_STATUS_PRE_AUTHORIZED_APPROVED_DESC;
+			}else if(claimsDO.getcStatus() == AggConstants.CLAIM_STATUS_PRE_AUTHORIZED_REJECTED){
+				statusDesc = AggConstants.CLAIM_STATUS_PRE_AUTHORIZED_REJECTED_DESC;
+			}else if(claimsDO.getcStatus() == AggConstants.CLAIM_STATUS_PRE_AUTHORIZED_APPROVED_WITH_ADJUSMENTS){
+				statusDesc = AggConstants.CLAIM_STATUS_PRE_AUTHORIZED_APPROVED_WITH_ADJUSMENTS_DESC;
+			}
+		}
+		context.setVariable("status", statusDesc);
+		
 		
 		if(null != toEmailList && !toEmailList.isEmpty()){
 			for(String toEmail: toEmailList){

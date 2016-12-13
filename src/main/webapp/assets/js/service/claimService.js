@@ -102,7 +102,7 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
 				$scope.claim.lol = $scope.contractInfoList.lol;
 				$scope.claim.availabeLol = $scope.contractInfoList.availableLol;
 				$scope.claim.contractId = $scope.contractInfoList.contractID;
-				$scope.claim.serial = $scope.contractInfoList.serial;
+				$scope.claim.serial = $scope.contractInfoList.machineSerialNo;
 				$scope.claim.manf = $scope.contractInfoList.manfactureName;
 				$scope.claim.model = $scope.contractInfoList.machineModel;
 				$scope.claim.claimId = $scope.contractInfoList.contractID + '-' + $scope.contractInfoList.count;

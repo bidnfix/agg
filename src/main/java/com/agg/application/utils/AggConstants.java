@@ -70,6 +70,12 @@ public class AggConstants {
 	
 	public static final int CLAIM_STATUS_CANCEL = 10;
 	
+	public static final String CLAIM_STATUS_PRE_AUTHORIZED_APPROVED_DESC = "Pre-authorization Approved";
+	
+	public static final String CLAIM_STATUS_PRE_AUTHORIZED_REJECTED_DESC = "Pre-authorization Rejected";
+	
+	public static final String CLAIM_STATUS_PRE_AUTHORIZED_APPROVED_WITH_ADJUSMENTS_DESC = "Pre-authorization Approved with Adjustments";
+	
 	public static final String QUOTE_REPORT_OUT_STANDING_DESC = "Thank you for considering AgGuard coverage, we appreciate the opportunity to earn your trust. "
 			+ "This quote reflects the information provided in your request for an extended service Contract based on the current terms and "
 			+ "conditions provided on our website. Our pricing is dynamic, so it is possible the price will increase after your initial quote request; "
