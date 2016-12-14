@@ -176,7 +176,7 @@ routingApp.controller('ClaimsPreAuthController', function($scope, $http, claimPr
 	};
 });
 
-routingApp.controller('ClaimsAdjudicateController', ['$scope', '$http', 'claimsAdjudicateService', 'ModalService', '$window', '$route', function($scope, $http, claimsAdjudicateService, ModalService, $window, $route){
+routingApp.controller('ClaimsAdjudicateController', ['$scope', '$http', 'claimsAdjudicateService', 'ModalService', '$window', '$route', '$filter', function($scope, $http, claimsAdjudicateService, ModalService, $window, $route, $filter){
 	claimsAdjudicateService.init($scope);
 	
 	$scope.onClickSelectClaim = function(claim){
@@ -216,7 +216,13 @@ routingApp.controller('ClaimsAdjudicateController', ['$scope', '$http', 'claimsA
     };
     
     $scope.onClickSubmitClaim = function(){
-    	claimsAdjudicateService.submit($scope);
+    	if($scope.click === 3){
+    		if($window.confirm('You are about to pay the dealer claim '+$scope.adjudicateClaim.claimId+', an amount of '+$filter('currency')($scope.adjustments.tra, "$", 0)+'. This action cannot be reversed. Are you sure you want to continue?')) {
+    			claimsAdjudicateService.submit($scope);
+    		}
+    	}else{
+    		claimsAdjudicateService.submit($scope);
+    	}
 	};
     
 }]);

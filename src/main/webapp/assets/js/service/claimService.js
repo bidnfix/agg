@@ -461,7 +461,7 @@ routingApp.factory('claimsAdjudicateService', ['$http', '$q', '$window', '$timeo
 		}
 		
 		if(parseInt($scope.adjustments.tra) === parseInt($scope.adjustments.totalClaimCost)){
-			$scope.adjustments.customerOwes = parseInt($scope.adjudicateClaim.contractDO.availabeLol);
+			$scope.adjustments.customerOwes = parseInt($scope.adjudicateClaim.contractDO.deductible);
 		}else{
 			$scope.adjustments.customerOwes = parseInt($scope.adjustments.totalClaimCost) - parseInt($scope.adjustments.tra);
 		}
@@ -477,6 +477,7 @@ routingApp.factory('claimsAdjudicateService', ['$http', '$q', '$window', '$timeo
 		calcCost($scope.adjudicateClaim);
 		$scope.adjustments.totalClaimCost = 0;
 		calcAdjusmentCost($scope.adjustments);
+		calReimburshedCost($scope);
 	},
 	updateClaimStatus = function(data){
 		$http.put('/agg/preAuthClaimReq', data).then(
@@ -537,6 +538,7 @@ routingApp.factory('claimsAdjudicateService', ['$http', '$q', '$window', '$timeo
 	},
 	calcAdjustmentsOnChange = function($scope){
 		calcAdjusmentCost($scope.adjustments);
+		calReimburshedCost($scope);
 	},
 	collectAttachments = function ($scope, $files) {
 		$scope.attachments = $files || [];

@@ -72,13 +72,13 @@
                           <div class="form-group">
                             <label>Failure Date</label>
                             <div class="input-group">
-                            	{{adjudicateClaim.failDate | date:'yyyy-MM-dd'}}
+                            	{{adjudicateClaim.failDate | date:'MM/dd/yyyy'}}
                             </div>
                           </div>
                           <div class="form-group">
                             <label>Reported On</label>
                             <div class="input-group">
-                            	{{adjudicateClaim.reportDate | date:'yyyy-MM-dd'}}
+                            	{{adjudicateClaim.reportDate | date:'MM/dd/yyyy'}}
                             </div>
                           </div>
                           <div class="form-group">
@@ -246,6 +246,24 @@
                             </div>
                             <div class="col-sm-4 t-r">
                                   {{adjustments.totalAdjustmentLaborsCost | currency}}                         
+                            </div>
+                            <div class="col-sm-8 no-pad">
+                              Total Adjusted Claim Cost
+                            </div>
+                            <div class="col-sm-4 t-r">
+                                  {{adjustments.totalClaimCost | currency}}                         
+                            </div>
+                            <div class="col-sm-8 no-pad">
+                              Total Re-imbursed Amount
+                            </div>
+                            <div class="col-sm-4 t-r">
+                                  {{adjustments.tra | currency}}                         
+                            </div>
+                            <div class="col-sm-8 no-pad">
+                              Total Amount owed by the Customer
+                            </div>
+                            <div class="col-sm-4 t-r">
+                                  {{adjustments.customerOwes | currency}}                         
                             </div>  
                             </div>
                               
