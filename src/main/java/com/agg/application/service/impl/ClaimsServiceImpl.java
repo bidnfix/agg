@@ -523,7 +523,10 @@ public class ClaimsServiceImpl implements ClaimsService {
 	public void updateStatus(int id, byte status, final int dealerId, final String extComment) {
 		claimsDAO.updateStatus(id, status);
 		if(Util.isNotEmptyString(extComment)){
-			ClaimNote claimNote = new ClaimNote();
+			ClaimNote claimNote = claimNotesDAO.findByClaimIdAndDealerId(id, dealerId);
+			if(claimNote == null){
+				claimNote = new ClaimNote();
+			}
 			claimNote.setClaimId(id);
 			claimNote.setDealerId(dealerId);
 			claimNote.setNotes(extComment);
@@ -534,7 +537,7 @@ public class ClaimsServiceImpl implements ClaimsService {
 
 	@Transactional
 	@Override
-	public int updateClaimAdjudicate(ClaimsDO claimDO) {
+	public int updateClaimAdjudicate(ClaimsDO claimDO, AccountDO accountDO) {
 		Claims res = null;
 		Claims claim = claimsDAO.findOne(claimDO.getId());
 		if(null != claim){
@@ -556,6 +559,27 @@ public class ClaimsServiceImpl implements ClaimsService {
 				
 				claimFileDAO.save(claimFiles);
 			}
+			
+			Contracts contracts = contractsDAO.findByContractId(claim.getContractId());
+			if(contracts != null){
+				contracts.setAvailabeLol(contracts.getAvailabeLol()-claimDO.getTra());
+				contracts.setLastUpdatedDate(new Date());
+				contractsDAO.save(contracts);
+			}
+			
+			if(Util.isNotEmptyString(claimDO.getComments())){
+				ClaimNote claimNote = claimNotesDAO.findByClaimIdAndDealerId(claimDO.getId(), new Long(accountDO.getDealerId()).intValue());
+				if(claimNote == null){
+					claimNote = new ClaimNote();
+				}
+				claimNote.setClaimId(claimDO.getId());
+				claimNote.setDealerId(new Long(accountDO.getDealerId()).intValue());
+				claimNote.setNotes(claimDO.getComments());
+				claimNote.setLastUpdate(new Timestamp(new Date().getTime()));
+				claimNotesDAO.save(claimNote);
+			}
+			
+			
 		}
 		return (null == res) ? -1 : res.getId();
 	}

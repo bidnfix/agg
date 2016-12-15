@@ -42,6 +42,7 @@ import com.agg.application.service.ContractsService;
 import com.agg.application.service.DealerService;
 import com.agg.application.service.QuoteService;
 import com.agg.application.service.UserService;
+import com.agg.application.utils.AdjudicateMail;
 import com.agg.application.utils.ClaimMail;
 import com.agg.application.utils.EmailSender;
 import com.agg.application.utils.PreAuthMail;
@@ -342,6 +343,9 @@ public class ClaimsController extends BaseController {
 			claimsDO.setTotalAdjustedLaborCost(vo.getTotalAdjustmentLaborsCost());
 			claimsDO.setApprovedOtherCharges1(vo.getRequestedOtherCharges1());
 			claimsDO.setApprovedOtherCharges2(vo.getRequestedOtherCharges2());
+			claimsDO.setTra(vo.getTra());
+			claimsDO.setCustomerOwesAmount(vo.getCustomerOwes());
+			claimsDO.setComments(vo.getExtComment());
 			List<ClaimFileDO> claimFileDO = new ArrayList<>();
 			for(MultipartFile uploadedFile : fileList) {
 				String fName = String.format("%s_%s", System.currentTimeMillis(), uploadedFile.getOriginalFilename());
@@ -358,12 +362,18 @@ public class ClaimsController extends BaseController {
 			if(!claimFileDO.isEmpty()){
 				claimsDO.setClaimFileDO(claimFileDO);
 			}
-			id = claimsService.updateClaimAdjudicate(claimsDO);
+			id = claimsService.updateClaimAdjudicate(claimsDO, getAccountDetails(request));
 			
-			/*if(id != -1 ){
-				ClaimMail mail = new ClaimMail();
+			if(id != -1){
+				StringBuffer url = request.getRequestURL();
+				String uri = request.getRequestURI();
+				String appUrl = url.substring(0, url.length() - uri.length());
+				logger.info("appUrl: "+appUrl);
+				
+				AdjudicateMail mail = new AdjudicateMail();
 				mail.setUserService(userService);
-				ClaimMailDO claimMailDO = new ClaimMailDO();
+				mail.setAppUrl(appUrl);
+				/*ClaimMailDO claimMailDO = new ClaimMailDO();
 				claimMailDO.setClaimID(String.valueOf(id));
 				claimMailDO.setDealerName(dealerDO.getFirstName());
 				claimMailDO.setContractId(claimsDO.getContractId());
@@ -373,8 +383,8 @@ public class ClaimsController extends BaseController {
 				claimMailDO.setLol(String.valueOf(claimsVO.getLol()));
 				claimMailDO.setAvailableLol(String.valueOf(claimsVO.getAvailableLol()));
 				mail.setClaimMailDO(claimMailDO);
-				new Thread(mail).start();
-			}*/
+				new Thread(mail).start();*/
+			}
 		}
 		return (-1 == id) ? new Result("failure", null, "") : new Result("success", null, id);
 	}

@@ -16,7 +16,7 @@ public interface ClaimsService {
 	List<ClaimsDO> getClaimsByCStatus(byte cStatus, boolean contractInfo);
 	List<ClaimsDO> getClaimsByCStatus(byte cStatus, int dealerId, boolean contractInfo);
 	void updateStatus(final int id, final byte status, int dealerId, String extComment);
-	int updateClaimAdjudicate(ClaimsDO claim);
+	int updateClaimAdjudicate(ClaimsDO claim, AccountDO accountDO);
 	ClaimsDO getClaim(int claimId);
 	int getContractsCount(String contractId);
 	ClaimsDO getClaim(String claimId);

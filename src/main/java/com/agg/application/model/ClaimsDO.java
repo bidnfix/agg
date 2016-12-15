@@ -49,6 +49,9 @@ public class ClaimsDO {
 	private List<ClaimFileDO> claimFileDO;
 	private String coverageType;
 	private DealerDO dealerDO;
+	private double tra;
+	private double customerOwesAmount;
+	private String comments;
 	
 	public List<ClaimFileDO> getClaimFileDO() {
 		return claimFileDO;
@@ -396,6 +399,24 @@ public class ClaimsDO {
 	}
 	public void setDealerDO(DealerDO dealerDO) {
 		this.dealerDO = dealerDO;
+	}
+	public double getTra() {
+		return tra;
+	}
+	public void setTra(double tra) {
+		this.tra = tra;
+	}
+	public double getCustomerOwesAmount() {
+		return customerOwesAmount;
+	}
+	public void setCustomerOwesAmount(double customerOwesAmount) {
+		this.customerOwesAmount = customerOwesAmount;
+	}
+	public String getComments() {
+		return comments;
+	}
+	public void setComments(String comments) {
+		this.comments = comments;
 	}
 	
 }
