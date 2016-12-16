@@ -371,19 +371,11 @@ public class ClaimsController extends BaseController {
 				logger.info("appUrl: "+appUrl);
 				
 				AdjudicateMail mail = new AdjudicateMail();
-				mail.setUserService(userService);
+				mail.setClaimsService(claimsService);
 				mail.setAppUrl(appUrl);
-				/*ClaimMailDO claimMailDO = new ClaimMailDO();
-				claimMailDO.setClaimID(String.valueOf(id));
-				claimMailDO.setDealerName(dealerDO.getFirstName());
-				claimMailDO.setContractId(claimsDO.getContractId());
-				claimMailDO.setTotalPartsCost(claimsDO.getClaimPartDO());
-				claimMailDO.setTotalOtherCosts(String.valueOf(claimsDO.getRequestedOtherCharges1() + claimsDO.getRequestedOtherCharges2()));
-				claimMailDO.setDeductible(String.valueOf(claimsVO.getDeductible()));
-				claimMailDO.setLol(String.valueOf(claimsVO.getLol()));
-				claimMailDO.setAvailableLol(String.valueOf(claimsVO.getAvailableLol()));
-				mail.setClaimMailDO(claimMailDO);
-				new Thread(mail).start();*/
+				mail.setEmailSender(emailSender);
+				mail.setClaimsDO(claimsDO);
+				new Thread(mail).start();
 			}
 		}
 		return (-1 == id) ? new Result("failure", null, "") : new Result("success", null, id);

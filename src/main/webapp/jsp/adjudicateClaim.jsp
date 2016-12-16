@@ -200,7 +200,7 @@
                               {{adjudicateClaim.totalPartCost | currency}}
                             </div>
                             <div class="col-sm-8 no-pad">
-                              Total Adjusted Labor Cost
+                              Total Adjusted Parts Cost
                             </div>
                             <div class="col-sm-4 t-r">
                               {{adjustments.totalAdjustmentPartsCost | currency}}

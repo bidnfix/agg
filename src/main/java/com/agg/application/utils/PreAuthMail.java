@@ -85,14 +85,14 @@ public class PreAuthMail implements Runnable{
 
 	@Override
 	public void run() {
-		String subject = String.format("%s - Claim Request for Pre-authorization Decision", context.getVariables().get("claimNo").toString());
-		
 		int id = Integer.parseInt(context.getVariables().get("claimNo").toString());
 		ClaimsDO claimsDO = claimsService.getClaim(id);
 		ClaimsController con = new ClaimsController();
-		int partsCost = con.calcTotalLaborsCost(claimsDO.getClaimLaborDO());
-		int laborsCost = con.calcTotalPartsCost(claimsDO.getClaimPartDO());
+		int laborsCost = con.calcTotalLaborsCost(claimsDO.getClaimLaborDO());
+		int partsCost = con.calcTotalPartsCost(claimsDO.getClaimPartDO());
 		int otherCost = claimsDO.getRequestedOtherCharges1() + claimsDO.getRequestedOtherCharges2();
+		
+		String subject = String.format("%s - Claim Request for Pre-authorization Decision", claimsDO.getClaimId());
 		
 		if(toEmailList == null){
 			toEmailList = new ArrayList<String>();

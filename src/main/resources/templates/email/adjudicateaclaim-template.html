@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
 	<meta charset="utf-8"/>
 	<meta name="viewport"    content="width=device-width, initial-scale=1.0"/>
@@ -7,15 +8,15 @@
 	<meta name="author"      content="AgGuard"/>
 	
 	<title>Ag Guard</title>
-<link rel="favicon" th:href="${appUrl}/assets/images/favicon.png"/>
-<link rel="stylesheet" href="${appUrl}/assets/css/bootstrap.min.css"/>
-<link rel="stylesheet" href="${appUrl}/assets/css/font-awesome.min.css"/>
+<link rel="favicon" th:href="${appUrl + '/assets/images/favicon.png'}"/>
+<link rel="stylesheet" th:href="${appUrl + '/assets/css/bootstrap.min.css'}"/>
+<link rel="stylesheet" th:href="${appUrl + '/assets/css/font-awesome.min.css'}"/>
 <!-- Custom styles for our template -->
-<link rel="stylesheet" href="${appUrl}/assets/css/bootstrap-theme.css" media="screen" />
-<link rel="stylesheet" type="text/css" href="${appUrl}/assets/css/da-slider.css" />
-<link rel="stylesheet" href="${appUrl}/assets/css/style.css"/>
-<link href="${appUrl}/assets/css/animate.min.css" rel="stylesheet" />
-<link rel="stylesheet" href="${appUrl}/assets/css/hover.css"/>
+<link rel="stylesheet" th:href="${appUrl + '/assets/css/bootstrap-theme.css'}" media="screen" />
+<link rel="stylesheet" type="text/css" th:href="${appUrl + '/assets/css/da-slider.css'}" />
+<link rel="stylesheet" th:href="${appUrl + '/assets/css/style.css'}"/>
+<link href="${appUrl + '/assets/css/animate.min.css'}" rel="stylesheet" />
+<link rel="stylesheet" th:href="${appUrl + '/assets/css/hover.css'}"/>
 </head>
 
 <body>
@@ -25,7 +26,7 @@
     <div class="navbar-header"> 
       <!-- Button for smallest screens -->
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-      <a class="navbar-brand animated fadeInDownBig" href="${appUrl}/agg/login"><img src="${appUrl}/assets/images/logo.png" alt="AgGuard"/></a> </div>
+      <a class="navbar-brand animated fadeInDownBig" th:href="${appUrl + '/agg/login'}"><img th:src="${appUrl + '/assets/images/logo.png'}" alt="AgGuard"/></a> </div>
   </div>
 </div>
 <!-- /.navbar --> 
@@ -44,89 +45,79 @@
 					<br/>
 					<br/>
                     <div class="col-sm-6">
-                       <div class="row">
-                            <div class="col-sm-4">
-                                <label class="radio-inline">
-                                    Claim# <p th:text="${claimNo}"></p>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <label class="radio-inline">
-                                    Dealer Name <p th:text="${dealerName}"></p>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <label class="radio-inline">
-                                    Contract# <p th:text="${contractNo}"></p>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <label class="radio-inline">
-                                    Total Labor Cost <p th:text="${totalLaborCost}"></p>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <label class="radio-inline">
-                                    Total Parts Cost <p th:text="${totalPartsCost}"></p>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <label class="radio-inline">
-                                    Total Other Costs <p th:text="${totalOtherCost}"></p>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <label class="radio-inline">
-                                    Total Claim Cost <p th:text="${totalClaimCost}"></p>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <label class="radio-inline">
-                                    Deductible <p th:text="${deductible}"></p>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <label class="radio-inline">
-                                    LOL <p th:text="${lol}"></p>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <label class="radio-inline">
-                                    Available LOL <p th:text="${availableLol}"></p>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <label class="radio-inline">
-                                    External Comments <p th:text="${externalComments}"></p>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="row">
-                        	<br/>
-							<br/>        
-							<p>Regards,</p>
-							<p><b>AgGuard Admin</b></p>
-                        </div>
+                      <div class="row">
+                       <table>
+                       		<tr>
+                       			<td><b>Claim #</b></td>
+                       			<td><span th:text="${claimNo}"></span></td>
+                       			<td>&nbsp;&nbsp;</td>
+                       			<td><b>Status</b></td>
+                       			<td><span th:text="${status}"></span></td>
+                       		</tr>
+                       		<tr>
+                       			<td><b>Contract #</b></td>
+                       			<td><span th:text="${contractNo}"></span></td>
+                       			<td>&nbsp;&nbsp;</td>
+                       			<td></td>
+                       			<td></td>
+                       		</tr>
+                       		<tr>
+                       			<td><b>Requested Labor Cost</b></td>
+                       			<td><span th:text="${reqLaborCost}"></span></td>
+                       			<td>&nbsp;&nbsp;</td>
+                       			<td><b>Adjusted Labor Cost</b></td>
+                       			<td><span th:text="${adjLaborCost}"></span></td>
+                       		</tr>
+                       		<tr>
+                       			<td><b>Requested Parts Cost</b></td>
+                       			<td><span th:text="${reqPartsCost}"></span></td>
+                       			<td>&nbsp;&nbsp;</td>
+                       			<td><b>Adjusted Parts Cost</b></td>
+                       			<td><span th:text="${adjPartsCost}"></span></td>
+                       		</tr>
+                       		<tr>
+                       			<td><b>Requested Other(1) Cost</b></td>
+                       			<td><span th:text="${reqOther1Cost}"></span></td>
+                       			<td>&nbsp;&nbsp;</td>
+                       			<td><b>Adjusted Other(1) Cost</b></td>
+                       			<td><span th:text="${adjOther1Cost}"></span></td>
+                       		</tr>
+                       		<tr>
+                       			<td><b>Requested Other(2) Cost</b></td>
+                       			<td><span th:text="${reqOther2Cost}"></span></td>
+                       			<td>&nbsp;&nbsp;</td>
+                       			<td><b>Adjusted Other(2) Cost</b></td>
+                       			<td><span th:text="${adjOther2Cost}"></span></td>
+                       		</tr>
+                       		<tr>
+                       			<td><b>Total Requested Claim Cost</b></td>
+                       			<td><span th:text="${totalReqClaimCost}"></span></td>
+                       			<td>&nbsp;&nbsp;</td>
+                       			<td><b>Total Adjusted Amt</b></td>
+                       			<td><span th:text="${totalAdjAmount}"></span></td>
+                       		</tr>
+                       </table>
+                     </div>
+                     <div class="row">
+                         <div class="col-sm-4">
+                             <label class="radio-inline">
+                                 AgGuard Re-imbursement:  <span th:text="${tra}"></span>
+                             </label>
+                         </div>
+                     </div>
+                     <div class="row">
+                         <div class="col-sm-4">
+                             <label class="radio-inline">
+                                 Available LOL after this claim:  <span th:text="${availableLol}"></span>
+                             </label>
+                         </div>
+                     </div>
+                     <div class="row">
+                     	<br/>
+						<br/>        
+						<p>Regards,</p>
+						<p><b>AgGuard Admin</b></p>
+                     </div>
                         
                     </div>
 				</div>
