@@ -88,6 +88,7 @@ public class ClaimsServiceImpl implements ClaimsService {
 		if(accountDO.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)){
 			claimsDOList = claimsDAO.findClaimsInfo();
 		}else{
+			logger.debug("Not an Admin :"+accountDO.getDealerId());
 			claimsDOList = claimsDAO.findClaimsInfo(new Long(accountDO.getDealerId()).intValue());
 		}
 		if(claimsDOList != null){

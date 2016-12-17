@@ -1018,19 +1018,29 @@ routingApp.controller('InactiveContractController', function($scope, $http, $tim
 routingApp.controller('ClaimsInfoController', function($scope, $http, $timeout, $window) {
 	$http.get("/agg/getClaimsInfo")
 	.then(function(response) {
+		showSpinner();
 		 $scope.claimDOList = response.data.data.claimDOList;
         $timeout(function () {
         	$('#claimsTbl').DataTable();
         }, 300);
+        hideSpinner();
     });
 	
+	$http.get("/agg/currentUserRole")
+	   .then(function(response) {
+	   	$scope.adminFlag = (response.data.data.roleList.accountType === 'admin') ? true : false;
+	   });
+
 	$scope.editClaimByDealer = function(claimId, status){
+		showSpinner();
+	if(!$scope.adminFlag){
 		if(status === 9){
 			$window.location = '#/agg/fileClaim/' + claimId;
 		}
-	};
-	
-})
+	}};
+	hideSpinner();
+	})
+		
 
 
 routingApp.controller('QuoteDetailController', function($scope, $http, $timeout, $routeParams, $route, $window, quoteService) {
