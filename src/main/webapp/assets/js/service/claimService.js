@@ -294,7 +294,7 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
 		       .success(function(data, status) {
 		    	   hideSpinner();
 		    	   if(status === 200 && data.status === "success"){
-		    		   alert("success");
+		    		   //alert("success");
 		    		   if(!$scope.fromDraftFlag){
 		    			   $route.reload();
 		    		   }else{
@@ -356,6 +356,7 @@ routingApp.factory('claimPreAuthReqService', ['$http', '$q', '$window', '$timeou
 		$scope.extCommentFlag = true;
 	},
 	submit = function($scope, status){
+		showSpinner();
 		var data = {};
 		data.id = $scope.preAuthClaim.id;
 		data.cStatus = status;
@@ -365,17 +366,18 @@ routingApp.factory('claimPreAuthReqService', ['$http', '$q', '$window', '$timeou
 		$http.put('/agg/preAuthClaimReq', data).then(
 				function(response) {
 					//alert(response.data.status);
+					hideSpinner();
 					if (response.data.status == 'success') {
 						$window.location = '#/agg/fileClaim';
 					} else {
 						alert('Error in adding program: '+response.data.errMessage)
 						//$('#errMsg').html(response.data.errMessage);
 					}
-					
 				}, function(errResponse) {
 					alert('Error while creating program');
 					return $q.reject(errResponse);
 				});
+		hideSpinner();
 	},
 	reqAuth = function($scope, status){
 		if(status === 'pre_authorized_approved_with_adjustments' || status === 'pre_authorized_rejected'){
@@ -434,36 +436,38 @@ routingApp.factory('claimsAdjudicateService', ['$http', '$q', '$window', '$timeo
 	},
 	calcAdjusmentCost = function(adjustment){
 		if(adjustment){
-			adjustment.totalAdjustmentPartsCost = 0;
-			adjustment.totalAdjustmentLaborsCost = 0;
-			if(adjustment.parts){
+			//adjustment.totalAdjustmentPartsCost = 0;
+			//adjustment.totalAdjustmentLaborsCost = 0;
+			if(adjustment.parts && adjustment.totalAdjustmentPartsCost === 0){
 				for(var i in adjustment.parts){
 					adjustment.parts[i].partsTotal = adjustment.parts[i].qty * adjustment.parts[i].unitPrice;
 					adjustment.totalAdjustmentPartsCost += adjustment.parts[i].partsTotal;
 				}
+			}
+			if(adjustment.labors && adjustment.totalAdjustmentLaborsCost === 0){
 				for(var i in adjustment.labors){
 					adjustment.labors[i].laborsTotal = adjustment.labors[i].laborHrs * adjustment.labors[i].rate;
 					adjustment.totalAdjustmentLaborsCost += adjustment.labors[i].laborsTotal;
 				}
 			}
-			adjustment.totalClaimCost = parseInt(adjustment.totalAdjustmentPartsCost)  + parseInt(adjustment.totalAdjustmentLaborsCost)
-				+ parseInt(adjustment.requestedOtherCharges1) + parseInt(adjustment.requestedOtherCharges2);
+			adjustment.totalAdjustedClaimCost = parseInt(adjustment.totalAdjustmentPartsCost)  + parseInt(adjustment.totalAdjustmentLaborsCost)
+				+ parseInt(adjustment.approvedOtherCharges1) + parseInt(adjustment.approvedOtherCharges2);
 		}
 	},
 	calReimburshedCost = function($scope){
 		//var coveredUsageHours = 
-		var contractDeductible = parseInt($scope.adjustments.totalClaimCost) - parseInt($scope.adjudicateClaim.contractDO.deductible);
+		var contractDeductible = parseInt($scope.adjustments.totalAdjustedClaimCost) - parseInt($scope.adjudicateClaim.contractDO.deductible);
 		var deductibleTRA = parseInt($scope.adjudicateClaim.contractDO.availabeLol) - contractDeductible;
 		if(deductibleTRA < 0){
 			$scope.adjustments.tra = parseInt($scope.adjudicateClaim.contractDO.availabeLol);
 		}else{
-			$scope.adjustments.tra = parseInt($scope.adjustments.totalClaimCost);
+			$scope.adjustments.tra = contractDeductible;
 		}
 		
-		if(parseInt($scope.adjustments.tra) === parseInt($scope.adjustments.totalClaimCost)){
+		if(parseInt($scope.adjustments.tra) === parseInt($scope.adjustments.totalAdjustedClaimCost)){
 			$scope.adjustments.customerOwes = parseInt($scope.adjudicateClaim.contractDO.deductible);
 		}else{
-			$scope.adjustments.customerOwes = parseInt($scope.adjustments.totalClaimCost) - parseInt($scope.adjustments.tra);
+			$scope.adjustments.customerOwes = parseInt($scope.adjustments.totalAdjustedClaimCost) - parseInt($scope.adjustments.tra);
 		}
 	},
 	selectClaim = function($scope, claim){
@@ -472,10 +476,21 @@ routingApp.factory('claimsAdjudicateService', ['$http', '$q', '$window', '$timeo
 		$scope.adjustments = {};
 		$scope.adjustments.requestedOtherCharges1 = $scope.adjudicateClaim.requestedOtherCharges1;
 		$scope.adjustments.requestedOtherCharges2 = $scope.adjudicateClaim.requestedOtherCharges2;
+		$scope.adjustments.approvedOtherCharges1 = $scope.adjudicateClaim.approvedOtherCharges1;
+		$scope.adjustments.approvedOtherCharges2 = $scope.adjudicateClaim.approvedOtherCharges2;
+		$scope.adjustments.totalAdjustmentPartsCost = $scope.adjudicateClaim.totalAdjustedPartsCost;
+		$scope.adjustments.totalAdjustmentLaborsCost = $scope.adjudicateClaim.totalAdjustedLaborCost;
 		$scope.adjustments.parts = JSON.parse(JSON.stringify($scope.adjudicateClaim.claimPartDO));
     	$scope.adjustments.labors = JSON.parse(JSON.stringify($scope.adjudicateClaim.claimLaborDO));
+    	if($scope.adjustments.approvedOtherCharges1 === 0){
+    		$scope.adjustments.approvedOtherCharges1 = $scope.adjustments.requestedOtherCharges1;
+    	}
+    	if($scope.adjustments.approvedOtherCharges2 === 0){
+    		$scope.adjustments.approvedOtherCharges2 = $scope.adjustments.requestedOtherCharges2;
+    	}
 		calcCost($scope.adjudicateClaim);
-		$scope.adjustments.totalClaimCost = 0;
+		$scope.adjustments.totalAdjustedClaimCost = 0;
+		$scope.adjustments.totalClaimCost = $scope.adjudicateClaim.totalClaimCost;
 		calcAdjusmentCost($scope.adjustments);
 		calReimburshedCost($scope);
 	},
@@ -513,6 +528,7 @@ routingApp.factory('claimsAdjudicateService', ['$http', '$q', '$window', '$timeo
 				}
 			}
 		}else{
+			showSpinner();
 			$scope.adjustments.id = $scope.adjudicateClaim.id;
 			var fd = new FormData();
 			fd.append('data', angular.toJson($scope.adjustments));
@@ -527,9 +543,11 @@ routingApp.factory('claimsAdjudicateService', ['$http', '$q', '$window', '$timeo
 			        transformRequest: angular.identity
 			        })
 			       .success(function(data, status) {
-			             alert("success");
-			             $window.location.href = '#/agg/fileClaim';
+			           //alert("success");
+			    	   hideSpinner();
+			           $window.location.href = '#/agg/fileClaim';
 			        });
+			 hideSpinner();
 		}
 	},
 	backToList = function($scope){

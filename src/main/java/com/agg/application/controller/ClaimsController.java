@@ -341,8 +341,8 @@ public class ClaimsController extends BaseController {
 			claimsDO.setId(vo.getId());
 			claimsDO.setTotalAdjustedPartsCost(vo.getTotalAdjustmentPartsCost());
 			claimsDO.setTotalAdjustedLaborCost(vo.getTotalAdjustmentLaborsCost());
-			claimsDO.setApprovedOtherCharges1(vo.getRequestedOtherCharges1());
-			claimsDO.setApprovedOtherCharges2(vo.getRequestedOtherCharges2());
+			claimsDO.setApprovedOtherCharges1(vo.getApprovedOtherCharges1());
+			claimsDO.setApprovedOtherCharges2(vo.getApprovedOtherCharges2());
 			claimsDO.setTra(vo.getTra());
 			claimsDO.setCustomerOwesAmount(vo.getCustomerOwes());
 			claimsDO.setComments(vo.getExtComment());
@@ -374,7 +374,9 @@ public class ClaimsController extends BaseController {
 				mail.setClaimsService(claimsService);
 				mail.setAppUrl(appUrl);
 				mail.setEmailSender(emailSender);
-				mail.setClaimsDO(claimsDO);
+				mail.setId(vo.getId());
+				mail.setTra(vo.getTra());
+				mail.setCustomerOwes(vo.getCustomerOwes());
 				new Thread(mail).start();
 			}
 		}

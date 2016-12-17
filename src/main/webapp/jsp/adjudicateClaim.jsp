@@ -90,16 +90,18 @@
                             {{adjudicateClaim.hoursBreakDown}}
                           </div>
                           <div class="form-group">
-                            <label>Other Charge 1 ($)</label>
-                            <input type="text" class="form-control" ng-model="adjustments.requestedOtherCharges1" required="required" ng-readonly= "{{editFlag}}" ng-change="calcOnChange()">
+                            <label>Requested Other Charge 1 ($)</label>
+                            {{adjustments.requestedOtherCharges1 | currency}}
+                            <!-- <input type="text" class="form-control" ng-model="adjustments.requestedOtherCharges1" required="required" ng-readonly= "{{editFlag}}" ng-change="calcOnChange()"> -->
                           </div>
                           <div class="form-group">
-                            <label>Other Charge 2 ($)</label>
-                            <input type="text" class="form-control" ng-model="adjustments.requestedOtherCharges2" required="required" ng-readonly= "{{editFlag}}" ng-change="calcOnChange()">
+                            <label>Requested Other Charge 2 ($)</label>
+                            {{adjustments.requestedOtherCharges2 | currency}}
+                            <!-- <input type="text" class="form-control" ng-model="adjustments.requestedOtherCharges2" required="required" ng-readonly= "{{editFlag}}" ng-change="calcOnChange()"> -->
                           </div>
                           <div class="form-group">
                             <label>Total Claim ($)</label>
-                            {{adjustments.totalClaimCost}}
+                            {{adjustments.totalClaimCost | currency}}
                           </div>
                         </div>
 
@@ -123,6 +125,20 @@
                           <div class="form-group">
                             <label>Corrective Action</label>
                             {{adjudicateClaim.correctiveAction}}
+                          </div>
+                           <div class="form-group">
+                            <label></label>&nbsp;
+                          </div>
+                          <div class="form-group">
+                            <label></label>&nbsp;
+                          </div>
+                          <div class="form-group">
+                            <label>Adjusted Other Charge 1 ($)</label>
+                            <input type="text" class="form-control" ng-model="adjustments.approvedOtherCharges1" required="required" ng-readonly= "{{editFlag}}" ng-change="calcOnChange()">
+                          </div>
+                          <div class="form-group">
+                            <label>Adjusted Other Charge 2 ($)</label>
+                            <input type="text" class="form-control" ng-model="adjustments.approvedOtherCharges2" required="required" ng-readonly= "{{editFlag}}" ng-change="calcOnChange()">
                           </div>
                         </div>
                       </div>
@@ -183,8 +199,8 @@
                                 <tr>
                                   <td><input type="text" class="form-control" name="" ng-model="claimPartVO.partNo" ng-readonly=true></td>
                                   <td><input type="text" class="form-control" name="" ng-model="claimPartVO.partDescr" ng-readonly=true></td>
-                                  <td><input type="number" class="form-control" name="" ng-model="claimPartVO.qty" required="required" ng-readonly= "{{editFlag}}" ng-change="calcOnChange()"></td>
-                                  <td><input type="number" class="form-control" name="" ng-model="claimPartVO.unitPrice" required="required" ng-readonly= "{{editFlag}}" ng-change="calcOnChange()"></td>
+                                  <td><input type="number" class="form-control" name="" ng-model="claimPartVO.qty" required="required" ng-readonly= "true" ng-change="calcOnChange()"></td>
+                                  <td><input type="number" class="form-control" name="" ng-model="claimPartVO.unitPrice" required="required" ng-readonly= "true" ng-change="calcOnChange()"></td>
                                   <td class="t-r">{{claimPartVO.partsTotal | currency}}</td>
                                 </tr>
                               </tbody>
@@ -203,7 +219,7 @@
                               Total Adjusted Parts Cost
                             </div>
                             <div class="col-sm-4 t-r">
-                              {{adjustments.totalAdjustmentPartsCost | currency}}
+                              <input type="text" class="form-control" style="text-align: right;" ng-model="adjustments.totalAdjustmentPartsCost" required="required" ng-readonly= "{{editFlag}}" ng-change="calcOnChange()">
                             </div>  
                             </div>
                               
@@ -225,8 +241,8 @@
                                 <tr>
                                   <td><input type="text" class="form-control" name="" ng-model="claimLabourVO.laborNo" ng-readonly=true></td>
                                   <td><input type="text" class="form-control" name="" ng-model="claimLabourVO.laborDescr" ng-readonly=true></td>
-                                  <td><input type="number" class="form-control" name="" ng-model="claimLabourVO.laborHrs" required="required" ng-readonly= "{{editFlag}}" ng-change="calcOnChange()"></td>
-                                  <td><input type="number" class="form-control" name="" ng-model="claimLabourVO.rate" required="required" ng-readonly= "{{editFlag}}" ng-change="calcOnChange()"></td>
+                                  <td><input type="number" class="form-control" name="" ng-model="claimLabourVO.laborHrs" required="required" ng-readonly= "true" ng-change="calcOnChange()"></td>
+                                  <td><input type="number" class="form-control" name="" ng-model="claimLabourVO.rate" required="required" ng-readonly= "true" ng-change="calcOnChange()"></td>
                                   <td class="t-r">{{claimLabourVO.laborsTotal | currency}}</td>
                                 </tr>
                               </tbody>
@@ -245,13 +261,19 @@
                               Total Adjusted Labor Cost
                             </div>
                             <div class="col-sm-4 t-r">
-                                  {{adjustments.totalAdjustmentLaborsCost | currency}}                         
+                            	<input type="text" style="text-align: right;" class="form-control" ng-model="adjustments.totalAdjustmentLaborsCost" required="required" ng-readonly= "{{editFlag}}" ng-change="calcOnChange()">
+                            </div>
+                            <div class="col-sm-8 no-pad">
+                              Total Requested Claim Cost
+                            </div>
+                            <div class="col-sm-4 t-r">
+                                  {{adjustments.totalClaimCost | currency}}                         
                             </div>
                             <div class="col-sm-8 no-pad">
                               Total Adjusted Claim Cost
                             </div>
                             <div class="col-sm-4 t-r">
-                                  {{adjustments.totalClaimCost | currency}}                         
+                                  {{adjustments.totalAdjustedClaimCost | currency}}                         
                             </div>
                             <div class="col-sm-8 no-pad">
                               Total Re-imbursed Amount

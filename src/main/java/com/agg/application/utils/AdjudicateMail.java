@@ -26,7 +26,9 @@ public class AdjudicateMail implements Runnable{
 	private List<String> toEmailList;
 	private ClaimsService claimsService;
 	private String appUrl;
-	private ClaimsDO claimsDO;
+	private double tra;
+	private double customerOwes;
+	private int id;
 	
 	public List<String> getToEmailList() {
 		return toEmailList;
@@ -63,29 +65,63 @@ public class AdjudicateMail implements Runnable{
 		this.appUrl = appUrl;
 	}
 	
-	public ClaimsDO getClaimsDO() {
-		return claimsDO;
+	/**
+	 * @return the tra
+	 */
+	public double getTra() {
+		return tra;
 	}
 
-	public void setClaimsDO(ClaimsDO claimsDO) {
-		this.claimsDO = claimsDO;
+	/**
+	 * @param tra the tra to set
+	 */
+	public void setTra(double tra) {
+		this.tra = tra;
+	}
+
+	/**
+	 * @return the customerOwes
+	 */
+	public double getCustomerOwes() {
+		return customerOwes;
+	}
+
+	/**
+	 * @param customerOwes the customerOwes to set
+	 */
+	public void setCustomerOwes(double customerOwes) {
+		this.customerOwes = customerOwes;
+	}
+	
+	/**
+	 * @return the id
+	 */
+	public int getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	@Override
 	public void run() {
-		ClaimsDO claimsDOO = claimsService.getClaim(claimsDO.getId());
+		ClaimsDO claimsDO = claimsService.getClaim(id);
 		ClaimsController con = new ClaimsController();
-		int laborsCost = con.calcTotalLaborsCost(claimsDOO.getClaimLaborDO());
-		int partsCost = con.calcTotalPartsCost(claimsDOO.getClaimPartDO());
-		int otherCost = claimsDOO.getRequestedOtherCharges1() + claimsDOO.getRequestedOtherCharges2();
+		int laborsCost = con.calcTotalLaborsCost(claimsDO.getClaimLaborDO());
+		int partsCost = con.calcTotalPartsCost(claimsDO.getClaimPartDO());
+		int otherCost = claimsDO.getRequestedOtherCharges1() + claimsDO.getRequestedOtherCharges2();
 		
-		String subject = String.format("AgGuard – %s – Adjudication Complete", claimsDOO.getClaimId());
+		String subject = String.format("AgGuard – %s – Adjudication Complete", claimsDO.getClaimId());
 		
 		if(toEmailList == null){
 			toEmailList = new ArrayList<String>();
 		}
-		if(claimsDOO.getDealerDO() != null && claimsDOO.getDealerDO().getInvoiceEmail() != null && !claimsDOO.getDealerDO().getInvoiceEmail().isEmpty()){
-			toEmailList.add(claimsDOO.getDealerDO().getInvoiceEmail());
+		if(claimsDO.getDealerDO() != null && claimsDO.getDealerDO().getInvoiceEmail() != null && !claimsDO.getDealerDO().getInvoiceEmail().isEmpty()){
+			toEmailList.add(claimsDO.getDealerDO().getInvoiceEmail());
 		}
 		
 		Locale locale = new Locale("en", "US");
@@ -93,24 +129,24 @@ public class AdjudicateMail implements Runnable{
 		
 		Context context = new Context();
 		context.setVariable("appUrl", appUrl);
-		context.setVariable("claimNo", claimsDOO.getClaimId());
-		context.setVariable("contractNo", claimsDOO.getContractId());
+		context.setVariable("claimNo", claimsDO.getClaimId());
+		context.setVariable("contractNo", claimsDO.getContractId());
 		context.setVariable("reqLaborCost", currencyFormat.format(laborsCost));
 		context.setVariable("adjLaborCost", currencyFormat.format(claimsDO.getTotalAdjustedLaborCost()));
 		context.setVariable("reqPartsCost", currencyFormat.format(partsCost));
 		context.setVariable("adjPartsCost", currencyFormat.format(claimsDO.getTotalAdjustedPartsCost()));
-		context.setVariable("reqOther1Cost", currencyFormat.format(claimsDOO.getRequestedOtherCharges1()));
-		context.setVariable("adjOther1Cost", currencyFormat.format(claimsDO.getRequestedOtherCharges1()));
-		context.setVariable("reqOther2Cost", currencyFormat.format(claimsDOO.getRequestedOtherCharges2()));
-		context.setVariable("adjOther2Cost", currencyFormat.format(claimsDO.getRequestedOtherCharges2()));
+		context.setVariable("reqOther1Cost", currencyFormat.format(claimsDO.getRequestedOtherCharges1()));
+		context.setVariable("adjOther1Cost", currencyFormat.format(claimsDO.getApprovedOtherCharges1()));
+		context.setVariable("reqOther2Cost", currencyFormat.format(claimsDO.getRequestedOtherCharges2()));
+		context.setVariable("adjOther2Cost", currencyFormat.format(claimsDO.getApprovedOtherCharges2()));
 		context.setVariable("totalReqClaimCost", currencyFormat.format((partsCost + laborsCost + otherCost)));
-		context.setVariable("totalAdjAmount", currencyFormat.format((claimsDO.getTotalAdjustedLaborCost() + claimsDO.getTotalAdjustedPartsCost() + claimsDO.getRequestedOtherCharges1()+claimsDO.getRequestedOtherCharges2())));
-		context.setVariable("tra", claimsDO.getTra());
-		context.setVariable("availableLol", claimsDOO.getContractDO().getAvailabeLol());
+		context.setVariable("totalAdjAmount", currencyFormat.format((claimsDO.getTotalAdjustedLaborCost() + claimsDO.getTotalAdjustedPartsCost() + claimsDO.getApprovedOtherCharges1()+claimsDO.getApprovedOtherCharges2())));
+		context.setVariable("tra", currencyFormat.format(tra));
+		context.setVariable("availableLol", currencyFormat.format(claimsDO.getContractDO().getAvailabeLol()));
 		
 		String statusDesc = "";
-		if(claimsDOO.getcStatus() != 0){
-			if(claimsDOO.getcStatus() == AggConstants.CLAIM_STATUS_CLOSED){
+		if(claimsDO.getcStatus() != 0){
+			if(claimsDO.getcStatus() == AggConstants.CLAIM_STATUS_CLOSED){
 				statusDesc = AggConstants.CLAIM_STATUS_CLOSED_DESC;
 			}
 		}
