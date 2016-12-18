@@ -7,7 +7,18 @@ routingApp.controller('ClaimsController', ['$scope', 'claimService', '$http', '$
 	$scope.claim.attachments=[];
 	if($routeParams.claimId){
 		console.log($rootScope.userType);
-		claimService.draft($scope, $routeParams.claimId, $rootScope.userType);
+		if(!$rootScope.userType){
+			$http.get("/agg/currentUserRole")
+			   .then(function(response) {
+			   	if(response.data.data.roleList){
+			   		$rootScope.userType = response.data.data.roleList.accountType;
+			   		claimService.draft($scope, $routeParams.claimId, $rootScope.userType === 'admin' ? true : false);
+			   	}
+		   });			
+		}else{
+			claimService.draft($scope, $routeParams.claimId, $rootScope.userType === 'admin' ? true : false);
+		}
+		
 	}else{
 		$scope.showSearchClaim=true;
 		$scope.showContractDetails=false; 
@@ -113,7 +124,11 @@ routingApp.controller('ClaimsController', ['$scope', 'claimService', '$http', '$
     };
     
     $scope.onClickBackToList = function(){
-    	claimService.showContractList($scope);
+    	if($scope.updateBtnFlag || $scope.commentUpdateBtnFlag || $scope.draftBtnFlag){
+    		$window.location = '#/agg/claimsInfo';
+    	}else{
+    		claimService.showContractList($scope);
+    	}
 	};
 	
 	$scope.getTheFiles = function ($files) {

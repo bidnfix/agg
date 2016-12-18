@@ -40,6 +40,7 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
 							$scope.saveBtnFlag = true;
 							$scope.updateBtnFlag = false;
 							$scope.commentUpdateBtnFlag = false;
+							$scope.draftBtnFlag = true;
 						}else if((cStatus === 4 || cStatus === 5 || cStatus === 10) && adminFlag){//update comments
 							$scope.saveBtnFlag = false;
 							$scope.updateBtnFlag = false;

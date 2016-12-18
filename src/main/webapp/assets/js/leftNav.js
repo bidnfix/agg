@@ -1062,6 +1062,27 @@ routingApp.controller('InactiveContractController', function($scope, $http, $tim
 })*/
 
 routingApp.controller('ClaimsInfoController', function($scope, $http, $timeout, $window, $rootScope) {
+	var getUser = function(func, claimId, status){
+		$http.get("/agg/currentUserRole")
+		   .then(function(response) {
+		   	if(response.data.data.roleList){
+		   		$rootScope.userType = response.data.data.roleList.accountType;
+		   		if(typeof func === "function"){
+		   			func(claimId, status);
+		   		}
+		   	}
+	   });
+	},
+	redirectToEdit = function(claimId, status){
+		if($rootScope.userType && $rootScope.userType === 'dealer' && status === 9){
+			if(status === 9){
+				$window.location = '#/agg/fileClaim/' + claimId;
+			}
+		}else if($rootScope.userType && $rootScope.userType === 'admin' && status !== 9 && status !== 1 && status !== 3){
+			$window.location = '#/agg/fileClaim/' + claimId;
+		}
+	};
+
 	$http.get("/agg/getClaimsInfo")
 	.then(function(response) {
 		showSpinner();
@@ -1072,15 +1093,7 @@ routingApp.controller('ClaimsInfoController', function($scope, $http, $timeout, 
         hideSpinner();
     });
 	
-	if(!$rootScope.userType){
-		$http.get("/agg/currentUserRole")
-		   .then(function(response) {
-		   	$scope.adminFlag = (response.data.data.roleList.accountType === 'admin') ? true : false;
-		   	console.log($scope.adminFlag);
-		   	// $scope.adminFlag = false;
-		   	$rootScope.userType = true;//$scope.adminFlag;
-		   });
-	}
+	getUser();
 
 	$scope.editClaimByDealer = function(claimId, status){
 //		if(!$scope.adminFlag){
@@ -1092,15 +1105,14 @@ routingApp.controller('ClaimsInfoController', function($scope, $http, $timeout, 
 //				$window.location = '#/agg/fileClaim/' + claimId;
 //			}
 //		}
-		if(!$scope.adminFlag){
-			if(status === 9){
-				$window.location = '#/agg/fileClaim/' + claimId;
-			}
-		}else if(status !== 9 && status !== 1 && status !== 3){
-			$window.location = '#/agg/fileClaim/' + claimId;
+		if($rootScope.userType){
+			redirectToEdit(claimId, status);
+		}else{
+			getUser(redirectToEdit, claimId, status);
 		}
+		
 	};
-	
+			
 	})
 		
 
