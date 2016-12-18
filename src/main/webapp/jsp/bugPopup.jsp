@@ -20,14 +20,13 @@
 			<div class="agf1 form-group">
 				<label for="userName" class="col-sm-3 control-label">Discovered</label>
 				<div class="col-sm-9">
-					 <!-- <input type="date" ng-model="report.discDate" value="{{date | date:'yyyy-MM-dd'}}" class="form-control"> -->
 					 <div class="input-group">
                           <input type="text" class="form-control" 
 			                   datepicker-popup="MM/dd/yyyy"
 			                   datepicker-options="dateOptions" 
 			                   is-open="discDatePickerIsOpen" 
 			                   ng-click="discDatePickerOpen()"
-			                   ng-model="bug.discDate"/>
+			                   ng-model="bug.discovered"/>
 						<span class="input-group-btn">
 			              <button type="button" class="btn btn-default" 
 			                      ng-click="discDatePickerOpen($event)">
@@ -40,14 +39,13 @@
 			<div class="agf1 form-group">
 				<label for="FixedBy" class="col-sm-3 control-label">Fixed by</label>
 				<div class="col-sm-9">
-					<!-- <input type="date" ng-model="report.FixByDate" value="{{date | date:'yyyy-MM-dd'}}" class="form-control"/> -->
 					<div class="input-group">
                           <input type="text" class="form-control" 
 			                   datepicker-popup="MM/dd/yyyy"
 			                   datepicker-options="dateOptions" 
 			                   is-open="fixByDatePickerIsOpen" 
 			                   ng-click="fixByDatePickerOpen()"
-			                   ng-model="bug.FixByDate"/>
+			                   ng-model="bug.fixBy"/>
 						<span class="input-group-btn">
 			              <button type="button" class="btn btn-default" 
 			                      ng-click="fixByDatePickerOpen($event)">
@@ -65,8 +63,8 @@
 						<option value="1">Low</option>
 						<option value="2">Medium</option>
 						<option value="3">High</option>
-						<option value="3">Wish</option>
-						<option value="3">Project</option>
+						<option value="4">Wish</option>
+						<option value="5">Project</option>
 					</select>
 				</div>
 			</div>

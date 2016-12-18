@@ -920,25 +920,11 @@ routingApp.controller('BugInfoController', function($scope, $http, reportaBugSer
 		        alert(response.data.data.bug.description);
 		    });
 			
-			var x = screen.width/4;
-		    var y = screen.height/9;
-		    showMask('popup_mask');
-		    $('#bugEditPopup').css("left", x+"px");
-		    $('#bugEditPopup').css("top", y+"px");
-		    $('#bugEditPopup').show();
-		};
-		
-		$scope.editSubmitBug = function() {
-			//alert("In submitMachine");
-			reportaBugService.editBugInfo($scope.bug, $scope);
-			
-						
 			
 			
-			
-			$scope.date = new Date();
-			$scope.bug.discDate = new Date($scope.bug.discDate);
-			$scope.bug.FixByDate = new Date($scope.bug.FixByDate);
+			//$scope.date = new Date();
+			//$scope.bug.discDate = new Date($scope.bug.discDate);
+			//$scope.bug.FixByDate = new Date($scope.bug.FixByDate);
 			
 			//datepicker changes
 			$scope.opens = [];
@@ -966,8 +952,42 @@ routingApp.controller('BugInfoController', function($scope, $http, reportaBugSer
 		    };
 			
 			
+			
+			var x = screen.width/4;
+		    var y = screen.height/9;
+		    showMask('popup_mask');
+		    $('#bugEditPopup').css("left", x+"px");
+		    $('#bugEditPopup').css("top", y+"px");
+		    $('#bugEditPopup').show();
+		};
+		
+		$scope.editSubmitBug = function() {
+			//alert("In submitMachine");
+			reportaBugService.editBugInfo($scope.bug, $scope);
+			
+						
+			
+			
+			
+			
+			
+			
 	    };
-});
+	    
+	    
+}).directive('convertToNumber', function() {
+    return {
+        require: 'ngModel',
+        link: function(scope, element, attrs, ngModel) {
+          ngModel.$parsers.push(function(val) {
+            return parseInt(val, 10);
+          });
+          ngModel.$formatters.push(function(val) {
+            return '' + val;
+          });
+        }
+      };
+   });
 
 routingApp.controller('GetUserController', function($scope, userService, $http, $timeout) {
 	$scope.user={};
