@@ -1032,13 +1032,17 @@ routingApp.controller('ClaimsInfoController', function($scope, $http, $timeout, 
 	   });
 
 	$scope.editClaimByDealer = function(claimId, status){
-		showSpinner();
 	if(!$scope.adminFlag){
-		if(status === 9){
+		if(status === 9 || status === 5 || status === 7){
 			$window.location = '#/agg/fileClaim/' + claimId;
 		}
-	}};
-	hideSpinner();
+	}else{
+		if(status === 2 || status === 4 || status === 5 || status === 6 || status === 7 || status === 8 || status === 10){
+			$window.location = '#/agg/fileClaim/' + claimId;
+		}
+	}
+	};
+	
 	})
 		
 
