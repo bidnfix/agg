@@ -236,6 +236,105 @@ public class ClaimsController extends BaseController {
 		}
 	}
 	
+	@RequestMapping(value = "/updateClaim", method = RequestMethod.POST)
+	public @ResponseBody Result updateClaim(@ModelAttribute("data") Object data,  @RequestParam("files") List<MultipartFile> fileList, BindingResult result,
+			HttpServletRequest request, HttpServletResponse response) throws Exception{
+		logger.debug("Session Realpath: "+request.getSession().getServletContext().getRealPath("/"));
+		logger.debug("Request Realpath: "+request.getServletContext().getRealPath("/"));
+		logger.debug("system user.dir path: "+System.getProperty("user.dir"));
+		
+		logger.debug("Directory for image upload: "+uploadingdir);
+		
+		ClaimsVO claimsVO = new GsonBuilder().setDateFormat("yyyy-MM-dd").create().fromJson(data.toString(), ClaimsVO.class);
+		logger.debug("In saveClaim ");
+		if(!sessionExists(request)){
+			return new Result("failure", "Session Expired", null);
+		}else{
+			ClaimsDO claimsDO = new ClaimsDO();
+			claimsDO.setClaimId(claimsVO.getClaimId());
+			claimsDO.setContractId(claimsVO.getContractId());
+			DealerDO dealerDO = null;
+			if(null != claimsVO.getContractId()){
+				dealerDO= contractsService.getDealer(claimsVO.getContractId());
+				if(null != dealerDO){
+					claimsDO.setDealerId((int)dealerDO.getId());
+				}
+			}
+			claimsDO.setId(claimsVO.getId());
+			claimsDO.setSerial(claimsVO.getSerial());
+			claimsDO.setFailDate(claimsVO.getFailDate());
+			claimsDO.setReportDate(claimsVO.getReportDate());
+			claimsDO.setWorkOrder(Util.setDefaultStringValue(claimsVO.getWorkOrder()));
+			claimsDO.setHoursBreakDown(claimsVO.getHoursBreakDown());
+			claimsDO.setPreauthApprovedAmt(claimsVO.getPreauthApprovedAmt());
+			claimsDO.setCustComplaint(Util.setDefaultStringValue(claimsVO.getCustComplaint()));
+			claimsDO.setCauseFail(Util.setDefaultStringValue(claimsVO.getCauseFail()));
+			claimsDO.setCorrectiveAction(Util.setDefaultStringValue(claimsVO.getCorrectiveAction()));
+			claimsDO.setIsArchived(claimsVO.getIsArchived());
+			//claimsDO.setcStatus(claimsVO.getcStatusValue());
+			claimsDO.setcStatus(claimsVO.getcStatusValue());
+			claimsDO.setRequestedOtherCharges1(claimsVO.getRequestedOtherCharges1());
+			claimsDO.setRequestedOtherCharges2(claimsVO.getRequestedOtherCharges2());
+			claimsDO.setTotalAdjustedPartsCost(claimsVO.getTotalAdjustedPartsCost());
+			claimsDO.setTotalAdjustedLaborCost(claimsVO.getTotalAdjustedLaborCost());
+			claimsDO.setApprovedOtherCharges1(claimsVO.getApprovedOtherCharges1());
+			claimsDO.setApprovedOtherCharges2(claimsVO.getApprovedOtherCharges2());
+			
+			if(null != claimsVO.getClaimPartVOList() && !claimsVO.getClaimPartVOList().isEmpty()){
+				List<ClaimPartDO> partDO = new ArrayList<>();
+				for(ClaimPartVO partVO : claimsVO.getClaimPartVOList()){
+					ClaimPartDO claimPartDO = new ClaimPartDO();
+					if(partVO.getId() > 0){
+						claimPartDO.setId(partVO.getId());
+					}
+					claimPartDO.setPartNo(partVO.getPartNo());
+					claimPartDO.setPartDescr(partVO.getPartDescr());
+					claimPartDO.setQty(partVO.getQty());
+					claimPartDO.setUnitPrice(partVO.getUnitPrice());
+					partDO.add(claimPartDO);
+				}
+				claimsDO.setClaimPartDO(partDO);
+			}
+			
+			if(null != claimsVO.getClaimLabourVOList() && !claimsVO.getClaimLabourVOList().isEmpty()){
+				List<ClaimLaborDO> labourDO = new ArrayList<>();
+				for(ClaimLabourVO labourVO : claimsVO.getClaimLabourVOList()){
+					ClaimLaborDO claimLabourDO = new ClaimLaborDO();
+					if(labourVO.getId() > 0){
+						claimLabourDO.setId(labourVO.getId());
+					}
+					claimLabourDO.setLaborNo(labourVO.getLaborNo());
+					claimLabourDO.setLaborDescr(labourVO.getLaborDescr());
+					claimLabourDO.setLaborHrs(labourVO.getLaborHrs());
+					claimLabourDO.setRate(labourVO.getLaborHourlyRate());
+					labourDO.add(claimLabourDO);
+				}
+				claimsDO.setClaimLaborDO(labourDO);
+			}
+			List<ClaimFileDO> claimFileDO = new ArrayList<>();
+			for(MultipartFile uploadedFile : fileList) {
+				String fName = String.format("%s_%s", System.currentTimeMillis(), uploadedFile.getOriginalFilename());
+				ClaimFileDO fileDO = new ClaimFileDO();
+	            File file = new File(String.format("%s%s%s", uploadingdir, File.separator, fName));
+	            try {
+	            	fileDO.setFileName(Util.getBaseURL(request) + UPLOAD_FOLDER_NAME + fName);
+	            	claimFileDO.add(fileDO);
+					uploadedFile.transferTo(file);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+	        }
+			claimsDO.setClaimFileDO(claimFileDO);
+			Claims claim = claimsService.saveClaim(claimsDO);
+			Long id = (null != claim) ? (long)claim.getId() : -1;
+			if(id == -1){
+				return new Result("error", null, "");
+			}
+			return new Result("success", null, id);
+		}
+	}
+	
 	@RequestMapping(value = "/preAuthClaimReq", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
 	public @ResponseBody Result getPreAuthClaimRequest(HttpServletRequest request, HttpServletResponse response) {
 		logger.info("Inside getPreAuthClaimRequest()");
@@ -296,6 +395,18 @@ public class ClaimsController extends BaseController {
 			mail.setClaimsService(claimsService);
 			
 			new Thread(mail).start();
+			return new Result("success", null, "status updated");
+		}
+	}
+	
+	@RequestMapping(value = "/updateClaimComment", method = RequestMethod.PUT, consumes = MediaType.ALL_VALUE)
+	public @ResponseBody Result updateClaimComment(@RequestBody ClaimPreAuthVO claimPreAuthVO, HttpServletRequest request, HttpServletResponse response) {
+		logger.info("Inside UpdatePreAuthClaimRequestUpdate()");
+		if(!sessionExists(request)){
+			return new Result("failure", "Session Expired", null);
+		}else{
+			int dealerId = (int)getAccountDetails(request).getDealerId();
+			claimsService.updateStatus(claimPreAuthVO.getId(), claimPreAuthVO.getcStatusValue(), dealerId, claimPreAuthVO.getExtComment());
 			return new Result("success", null, "status updated");
 		}
 	}

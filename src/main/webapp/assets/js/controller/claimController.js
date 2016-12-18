@@ -1,11 +1,13 @@
 'use strict';
 
-routingApp.controller('ClaimsController', ['$scope', 'claimService', '$http', '$timeout', '$filter', '$route', '$routeParams', function($scope, claimService, $http, $timeout, $filter, $route, $routeParams) {
+routingApp.controller('ClaimsController', ['$scope', 'claimService', '$http', '$timeout', '$filter', '$route', '$routeParams', '$rootScope', 
+                                           function($scope, claimService, $http, $timeout, $filter, $route, $routeParams, $rootScope) {
 	$scope.serialNo='';
 	$scope.claim={};
 	$scope.claim.attachments=[];
 	if($routeParams.claimId){
-		claimService.draft($scope, $routeParams.claimId);
+		console.log($rootScope.userType);
+		claimService.draft($scope, $routeParams.claimId, $rootScope.userType);
 	}else{
 		$scope.showSearchClaim=true;
 		$scope.showContractDetails=false; 
@@ -57,7 +59,13 @@ routingApp.controller('ClaimsController', ['$scope', 'claimService', '$http', '$
     	claimService.selectContract($scope, data);
     };
     $scope.onClickSubmitClaim = function(){
-    	claimService.saveClaim($scope, $route);
+    	if($scope.updateBtnFlag){
+    		claimService.saveClaim($scope, $route);
+    	}else if($scope.commentUpdateBtnFlag){
+    		claimService.updateClaimComment($scope, $route);
+    	}else{
+    		claimService.updateClaim($scope, $route);
+    	}    	
     };
     
     $scope.calcTotalPartLine = function(index){
@@ -89,6 +97,12 @@ routingApp.controller('ClaimsController', ['$scope', 'claimService', '$http', '$
     	$scope.newClaimClick='Pending';
     };
     
+    $scope.updateClaim = function(){
+    	
+    };
+    $scope.updateCommentClaim = function(){
+    	
+    };
     $scope.addAttachment = function (e) {
         $scope.$apply(function () {
         	$scope.attachments = $scope.claim.attachments || [];

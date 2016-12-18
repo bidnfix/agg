@@ -11,6 +11,7 @@ public class ClaimPreAuthVO {
 	private int id;
 	private String cStatus;
 	private String extComment;
+	private byte cStatusValue;
 	/**
 	 * 
 	 */
@@ -18,6 +19,21 @@ public class ClaimPreAuthVO {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	/**
+	 * @return the cStatusValue
+	 */
+	public byte getcStatusValue() {
+		return cStatusValue;
+	}
+
+	/**
+	 * @param cStatusValue the cStatusValue to set
+	 */
+	public void setcStatusValue(byte cStatusValue) {
+		this.cStatusValue = cStatusValue;
+	}
+
 	/**
 	 * @return the id
 	 */

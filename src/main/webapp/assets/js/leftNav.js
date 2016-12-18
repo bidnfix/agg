@@ -932,6 +932,7 @@ routingApp.controller('BugInfoController', function($scope, $http, reportaBugSer
 			//alert("In submitMachine");
 			reportaBugService.editBugInfo($scope.bug, $scope);
 			
+						
 			
 			
 			
@@ -1049,7 +1050,7 @@ routingApp.controller('InactiveContractController', function($scope, $http, $tim
 	
 })*/
 
-routingApp.controller('ClaimsInfoController', function($scope, $http, $timeout, $window) {
+routingApp.controller('ClaimsInfoController', function($scope, $http, $timeout, $window, $rootScope) {
 	$http.get("/agg/getClaimsInfo")
 	.then(function(response) {
 		showSpinner();
@@ -1060,21 +1061,33 @@ routingApp.controller('ClaimsInfoController', function($scope, $http, $timeout, 
         hideSpinner();
     });
 	
-	$http.get("/agg/currentUserRole")
-	   .then(function(response) {
-	   	$scope.adminFlag = (response.data.data.roleList.accountType === 'admin') ? true : false;
-	   });
+	if(!$rootScope.userType){
+		$http.get("/agg/currentUserRole")
+		   .then(function(response) {
+		   	$scope.adminFlag = (response.data.data.roleList.accountType === 'admin') ? true : false;
+		   	console.log($scope.adminFlag);
+		   	// $scope.adminFlag = false;
+		   	$rootScope.userType = true;//$scope.adminFlag;
+		   });
+	}
 
 	$scope.editClaimByDealer = function(claimId, status){
-	if(!$scope.adminFlag){
-		if(status === 9 || status === 5 || status === 7){
+//		if(!$scope.adminFlag){
+//			if(status === 9 || status === 5 || status === 7){
+//				$window.location = '#/agg/fileClaim/' + claimId;
+//			}
+//		}else{
+//			if(status === 2 || status === 4 || status === 5 || status === 6 || status === 7 || status === 8 || status === 10){
+//				$window.location = '#/agg/fileClaim/' + claimId;
+//			}
+//		}
+		if(!$scope.adminFlag){
+			if(status === 9){
+				$window.location = '#/agg/fileClaim/' + claimId;
+			}
+		}else if(status !== 9 && status !== 1 && status !== 3){
 			$window.location = '#/agg/fileClaim/' + claimId;
 		}
-	}else{
-		if(status === 2 || status === 4 || status === 5 || status === 6 || status === 7 || status === 8 || status === 10){
-			$window.location = '#/agg/fileClaim/' + claimId;
-		}
-	}
 	};
 	
 	})

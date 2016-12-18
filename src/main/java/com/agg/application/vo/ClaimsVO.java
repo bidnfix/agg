@@ -388,7 +388,9 @@ public class ClaimsVO {
 	 * @return the cStatusValue
 	 */
 	public byte getcStatusValue() {
-		this.cStatusValue = Util.getClaimStatusCode(this.cStatus);
+		if(null != this.cStatus){
+			this.cStatusValue = Util.getClaimStatusCode(this.cStatus);
+		}		
 		return cStatusValue;
 	}
 	/**

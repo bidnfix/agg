@@ -100,10 +100,10 @@
 			                   ng-model="claim.failDate" 
 			                   max-date="failureDateValid"
 			                   required="required"
-			                   value="{{claim.failDate | date:'yyyy-MM-dd'}}"/>
+			                   value="{{claim.failDate | date:'yyyy-MM-dd'}}" ng-readonly="commentUpdateBtnFlag"/>
 						<span class="input-group-btn">
 			              <button type="button" class="btn btn-default" 
-			                      ng-click="failureDatePickerOpen($event)">
+			                      ng-click="failureDatePickerOpen($event)" ng-disabled="commentUpdateBtnFlag">
 			                <i class="glyphicon glyphicon-calendar"></i>
 			              </button>
 			            </span>
@@ -126,10 +126,10 @@
 			                   ng-model="claim.reportDate" 
 			                   max-date="todayDate"
 			                   required="required"
-			                   value="{{claim.reportDate | date:'yyyy-MM-dd'}}"/>
+			                   value="{{claim.reportDate | date:'yyyy-MM-dd'}}" ng-readonly="commentUpdateBtnFlag"/>
 						<span class="input-group-btn">
 			              <button type="button" class="btn btn-default" 
-			                      ng-click="reportDatePickerOpen($event)">
+			                      ng-click="reportDatePickerOpen($event)" ng-disabled="commentUpdateBtnFlag">
 			                <i class="glyphicon glyphicon-calendar"></i>
 			              </button>
 			            </span>
@@ -138,22 +138,22 @@
 				<div class="form-group">
 					<label>Work Order Number</label> <input type="text"
 						class="form-control" ng-model="claim.workOrder"
-						ngRequired="required">
+						ngRequired="required" ng-readonly="commentUpdateBtnFlag">
 				</div>
 				<div class="form-group">
 					<label>Hours @ Breakdown</label> <input type="number"
 						class="form-control" ng-model="claim.hoursBreakDown"
-						required="required">
+						required="required" ng-readonly="commentUpdateBtnFlag">
 				</div>
 				<div class="form-group">
 					<label>Other Charge 1 ($)</label> <input type="number"
 						class="form-control" ng-model="claim.requestedOtherCharges1"
-						required="required">
+						required="required" ng-readonly="commentUpdateBtnFlag">
 				</div>
 				<div class="form-group">
 					<label>Other Charge 2 ($)</label> <input type="number"
 						class="form-control" ng-model="claim.requestedOtherCharges2"
-						required="required">
+						required="required" ng-readonly="commentUpdateBtnFlag">
 				</div>
 				<div class="form-group">
 					<label>Total Claim ($)</label> <input type="number"
@@ -175,17 +175,17 @@
 						<div class="form-group">
 							<label>Customer Complaint</label>
 							<textarea class="form-control" rows="2"
-								ng-model="claim.custComplaint" required="required"></textarea>
+								ng-model="claim.custComplaint" required="required" ng-readonly="commentUpdateBtnFlag"></textarea>
 						</div>
 						<div class="form-group">
 							<label>Cause of Failure</label>
 							<textarea class="form-control" rows="5"
-								ng-model="claim.causeFail" required="required"></textarea>
+								ng-model="claim.causeFail" required="required" ng-readonly="commentUpdateBtnFlag"></textarea>
 						</div>
 						<div class="form-group">
 							<label>Corrective Action</label>
 							<textarea class="form-control" rows="2"
-								ng-model="claim.correctiveAction" required="required"></textarea>
+								ng-model="claim.correctiveAction" required="required" ng-readonly="commentUpdateBtnFlag"></textarea>
 						</div>
 					</div>
 				</div>
@@ -203,7 +203,7 @@
 				<div class="col-sm-6">
 					<div class="form-group">
 						<label>File</label> <input type="file" id="" name="files" multiple
-							ng-files="getTheFiles($files)" required="required">
+							ng-files="getTheFiles($files)" required="required" ng-readonly="commentUpdateBtnFlag">
 					</div>
 				</div>
 			</div>
@@ -246,15 +246,15 @@
 						<tbody data-ng-repeat="claimPartVO in claim.claimPartVOList">
 							<tr>
 								<td><input type="text" class="form-control" name=""
-									ng-model="claimPartVO.partNo" required="required"></td>
+									ng-model="claimPartVO.partNo" required="required" ng-readonly="commentUpdateBtnFlag"></td>
 								<td><input type="text" class="form-control" name=""
-									ng-model="claimPartVO.partDescr" required="required"></td>
+									ng-model="claimPartVO.partDescr" required="required" ng-readonly="commentUpdateBtnFlag"></td>
 								<td><input type="number" class="form-control" name=""
 									ng-model="claimPartVO.qty" required="required"
-									ng-change="calcTotalPartLine($index)"></td>
+									ng-change="calcTotalPartLine($index)" ng-readonly="commentUpdateBtnFlag"></td>
 								<td><input type="number" class="form-control" name=""
 									ng-model="claimPartVO.unitPrice" required="required"
-									ng-change="calcTotalPartLine($index)"></td>
+									ng-change="calcTotalPartLine($index)" ng-readonly="commentUpdateBtnFlag"></td>
 								<td class="t-r">{{claimPartVO.partsTotal | currency}}</td>
 							</tr>
 						</tbody>
@@ -263,7 +263,7 @@
 						<div class="col-sm-6">
 							<button type="button" class="btn btn-primary btn-sm"
 								ng-click="claim.claimPartVOList.push({})">
-								<i class="fa fa-plus"></i> New Line
+								<i class="fa fa-plus" ng-readonly="commentUpdateBtnFlag"></i> New Line
 							</button>
 						</div>
 						<div class="col-sm-6">
@@ -291,15 +291,15 @@
 						<tbody data-ng-repeat="claimLabourVO in claim.claimLabourVOList">
 							<tr>
 								<td><input type="text" class="form-control" name=""
-									ng-model="claimLabourVO.laborNo" required="required"></td>
+									ng-model="claimLabourVO.laborNo" required="required" ng-readonly="commentUpdateBtnFlag"></td>
 								<td><input type="text" class="form-control" name=""
-									ng-model="claimLabourVO.laborDescr" required="required"></td>
+									ng-model="claimLabourVO.laborDescr" required="required" ng-readonly="commentUpdateBtnFlag"></td>
 								<td><input type="number" class="form-control" name=""
 									ng-model="claimLabourVO.laborHrs" required="required"
-									ng-change="calcTotalLabourLine($index)"></td>
+									ng-change="calcTotalLabourLine($index)" ng-readonly="commentUpdateBtnFlag"></td>
 								<td><input type="number" class="form-control" name=""
 									ng-model="claimLabourVO.laborHourlyRate" required="required"
-									ng-change="calcTotalLabourLine($index)"></td>
+									ng-change="calcTotalLabourLine($index)" ng-readonly="commentUpdateBtnFlag"></td>
 								<td class="t-r">{{claimLabourVO.labourTotal | currency}}</td>
 							</tr>
 						</tbody>
@@ -307,7 +307,7 @@
 					<div class="col-sm-12">
 						<div class="col-sm-6">
 							<button type="button" class="btn btn-primary btn-sm"
-								ng-click="claim.claimLabourVOList.push({})">
+								ng-click="claim.claimLabourVOList.push({})" ng-readonly="commentUpdateBtnFlag">
 								<i class="fa fa-plus"></i> New Line
 							</button>
 						</div>
@@ -322,10 +322,32 @@
 					</div>
 				</div>
 				<br clear="all">
+				   <div class="col-xs-12 no-pad pad10-top" ng-show="commentUpdateBtnFlag">
+                         <span class="ag-tab-title col-xs-12 no-pad marg10-bottom">Claim Comments</span>
+                         <br clear="all">
+                        
+                         <br>
+                          <div class="col-sm-12">
+                            <div class="form-group clearfix">
+                              <span class="col-sm-3 no-pad">External Comments :</span> 
+                                <div class="col-sm-9 no-pad border">
+                                <div class="col-sm-4">
+                                  <b>Date/Time</b><br>
+                                  June 21 2016
+                                </div>
+                                <div class="col-sm-8">
+                                  <b>Comment</b><br>
+                                  Text comes here..
+                                </div>
+                                  <textarea class="form-control" style="width:100% !important;" rows="3" ng-model="claim.extComment" ng-required="extCommentFlag" ng-trim=true></textarea>
+                                </div>
+                            </div>
+                          </div>
+                        </div>
 			</div>
 		</div>
 	</div>
-	<div class="col-sm-12 no-pad t-c marg10-top marg10-bottom">
+	<div class="col-sm-12 no-pad t-c marg10-top marg10-bottom" ng-show="saveBtnFlag">
 		<button type="button" class="btn btn-primary" ng-click="saveAsDraft()">
 			Save Claim</button>
 		<button type="submit" class="btn btn-primary" ng-click="reqAuth()"
@@ -333,5 +355,11 @@
 		<button type="submit" class="btn btn-primary"
 			ng-disabled="isSubmitDisabled" ng-click="reqSubmit()">
 			Submit Claim</button>
+	</div>
+	<div class="col-sm-12 no-pad t-c marg10-top marg10-bottom" ng-show="updateBtnFlag">
+		<button type="submit" class="btn btn-primary" ng-click="updateClaim()">Update</button>
+	</div>
+	<div class="col-sm-12 no-pad t-c marg10-top marg10-bottom" ng-show="commentUpdateBtnFlag">
+		<button type="submit" class="btn btn-primary" ng-click="updateCommentClaim()">Update</button>
 	</div>
 </form>

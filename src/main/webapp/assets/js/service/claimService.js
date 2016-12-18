@@ -23,7 +23,7 @@ var commons = {
 
 routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filter', function($http, $q, $window, $timeout, $filter){
 	
-	var draft = function($scope, claimId){
+	var draft = function($scope, claimId, adminFlag){
 			$scope.fromDraftFlag = true;
 			$scope.showSearchClaim = false;
 			$scope.showActiveContractDetails = false;
@@ -32,9 +32,26 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
 			.then(function(response) {
 				if(response.data.status === 'success'){
 					if(response.data.data.claim){
-						var claim = response.data.data.claim;
-						$scope.contractInfoList =  claim.contractDO;
+						console.log(JSON.stringify(response.data.data.claim));
+						var cStatus = response.data.data.claim.cStatus;
 						$scope.claim = {};
+						var claim = response.data.data.claim;
+						if(cStatus == 9 && !adminFlag){//draft
+							$scope.saveBtnFlag = true;
+							$scope.updateBtnFlag = false;
+							$scope.commentUpdateBtnFlag = false;
+						}else if((cStatus === 4 || cStatus === 5 || cStatus === 10) && adminFlag){//update comments
+							$scope.saveBtnFlag = false;
+							$scope.updateBtnFlag = false;
+							$scope.commentUpdateBtnFlag = true;
+						}else if(adminFlag && (cStatus !== 9)){//update all claim info
+							$scope.saveBtnFlag = false;
+							$scope.updateBtnFlag = true;
+							$scope.commentUpdateBtnFlag = false;
+							$scope.claim.cStatusValue = cStatus;
+						}
+						$scope.contractInfoList =  claim.contractDO;
+						
 						$scope.claim.id = claim.id;
 						$scope.claim.claimId = claim.claimId;
 						$scope.claim.deductible = $scope.contractInfoList.deductible;
@@ -96,6 +113,10 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
 			$scope.isSubmitDisabled = false;
 			
 			if(flag){
+				$scope.saveBtnFlag = true;
+				$scope.updateBtnFlag = false;
+				$scope.commentUpdateBtnFlag = false;
+				
 				$scope.fromDraftFlag = false;
 				$scope.claim={};
 				$scope.claim.deductible = $scope.contractInfoList.deductible;
@@ -305,6 +326,67 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
 		    		   alert("failed");
 		    	   }
 		        });
+			hideSpinner();
+		},
+		updateClaim : function($scope, $route) {
+			showSpinner();
+			//alert('in saveClaim');
+			var claim = $scope.claim;
+			claim.reportDate = $filter('date')(claim.reportDate, 'yyyy-MM-dd');
+			claim.failDate = $filter('date')(claim.failDate, 'yyyy-MM-dd');
+			if(claim.hasOwnProperty('cStatus')){
+				delete claim['cStatus'];
+			}
+			//claim.cStatus = $scope.newClaimClick;
+			console.log(angular.toJson(claim));
+			var fd = new FormData();
+			fd.append('data', angular.toJson(claim));
+			 angular.forEach($scope.attachments, function (value, key) {
+				 fd.append('files', value);
+		        });
+			return $http({
+		        method: 'POST',
+		        url: '/agg/updateClaim',
+		        headers: {'Content-Type': undefined},
+		        data: fd,
+		        transformRequest: angular.identity
+		        })
+		       .success(function(data, status) {
+		    	   hideSpinner();
+		    	   if(status === 200 && data.status === "success"){
+		    		   //alert("success");
+		    		   if(!$scope.fromDraftFlag){
+		    			   $route.reload();
+		    		   }else{
+		    			   $window.location = '#/agg/claimsInfo';
+		    		   }
+		    		   
+		    	   }else{
+		    		   alert("failed");
+		    	   }
+		        });
+			hideSpinner();
+		},
+		updateClaimComment : function($scope, $route) {
+			showSpinner();
+			var claim = {};
+			claim.id = $scope.claim.id;
+			claim.cStatusValue = $scope.claim.cStatusValue;
+			claim.extComment = $scope.claim.extComment;
+			return $http.put('/agg/updateClaimComment', claim).then(
+					function(response) {
+						//alert(response.data.status);
+						if (response.data.status == 'success') {
+							$window.location = '#/agg/claimsInfo';
+						} else {
+							alert('Error in adding program: '+response.data.errMessage)
+							//$('#errMsg').html(response.data.errMessage);
+						}
+						
+					}, function(errResponse) {
+						alert('Error while creating program');
+						return $q.reject(errResponse);
+					});
 			hideSpinner();
 		},
 		selectContract : selectContract,
