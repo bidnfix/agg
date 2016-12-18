@@ -59,7 +59,8 @@ import com.google.gson.GsonBuilder;
 public class ClaimsController extends BaseController {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
-	private static final String UPLOAD_FOLDER_NAME = "/uploads/"; 
+	private static final String UPLOAD_FOLDER_NAME = "/uploads/";
+	private static final String UPLOAD_FOLDER_PATH = "/src/main/webapp/uploads/";
 	//public static String uploadingdir = System.getProperty("user.dir") + UPLOAD_FOLDER_NAME;
 
 	@Autowired
@@ -83,7 +84,7 @@ public class ClaimsController extends BaseController {
 	@Value("${admin.email}")
 	private String adminEmail;
 	
-	@Value("${file.upload.dir}")
+	//@Value("${file.upload.dir}")
 	private String uploadingdir;
 
 	@RequestMapping(value = "/editClaim", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
@@ -116,9 +117,12 @@ public class ClaimsController extends BaseController {
 		//uploadingdir = request.getServletContext().getRealPath("/uploads/");
 		//uploadingdir = request.getServletContext().getResource("/uploads/").getFile();
 		//logger.debug("paths: "+request.getServletContext().getResource("/uploads/"));
-		logger.debug("Session Realpath: "+request.getSession().getServletContext().getRealPath("/"));
-		logger.debug("Request Realpath: "+request.getServletContext().getRealPath("/"));
+		//logger.debug("Session Realpath: "+request.getSession().getServletContext().getRealPath("/"));
+		//logger.debug("Request Realpath: "+request.getServletContext().getRealPath("/"));
 		logger.debug("system user.dir path: "+System.getProperty("user.dir"));
+		
+		uploadingdir = System.getProperty("user.dir")+ UPLOAD_FOLDER_PATH;
+		new File(uploadingdir).mkdirs();
 		
 		logger.debug("Directory for image upload: "+uploadingdir);
 		
@@ -329,7 +333,8 @@ public class ClaimsController extends BaseController {
 	@RequestMapping(value = "/adjudicateClaim", method = RequestMethod.POST)
 	public @ResponseBody Result adjudicateClaim(@ModelAttribute("data") Object data,  @RequestParam("files") List<MultipartFile> fileList, BindingResult result,
 			HttpServletRequest request, HttpServletResponse response) {
-		uploadingdir = request.getServletContext().getRealPath("/uploads/");
+		//uploadingdir = request.getServletContext().getRealPath("/uploads/");
+		uploadingdir = System.getProperty("user.dir")+ UPLOAD_FOLDER_PATH;
 		new File(uploadingdir).mkdirs();
 		AdjudicateClaimFormVO vo = new GsonBuilder().setDateFormat("yyyy-MM-dd").create().fromJson(data.toString(), AdjudicateClaimFormVO.class);
 		logger.debug("In adjudicateClaim ");
