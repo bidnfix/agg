@@ -904,6 +904,32 @@ routingApp.controller('ReportBugController', function($scope, $http, reportaBugS
 });
 
 routingApp.controller('BugInfoController', function($scope, $http, reportaBugService, $timeout) {
+	
+	//datepicker changes
+	$scope.opens = [];
+	$scope.dateOptions = {
+		format: "MM/dd/yyyy",
+	    showWeeks: false
+	};
+	
+	$scope.discDatePickerIsOpen = false;
+	$scope.discDatePickerOpen = function ($event) {
+      if ($event) {
+          $event.preventDefault();
+          $event.stopPropagation(); // This is the magic
+      }
+      $scope.discDatePickerIsOpen = true;
+    };
+    
+    $scope.fixByDatePickerIsOpen = false;
+	$scope.fixByDatePickerOpen = function ($event) {
+      if ($event) {
+          $event.preventDefault();
+          $event.stopPropagation(); // This is the magic
+      }
+      $scope.fixByDatePickerIsOpen = true;
+    };
+	
 	 $http.get("/agg/getBugInfo")
 	    .then(function(response) {
 	        $scope.bugDOList = response.data.data;
@@ -913,11 +939,11 @@ routingApp.controller('BugInfoController', function($scope, $http, reportaBugSer
 	    });
 	 
 	 $scope.editBug = function(bugId) {
-			alert(bugId);
+			//alert(bugId);
 			$http.get("/agg/bug/"+bugId)
 		    .then(function(response) {
 		        $scope.bug = response.data.data.bug;
-		        alert(response.data.data.bug.description);
+		        //alert(response.data.data.bug.description);
 		    });
 			
 			
@@ -925,33 +951,6 @@ routingApp.controller('BugInfoController', function($scope, $http, reportaBugSer
 			//$scope.date = new Date();
 			//$scope.bug.discDate = new Date($scope.bug.discDate);
 			//$scope.bug.FixByDate = new Date($scope.bug.FixByDate);
-			
-			//datepicker changes
-			$scope.opens = [];
-			$scope.dateOptions = {
-				format: "MM/dd/yyyy",
-			    showWeeks: false
-			};
-			
-			$scope.discDatePickerIsOpen = false;
-			$scope.discDatePickerOpen = function ($event) {
-		      if ($event) {
-		          $event.preventDefault();
-		          $event.stopPropagation(); // This is the magic
-		      }
-		      $scope.discDatePickerIsOpen = true;
-		    };
-		    
-		    $scope.fixByDatePickerIsOpen = false;
-			$scope.fixByDatePickerOpen = function ($event) {
-		      if ($event) {
-		          $event.preventDefault();
-		          $event.stopPropagation(); // This is the magic
-		      }
-		      $scope.fixByDatePickerIsOpen = true;
-		    };
-			
-			
 			
 			var x = screen.width/4;
 		    var y = screen.height/9;
@@ -964,14 +963,6 @@ routingApp.controller('BugInfoController', function($scope, $http, reportaBugSer
 		$scope.editSubmitBug = function() {
 			//alert("In submitMachine");
 			reportaBugService.editBugInfo($scope.bug, $scope);
-			
-						
-			
-			
-			
-			
-			
-			
 	    };
 	    
 	    

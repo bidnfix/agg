@@ -58,7 +58,7 @@
 			<div class="form-group">
 				<label for="priority" class="col-sm-3 control-label">Priority</label>
 				<div class="col-sm-9">
-					<select class="form-control" name="Priority" ng-model="bug.priority" id="priority" required="required">
+					<select class="form-control" name="Priority" ng-model="bug.priority" id="priority" convert-to-number required="required">
 						<option value="">Select a Priority</option>
 						<option value="1">Low</option>
 						<option value="2">Medium</option>
@@ -71,7 +71,7 @@
 			<div class="form-group">
 				<label for="status" class="col-sm-3 control-label">Status</label>
 				<div class="col-sm-9">
-					<select class="form-control" name="Status" ng-model="bug.status" id="status" required="required">
+					<select class="form-control" name="Status" ng-model="bug.status" convert-to-number id="status" required="required">
 						<option value="">Status</option>
 						<option value="1">New</option>
 						<option value="2">Problem</option>
