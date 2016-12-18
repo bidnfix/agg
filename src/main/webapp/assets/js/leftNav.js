@@ -903,7 +903,7 @@ routingApp.controller('ReportBugController', function($scope, $http, reportaBugS
 	
 });
 
-routingApp.controller('BugInfoController', function($scope, $http, $timeout) {
+routingApp.controller('BugInfoController', function($scope, $http, reportaBugService, $timeout) {
 	 $http.get("/agg/getBugInfo")
 	    .then(function(response) {
 	        $scope.bugDOList = response.data.data;
@@ -931,6 +931,40 @@ routingApp.controller('BugInfoController', function($scope, $http, $timeout) {
 		$scope.editSubmitBug = function() {
 			//alert("In submitMachine");
 			reportaBugService.editBugInfo($scope.bug, $scope);
+			
+			
+			
+			
+			$scope.date = new Date();
+			$scope.bug.discDate = new Date($scope.bug.discDate);
+			$scope.bug.FixByDate = new Date($scope.bug.FixByDate);
+			
+			//datepicker changes
+			$scope.opens = [];
+			$scope.dateOptions = {
+				format: "MM/dd/yyyy",
+			    showWeeks: false
+			};
+			
+			$scope.discDatePickerIsOpen = false;
+			$scope.discDatePickerOpen = function ($event) {
+		      if ($event) {
+		          $event.preventDefault();
+		          $event.stopPropagation(); // This is the magic
+		      }
+		      $scope.discDatePickerIsOpen = true;
+		    };
+		    
+		    $scope.fixByDatePickerIsOpen = false;
+			$scope.fixByDatePickerOpen = function ($event) {
+		      if ($event) {
+		          $event.preventDefault();
+		          $event.stopPropagation(); // This is the magic
+		      }
+		      $scope.fixByDatePickerIsOpen = true;
+		    };
+			
+			
 	    };
 });
 

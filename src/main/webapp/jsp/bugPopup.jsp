@@ -27,7 +27,7 @@
 			                   datepicker-options="dateOptions" 
 			                   is-open="discDatePickerIsOpen" 
 			                   ng-click="discDatePickerOpen()"
-			                   ng-model="report.discDate"/>
+			                   ng-model="bug.discDate"/>
 						<span class="input-group-btn">
 			              <button type="button" class="btn btn-default" 
 			                      ng-click="discDatePickerOpen($event)">
@@ -47,7 +47,7 @@
 			                   datepicker-options="dateOptions" 
 			                   is-open="fixByDatePickerIsOpen" 
 			                   ng-click="fixByDatePickerOpen()"
-			                   ng-model="report.FixByDate"/>
+			                   ng-model="bug.FixByDate"/>
 						<span class="input-group-btn">
 			              <button type="button" class="btn btn-default" 
 			                      ng-click="fixByDatePickerOpen($event)">
@@ -60,7 +60,7 @@
 			<div class="form-group">
 				<label for="priority" class="col-sm-3 control-label">Priority</label>
 				<div class="col-sm-9">
-					<select class="form-control" name="Priority" ng-model="report.priority" id="priority" required="required">
+					<select class="form-control" name="Priority" ng-model="bug.priority" id="priority" required="required">
 						<option value="">Select a Priority</option>
 						<option value="1">Low</option>
 						<option value="2">Medium</option>
@@ -73,7 +73,7 @@
 			<div class="form-group">
 				<label for="status" class="col-sm-3 control-label">Status</label>
 				<div class="col-sm-9">
-					<select class="form-control" name="Status" ng-model="report.status" id="status" required="required">
+					<select class="form-control" name="Status" ng-model="bug.status" id="status" required="required">
 						<option value="">Status</option>
 						<option value="1">New</option>
 						<option value="2">Problem</option>
@@ -84,21 +84,21 @@
 			<div class="form-group">
 				<label for="description" class="col-sm-3 control-label">Bug Description</label>
 				<div class="col-sm-9">
-					<input type="textarea" id="description" name="description" ng-model="report.description" class="form-control" required="required">
+					<input type="textarea" id="description" name="description" ng-model="bug.description" class="form-control" required="required">
 				</div>
 			</div>
 			
 			<div class="form-group">
 				<label for="notes" class="col-sm-3 control-label">Notes</label>
 				<div class="col-sm-9">
-					<input type="textarea" id="notes" name="notes" ng-model="report.notes" class="form-control" required="required">
+					<input type="textarea" id="notes" name="notes" ng-model="bug.notes" class="form-control" required="required">
 				</div>
 				</div>
 				
 				<div class="form-group">
 				<label for="notes" class="col-sm-3 control-label">URL</label>
 				<div class="col-sm-9">
-					<input type="text" id="url" name="notes" ng-model="report.url" class="form-control" required="required">
+					<input type="text" id="url" name="notes" ng-model="bug.url" class="form-control" required="required">
 				</div>
 			</div>
 			<div class="form-group">

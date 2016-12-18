@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.agg.application.model.BugDO;
 import com.agg.application.model.GroupDO;
 import com.agg.application.model.MachineDO;
+import com.agg.application.model.ManufacturerDO;
 import com.agg.application.model.Result;
 import com.agg.application.service.ReportBugService;
 
@@ -40,6 +41,30 @@ public class ReportBugController extends BaseController {
 
 		Long id = reportBugService.saveBug(bug);
 		return new Result("success", null, id);
+	}
+	
+	@RequestMapping(value = "/editBug", method = RequestMethod.POST)
+	public @ResponseBody Result editBug(@RequestBody BugDO bug, BindingResult result,
+			HttpServletRequest request, HttpServletResponse response) {
+		
+		logger.debug("In saveOrEditMachine with groupId: "+bug.getId());
+		
+		Result opResult = null;
+		/*if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			if (result.hasErrors()){
+				opResult = new Result("failure", "Invalid dealer form field values", null);
+			}*/
+	
+			long id = reportBugService.editBug(bug);
+			if(id > 0){
+				opResult = new Result("success", "Invalid Bug form field values", null);
+			}
+			
+		//}
+		
+		return opResult;
 	}
 	
 	@RequestMapping(value = "/bugId", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)

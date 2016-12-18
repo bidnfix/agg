@@ -11,5 +11,6 @@ public interface ReportBugService {
 	public Integer getBugId();
 	public List<BugDO> getBugs();
 	public BugDO getBug(long id);
+	public long editBug(BugDO bugDO);
 	
 }

@@ -6,14 +6,19 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.agg.application.dao.ReportBugDAO;
 import com.agg.application.entity.BugReport;
+import com.agg.application.entity.MachineInfo;
 import com.agg.application.model.BugDO;
+import com.agg.application.model.MachineDO;
 import com.agg.application.service.ReportBugService;
 import com.google.common.collect.Lists;
 
@@ -31,7 +36,6 @@ public class ReportBugServiceImpl implements ReportBugService {
 		logger.debug("In saveBug");
 		Timestamp date = new Timestamp(new Date().getTime());
 		BugReport bug = new BugReport();
-		
 		bug.setDescription(bugDO.getDescription());
 		bug.setPriority(bugDO.getPriority());
 		bug.setStatus(bugDO.getStatus());
@@ -114,5 +118,27 @@ public class ReportBugServiceImpl implements ReportBugService {
 		return bugDO;
 	}
 	
+	@Override
+	@Transactional
+	public long editBug(BugDO bugDO) {
+		logger.debug("In editBug : "+bugDO.getId());
+		BugReport  bug = reportBugDAO.findOne(bugDO.getId());
+		Timestamp date = new Timestamp(new Date().getTime());
+		
+		bug.setDescription(bugDO.getDescription());
+		logger.debug("bugDO.getDescription() :"+bugDO.getDescription());
+		bug.setPriority(bugDO.getPriority());
+		bug.setStatus(bugDO.getStatus());
+		bug.setDiscovered(date);
+		bug.setUserAgent("NA");
+		bug.setFixBy(date);
+		bug.setReportedBy(1);
+		bug.setCreatedOn(date);
+		bug.setUrl(bugDO.getUrl());
+		bug.setNotes(bugDO.getNotes());
+		bug = reportBugDAO.save(bug);
+		
+		return bug.getId();
+	}
 	
 	}

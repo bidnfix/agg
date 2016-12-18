@@ -22,6 +22,7 @@ routingApp.factory('reportaBugService', function($http, $q, $window) {
 				},
 			
 			editBugInfo : function(bug, $scope) {
+				alert('in edit bug');
 				showSpinner();
 				return $http.post('/agg/editBug', bug).then(
 						function(response) {
