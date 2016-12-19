@@ -36,7 +36,7 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
 						var cStatus = response.data.data.claim.cStatus;
 						$scope.claim = {};
 						var claim = response.data.data.claim;
-						if(cStatus == 9 && !adminFlag){//draft
+						if((cStatus === 9 || cStatus === 5 || cStatus === 7) && !adminFlag){//draft
 							$scope.saveBtnFlag = true;
 							$scope.updateBtnFlag = false;
 							$scope.commentUpdateBtnFlag = false;

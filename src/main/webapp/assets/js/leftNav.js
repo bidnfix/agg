@@ -1074,8 +1074,8 @@ routingApp.controller('ClaimsInfoController', function($scope, $http, $timeout, 
 	   });
 	},
 	redirectToEdit = function(claimId, status){
-		if($rootScope.userType && $rootScope.userType === 'dealer' && status === 9){
-			if(status === 9){
+		if($rootScope.userType && $rootScope.userType === 'dealer' && (status === 5 || status === 7 || status === 9)){
+			if(status === 5 || status === 7 || status === 9){
 				$window.location = '#/agg/fileClaim/' + claimId;
 			}
 		}else if($rootScope.userType && $rootScope.userType === 'admin' && status !== 9 && status !== 1 && status !== 3){
