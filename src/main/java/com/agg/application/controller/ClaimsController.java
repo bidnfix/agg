@@ -134,13 +134,20 @@ public class ClaimsController extends BaseController {
 			ClaimsDO claimsDO = new ClaimsDO();
 			claimsDO.setClaimId(claimsVO.getClaimId());
 			claimsDO.setContractId(claimsVO.getContractId());
-			DealerDO dealerDO = null;
+			/*DealerDO dealerDO = null;
 			if(null != claimsVO.getContractId()){
 				dealerDO= contractsService.getDealer(claimsVO.getContractId());
 				if(null != dealerDO){
 					claimsDO.setDealerId((int)dealerDO.getId());
 				}
+			}*/
+			
+			//updating claim created user as delaerId.
+			AccountDO accountDO = getAccountDetails(request);
+			if(accountDO != null){
+				claimsDO.setDealerId(new Long(accountDO.getDealerId()).intValue());
 			}
+			
 			claimsDO.setId(claimsVO.getId());
 			claimsDO.setSerial(claimsVO.getSerial());
 			claimsDO.setFailDate(claimsVO.getFailDate());
@@ -253,12 +260,17 @@ public class ClaimsController extends BaseController {
 			ClaimsDO claimsDO = new ClaimsDO();
 			claimsDO.setClaimId(claimsVO.getClaimId());
 			claimsDO.setContractId(claimsVO.getContractId());
-			DealerDO dealerDO = null;
+			/*DealerDO dealerDO = null;
 			if(null != claimsVO.getContractId()){
 				dealerDO= contractsService.getDealer(claimsVO.getContractId());
 				if(null != dealerDO){
 					claimsDO.setDealerId((int)dealerDO.getId());
 				}
+			}*/
+			//updating claim created user as delaerId.
+			AccountDO accountDO = getAccountDetails(request);
+			if(accountDO != null){
+				claimsDO.setDealerId(new Long(accountDO.getDealerId()).intValue());
 			}
 			claimsDO.setId(claimsVO.getId());
 			claimsDO.setSerial(claimsVO.getSerial());

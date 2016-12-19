@@ -71,11 +71,11 @@ routingApp.controller('ClaimsController', ['$scope', 'claimService', '$http', '$
     };
     $scope.onClickSubmitClaim = function(){
     	if($scope.updateBtnFlag){
-    		claimService.saveClaim($scope, $route);
+    		claimService.updateClaim($scope, $route);
     	}else if($scope.commentUpdateBtnFlag){
     		claimService.updateClaimComment($scope, $route);
     	}else{
-    		claimService.updateClaim($scope, $route);
+    		claimService.saveClaim($scope, $route);
     	}    	
     };
     
