@@ -1,3 +1,5 @@
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!-- Article main content -->
 <article class="col-md-9 maincontent">
 	<header class="page-header">
@@ -52,7 +54,18 @@
                 (claimDO.cStatus === 4)?"Closed":(claimDO.cStatus === 5)?"Pre-Auth Approved":(claimDO.cStatus === 6)?"Pre-Auth Rejected":
                 (claimDO.cStatus === 7)?"Approved with adjustment":(claimDO.cStatus === 8)?"Pending":"Draft"}}</td>
                 <td><div class="manage-sec"><!-- <a href="#"><img src="../assets/images/delete-icon.png" alt="Delete" title="Delete"/></a> -->
-                		<a ng-click="editClaimByDealer(claimDO.claimId, claimDO.cStatus)"><img src="../assets/images/edit-pencil.png" alt="Edit" title="Edit"/></a>
+                		<c:choose>
+				    		<c:when test="${user.roleDO.name eq 'admin'}">
+				    			<span ng-if="claimDO.cStatus != 1 && claimDO.cStatus != 3 && claimDO.cStatus != 9">
+				    				<a ng-click="editClaimByDealer(claimDO.claimId, claimDO.cStatus)"><img src="../assets/images/edit-pencil.png" alt="Edit" title="Edit"/></a>
+				    			</span>
+				    		</c:when>
+				    		<c:otherwise>
+				    			<span ng-if="claimDO.cStatus == 5 || claimDO.cStatus == 7 || claimDO.cStatus == 9">
+				    				<a ng-click="editClaimByDealer(claimDO.claimId, claimDO.cStatus)"><img src="../assets/images/edit-pencil.png" alt="Edit" title="Edit"/></a>
+				    			</span>
+				    		</c:otherwise>
+				    	</c:choose>
                 	</div>
                 </td>
                 

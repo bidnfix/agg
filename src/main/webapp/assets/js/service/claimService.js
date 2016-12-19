@@ -45,6 +45,8 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
 							$scope.saveBtnFlag = false;
 							$scope.updateBtnFlag = false;
 							$scope.commentUpdateBtnFlag = true;
+							$scope.claim.cStatusValue = cStatus;
+							$scope.claim.extComment = response.data.data.claim.comments;
 						}else if(adminFlag && (cStatus !== 9)){//update all claim info
 							$scope.saveBtnFlag = false;
 							$scope.updateBtnFlag = true;

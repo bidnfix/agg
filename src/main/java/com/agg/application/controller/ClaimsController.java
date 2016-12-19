@@ -34,7 +34,6 @@ import com.agg.application.model.ClaimFileDO;
 import com.agg.application.model.ClaimLaborDO;
 import com.agg.application.model.ClaimPartDO;
 import com.agg.application.model.ClaimsDO;
-import com.agg.application.model.DealerDO;
 import com.agg.application.model.QuoteDO;
 import com.agg.application.model.Result;
 import com.agg.application.service.ClaimsService;
@@ -357,7 +356,7 @@ public class ClaimsController extends BaseController {
 			List<ClaimsDO> cliamsList = null;
 			AccountDO account = getAccountDetails(request);
 			if("admin".equals(account.getRoleName())){
-				cliamsList = claimsService.getClaimsByCStatus(Util.getClaimStatusCode("pre_authorized_requested"), false);
+				cliamsList = claimsService.getClaimsByCStatus(Util.getClaimStatusCode("pre_authorized_requested"), false, (int)account.getDealerId());
 			}else{
 				cliamsList = claimsService.getClaimsByCStatus(Util.getClaimStatusCode("pre_authorized_requested"), (int)account.getDealerId(), false);
 			}
@@ -378,7 +377,7 @@ public class ClaimsController extends BaseController {
 			List<ClaimsDO> cliamsList = null;
 			AccountDO account = getAccountDetails(request);
 			if("admin".equals(account.getRoleName())){
-				cliamsList = claimsService.getClaimsByCStatus(Util.getClaimStatusCode("draft"), false);
+				cliamsList = claimsService.getClaimsByCStatus(Util.getClaimStatusCode("draft"), false, (int)account.getDealerId());
 			}else{
 				cliamsList = claimsService.getClaimsByCStatus(Util.getClaimStatusCode("draft"), (int)account.getDealerId(), false);
 			}
@@ -400,6 +399,7 @@ public class ClaimsController extends BaseController {
 			PreAuthMail mail = new PreAuthMail();
 			Context context = new Context();
 			context.setVariable("claimNo", claimPreAuthVO.getId());
+			context.setVariable("dealerId", dealerId);
 			context.setVariable("externalComments", claimPreAuthVO.getExtComment());
 			mail.setContext(context);
 			mail.setEmailSender(emailSender);
@@ -498,6 +498,8 @@ public class ClaimsController extends BaseController {
 				String appUrl = url.substring(0, url.length() - uri.length());
 				logger.info("appUrl: "+appUrl);
 				
+				AccountDO accountDO = getAccountDetails(request);
+				
 				AdjudicateMail mail = new AdjudicateMail();
 				mail.setClaimsService(claimsService);
 				mail.setAppUrl(appUrl);
@@ -505,6 +507,7 @@ public class ClaimsController extends BaseController {
 				mail.setId(vo.getId());
 				mail.setTra(vo.getTra());
 				mail.setCustomerOwes(vo.getCustomerOwes());
+				mail.setDealerId(new Long(accountDO.getDealerId()).intValue());
 				new Thread(mail).start();
 			}
 		}
@@ -515,7 +518,7 @@ public class ClaimsController extends BaseController {
 		List<ClaimsDO> cliamsList = null;
 		AccountDO account = getAccountDetails(request);
 		if("admin".equals(account.getRoleName())){
-			cliamsList = claimsService.getClaimsByCStatus(statusCode, contractInfo);
+			cliamsList = claimsService.getClaimsByCStatus(statusCode, contractInfo, (int)account.getDealerId());
 		}else{
 			cliamsList = claimsService.getClaimsByCStatus(statusCode, (int)account.getDealerId(), contractInfo);
 		}
@@ -562,7 +565,8 @@ public class ClaimsController extends BaseController {
 		if (!sessionExists(request)){
 			opResult = new Result("failure", "Invalid Login", null);
 		}else{
-			ClaimsDO claimDO = claimsService.getClaim(claimId);
+			AccountDO account = getAccountDetails(request);
+			ClaimsDO claimDO = claimsService.getClaim(claimId, (int)account.getDealerId());
 			opResult = new Result("success", "", model.addAttribute("claim", claimDO));
 		}
 		return opResult;

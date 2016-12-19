@@ -331,14 +331,14 @@
                             <div class="form-group clearfix">
                               <span class="col-sm-3 no-pad">External Comments :</span> 
                                 <div class="col-sm-9 no-pad border">
-                                <div class="col-sm-4">
+                               <!--  <div class="col-sm-4">
                                   <b>Date/Time</b><br>
                                   June 21 2016
                                 </div>
                                 <div class="col-sm-8">
                                   <b>Comment</b><br>
                                   Text comes here..
-                                </div>
+                                </div> -->
                                   <textarea class="form-control" style="width:100% !important;" rows="3" ng-model="claim.extComment" ng-required="extCommentFlag" ng-trim=true></textarea>
                                 </div>
                             </div>

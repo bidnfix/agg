@@ -29,6 +29,7 @@ public class AdjudicateMail implements Runnable{
 	private double tra;
 	private double customerOwes;
 	private int id;
+	private int dealerId;
 	
 	public List<String> getToEmailList() {
 		return toEmailList;
@@ -106,10 +107,18 @@ public class AdjudicateMail implements Runnable{
 	public void setId(int id) {
 		this.id = id;
 	}
+	
+	public int getDealerId() {
+		return dealerId;
+	}
+
+	public void setDealerId(int dealerId) {
+		this.dealerId = dealerId;
+	}
 
 	@Override
 	public void run() {
-		ClaimsDO claimsDO = claimsService.getClaim(id);
+		ClaimsDO claimsDO = claimsService.getClaim(id, dealerId);
 		ClaimsController con = new ClaimsController();
 		int laborsCost = con.calcTotalLaborsCost(claimsDO.getClaimLaborDO());
 		int partsCost = con.calcTotalPartsCost(claimsDO.getClaimPartDO());

@@ -86,7 +86,8 @@ public class PreAuthMail implements Runnable{
 	@Override
 	public void run() {
 		int id = Integer.parseInt(context.getVariables().get("claimNo").toString());
-		ClaimsDO claimsDO = claimsService.getClaim(id);
+		int dealerId = Integer.parseInt(context.getVariables().get("dealerId").toString());
+		ClaimsDO claimsDO = claimsService.getClaim(id, dealerId);
 		ClaimsController con = new ClaimsController();
 		int laborsCost = con.calcTotalLaborsCost(claimsDO.getClaimLaborDO());
 		int partsCost = con.calcTotalPartsCost(claimsDO.getClaimPartDO());

@@ -13,11 +13,11 @@ public interface ClaimsService {
 	List<QuoteDO> getClaimInfoBySerialNumber(final String serialNo);
 	QuoteDO getClaimInfo(String ClaimId);
 	Claims saveClaim(ClaimsDO claimsDO);
-	List<ClaimsDO> getClaimsByCStatus(byte cStatus, boolean contractInfo);
+	List<ClaimsDO> getClaimsByCStatus(byte cStatus, boolean contractInfo, int dealerId);
 	List<ClaimsDO> getClaimsByCStatus(byte cStatus, int dealerId, boolean contractInfo);
 	void updateStatus(final int id, final byte status, int dealerId, String extComment);
 	int updateClaimAdjudicate(ClaimsDO claim, AccountDO accountDO);
-	ClaimsDO getClaim(int claimId);
+	ClaimsDO getClaim(int claimId, int dealerId);
 	int getContractsCount(String contractId);
-	ClaimsDO getClaim(String claimId);
+	ClaimsDO getClaim(String claimId, int dealerId);
 }
