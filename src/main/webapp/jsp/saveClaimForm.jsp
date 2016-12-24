@@ -348,7 +348,7 @@
 		</div>
 	</div>
 	<div class="col-sm-12 no-pad t-c marg10-top marg10-bottom" ng-show="saveBtnFlag">
-		<button type="button" class="btn btn-primary" ng-click="saveAsDraft()">
+		<button type="button" class="btn btn-primary" ng-click="saveAsDraft()" ng-show="saveClaimShow">
 			Save Claim</button>
 		<button type="submit" class="btn btn-primary" ng-click="reqAuth()"
 			ng-show="isSubmitDisabled">Request Preauthorization</button>

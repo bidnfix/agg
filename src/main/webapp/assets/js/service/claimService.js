@@ -119,6 +119,7 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
 				$scope.saveBtnFlag = true;
 				$scope.updateBtnFlag = false;
 				$scope.commentUpdateBtnFlag = false;
+				$scope.saveClaimShow = true;
 				
 				$scope.fromDraftFlag = false;
 				$scope.claim={};
@@ -144,6 +145,7 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
 				$scope.claim.failDate = $scope.failureDateValid;
 				$scope.claim.reportDate = $scope.todayDate;
 			}else{
+				$scope.saveClaimShow = false;
 				$scope.claim.totalClaimCost = 0;
 				$scope.claim.totalLaborCost = 0;
 				$scope.claim.partsTotalCost = 0;
@@ -161,7 +163,9 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
 			
 			$scope.$watchCollection('[claim.totalLaborCost, claim.partsTotalCost, claim.requestedOtherCharges1, claim.requestedOtherCharges2]', function(newValues){
 				$scope.claim.totalClaimCost = parseInt(newValues[0]) + parseInt(newValues[1]) + parseInt(newValues[2]) + parseInt(newValues[3]);
-				$scope.isSubmitDisabled = $scope.claim.totalClaimCost > 1500;
+				if(flag){
+					$scope.isSubmitDisabled = $scope.claim.totalClaimCost > 1500;
+				}
 			});
 			$scope.$watch('claim.reportDate', function(newValues){
 				$scope.failureDateValid = updateDate($scope.claim.reportDate, -1);
@@ -494,7 +498,8 @@ routingApp.factory('claimsAdjudicateService', ['$http', '$q', '$window', '$timeo
 	    	console.log(angular.toJson(response));
 	    	//$scope.editFlag = true;
 	    	$scope.editFlag = (response.data.data.roleList.accountType === 'admin') ? false : true;
-	    	$scope.commentFlag = true; 
+	    	$scope.commentFlag = true;
+	    	$scope.cheqFlag = true;
 	    });
 		$http.get("/agg/adjudicateClaim")
 	    .then(function(response) {
@@ -567,6 +572,7 @@ routingApp.factory('claimsAdjudicateService', ['$http', '$q', '$window', '$timeo
 		$scope.adjustments.totalAdjustmentLaborsCost = $scope.adjudicateClaim.totalAdjustedLaborCost;
 		$scope.adjustments.parts = JSON.parse(JSON.stringify($scope.adjudicateClaim.claimPartDO));
     	$scope.adjustments.labors = JSON.parse(JSON.stringify($scope.adjudicateClaim.claimLaborDO));
+    	$scope.adjustments.paidDate = new Date();
     	if($scope.adjustments.approvedOtherCharges1 === 0){
     		$scope.adjustments.approvedOtherCharges1 = $scope.adjustments.requestedOtherCharges1;
     	}
@@ -614,25 +620,36 @@ routingApp.factory('claimsAdjudicateService', ['$http', '$q', '$window', '$timeo
 			}
 		}else{
 			showSpinner();
-			$scope.adjustments.id = $scope.adjudicateClaim.id;
-			var fd = new FormData();
-			fd.append('data', angular.toJson($scope.adjustments));
-			 angular.forEach($scope.attachments, function (value, key) {
-				 fd.append('files', value);
-		        });
-			 return $http({
-			        method: 'POST',
-			        url: '/agg/adjudicateClaim',
-			        headers: {'Content-Type': undefined},
-			        data: fd,
-			        transformRequest: angular.identity
-			        })
-			       .success(function(data, status) {
-			           //alert("success");
-			    	   hideSpinner();
-			           $window.location.href = '#/agg/fileClaim';
+			if($scope.click === 4){
+				var data = {};
+				data.id = $scope.adjudicateClaim.id;
+				if($scope.adjustments.extComment){
+					data.extComment = $scope.adjustments.extComment;
+				}
+				data.cStatus = 'cancel';
+				updateClaimStatus(data);
+				
+			}else{
+				$scope.adjustments.id = $scope.adjudicateClaim.id;
+				var fd = new FormData();
+				fd.append('data', angular.toJson($scope.adjustments));
+				 angular.forEach($scope.attachments, function (value, key) {
+					 fd.append('files', value);
 			        });
-			 hideSpinner();
+				 return $http({
+				        method: 'POST',
+				        url: '/agg/adjudicateClaim',
+				        headers: {'Content-Type': undefined},
+				        data: fd,
+				        transformRequest: angular.identity
+				        })
+				       .success(function(data, status) {
+				           //alert("success");
+				    	   hideSpinner();
+				           $window.location.href = '#/agg/fileClaim';
+				        });
+			}
+			hideSpinner();
 		}
 	},
 	backToList = function($scope){

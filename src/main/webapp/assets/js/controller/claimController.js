@@ -208,6 +208,22 @@ routingApp.controller('ClaimsPreAuthController', function($scope, $http, claimPr
 routingApp.controller('ClaimsAdjudicateController', ['$scope', '$http', 'claimsAdjudicateService', 'ModalService', '$window', '$route', '$filter', function($scope, $http, claimsAdjudicateService, ModalService, $window, $route, $filter){
 	claimsAdjudicateService.init($scope);
 	
+	//datepicker changes
+	$scope.paidDatePickerIsOpen = false;
+	$scope.opens = [];
+	$scope.dateOptions = {
+		format: "MM/dd/yyyy",
+	    showWeeks: false
+	};
+	
+	$scope.paidDatePickerOpen = function ($event) {
+      if ($event) {
+          $event.preventDefault();
+          $event.stopPropagation(); // This is the magic
+      }
+      $scope.paidDatePickerIsOpen = true;
+    };
+	
 	$scope.onClickSelectClaim = function(claim){
 		claim.attachments=[];
 		claimsAdjudicateService.selectClaim($scope, claim);
@@ -231,7 +247,14 @@ routingApp.controller('ClaimsAdjudicateController', ['$scope', '$http', 'claimsA
     
     $scope.onClickClose = function(){
     	$scope.commentFlag = false;
+    	$scope.cheqFlag = true;
     	$scope.click = 3;
+    };
+    
+    $scope.onClickReject = function(){
+    	$scope.commentFlag = true;
+    	$scope.cheqFlag = false;
+    	$scope.click = 4;
     };
     
     $scope.onClickUpdate = function(){

@@ -36,7 +36,7 @@
 					<div class="sec-title">
                         
 							<h2 class="wow animated bounceInLeft">Adjudicate a Claim</h2>
-							<p class="wow animated bounceInRight">Contract #: {{adjudicateClaim.contractId}}</p>
+							<p class="wow animated bounceInRight">Claim #: {{adjudicateClaim.claimId}}</p>
 						</div>
                         </div>
                         <div class="col-md-6 col-sm-12"><a class="btn btn-primary pull-right btn-sm mar-right" ng-click="onClickBackToList()">Back</a></div>
@@ -48,6 +48,64 @@
                 <div class="inner-main">
                      <form name="newClaimForm" ng-submit="onClickSubmitClaim()">   
                       <div class="col-xs-12 agf1 main-login pad10-top">
+                      	<div class="col-xs-12 no-pad clearfix">
+							<div class="col-md-6 no-pad pad10-right">
+								<span class="ag-tab-title col-xs-12 no-pad marg10-bottom">Contract
+									Information</span> <br clear="all"> <br>
+								<div class="form-group pad10-top">
+									<label>Contract ID</label>
+									<p>{{adjudicateClaim.contractDO.contractId}}</p>
+								</div>
+								<div class="form-group">
+									<label>Dealer</label>
+									<p>{{adjudicateClaim.dealerDO.name}}</p>
+								</div>
+								<div class="form-group">
+									<label>Contract Expiration Date</label>
+									<p>{{adjudicateClaim.contractDO.expirationDate |  date:"MM/dd/yyyy"}}</p>
+								</div>
+								<div class="form-group">
+									<label>Limit of Liability (LOL)</label>
+									<p>{{adjudicateClaim.contractDO.lol | currency:"$":0}}</p>
+								</div>
+								<div class="form-group">
+									<label>Deductible</label>
+									<p>{{adjudicateClaim.contractDO.deductible | currency:"$":0}}</p>
+								</div>
+							</div>
+					
+							<div class="col-md-6 no-pad">
+								<span
+									class="ag-tab-title col-xs-12 no-pad marg10-bottom  pad20-left"
+									style="margin-left: -10px !important;">&nbsp;</span>
+								<div class="col-xs-12 no-pad pad10-left">
+									<br clear="all">
+					
+									<div class="col-xs-12 no-pad">
+										<div class="form-group">
+											<label>Serial/VIN #</label>
+											<p>{{adjudicateClaim.contractDO.machineSerialNo}}</p>
+										</div>
+										<div class="form-group">
+											<label>Manufacturer</label>
+											<p>{{adjudicateClaim.manufacturer}}</p>
+										</div>
+										<div class="form-group">
+											<label>Model</label>
+											<p>{{adjudicateClaim.contractDO.machineModel}}</p>
+										</div>
+										<div class="form-group">
+											<label>Usage Hours covered</label>
+											<p>{{adjudicateClaim.contractDO.expirationUsageHours}}</p>
+										</div>
+										<div class="form-group">
+											<label>Available LOL</label>
+											<p>{{adjudicateClaim.contractDO.availabeLol | currency:"$":0}}</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
                         <div class="col-xs-12 no-pad clearfix">
                         <div class="col-md-6 no-pad pad10-right">
                          <span class="ag-tab-title col-xs-12 no-pad marg10-bottom">Claim Information</span>
@@ -197,10 +255,10 @@
                               </thead>
                                <tbody data-ng-repeat="claimPartVO in adjustments.parts">
                                 <tr>
-                                  <td><input type="text" class="form-control" name="" ng-model="claimPartVO.partNo" ng-readonly=true></td>
-                                  <td><input type="text" class="form-control" name="" ng-model="claimPartVO.partDescr" ng-readonly=true></td>
-                                  <td><input type="number" class="form-control" name="" ng-model="claimPartVO.qty" required="required" ng-readonly= "true" ng-change="calcOnChange()"></td>
-                                  <td><input type="number" class="form-control" name="" ng-model="claimPartVO.unitPrice" required="required" ng-readonly= "true" ng-change="calcOnChange()"></td>
+                                  <td>{{claimPartVO.partNo}}<!-- <input type="text" class="form-control" name="" ng-model="claimPartVO.partNo" ng-readonly=true> --></td>
+                                  <td>{{claimPartVO.partDescr}}<!-- <input type="text" class="form-control" name="" ng-model="claimPartVO.partDescr" ng-readonly=true> --></td>
+                                  <td>{{claimPartVO.qty}}<!-- <input type="number" class="form-control" name="" ng-model="claimPartVO.qty" required="required" ng-readonly= "true" ng-change="calcOnChange()"> --></td>
+                                  <td>{{claimPartVO.unitPrice}}<!-- <input type="number" class="form-control" name="" ng-model="claimPartVO.unitPrice" required="required" ng-readonly= "true" ng-change="calcOnChange()"> --></td>
                                   <td class="t-r">{{claimPartVO.partsTotal | currency}}</td>
                                 </tr>
                               </tbody>
@@ -239,10 +297,10 @@
                               </thead>
                               <tbody data-ng-repeat="claimLabourVO in adjustments.labors">
                                 <tr>
-                                  <td><input type="text" class="form-control" name="" ng-model="claimLabourVO.laborNo" ng-readonly=true></td>
-                                  <td><input type="text" class="form-control" name="" ng-model="claimLabourVO.laborDescr" ng-readonly=true></td>
-                                  <td><input type="number" class="form-control" name="" ng-model="claimLabourVO.laborHrs" required="required" ng-readonly= "true" ng-change="calcOnChange()"></td>
-                                  <td><input type="number" class="form-control" name="" ng-model="claimLabourVO.rate" required="required" ng-readonly= "true" ng-change="calcOnChange()"></td>
+                                  <td>{{claimLabourVO.laborNo}}<!-- <input type="text" class="form-control" name="" ng-model="claimLabourVO.laborNo" ng-readonly=true> --></td>
+                                  <td>{{claimLabourVO.laborDescr}}<!-- <input type="text" class="form-control" name="" ng-model="claimLabourVO.laborDescr" ng-readonly=true> --></td>
+                                  <td>{{claimLabourVO.laborHrs}}<!-- <input type="number" class="form-control" name="" ng-model="claimLabourVO.laborHrs" required="required" ng-readonly= "true" ng-change="calcOnChange()"> --></td>
+                                  <td>{{claimLabourVO.rate}}<!-- <input type="number" class="form-control" name="" ng-model="claimLabourVO.rate" required="required" ng-readonly= "true" ng-change="calcOnChange()"> --></td>
                                   <td class="t-r">{{claimLabourVO.laborsTotal | currency}}</td>
                                 </tr>
                               </tbody>
@@ -321,6 +379,30 @@
                                   <textarea class="form-control" style="width:100% !important;" rows="3" ng-model="adjustments.extComment" ng-required="commentFlag" ng-trim=true></textarea>
                                 </div>
                             </div>
+                            <div class="form-group clearfix">
+                              <span class="col-sm-3 no-pad">Cheque#  :</span> 
+                                <div class="col-sm-6 no-pad">
+                               		<input type="text" class="form-control" ng-model="adjustments.cheqNo" ng-required="cheqFlag" ng-readonly= "{{editFlag}}">
+                                </div>
+                            </div>
+                            <div class="form-group clearfix">
+                              <span class="col-sm-3 no-pad">Paid Date  :</span> 
+                                <div class="col-sm-3 input-group no-pad">
+                               		<input type="text" class="form-control" 
+					                   datepicker-popup="MM/dd/yyyy"
+					                   datepicker-options="dateOptions" 
+					                   is-open="paidDatePickerIsOpen" 
+					                   ng-click="paidDatePickerOpen()"
+					                   ng-model="adjustments.paidDate" 
+					                   ng-required="cheqFlag"/>
+										<span class="input-group-btn">
+							              <button type="button" class="btn btn-default" 
+							                      ng-click="paidDatePickerOpen($event)">
+							                <i class="glyphicon glyphicon-calendar"></i>
+							              </button>
+							            </span>
+                                </div>
+                            </div>
                           </div>
                           </div>
                       </div>
@@ -328,7 +410,8 @@
 				<div class="col-sm-12 no-pad t-c marg10-top marg10-bottom">
 					<button type="submit" class="btn btn-primary" ng-click="onClickUpdate()" ng-if="editFlag">Update Claim</button>
 					<button type="submit" class="btn btn-primary" ng-click="onClickCancel()" ng-if="editFlag">Cancel Claim</button>
-		        	<button type="submit" class="btn btn-primary" ng-click="onClickClose()"> Close Claim</button>
+		        	<button type="submit" class="btn btn-primary" ng-click="onClickClose()">Approve</button>
+		        	<button type="submit" class="btn btn-primary" ng-click="onClickReject()">Reject</button>
 	            </div>
 	            </form>
 				</div>
