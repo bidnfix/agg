@@ -96,15 +96,18 @@ routingApp.controller('ClaimsController', ['$scope', 'claimService', '$http', '$
     };
     
     $scope.saveAsDraft = function(){
-    	$scope.newClaimClick='Draft';    	
+    	$scope.newClaimClick='Draft';
+    	$scope.attachmentFlag = false;
     	claimService.saveClaim($scope, $route);
     };
     
     $scope.reqAuth = function(){
     	$scope.newClaimClick='pre_authorized_requested';
+    	$scope.attachmentFlag = false;
     };
     
     $scope.reqSubmit = function(){
+    	$scope.attachmentFlag = true;
     	$scope.newClaimClick='Pending';
     };
     

@@ -2,9 +2,18 @@ package com.agg.application.entity;
 
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.Date;
-import java.sql.Timestamp;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 
 /**
@@ -90,6 +99,23 @@ public class Claims implements Serializable {
 	
 	@Column(name="approved_other_charges2")
 	private int approvedOtherCharges2;
+	
+	@Column(name="cheq_no")
+	private String cheqNo;
+	
+	@Column(name="paid_date")
+	private Date paidDate;
+	
+	@Column(name="created_by")
+	private long crtaedBy;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="created_date")
+	private Date createdDate;
+	
+	@Column(name="updated_by")
+	private long updatedBy;
+	
 	
 	public Claims() {
 	}
@@ -400,6 +426,46 @@ public class Claims implements Serializable {
 	 */
 	public void setApprovedOtherCharges2(int approvedOtherCharges2) {
 		this.approvedOtherCharges2 = approvedOtherCharges2;
+	}
+
+	public String getCheqNo() {
+		return cheqNo;
+	}
+
+	public void setCheqNo(String cheqNo) {
+		this.cheqNo = cheqNo;
+	}
+
+	public Date getPaidDate() {
+		return paidDate;
+	}
+
+	public void setPaidDate(Date paidDate) {
+		this.paidDate = paidDate;
+	}
+
+	public long getCrtaedBy() {
+		return crtaedBy;
+	}
+
+	public void setCrtaedBy(long crtaedBy) {
+		this.crtaedBy = crtaedBy;
+	}
+
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	public long getUpdatedBy() {
+		return updatedBy;
+	}
+
+	public void setUpdatedBy(long updatedBy) {
+		this.updatedBy = updatedBy;
 	}
 	
 }

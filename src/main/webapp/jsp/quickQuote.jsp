@@ -177,7 +177,7 @@
                        </div>
                        <div class="form-group">
                          <label>Limit of Liability</label>
-                         <p>{{quote.machineInfoDO.lol | currency:"$":0}}</p>
+                         <p>{{quote.machineInfoDO.lolToDisplay | currency:"$":0}}</p>
                        </div>
                        <div class="form-group">
                          <label>Estimated Sale Date</label>
@@ -306,7 +306,7 @@
                           </div>
                           <div class="form-group">
                             <label>Limit of Liability</label>
-                            <p>{{quote.machineInfoDO.lol | currency:"$":0}}</p>
+                            <p>{{quote.machineInfoDO.lolToDisplay | currency:"$":0}}</p>
                           </div>
                           <div class="form-group">
                             <label>Estimated Sale Date</label>
@@ -495,7 +495,7 @@
 							  </div>
 							  <div class="form-group">
 								<label>Base Price</label>
-								<p>{{quote.quoteBasePrice | currency:"$":0}}</p>
+								<p>{{quote.quoteBasePriceToDisplay | currency:"$":0}}</p>
 							  </div>
 							  <c:if test="${user.roleDO.accountType eq 'admin'}">
 								  <div class="form-group">
@@ -505,7 +505,7 @@
 							  </c:if>
 							  <div class="form-group">
 								<label>Limit of Liability</label>
-								<p>{{quote.machineInfoDO.lol | currency:"$":0}}</p>
+								<p>{{quote.machineInfoDO.lolToDisplay | currency:"$":0}}</p>
 							  </div>
 							  <c:if test="${user.roleDO.accountType eq 'admin'}">
 								  <div class="form-group">

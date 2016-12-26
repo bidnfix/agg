@@ -29,6 +29,8 @@ public class MachineInfoDO {
 		
 		private double lol;
 		
+		private double lolToDisplay;
+		
 		public String getMachineType() {
 			return machineType;
 		}
@@ -139,5 +141,13 @@ public class MachineInfoDO {
 			this.lol = lol;
 		}
 
+		public double getLolToDisplay() {
+			return lolToDisplay;
+		}
+
+		public void setLolToDisplay(double lolToDisplay) {
+			this.lolToDisplay = lolToDisplay;
+		}
+		
 	}
 

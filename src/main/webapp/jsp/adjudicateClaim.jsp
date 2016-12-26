@@ -128,6 +128,10 @@
                             <input type="text" class="form-control" ng-model="contractInfoList.coverageType" ng-readonly=true>
                           </div> -->
                           <div class="form-group">
+							<label>Dealer</label>
+							<p>{{adjudicateClaim.dealerDO.name}}</p>
+						  </div>
+                          <div class="form-group">
                             <label>Failure Date</label>
                             <div class="input-group">
                             	{{adjudicateClaim.failDate | date:'MM/dd/yyyy'}}

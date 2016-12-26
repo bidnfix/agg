@@ -204,6 +204,8 @@ public class QuoteDO {
 
 	private String desc;
 	
+	private double quoteBasePriceToDisplay;
+	
 	public int getcHours() {
 		return cHours;
 	}
@@ -1335,5 +1337,13 @@ public class QuoteDO {
 	public void setCoverageTypeSet(Set<String> coverageTypeSet) {
 		this.coverageTypeSet = coverageTypeSet;
 	}
-	
+
+	public double getQuoteBasePriceToDisplay() {
+		return quoteBasePriceToDisplay;
+	}
+
+	public void setQuoteBasePriceToDisplay(double quoteBasePriceToDisplay) {
+		this.quoteBasePriceToDisplay = quoteBasePriceToDisplay;
+	}
+
 }

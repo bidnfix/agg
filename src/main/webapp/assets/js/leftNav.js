@@ -1126,6 +1126,7 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 	$scope.invoiced = true;
 	$scope.readOnlyFlag = false;
 	$scope.editableFlag = true;
+	$scope.contractBtnFlag = false;
 	
 	//datepicker changes
 	

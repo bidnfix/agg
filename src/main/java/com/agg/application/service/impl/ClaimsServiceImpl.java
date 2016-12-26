@@ -176,7 +176,7 @@ public class ClaimsServiceImpl implements ClaimsService {
 	}
 	
 	@Transactional
-	public Claims saveClaim(ClaimsDO claimsDO)
+	public Claims saveClaim(ClaimsDO claimsDO, AccountDO accountDO)
 	{
 		Claims claim = new Claims();
 		claim.setId(claimsDO.getId());
@@ -200,7 +200,12 @@ public class ClaimsServiceImpl implements ClaimsService {
 		claim.setTotalAdjustedLaborCost(claimsDO.getTotalAdjustedLaborCost());
 		claim.setApprovedOtherCharges1(claimsDO.getApprovedOtherCharges1());
 		claim.setApprovedOtherCharges2(claimsDO.getApprovedOtherCharges2());
-		claim.setLastUpdate(new Date()); 
+		claim.setLastUpdate(new Date());
+		if(claimsDO.getId() == 0){
+			claim.setCrtaedBy(accountDO.getId());
+			claim.setCreatedDate(new Date());
+		}
+		claim.setUpdatedBy(accountDO.getId());
 		
 		Claims newClaim = claimsDAO.save(claim);
 		
@@ -446,6 +451,9 @@ public class ClaimsServiceImpl implements ClaimsService {
 				claimDO.setTotalAdjustedLaborCost(claim.getTotalAdjustedLaborCost());
 				claimDO.setApprovedOtherCharges1(claim.getApprovedOtherCharges1());
 				claimDO.setApprovedOtherCharges2(claim.getApprovedOtherCharges2());
+				claimDO.setCreatedBy(claim.getCrtaedBy());
+				claimDO.setUpdatedBy(claim.getUpdatedBy());
+				claimDO.setCreatedDate(claim.getCreatedDate());
 				Contracts contract = contractsDAO.findByContractId(claim.getContractId());
 				Quote quote = quoteDAO.findOne((int)contract.getQuoteId());
 				claimDO.setManufacturer(quote.getManfName());
@@ -551,6 +559,9 @@ public class ClaimsServiceImpl implements ClaimsService {
 			claim.setTotalAdjustedPartsCost(claimDO.getTotalAdjustedPartsCost());
 			claim.setApprovedOtherCharges1(claimDO.getApprovedOtherCharges1());
 			claim.setApprovedOtherCharges2(claimDO.getApprovedOtherCharges2());
+			claim.setCheqNo(claimDO.getCheqNo());
+			claim.setPaidDate(claimDO.getPaidDate());
+			claim.setUpdatedBy(accountDO.getId());
 			claim.setcStatus((byte)AggConstants.CLAIM_STATUS_CLOSED);
 			res = claimsDAO.save(claim);
 			

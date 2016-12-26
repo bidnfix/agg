@@ -203,7 +203,7 @@
 				<div class="col-sm-6">
 					<div class="form-group">
 						<label>File</label> <input type="file" id="" name="files" multiple
-							ng-files="getTheFiles($files)" required="required" ng-readonly="commentUpdateBtnFlag">
+							ng-files="getTheFiles($files)" ng-required="attachmentFlag" ng-readonly="commentUpdateBtnFlag">
 					</div>
 				</div>
 			</div>

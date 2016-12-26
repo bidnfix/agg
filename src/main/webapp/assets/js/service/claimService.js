@@ -120,6 +120,7 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
 				$scope.updateBtnFlag = false;
 				$scope.commentUpdateBtnFlag = false;
 				$scope.saveClaimShow = true;
+				$scope.attachmentFlag = false;
 				
 				$scope.fromDraftFlag = false;
 				$scope.claim={};

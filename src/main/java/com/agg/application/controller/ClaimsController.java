@@ -34,6 +34,7 @@ import com.agg.application.model.ClaimFileDO;
 import com.agg.application.model.ClaimLaborDO;
 import com.agg.application.model.ClaimPartDO;
 import com.agg.application.model.ClaimsDO;
+import com.agg.application.model.DealerDO;
 import com.agg.application.model.QuoteDO;
 import com.agg.application.model.Result;
 import com.agg.application.service.ClaimsService;
@@ -212,14 +213,18 @@ public class ClaimsController extends BaseController {
 				}
 	        }
 			claimsDO.setClaimFileDO(claimFileDO);
-			Claims claim = claimsService.saveClaim(claimsDO);
+			Claims claim = claimsService.saveClaim(claimsDO, accountDO);
 			Long id = (null != claim) ? (long)claim.getId() : -1; 
 			if(id != -1 ){
 				ClaimMail mail = new ClaimMail();
 				int partsCost = calcTotalPartsCost(claimsDO.getClaimPartDO());
 				int laborsCost = calcTotalLaborsCost(claimsDO.getClaimLaborDO());
 				int otherCost = claimsDO.getRequestedOtherCharges1() + claimsDO.getRequestedOtherCharges2();
-				String dealerFirstName = dealerService.getDealer(claim.getDealerId()).getFirstName();
+				String dealerFirstName = "";
+				DealerDO dealerDO = dealerService.getDealer(claim.getDealerId());
+				if(dealerDO != null){
+					dealerFirstName = dealerDO.getFirstName();
+				}
 				Context context = new Context();
 				context.setVariable("claimNo", claimsDO.getClaimId());
 				context.setVariable("dealerName", dealerFirstName);
@@ -337,7 +342,7 @@ public class ClaimsController extends BaseController {
 				}
 	        }
 			claimsDO.setClaimFileDO(claimFileDO);
-			Claims claim = claimsService.saveClaim(claimsDO);
+			Claims claim = claimsService.saveClaim(claimsDO, accountDO);
 			Long id = (null != claim) ? (long)claim.getId() : -1;
 			if(id == -1){
 				return new Result("error", null, "");
@@ -474,6 +479,9 @@ public class ClaimsController extends BaseController {
 			claimsDO.setTra(vo.getTra());
 			claimsDO.setCustomerOwesAmount(vo.getCustomerOwes());
 			claimsDO.setComments(vo.getExtComment());
+			claimsDO.setCheqNo(vo.getCheqNo());
+			claimsDO.setPaidDate(vo.getPaidDate());
+			
 			List<ClaimFileDO> claimFileDO = new ArrayList<>();
 			for(MultipartFile uploadedFile : fileList) {
 				String fName = String.format("%s_%s", System.currentTimeMillis(), uploadedFile.getOriginalFilename());

@@ -1,6 +1,5 @@
 package com.agg.application.model;
 
-import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -52,6 +51,11 @@ public class ClaimsDO {
 	private double tra;
 	private double customerOwesAmount;
 	private String comments;
+	private String cheqNo;
+	private Date paidDate;
+	private long createdBy;
+	private long updatedBy;
+	private Date createdDate;
 	
 	public List<ClaimFileDO> getClaimFileDO() {
 		return claimFileDO;
@@ -417,6 +421,36 @@ public class ClaimsDO {
 	}
 	public void setComments(String comments) {
 		this.comments = comments;
+	}
+	public String getCheqNo() {
+		return cheqNo;
+	}
+	public void setCheqNo(String cheqNo) {
+		this.cheqNo = cheqNo;
+	}
+	public Date getPaidDate() {
+		return paidDate;
+	}
+	public void setPaidDate(Date paidDate) {
+		this.paidDate = paidDate;
+	}
+	public long getCreatedBy() {
+		return createdBy;
+	}
+	public void setCreatedBy(long createdBy) {
+		this.createdBy = createdBy;
+	}
+	public long getUpdatedBy() {
+		return updatedBy;
+	}
+	public void setUpdatedBy(long updatedBy) {
+		this.updatedBy = updatedBy;
+	}
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
 	}
 	
 }

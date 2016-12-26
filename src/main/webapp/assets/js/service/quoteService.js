@@ -177,6 +177,7 @@ routingApp.factory('quoteService', function($http, $q, $window) {
 		},
 		createContract : function(quote, $scope) {
 			showSpinner();
+			$scope.contractBtnFlag = true;
 			return $http.post('/agg/quote/createContract', quote).then(
 					function(response) {
 						//alert(response.data.status);
@@ -188,9 +189,10 @@ routingApp.factory('quoteService', function($http, $q, $window) {
 							//$('#errMsg').html(response.data.errMessage);
 						}
 						hideSpinner();
-						
+						$scope.contractBtnFlag = false;
 					}, function(errResponse) {
 						alert('Error while creating Contract');
+						$scope.contractBtnFlag = false;
 						return $q.reject(errResponse);
 					});
 		}

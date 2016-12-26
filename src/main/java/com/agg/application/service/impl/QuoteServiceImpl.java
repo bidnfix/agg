@@ -781,8 +781,10 @@ public class QuoteServiceImpl implements QuoteService {
 				machineInfoDO.setModelYear(machineInfo.getModelYear());
 				machineInfoDO.setEPower(machineInfo.getEPower());
 				machineInfoDO.setLol(machineInfo.getGroupConstant().getLol());
+				machineInfoDO.setLolToDisplay(machineInfo.getGroupConstant().getLol());
 				if(quote.getProgram() != null){
 					machineInfoDO.setLol(quote.getProgram().getPrLol());
+					machineInfoDO.setLolToDisplay(quote.getProgram().getPrLol());
 				}
 				if(adminAdjustment != null && adminAdjustment.getLol() > 0){
 					machineInfoDO.setLol(adminAdjustment.getLol());
@@ -826,6 +828,7 @@ public class QuoteServiceImpl implements QuoteService {
 			quoteDO.setCoverageHours(quote.getCoverageLevelHours());
 			quoteDO.setCoverageType(quote.getCoverageType());
 			quoteDO.setQuoteBasePrice(quote.getCoveragePrice());
+			quoteDO.setQuoteBasePriceToDisplay(quote.getCoveragePrice());
 			if(adminAdjustment != null && adminAdjustment.getBasePrice() > 0){
 				quoteDO.setQuoteBasePrice(adminAdjustment.getBasePrice());
 			}

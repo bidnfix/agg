@@ -1,5 +1,7 @@
 package com.agg.application.vo;
 
+import java.util.Date;
+
 public class AdjudicateClaimFormVO {
 	private int id;
 	private int totalAdjustmentLaborsCost;
@@ -11,6 +13,8 @@ public class AdjudicateClaimFormVO {
 	private String extComment;
 	private int approvedOtherCharges1;
 	private int approvedOtherCharges2;
+	private String cheqNo;
+	private Date paidDate;
 	
 	
 	public AdjudicateClaimFormVO() {
@@ -99,6 +103,22 @@ public class AdjudicateClaimFormVO {
 	 */
 	public void setApprovedOtherCharges2(int approvedOtherCharges2) {
 		this.approvedOtherCharges2 = approvedOtherCharges2;
+	}
+
+	public String getCheqNo() {
+		return cheqNo;
+	}
+
+	public void setCheqNo(String cheqNo) {
+		this.cheqNo = cheqNo;
+	}
+
+	public Date getPaidDate() {
+		return paidDate;
+	}
+
+	public void setPaidDate(Date paidDate) {
+		this.paidDate = paidDate;
 	}
 	
 }
