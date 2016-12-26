@@ -450,7 +450,7 @@ public class ClaimsController extends BaseController {
 			return new Result("failure", "Session Expired", null);
 		}else{
 			Map<String, Object> map = new HashMap<>();
-			List<ClaimsDO> cliamsList = getClaimByStatus(Util.getClaimStatusCode("pre_authorized_approved_with_adjustments"), request, true);
+			List<ClaimsDO> cliamsList = getClaimByStatus(Util.getClaimStatusCode("pending"), request, true);
 			
 			logger.info("preAuthClaims size: "+cliamsList.size());
 			map.put("preAuthClaimList", cliamsList);
