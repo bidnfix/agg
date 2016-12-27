@@ -51,7 +51,7 @@ public interface ClaimsDAO extends CrudRepository<Claims, Integer> {
 			+ "and contracts.quoteId = quotes.id.id "
 			+ "and quotes.id.quoteId = cus.quoteId "
 			+ "and claims.dealerId = dealer.id "
-			+ "and claims.c_status = :cStatus")
+			+ "and claims.cStatus = :cStatus")
 	List<ClaimsDO> findApvOrRejClaims(@Param("cStatus") byte cStatus);
 	
 	@Query("select new com.agg.application.model.ClaimsDO(claims.claimId, cus.name, dealer.name, claims.serial, quotes.manfName, "
@@ -60,9 +60,9 @@ public interface ClaimsDAO extends CrudRepository<Claims, Integer> {
 			+ "where claims.contractId = contracts.contractId "
 			+ "and contracts.quoteId = quotes.id.id "
 			+ "and quotes.id.quoteId = cus.quoteId "
-			+ "and claims.dealerId = :dealerId "
 			+ "and claims.dealerId = dealer.id "
-			+ "and claims.c_status = :cStatus")
+			+ "and claims.cStatus = :cStatus "
+			+ "and dealer.id = :dealerId")
 	List<ClaimsDO> findApvOrRejClaims(@Param("cStatus") byte cStatus, @Param("dealerId") int dealerId);
 	
 	@Query("SELECT COUNT(*) AS claimsCount FROM Claims c WHERE c.contractId = :contractId")

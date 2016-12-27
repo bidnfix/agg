@@ -172,7 +172,7 @@
 							 </select>
 						</div>
 						<div ng-if="quote.program != null">
-						        <p>{{(quote.coverageType == 'PH')?"Powertrain + Hydraulic":(quote.coverageType == 'PT')?"Powertrain":(ctype == 'PL')?"Powertrain + Hydraulic + Platform":""}}</p>
+						        <p>{{(quote.coverageType == 'PH')?"Powertrain + Hydraulic":(quote.coverageType == 'PT')?"Powertrain":(quote.coverageType == 'PL')?"Powertrain + Hydraulic + Platform":""}}</p>
 						</div>
                        </div>
                        <div class="form-group">
@@ -302,7 +302,7 @@
                           </div>
                           <div class="form-group">
                             <label>Coverage Type</label>
-                            <p>{{(quote.coverageType == 'PH')?"Powertrain + Hydraulic":(quote.coverageType == 'PT')?"Powertrain":(ctype == 'PL')?"Powertrain + Hydraulic + Platform":""}}</p>
+                            <p>{{(quote.coverageType == 'PH')?"Powertrain + Hydraulic":(quote.coverageType == 'PT')?"Powertrain":(quote.coverageType == 'PL')?"Powertrain + Hydraulic + Platform":""}}</p>
                           </div>
                           <div class="form-group">
                             <label>Limit of Liability</label>

@@ -1163,17 +1163,20 @@ public class QuoteServiceImpl implements QuoteService {
 	    	}else if(quoteDO.getCoverageEndDate() != null && quoteDO.getCoverageEndDate().after(new Date())){
 	    		coverageExpired = false;
 	    	}
-			List<PricingDO> pricingDOList = getCoveragePriceDetils(coverageExpired, quoteDO.getMachineInfoDO().getMachineId(), 
-					new Double(quoteDO.getDeductiblePrice()).intValue(), quoteDO.getCoverageTerm(), quote.getCoverageLevelHours());
-			if(pricingDOList != null && !pricingDOList.isEmpty()){
-				PricingDO pricingDO = pricingDOList.get(0);
-				if(quoteDO.getCoverageType() != null){
-					if(quoteDO.getCoverageType().equals("PT")){
-						quote.setCoveragePrice(pricingDO.getPtBasePrice());
-					}else if(quoteDO.getCoverageType().equals("PH")){
-						quote.setCoveragePrice(pricingDO.getPhBasePrice());
-					}else if(quoteDO.getCoverageType().equals("PL")){
-						quote.setCoveragePrice(pricingDO.getPlBasePrice());
+			
+			if(quote.getProgram() == null){
+				List<PricingDO> pricingDOList = getCoveragePriceDetils(coverageExpired, quoteDO.getMachineInfoDO().getMachineId(), 
+						new Double(quoteDO.getDeductiblePrice()).intValue(), quoteDO.getCoverageTerm(), quote.getCoverageLevelHours());
+				if(pricingDOList != null && !pricingDOList.isEmpty()){
+					PricingDO pricingDO = pricingDOList.get(0);
+					if(quoteDO.getCoverageType() != null){
+						if(quoteDO.getCoverageType().equals("PT")){
+							quote.setCoveragePrice(pricingDO.getPtBasePrice());
+						}else if(quoteDO.getCoverageType().equals("PH")){
+							quote.setCoveragePrice(pricingDO.getPhBasePrice());
+						}else if(quoteDO.getCoverageType().equals("PL")){
+							quote.setCoveragePrice(pricingDO.getPlBasePrice());
+						}
 					}
 				}
 			}

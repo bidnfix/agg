@@ -206,6 +206,8 @@ public class QuoteDO {
 	
 	private double quoteBasePriceToDisplay;
 	
+	private String provisions;
+	
 	public int getcHours() {
 		return cHours;
 	}
@@ -1346,4 +1348,12 @@ public class QuoteDO {
 		this.quoteBasePriceToDisplay = quoteBasePriceToDisplay;
 	}
 
+	public String getProvisions() {
+		return provisions;
+	}
+
+	public void setProvisions(String provisions) {
+		this.provisions = provisions;
+	}
+	
 }

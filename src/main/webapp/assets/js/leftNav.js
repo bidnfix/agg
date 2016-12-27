@@ -73,7 +73,7 @@ routingApp.config(['$routeProvider',
                     	  templateUrl: '../../jsp/claimsInfo.jsp',
                     	  controller: 'ApprovedClaimsController'
                       }).
-                      when('/agg/pendingClaims', {
+                      when('/agg/rejectedClaims', {
                     	  templateUrl: '../../jsp/claimsInfo.jsp',
                     	  controller: 'RejectedClaimsController'
                       }).
@@ -1129,7 +1129,7 @@ routingApp.controller('ApprovedClaimsController', function($scope, $http, $timeo
 		showSpinner();
 		 $scope.claimDOList = response.data.data.claimDOList;
        $timeout(function () {
-       	$('#claimsApvTbl').DataTable();
+       	$('#claimsTbl').DataTable();
        }, 300);
        hideSpinner();
     });
@@ -1141,7 +1141,7 @@ routingApp.controller('RejectedClaimsController', function($scope, $http, $timeo
 		showSpinner();
 		 $scope.claimDOList = response.data.data.claimDOList;
        $timeout(function () {
-       	$('#claimsRejTbl').DataTable();
+       	$('#claimsTbl').DataTable();
        }, 300);
        hideSpinner();
     });
@@ -1260,6 +1260,7 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 		
 		$scope.quote.groupId = machineInfoDO.groupId;
 		$scope.quote.adjustedLol = machineInfoDO.lol;
+		$scope.quote.machineInfoDO.lolToDisplay = machineInfoDO.lol;
 		
 		var machineId = machineInfoDO.machineId;
 		$http.get("/agg/quote/coverageDeductInfo/"+coverageExpired+"/"+machineId)
@@ -1322,6 +1323,8 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 			}else if(coverageType == "PT"){
 				$scope.quote.quoteBasePrice = pricingDO.ptBasePrice;
 			}
+			$scope.quote.quoteBasePriceToDisplay = $scope.quote.quoteBasePrice;
+			$scope.quote.adjustedBasePrice = $scope.quote.quoteBasePrice;
 		});
 		
 		$scope.getDealerMarkupPrice();

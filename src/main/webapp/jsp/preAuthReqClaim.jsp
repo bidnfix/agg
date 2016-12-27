@@ -12,15 +12,17 @@
 				<table id="preauthClaimsListTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
 					<thead>
 			            <tr>
-			            	<th>Claim ID</th>
-			                <th>Dealer ID</th>
-			                <th>Serial</th>
+			            	<th>Claim #</th>
+			                <th>Dealer Name</th>
+			                <th>Dealer Contact Name</th>
+			                <th>Serial #</th>
 			            </tr>
 			        </thead>
 					<tbody>
 			            <tr ng-repeat="claim in preAuthClaimList" ng-click="onClickSelectClaim(claim)">
 			                <td>{{claim.claimId}}</td>
-			                <td>{{claim.dealerId}}</td>
+			                <td>{{claim.dealerDO.name}}</td>
+			                <td></td>
 			                <td>{{claim.serial}}</td>
 			            </tr>
 			        </tbody>
@@ -153,7 +155,7 @@
                          <div class="col-sm-12">
 							<table>
 								<tbody data-ng-repeat="ufile in preAuthClaim.claimFileDO">
-									<tr><td><a href="{{ufile.fileName}}">{{$index}}</</a></td></tr>
+									<tr><td><a href="/agg/claim/file/{{preAuthClaim.claimId}}?filename={{ufile.fileName}}" target="_blank">{{ufile.fileName}}</a></td></tr>
 								</tbody>
 							</table>
 							</div>

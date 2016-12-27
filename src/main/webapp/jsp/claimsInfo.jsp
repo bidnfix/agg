@@ -51,9 +51,9 @@
                 <td>{{claimDO.manufacturer}}</td>
                 <td>{{claimDO.machineModel}}</td>
                 <td>{{(claimDO.cStatus === 1)?"Open":(claimDO.cStatus === 2)?"Pre-Auth Requested":(claimDO.cStatus === 3)?"Submitted":
-                (claimDO.cStatus === 4)?"Closed":(claimDO.cStatus === 5)?"Pre-Auth Approved":(claimDO.cStatus === 6)?"Pre-Auth Rejected":
+                (claimDO.cStatus === 4)?"Approved":(claimDO.cStatus === 5)?"Pre-Auth Approved":(claimDO.cStatus === 6)?"Pre-Auth Rejected":
                 (claimDO.cStatus === 7)?"Approved with adjustment":(claimDO.cStatus === 8)?"Pending":(claimDO.cStatus === 9)?"Draft":
-                (claimDO.cStatus === 10)?"Cancelled":""}}</td>
+                (claimDO.cStatus === 10)?"Rejected":""}}</td>
                 <td><div class="manage-sec"><!-- <a href="#"><img src="../assets/images/delete-icon.png" alt="Delete" title="Delete"/></a> -->
                 		<c:choose>
 				    		<c:when test="${user.roleDO.name eq 'admin'}">

@@ -19,7 +19,7 @@
             <tr>
             	<th>ID</th>
                 <th>Dealership</th>
-                <th>Sales Contact</th>
+                <th>Customer Contact</th>
                 <th>Model</th>
                 <th>Est. Sale Date</th>
                 <th>Status</th>
@@ -31,7 +31,7 @@
            <tr>
             	<th>ID</th>
                 <th>Dealership</th>
-                <th>Sales Contact</th>
+                <th>Customer Contact</th>
                 <th>Model</th>
                 <th>Est. Sale Date</th>
                 <th>Status</th>

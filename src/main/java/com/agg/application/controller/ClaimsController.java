@@ -1,6 +1,7 @@
 package com.agg.application.controller;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,6 +17,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -60,8 +62,8 @@ import com.google.gson.GsonBuilder;
 public class ClaimsController extends BaseController {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
-	private static final String UPLOAD_FOLDER_NAME = "/uploads/";
-	private static final String UPLOAD_FOLDER_PATH = "/src/main/webapp/uploads/";
+	//private static final String UPLOAD_FOLDER_NAME = "/uploads/";
+	//private static final String UPLOAD_FOLDER_PATH = "/src/main/webapp/uploads/";
 	//public static String uploadingdir = System.getProperty("user.dir") + UPLOAD_FOLDER_NAME;
 
 	@Autowired
@@ -85,7 +87,7 @@ public class ClaimsController extends BaseController {
 	@Value("${admin.email}")
 	private String adminEmail;
 	
-	//@Value("${file.upload.dir}")
+	@Value("${file.upload.dir}")
 	private String uploadingdir;
 
 	@RequestMapping(value = "/editClaim", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
@@ -120,9 +122,10 @@ public class ClaimsController extends BaseController {
 		//logger.debug("paths: "+request.getServletContext().getResource("/uploads/"));
 		//logger.debug("Session Realpath: "+request.getSession().getServletContext().getRealPath("/"));
 		//logger.debug("Request Realpath: "+request.getServletContext().getRealPath("/"));
-		logger.debug("system user.dir path: "+System.getProperty("user.dir"));
+		//logger.debug("system user.dir path: "+System.getProperty("user.dir"));
 		
-		uploadingdir = System.getProperty("user.dir")+ UPLOAD_FOLDER_PATH;
+		
+		//uploadingdir = System.getProperty("user.dir")+ UPLOAD_FOLDER_PATH;
 		new File(uploadingdir).mkdirs();
 		
 		logger.debug("Directory for image upload: "+uploadingdir);
@@ -205,7 +208,8 @@ public class ClaimsController extends BaseController {
 				ClaimFileDO fileDO = new ClaimFileDO();
 	            File file = new File(String.format("%s%s%s", uploadingdir, File.separator, fName));
 	            try {
-	            	fileDO.setFileName(Util.getBaseURL(request) + UPLOAD_FOLDER_NAME + fName);
+	            	//fileDO.setFileName(Util.getBaseURL(request) + UPLOAD_FOLDER_NAME + fName);
+	            	fileDO.setFileName(fName);
 	            	claimFileDO.add(fileDO);
 					uploadedFile.transferTo(file);
 				} catch (Exception e) {
@@ -251,9 +255,9 @@ public class ClaimsController extends BaseController {
 	@RequestMapping(value = "/updateClaim", method = RequestMethod.POST)
 	public @ResponseBody Result updateClaim(@ModelAttribute("data") Object data,  @RequestParam("files") List<MultipartFile> fileList, BindingResult result,
 			HttpServletRequest request, HttpServletResponse response) throws Exception{
-		logger.debug("Session Realpath: "+request.getSession().getServletContext().getRealPath("/"));
-		logger.debug("Request Realpath: "+request.getServletContext().getRealPath("/"));
-		logger.debug("system user.dir path: "+System.getProperty("user.dir"));
+		//logger.debug("Session Realpath: "+request.getSession().getServletContext().getRealPath("/"));
+		//logger.debug("Request Realpath: "+request.getServletContext().getRealPath("/"));
+		//logger.debug("system user.dir path: "+System.getProperty("user.dir"));
 		
 		logger.debug("Directory for image upload: "+uploadingdir);
 		
@@ -334,7 +338,8 @@ public class ClaimsController extends BaseController {
 				ClaimFileDO fileDO = new ClaimFileDO();
 	            File file = new File(String.format("%s%s%s", uploadingdir, File.separator, fName));
 	            try {
-	            	fileDO.setFileName(Util.getBaseURL(request) + UPLOAD_FOLDER_NAME + fName);
+	            	//fileDO.setFileName(Util.getBaseURL(request) + UPLOAD_FOLDER_NAME + fName);
+	            	fileDO.setFileName(fName);
 	            	claimFileDO.add(fileDO);
 					uploadedFile.transferTo(file);
 				} catch (Exception e) {
@@ -450,7 +455,7 @@ public class ClaimsController extends BaseController {
 		if(!sessionExists(request)){
 			return new Result("failure", "Session Expired", null);
 		}else{
-			List<ClaimsDO> claimsInfoList = claimsService.getAprvOrRejClaims(getAccountDetails(request), (byte)AggConstants.CLAIM_STATUS_PRE_AUTHORIZED_APPROVED);
+			List<ClaimsDO> claimsInfoList = claimsService.getAprvOrRejClaims(getAccountDetails(request), (byte)AggConstants.CLAIM_STATUS_CLOSED);
 			if(claimsInfoList != null){
 				logger.info("claimsInfoList size: "+claimsInfoList.size());
 			}
@@ -493,7 +498,8 @@ public class ClaimsController extends BaseController {
 	public @ResponseBody Result adjudicateClaim(@ModelAttribute("data") Object data,  @RequestParam("files") List<MultipartFile> fileList, BindingResult result,
 			HttpServletRequest request, HttpServletResponse response) {
 		//uploadingdir = request.getServletContext().getRealPath("/uploads/");
-		uploadingdir = System.getProperty("user.dir")+ UPLOAD_FOLDER_PATH;
+		
+		//uploadingdir = System.getProperty("user.dir")+ UPLOAD_FOLDER_PATH;
 		new File(uploadingdir).mkdirs();
 		AdjudicateClaimFormVO vo = new GsonBuilder().setDateFormat("yyyy-MM-dd").create().fromJson(data.toString(), AdjudicateClaimFormVO.class);
 		logger.debug("In adjudicateClaim ");
@@ -519,7 +525,8 @@ public class ClaimsController extends BaseController {
 				ClaimFileDO fileDO = new ClaimFileDO();
 	            File file = new File(String.format("%s%s%s", uploadingdir, File.separator, fName));
 	            try {
-	            	fileDO.setFileName(Util.getBaseURL(request) + UPLOAD_FOLDER_NAME + fName);
+	            	//fileDO.setFileName(Util.getBaseURL(request) + UPLOAD_FOLDER_NAME + fName);
+	            	fileDO.setFileName(fName);
 	            	claimFileDO.add(fileDO);
 					uploadedFile.transferTo(file);
 				} catch (Exception e) {
@@ -610,6 +617,49 @@ public class ClaimsController extends BaseController {
 		}
 		return opResult;
 	}
+	
+	@RequestMapping(value = "/claim/file/{claimId}", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+	public void getClaimFile(@PathVariable String claimId, @RequestParam("filename") String fileName, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{
+		logger.debug("Inside getClaimFile with id: "+claimId+" and fileName: "+fileName);
+		//Result opResult = null;
+		if (!sessionExists(request)){
+			//opResult = new Result("failure", "Invalid Login", null);
+			logger.info("Invalid Login");
+		}else{
+			//uploadingdir = System.getProperty("user.dir")+ UPLOAD_FOLDER_PATH;
+			String path = uploadingdir +File.separator+ fileName;
+			File file = new File(path);
+	        FileInputStream inputStream = new FileInputStream(file);
+
+	        response.setContentType("application/"+fileName.substring(fileName.lastIndexOf(".") + 1));
+	        response.setContentLength((int) file.length());
+	        response.setHeader("Content-Disposition", "inline;filename=\"" + fileName + "\"");
+
+	        FileCopyUtils.copy(inputStream, response.getOutputStream());
+	        
+	        inputStream.close();
+		}
+	}
+	
+	/*@RequestMapping(value = "/claim/files/{claimId}", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+	@ResponseBody
+	public FileSystemResource  getClaimFiles(@PathVariable String claimId, @RequestParam("filename") String fileName, 
+			HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{
+		logger.debug("Inside getClaimFiles with id: "+claimId+" and fileName: "+fileName);
+		Result opResult = null;
+		FileSystemResource fileSystemResource = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			response.setContentType("application/"+fileName.substring(fileName.lastIndexOf(".") + 1));
+			uploadingdir = System.getProperty("user.dir")+ UPLOAD_FOLDER_PATH;
+			String path = uploadingdir + fileName;
+			File file = new File(path);
+			fileSystemResource = new FileSystemResource(file); 
+		}
+		
+		return fileSystemResource;
+	}*/
 }
 
 

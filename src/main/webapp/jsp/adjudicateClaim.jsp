@@ -4,7 +4,7 @@
 			<header class="page-header">
 	              	<div class="col-md-6 col-sm-12">
 						<div class="sec-title">
-							<h3 class="wow animated bounceInLeft">Adjudicate a Claim</h3>
+							<h3 class="wow animated bounceInLeft">Pending Claims</h3>
 						</div>
                     </div>
 			</header>
@@ -12,15 +12,17 @@
 				<table id="preauthClaimsListTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
 					<thead>
 			            <tr>
-			            	<th>Claim ID</th>
-			                <th>Dealer ID</th>
-			                <th>Serial</th>
+			            	<th>Claim #</th>
+			                <th>Dealer Name</th>
+			                <th>Dealer Contact Name</th>
+			                <th>Serial #</th>
 			            </tr>
 			        </thead>
 					<tbody>
 			            <tr ng-repeat="claim in adjudicateClaimList" ng-click="onClickSelectClaim(claim)">
 			                <td>{{claim.claimId}}</td>
-			                <td>{{claim.dealerId}}</td>
+			                <td>{{claim.dealerDO.name}}</td>
+			                <td></td>
 			                <td>{{claim.serial}}</td>
 			            </tr>
 			        </tbody>
