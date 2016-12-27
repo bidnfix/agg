@@ -10,6 +10,7 @@ import com.agg.application.model.QuoteDO;
 public interface ClaimsService {
 
 	List<ClaimsDO> getClaimsInfo(AccountDO accountDO);
+	List<ClaimsDO> getAprvOrRejClaims(AccountDO accountDO, byte cStatus);
 	List<QuoteDO> getClaimInfoBySerialNumber(final String serialNo);
 	QuoteDO getClaimInfo(String ClaimId);
 	Claims saveClaim(ClaimsDO claimsDO, AccountDO accountDO);

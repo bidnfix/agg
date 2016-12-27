@@ -43,6 +43,7 @@ import com.agg.application.service.DealerService;
 import com.agg.application.service.QuoteService;
 import com.agg.application.service.UserService;
 import com.agg.application.utils.AdjudicateMail;
+import com.agg.application.utils.AggConstants;
 import com.agg.application.utils.ClaimMail;
 import com.agg.application.utils.EmailSender;
 import com.agg.application.utils.PreAuthMail;
@@ -435,6 +436,36 @@ public class ClaimsController extends BaseController {
 			return new Result("failure", "Session Expired", null);
 		}else{
 			List<ClaimsDO> claimsInfoList = claimsService.getClaimsInfo(getAccountDetails(request));
+			if(claimsInfoList != null){
+				logger.info("claimsInfoList size: "+claimsInfoList.size());
+			}
+			model.put("claimDOList", claimsInfoList);
+			return new Result("success", null, model);
+		}
+	}
+	
+	@RequestMapping(value = "/approvedClaims", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+	public @ResponseBody Result getApprovedClaims(Map<String, Object> model, HttpServletRequest request, HttpServletResponse response) {
+		logger.info("Inside getApprovedClaims()");
+		if(!sessionExists(request)){
+			return new Result("failure", "Session Expired", null);
+		}else{
+			List<ClaimsDO> claimsInfoList = claimsService.getAprvOrRejClaims(getAccountDetails(request), (byte)AggConstants.CLAIM_STATUS_PRE_AUTHORIZED_APPROVED);
+			if(claimsInfoList != null){
+				logger.info("claimsInfoList size: "+claimsInfoList.size());
+			}
+			model.put("claimDOList", claimsInfoList);
+			return new Result("success", null, model);
+		}
+	}
+	
+	@RequestMapping(value = "/rejectedClaims", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+	public @ResponseBody Result getRejectedClaims(Map<String, Object> model, HttpServletRequest request, HttpServletResponse response) {
+		logger.info("Inside getRejectedClaims()");
+		if(!sessionExists(request)){
+			return new Result("failure", "Session Expired", null);
+		}else{
+			List<ClaimsDO> claimsInfoList = claimsService.getAprvOrRejClaims(getAccountDetails(request), (byte)AggConstants.CLAIM_STATUS_PRE_AUTHORIZED_REJECTED);
 			if(claimsInfoList != null){
 				logger.info("claimsInfoList size: "+claimsInfoList.size());
 			}

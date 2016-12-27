@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -82,14 +83,31 @@ public class ClaimsServiceImpl implements ClaimsService {
 	private ClaimNotesDAO claimNotesDAO;
 	
 	
+	
+	
 	public List<ClaimsDO> getClaimsInfo(AccountDO accountDO){
-		logger.debug("Inside getClaimsInfo()");
+		logger.debug("Inside getApprovedClaims()");
 		List<ClaimsDO> claimsDOList = null;
 		if(accountDO.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)){
 			claimsDOList = claimsDAO.findClaimsInfo();
 		}else{
 			logger.debug("Not an Admin :"+accountDO.getDealerId());
 			claimsDOList = claimsDAO.findClaimsInfo(new Long(accountDO.getDealerId()).intValue());
+		}
+		if(claimsDOList != null){
+			logger.debug("claimsDOList size: "+claimsDOList.size());
+		}
+		return claimsDOList;
+	}
+	
+	public List<ClaimsDO> getAprvOrRejClaims(AccountDO accountDO, byte cStatus){
+		logger.debug("Inside getApprovedClaims()");
+		List<ClaimsDO> claimsDOList = null;
+		if(accountDO.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)){
+			claimsDOList = claimsDAO.findApvOrRejClaims(cStatus);
+		}else{
+			logger.debug("Not an Admin :"+accountDO.getDealerId());
+			claimsDOList = claimsDAO.findApvOrRejClaims(cStatus, new Long(accountDO.getDealerId()).intValue());
 		}
 		if(claimsDOList != null){
 			logger.debug("claimsDOList size: "+claimsDOList.size());

@@ -69,6 +69,14 @@ routingApp.config(['$routeProvider',
                     	  templateUrl: '../../jsp/claimsInfo.jsp',
                     	  controller: 'ClaimsInfoController'
                       }).
+                      when('/agg/approvedClaims', {
+                    	  templateUrl: '../../jsp/claimsInfo.jsp',
+                    	  controller: 'ApprovedClaimsController'
+                      }).
+                      when('/agg/pendingClaims', {
+                    	  templateUrl: '../../jsp/claimsInfo.jsp',
+                    	  controller: 'RejectedClaimsController'
+                      }).
                       when('/agg/fileClaim', {
                     	  templateUrl: '../../jsp/fileaClaim.jsp',
                     	  controller: 'ClaimsController'
@@ -1114,7 +1122,30 @@ routingApp.controller('ClaimsInfoController', function($scope, $http, $timeout, 
 	};
 			
 	})
-		
+
+routingApp.controller('ApprovedClaimsController', function($scope, $http, $timeout, $window) {
+	$http.get("/agg/approvedClaims")
+	.then(function(response) {
+		showSpinner();
+		 $scope.claimDOList = response.data.data.claimDOList;
+       $timeout(function () {
+       	$('#claimsApvTbl').DataTable();
+       }, 300);
+       hideSpinner();
+    });
+})
+
+routingApp.controller('RejectedClaimsController', function($scope, $http, $timeout, $window) {
+	$http.get("/agg/rejectedClaims")
+	.then(function(response) {
+		showSpinner();
+		 $scope.claimDOList = response.data.data.claimDOList;
+       $timeout(function () {
+       	$('#claimsRejTbl').DataTable();
+       }, 300);
+       hideSpinner();
+    });
+})
 
 
 routingApp.controller('QuoteDetailController', function($scope, $http, $timeout, $routeParams, $route, $window, quoteService) {

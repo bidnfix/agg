@@ -56,45 +56,6 @@ public class MachineServiceImpl implements MachineService {
 	private GroupConstantDAO groupConstantDAO;
 	
 	
-
-	
-	/*@Override
-	public List<MachineInfoDO> getmachineInfo() {
-		logger.debug("Inside getmachineInfo()");
-		List<MachineInfo>  machineInfoList =  Lists.newArrayList(machineInfoDAO.findAll());
-		
-		List<MachineInfoDO> machineInfoDOList = null;
-		if(!machineInfoList.isEmpty()){
-			logger.debug("machineInfoList size:"+machineInfoList.size());
-			machineInfoDOList = new ArrayList<MachineInfoDO>();
-			MachineInfoDO machineInfoDO = null;
-			MachineInfo machineInfo = null;
-			ManufacturerDO manufacturerDO = null;
-			
-			Iterator<MachineInfo> it = machineInfoList.iterator();
-			while(it.hasNext()){
-				machineInfoDO = new MachineInfoDO();
-				machineInfo = it.next();
-				logger.debug("machineInfo.getMachineType() " +machineInfo.getMachineType().getMachineType());
-				//logger.debug("machineInfo.getManufacturer() " +machineInfo.getManufacturer().getManfName());
-				manufacturerDO = new ManufacturerDO();
-				Manufacturer manufacturer = machineInfo.getMachineType().getManufacturer();
-				manufacturerDO.setId(manufacturer.getManfId());
-				manufacturerDO.setName(manufacturer.getManfName());
-				machineInfoDO.setManufacturerDO(manufacturerDO);
-				logger.debug("machineInfo.getMachineType().getMachineType() "+machineInfo.getMachineType().getMachineType());
-				machineInfoDO.setMachineId(machineInfo.getMachineId());
-				machineInfoDO.setMachineType(machineInfo.getMachineType().getMachineType());
-				machineInfoDO.setModel(machineInfo.getModel());
-				machineInfoDO.setPower(machineInfo.getPower());
-				machineInfoDO.setGroupId(machineInfo.getGroupId());
-				machineInfoDOList.add(machineInfoDO);
-			}
-		}
-		logger.debug(""+machineInfoDOList.size());
-		return machineInfoDOList;
-	}*/
-	
 	@Override
 	public List<MachineDO> getmachineInfo() {
 		logger.debug("Inside getmachineInfo()");
