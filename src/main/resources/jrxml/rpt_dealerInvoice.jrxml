@@ -250,7 +250,7 @@
 				<text><![CDATA[Coverage Type:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="Float" x="108" y="325" width="127" height="14" forecolor="#33FFFF" uuid="32baeba0-09e0-462b-ac02-9ce9954a4eea"/>
+				<reportElement positionType="Float" x="108" y="325" width="249" height="14" forecolor="#33FFFF" uuid="32baeba0-09e0-462b-ac02-9ce9954a4eea"/>
 				<textFieldExpression><![CDATA[$F{coverageType}]]></textFieldExpression>
 			</textField>
 			<staticText>

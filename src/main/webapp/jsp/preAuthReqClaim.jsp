@@ -22,7 +22,7 @@
 			            <tr ng-repeat="claim in preAuthClaimList" ng-click="onClickSelectClaim(claim)">
 			                <td>{{claim.claimId}}</td>
 			                <td>{{claim.dealerDO.name}}</td>
-			                <td></td>
+			                <td>{{claim.createdUser}}</td>
 			                <td>{{claim.serial}}</td>
 			            </tr>
 			        </tbody>
@@ -50,6 +50,60 @@
                 <div class="inner-main">
                      <form name="newClaimForm" ng-submit="onClickSubmitClaim()">   
                       <div class="col-xs-12 agf1 main-login pad10-top">
+                      	<div class="col-xs-12 no-pad clearfix">
+							<div class="col-md-6 no-pad pad10-right">
+								<span class="ag-tab-title col-xs-12 no-pad marg10-bottom">Contract
+									Information</span> <br clear="all"> <br>
+								<div class="form-group pad10-top">
+									<label>Contract ID</label>
+									<p>{{preAuthClaim.contractDO.contractId}}</p>
+								</div>
+								<div class="form-group">
+									<label>Contract Expiration Date</label>
+									<p>{{preAuthClaim.contractDO.expirationDate |  date:"MM/dd/yyyy"}}</p>
+								</div>
+								<div class="form-group">
+									<label>Limit of Liability (LOL)</label>
+									<p>{{preAuthClaim.contractDO.lol | currency:"$":0}}</p>
+								</div>
+								<div class="form-group">
+									<label>Deductible</label>
+									<p>{{preAuthClaim.contractDO.deductible | currency:"$":0}}</p>
+								</div>
+							</div>
+					
+							<div class="col-md-6 no-pad">
+								<span
+									class="ag-tab-title col-xs-12 no-pad marg10-bottom  pad20-left"
+									style="margin-left: -10px !important;">&nbsp;</span>
+								<div class="col-xs-12 no-pad pad10-left">
+									<br clear="all">
+					
+									<div class="col-xs-12 no-pad">
+										<div class="form-group">
+											<label>Serial/VIN #</label>
+											<p>{{preAuthClaim.contractDO.machineSerialNo}}</p>
+										</div>
+										<div class="form-group">
+											<label>Manufacturer</label>
+											<p>{{preAuthClaim.manufacturer}}</p>
+										</div>
+										<div class="form-group">
+											<label>Model</label>
+											<p>{{preAuthClaim.contractDO.machineModel}}</p>
+										</div>
+										<div class="form-group">
+											<label>Usage Hours covered</label>
+											<p>{{preAuthClaim.contractDO.expirationUsageHours}}</p>
+										</div>
+										<div class="form-group">
+											<label>Available LOL</label>
+											<p>{{preAuthClaim.contractDO.availabeLol | currency:"$":0}}</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
                         <div class="col-xs-12 no-pad clearfix">
                         <div class="col-md-6 no-pad pad10-right">
                          <span class="ag-tab-title col-xs-12 no-pad marg10-bottom">Claim Information</span>
@@ -129,6 +183,14 @@
                         
                         <div class="col-xs-12 no-pad">
                           <div class="form-group">
+							<label>Dealer</label>
+							{{(preAuthClaim.dealerDO.name != null)?preAuthClaim.dealerDO.name:"&nbsp;"}}
+						  </div>
+                          <div class="form-group">
+                            <label>Dealer Contact</label>
+                            {{(preAuthClaim.createdUser != null)?preAuthClaim.createdUser:"&nbsp;"}}
+                          </div>
+                          <div class="form-group">
                             <label>Customer Complaint</label>
                             <!-- <textarea class="form-control" rows="2" ng-model="preAuthClaim.custComplaint" ng-readonly=true></textarea> -->
                             {{preAuthClaim.custComplaint}}
@@ -149,9 +211,9 @@
                       </div>
 					<div class="col-xs-12 no-pad pad10-top" ng-if="preAuthClaim.claimFileDO">
 						<span class="ag-tab-title col-xs-12 no-pad marg10-bottom">Uploaded Documents</span>
-                         <br clear="all">
+                         <!-- <br clear="all">
                         
-                         <br>
+                         <br> -->
                          <div class="col-sm-12">
 							<table>
 								<tbody data-ng-repeat="ufile in preAuthClaim.claimFileDO">

@@ -22,7 +22,7 @@
 			            <tr ng-repeat="claim in adjudicateClaimList" ng-click="onClickSelectClaim(claim)">
 			                <td>{{claim.claimId}}</td>
 			                <td>{{claim.dealerDO.name}}</td>
-			                <td></td>
+			                <td>{{claim.createdUser}}</td>
 			                <td>{{claim.serial}}</td>
 			            </tr>
 			        </tbody>
@@ -57,10 +57,6 @@
 								<div class="form-group pad10-top">
 									<label>Contract ID</label>
 									<p>{{adjudicateClaim.contractDO.contractId}}</p>
-								</div>
-								<div class="form-group">
-									<label>Dealer</label>
-									<p>{{adjudicateClaim.dealerDO.name}}</p>
 								</div>
 								<div class="form-group">
 									<label>Contract Expiration Date</label>
@@ -130,10 +126,6 @@
                             <input type="text" class="form-control" ng-model="contractInfoList.coverageType" ng-readonly=true>
                           </div> -->
                           <div class="form-group">
-							<label>Dealer</label>
-							<p>{{adjudicateClaim.dealerDO.name}}</p>
-						  </div>
-                          <div class="form-group">
                             <label>Failure Date</label>
                             <div class="input-group">
                             	{{adjudicateClaim.failDate | date:'MM/dd/yyyy'}}
@@ -179,6 +171,14 @@
                         
                         <div class="col-xs-12 no-pad">
                           <div class="form-group">
+							<label>Dealer</label>
+							{{(adjudicateClaim.dealerDO.name != null)?adjudicateClaim.dealerDO.name:"&nbsp;"}}
+						  </div>
+                          <div class="form-group">
+                            <label>Dealer Contact</label>
+                            {{(adjudicateClaim.createdUser != null)?adjudicateClaim.createdUser:"&nbsp;"}}
+                          </div>
+                          <div class="form-group">
                             <label>Customer Complaint</label>
                             {{adjudicateClaim.custComplaint}}
                           </div>
@@ -189,12 +189,6 @@
                           <div class="form-group">
                             <label>Corrective Action</label>
                             {{adjudicateClaim.correctiveAction}}
-                          </div>
-                           <div class="form-group">
-                            <label></label>&nbsp;
-                          </div>
-                          <div class="form-group">
-                            <label></label>&nbsp;
                           </div>
                           <div class="form-group">
                             <label>Adjusted Other Charge 1 ($)</label>
@@ -221,6 +215,19 @@
                             </div>
                           </div>
                           </div>
+                          <div class="col-xs-12 no-pad pad10-top" ng-if="adjudicateClaim.claimFileDO">
+							<span class="ag-tab-title col-xs-12 no-pad marg10-bottom">Uploaded Documents</span>
+			                    <!-- <br clear="all">
+			                      
+			                    <br> -->
+			                    <div class="col-sm-12">
+									<table>
+										<tbody data-ng-repeat="ufile in adjudicateClaim.claimFileDO">
+											<tr><td><a href="/agg/claim/file/{{adjudicateClaim.claimId}}?filename={{ufile.fileName}}" target="_blank">{{ufile.fileName}}</a></td></tr>
+										</tbody>
+									</table>
+								</div>
+						   </div>
                        <!--    <div class="col-sm-12">
                           <div class="col-sm-6">
                             <div class="form-group">

@@ -56,6 +56,8 @@ public class ClaimsDO {
 	private long createdBy;
 	private long updatedBy;
 	private Date createdDate;
+	private String createdUser;
+	private String updatedUser;
 	
 	public List<ClaimFileDO> getClaimFileDO() {
 		return claimFileDO;
@@ -451,6 +453,18 @@ public class ClaimsDO {
 	}
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
+	}
+	public String getCreatedUser() {
+		return createdUser;
+	}
+	public void setCreatedUser(String createdUser) {
+		this.createdUser = createdUser;
+	}
+	public String getUpdatedUser() {
+		return updatedUser;
+	}
+	public void setUpdatedUser(String updatedUser) {
+		this.updatedUser = updatedUser;
 	}
 	
 }

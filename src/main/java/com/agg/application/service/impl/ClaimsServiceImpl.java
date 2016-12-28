@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.agg.application.dao.AccountDAO;
 import com.agg.application.dao.ClaimFileDAO;
 import com.agg.application.dao.ClaimLaborDAO;
 import com.agg.application.dao.ClaimNotesDAO;
@@ -24,6 +25,7 @@ import com.agg.application.dao.DealerDAO;
 import com.agg.application.dao.MachineInfoDAO;
 import com.agg.application.dao.ManufacturerDAO;
 import com.agg.application.dao.QuoteDAO;
+import com.agg.application.entity.Account;
 import com.agg.application.entity.ClaimFile;
 import com.agg.application.entity.ClaimLabor;
 import com.agg.application.entity.ClaimNote;
@@ -82,7 +84,8 @@ public class ClaimsServiceImpl implements ClaimsService {
 	@Autowired
 	private ClaimNotesDAO claimNotesDAO;
 	
-	
+	@Autowired
+	private AccountDAO accountDAO;
 	
 	
 	public List<ClaimsDO> getClaimsInfo(AccountDO accountDO){
@@ -348,6 +351,7 @@ public class ClaimsServiceImpl implements ClaimsService {
 			if(!contractIdList.isEmpty()){
 				contractsList = contractsDAO.findAllByContractID(contractIdList);
 			}
+			claimFileList = claimFileDAO.findAllByClaimID(claimIdList);
 		}
 		List<ClaimsDO> list = ConvertClaimToClaimsDO(claimsList, claimsLaborList, claimPartList, contractsList, claimFileList, dealerId);
 		return (list.isEmpty()) ? null : list.get(0);
@@ -539,6 +543,20 @@ public class ClaimsServiceImpl implements ClaimsService {
 				ClaimNote claimNote = claimNotesDAO.findByClaimIdAndDealerId(claim.getId(), loginDealerId);
 				if(claimNote != null){
 					claimDO.setComments(claimNote.getNotes());
+				}
+				
+				if(claim.getCrtaedBy() > 0){
+					Account account = accountDAO.findOne(claim.getCrtaedBy());
+					if(account != null){
+						claimDO.setCreatedUser(account.getFirstName()+" "+account.getLastName());
+					}
+				}
+				
+				if(claim.getUpdatedBy() > 0){
+					Account account = accountDAO.findOne(claim.getUpdatedBy());
+					if(account != null){
+						claimDO.setUpdatedUser(account.getFirstName()+" "+account.getLastName());
+					}
 				}
 				
 				claimsDOList.add(claimDO);

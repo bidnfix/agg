@@ -78,6 +78,31 @@ public class AggConstants {
 	
 	public static final String CLAIM_STATUS_CLOSED_DESC = "Closed";
 	
+	public static final String COVERAGE_TYPE_PT = "PT";
+	
+	public static final String COVERAGE_TYPE_PH = "PH";
+	
+	public static final String COVERAGE_TYPE_PL = "PL";
+	
+	public static final String COVERAGE_TYPE_PT_DESC = "Powertrain";
+	
+	public static final String COVERAGE_TYPE_PH_DESC = "Powertrain + Hydraulic";
+	
+	public static final String COVERAGE_TYPE_PL_DESC = "Powertrain + Hydraulic + Platform";
+	
+	public static final int COVERAGE_TYPE_PT_MONTHS = 24;
+	
+	public static final int COVERAGE_TYPE_PH_MONTHS = 24;
+	
+	public static final int COVERAGE_TYPE_PL_MONTHS = 24;
+	
+	public static final int COVERAGE_TYPE_PT_HOURS = 2000;
+	
+	public static final int COVERAGE_TYPE_PH_HOURS = 2000;
+	
+	public static final int COVERAGE_TYPE_PL_HOURS = 2000;
+	
+	
 	public static final String QUOTE_REPORT_OUT_STANDING_DESC = "Thank you for considering AgGuard coverage, we appreciate the opportunity to earn your trust. "
 			+ "This quote reflects the information provided in your request for an extended service Contract based on the current terms and "
 			+ "conditions provided on our website. Our pricing is dynamic, so it is possible the price will increase after your initial quote request; "

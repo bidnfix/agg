@@ -272,12 +272,12 @@ public class ProgramServiceImpl implements ProgramService {
 			//quote.setManfEndKnown((quoteDO.isCoverageEndDateUnknown())?(byte)1:(byte)0);
 			quote.setManfEndKnown((byte)1);
 			quote.setManfVerified((quoteDO.isCoverageEndDateVerified())?(byte)1:(byte)0);
-			quote.setPtHours(quoteDO.getPowerTrainHours());
-			quote.setPtMonths(quoteDO.getPowerTrainMonths());
-			quote.setHHours(quoteDO.getHydraulicsHours());
-			quote.setHMonths(quoteDO.getHydraulicsMonths());
-			quote.setMachineHours(quoteDO.getFullMachineHours());
-			quote.setMachineMonths(quoteDO.getFullMachineMonths());
+			quote.setPtHours(AggConstants.COVERAGE_TYPE_PT_HOURS);
+			quote.setPtMonths(AggConstants.COVERAGE_TYPE_PT_MONTHS);
+			quote.setHHours(AggConstants.COVERAGE_TYPE_PH_HOURS);
+			quote.setHMonths(AggConstants.COVERAGE_TYPE_PH_MONTHS);
+			quote.setMachineHours(AggConstants.COVERAGE_TYPE_PL_HOURS);
+			quote.setMachineMonths(AggConstants.COVERAGE_TYPE_PL_MONTHS);
 			quote.setMachineMeterHours(quoteDO.getMachineMeterHours());
 			quote.setOtherProv(quoteDO.getProvisions());
 			
@@ -301,8 +301,9 @@ public class ProgramServiceImpl implements ProgramService {
 			quote.setMachineRetailPrice(quoteDO.getRetailPrice());
 			quote.setMachineYear(quoteDO.getModelYear());
 			//quote.setUseOfEquip(useOfEquipmentDAO.findOne(quoteDO.getUseOfEquipmentDO().getId()));
-			quote.setMachineSaleDate(quoteDO.getEstSaleDate());
+			quote.setMachineSaleDate(new Date());
 			
+			//TODO
 			quote.setDealerMarkupType("price");
 			quote.setDealerMarkup(quoteDO.getDealerMarkup());
 			quote.setDeductAmount(quoteDO.getDeductible());
@@ -682,40 +683,53 @@ public class ProgramServiceImpl implements ProgramService {
 		Locale locale = new Locale("en", "US");
 		NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
 		
-		reportDO.setDealerName(quoteDO.getDealerDO().getName());
-		reportDO.setQuoteDate((quoteDO.getEstSaleDate() != null)?dateFormat.format(quoteDO.getEstSaleDate()):"");
+		reportDO.setDealerName(quoteDO.getCustomerInfoDO().getName());
+		reportDO.setQuoteDate((quoteDO.getEstSaleDate() != null)?dateFormat.format(quoteDO.getEstSaleDate()):dateFormat.format(new Date()));
 		//TODO
 		reportDO.setAttn("");
 		//TODO
 		reportDO.setQuoteExpires("");
 		reportDO.setQuoteId(quoteDO.getQuoteId());
-		reportDO.setAddress(quoteDO.getDealerAddress()+", "+quoteDO.getDealerState()+" "+quoteDO.getDealerZip());
+		reportDO.setAddress(quoteDO.getCustomerInfoDO().getAddress()+", "+quoteDO.getCustomerInfoDO().getState()+" "+quoteDO.getCustomerInfoDO().getZip());
 		reportDO.setOutStandingDesc(AggConstants.QUOTE_REPORT_OUT_STANDING_DESC);
 		reportDO.setManufacturerName(quoteDO.getManufacturerDO().getName());
 		reportDO.setModelName(quoteDO.getMachineInfoDO().getModel());
 		reportDO.setModelSerialNo(quoteDO.getSerialNumber());
-		//reportDO.setEquipment(quoteDO.getUseOfEquipmentDO().getEquipName());
-		reportDO.setRetailPrice(currencyFormat.format(quoteDO.getRetailPrice()));
-		reportDO.setCurrentHours(quoteDO.getMeterHours()+"");
-		reportDO.setMachineStatus(quoteDO.getMachineCondition());
-		reportDO.setEmail(quoteDO.getDealerEmail());
-		reportDO.setPhone(quoteDO.getDealerPhone());
+		//TODO
+		reportDO.setEquipment("");
+		//TODO
+		reportDO.setRetailPrice("");
+		reportDO.setCurrentHours(quoteDO.getMachineMeterHours()+"");
+		if(quoteDO.getCoverageEndDate() != null && quoteDO.getCoverageEndDate().after(new Date())){
+			reportDO.setMachineStatus(AggConstants.MACHINE_STATUS_NEW);
+		}else{
+			reportDO.setMachineStatus(AggConstants.MACHINE_STATUS_USED);
+		}
+		
+		reportDO.setEmail(quoteDO.getCustomerInfoDO().getEmail());
+		reportDO.setPhone(quoteDO.getCustomerInfoDO().getPhone());
 		reportDO.setCoverageDesc(AggConstants.QUOTE_REPORT_COVERAGE_DESC);
-		reportDO.setCoverageTerm(quoteDO.getCoverageTerm());
-		reportDO.setCoverageHours(quoteDO.getCoverageHours());
-		reportDO.setDeductibleAmount(currencyFormat.format(quoteDO.getDeductiblePrice()));
-		reportDO.setCoverageType(quoteDO.getCoverageTypeDesc());
-		reportDO.setPowerTrainMonths(quoteDO.getPowerTrainMonths());
-		reportDO.setPowerTrainHours(quoteDO.getPowerTrainHours());
-		reportDO.setHydraulicMonths(quoteDO.getHydraulicsMonths());
-		reportDO.setHydraulicHours(quoteDO.getHydraulicsHours());
-		reportDO.setFullMachineHours(quoteDO.getFullMachineHours());
-		reportDO.setFullMachineMonths(quoteDO.getFullMachineMonths());
+		reportDO.setCoverageTerm(quoteDO.getcTerm());
+		reportDO.setCoverageHours(quoteDO.getcHours());
+		reportDO.setDeductibleAmount(currencyFormat.format(quoteDO.getDeductible()));
+		if(quoteDO.getcType() != null && !quoteDO.getcType().isEmpty()){
+			reportDO.setCoverageType((quoteDO.getcType().equalsIgnoreCase(AggConstants.COVERAGE_TYPE_PT)) ? AggConstants.COVERAGE_TYPE_PT_DESC
+					: (quoteDO.getcType().equalsIgnoreCase(AggConstants.COVERAGE_TYPE_PH)) ? AggConstants.COVERAGE_TYPE_PH_DESC
+							: (quoteDO.getcType().equalsIgnoreCase(AggConstants.COVERAGE_TYPE_PL)) ? AggConstants.COVERAGE_TYPE_PL_DESC : "");
+		}
+		reportDO.setPowerTrainMonths(AggConstants.COVERAGE_TYPE_PT_MONTHS);
+		reportDO.setPowerTrainHours(AggConstants.COVERAGE_TYPE_PT_HOURS);
+		reportDO.setHydraulicMonths(AggConstants.COVERAGE_TYPE_PH_MONTHS);
+		reportDO.setHydraulicHours(AggConstants.COVERAGE_TYPE_PH_HOURS);
+		reportDO.setFullMachineHours(AggConstants.COVERAGE_TYPE_PL_HOURS);
+		reportDO.setFullMachineMonths(AggConstants.COVERAGE_TYPE_PL_MONTHS);
 		reportDO.setWarrantyEndDate((quoteDO.getCoverageEndDate() != null)?dateFormat.format(quoteDO.getCoverageEndDate()):"");
-		reportDO.setLimitOfLiability(currencyFormat.format(quoteDO.getMachineInfoDO().getLol()));
-		reportDO.setPrice(currencyFormat.format(quoteDO.getCustomerPrice()));
-		reportDO.setQuotePrice(currencyFormat.format(quoteDO.getQuoteBasePrice()));
-		reportDO.setDealerMarkup(currencyFormat.format(quoteDO.getDealerMarkupPrice()));
+		reportDO.setLimitOfLiability(currencyFormat.format(quoteDO.getLol()));
+		//TODO
+		reportDO.setPrice(currencyFormat.format(quoteDO.getCost()));
+		reportDO.setQuotePrice(currencyFormat.format(quoteDO.getCost()));
+		//TODO
+		reportDO.setDealerMarkup(currencyFormat.format(0));
 		reportDO.setSpecialConsiderationDesc("None");
 		
 		return reportDO;

@@ -367,9 +367,9 @@ public class ClaimsController extends BaseController {
 			List<ClaimsDO> cliamsList = null;
 			AccountDO account = getAccountDetails(request);
 			if("admin".equals(account.getRoleName())){
-				cliamsList = claimsService.getClaimsByCStatus(Util.getClaimStatusCode("pre_authorized_requested"), false, (int)account.getDealerId());
+				cliamsList = claimsService.getClaimsByCStatus(Util.getClaimStatusCode("pre_authorized_requested"), true, (int)account.getDealerId());
 			}else{
-				cliamsList = claimsService.getClaimsByCStatus(Util.getClaimStatusCode("pre_authorized_requested"), (int)account.getDealerId(), false);
+				cliamsList = claimsService.getClaimsByCStatus(Util.getClaimStatusCode("pre_authorized_requested"), (int)account.getDealerId(), true);
 			}
 			
 			logger.info("preAuthClaims size: "+cliamsList.size());

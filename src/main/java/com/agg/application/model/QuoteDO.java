@@ -208,6 +208,8 @@ public class QuoteDO {
 	
 	private String provisions;
 	
+	private int lol;
+	
 	public int getcHours() {
 		return cHours;
 	}
@@ -1354,6 +1356,14 @@ public class QuoteDO {
 
 	public void setProvisions(String provisions) {
 		this.provisions = provisions;
+	}
+
+	public int getLol() {
+		return lol;
+	}
+
+	public void setLol(int lol) {
+		this.lol = lol;
 	}
 	
 }

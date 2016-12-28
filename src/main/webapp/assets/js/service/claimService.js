@@ -32,7 +32,7 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
 			.then(function(response) {
 				if(response.data.status === 'success'){
 					if(response.data.data.claim){
-						console.log(JSON.stringify(response.data.data.claim));
+						//console.log(JSON.stringify(response.data.data.claim));
 						var cStatus = response.data.data.claim.cStatus;
 						$scope.claim = {};
 						var claim = response.data.data.claim;
@@ -75,6 +75,7 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
 						$scope.claim.requestedOtherCharges2 = claim.requestedOtherCharges2;
 						claim.claimPartDO = (claim.claimPartDO === null) ? [] : claim.claimPartDO;
 						$scope.claim.claimPartVOList = claim.claimPartDO;
+						$scope.claim.claimFileDO = claim.claimFileDO;
 						
 						claim.claimLaborDO = (claim.claimLaborDO === null) ? [] : claim.claimLaborDO;
 						commons.renameJsonPropertyNameArray(claim.claimLaborDO, "rate", "laborHourlyRate");
@@ -548,6 +549,9 @@ routingApp.factory('claimsAdjudicateService', ['$http', '$q', '$window', '$timeo
 	calReimburshedCost = function($scope){
 		//var coveredUsageHours = 
 		var contractDeductible = parseInt($scope.adjustments.totalAdjustedClaimCost) - parseInt($scope.adjudicateClaim.contractDO.deductible);
+		if(contractDeductible < 0){
+			contractDeductible = 0;
+		}
 		var deductibleTRA = parseInt($scope.adjudicateClaim.contractDO.availabeLol) - contractDeductible;
 		if(deductibleTRA < 0){
 			$scope.adjustments.tra = parseInt($scope.adjudicateClaim.contractDO.availabeLol);
