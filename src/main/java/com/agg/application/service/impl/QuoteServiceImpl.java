@@ -625,7 +625,11 @@ public class QuoteServiceImpl implements QuoteService {
 			reportDO.setManufacturerName(quote.getManufacturer().getManfName());
 			reportDO.setModelName(quote.getMachineInfo().getModel());
 			reportDO.setModelSerialNo(quote.getMachineSerial());
-			reportDO.setEquipment(quote.getUseOfEquip().getEquipName());
+			if(quote.getUseOfEquip() != null){
+				reportDO.setEquipment(quote.getUseOfEquip().getEquipName());
+			}else{
+				reportDO.setEquipment("");
+			}
 			reportDO.setRetailPrice(currencyFormat.format(quote.getMachineRetailPrice()));
 			reportDO.setCurrentHours(quote.getMachineHours()+"");
 			if((quote.getManfExpired() == 1) || (quote.getManfEndDate() != null && (quote.getManfEndDate().compareTo(new Date()) < 0))){
