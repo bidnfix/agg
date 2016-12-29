@@ -1351,6 +1351,10 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 		}
 	}
 	
+	$scope.cancelQuote = function(){
+		$window.location.href = '#/agg/quotes';
+	}
+	
 	$scope.archiveQuote = function(){
 		if($window.confirm('Are you sure you want to archive this record?')) {
 			if($scope.quote != null){

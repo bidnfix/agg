@@ -5,22 +5,27 @@
 <article class="col-md-9 maincontent">
 	<form class="form-horizontal" name="quoteInfoForm" id="quoteInfoForm" novalidate angular-validator>
 	<header class="page-header">
-             	<div class="col-md-6 col-sm-12">
-		<div class="sec-title">
+          <div class="col-md-6 col-sm-12">
+			<div class="sec-title">
                      
 				<h3 class="wow animated bounceInLeft">Quick Quote</h3>
 				<p class="wow animated bounceInRight">Quote #: {{quote.quoteId}}</p>
 			</div>
-                     </div>
-                     <div class="col-md-6 col-sm-12" ng-if="quote.status != 6 && quote.isArchive == 0">
-                     	<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="editQuote()">Edit</button>
-                     	<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="quoteInfoForm.$valid && updateQuote(quoteInfoForm)">Update</button>
-                     	<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="archiveQuote()">Archive</button>
-                     	<c:if test="${user.roleDO.accountType eq 'admin'}">
-	                     	<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="quoteInfoForm.$valid && invoiceQuote(quoteInfoForm)" ng-disabled="purchaseRequested">Invoice</button>
-	                     	<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="quoteInfoForm.$valid && createContract(quoteInfoForm)" ng-disabled="invoiced">Create Contract</button>
-                     	</c:if>
-                     </div>
+          </div>
+          <div class="col-md-6 col-sm-12">
+          	<div ng-if="quote.status != 6 && quote.isArchive == 0">
+	          	<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="editQuote()">Edit</button>
+	          	<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="quoteInfoForm.$valid && updateQuote(quoteInfoForm)">Update</button>
+	          	<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="archiveQuote()">Archive</button>
+	          	<c:if test="${user.roleDO.accountType eq 'admin'}">
+	           	<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="quoteInfoForm.$valid && invoiceQuote(quoteInfoForm)" ng-disabled="purchaseRequested">Invoice</button>
+	           	<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="quoteInfoForm.$valid && createContract(quoteInfoForm)" ng-disabled="invoiced">Create Contract</button>
+	          	</c:if>
+          	</div>
+          	<div>
+          		<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="cancelQuote()">Cancel</button>
+          	</div>
+          </div>
 	</header>
              
              
@@ -28,6 +33,9 @@
              
              <div class="inner-main">
                    <div class="col-xs-12 agf1 main-login pad10-top">
+                   	  <div id="quoteSuccessMsg" class="alert alert-info text-center">
+						<strong>Heads up!</strong> This alert needs your attention, but it's not super important.
+					  </div>
                      <div class="col-md-6 no-pad pad10-right" ng-hide="editableFlag">
                        <div class="form-group">
                          <label>Assign Dealer</label>
@@ -500,7 +508,7 @@
 							  <c:if test="${user.roleDO.accountType eq 'admin'}">
 								  <div class="form-group">
 									<label>Admin Adjusted Price</label>
-									 <input type="text" id="adjustedBasePrice" name="adjustedBasePrice" ng-model="quote.adjustedBasePrice" class="form-control" ng-blur="updateAdjustedPrice(quote.adjustedBasePrice)">
+									 <input type="text" id="adjustedBasePrice" name="adjustedBasePrice" ng-model="quote.adjustedBasePrice" class="form-control" ng-blur="updateAdjustedPrice(quote.adjustedBasePrice)" ng-disabled="disabled">
 								  </div>
 							  </c:if>
 							  <div class="form-group">
@@ -510,14 +518,14 @@
 							  <c:if test="${user.roleDO.accountType eq 'admin'}">
 								  <div class="form-group">
 									<label>Admin Adjusted LOL</label>
-									 <input type="text" id="adjustedLol" name="adjustedLol" ng-model="quote.adjustedLol" class="form-control" value="{{quote.machineInfoDO.lol}}" ng-value="quote.machineInfoDO.lol">
+									 <input type="text" id="adjustedLol" name="adjustedLol" ng-model="quote.adjustedLol" class="form-control" value="{{quote.machineInfoDO.lol}}" ng-value="quote.machineInfoDO.lol" ng-disabled="disabled">
 								  </div>
 							  </c:if>
 							  <div class="form-group">
 								<label>Current Status</label>
 								<c:choose>
 								 	<c:when test="${user.roleDO.accountType eq 'admin'}">
-								        <select class="form-control" name="status" ng-model="quote.status" convert-to-number id="status"  validate-on="dirty" required="required">
+								        <select class="form-control" name="status" ng-model="quote.status" convert-to-number id="status"  validate-on="dirty" required="required" ng-disabled="disabled">
 										  <option value="1">Estimating Price</option>
 										  <option value="4">Purchase Requested</option>
 										  <option value="5">Invoiced</option>

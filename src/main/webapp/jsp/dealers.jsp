@@ -7,7 +7,7 @@
 				<h3 class="wow animated bounceInLeft">Dealer Info</h3>
 				<!-- <p class="wow animated bounceInRight">The Key Features of our Tool</p> -->
 			</div>
-			<div id="dealerAddInfoMsg" class="alert alert-info text-center hidden">erter</div>
+			<div id="dealerAddInfoMsg" class="alert alert-info text-center hidden"></div>
                      </div>
                      <div class="col-md-4 col-sm-12"><a class="btn btn-primary pull-right  hvr-pulse" href="#/agg/addDealer">Add New</a></div>
 	</header>
