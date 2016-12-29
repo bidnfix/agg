@@ -470,7 +470,8 @@ public class ClaimsController extends BaseController {
 		if(!sessionExists(request)){
 			return new Result("failure", "Session Expired", null);
 		}else{
-			List<ClaimsDO> claimsInfoList = claimsService.getAprvOrRejClaims(getAccountDetails(request), (byte)AggConstants.CLAIM_STATUS_PRE_AUTHORIZED_REJECTED);
+			List<ClaimsDO> claimsInfoList = claimsService.getAprvOrRejClaims(getAccountDetails(request), (byte)AggConstants.CLAIM_STATUS_PRE_AUTHORIZED_REJECTED, 
+					(byte)AggConstants.CLAIM_STATUS_CANCEL);
 			if(claimsInfoList != null){
 				logger.info("claimsInfoList size: "+claimsInfoList.size());
 			}

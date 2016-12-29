@@ -11,6 +11,7 @@ public interface ClaimsService {
 
 	List<ClaimsDO> getClaimsInfo(AccountDO accountDO);
 	List<ClaimsDO> getAprvOrRejClaims(AccountDO accountDO, byte cStatus);
+	List<ClaimsDO> getAprvOrRejClaims(AccountDO accountDO, byte cStatus1, byte cStatus2);
 	List<QuoteDO> getClaimInfoBySerialNumber(final String serialNo);
 	QuoteDO getClaimInfo(String ClaimId);
 	Claims saveClaim(ClaimsDO claimsDO, AccountDO accountDO);
