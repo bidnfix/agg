@@ -33,9 +33,7 @@
              
              <div class="inner-main">
                    <div class="col-xs-12 agf1 main-login pad10-top">
-                   	  <div id="quoteSuccessMsg" class="alert alert-info text-center">
-						<strong>Heads up!</strong> This alert needs your attention, but it's not super important.
-					  </div>
+                   	  <div id="quoteSuccessMsg" class="alert alert-info text-center hidden"></div>
                      <div class="col-md-6 no-pad pad10-right" ng-hide="editableFlag">
                        <div class="form-group">
                          <label>Assign Dealer</label>

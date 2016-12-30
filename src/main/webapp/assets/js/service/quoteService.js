@@ -145,7 +145,43 @@ routingApp.factory('quoteService', function($http, $q, $window) {
 					function(response) {
 						//alert(response.data.status);
 						if (response.data.status == 'success') {
-							$window.location.href = '#/agg/quotes';
+							//$window.location.href = '#/agg/quotes';
+							if(response.data.data.quoteId != null){
+					        	$('#quoteSuccessMsg').html("Quote '<strong>"+response.data.data.quoteId+"</strong>' successfully updated");
+				            	$('#quoteSuccessMsg').removeClass('hidden');
+				            	window.setTimeout(function() {
+				        		  //$("#quoteSuccessMsg").fadeTo(500, 0).slideUp(500, function(){
+				        		    //$(this).remove();
+				        			 $('#quoteSuccessMsg').addClass('hidden');
+				        		  //});
+				        		}, 3000);
+				            	
+				            	$scope.quote = response.data.data;
+				        		$scope.quote.adjustedLol = $scope.quote.machineInfoDO.lol;
+				        		$scope.quote.adjustedBasePrice = $scope.quote.quoteBasePrice;
+				        		
+				        		
+				        		$scope.quote.dealerMarkupTypee = $scope.quote.dealerMarkupType;
+				        		$scope.quote.coverageEndDate = new Date($scope.quote.coverageEndDate);
+				        		$scope.quote.estSaleDate = new Date($scope.quote.estSaleDate);
+				        		$scope.quote.lastUpdate = new Date($scope.quote.lastUpdate);
+				        		
+				        		$scope.purchaseRequested = true;
+				        		$scope.invoiced = true;
+				        		if($scope.quote.status == 4){
+				        			$scope.purchaseRequested = false;
+				        		}else if($scope.quote.status == 5){
+				        			$scope.invoiced = false;
+				        		}
+				        		
+				                if($scope.quote.coverageExpired != null && $scope.quote.coverageExpired == true){
+				            		$scope.machineCondition = 'Used';
+				            	}else if($scope.quote.coverageEndDate != null && ($scope.quote.coverageEndDate > $scope.date)){
+				            		$scope.machineCondition = 'New';
+				            	}else{
+				            		$scope.machineCondition = 'Used';
+				            	}
+					        }
 						} else {
 							alert('error in updating Quote: '+response.data.errMessage)
 							//$('#errMsg').html(response.data.errMessage);
@@ -163,7 +199,43 @@ routingApp.factory('quoteService', function($http, $q, $window) {
 					function(response) {
 						//alert(response.data.status);
 						if (response.data.status == 'success') {
-							$window.location.href = '#/agg/quotes';
+							//$window.location.href = '#/agg/quotes';
+							if(response.data.data.quoteId != null){
+					        	$('#quoteSuccessMsg').html("Quote '<strong>"+response.data.data.quoteId+"</strong>' successfully invoiced");
+				            	$('#quoteSuccessMsg').removeClass('hidden');
+				            	window.setTimeout(function() {
+				        		  //$("#quoteSuccessMsg").fadeTo(500, 0).slideUp(500, function(){
+				        		    //$(this).remove();
+				        			  $('#quoteSuccessMsg').addClass('hidden');
+				        		 // });
+				        		}, 3000);
+				            	
+				            	$scope.quote = response.data.data;
+				        		$scope.quote.adjustedLol = $scope.quote.machineInfoDO.lol;
+				        		$scope.quote.adjustedBasePrice = $scope.quote.quoteBasePrice;
+				        		
+				        		
+				        		$scope.quote.dealerMarkupTypee = $scope.quote.dealerMarkupType;
+				        		$scope.quote.coverageEndDate = new Date($scope.quote.coverageEndDate);
+				        		$scope.quote.estSaleDate = new Date($scope.quote.estSaleDate);
+				        		$scope.quote.lastUpdate = new Date($scope.quote.lastUpdate);
+				        		
+				        		$scope.purchaseRequested = true;
+				        		$scope.invoiced = true;
+				        		if($scope.quote.status == 4){
+				        			$scope.purchaseRequested = false;
+				        		}else if($scope.quote.status == 5){
+				        			$scope.invoiced = false;
+				        		}
+				        		
+				                if($scope.quote.coverageExpired != null && $scope.quote.coverageExpired == true){
+				            		$scope.machineCondition = 'Used';
+				            	}else if($scope.quote.coverageEndDate != null && ($scope.quote.coverageEndDate > $scope.date)){
+				            		$scope.machineCondition = 'New';
+				            	}else{
+				            		$scope.machineCondition = 'Used';
+				            	}
+					        }
 						} else {
 							alert('error in invoicing Quote: '+response.data.errMessage)
 							//$('#errMsg').html(response.data.errMessage);

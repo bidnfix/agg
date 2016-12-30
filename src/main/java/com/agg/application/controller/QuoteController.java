@@ -392,8 +392,11 @@ public class QuoteController extends BaseController {
 			logger.info("quoteId: "+quoteDO.getQuoteId()+" and id: "+quoteDO.getId());
 			
 			boolean isQuoteUpdated = quoteService.updateQuote(quoteDO);
-			
 			logger.info("isQuoteUpdated: "+isQuoteUpdated);
+			
+			if(isQuoteUpdated){
+				quoteDO = quoteService.getQuote(getAccountDetails(request), quoteDO.getId(), quoteDO.getQuoteId());
+			}
 			
 			opResult = new Result("success", "Quote Info", quoteDO);
 		}
@@ -416,8 +419,11 @@ public class QuoteController extends BaseController {
 			logger.info("appUrl: "+appUrl);
 			
 			boolean isQuoteInvoiced = quoteService.invoiceQuote(quoteDO, getAccountDetails(request), appUrl);
-			
 			logger.info("isQuoteInvoiced: "+isQuoteInvoiced);
+			
+			if(isQuoteInvoiced){
+				quoteDO = quoteService.getQuote(getAccountDetails(request), quoteDO.getId(), quoteDO.getQuoteId());
+			}
 			
 			opResult = new Result("success", "Quote Info", quoteDO);
 		}

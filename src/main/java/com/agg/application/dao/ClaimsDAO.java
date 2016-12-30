@@ -72,8 +72,8 @@ public interface ClaimsDAO extends CrudRepository<Claims, Integer> {
 			+ "and contracts.quoteId = quotes.id.id "
 			+ "and quotes.id.quoteId = cus.quoteId "
 			+ "and claims.dealerId = dealer.id "
-			+ "and claims.cStatus in (:cStatus, :cStatus2)")
-	List<ClaimsDO> findRejectedClaims(@Param("cStatus") byte cStatus, @Param("cStatus2") byte cStatus2);
+			+ "and claims.cStatus in (:cStatuses)")
+	List<ClaimsDO> findRejectedClaims(@Param("cStatuses") List<Byte> cStatuses);
 	
 	@Query("select new com.agg.application.model.ClaimsDO(claims.claimId, cus.name, dealer.name, claims.serial, quotes.manfName, "
 			+ "quotes.machineModel, claims.cStatus) from "
@@ -82,9 +82,9 @@ public interface ClaimsDAO extends CrudRepository<Claims, Integer> {
 			+ "and contracts.quoteId = quotes.id.id "
 			+ "and quotes.id.quoteId = cus.quoteId "
 			+ "and claims.dealerId = dealer.id "
-			+ "and claims.cStatus in (:cStatus, :cStatus2) "
+			+ "and claims.cStatus in (:cStatuses) "
 			+ "and dealer.id = :dealerId")
-	List<ClaimsDO> findRejectedClaims(@Param("cStatus") byte cStatus, @Param("cStatus2") byte cStatus2, @Param("dealerId") int dealerId);
+	List<ClaimsDO> findRejectedClaims(@Param("cStatuses") List<Byte> cStatuses, @Param("dealerId") int dealerId);
 	
 	@Query("SELECT COUNT(*) AS claimsCount FROM Claims c WHERE c.contractId = :contractId")
 	int getContractsCount(@Param("contractId") String contractId);

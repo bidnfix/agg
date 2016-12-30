@@ -2,7 +2,6 @@ package com.agg.application.service.impl;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -118,16 +117,15 @@ public class ClaimsServiceImpl implements ClaimsService {
 		return claimsDOList;
 	}
 	
-	public List<ClaimsDO> getAprvOrRejClaims(AccountDO accountDO, byte cStatus1, byte cStatus2){
+	public List<ClaimsDO> getAprvOrRejClaims(AccountDO accountDO, List<Byte> statusList){
 		logger.debug("Inside getApprovedClaims()");
 		List<ClaimsDO> claimsDOList = null;
 		if(accountDO.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)){
 				
-			List status = Arrays.asList(cStatus1, cStatus2);
-			claimsDOList = claimsDAO.findRejectedClaims(cStatus1, cStatus1);
+			claimsDOList = claimsDAO.findRejectedClaims(statusList);
 		}else{
 			logger.debug("Not an Admin :"+accountDO.getDealerId());
-			claimsDOList = claimsDAO.findRejectedClaims(cStatus1, cStatus2, new Long(accountDO.getDealerId()).intValue());
+			claimsDOList = claimsDAO.findRejectedClaims(statusList, new Long(accountDO.getDealerId()).intValue());
 		}
 		if(claimsDOList != null){
 			logger.debug("claimsDOList size: "+claimsDOList.size());
