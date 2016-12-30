@@ -1053,7 +1053,7 @@ public class QuoteServiceImpl implements QuoteService {
 			}
 			
 			CustomerInfo customerInfo = customerInfoDAO.findOne(quoteDO.getQuoteId());
-			if(customerInfo != null){
+			if(customerInfo == null){
 				customerInfo = new CustomerInfo();
 			}
 			customerInfo.setQuoteId(quoteDO.getQuoteId());
