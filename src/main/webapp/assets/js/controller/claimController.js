@@ -1,7 +1,7 @@
 'use strict';
 
-routingApp.controller('ClaimsController', ['$scope', 'claimService', '$http', '$timeout', '$filter', '$route', '$routeParams', '$rootScope', 
-                                           function($scope, claimService, $http, $timeout, $filter, $route, $routeParams, $rootScope) {
+routingApp.controller('ClaimsController', ['$scope', 'claimService', '$http', '$timeout', '$filter', '$route', '$routeParams', '$rootScope', '$window',
+                                           function($scope, claimService, $http, $timeout, $filter, $route, $routeParams, $rootScope, $window) {
 	$scope.serialNo='';
 	$scope.claim={};
 	$scope.claim.attachments=[];
@@ -96,8 +96,8 @@ routingApp.controller('ClaimsController', ['$scope', 'claimService', '$http', '$
     };
     
     $scope.saveAsDraft = function(){
-    	$scope.newClaimClick='Draft';
-    	$scope.attachmentFlag = false;
+    	$scope.newClaimClick='Draft'; 
+    	$scope.attachmentFlag = false;   	
     	claimService.saveClaim($scope, $route);
     };
     
@@ -107,7 +107,7 @@ routingApp.controller('ClaimsController', ['$scope', 'claimService', '$http', '$
     };
     
     $scope.reqSubmit = function(){
-    	$scope.attachmentFlag = true;
+    $scope.attachmentFlag = true;
     	$scope.newClaimClick='Pending';
     };
     

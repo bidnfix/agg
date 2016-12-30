@@ -69,8 +69,11 @@
                 
 				 <!-- data table section -->
                 
-                <div class="inner-main">
+                <div class="inner-main" ng-show="!adminFlag">
                 	<jsp:include page="saveClaimForm.jsp"></jsp:include>
+                </div>
+                <div class="inner-main" ng-show="adminFlag">
+                	<jsp:include page="showclaim.jsp"></jsp:include>
                 </div>
 			
 			<!-- end data table section -->
