@@ -120,6 +120,14 @@
 
 					<div class="col-xs-12 no-pad">
 						<div class="form-group">
+							<label>Dealer</label>
+							{{(claim.dealerDO.name != null)?claim.dealerDO.name:"&nbsp;"}}
+					  	</div>
+                        <div class="form-group">
+                          <label>Dealer Contact</label>
+                          {{(claim.createdUser != null)?claim.createdUser:"&nbsp;"}}
+                        </div>
+						<div class="form-group">
 							<label>Customer Complaint</label>
 							{{claim.custComplaint}}
 						</div>
@@ -135,7 +143,17 @@
 				</div>
 			</div>
 		</div>
-
+		
+		<div class="col-xs-12 no-pad pad10-top" ng-if="claim.claimFileDO">
+			<span class="ag-tab-title col-xs-12 no-pad marg10-bottom">Uploaded Documents</span>
+                   <div class="col-sm-12">
+					<table>
+						<tbody data-ng-repeat="ufile in claim.claimFileDO">
+							<tr><td><a href="/agg/claim/file/{{claim.claimId}}?filename={{ufile.fileName}}" target="_blank">{{ufile.fileName}}</a></td></tr>
+						</tbody>
+					</table>
+				</div>
+		</div>
 
 		<div class="col-xs-12 no-pad pad10-top">
 			<span class="ag-tab-title col-xs-12 no-pad marg10-bottom">Claim
