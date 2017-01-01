@@ -42,6 +42,7 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
 							$scope.updateBtnFlag = false;
 							$scope.commentUpdateBtnFlag = false;
 							$scope.draftBtnFlag = true;
+							$scope.statusFlag = cStatus;
 						}else if((cStatus === 4 || cStatus === 5 || cStatus === 10) && adminFlag){//update comments
 							$scope.saveBtnFlag = false;
 							$scope.updateBtnFlag = false;
@@ -148,7 +149,11 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
 				$scope.claim.failDate = $scope.failureDateValid;
 				$scope.claim.reportDate = $scope.todayDate;
 			}else{
-				$scope.saveClaimShow = false;
+				if($scope.statusFlag === 9){
+					$scope.saveClaimShow = true;
+				}else{
+					$scope.saveClaimShow = false;
+				}
 				$scope.claim.totalClaimCost = 0;
 				$scope.claim.totalLaborCost = 0;
 				$scope.claim.partsTotalCost = 0;
@@ -166,7 +171,7 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
 			
 			$scope.$watchCollection('[claim.totalLaborCost, claim.partsTotalCost, claim.requestedOtherCharges1, claim.requestedOtherCharges2]', function(newValues){
 				$scope.claim.totalClaimCost = parseInt(newValues[0]) + parseInt(newValues[1]) + parseInt(newValues[2]) + parseInt(newValues[3]);
-				if(flag){
+				if(flag || ($scope.statusFlag === 9)){
 					$scope.isSubmitDisabled = $scope.claim.totalClaimCost > 1500;
 				}
 			});
