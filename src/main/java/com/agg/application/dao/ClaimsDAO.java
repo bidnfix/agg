@@ -86,6 +86,16 @@ public interface ClaimsDAO extends CrudRepository<Claims, Integer> {
 			+ "and dealer.id = :dealerId")
 	List<ClaimsDO> findRejectedClaims(@Param("cStatuses") List<Byte> cStatuses, @Param("dealerId") int dealerId);
 	
+	@Query("select new com.agg.application.model.ClaimsDO(claims.claimId, cus.name, dealer.name, claims.serial, quotes.manfName, "
+			+ "quotes.machineModel, claims.cStatus) from "
+			+ "Claims claims, Contracts contracts, Quote quotes, CustomerInfo cus, Dealer dealer "
+			+ "where claims.contractId = contracts.contractId "
+			+ "and contracts.quoteId = quotes.id.id "
+			+ "and quotes.id.quoteId = cus.quoteId "
+			+ "and claims.cStatus != :cStatus "
+			+ "and claims.dealerId = dealer.id")
+	List<ClaimsDO> findAdminClaimsInfo(@Param("cStatus") byte cStatus);
+	
 	@Query("SELECT COUNT(*) AS claimsCount FROM Claims c WHERE c.contractId = :contractId")
 	int getContractsCount(@Param("contractId") String contractId);
 	

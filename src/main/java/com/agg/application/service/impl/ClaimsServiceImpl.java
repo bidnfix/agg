@@ -91,7 +91,7 @@ public class ClaimsServiceImpl implements ClaimsService {
 		logger.debug("Inside getApprovedClaims()");
 		List<ClaimsDO> claimsDOList = null;
 		if(accountDO.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)){
-			claimsDOList = claimsDAO.findClaimsInfo();
+			claimsDOList = claimsDAO.findAdminClaimsInfo((byte)AggConstants.CLAIM_STATUS_DRAFT);
 		}else{
 			logger.debug("Not an Admin :"+accountDO.getDealerId());
 			claimsDOList = claimsDAO.findClaimsInfo(new Long(accountDO.getDealerId()).intValue());
