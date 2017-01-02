@@ -57,6 +57,9 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
 						}
 						$scope.contractInfoList =  claim.contractDO;
 						
+						$scope.claim.dealerDO = claim.dealerDO;
+						$scope.claim.createdUser = claim.createdUser;
+						
 						$scope.claim.id = claim.id;
 						$scope.claim.claimId = claim.claimId;
 						$scope.claim.deductible = $scope.contractInfoList.deductible;
