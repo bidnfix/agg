@@ -482,6 +482,25 @@ public class ClaimsController extends BaseController {
 		}
 	}
 	
+	@RequestMapping(value = "/draftClaims", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+	public @ResponseBody Result getDraftClaims(Map<String, Object> model, HttpServletRequest request, HttpServletResponse response) {
+		logger.info("Inside getDraftClaims()");
+		if(!sessionExists(request)){
+			return new Result("failure", "Session Expired", null);
+		}else{
+			List<Byte> statusList = new ArrayList<Byte>();
+			statusList.add((byte)AggConstants.CLAIM_STATUS_DRAFT);
+			statusList.add((byte)AggConstants.CLAIM_STATUS_PRE_AUTHORIZED_APPROVED);
+			statusList.add((byte)AggConstants.CLAIM_STATUS_PRE_AUTHORIZED_APPROVED_WITH_ADJUSMENTS);
+			List<ClaimsDO> claimsInfoList = claimsService.getAprvOrRejClaims(getAccountDetails(request), statusList);
+			if(claimsInfoList != null){
+				logger.info("claimsInfoList size: "+claimsInfoList.size());
+			}
+			model.put("claimDOList", claimsInfoList);
+			return new Result("success", null, model);
+		}
+	}
+	
 	@RequestMapping(value = "/adjudicateClaim", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
 	public @ResponseBody Result getAdjudicateClaim(HttpServletRequest request, HttpServletResponse response) {
 		logger.info("Inside getAdjudicateClaim()");

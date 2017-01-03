@@ -34,10 +34,13 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
 					if(response.data.data.claim){
 						//console.log(JSON.stringify(response.data.data.claim));
 						var cStatus = response.data.data.claim.cStatus;
-						$scope.adminFlag = adminFlag;
+						//commented on Jan 3, 2017
+						//$scope.adminFlag = adminFlag;
+						$scope.adminFlag = !adminFlag; //new added line on Jan 3, 2017
 						$scope.claim = {};
 						var claim = response.data.data.claim;
-						if((cStatus === 9 || cStatus === 5 || cStatus === 7) && !adminFlag){//draft
+						//commented on Jan 3, 2017
+						/*if((cStatus === 9 || cStatus === 5 || cStatus === 7) && !adminFlag){//draft
 							$scope.saveBtnFlag = true;
 							$scope.updateBtnFlag = false;
 							$scope.commentUpdateBtnFlag = false;
@@ -54,13 +57,29 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
 							$scope.updateBtnFlag = true;
 							$scope.commentUpdateBtnFlag = false;
 							$scope.claim.cStatusValue = cStatus;
+						}*/
+						
+						if(adminFlag){
+							$scope.saveBtnFlag = true;
+							$scope.updateBtnFlag = false;
+							$scope.commentUpdateBtnFlag = false;
+							$scope.draftBtnFlag = true;
+							$scope.statusFlag = cStatus;
+						}else{
+							$scope.saveBtnFlag = false;
+							$scope.updateBtnFlag = true;
+							$scope.commentUpdateBtnFlag = false;
+							$scope.claim.cStatusValue = cStatus;
 						}
+						
+						
 						$scope.contractInfoList =  claim.contractDO;
 						
 						$scope.claim.dealerDO = claim.dealerDO;
 						$scope.claim.createdUser = claim.createdUser;
 						
 						$scope.claim.id = claim.id;
+						$scope.claim.currStatus = cStatus;
 						$scope.claim.claimId = claim.claimId;
 						$scope.claim.deductible = $scope.contractInfoList.deductible;
 						$scope.claim.lol = $scope.contractInfoList.lol;

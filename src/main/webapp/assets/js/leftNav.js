@@ -67,15 +67,39 @@ routingApp.config(['$routeProvider',
                       }).
                       when('/agg/claimsInfo', {
                     	  templateUrl: '../../jsp/claimsInfo.jsp',
-                    	  controller: 'ClaimsInfoController'
+                    	  controller: 'ClaimsInfoController',
+                		  resolve: {
+	        		         claimsType: function () {
+	        		           return 'All';
+	        		         }
+	        		      }
                       }).
                       when('/agg/approvedClaims', {
                     	  templateUrl: '../../jsp/claimsInfo.jsp',
-                    	  controller: 'ApprovedClaimsController'
+                    	  controller: 'ClaimsInfoController',
+                		  resolve: {
+ 	        		         claimsType: function () {
+ 	        		           return 'Approved';
+ 	        		         }
+ 	        		      }
                       }).
                       when('/agg/rejectedClaims', {
                     	  templateUrl: '../../jsp/claimsInfo.jsp',
-                    	  controller: 'RejectedClaimsController'
+                    	  controller: 'ClaimsInfoController',
+                    	  resolve: {
+  	        		         claimsType: function () {
+  	        		           return 'Rejected';
+  	        		         }
+  	        		      }
+                      }).
+                      when('/agg/draftClaims', {
+                    	  templateUrl: '../../jsp/claimsInfo.jsp',
+                    	  controller: 'ClaimsInfoController',
+                    	  resolve: {
+  	        		         claimsType: function () {
+  	        		           return 'Draft';
+  	        		         }
+  	        		      }
                       }).
                       when('/agg/fileClaim', {
                     	  templateUrl: '../../jsp/fileaClaim.jsp',
@@ -1069,8 +1093,9 @@ routingApp.controller('InactiveContractController', function($scope, $http, $tim
 	
 })*/
 
-routingApp.controller('ClaimsInfoController', function($scope, $http, $timeout, $window, $rootScope) {
-	var getUser = function(func, claimId, status){
+routingApp.controller('ClaimsInfoController', function($scope, $http, $timeout, $window, $rootScope, claimsType) {
+	//commented on Jan 3, 2017
+	/*var getUser = function(func, claimId, status){
 		$http.get("/agg/currentUserRole")
 		   .then(function(response) {
 		   	if(response.data.data.roleList){
@@ -1089,22 +1114,58 @@ routingApp.controller('ClaimsInfoController', function($scope, $http, $timeout, 
 		}else if($rootScope.userType && $rootScope.userType === 'admin' && status !== 9 && status !== 1 && status !== 3){
 			$window.location = '#/agg/fileClaim/' + claimId;
 		}
-	};
-
-	$http.get("/agg/getClaimsInfo")
-	.then(function(response) {
-		showSpinner();
-		 $scope.claimDOList = response.data.data.claimDOList;
-        $timeout(function () {
-        	$('#claimsTbl').DataTable();
-        }, 300);
-        hideSpinner();
-    });
+	};*/
 	
-	getUser();
+	$rootScope.draftClaimsFlag = false;
+	if(claimsType === 'All'){
+		$http.get("/agg/getClaimsInfo")
+		.then(function(response) {
+			showSpinner();
+			 $scope.claimDOList = response.data.data.claimDOList;
+	        $timeout(function () {
+	        	$('#claimsTbl').DataTable();
+	        }, 300);
+	        hideSpinner();
+	    });
+	}else if(claimsType === 'Approved'){
+		$http.get("/agg/approvedClaims")
+		.then(function(response) {
+			showSpinner();
+			 $scope.claimDOList = response.data.data.claimDOList;
+	        $timeout(function () {
+	        	$('#claimsTbl').DataTable();
+	        }, 300);
+	        hideSpinner();
+	    });
+	}else if(claimsType === 'Rejected'){
+		$http.get("/agg/rejectedClaims")
+		.then(function(response) {
+			showSpinner();
+			 $scope.claimDOList = response.data.data.claimDOList;
+	        $timeout(function () {
+	        	$('#claimsTbl').DataTable();
+	        }, 300);
+	        hideSpinner();
+	    });
+	}else if(claimsType === 'Draft'){
+		$http.get("/agg/draftClaims")
+		.then(function(response) {
+			showSpinner();
+			$scope.claimDOList = response.data.data.claimDOList;
+			$rootScope.draftClaimsFlag = true;
+	        $timeout(function () {
+	        	$('#claimsTbl').DataTable();
+	        }, 300);
+	        hideSpinner();
+	    });
+	}
+	
+	
+	//getUser();
 
 	$scope.editClaimByDealer = function(claimId, status){
-//		if(!$scope.adminFlag){
+		//commented on Jan 3, 2017
+/*//		if(!$scope.adminFlag){
 //			if(status === 9 || status === 5 || status === 7){
 //				$window.location = '#/agg/fileClaim/' + claimId;
 //			}
@@ -1117,13 +1178,17 @@ routingApp.controller('ClaimsInfoController', function($scope, $http, $timeout, 
 			redirectToEdit(claimId, status);
 		}else{
 			getUser(redirectToEdit, claimId, status);
-		}
+		}*/
+		
+		//added on Jan 3, 2017
+		$window.location = '#/agg/fileClaim/' + claimId;
 		
 	};
 			
 	})
 
-routingApp.controller('ApprovedClaimsController', function($scope, $http, $timeout, $window) {
+//commented on Jan 3, 2017
+/*routingApp.controller('ApprovedClaimsController', function($scope, $http, $timeout, $window) {
 	$http.get("/agg/approvedClaims")
 	.then(function(response) {
 		showSpinner();
@@ -1145,7 +1210,7 @@ routingApp.controller('RejectedClaimsController', function($scope, $http, $timeo
        }, 300);
        hideSpinner();
     });
-})
+})*/
 
 
 routingApp.controller('QuoteDetailController', function($scope, $http, $timeout, $routeParams, $route, $window, quoteService) {

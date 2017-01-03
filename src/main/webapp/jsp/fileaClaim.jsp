@@ -56,14 +56,22 @@
 	<!-- Article main content -->
 			<article class="col-md-9 maincontent" ng-show="showContractDetails">
 				<header class="page-header">
-                	<div class="col-md-6 col-sm-12">
+                	<div class="col-md-9 col-sm-12">
 					<div class="sec-title">
                         
 							<h3 class="wow animated bounceInLeft">New Claim</h3>
-							<p class="wow animated bounceInRight">Claim #: {{claim.claimId}}</p>
+							<p class="wow animated bounceInRight">
+								Claim #: {{claim.claimId}}
+								&nbsp;&nbsp;&nbsp;
+								{{(claim.currStatus > 0)?((claim.currStatus === 1)?"Status: Open":(claim.currStatus === 2)?"Status: Pre-Auth Requested":(claim.currStatus === 3)?"Status: Submitted":
+				                (claim.currStatus === 4)?"Status: Approved":(claim.currStatus === 5)?"Status: Pre-Auth Approved":(claim.currStatus === 6)?"Status: Pre-Auth Rejected":
+				                (claim.currStatus === 7)?"Status: Approved with adjustment":(claim.currStatus === 8)?"Status: Pending":(claim.currStatus === 9)?"Status: Draft":
+				                (claim.currStatus === 10)?"Status: Rejected":""):""}}
+				                
+							</p>
 						</div>
                         </div>
-                        <div class="col-md-6 col-sm-12"><a class="btn btn-primary pull-right btn-sm mar-right" ng-click="onClickBackToList()">Back</a></div>
+                        <div class="col-md-3 col-sm-12"><a class="btn btn-primary pull-right btn-sm mar-right" ng-click="onClickBackToList()">Back</a></div>
 				</header>
                 
                 

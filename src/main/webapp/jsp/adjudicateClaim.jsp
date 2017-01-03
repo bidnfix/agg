@@ -174,6 +174,10 @@
 							<label>Dealer</label>
 							{{(adjudicateClaim.dealerDO.name != null)?adjudicateClaim.dealerDO.name:"&nbsp;"}}
 						  </div>
+						  <div class="form-group">
+							<label>Dealer Email</label>
+							{{(adjudicateClaim.dealerDO.invoiceEmail != null)?adjudicateClaim.dealerDO.invoiceEmail:"&nbsp;"}}
+						  </div>
                           <div class="form-group">
                             <label>Dealer Contact</label>
                             {{(adjudicateClaim.createdUser != null)?adjudicateClaim.createdUser:"&nbsp;"}}

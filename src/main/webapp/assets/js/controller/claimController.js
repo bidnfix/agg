@@ -6,7 +6,7 @@ routingApp.controller('ClaimsController', ['$scope', 'claimService', '$http', '$
 	$scope.claim={};
 	$scope.claim.attachments=[];
 	if($routeParams.claimId){
-		console.log($rootScope.userType);
+		/*console.log($rootScope.userType);
 		if(!$rootScope.userType){
 			$http.get("/agg/currentUserRole")
 			   .then(function(response) {
@@ -17,7 +17,9 @@ routingApp.controller('ClaimsController', ['$scope', 'claimService', '$http', '$
 		   });			
 		}else{
 			claimService.draft($scope, $routeParams.claimId, $rootScope.userType === 'admin' ? true : false);
-		}
+		}*/
+		console.log($rootScope.draftClaimsFlag);
+		claimService.draft($scope, $routeParams.claimId, $rootScope.draftClaimsFlag);
 		
 	}else{
 		$scope.showSearchClaim=true;

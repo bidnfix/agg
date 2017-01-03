@@ -123,6 +123,10 @@
 							<label>Dealer</label>
 							{{(claim.dealerDO.name != null)?claim.dealerDO.name:"&nbsp;"}}
 					  	</div>
+					  	<div class="form-group">
+							<label>Dealer Email</label>
+							{{(claim.dealerDO.invoiceEmail != null)?claim.dealerDO.invoiceEmail:"&nbsp;"}}
+					  	</div>
                         <div class="form-group">
                           <label>Dealer Contact</label>
                           {{(claim.createdUser != null)?claim.createdUser:"&nbsp;"}}

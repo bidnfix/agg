@@ -63,7 +63,7 @@ public interface ClaimsDAO extends CrudRepository<Claims, Integer> {
 			+ "and claims.dealerId = dealer.id "
 			+ "and claims.cStatus = :cStatus "
 			+ "and dealer.id = :dealerId")
-	List<ClaimsDO> findApprovedClaims(@Param("cStatus") byte cStatus, @Param("dealerId") int dealerId);
+	List<ClaimsDO> findApprovedClaims(@Param("cStatus") byte cStatus, @Param("dealerId") long dealerId);
 	
 	@Query("select new com.agg.application.model.ClaimsDO(claims.claimId, cus.name, dealer.name, claims.serial, quotes.manfName, "
 			+ "quotes.machineModel, claims.cStatus) from "
@@ -84,7 +84,7 @@ public interface ClaimsDAO extends CrudRepository<Claims, Integer> {
 			+ "and claims.dealerId = dealer.id "
 			+ "and claims.cStatus in (:cStatuses) "
 			+ "and dealer.id = :dealerId")
-	List<ClaimsDO> findRejectedClaims(@Param("cStatuses") List<Byte> cStatuses, @Param("dealerId") int dealerId);
+	List<ClaimsDO> findRejectedClaims(@Param("cStatuses") List<Byte> cStatuses, @Param("dealerId") long dealerId);
 	
 	@Query("select new com.agg.application.model.ClaimsDO(claims.claimId, cus.name, dealer.name, claims.serial, quotes.manfName, "
 			+ "quotes.machineModel, claims.cStatus) from "

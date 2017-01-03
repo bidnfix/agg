@@ -186,6 +186,10 @@
 							<label>Dealer</label>
 							{{(preAuthClaim.dealerDO.name != null)?preAuthClaim.dealerDO.name:"&nbsp;"}}
 						  </div>
+						  <div class="form-group">
+							<label>Dealer Email</label>
+							{{(preAuthClaim.dealerDO.invoiceEmail != null)?preAuthClaim.dealerDO.invoiceEmail:"&nbsp;"}}
+						  </div>
                           <div class="form-group">
                             <label>Dealer Contact</label>
                             {{(preAuthClaim.createdUser != null)?preAuthClaim.createdUser:"&nbsp;"}}

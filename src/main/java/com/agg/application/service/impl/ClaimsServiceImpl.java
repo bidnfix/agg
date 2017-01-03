@@ -109,7 +109,7 @@ public class ClaimsServiceImpl implements ClaimsService {
 			claimsDOList = claimsDAO.findApprovedClaims(cStatus);
 		}else{
 			logger.debug("Not an Admin :"+accountDO.getDealerId());
-			claimsDOList = claimsDAO.findApprovedClaims(cStatus, new Long(accountDO.getDealerId()).intValue());
+			claimsDOList = claimsDAO.findApprovedClaims(cStatus, accountDO.getDealerId());
 		}
 		if(claimsDOList != null){
 			logger.debug("claimsDOList size: "+claimsDOList.size());
@@ -125,7 +125,7 @@ public class ClaimsServiceImpl implements ClaimsService {
 			claimsDOList = claimsDAO.findRejectedClaims(statusList);
 		}else{
 			logger.debug("Not an Admin :"+accountDO.getDealerId());
-			claimsDOList = claimsDAO.findRejectedClaims(statusList, new Long(accountDO.getDealerId()).intValue());
+			claimsDOList = claimsDAO.findRejectedClaims(statusList, accountDO.getDealerId());
 		}
 		if(claimsDOList != null){
 			logger.debug("claimsDOList size: "+claimsDOList.size());
