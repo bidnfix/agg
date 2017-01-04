@@ -37,8 +37,19 @@
                 	<div class="col-md-6 col-sm-12">
 					<div class="sec-title">
                         
-							<h2 class="wow animated bounceInLeft">Adjudicate a Claim</h2>
-							<p class="wow animated bounceInRight">Claim #: {{adjudicateClaim.claimId}}</p>
+							<h4 class="wow animated bounceInLeft">Adjudicate a Claim</h4>
+							<div >
+								Claim #: <b>{{adjudicateClaim.claimId}}</b>
+								<div style="display: inline-block;" ng-show="adjudicateClaim.cStatus != null">
+									&nbsp;&nbsp;&nbsp;Status: &nbsp;
+									<b>
+									{{(adjudicateClaim.cStatus > 0)?((adjudicateClaim.cStatus === 1)?"Open":(adjudicateClaim.cStatus === 2)?"Pre-Auth Requested":(adjudicateClaim.cStatus === 3)?"Submitted":
+					                (adjudicateClaim.cStatus === 4)?"Approved":(adjudicateClaim.cStatus === 5)?"Pre-Auth Approved":(adjudicateClaim.cStatus === 6)?"Pre-Auth Rejected":
+					                (adjudicateClaim.cStatus === 7)?"Approved with adjustment":(adjudicateClaim.cStatus === 8)?"Pending":(adjudicateClaim.cStatus === 9)?"Draft":
+					                (adjudicateClaim.cStatus === 10)?"Rejected":""):""}}
+					                </b>
+								</div>
+							</div>
 						</div>
                         </div>
                         <div class="col-md-6 col-sm-12"><a class="btn btn-primary pull-right btn-sm mar-right" ng-click="onClickBackToList()">Back</a></div>

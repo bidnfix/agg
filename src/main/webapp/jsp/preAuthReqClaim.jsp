@@ -37,8 +37,19 @@
                 	<div class="col-md-6 col-sm-12">
 					<div class="sec-title">
                         
-							<h2 class="wow animated bounceInLeft">Pre-authorization Request Claims</h2>
-							<p class="wow animated bounceInRight">Claim #: {{preAuthClaim.claimId}}</p>
+							<h4 class="wow animated bounceInLeft">Pre-authorization Request Claims</h4>
+							<div >
+								Claim #: <b>{{preAuthClaim.claimId}}</b>
+								<div style="display: inline-block;" ng-show="preAuthClaim.cStatus != null">
+									&nbsp;&nbsp;&nbsp;Status: &nbsp;
+									<b>
+									{{(preAuthClaim.cStatus > 0)?((preAuthClaim.cStatus === 1)?"Open":(preAuthClaim.cStatus === 2)?"Pre-Auth Requested":(preAuthClaim.cStatus === 3)?"Submitted":
+					                (preAuthClaim.cStatus === 4)?"Approved":(preAuthClaim.cStatus === 5)?"Pre-Auth Approved":(preAuthClaim.cStatus === 6)?"Pre-Auth Rejected":
+					                (preAuthClaim.cStatus === 7)?"Approved with adjustment":(preAuthClaim.cStatus === 8)?"Pending":(preAuthClaim.cStatus === 9)?"Draft":
+					                (preAuthClaim.cStatus === 10)?"Rejected":""):""}}
+					                </b>
+								</div>
+							</div>
 						</div>
                         </div>
                         <div class="col-md-6 col-sm-12"><a class="btn btn-primary pull-right btn-sm mar-right" ng-click="onClickBackToList()">Back</a></div>
