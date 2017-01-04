@@ -104,4 +104,6 @@ public interface ClaimsDAO extends CrudRepository<Claims, Integer> {
 	
 	@Query("SELECT c FROM Claims c WHERE c.claimId = :claimId")
 	Claims findClaimsByClaimId(@Param("claimId")String claimId);
+	
+	Claims findByIdAndClaimId(int id, String claimId);
 }

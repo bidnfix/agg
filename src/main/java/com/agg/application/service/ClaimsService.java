@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.agg.application.entity.Claims;
 import com.agg.application.model.AccountDO;
+import com.agg.application.model.ClaimReportDO;
 import com.agg.application.model.ClaimsDO;
 import com.agg.application.model.QuoteDO;
 
@@ -22,4 +23,5 @@ public interface ClaimsService {
 	ClaimsDO getClaim(int claimId, int dealerId);
 	int getContractsCount(String contractId);
 	ClaimsDO getClaim(String claimId, int dealerId);
+	ClaimReportDO getClaim(int id, String claimId, AccountDO accountDO);
 }

@@ -191,7 +191,7 @@
 	                    <div class="col-xs-12 no-pad pad10-top">
 	                       <span class="ag-tab-title col-xs-12 no-pad marg10-bottom">File Attachments</span>
 	                       <br clear="all">
-	                       <p>Please upload pdf versions of quotes and any pictures showing the damage.</p>
+	                       <p>Please upload pdf version of the Work Order and/or pictures</p>
 	                       <br>
 	                        <div class="col-sm-12">
 		                        <div class="col-sm-6">

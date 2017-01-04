@@ -1,10 +1,13 @@
 package com.agg.application.service.impl;
 
 import java.sql.Timestamp;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -20,6 +23,7 @@ import com.agg.application.dao.ClaimNotesDAO;
 import com.agg.application.dao.ClaimPartDAO;
 import com.agg.application.dao.ClaimsDAO;
 import com.agg.application.dao.ContractsDAO;
+import com.agg.application.dao.CustomerInfoDAO;
 import com.agg.application.dao.DealerDAO;
 import com.agg.application.dao.MachineInfoDAO;
 import com.agg.application.dao.ManufacturerDAO;
@@ -38,6 +42,7 @@ import com.agg.application.model.AccountDO;
 import com.agg.application.model.ClaimFileDO;
 import com.agg.application.model.ClaimLaborDO;
 import com.agg.application.model.ClaimPartDO;
+import com.agg.application.model.ClaimReportDO;
 import com.agg.application.model.ClaimsDO;
 import com.agg.application.model.ContractDO;
 import com.agg.application.model.DealerDO;
@@ -85,6 +90,9 @@ public class ClaimsServiceImpl implements ClaimsService {
 	
 	@Autowired
 	private AccountDAO accountDAO;
+	
+	@Autowired
+	private CustomerInfoDAO customerInfoDAO;
 	
 	
 	public List<ClaimsDO> getClaimsInfo(AccountDO accountDO){
@@ -658,6 +666,62 @@ public class ClaimsServiceImpl implements ClaimsService {
 	@Override
 	public int getContractsCount(String contractId) {
 		return claimsDAO.getContractsCount(contractId);
+	}
+
+	@Override
+	public ClaimReportDO getClaim(int id, String claimId, AccountDO accountDO) {
+		logger.debug("Inside getClaim method with id: "+id+" claimId: "+claimId);
+		ClaimReportDO claimReportDO = null;
+		SimpleDateFormat reportDateFormat = new SimpleDateFormat("MM/dd/yyyy");
+		Locale locale = new Locale("en", "US");
+		NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
+		Claims claim = claimsDAO.findByIdAndClaimId(id, claimId);
+		if(claim != null){
+			claimReportDO = new ClaimReportDO();
+			
+			Dealer dealer = dealerDAO.findOne(new Long(claim.getDealerId()));
+			if(dealer != null){
+				claimReportDO.setAddress(dealer.getAddress());
+				claimReportDO.setCity(dealer.getCity());
+				claimReportDO.setEmail(dealer.getInvoiceEmail());
+				claimReportDO.setDealerName(dealer.getName());
+				claimReportDO.setPhone(dealer.getPhone());
+				claimReportDO.setState(dealer.getState());
+				claimReportDO.setZip(dealer.getZip());
+			}
+			
+			Account account = accountDAO.findOne(claim.getCrtaedBy());
+			if(account != null){
+				claimReportDO.setContact(account.getFirstName()+" "+account.getLastName());
+			}
+			
+			claimReportDO.setBreakdownHrs(claim.getHoursBreakDown());
+			claimReportDO.setCauseOfFailure(claim.getCauseFail());
+			claimReportDO.setClaimId(claim.getClaimId());
+			claimReportDO.setCorrectiveAction(claim.getCorrectiveAction());
+			claimReportDO.setCustomerComplaint(claim.getCustComplaint());
+			claimReportDO.setFailureDate(reportDateFormat.format(claim.getFailDate()));
+			//TODO need check whether this field required or not
+			//claimReportDO.setHourlyRate("");
+			//claimReportDO.setLaborTotalHrs(0);
+			claimReportDO.setLaborCost(currencyFormat.format(claim.getTotalAdjustedLaborCost()));
+			
+			Contracts contract = contractsDAO.findByContractId(claim.getContractId());
+			Quote quote = quoteDAO.findOne((int)contract.getQuoteId());
+			claimReportDO.setManufacturer(quote.getManfName());
+			claimReportDO.setMachineModel(quote.getMachineModel());
+			
+			claimReportDO.setOtherCharges1(currencyFormat.format(claim.getApprovedOtherCharges1()));
+			claimReportDO.setOtherCharges2(currencyFormat.format(claim.getApprovedOtherCharges2()));
+			claimReportDO.setPartsTotal(currencyFormat.format(claim.getTotalAdjustedPartsCost()));
+			claimReportDO.setQuoteId(quote.getId().getQuoteId());
+			claimReportDO.setReportedOn(reportDateFormat.format(claim.getReportDate()));
+			claimReportDO.setSerialNumber(claim.getSerial());
+			claimReportDO.setTotalClaim(currencyFormat.format((claim.getApprovedOtherCharges1()+claim.getApprovedOtherCharges2()+claim.getTotalAdjustedPartsCost()+claim.getTotalAdjustedLaborCost())));
+			
+		}
+		
+		return claimReportDO;
 	}
 
 	

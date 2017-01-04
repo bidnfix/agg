@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import org.thymeleaf.context.Context;
 
 import com.agg.application.entity.Claims;
@@ -35,6 +36,7 @@ import com.agg.application.model.AccountDO;
 import com.agg.application.model.ClaimFileDO;
 import com.agg.application.model.ClaimLaborDO;
 import com.agg.application.model.ClaimPartDO;
+import com.agg.application.model.ClaimReportDO;
 import com.agg.application.model.ClaimsDO;
 import com.agg.application.model.DealerDO;
 import com.agg.application.model.QuoteDO;
@@ -56,6 +58,10 @@ import com.agg.application.vo.ClaimPartVO;
 import com.agg.application.vo.ClaimPreAuthVO;
 import com.agg.application.vo.ClaimsVO;
 import com.google.gson.GsonBuilder;
+
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.JREmptyDataSource;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 @RestController
 @RequestMapping("/agg")
@@ -682,6 +688,45 @@ public class ClaimsController extends BaseController {
 		
 		return fileSystemResource;
 	}*/
+	
+	
+	@RequestMapping(value = "/claim/report/{id}/{claimId}", method = RequestMethod.GET, produces="application/pdf;charset=UTF-8")
+	public ModelAndView showClaimDetailsReport(@PathVariable int id, @PathVariable String claimId, ModelAndView modelAndView, HttpServletRequest request, 
+			HttpServletResponse response, ModelMap modelMap) throws Exception{
+		logger.debug("In showClaimDetailsReport with id: "+id+" and claimId: "+claimId);
+		if (!sessionExists(request)){
+			modelAndView = new ModelAndView("login");
+		}else{
+			StringBuffer url = request.getRequestURL();
+			String uri = request.getRequestURI();
+			String appUrl = url.substring(0, url.length() - uri.length());
+			logger.info("appUrl: "+appUrl);
+			
+			AccountDO account = getAccountDetails(request);
+			ClaimReportDO reportDO = claimsService.getClaim(id, claimId, account);
+			JRDataSource jrDataSource = null;
+			JRDataSource jrSubReportDataSource = null;
+			if(reportDO != null){
+				List<ClaimReportDO> reportDOList = new ArrayList<ClaimReportDO>();
+				reportDOList.add(reportDO);
+				jrDataSource = new JRBeanCollectionDataSource(reportDOList);
+				jrSubReportDataSource = new JRBeanCollectionDataSource(reportDO.getClaimFileDOList());
+			}else{
+				jrDataSource = new JREmptyDataSource();
+				jrSubReportDataSource = new JREmptyDataSource();
+			}
+			
+			modelMap.put("datasource", jrDataSource);
+			modelMap.put("subReportData", jrSubReportDataSource);
+			modelMap.put("format", "pdf");
+			modelMap.put("subreportPath", "classpath:/jrxml/claimFiles.jrxml");
+			modelMap.put("imagePath", appUrl+"/assets/images/logo.png");
+			
+			modelAndView = new ModelAndView("rpt_claimDetails", modelMap);
+		}
+		
+		return modelAndView;
+	}
 }
 
 
