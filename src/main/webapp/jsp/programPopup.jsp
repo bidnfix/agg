@@ -23,7 +23,8 @@
 			<div class="form-group">
 				<label for="name" class="col-sm-3 control-label">Manufacturer</label>
 				<div class="col-sm-9">
-					<select name="machine" ng-model="program.manufacturerDO" ng-options="machine.name for machine in manufacturerList | orderBy:'name' track by machine.machineId" 
+					<select name="machine" ng-model="program.manufacturerDO" ng-options="machine.name for machine in manufacturerList | 
+					orderBy:'name' track by machine.id"
 					ng-change="getManfModel()" class="form-control">
      				</select> 
 				</div>
