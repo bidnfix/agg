@@ -105,9 +105,13 @@ public class ProgramController extends BaseController {
 	@RequestMapping(value = "/programs/{id}", method = RequestMethod.GET)
 	public @ResponseBody Result getOneProgram(@PathVariable Long id, Map<String, Object> model, HttpServletRequest request, HttpServletResponse response) {
 		logger.debug("In getOneProgram ");
-		model.put("program", programService.getProgram(id, getAccountDetails(request)));
+		ProgramDO programDO = programService.getProgram(id, getAccountDetails(request));
+		model.put("program", programDO);
 		model.put("manufacturerList", machineService.getManufacturerDetails());
 		model.put("dealerList", dealerService.getActiveDealers(getAccountDetails(request)));
+		if(programDO != null && programDO.getManufacturerDO() != null){
+			model.put("machineInfoList", machineService.getManfModel(programDO.getManufacturerDO().getId()));
+		}
 		return new Result("success", null, model);	
 	}
 	

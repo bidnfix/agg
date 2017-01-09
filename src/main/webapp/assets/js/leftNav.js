@@ -505,6 +505,7 @@ routingApp.controller('GetProgramsController', function($scope, programService, 
 	        $scope.program = response.data.data.program;
 	        $scope.manufacturerList = response.data.data.manufacturerList;
 	        $scope.dealerList = response.data.data.dealerList;
+	        $scope.machineModelList = response.data.data.machineInfoList;
 	        //alert($scope.program.prId);
 	       /* $scope.dealer = {
 	        	userName: $scope.dealerr.userName,	
@@ -537,7 +538,20 @@ routingApp.controller('GetProgramsController', function($scope, programService, 
     
 
     
-});
+})
+.directive('convertToNumber', function() {
+    return {
+        require: 'ngModel',
+        link: function(scope, element, attrs, ngModel) {
+          ngModel.$parsers.push(function(val) {
+            return parseInt(val, 10);
+          });
+          ngModel.$formatters.push(function(val) {
+            return '' + val;
+          });
+        }
+      };
+   });
 
 
 
