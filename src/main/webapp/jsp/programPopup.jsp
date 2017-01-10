@@ -11,7 +11,7 @@
 	
 		<div class="modal-body">
 		<form class="form-horizontal" role="form" ng-submit="editProgramDetails()">
-			<h3>Edit Program</h3>
+			<!-- <h3>Edit Program</h3> -->
 			<div class="form-group">
 				<label for="name" class="col-sm-3 control-label">Assign a Dealer</label>
 				<div class="col-sm-9">
@@ -36,7 +36,7 @@
 					<!--  <select name="machine" ng-model="program.modelDO" ng-options="machine.name for machine in modelList">
      				</select> -->
      				<select size="5" id="myselection" multiple ng-multiple="true"
-			        ng-model="program.machineInfoDOList" ng-options="machine.model for machine in machineModelList | orderBy:'model' track by machine.model" class="form-control">
+			        ng-model="program.machineInfoDOList" ng-options="machine.model for machine in machineModelList | orderBy:'model' track by machine.machineId" class="form-control">
 			      </select> 
 				</div>
 			</div>
@@ -56,22 +56,22 @@
 			<div class="form-group">
 					<label for="coverageTerm" class="col-sm-3 control-label">Active?</label>
 					<div class="col-sm-4">
-						<input type="radio" id="active" name="active" ng-model="program.isActive" convert-to-number class="" value="1"> Yes
-						<input type="radio" id="inactive" name="inactive" ng-model="program.isActive" convert-to-number class="" value="0"> No
+						<input type="radio" id="active" name="active" ng-model="program.isActive" class="" value="1"> Yes
+						<input type="radio" id="inactive" name="inactive" ng-model="program.isActive" class="" value="0"> No
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="coverageTerm" class="col-sm-3 control-label">Allow for Servicing Dealer?</label>
 					<div class="col-sm-4">
-						<input type="radio" id="allow" name="allow" ng-model="program.aServicing" convert-to-number class="" value="1"> Yes
-						<input type="radio" id="donotallow" name="donotallow" ng-model="program.aServicing" convert-to-number class="" value="0"> No
+						<input type="radio" id="allow" name="allow" ng-model="program.aServicing" class="" value="1"> Yes
+						<input type="radio" id="donotallow" name="donotallow" ng-model="program.aServicing" class="" value="0"> No
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="coverageTerm" class="col-sm-3 control-label">Condition</label>
 					<div class="col-sm-4">
-						<input type="radio" id="new" name="new" ng-model="program.condition" convert-to-number class="" value="1"> New
-						<input type="radio" id="used" name="used" ng-model="program.condition" convert-to-number class="" value="0"> Used
+						<input type="radio" id="new" name="new" ng-model="program.condition" class="" value="1"> New
+						<input type="radio" id="used" name="used" ng-model="program.condition" class="" value="0"> Used
 					</div>
 				</div>
 				<div class="form-group">

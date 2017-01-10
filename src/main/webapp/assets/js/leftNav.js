@@ -498,10 +498,10 @@ routingApp.controller('GetProgramsController', function($scope, programService, 
 	
 	$scope.editProgram = function(programId) {
 		//alert(programId);
+		$scope.program = {};
+		$scope.machineModelList = null;
 		$http.get("/agg/programs/"+programId)
 	    .then(function(response) {
-	    	
-	    	$scope.program = $scope.program || {};
 	        $scope.program = response.data.data.program;
 	        $scope.manufacturerList = response.data.data.manufacturerList;
 	        $scope.dealerList = response.data.data.dealerList;
@@ -539,20 +539,6 @@ routingApp.controller('GetProgramsController', function($scope, programService, 
 
     
 })
-.directive('convertToNumber', function() {
-    return {
-        require: 'ngModel',
-        link: function(scope, element, attrs, ngModel) {
-          ngModel.$parsers.push(function(val) {
-            return parseInt(val, 10);
-          });
-          ngModel.$formatters.push(function(val) {
-            return '' + val;
-          });
-        }
-      };
-   });
-
 
 
 routingApp.controller('AddProgramsController', function($scope, $http) {

@@ -205,13 +205,11 @@ public class ProgramServiceImpl implements ProgramService {
 		Sprogram progEnt = new Sprogram();
 		progEnt.setPrName(program.getName());
 		progEnt.setPrDesc(program.getDesc());
-		progEnt.setPrIsActive((byte) 1);
-		progEnt.setPrAServicing((byte) 1);
-		progEnt.setPrCondition((byte) 1);
+		progEnt.setPrIsActive(program.getIsActive());
+		progEnt.setPrAServicing(program.getaServicing());
+		progEnt.setPrCondition(program.getCondition());
 		progEnt.setPrCType(program.getcType());
-		//logger.debug("-->"+program.getDealerDO());
 		progEnt.setDealer(dealerDAO.findOne(Long.valueOf(program.getDealerDO().getId())));
-		//progEnt.setDealer(dealerDAO.findOne(Long.valueOf(14)));
 		progEnt.setPrGroup(program.getGroup());
 		progEnt.setPrDeductible(program.getDeductible());
 		progEnt.setPrCType(program.getcType());
@@ -220,11 +218,7 @@ public class ProgramServiceImpl implements ProgramService {
 		progEnt.setPrCost(program.getCost());
 		progEnt.setPrLol(program.getLol());
 		progEnt.setPrIsArchive((byte)0);
-		progEnt.setPrAServicing((byte)1);
 		progEnt.setManufacturer(manufacturerDAO.findOne(Long.valueOf(program.getManufacturerDO().getId())));
-		//progEnt.setManufacturer(manufacturerDAO.findOne(Long.valueOf(8)));
-		//TODO To be implemented after dealer services
-		//progEnt.setDealer(dealer);
 		
 		List<MachineInfoDO> machineInfoDOs =  program.getMachineInfoDOList();
 		
@@ -554,6 +548,9 @@ public class ProgramServiceImpl implements ProgramService {
 			programDO.setLol(program.getPrLol());
 			programDO.setCost(program.getPrCost());
 			programDO.setDesc(program.getPrDesc());
+			programDO.setIsActive(program.getPrIsActive());
+			programDO.setaServicing(program.getPrAServicing());
+			programDO.setIsArchive(program.getPrIsArchive());
 			
 			dealerDO = new DealerDO();
 			Dealer dealer = program.getDealer();
@@ -621,9 +618,9 @@ public class ProgramServiceImpl implements ProgramService {
 			
 			progEnt.setPrName(program.getName());
 			progEnt.setPrDesc(program.getDesc());
-			progEnt.setPrIsActive((byte) 1);
-			progEnt.setPrAServicing((byte) 1);
-			progEnt.setPrCondition((byte) 1);
+			progEnt.setPrIsActive(program.getIsActive());
+			progEnt.setPrAServicing(program.getaServicing());
+			progEnt.setPrCondition(program.getCondition());
 			progEnt.setPrCType(program.getcType());
 			//logger.debug("-->"+program.getDealerDO());
 			if(program.getDealerDO() != null)
@@ -639,7 +636,6 @@ public class ProgramServiceImpl implements ProgramService {
 			progEnt.setPrCost(program.getCost());
 			progEnt.setPrLol(program.getLol());
 			progEnt.setPrIsArchive((byte)0);
-			progEnt.setPrAServicing((byte)1);
 			if(program.getManufacturerDO() != null)
 			{
 				progEnt.setManufacturer(manufacturerDAO.findOne(Long.valueOf(program.getManufacturerDO().getId())));

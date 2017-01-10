@@ -288,6 +288,52 @@
 
 					</div>
 				</div>
+				<div class="col-xs-12 no-pad pad10-top">
+					<span class="ag-tab-title col-xs-12 no-pad marg10-bottom">File
+						Attachments</span> <br clear="all">
+					<p>Please upload pdf versions of quotes and any pictures showing the damage</p>
+					<br>
+					<div class="col-sm-12">
+						<div class="col-sm-6">
+							<div class="form-group">
+								<label>File</label> <input type="file" id="" name="files" multiple
+									ng-files="getTheFiles($files)" ng-readonly="commentUpdateBtnFlag">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 no-pad pad10-top" ng-if="claim.claimFileDO">
+						<span class="ag-tab-title col-xs-12 no-pad marg10-bottom">Uploaded Documents</span>
+		                    <!-- <br clear="all">
+		                      
+		                    <br> -->
+		                    <div class="col-sm-12">
+								<table>
+									<tbody data-ng-repeat="ufile in claim.claimFileDO">
+										<tr><td><a href="/agg/claim/file/{{claim.claimId}}?filename={{ufile.fileName}}" target="_blank">{{ufile.fileName}}</a></td></tr>
+									</tbody>
+								</table>
+							</div>
+					</div>
+					<!--    <div class="col-sm-12">
+		                       <div class="col-sm-6">
+		                         <div class="form-group">
+		                         <label>File</label>
+		                         <input type="file" id="">
+		                         </div>
+		                       </div>
+		                       </div>
+		                       <div class="col-sm-12">
+		                       <div class="col-sm-6">
+		                         <div class="form-group">
+		                         <label>File</label>
+		                         <input type="file" id="">
+		                         </div>
+		                       </div>
+		                       </div>
+		                       <div class="col-sm-12 marg10-bottom">
+		                       <a class="btn btn-primary btn-sm" href="#"> more</a>
+		                       </div> -->
+				</div>
 				<br clear="all">
 				   <div class="col-xs-12 no-pad pad10-top" ng-show="commentUpdateBtnFlag">
                          <span class="ag-tab-title col-xs-12 no-pad marg10-bottom">Claim Comments</span>
@@ -313,55 +359,6 @@
                         </div>
 			</div>
 		</div>
-		
-		
-		<div class="col-xs-12 no-pad pad10-top">
-			<span class="ag-tab-title col-xs-12 no-pad marg10-bottom">File
-				Attachments</span> <br clear="all">
-			<p>Please upload pdf versions of quotes and any pictures showing the damage</p>
-			<br>
-			<div class="col-sm-12">
-				<div class="col-sm-6">
-					<div class="form-group">
-						<label>File</label> <input type="file" id="" name="files" multiple
-							ng-files="getTheFiles($files)" ng-readonly="commentUpdateBtnFlag">
-					</div>
-				</div>
-			</div>
-			<div class="col-xs-12 no-pad pad10-top" ng-if="claim.claimFileDO">
-				<span class="ag-tab-title col-xs-12 no-pad marg10-bottom">Uploaded Documents</span>
-                    <!-- <br clear="all">
-                      
-                    <br> -->
-                    <div class="col-sm-12">
-						<table>
-							<tbody data-ng-repeat="ufile in claim.claimFileDO">
-								<tr><td><a href="/agg/claim/file/{{claim.claimId}}?filename={{ufile.fileName}}" target="_blank">{{ufile.fileName}}</a></td></tr>
-							</tbody>
-						</table>
-					</div>
-			</div>
-			<!--    <div class="col-sm-12">
-                       <div class="col-sm-6">
-                         <div class="form-group">
-                         <label>File</label>
-                         <input type="file" id="">
-                         </div>
-                       </div>
-                       </div>
-                       <div class="col-sm-12">
-                       <div class="col-sm-6">
-                         <div class="form-group">
-                         <label>File</label>
-                         <input type="file" id="">
-                         </div>
-                       </div>
-                       </div>
-                       <div class="col-sm-12 marg10-bottom">
-                       <a class="btn btn-primary btn-sm" href="#"> more</a>
-                       </div> -->
-		</div>
-		
 		
 	</div>
 	<div class="col-sm-12 no-pad t-c marg10-top marg10-bottom" ng-show="saveBtnFlag">

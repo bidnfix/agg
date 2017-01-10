@@ -217,52 +217,6 @@
                       </div>
                       </div>
                       </div>
-					<div class="col-xs-12 no-pad pad10-top" ng-if="!editFlag">
-                         <span class="ag-tab-title col-xs-12 no-pad marg10-bottom">File Attachments</span>
-                         <br clear="all">
-                         <p>Please upload pdf version of the Work Order and/or pictures</p>
-                         <br>
-                          <div class="col-sm-12">
-                          <div class="col-sm-6">
-                            <div class="form-group">
-                            <label>File</label>
-                            <input type="file" id="" name="files" multiple ng-files="getTheFiles($files)">
-                            </div>
-                          </div>
-                          </div>
-                          <div class="col-xs-12 no-pad pad10-top" ng-if="adjudicateClaim.claimFileDO">
-							<span class="ag-tab-title col-xs-12 no-pad marg10-bottom">Uploaded Documents</span>
-			                    <!-- <br clear="all">
-			                      
-			                    <br> -->
-			                    <div class="col-sm-12">
-									<table>
-										<tbody data-ng-repeat="ufile in adjudicateClaim.claimFileDO">
-											<tr><td><a href="/agg/claim/file/{{adjudicateClaim.claimId}}?filename={{ufile.fileName}}" target="_blank">{{ufile.fileName}}</a></td></tr>
-										</tbody>
-									</table>
-								</div>
-						   </div>
-                       <!--    <div class="col-sm-12">
-                          <div class="col-sm-6">
-                            <div class="form-group">
-                            <label>File</label>
-                            <input type="file" id="">
-                            </div>
-                          </div>
-                          </div>
-                          <div class="col-sm-12">
-                          <div class="col-sm-6">
-                            <div class="form-group">
-                            <label>File</label>
-                            <input type="file" id="">
-                            </div>
-                          </div>
-                          </div>
-                          <div class="col-sm-12 marg10-bottom">
-                          <a class="btn btn-primary btn-sm" href="#"> more</a>
-                          </div> -->
-                      </div>
 
                       <div class="col-xs-12 no-pad pad10-top">
                          <span class="ag-tab-title col-xs-12 no-pad marg10-bottom">Claim Details</span>
@@ -377,37 +331,11 @@
                               
                             </div>
                           </div>
-                          <br clear="all">
-                          <br>
                           <div class="col-sm-12">
-                           <!--  <div class="form-group clearfix">
-                              <label>Customer Complaint</label>
-                              <p>{{preAuthClaim.custComplaint}}</p>
-                            </div>
-                            <div class="form-group clearfix">
-                              <label>Corrective Actions</label>
-                              <p>{{preAuthClaim.causeFail}}</p>
-                            </div>
-                            <div class="form-group clearfix">
-                              <label>Cause of Failure</label>
-                              <p>{{preAuthClaim.correctiveAction}}</p>
-                            </div> -->
-
-                            <div class="form-group clearfix">
-                              <span class="col-sm-3 no-pad">External Comments :</span> 
-                                <div class="col-sm-9 no-pad border">
-                                <!-- <div class="col-sm-4">
-                                  <b>Date/Time</b><br>
-                                  June 21 2016
-                                </div>
-                                <div class="col-sm-8">
-                                  <b>Comment</b><br>
-                                  Text comes here..
-                                </div> -->
-                                  <textarea class="form-control" style="width:100% !important;" rows="3" ng-model="adjustments.extComment" ng-required="commentFlag" ng-trim=true></textarea>
-                                </div>
-                            </div>
-                            <div class="form-group clearfix">
+                           <span class="ag-tab-title col-xs-12 no-pad marg10-bottom">Payment Details</span>
+                           <br clear="all">
+                           <br>
+                           <div class="form-group clearfix">
                               <span class="col-sm-3 no-pad">Cheque#  :</span> 
                                 <div class="col-sm-6 no-pad">
                                		<input type="text" class="form-control" ng-model="adjustments.cheqNo" ng-required="cheqFlag" ng-readonly= "{{editFlag}}">
@@ -429,6 +357,83 @@
 							                <i class="glyphicon glyphicon-calendar"></i>
 							              </button>
 							            </span>
+                                </div>
+                            </div>
+                          </div>
+                          <div class="col-xs-12 no-pad pad10-top" ng-if="!editFlag">
+	                         <span class="ag-tab-title col-xs-12 no-pad marg10-bottom">File Attachments</span>
+	                         <br clear="all">
+	                         <p>Please upload pdf version of the Work Order and/or pictures</p>
+	                         <br>
+	                          <div class="col-sm-12">
+	                          <div class="col-sm-6">
+	                            <div class="form-group">
+	                            <label>File</label>
+	                            <input type="file" id="" name="files" multiple ng-files="getTheFiles($files)">
+	                            </div>
+	                          </div>
+	                          </div>
+	                          <div class="col-xs-12 no-pad pad10-top" ng-if="adjudicateClaim.claimFileDO">
+								<span class="ag-tab-title col-xs-12 no-pad marg10-bottom">Uploaded Documents</span>
+				                    <!-- <br clear="all">
+				                      
+				                    <br> -->
+				                    <div class="col-sm-12">
+										<table>
+											<tbody data-ng-repeat="ufile in adjudicateClaim.claimFileDO">
+												<tr><td><a href="/agg/claim/file/{{adjudicateClaim.claimId}}?filename={{ufile.fileName}}" target="_blank">{{ufile.fileName}}</a></td></tr>
+											</tbody>
+										</table>
+									</div>
+							   </div>
+	                       <!--    <div class="col-sm-12">
+	                          <div class="col-sm-6">
+	                            <div class="form-group">
+	                            <label>File</label>
+	                            <input type="file" id="">
+	                            </div>
+	                          </div>
+	                          </div>
+	                          <div class="col-sm-12">
+	                          <div class="col-sm-6">
+	                            <div class="form-group">
+	                            <label>File</label>
+	                            <input type="file" id="">
+	                            </div>
+	                          </div>
+	                          </div>
+	                          <div class="col-sm-12 marg10-bottom">
+	                          <a class="btn btn-primary btn-sm" href="#"> more</a>
+	                          </div> -->
+	                      </div>
+                          <br>
+                          <div class="col-sm-12">
+                           <span class="ag-tab-title col-xs-12 no-pad marg10-bottom">Claim Comments</span>
+                           <br clear="all">
+                           <!--  <div class="form-group clearfix">
+                              <label>Customer Complaint</label>
+                              <p>{{preAuthClaim.custComplaint}}</p>
+                            </div>
+                            <div class="form-group clearfix">
+                              <label>Corrective Actions</label>
+                              <p>{{preAuthClaim.causeFail}}</p>
+                            </div>
+                            <div class="form-group clearfix">
+                              <label>Cause of Failure</label>
+                              <p>{{preAuthClaim.correctiveAction}}</p>
+                            </div> -->
+                            <div class="form-group clearfix">
+                              <span class="col-sm-3 no-pad">External Comments :</span> 
+                                <div class="col-sm-9 no-pad border">
+                                <!-- <div class="col-sm-4">
+                                  <b>Date/Time</b><br>
+                                  June 21 2016
+                                </div>
+                                <div class="col-sm-8">
+                                  <b>Comment</b><br>
+                                  Text comes here..
+                                </div> -->
+                                  <textarea class="form-control" style="width:100% !important;" rows="3" ng-model="adjustments.extComment" ng-required="commentFlag" ng-trim=true></textarea>
                                 </div>
                             </div>
                           </div>

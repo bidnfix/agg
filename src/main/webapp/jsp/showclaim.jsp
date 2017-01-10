@@ -148,17 +148,6 @@
 			</div>
 		</div>
 		
-		<div class="col-xs-12 no-pad pad10-top" ng-if="claim.claimFileDO">
-			<span class="ag-tab-title col-xs-12 no-pad marg10-bottom">Uploaded Documents</span>
-                   <div class="col-sm-12">
-					<table>
-						<tbody data-ng-repeat="ufile in claim.claimFileDO">
-							<tr><td><a href="/agg/claim/file/{{claim.claimId}}?filename={{ufile.fileName}}" target="_blank">{{ufile.fileName}}</a></td></tr>
-						</tbody>
-					</table>
-				</div>
-		</div>
-
 		<div class="col-xs-12 no-pad pad10-top">
 			<span class="ag-tab-title col-xs-12 no-pad marg10-bottom">Claim
 				Details</span> <br clear="all"> <br>
@@ -233,5 +222,16 @@
 				</div>
 				<br clear="all">
 			</div>
+		</div>
+		
+		<div class="col-xs-12 no-pad pad10-top" ng-if="claim.claimFileDO">
+			<span class="ag-tab-title col-xs-12 no-pad marg10-bottom">Uploaded Documents</span>
+                   <div class="col-sm-12">
+					<table>
+						<tbody data-ng-repeat="ufile in claim.claimFileDO">
+							<tr><td><a href="/agg/claim/file/{{claim.claimId}}?filename={{ufile.fileName}}" target="_blank">{{ufile.fileName}}</a></td></tr>
+						</tbody>
+					</table>
+				</div>
 		</div>
 	</div>

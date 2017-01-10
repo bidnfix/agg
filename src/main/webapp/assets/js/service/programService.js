@@ -27,7 +27,7 @@ routingApp.factory('programService', function($http, $q, $window) {
 							function(response) {
 								//alert(response.data.status);
 								if (response.data.status == 'success') {
-									closePopup('programPopup');
+									closePopup('programEditPopup');
 									//$window.location.href = '#/agg/dealers';
 									var objects = $scope.programsList;
 							        for (var i = 0; i < objects.length; i++) {
