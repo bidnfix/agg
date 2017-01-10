@@ -260,7 +260,11 @@ public class ProgramServiceImpl implements ProgramService {
 			quotePK.setQuoteId(quoteId);
 			quote.setId(quotePK);
 			
-			quote.setDealer(dealerDAO.findOne(quoteDO.getDealerDO().getId()));
+			quote.setDealer(dealerDAO.findOne(accountDO.getDealerId()));
+			
+			logger.debug("quoteDO.getDealerDO().getId() "+quoteDO.getDealerDO().getId());
+			logger.debug("accountDO.getDealerId() "+accountDO.getDealerId());
+			
 			quote.setManfExpired((quoteDO.isCoverageExpired())?(byte)1:(byte)0);
 			quote.setManfEndDate(quoteDO.getCoverageEndDate());
 			//quote.setManfEndKnown((quoteDO.isCoverageEndDateUnknown())?(byte)1:(byte)0);
