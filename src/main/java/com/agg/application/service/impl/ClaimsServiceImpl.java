@@ -41,6 +41,7 @@ import com.agg.application.entity.Quote;
 import com.agg.application.model.AccountDO;
 import com.agg.application.model.ClaimFileDO;
 import com.agg.application.model.ClaimLaborDO;
+import com.agg.application.model.ClaimNoteDO;
 import com.agg.application.model.ClaimPartDO;
 import com.agg.application.model.ClaimReportDO;
 import com.agg.application.model.ClaimsDO;
@@ -563,10 +564,25 @@ public class ClaimsServiceImpl implements ClaimsService {
 					claimDO.setContractDO(contractDO);
 				}
 				
-				ClaimNote claimNote = claimNotesDAO.findByClaimIdAndDealerId(claim.getId(), loginDealerId);
+				/*ClaimNote claimNote = claimNotesDAO.findByClaimIdAndDealerId(claim.getId(), loginDealerId);
+				
 				if(claimNote != null){
 					claimDO.setComments(claimNote.getNotes());
+				}*/
+				
+				List<ClaimNote> claimNoteList = claimNotesDAO.findByClaimId(claim.getId());
+				List<ClaimNoteDO> claimNoteDOLst = null;
+				
+				if(claimNoteList !=null)
+				{
+					for(ClaimNote claimNote : claimNoteList){
+						ClaimNoteDO claimNoteDO = convertClaimNoteDO(claimNote);
+						claimNoteDOLst.add(claimNoteDO);
+						logger.debug("Claim note: "+claimNote.getNotes());
+					}
 				}
+				claimDO.setClaimsNoteList(claimNoteDOLst);
+				
 				
 				if(claim.getCrtaedBy() > 0){
 					Account account = accountDAO.findOne(claim.getCrtaedBy());
@@ -724,7 +740,18 @@ public class ClaimsServiceImpl implements ClaimsService {
 		return claimReportDO;
 	}
 
-	
+	public ClaimNoteDO convertClaimNoteDO(ClaimNote claimNote)
+	{
+		ClaimNoteDO claimNoteDO = new ClaimNoteDO();
+		claimNoteDO.setDealerId(claimNote.getDealerId());
+		claimNoteDO.setClaimId(claimNote.getClaimId());
+		claimNoteDO.setLastUpdate(claimNote.getLastUpdate());
+		claimNoteDO.setNotes(claimNote.getNotes());
+		claimNoteDO.setId(claimNote.getId());
+		
+		return claimNoteDO;
+		
+	}
 	
 	
 }
