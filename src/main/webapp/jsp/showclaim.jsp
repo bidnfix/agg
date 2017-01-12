@@ -244,9 +244,9 @@
                           <div class="col-sm-12">
                             <div class="form-group clearfix">
                               <span class="col-sm-3 no-pad">External Comments : </span> 
-                                <div class="col-sm-9 no-pad border">
+                                <div class="col-sm-9 no-pad border" ng-repeat="claimNote in claim.claimsNoteList">
                                   <!-- <textarea class="form-control" style="width:100% !important;" rows="3" ng-model="claim.extComment" ng-required="extCommentFlag" ng-trim=true></textarea>-->
-                                  {{claim.claimNoteDOLst}}
+                                  {{claimNote.notes}}
                                 </div>
                             </div>
                           </div>

@@ -297,9 +297,9 @@ public class ClaimsServiceImpl implements ClaimsService {
 		}
 		
 		//Added to save claim notes
-		if(null != claimsDO.getNewClaimNote() ){
+		if(null != claimsDO.getComments()){
 				ClaimNote cNote = new ClaimNote();
-				cNote.setNotes(claimsDO.getNewClaimNote());
+				cNote.setNotes(claimsDO.getComments());
 				cNote.setAccountId(accountDO.getId());
 				cNote.setClaimId(newClaim.getId());
 				cNote.setLastUpdate(new Date());

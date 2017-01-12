@@ -100,6 +100,7 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
 						claim.claimPartDO = (claim.claimPartDO === null) ? [] : claim.claimPartDO;
 						$scope.claim.claimPartVOList = claim.claimPartDO;
 						$scope.claim.claimFileDO = claim.claimFileDO;
+						$scope.claim.claimsNoteList = claim.claimsNoteList;
 						
 						claim.claimLaborDO = (claim.claimLaborDO === null) ? [] : claim.claimLaborDO;
 						commons.renameJsonPropertyNameArray(claim.claimLaborDO, "rate", "laborHourlyRate");
