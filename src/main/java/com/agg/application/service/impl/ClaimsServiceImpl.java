@@ -761,6 +761,10 @@ public class ClaimsServiceImpl implements ClaimsService {
 		claimNoteDO.setNotes(claimNote.getNotes());
 		claimNoteDO.setId(claimNote.getId());
 		
+		Account account = accountDAO.findOne(claimNote.getAccountId());
+		
+		claimNoteDO.setUpdatedBy(account.getFirstName()+" "+account.getLastName());
+		
 		return claimNoteDO;
 		
 	}

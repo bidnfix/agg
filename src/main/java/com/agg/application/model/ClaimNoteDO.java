@@ -11,6 +11,7 @@ public class ClaimNoteDO {
 	private Date lastUpdate;
 	private String notes;
 	private char noteType;
+	private String updatedBy;
 	
 	public int getId() {
 		return id;
@@ -47,6 +48,12 @@ public class ClaimNoteDO {
 	}
 	public void setNoteType(char noteType) {
 		this.noteType = noteType;
+	}
+	public String getUpdatedBy() {
+		return updatedBy;
+	}
+	public void setUpdatedBy(String updatedBy) {
+		this.updatedBy = updatedBy;
 	}
 	
 }
