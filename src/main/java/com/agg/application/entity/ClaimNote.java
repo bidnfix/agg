@@ -3,6 +3,7 @@ package com.agg.application.entity;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Date;
 
 
 /**
@@ -21,14 +22,18 @@ public class ClaimNote implements Serializable {
 	@Column(name="claim_id")
 	private int claimId;
 
-	@Column(name="dealer_id")
-	private int dealerId;
+	@Column(name="account_id")
+	private long accountId;
 
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="last_update")
-	private Timestamp lastUpdate;
+	private Date lastUpdate;
 
 	@Lob
 	private String notes;
+	
+	@Column(name="note_type")
+	private char noteType;
 
 	public ClaimNote() {
 	}
@@ -49,19 +54,11 @@ public class ClaimNote implements Serializable {
 		this.claimId = claimId;
 	}
 
-	public int getDealerId() {
-		return this.dealerId;
-	}
-
-	public void setDealerId(int dealerId) {
-		this.dealerId = dealerId;
-	}
-
-	public Timestamp getLastUpdate() {
+	public Date getLastUpdate() {
 		return this.lastUpdate;
 	}
 
-	public void setLastUpdate(Timestamp lastUpdate) {
+	public void setLastUpdate(Date lastUpdate) {
 		this.lastUpdate = lastUpdate;
 	}
 
@@ -73,4 +70,21 @@ public class ClaimNote implements Serializable {
 		this.notes = notes;
 	}
 
+	public long getAccountId() {
+		return accountId;
+	}
+
+	public void setAccountId(long accountId) {
+		this.accountId = accountId;
+	}
+
+	public char getNoteType() {
+		return noteType;
+	}
+
+	public void setNoteType(char noteType) {
+		this.noteType = noteType;
+	}
+
+	
 }

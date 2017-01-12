@@ -59,6 +59,7 @@ public class ClaimsDO {
 	private String createdUser;
 	private String updatedUser;
 	private List<ClaimNoteDO> claimsNoteList;
+	private String newClaimNote;
 	
 	public List<ClaimFileDO> getClaimFileDO() {
 		return claimFileDO;
@@ -472,6 +473,12 @@ public class ClaimsDO {
 	}
 	public void setClaimsNoteList(List<ClaimNoteDO> claimsNoteList) {
 		this.claimsNoteList = claimsNoteList;
+	}
+	public String getNewClaimNote() {
+		return newClaimNote;
+	}
+	public void setNewClaimNote(String newClaimNote) {
+		this.newClaimNote = newClaimNote;
 	}
 	
 }

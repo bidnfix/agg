@@ -1,19 +1,16 @@
 package com.agg.application.model;
 
-import java.sql.Timestamp;
-
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.Lob;
+import java.util.Date;
 
 
 public class ClaimNoteDO {
 	
 	private int id;
 	private int claimId;
-	private int dealerId;
-	private Timestamp lastUpdate;
+	private long accountId;
+	private Date lastUpdate;
 	private String notes;
+	private char noteType;
 	
 	public int getId() {
 		return id;
@@ -27,16 +24,10 @@ public class ClaimNoteDO {
 	public void setClaimId(int claimId) {
 		this.claimId = claimId;
 	}
-	public int getDealerId() {
-		return dealerId;
-	}
-	public void setDealerId(int dealerId) {
-		this.dealerId = dealerId;
-	}
-	public Timestamp getLastUpdate() {
+	public Date getLastUpdate() {
 		return lastUpdate;
 	}
-	public void setLastUpdate(Timestamp lastUpdate) {
+	public void setLastUpdate(Date lastUpdate) {
 		this.lastUpdate = lastUpdate;
 	}
 	public String getNotes() {
@@ -45,5 +36,17 @@ public class ClaimNoteDO {
 	public void setNotes(String notes) {
 		this.notes = notes;
 	}
-
+	public long getAccountId() {
+		return accountId;
+	}
+	public void setAccountId(long accountId) {
+		this.accountId = accountId;
+	}
+	public char getNoteType() {
+		return noteType;
+	}
+	public void setNoteType(char noteType) {
+		this.noteType = noteType;
+	}
+	
 }

@@ -102,6 +102,10 @@ public class AggConstants {
 	
 	public static final int COVERAGE_TYPE_PL_HOURS = 2000;
 	
+	public static final char EXTERNAL_CLAIM_NOTE = 'E';
+	
+	public static final char INTERNAL_CLAIM_NOTE = 'I';
+	
 	
 	public static final String QUOTE_REPORT_OUT_STANDING_DESC = "Thank you for considering AgGuard coverage, we appreciate the opportunity to earn your trust. "
 			+ "This quote reflects the information provided in your request for an extended service Contract based on the current terms and "

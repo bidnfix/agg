@@ -296,6 +296,17 @@ public class ClaimsServiceImpl implements ClaimsService {
 			claimFileDAO.save(claimFiles);
 		}
 		
+		//Added to save claim notes
+		if(null != claimsDO.getNewClaimNote() ){
+				ClaimNote cNote = new ClaimNote();
+				cNote.setNotes(claimsDO.getNewClaimNote());
+				cNote.setAccountId(accountDO.getId());
+				cNote.setClaimId(newClaim.getId());
+				cNote.setLastUpdate(new Date());
+				cNote.setNoteType(AggConstants.EXTERNAL_CLAIM_NOTE);
+			claimNotesDAO.save(cNote);
+		}
+		
 		return newClaim;
 	}
 
@@ -575,6 +586,7 @@ public class ClaimsServiceImpl implements ClaimsService {
 				
 				if(claimNoteList !=null)
 				{
+					claimNoteDOLst = new ArrayList<ClaimNoteDO>();
 					for(ClaimNote claimNote : claimNoteList){
 						ClaimNoteDO claimNoteDO = convertClaimNoteDO(claimNote);
 						claimNoteDOLst.add(claimNoteDO);
@@ -612,12 +624,12 @@ public class ClaimsServiceImpl implements ClaimsService {
 	public void updateStatus(int id, byte status, final int dealerId, final String extComment) {
 		claimsDAO.updateStatus(id, status);
 		if(Util.isNotEmptyString(extComment)){
-			ClaimNote claimNote = claimNotesDAO.findByClaimIdAndDealerId(id, dealerId);
+			ClaimNote claimNote = claimNotesDAO.findByClaimIdAndAccountId(id, dealerId);
 			if(claimNote == null){
 				claimNote = new ClaimNote();
 			}
 			claimNote.setClaimId(id);
-			claimNote.setDealerId(dealerId);
+			claimNote.setAccountId(dealerId);
 			claimNote.setNotes(extComment);
 			claimNote.setLastUpdate(new Timestamp(new Date().getTime()));
 			claimNotesDAO.save(claimNote);
@@ -660,12 +672,12 @@ public class ClaimsServiceImpl implements ClaimsService {
 			}
 			
 			if(Util.isNotEmptyString(claimDO.getComments())){
-				ClaimNote claimNote = claimNotesDAO.findByClaimIdAndDealerId(claimDO.getId(), new Long(accountDO.getDealerId()).intValue());
+				ClaimNote claimNote = claimNotesDAO.findByClaimIdAndAccountId(claimDO.getId(), new Long(accountDO.getDealerId()).intValue());
 				if(claimNote == null){
 					claimNote = new ClaimNote();
 				}
 				claimNote.setClaimId(claimDO.getId());
-				claimNote.setDealerId(new Long(accountDO.getDealerId()).intValue());
+				claimNote.setAccountId(new Long(accountDO.getDealerId()).intValue());
 				claimNote.setNotes(claimDO.getComments());
 				claimNote.setLastUpdate(new Timestamp(new Date().getTime()));
 				claimNotesDAO.save(claimNote);
@@ -743,7 +755,7 @@ public class ClaimsServiceImpl implements ClaimsService {
 	public ClaimNoteDO convertClaimNoteDO(ClaimNote claimNote)
 	{
 		ClaimNoteDO claimNoteDO = new ClaimNoteDO();
-		claimNoteDO.setDealerId(claimNote.getDealerId());
+		claimNoteDO.setAccountId(claimNote.getAccountId());
 		claimNoteDO.setClaimId(claimNote.getClaimId());
 		claimNoteDO.setLastUpdate(claimNote.getLastUpdate());
 		claimNoteDO.setNotes(claimNote.getNotes());
