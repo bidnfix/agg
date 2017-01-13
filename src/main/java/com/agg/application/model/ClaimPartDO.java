@@ -14,6 +14,7 @@ public class ClaimPartDO {
 	private String partDescr;
 	private int qty;
 	private int unitPrice;
+	private String partTotal;
 	/**
 	 * 
 	 */
@@ -93,4 +94,11 @@ public class ClaimPartDO {
 	public void setUnitPrice(int unitPrice) {
 		this.unitPrice = unitPrice;
 	}
+	public String getPartTotal() {
+		return partTotal;
+	}
+	public void setPartTotal(String partTotal) {
+		this.partTotal = partTotal;
+	}
+	
 }

@@ -697,10 +697,11 @@ public class ClaimsServiceImpl implements ClaimsService {
 	}
 
 	@Override
-	public ClaimReportDO getClaim(int id, String claimId, AccountDO accountDO) {
+	public ClaimReportDO getClaimReportDetails(int id, String claimId, AccountDO accountDO) {
 		logger.debug("Inside getClaim method with id: "+id+" claimId: "+claimId);
 		ClaimReportDO claimReportDO = null;
 		SimpleDateFormat reportDateFormat = new SimpleDateFormat("MM/dd/yyyy");
+		SimpleDateFormat noteDateFormat = new SimpleDateFormat("dd-MMM-yyyy");
 		Locale locale = new Locale("en", "US");
 		NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
 		Claims claim = claimsDAO.findByIdAndClaimId(id, claimId);
@@ -726,26 +727,132 @@ public class ClaimsServiceImpl implements ClaimsService {
 			claimReportDO.setBreakdownHrs(claim.getHoursBreakDown());
 			claimReportDO.setCauseOfFailure(claim.getCauseFail());
 			claimReportDO.setClaimId(claim.getClaimId());
+			claimReportDO.setClaimStatus(Util.getClaimStatusValue(claim.getcStatus()));
 			claimReportDO.setCorrectiveAction(claim.getCorrectiveAction());
 			claimReportDO.setCustomerComplaint(claim.getCustComplaint());
 			claimReportDO.setFailureDate(reportDateFormat.format(claim.getFailDate()));
-			//TODO need check whether this field required or not
-			//claimReportDO.setHourlyRate("");
-			//claimReportDO.setLaborTotalHrs(0);
-			claimReportDO.setLaborCost(currencyFormat.format(claim.getTotalAdjustedLaborCost()));
+			//claimReportDO.setLaborCost(currencyFormat.format(claim.getTotalAdjustedLaborCost()));
+			claimReportDO.setWorkOrderNumber(claim.getWorkOrder());
+			claimReportDO.setReqOtherCharges1(currencyFormat.format(claim.getRequestedOtherCharges1()));
+			claimReportDO.setReqOtherCharges2(currencyFormat.format(claim.getRequestedOtherCharges2()));
+			claimReportDO.setAdjOtherCharges1(currencyFormat.format(claim.getApprovedOtherCharges1()));
+			claimReportDO.setAdjOtherCharges2(currencyFormat.format(claim.getApprovedOtherCharges2()));
+			claimReportDO.setChequeNo(claim.getCheqNo());
+			claimReportDO.setPaidDate((claim.getPaidDate() != null)?reportDateFormat.format(claim.getPaidDate()):"");
+			claimReportDO.setTotalAdjLaborCost(currencyFormat.format(claim.getTotalAdjustedLaborCost()));
+			claimReportDO.setTotalAdjPartsCost(currencyFormat.format(claim.getTotalAdjustedPartsCost()));
+			
+			
+			
 			
 			Contracts contract = contractsDAO.findByContractId(claim.getContractId());
 			Quote quote = quoteDAO.findOne((int)contract.getQuoteId());
 			claimReportDO.setManufacturer(quote.getManfName());
 			claimReportDO.setMachineModel(quote.getMachineModel());
+			claimReportDO.setContractId(claim.getContractId());
+			claimReportDO.setContractExpirationDate((contract.getExpirationDate() != null)?reportDateFormat.format(contract.getExpirationDate()):"");
+			claimReportDO.setUsageHoursCovered(contract.getExpirationUsageHours());
+			claimReportDO.setLol(currencyFormat.format(contract.getLol()));
+			claimReportDO.setAvailableLol(currencyFormat.format(contract.getAvailabeLol()));
+			claimReportDO.setDeductibleAmount(currencyFormat.format(contract.getDeductible()));
+			String coverageType = quote.getCoverageType();
+			if(coverageType != null && !coverageType.isEmpty()){
+				if(coverageType.equalsIgnoreCase("PT")){
+					claimReportDO.setCoverageType("Powertrain");
+				}else if(coverageType.equalsIgnoreCase("PH")){
+					claimReportDO.setCoverageType("Powertrain + Hydraulic");
+				}else if(coverageType.equalsIgnoreCase("PL")){
+					claimReportDO.setCoverageType("Powertrain + Hydraulic + Platform");
+				}
+			}
 			
-			claimReportDO.setOtherCharges1(currencyFormat.format(claim.getApprovedOtherCharges1()));
-			claimReportDO.setOtherCharges2(currencyFormat.format(claim.getApprovedOtherCharges2()));
-			claimReportDO.setPartsTotal(currencyFormat.format(claim.getTotalAdjustedPartsCost()));
-			claimReportDO.setQuoteId(quote.getId().getQuoteId());
+			//claimReportDO.setOtherCharges1(currencyFormat.format(claim.getApprovedOtherCharges1()));
+			//claimReportDO.setOtherCharges2(currencyFormat.format(claim.getApprovedOtherCharges2()));
+			//claimReportDO.setPartsTotal(currencyFormat.format(claim.getTotalAdjustedPartsCost()));
+			//claimReportDO.setQuoteId(quote.getId().getQuoteId());
 			claimReportDO.setReportedOn(reportDateFormat.format(claim.getReportDate()));
 			claimReportDO.setSerialNumber(claim.getSerial());
-			claimReportDO.setTotalClaim(currencyFormat.format((claim.getApprovedOtherCharges1()+claim.getApprovedOtherCharges2()+claim.getTotalAdjustedPartsCost()+claim.getTotalAdjustedLaborCost())));
+			claimReportDO.setTotalAdjClaimCost(currencyFormat.format((claim.getApprovedOtherCharges1()+claim.getApprovedOtherCharges2()+claim.getTotalAdjustedPartsCost()+claim.getTotalAdjustedLaborCost())));
+			
+			List<Integer> claimIdList = new ArrayList<Integer>();
+			claimIdList.add(claim.getId());
+			List<ClaimLabor> claimsLaborList = claimLaborDAO.findAllByClaimID(claimIdList);
+			List<ClaimPart> claimPartList = claimPartDAO.findAllByClaimID(claimIdList);
+			List<ClaimFile> claimFileList = claimFileDAO.findAllByClaimID(claimIdList);
+			List<ClaimNote> claimNoteList = claimNotesDAO.findByClaimId(claim.getId());
+			
+			long totalLaborCost = 0;
+			if(null != claimsLaborList && !claimsLaborList.isEmpty()){
+				List<ClaimLaborDO> claimLaborDOList = new ArrayList<ClaimLaborDO>();
+				ClaimLaborDO laborDO = null;
+				for(ClaimLabor claimLabor : claimsLaborList){
+					laborDO = new ClaimLaborDO();
+					laborDO.setId(claimLabor.getId());
+					laborDO.setClaimId(claimLabor.getClaimId());
+					laborDO.setLaborDescr(claimLabor.getLaborDescr());
+					laborDO.setLaborNo(claimLabor.getLaborNo());
+					laborDO.setLaborHrs(claimLabor.getLaborHrs());
+					laborDO.setRate(claimLabor.getRate());
+					laborDO.setLaborTotal(currencyFormat.format(claimLabor.getLaborHrs() * claimLabor.getRate()));
+					totalLaborCost += (claimLabor.getLaborHrs() * claimLabor.getRate());
+					claimLaborDOList.add(laborDO);
+				}
+				claimReportDO.setClaimLaborDOList(claimLaborDOList);
+				claimReportDO.setTotalReqLaborCost(currencyFormat.format(totalLaborCost));
+			}
+			
+			long totalPartCost = 0;
+			if(null != claimPartList && !claimPartList.isEmpty()){
+				List<ClaimPartDO> claimPartDOList = new ArrayList<ClaimPartDO>();
+				ClaimPartDO partDO = null;
+				for(ClaimPart claimPart : claimPartList){
+					partDO = new ClaimPartDO();
+					partDO.setId(claimPart.getId());
+					partDO.setClaimId(claimPart.getClaimId());
+					partDO.setPartDescr(claimPart.getPartDescr());
+					partDO.setPartNo(claimPart.getPartNo());
+					partDO.setQty(claimPart.getQty());
+					partDO.setUnitPrice(claimPart.getUnitPrice());
+					partDO.setPartTotal(currencyFormat.format((claimPart.getQty() * claimPart.getUnitPrice())));
+					totalPartCost += (claimPart.getQty() * claimPart.getUnitPrice());
+					claimPartDOList.add(partDO);
+				}
+				claimReportDO.setClaimPartDOList(claimPartDOList);
+				claimReportDO.setTotalReqPartsCost(currencyFormat.format(totalPartCost));
+			}
+			
+			claimReportDO.setTotalReqClaimCost(currencyFormat.format((totalLaborCost+totalPartCost+claim.getRequestedOtherCharges1()+claim.getRequestedOtherCharges2())));
+			
+			if(null != claimFileList && !claimFileList.isEmpty()){
+				List<ClaimFileDO> claimFileDOList = new ArrayList<ClaimFileDO>();
+				ClaimFileDO fileDO = null;
+				for(ClaimFile claimFile : claimFileList){
+					fileDO = new ClaimFileDO();
+					fileDO.setClaimId(claimFile.getClaimId());
+					fileDO.setId(claimFile.getId());
+					fileDO.setFileName(claimFile.getFileName());
+					claimFileDOList.add(fileDO);
+				}
+				claimReportDO.setClaimFileDOList(claimFileDOList);
+			}
+			
+			
+			if(null != claimNoteList && !claimNoteList.isEmpty())
+			{
+				List<ClaimNoteDO> claimNoteDOList = new ArrayList<ClaimNoteDO>();
+				ClaimNoteDO claimNoteDO = null;
+				String notes = null;
+				for(ClaimNote claimNote : claimNoteList){
+					claimNoteDO = convertClaimNoteDO(claimNote);
+					notes = (claimNoteDO.getLastUpdate() != null)?noteDateFormat.format(claimNoteDO.getLastUpdate()):""
+							+" : "+claimNoteDO.getUpdatedBy()+" : "+claimNoteDO.getNotes();
+					claimNoteDO.setNotes(notes);
+					claimNoteDOList.add(claimNoteDO);
+				}
+				claimReportDO.setClaimNoteDOList(claimNoteDOList);
+			}
+			
+			
 			
 		}
 		

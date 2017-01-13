@@ -703,7 +703,7 @@ public class ClaimsController extends BaseController {
 			logger.info("appUrl: "+appUrl);
 			
 			AccountDO account = getAccountDetails(request);
-			ClaimReportDO reportDO = claimsService.getClaim(id, claimId, account);
+			ClaimReportDO reportDO = claimsService.getClaimReportDetails(id, claimId, account);
 			JRDataSource jrDataSource = null;
 			JRDataSource jrSubReportDataSource = null;
 			if(reportDO != null){
@@ -719,7 +719,7 @@ public class ClaimsController extends BaseController {
 			modelMap.put("datasource", jrDataSource);
 			modelMap.put("subReportData", jrSubReportDataSource);
 			modelMap.put("format", "pdf");
-			modelMap.put("subreportPath", "classpath:/jrxml/claimFiles.jrxml");
+			modelMap.put("SUBREPORT_DIR", System.getProperty("user.dir")+"/src/main/resources/jrxml/");
 			modelMap.put("imagePath", appUrl+"/assets/images/logo.png");
 			
 			modelAndView = new ModelAndView("rpt_claimDetails", modelMap);

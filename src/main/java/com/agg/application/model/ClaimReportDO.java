@@ -56,7 +56,59 @@ public class ClaimReportDO {
 	
 	private String correctiveAction;
 	
+	private String contractId;
+	
+	private String contractExpirationDate;
+	
+	private String lol;
+	
+	private String deductibleAmount;
+	
+	private long usageHoursCovered;
+	
+	private String availableLol;
+	
+	private String coverageType;
+	
+	private String claimStatus;
+	
+	private String workOrderNumber;
+	
+	private String chequeNo;
+	
+	private String paidDate;
+	
+	private String totalReqPartsCost;
+	
+	private String totalAdjPartsCost;
+	
+	private String totalReqLaborCost;
+	
+	private String totalAdjLaborCost;
+	
+	private String totalReqClaimCost;
+	
+	private String totalAdjClaimCost;
+	
+	private String totalReimbursedAmount;
+	
+	private String totalAmtOwnedByCustomer;
+	
 	private List<ClaimFileDO> claimFileDOList;
+	
+	private List<ClaimPartDO> claimPartDOList;
+	
+	private List<ClaimLaborDO> claimLaborDOList;
+	
+	private List<ClaimNoteDO> claimNoteDOList;
+	
+	private String reqOtherCharges1;
+	
+	private String reqOtherCharges2;
+	
+	private String adjOtherCharges1;
+	
+	private String adjOtherCharges2;
 
 	public String getDealerName() {
 		return dealerName;
@@ -266,6 +318,158 @@ public class ClaimReportDO {
 		this.correctiveAction = correctiveAction;
 	}
 
+	public String getContractId() {
+		return contractId;
+	}
+
+	public void setContractId(String contractId) {
+		this.contractId = contractId;
+	}
+
+	public String getContractExpirationDate() {
+		return contractExpirationDate;
+	}
+
+	public void setContractExpirationDate(String contractExpirationDate) {
+		this.contractExpirationDate = contractExpirationDate;
+	}
+
+	public String getLol() {
+		return lol;
+	}
+
+	public void setLol(String lol) {
+		this.lol = lol;
+	}
+
+	public String getDeductibleAmount() {
+		return deductibleAmount;
+	}
+
+	public void setDeductibleAmount(String deductibleAmount) {
+		this.deductibleAmount = deductibleAmount;
+	}
+
+	public long getUsageHoursCovered() {
+		return usageHoursCovered;
+	}
+
+	public void setUsageHoursCovered(long usageHoursCovered) {
+		this.usageHoursCovered = usageHoursCovered;
+	}
+
+	public String getAvailableLol() {
+		return availableLol;
+	}
+
+	public void setAvailableLol(String availableLol) {
+		this.availableLol = availableLol;
+	}
+
+	public String getCoverageType() {
+		return coverageType;
+	}
+
+	public void setCoverageType(String coverageType) {
+		this.coverageType = coverageType;
+	}
+
+	public String getClaimStatus() {
+		return claimStatus;
+	}
+
+	public void setClaimStatus(String claimStatus) {
+		this.claimStatus = claimStatus;
+	}
+
+	public String getWorkOrderNumber() {
+		return workOrderNumber;
+	}
+
+	public void setWorkOrderNumber(String workOrderNumber) {
+		this.workOrderNumber = workOrderNumber;
+	}
+
+	public String getChequeNo() {
+		return chequeNo;
+	}
+
+	public void setChequeNo(String chequeNo) {
+		this.chequeNo = chequeNo;
+	}
+
+	public String getPaidDate() {
+		return paidDate;
+	}
+
+	public void setPaidDate(String paidDate) {
+		this.paidDate = paidDate;
+	}
+
+	public String getTotalReqPartsCost() {
+		return totalReqPartsCost;
+	}
+
+	public void setTotalReqPartsCost(String totalReqPartsCost) {
+		this.totalReqPartsCost = totalReqPartsCost;
+	}
+
+	public String getTotalAdjPartsCost() {
+		return totalAdjPartsCost;
+	}
+
+	public void setTotalAdjPartsCost(String totalAdjPartsCost) {
+		this.totalAdjPartsCost = totalAdjPartsCost;
+	}
+
+	public String getTotalReqLaborCost() {
+		return totalReqLaborCost;
+	}
+
+	public void setTotalReqLaborCost(String totalReqLaborCost) {
+		this.totalReqLaborCost = totalReqLaborCost;
+	}
+
+	public String getTotalAdjLaborCost() {
+		return totalAdjLaborCost;
+	}
+
+	public void setTotalAdjLaborCost(String totalAdjLaborCost) {
+		this.totalAdjLaborCost = totalAdjLaborCost;
+	}
+
+	public String getTotalReqClaimCost() {
+		return totalReqClaimCost;
+	}
+
+	public void setTotalReqClaimCost(String totalReqClaimCost) {
+		this.totalReqClaimCost = totalReqClaimCost;
+	}
+
+	public String getTotalAdjClaimCost() {
+		return totalAdjClaimCost;
+	}
+
+	public void setTotalAdjClaimCost(String totalAdjClaimCost) {
+		this.totalAdjClaimCost = totalAdjClaimCost;
+	}
+
+	public String getTotalReimbursedAmount() {
+		return totalReimbursedAmount;
+	}
+
+	public void setTotalReimbursedAmount(String totalReimbursedAmount) {
+		this.totalReimbursedAmount = totalReimbursedAmount;
+	}
+
+	public String getTotalAmtOwnedByCustomer() {
+		return totalAmtOwnedByCustomer;
+	}
+
+	public void setTotalAmtOwnedByCustomer(String totalAmtOwnedByCustomer) {
+		this.totalAmtOwnedByCustomer = totalAmtOwnedByCustomer;
+	}
+
 	public List<ClaimFileDO> getClaimFileDOList() {
 		return claimFileDOList;
 	}
@@ -274,4 +478,60 @@ public class ClaimReportDO {
 		this.claimFileDOList = claimFileDOList;
 	}
 
+	public List<ClaimPartDO> getClaimPartDOList() {
+		return claimPartDOList;
+	}
+
+	public void setClaimPartDOList(List<ClaimPartDO> claimPartDOList) {
+		this.claimPartDOList = claimPartDOList;
+	}
+
+	public List<ClaimLaborDO> getClaimLaborDOList() {
+		return claimLaborDOList;
+	}
+
+	public void setClaimLaborDOList(List<ClaimLaborDO> claimLaborDOList) {
+		this.claimLaborDOList = claimLaborDOList;
+	}
+
+	public List<ClaimNoteDO> getClaimNoteDOList() {
+		return claimNoteDOList;
+	}
+
+	public void setClaimNoteDOList(List<ClaimNoteDO> claimNoteDOList) {
+		this.claimNoteDOList = claimNoteDOList;
+	}
+
+	public String getReqOtherCharges1() {
+		return reqOtherCharges1;
+	}
+
+	public void setReqOtherCharges1(String reqOtherCharges1) {
+		this.reqOtherCharges1 = reqOtherCharges1;
+	}
+
+	public String getReqOtherCharges2() {
+		return reqOtherCharges2;
+	}
+
+	public void setReqOtherCharges2(String reqOtherCharges2) {
+		this.reqOtherCharges2 = reqOtherCharges2;
+	}
+
+	public String getAdjOtherCharges1() {
+		return adjOtherCharges1;
+	}
+
+	public void setAdjOtherCharges1(String adjOtherCharges1) {
+		this.adjOtherCharges1 = adjOtherCharges1;
+	}
+
+	public String getAdjOtherCharges2() {
+		return adjOtherCharges2;
+	}
+
+	public void setAdjOtherCharges2(String adjOtherCharges2) {
+		this.adjOtherCharges2 = adjOtherCharges2;
+	}
+	
 }

@@ -1,0 +1,495 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="claimDetails" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c0ec05e7-1fb2-4f7a-a475-4bbe0eaa13dc">
+	<property name="ireport.zoom" value="0.9090909090909091"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="505"/>
+	<parameter name="imagePath" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:\\Sri\\Agg\\PDF\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="subreportPath" class="java.lang.String"/>
+	<parameter name="subReportData" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
+	<field name="dealerName" class="java.lang.String"/>
+	<field name="contact" class="java.lang.String"/>
+	<field name="address" class="java.lang.String"/>
+	<field name="city" class="java.lang.String"/>
+	<field name="state" class="java.lang.String"/>
+	<field name="zip" class="java.lang.String"/>
+	<field name="phone" class="java.lang.String"/>
+	<field name="email" class="java.lang.String"/>
+	<field name="serialNumber" class="java.lang.String"/>
+	<field name="claimId" class="java.lang.String"/>
+	<field name="failureDate" class="java.lang.String"/>
+	<field name="quoteId" class="java.lang.String"/>
+	<field name="reportedOn" class="java.lang.String"/>
+	<field name="breakdownHrs" class="java.lang.Long"/>
+	<field name="manufacturer" class="java.lang.String"/>
+	<field name="machineModel" class="java.lang.String"/>
+	<field name="laborTotalHrs" class="java.lang.Long"/>
+	<field name="hourlyRate" class="java.lang.String"/>
+	<field name="laborCost" class="java.lang.String"/>
+	<field name="partsTotal" class="java.lang.String"/>
+	<field name="otherCharges1" class="java.lang.String"/>
+	<field name="otherCharges2" class="java.lang.String"/>
+	<field name="totalClaim" class="java.lang.String"/>
+	<field name="customerComplaint" class="java.lang.String"/>
+	<field name="causeOfFailure" class="java.lang.String"/>
+	<field name="correctiveAction" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="55" splitType="Stretch">
+			<image scaleImage="RetainShape">
+				<reportElement x="21" y="1" width="118" height="43" uuid="c10e2300-e2e9-431f-be7d-ef99a3250de2"/>
+				<imageExpression><![CDATA[$P{imagePath}]]></imageExpression>
+			</image>
+			<line>
+				<reportElement x="13" y="52" width="530" height="1" forecolor="#999999" uuid="076591a9-214f-4c30-ba59-4b0f6c172280"/>
+			</line>
+			<staticText>
+				<reportElement mode="Transparent" x="155" y="12" width="392" height="15" forecolor="#333333" uuid="bd79e7e7-4b90-4345-9bf3-24b52519d529"/>
+				<textElement>
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<text><![CDATA[Ag Guard LLC, 21295 Hollingsworth Road, Tonganoxie, KS 66086 • 816-223-1978]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="712" splitType="Stretch">
+			<staticText>
+				<reportElement x="16" y="10" width="175" height="20" uuid="805ff810-4f29-43cd-91fb-8d7a4972e8ee"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dealer Information:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="21" y="43" width="118" height="20" uuid="e92e8c9c-4e1d-482f-862a-40c7f415d285"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Dealer:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="139" y="43" width="339" height="20" uuid="2770fd7e-7c94-451e-988a-4686a7263169"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dealerName}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="21" y="64" width="118" height="20" uuid="6c520b59-f81a-4453-bb68-3be0d030f3c8"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Contact:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="139" y="64" width="339" height="20" uuid="ed3f980d-d361-47a7-aebb-c75140ed6fd7"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{contact}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="21" y="85" width="118" height="20" uuid="1fc27c3c-9996-4471-ac19-0a543e13a7ff"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Address:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="139" y="85" width="339" height="20" uuid="d6281433-8f6a-46a7-b37c-c41b7700a7c4"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{address}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="139" y="106" width="339" height="20" uuid="9c493896-ba6d-4333-b2af-63a3c521cb81"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{city}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="21" y="106" width="118" height="20" uuid="dbab06ee-df6a-4fe1-8c40-4d4d4013418c"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[City:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="139" y="127" width="339" height="20" uuid="28610fac-02ad-4e1f-b5f0-dcb3a2fdf463"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{state}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="21" y="127" width="118" height="20" uuid="566f9aa4-756a-4d81-83ee-630edd2fa714"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[State:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="139" y="148" width="339" height="20" uuid="a4f76ffb-b4fd-4f13-b706-b0d8fa43e40c"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{zip}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="21" y="148" width="118" height="20" uuid="651662dd-04c1-4ca7-826a-66f60e835903"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Zip:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="21" y="169" width="118" height="20" uuid="5ebf6267-ce2a-4fcf-96fa-24047250108d"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Phone:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="139" y="169" width="339" height="20" uuid="f84c7738-9614-45cb-b8f8-1b652f65746c"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{phone}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="139" y="190" width="339" height="20" uuid="ef1fcd9b-3ffc-4899-b776-7f0fc6109103"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="21" y="190" width="118" height="20" uuid="df1b8512-a683-444c-a98d-ab7d083ee916"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Email:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="8" y="225" width="530" height="1" uuid="3309c37f-b320-4807-8529-ca93014da88f"/>
+				<graphicElement>
+					<pen lineColor="#CCCCCC"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="6" y="233" width="263" height="20" uuid="9d8968f6-7f87-461b-804d-349704dce6a0"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Equipment/Coverage Information]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="287" y="233" width="260" height="20" uuid="eb6836d0-d787-45f0-a837-ac740ccfb5b1"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Claim Information]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="126" y="257" width="143" height="20" uuid="214ce91b-6c8b-4161-867e-3fece3a67ea1"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{serialNumber}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="6" y="257" width="120" height="20" uuid="09896dd9-16d2-43c6-8e3b-bfde14755755"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Serial Number]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="407" y="257" width="143" height="20" uuid="8c24afd2-0556-459c-869b-6a67d4305022"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{claimId}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="287" y="257" width="120" height="20" uuid="be2347a6-2fca-4370-ac9e-a633e18045d7"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Claim ID]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="126" y="278" width="143" height="20" uuid="5b702700-5ffb-42f2-9c8e-472249f999cb"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{failureDate}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="6" y="278" width="120" height="20" uuid="98cd8332-9a8a-4990-b5f5-06f312b439f7"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Failure Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="287" y="278" width="120" height="20" uuid="c0d86b1f-11d5-47e0-9f92-3243910b3770"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Quote ID]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="407" y="278" width="143" height="20" uuid="406e54d4-25dd-4ba5-a0f3-4b21d17ebfeb"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{quoteId}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="6" y="299" width="120" height="20" uuid="e9b501b8-10f2-41b7-bf3b-2aaaf36a36a4"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Reported On]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="126" y="299" width="143" height="20" uuid="a1a3f886-8fa5-4590-961a-c71dcfb52499"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{reportedOn}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="407" y="299" width="143" height="20" uuid="570cdb90-278b-4ef1-89ff-cc394b685d8e"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{breakdownHrs}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="287" y="299" width="120" height="20" uuid="864e7ace-3657-4ca1-8fa4-38fe1ee65407"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Hours@Breakdown]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="6" y="320" width="120" height="20" uuid="7b33e975-3a61-482c-8e7d-50a2b05fdeba"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Manufacturer]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="126" y="320" width="143" height="20" uuid="a98ed106-a128-43c2-8b2b-4ed721c5c25c"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{manufacturer}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="126" y="341" width="143" height="20" uuid="3bacacce-2586-4274-981e-727b2e741342"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{machineModel}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="6" y="341" width="120" height="20" uuid="3e4a4612-1515-4b12-8e3a-1a8afdbb0bdf"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Model Number]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="126" y="363" width="143" height="20" uuid="3e0871e6-459a-4855-a707-73bb6baca2d6"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{machineModel}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="6" y="363" width="120" height="20" uuid="d64edc00-54d5-4cff-a6b4-516a1e5e1849"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Work Order Number]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="407" y="320" width="143" height="20" uuid="cc301705-aefc-44e0-9d51-f9988cc2f66d"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{laborTotalHrs}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="287" y="320" width="120" height="20" uuid="ecca952a-ae19-443c-b851-c2d6499a4216"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Labor Total Hours]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="407" y="341" width="143" height="20" uuid="4319751b-ec09-40f4-acf8-718f9d896bb9"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{hourlyRate}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="287" y="341" width="120" height="20" uuid="db8c929d-2780-4262-8306-2b6f3163390a"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Hourly Rate]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="287" y="363" width="120" height="20" uuid="c0aac117-9273-4fd8-ad11-3a793c9879da"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Labor Cost]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="407" y="363" width="143" height="20" uuid="5359ea52-5a79-468c-832a-c5487e9b84f9"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{laborCost}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="287" y="385" width="120" height="20" uuid="6d75d3fc-8724-4f22-9baa-22e5cdc45325"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Parts Total]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="407" y="385" width="143" height="20" uuid="a2dad463-e904-4eba-90f0-e80783f50912"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{partsTotal}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="407" y="407" width="143" height="20" uuid="26aaba5b-79a9-4369-a27f-b4e98712d392"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{otherCharges1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="287" y="407" width="120" height="20" uuid="b5974b0f-7c5c-47b8-a5b1-e5fb66fbff9d"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Other Charges(1)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="287" y="429" width="120" height="20" uuid="8f8e17b0-cca7-4822-852b-fe773fded11d"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Other Charges(2)]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="407" y="429" width="143" height="20" uuid="2cdb6e96-6059-4006-98e5-983d856c3371"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{otherCharges2}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="407" y="451" width="143" height="20" uuid="b6c9c926-df05-477f-ba5f-988b556419e0"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalClaim}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="287" y="451" width="120" height="20" uuid="48064a33-745a-4002-ad11-aece529bfb30"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Total Claim]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="9" y="489" width="260" height="20" uuid="7820f330-8953-4d01-b60b-099148515d88"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Details]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="8" y="514" width="260" height="20" forecolor="#000099" uuid="13821d4b-8b6c-4348-9b8f-1e8fe99a57fc"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Customer Complaint:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="9" y="536" width="541" height="20" uuid="0173a0b0-05a8-4b87-be40-cebe6f63bcc5"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{customerComplaint}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="9" y="581" width="541" height="20" uuid="2920ffb0-b9a2-4ce5-955f-b3ff29b41f30"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{causeOfFailure}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="8" y="559" width="260" height="20" forecolor="#000099" uuid="b8131db9-5c57-4878-95b3-2c793a228cd1"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cause of Failure:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="8" y="604" width="260" height="20" forecolor="#000099" uuid="0889eb99-a5bc-4699-989f-825082988514"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Corrective Action:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="9" y="626" width="541" height="20" uuid="3b125176-a21b-463b-b69e-5cd58eb80e31"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{correctiveAction}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="8" y="653" width="260" height="20" uuid="ef85960e-0e92-45d9-ad7d-e5f2e74a966e"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Files]]></text>
+			</staticText>
+			<subreport isUsingCache="false" runToBottom="false">
+				<reportElement x="9" y="673" width="538" height="26" uuid="a4244eaf-e9a2-4b3a-b9ba-1913cc65eb37"/>
+				<dataSourceExpression><![CDATA[$P{subReportData}]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{subreportPath}]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="32" y="0" width="483" height="20" forecolor="#333333" uuid="c7b1f582-bdf9-482e-b966-6d9ca76a642a"/>
+				<text><![CDATA[© 2014 – AgGuard and "A tool to protect your investment" are registered trademarks of Ag Guard LLC]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+</jasperReport>

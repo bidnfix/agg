@@ -23,5 +23,5 @@ public interface ClaimsService {
 	ClaimsDO getClaim(int claimId, int dealerId);
 	int getContractsCount(String contractId);
 	ClaimsDO getClaim(String claimId, int dealerId);
-	ClaimReportDO getClaim(int id, String claimId, AccountDO accountDO);
+	ClaimReportDO getClaimReportDetails(int id, String claimId, AccountDO accountDO);
 }

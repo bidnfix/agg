@@ -14,6 +14,7 @@ public class ClaimLaborDO {
 	private String laborDescr;
 	private int laborHrs;
 	private int rate;
+	private String laborTotal;
 	/**
 	 * 
 	 */
@@ -93,4 +94,11 @@ public class ClaimLaborDO {
 	public void setRate(int rate) {
 		this.rate = rate;
 	}
+	public String getLaborTotal() {
+		return laborTotal;
+	}
+	public void setLaborTotal(String laborTotal) {
+		this.laborTotal = laborTotal;
+	}
+	
 }

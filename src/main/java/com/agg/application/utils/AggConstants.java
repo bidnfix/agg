@@ -78,6 +78,18 @@ public class AggConstants {
 	
 	public static final String CLAIM_STATUS_CLOSED_DESC = "Closed";
 	
+	public static final String CLAIM_STATUS_OPEN_DESC = "Open";
+	
+	public static final String CLAIM_STATUS_PRE_AUTHORIZED_REQUESTED_DESC = "Pre-authorization Requested";
+	
+	public static final String CLAIM_STATUS_SUBMITTED_DESC = "Submitted";
+	
+	public static final String CLAIM_STATUS_PENDING_DESC = "Pending";
+	
+	public static final String CLAIM_STATUS_DRAFT_DESC = "Draft";
+	
+	public static final String CLAIM_STATUS_CANCEL_DESC = "Rejected";
+	
 	public static final String COVERAGE_TYPE_PT = "PT";
 	
 	public static final String COVERAGE_TYPE_PH = "PH";

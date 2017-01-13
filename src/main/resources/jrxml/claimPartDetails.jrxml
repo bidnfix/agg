@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="claimPartDetails" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="8244def4-388e-41e4-9dca-66d09dc99d00">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="totalReqPartsCost" class="java.lang.String"/>
+	<parameter name="totalAdjPartsCost" class="java.lang.String"/>
+	<field name="partNo" class="java.lang.String"/>
+	<field name="partDescr" class="java.lang.String"/>
+	<field name="qty" class="java.lang.Integer"/>
+	<field name="unitPrice" class="java.lang.Integer"/>
+	<field name="partTotal" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="22" splitType="Stretch">
+			<staticText>
+				<reportElement x="16" y="2" width="90" height="20" uuid="30849171-cb28-4741-acac-88d7d986d5d0"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Part#]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="108" y="2" width="135" height="20" uuid="e827e2b0-1155-4d30-8c01-3c5232183db0"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Description]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="245" y="2" width="70" height="20" uuid="17cc67bb-8aa0-4913-ad37-9ed699d7408f"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Quantity]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="317" y="2" width="100" height="20" uuid="ba3c952a-df4a-4de9-a96e-4f546670fb87"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Unit Price]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="419" y="2" width="113" height="20" uuid="7c35d014-555b-4ac9-8262-35007402e2b7"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Part Total]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="16" y="1" width="90" height="20" uuid="b722d348-2b00-4605-bf19-f2c05f129f2f"/>
+				<textFieldExpression><![CDATA[$F{partNo}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="108" y="1" width="135" height="20" uuid="cc273fb5-cf0a-483b-ade1-6cf1af923c8d"/>
+				<textFieldExpression><![CDATA[$F{partDescr}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="245" y="1" width="70" height="20" uuid="c4c9e5f6-8b0d-48c5-a6ba-ac984a518c70"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{qty}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="317" y="1" width="100" height="20" uuid="a0232318-92a3-4e4e-bdfa-9c28422654ab"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{unitPrice}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="419" y="1" width="113" height="20" uuid="964ccaad-a529-4ef6-9395-6b86cbe2fc64"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{partTotal}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<staticText>
+				<reportElement x="276" y="0" width="141" height="20" uuid="d27b4a83-b323-4101-a112-cf58ece805c6"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Requested Parts Cost:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="276" y="22" width="141" height="20" uuid="7d04d821-45b1-4459-9c33-2e11f042ae54"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Adjusted Parts Cost:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="417" y="0" width="115" height="20" uuid="c421d010-f788-43ef-b070-16277eb71840"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{totalReqPartsCost}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="417" y="22" width="115" height="20" uuid="bbd16f42-d36c-40d8-a192-d70b0b6260de"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{totalAdjPartsCost}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

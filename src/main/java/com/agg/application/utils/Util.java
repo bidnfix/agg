@@ -109,6 +109,45 @@ public class Util {
 		return cStatusValue;
 	}
 	
+	public static String getClaimStatusValue(final int cStatusCode){
+		String cStatusValue = null;
+		switch(cStatusCode){
+			case AggConstants.CLAIM_STATUS_OPEN: 
+				cStatusValue = AggConstants.CLAIM_STATUS_OPEN_DESC;
+				break;
+			case AggConstants.CLAIM_STATUS_PRE_AUTHORIZED_REQUESTED:
+				cStatusValue = AggConstants.CLAIM_STATUS_PRE_AUTHORIZED_REQUESTED_DESC;
+				break;
+			case AggConstants.CLAIM_STATUS_SUBMITTED:
+				cStatusValue = AggConstants.CLAIM_STATUS_SUBMITTED_DESC;
+				break;
+			case AggConstants.CLAIM_STATUS_CLOSED:
+				cStatusValue = AggConstants.CLAIM_STATUS_CLOSED_DESC;
+				break;
+			case AggConstants.CLAIM_STATUS_PRE_AUTHORIZED_APPROVED:
+				cStatusValue = AggConstants.CLAIM_STATUS_PRE_AUTHORIZED_APPROVED_DESC;
+				break;
+			case AggConstants.CLAIM_STATUS_PRE_AUTHORIZED_REJECTED:
+				cStatusValue = AggConstants.CLAIM_STATUS_PRE_AUTHORIZED_REJECTED_DESC;
+				break;
+			case AggConstants.CLAIM_STATUS_PRE_AUTHORIZED_APPROVED_WITH_ADJUSMENTS:
+				cStatusValue = AggConstants.CLAIM_STATUS_PRE_AUTHORIZED_APPROVED_WITH_ADJUSMENTS_DESC;
+				break;
+			case AggConstants.CLAIM_STATUS_PENDING:
+				cStatusValue = AggConstants.CLAIM_STATUS_PENDING_DESC;
+				break;
+			case AggConstants.CLAIM_STATUS_DRAFT:
+				cStatusValue = AggConstants.CLAIM_STATUS_DRAFT_DESC;
+				break;
+			case AggConstants.CLAIM_STATUS_CANCEL:
+				cStatusValue = AggConstants.CLAIM_STATUS_CANCEL_DESC;
+				break;
+			default:
+				cStatusValue = null;
+		}
+		return cStatusValue;
+	}
+	
 	/**
 	 * @param request
 	 * @return
