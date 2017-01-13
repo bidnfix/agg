@@ -474,7 +474,7 @@ routingApp.factory('claimPreAuthReqService', ['$http', '$q', '$window', '$timeou
 		$scope.preAuthClaim.totalLaborCost = $scope.preAuthClaim.claimLaborDO.laborHrs * $scope.preAuthClaim.claimLaborDO.rate;
 		calcCost($scope.preAuthClaim);
 		$scope.extCommentFlag = true;
-		$scope.preAuthClaim.claimsNoteList = $scope.preAuthClaim.claimsNoteList;
+		$scope.preAuthClaim.claimsNoteList = claim.claimsNoteList;
 	},
 	submit = function($scope, status){
 		showSpinner();

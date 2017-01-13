@@ -347,7 +347,7 @@
                          <span class="ag-tab-title col-xs-12 no-pad marg10-bottom">External Comments</span>
                           <div class="col-sm-12">
                             <div class="form-group clearfix">
-                                <div class="col-sm-9 no-pad border" ng-repeat="claimNote in preAuthClaimList.claimsNoteList">
+                                <div class="col-sm-9 no-pad border" ng-repeat="claimNote in preAuthClaim.claimsNoteList">
                                   <!-- <textarea class="form-control" style="width:100% !important;" rows="3" ng-model="claim.extComment" ng-required="extCommentFlag" ng-trim=true></textarea>-->
                                   {{claimNote.lastUpdate |  date:"dd-MMM-yyyy"}} : {{claimNote.updatedBy}} : {{claimNote.notes}}
                                 </div>
