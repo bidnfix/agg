@@ -324,40 +324,42 @@
 								</table>
 								</div>
 						  </div>	
+						  <!-- 
                           <div class="col-xs-12 no-pad pad10-top">
                          <span class="ag-tab-title col-xs-12 no-pad marg10-bottom">Claim Comments</span>
                          <br clear="all">
                         
                          <br>
+                         
                           <div class="col-sm-12">
-                           <!--  <div class="form-group clearfix">
-                              <label>Customer Complaint</label>
-                              <p>{{preAuthClaim.custComplaint}}</p>
-                            </div>
-                            <div class="form-group clearfix">
-                              <label>Corrective Actions</label>
-                              <p>{{preAuthClaim.causeFail}}</p>
-                            </div>
-                            <div class="form-group clearfix">
-                              <label>Cause of Failure</label>
-                              <p>{{preAuthClaim.correctiveAction}}</p>
-                            </div> -->
-
                             <div class="form-group clearfix">
                               <span class="col-sm-3 no-pad">External Comments :</span> 
                                 <div class="col-sm-9 no-pad border">
-                                <!-- <div class="col-sm-4">
-                                  <b>Date/Time</b><br>
-                                  June 21 2016
-                                </div>
-                                <div class="col-sm-8">
-                                  <b>Comment</b><br>
-                                  Text comes here..
-                                </div> -->
                                   <textarea class="form-control" style="width:100% !important;" rows="3" ng-model="preAuthClaim.extComment" ng-required="extCommentFlag" ng-trim=true></textarea>
                                 </div>
                             </div>
                           </div>
+                          -->
+                          
+                          
+                   <br clear="all">
+				   <div class="col-xs-12 no-pad pad10-top">
+                         <span class="ag-tab-title col-xs-12 no-pad marg10-bottom">External Comments</span>
+                          <div class="col-sm-12">
+                            <div class="form-group clearfix">
+                                <div class="col-sm-9 no-pad border" ng-repeat="claimNote in preAuthClaimList.claimsNoteList">
+                                  <!-- <textarea class="form-control" style="width:100% !important;" rows="3" ng-model="claim.extComment" ng-required="extCommentFlag" ng-trim=true></textarea>-->
+                                  {{claimNote.lastUpdate |  date:"dd-MMM-yyyy"}} : {{claimNote.updatedBy}} : {{claimNote.notes}}
+                                </div>
+                            </div>
+                            <span class="col-sm-3 no-pad"><b>Enter Comments :</b></span>
+                            <div class="col-sm-9 no-pad border">
+                                  <textarea class="form-control" style="width:100% !important;" rows="3" ng-model="preAuthClaim.extComment" ng-required="commentFlag" ng-trim=true></textarea>
+                             </div>
+                          </div>
+                        </div>
+                          
+                          
                         </div>
                           </div>
                       </div>

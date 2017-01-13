@@ -474,6 +474,7 @@ routingApp.factory('claimPreAuthReqService', ['$http', '$q', '$window', '$timeou
 		$scope.preAuthClaim.totalLaborCost = $scope.preAuthClaim.claimLaborDO.laborHrs * $scope.preAuthClaim.claimLaborDO.rate;
 		calcCost($scope.preAuthClaim);
 		$scope.extCommentFlag = true;
+		$scope.preAuthClaim.claimsNoteList = $scope.preAuthClaim.claimsNoteList;
 	},
 	submit = function($scope, status){
 		showSpinner();
@@ -606,6 +607,8 @@ routingApp.factory('claimsAdjudicateService', ['$http', '$q', '$window', '$timeo
 		$scope.adjustments.totalAdjustmentLaborsCost = $scope.adjudicateClaim.totalAdjustedLaborCost;
 		$scope.adjustments.parts = JSON.parse(JSON.stringify($scope.adjudicateClaim.claimPartDO));
     	$scope.adjustments.labors = JSON.parse(JSON.stringify($scope.adjudicateClaim.claimLaborDO));
+    	$scope.adjustments.claimsNoteList = $scope.adjudicateClaim.claimsNoteList;
+    	
     	$scope.adjustments.paidDate = new Date();
     	if($scope.adjustments.approvedOtherCharges1 === 0){
     		$scope.adjustments.approvedOtherCharges1 = $scope.adjustments.requestedOtherCharges1;

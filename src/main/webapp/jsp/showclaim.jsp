@@ -1,4 +1,4 @@
-	<div class="col-xs-12 agf1 main-login pad10-top">
+<div class="col-xs-12 agf1 main-login pad10-top">
 		<div class="col-xs-12">If the repair estimate is over $1,000 or
 			if diagnostic cost is over $500, then the repair facility must
 			contact AgGuard before proceeding with the repair-unless a higher
