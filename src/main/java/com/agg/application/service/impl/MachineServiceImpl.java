@@ -98,7 +98,7 @@ public class MachineServiceImpl implements MachineService {
 				
 				//machineDO.setMachineType(machineInfo.getMachineType().getMachineType());
 				machineDO.setModel(machineInfo.getModel());
-				machineDO.setEnginePower(machineInfo.getPower());
+				machineDO.setEnginePower(machineInfo.getePower());
 				//machineDO.setGroupId(machineInfo.getGroupId());
 				groupDO = new GroupDO();
 				groupDO.setGroupId(machineInfo.getGroupConstant().getGroupId());
@@ -141,7 +141,7 @@ public class MachineServiceImpl implements MachineService {
 			
 			//machineDO.setMachineType(machine.getMachineType().getMachineType());
 			machineDO.setModel(machine.getModel());
-			machineDO.setEnginePower(machine.getPower());
+			machineDO.setEnginePower(machine.getePower());
 			
 			//groupDO = new GroupDO();
 			//groupDO.setGroupId(machine.getGroupConstant().getGroupId());
@@ -238,7 +238,7 @@ public class MachineServiceImpl implements MachineService {
 				//machineModelDO.setModelId(machineModel.getModel());
 				machineModelDO.setModelName(machineModel.getModel());
 				machineModelDO.setModelYear(machineModel.getModelYear());
-				machineModelDO.setPower(machineModel.getPower());
+				machineModelDO.setePower(machineModel.getePower());
 				//machineModelDO.setePower(machineModel.getePower());
 				machineModelDO.setRetailPrice(machineModel.getRetailPrice());
 				machineModelDO.setBasePrice(machineModel.getBasePrice());
@@ -299,7 +299,7 @@ public class MachineServiceImpl implements MachineService {
 		logger.debug(machineDO.getModel());
 		//macineInfo.setModelYear(sqlDate);
 		logger.debug(date.toString());
-		machineInfo.setPower(machineDO.getEnginePower());
+		machineInfo.setePower(machineDO.getEnginePower());
 		logger.debug("Engne power "+machineDO.getEnginePower());
 		//macineInfo.setePower(machineModelDO.getePower());
 		//macineInfo.setRetailPrice(machineDO.getRetailPrice());
@@ -330,7 +330,7 @@ public class MachineServiceImpl implements MachineService {
 		logger.debug(machineDO.getModel());
 		//macineInfo.setModelYear(sqlDate);
 		logger.debug(date.toString());
-		machineInfo.setPower(machineDO.getEnginePower());
+		machineInfo.setePower(machineDO.getEnginePower());
 		logger.debug("Engne power "+machineDO.getEnginePower());
 		//macineInfo.setePower(machineModelDO.getePower());
 		//macineInfo.setRetailPrice(machineDO.getRetailPrice());
@@ -382,7 +382,7 @@ public class MachineServiceImpl implements MachineService {
 						.append(" LOL "+groupConstant.getLol()+" \r")
 						.append(" Rate "+groupConstant.getRate());
 				
-				logger.debug("Tooltip 1"+tooltip);
+				//logger.debug("Tooltip 1"+tooltip);
 				groupDO.setTips(tooltip.toString());
 				groupDOList.add(groupDO);
 			}
