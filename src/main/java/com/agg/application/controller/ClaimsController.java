@@ -701,10 +701,10 @@ public class ClaimsController extends BaseController {
 	}*/
 	
 	
-	@RequestMapping(value = "/claim/report/{id}/{claimId}", method = RequestMethod.GET, produces="application/pdf;charset=UTF-8")
-	public ModelAndView showClaimDetailsReport(@PathVariable int id, @PathVariable String claimId, ModelAndView modelAndView, HttpServletRequest request, 
+	@RequestMapping(value = "/claim/report/{claimId}", method = RequestMethod.GET, produces="application/pdf;charset=UTF-8")
+	public ModelAndView showClaimDetailsReport(@PathVariable String claimId, ModelAndView modelAndView, HttpServletRequest request, 
 			HttpServletResponse response, ModelMap modelMap) throws Exception{
-		logger.debug("In showClaimDetailsReport with id: "+id+" and claimId: "+claimId);
+		logger.debug("In showClaimDetailsReport with claimId: "+claimId);
 		if (!sessionExists(request)){
 			modelAndView = new ModelAndView("login");
 		}else{
@@ -714,7 +714,7 @@ public class ClaimsController extends BaseController {
 			logger.info("appUrl: "+appUrl);
 			
 			AccountDO account = getAccountDetails(request);
-			ClaimReportDO reportDO = claimsService.getClaimReportDetails(id, claimId, account);
+			ClaimReportDO reportDO = claimsService.getClaimReportDetails(claimId, account);
 			JRDataSource jrDataSource = null;
 			JRDataSource claimFileSubReportDataSource = null;
 			JRDataSource claimPartSubReportDataSource = null;
@@ -778,6 +778,7 @@ public class ClaimsController extends BaseController {
 		
 		return modelAndView;
 	}
+	
 }
 
 

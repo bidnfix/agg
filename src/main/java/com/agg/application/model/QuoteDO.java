@@ -3,6 +3,8 @@ package com.agg.application.model;
 import java.util.Date;
 import java.util.Set;
 
+import com.agg.application.utils.AggConstants;
+
 public class QuoteDO {
 	
 	private int id;
@@ -209,6 +211,37 @@ public class QuoteDO {
 	private String provisions;
 	
 	private int lol;
+	
+	private String dealerCustName;
+	
+	public QuoteDO(){
+		
+	}
+	
+	public QuoteDO(int id, String quoteId, String dealerName, String custName, String machineModel, Date machineSaleDate, byte status){
+		this.id = id;
+		this.quoteId = quoteId;
+		this.dealerName = dealerName;
+		this.dealerCustName = custName;
+		this.machineModel = machineModel;
+		this.machineSaleDate = machineSaleDate;
+		
+		String statusDesc = "";
+		if(status == AggConstants.B_QUOTE_STATUS_ACRHIVE){
+			statusDesc = AggConstants.QUOTE_STATUS_ACRHIVE;
+		}else if(status == AggConstants.B_QUOTE_STATUS_ESTIMATING_PRICE){
+			statusDesc = AggConstants.QUOTE_STATUS_ESTIMATING_PRICE;
+		}else if(status == AggConstants.B_QUOTE_STATUS_PURCHASE_REQUESTED){
+			statusDesc = AggConstants.QUOTE_STATUS_PURCHASE_REQUESTED;
+		}else if(status == AggConstants.B_QUOTE_STATUS_INVOICED){
+			statusDesc = AggConstants.QUOTE_STATUS_INVOICED;
+		}else if(status == AggConstants.B_QUOTE_STATUS_CLOSED){
+			statusDesc = AggConstants.QUOTE_STATUS_CLOSED;
+		}
+		
+		this.statusDesc = statusDesc;
+		this.status = status;
+	}
 	
 	public int getcHours() {
 		return cHours;
@@ -1364,6 +1397,20 @@ public class QuoteDO {
 
 	public void setLol(int lol) {
 		this.lol = lol;
+	}
+
+	/**
+	 * @return the dealerCustName
+	 */
+	public String getDealerCustName() {
+		return dealerCustName;
+	}
+
+	/**
+	 * @param dealerCustName the dealerCustName to set
+	 */
+	public void setDealerCustName(String dealerCustName) {
+		this.dealerCustName = dealerCustName;
 	}
 	
 }
