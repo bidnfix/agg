@@ -42,10 +42,10 @@
         <tbody>
             <tr ng-repeat="quote in quoteList">
             	<td>{{quote.quoteId}}</td>
-            	<td>{{quote.dealerDO.name}}</td>
-                <td>{{quote.dealerName}}</td>
-                <td>{{quote.machineInfoDO.model}}</td>
-                <td>{{quote.estSaleDate |  date:"MM/dd/yyyy"}}</td>
+            	<td>{{quote.dealerName}}</td>
+                <td>{{quote.dealerCustName}}</td>
+                <td>{{quote.machineModel}}</td>
+                <td>{{quote.machineSaleDate |  date:"MM/dd/yyyy"}}</td>
                 <td>{{quote.statusDesc}}</td>
                 <td>
                 	<div class="manage-sec"><!-- <a href="#"><img src="../assets/images/delete-icon.png" alt="Delete" title="Delete"/></a> -->

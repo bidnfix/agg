@@ -699,11 +699,13 @@ public class QuoteServiceImpl implements QuoteService {
 	public List<QuoteDO> getQuotes(AccountDO accountDO) {
 		List<QuoteDO> quoteDOList = null;
 		if(accountDO.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)){
-			List<Quote> quoteList = Util.toList(quoteDAO.findAll());
-			quoteDOList = getQuoteDetails(quoteList);
+			//List<Quote> quoteList = Util.toList(quoteDAO.findAll());
+			//quoteDOList = getQuoteDetails(quoteList);
+			quoteDOList = quoteDAO.findAllQuotes();
 		}else{
-			List<Quote> quoteList = Util.toList(quoteDAO.findByDealerId(accountDO.getDealerId()));
-			quoteDOList = getQuoteDetails(quoteList);
+			//List<Quote> quoteList = Util.toList(quoteDAO.findByDealerId(accountDO.getDealerId()));
+			//quoteDOList = getQuoteDetails(quoteList);
+			quoteDOList = quoteDAO.findAllQuotesByDealer(accountDO.getDealerId());
 		}
 		
 		return quoteDOList;

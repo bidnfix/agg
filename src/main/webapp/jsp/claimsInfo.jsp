@@ -54,7 +54,8 @@
                 (claimDO.cStatus === 4)?"Approved":(claimDO.cStatus === 5)?"Pre-Auth Approved":(claimDO.cStatus === 6)?"Pre-Auth Rejected":
                 (claimDO.cStatus === 7)?"Approved with adjustment":(claimDO.cStatus === 8)?"Pending":(claimDO.cStatus === 9)?"Draft":
                 (claimDO.cStatus === 10)?"Rejected":""}}</td>
-                <td><div class="manage-sec"><!-- <a href="#"><img src="../assets/images/delete-icon.png" alt="Delete" title="Delete"/></a> -->
+                <td>
+                	<div class="manage-sec" ng-hide="printClaim"><!-- <a href="#"><img src="../assets/images/delete-icon.png" alt="Delete" title="Delete"/></a> -->
                 		<!-- commented on Jan 3, 2017 -->
                 		<%-- <c:choose>
 				    		<c:when test="${user.roleDO.name eq 'admin'}">
@@ -70,6 +71,9 @@
 				    	</c:choose> --%>
 				    	<!-- added Jan 3, 2017 -->
 				    	<a ng-click="editClaimByDealer(claimDO.claimId, claimDO.cStatus)"><img src="../assets/images/edit-pencil.png" alt="Edit" title="Edit"/></a>
+                	</div>
+                	<div class="manage-sec" ng-show="printClaim">
+				    	<a target="_blank" href="/agg/claim/report/{{claimDO.claimId}}"><img src="../assets/images/printer-icon.png" alt="Print" title="Print"/></a>
                 	</div>
                 </td>
                 

@@ -101,6 +101,15 @@ routingApp.config(['$routeProvider',
   	        		         }
   	        		      }
                       }).
+                      when('/agg/printClaims', {
+                    	  templateUrl: '../../jsp/claimsInfo.jsp',
+                    	  controller: 'ClaimsInfoController',
+                    	  resolve: {
+  	        		         claimsType: function () {
+  	        		           return 'Print';
+  	        		         }
+  	        		      }
+                      }).
                       when('/agg/fileClaim', {
                     	  templateUrl: '../../jsp/fileaClaim.jsp',
                     	  controller: 'ClaimsController'
@@ -1117,11 +1126,14 @@ routingApp.controller('ClaimsInfoController', function($scope, $http, $timeout, 
 	};*/
 	
 	$rootScope.draftClaimsFlag = false;
-	if(claimsType === 'All'){
+	if(claimsType === 'All' || claimsType === 'Print'){
+		if(claimsType === 'Print'){
+			$scope.printClaim = true;
+		}
 		$http.get("/agg/getClaimsInfo")
 		.then(function(response) {
 			showSpinner();
-			 $scope.claimDOList = response.data.data.claimDOList;
+			$scope.claimDOList = response.data.data.claimDOList;
 	        $timeout(function () {
 	        	$('#claimsTbl').DataTable();
 	        }, 300);

@@ -712,14 +712,14 @@ public class ClaimsServiceImpl implements ClaimsService {
 	}
 
 	@Override
-	public ClaimReportDO getClaimReportDetails(int id, String claimId, AccountDO accountDO) {
-		logger.debug("Inside getClaim method with id: "+id+" claimId: "+claimId);
+	public ClaimReportDO getClaimReportDetails(String claimId, AccountDO accountDO) {
+		logger.debug("Inside getClaim method with claimId: "+claimId);
 		ClaimReportDO claimReportDO = null;
 		SimpleDateFormat reportDateFormat = new SimpleDateFormat("MM/dd/yyyy");
 		SimpleDateFormat noteDateFormat = new SimpleDateFormat("dd-MMM-yyyy");
 		Locale locale = new Locale("en", "US");
 		NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
-		Claims claim = claimsDAO.findByIdAndClaimId(id, claimId);
+		Claims claim = claimsDAO.findClaimsByClaimId(claimId);
 		if(claim != null){
 			claimReportDO = new ClaimReportDO();
 			
@@ -787,7 +787,8 @@ public class ClaimsServiceImpl implements ClaimsService {
 			//claimReportDO.setQuoteId(quote.getId().getQuoteId());
 			claimReportDO.setReportedOn(reportDateFormat.format(claim.getReportDate()));
 			claimReportDO.setSerialNumber(claim.getSerial());
-			claimReportDO.setTotalAdjClaimCost(currencyFormat.format((claim.getApprovedOtherCharges1()+claim.getApprovedOtherCharges2()+claim.getTotalAdjustedPartsCost()+claim.getTotalAdjustedLaborCost())));
+			int totalAdjClaimCost = (claim.getApprovedOtherCharges1()+claim.getApprovedOtherCharges2()+claim.getTotalAdjustedPartsCost()+claim.getTotalAdjustedLaborCost());
+			claimReportDO.setTotalAdjClaimCost(currencyFormat.format(totalAdjClaimCost));
 			
 			List<Integer> claimIdList = new ArrayList<Integer>();
 			claimIdList.add(claim.getId());
@@ -859,12 +860,42 @@ public class ClaimsServiceImpl implements ClaimsService {
 				String notes = null;
 				for(ClaimNote claimNote : claimNoteList){
 					claimNoteDO = convertClaimNoteDO(claimNote);
-					notes = (claimNoteDO.getLastUpdate() != null)?noteDateFormat.format(claimNoteDO.getLastUpdate()):""
-							+" : "+claimNoteDO.getUpdatedBy()+" : "+claimNoteDO.getNotes();
+					//logger.debug("UpdatedBy: "+claimNoteDO.getUpdatedBy());
+					//logger.debug("Notes: "+claimNoteDO.getNotes());
+					notes = (claimNoteDO.getLastUpdate() != null)?noteDateFormat.format(claimNoteDO.getLastUpdate()):"";
+					notes += " : "+claimNoteDO.getUpdatedBy()+" : "+claimNoteDO.getNotes();
+					//logger.debug("notes: "+notes);
 					claimNoteDO.setNotes(notes);
 					claimNoteDOList.add(claimNoteDO);
 				}
 				claimReportDO.setClaimNoteDOList(claimNoteDOList);
+			}
+			
+			int contractDeductible = totalAdjClaimCost - new Double(contract.getDeductible()).intValue();
+			if(contractDeductible < 0){
+				contractDeductible = 0;
+			}
+			int deductibleTRA = new Double(contract.getAvailabeLol()).intValue() - contractDeductible;
+			//total Re-imbursed amount
+			int tra = 0;
+			if(deductibleTRA < 0){
+				tra = new Double(contract.getAvailabeLol()).intValue();
+			}else{
+				tra = contractDeductible;
+			}
+			
+			int customerOwes = 0;
+			if(tra == totalAdjClaimCost){
+				customerOwes = new Double(contract.getDeductible()).intValue();
+			}else{
+				customerOwes = totalAdjClaimCost - tra;
+			}
+			
+			if(tra >= 0){
+				claimReportDO.setTotalReimbursedAmount(currencyFormat.format(tra));
+			}
+			if(customerOwes >= 0){
+				claimReportDO.setTotalAmtOwnedByCustomer(currencyFormat.format(customerOwes));
 			}
 			
 			

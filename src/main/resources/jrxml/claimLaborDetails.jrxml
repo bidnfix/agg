@@ -58,26 +58,26 @@
 	</columnHeader>
 	<detail>
 		<band height="22" splitType="Stretch">
-			<textField isBlankWhenNull="true">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement x="16" y="2" width="90" height="20" uuid="950ac3d8-fb51-4c3f-8559-7558555a4b3a"/>
 				<textFieldExpression><![CDATA[$F{laborNo}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement x="245" y="2" width="70" height="20" uuid="287dc88f-ea9a-45b2-b630-43f7dde0a57a"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{laborHrs}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement x="317" y="2" width="100" height="20" uuid="bef3ffdc-25cd-42b5-ad78-9be8cdaf8cec"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{rate}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement x="419" y="2" width="113" height="20" uuid="dbd3742a-8af1-41f7-8573-593c64b1e884"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{laborTotal}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement x="108" y="2" width="135" height="20" uuid="5bf4c94b-0100-4e01-a1a1-c89a87e42c05"/>
 				<textFieldExpression><![CDATA[$F{laborDescr}]]></textFieldExpression>
 			</textField>
@@ -86,85 +86,85 @@
 	<summary>
 		<band height="133" splitType="Stretch">
 			<textField isBlankWhenNull="true">
-				<reportElement x="417" y="3" width="115" height="20" uuid="4b069328-540b-41c4-8ce2-3d22d66a41f7"/>
-				<textElement>
+				<reportElement x="452" y="3" width="80" height="20" uuid="4b069328-540b-41c4-8ce2-3d22d66a41f7"/>
+				<textElement textAlignment="Right">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{totalReqLaborCost}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="245" y="3" width="172" height="20" uuid="ab2edd46-ceaa-4c6e-9f52-f85c5455a5fe"/>
-				<textElement>
+				<reportElement x="245" y="3" width="207" height="20" uuid="ab2edd46-ceaa-4c6e-9f52-f85c5455a5fe"/>
+				<textElement textAlignment="Right">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Total Requested Labor Cost:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="417" y="25" width="115" height="20" uuid="b176ef0c-486e-444e-b243-6b8a54264803"/>
-				<textElement>
+				<reportElement x="452" y="25" width="80" height="20" uuid="b176ef0c-486e-444e-b243-6b8a54264803"/>
+				<textElement textAlignment="Right">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{totalAdjLaborCost}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="245" y="25" width="172" height="20" uuid="5cf0d2de-1236-4a90-9b1a-a3e33b09548d"/>
-				<textElement>
+				<reportElement x="245" y="25" width="207" height="20" uuid="5cf0d2de-1236-4a90-9b1a-a3e33b09548d"/>
+				<textElement textAlignment="Right">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Total Adjusted Labor Cost:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="417" y="47" width="115" height="20" uuid="1e8dfe36-7c83-451d-975a-00f13f4f12c2"/>
-				<textElement>
+				<reportElement x="452" y="47" width="80" height="20" uuid="1e8dfe36-7c83-451d-975a-00f13f4f12c2"/>
+				<textElement textAlignment="Right">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{totalReqClaimCost}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="245" y="47" width="172" height="20" uuid="2c262cf3-9599-4294-83b6-a070f7f077fc"/>
-				<textElement>
+				<reportElement x="245" y="47" width="207" height="20" uuid="2c262cf3-9599-4294-83b6-a070f7f077fc"/>
+				<textElement textAlignment="Right">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Total Requestd Claim Cost:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="245" y="69" width="172" height="20" uuid="a643a619-58c7-4e5a-9af6-164f7e643966"/>
-				<textElement>
+				<reportElement x="245" y="69" width="207" height="20" uuid="a643a619-58c7-4e5a-9af6-164f7e643966"/>
+				<textElement textAlignment="Right">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Total Adjusted Claim Cost:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="417" y="69" width="115" height="20" uuid="9d90e973-dea4-4506-bf8f-add9333f78a7"/>
-				<textElement>
+				<reportElement x="452" y="69" width="80" height="20" uuid="9d90e973-dea4-4506-bf8f-add9333f78a7"/>
+				<textElement textAlignment="Right">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{totalAdjClaimCost}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="417" y="113" width="115" height="20" uuid="5bbe080f-79af-4437-ac69-4b543935cb4c"/>
-				<textElement>
+				<reportElement x="452" y="113" width="80" height="20" uuid="5bbe080f-79af-4437-ac69-4b543935cb4c"/>
+				<textElement textAlignment="Right">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{totalAmtOwnedByCustomer}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="245" y="91" width="172" height="20" uuid="88e3bfa4-3e96-4b15-9df0-e08e60a4fc7c"/>
-				<textElement>
+				<reportElement x="245" y="91" width="207" height="20" uuid="88e3bfa4-3e96-4b15-9df0-e08e60a4fc7c"/>
+				<textElement textAlignment="Right">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Total Re-imbursed Amount:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="417" y="91" width="115" height="20" uuid="434cbdca-1a9c-4b8b-9a34-e2e39524bac7"/>
-				<textElement>
+				<reportElement x="452" y="91" width="80" height="20" uuid="434cbdca-1a9c-4b8b-9a34-e2e39524bac7"/>
+				<textElement textAlignment="Right">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{totalReimbursedAmount}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="245" y="113" width="172" height="20" uuid="4601989f-b47d-4ef1-af46-e661559cd1d5"/>
-				<textElement>
+				<reportElement x="245" y="113" width="207" height="20" uuid="4601989f-b47d-4ef1-af46-e661559cd1d5"/>
+				<textElement textAlignment="Right">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Total Amount owned by Customer:]]></text>
