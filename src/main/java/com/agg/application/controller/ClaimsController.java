@@ -123,6 +123,9 @@ public class ClaimsController extends BaseController {
 	@RequestMapping(value = "/saveClaim", method = RequestMethod.POST)
 	public @ResponseBody Result saveClaim(@ModelAttribute("data") Object data,  @RequestParam("files") List<MultipartFile> fileList, BindingResult result,
 			HttpServletRequest request, HttpServletResponse response) throws Exception{
+		
+		logger.debug("In saveClaim ");
+		
 		//uploadingdir = request.getServletContext().getRealPath("/uploads/");
 		//uploadingdir = request.getServletContext().getResource("/uploads/").getFile();
 		//logger.debug("paths: "+request.getServletContext().getResource("/uploads/"));
@@ -137,7 +140,7 @@ public class ClaimsController extends BaseController {
 		logger.debug("Directory for image upload: "+uploadingdir);
 		
 		ClaimsVO claimsVO = new GsonBuilder().setDateFormat("yyyy-MM-dd").create().fromJson(data.toString(), ClaimsVO.class);
-		logger.debug("In saveClaim ");
+		
 		if(!sessionExists(request)){
 			return new Result("failure", "Session Expired", null);
 		}else{
@@ -176,6 +179,8 @@ public class ClaimsController extends BaseController {
 			claimsDO.setTotalAdjustedLaborCost(claimsVO.getTotalAdjustedLaborCost());
 			claimsDO.setApprovedOtherCharges1(claimsVO.getApprovedOtherCharges1());
 			claimsDO.setApprovedOtherCharges2(claimsVO.getApprovedOtherCharges2());
+			logger.debug("claimsVO.getExtComments() "+claimsVO.getExtComments());
+			claimsDO.setComments(claimsVO.getExtComments());
 			
 			if(null != claimsVO.getClaimPartVOList() && !claimsVO.getClaimPartVOList().isEmpty()){
 				List<ClaimPartDO> partDO = new ArrayList<>();
@@ -411,8 +416,10 @@ public class ClaimsController extends BaseController {
 		if(!sessionExists(request)){
 			return new Result("failure", "Session Expired", null);
 		}else{
-			int dealerId = (int)getAccountDetails(request).getDealerId();
-			claimsService.updateStatus(claimPreAuthVO.getId(), Util.getClaimStatusCode(claimPreAuthVO.getcStatus()), dealerId, claimPreAuthVO.getExtComment());
+			AccountDO account = getAccountDetails(request);
+			int dealerId = (int)account.getDealerId();
+			long accountId = account.getId();
+			claimsService.updateStatus(claimPreAuthVO.getId(), Util.getClaimStatusCode(claimPreAuthVO.getcStatus()), dealerId, accountId, claimPreAuthVO.getExtComment());
 			PreAuthMail mail = new PreAuthMail();
 			Context context = new Context();
 			context.setVariable("claimNo", claimPreAuthVO.getId());
@@ -434,8 +441,10 @@ public class ClaimsController extends BaseController {
 		if(!sessionExists(request)){
 			return new Result("failure", "Session Expired", null);
 		}else{
-			int dealerId = (int)getAccountDetails(request).getDealerId();
-			claimsService.updateStatus(claimPreAuthVO.getId(), claimPreAuthVO.getcStatusValue(), dealerId, claimPreAuthVO.getExtComment());
+			AccountDO account = getAccountDetails(request);
+			int dealerId = (int)account.getDealerId();
+			long accountId = account.getId();
+			claimsService.updateStatus(claimPreAuthVO.getId(), claimPreAuthVO.getcStatusValue(), dealerId, accountId, claimPreAuthVO.getExtComment());
 			return new Result("success", null, "status updated");
 		}
 	}
@@ -546,6 +555,8 @@ public class ClaimsController extends BaseController {
 			claimsDO.setComments(vo.getExtComment());
 			claimsDO.setCheqNo(vo.getCheqNo());
 			claimsDO.setPaidDate(vo.getPaidDate());
+			claimsDO.setComments(vo.getExtComment());
+			logger.debug("vo.getExtComment() "+vo.getExtComment());
 			
 			List<ClaimFileDO> claimFileDO = new ArrayList<>();
 			for(MultipartFile uploadedFile : fileList) {

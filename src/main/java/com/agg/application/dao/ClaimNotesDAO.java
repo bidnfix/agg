@@ -8,7 +8,7 @@ import com.agg.application.entity.ClaimNote;
 
 public interface ClaimNotesDAO extends CrudRepository<ClaimNote, Integer>{
 	
-	ClaimNote findByClaimIdAndAccountId(int claimId, int accountId);
+	ClaimNote findByClaimIdAndAccountId(int claimId, long accountId);
 	
 	List<ClaimNote> findByClaimId(int claimId);
 }
