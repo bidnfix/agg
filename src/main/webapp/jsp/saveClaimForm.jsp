@@ -314,47 +314,8 @@
 								</table>
 							</div>
 					</div>
-					<!--    <div class="col-sm-12">
-		                       <div class="col-sm-6">
-		                         <div class="form-group">
-		                         <label>File</label>
-		                         <input type="file" id="">
-		                         </div>
-		                       </div>
-		                       </div>
-		                       <div class="col-sm-12">
-		                       <div class="col-sm-6">
-		                         <div class="form-group">
-		                         <label>File</label>
-		                         <input type="file" id="">
-		                         </div>
-		                       </div>
-		                       </div>
-		                       <div class="col-sm-12 marg10-bottom">
-		                       <a class="btn btn-primary btn-sm" href="#"> more</a>
-		                       </div> -->
 				</div>
 				
-				<!-- 
-				<br clear="all">
-				   <div class="col-xs-12 no-pad pad10-top" ng-show="commentUpdateBtnFlag">
-                         <span class="ag-tab-title col-xs-12 no-pad marg10-bottom">Claim Comments</span>
-                         <br clear="all">
-                        
-                         <br>
-                          <div class="col-sm-12">
-                            <div class="form-group clearfix">
-                              <span class="col-sm-3 no-pad">External Comments :</span> 
-                                <div class="col-sm-9 no-pad border">
-                                  <textarea class="form-control" style="width:100% !important;" rows="3" ng-model="claim.extComment" ng-required="extCommentFlag" ng-trim=true></textarea>
-                                </div>
-                            </div>
-                          </div>
-                        </div>
-                        -->
-                        
-                        
-                        
                 <br clear="all">
 				   <div class="col-xs-12 no-pad pad10-top">
                          <span class="ag-tab-title col-xs-12 no-pad marg10-bottom">External Comments</span>
@@ -367,12 +328,11 @@
                             </div>
                             <span class="col-sm-3 no-pad">Enter Comments :</span>
                             <div class="col-sm-9 no-pad border">
-                                  <textarea class="form-control" style="width:100% !important;" rows="3" ng-model="claim.extComment" ng-required="extCommentFlag" ng-trim=true></textarea>
+                                  <textarea class="form-control" style="width:100% !important;" rows="3" ng-model="claim.extComments"  ng-trim=true></textarea>
+                                  <!-- ng-required="extCommentFlag" removed this from above line -->
                              </div>
                           </div>
                         </div>
-                        
-                        
                         
 			</div>
 		</div>

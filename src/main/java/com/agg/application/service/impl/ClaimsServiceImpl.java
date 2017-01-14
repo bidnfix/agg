@@ -297,7 +297,8 @@ public class ClaimsServiceImpl implements ClaimsService {
 		}
 		
 		//Added to save claim notes
-		if(null != claimsDO.getComments()){
+		if(Util.isNotEmptyString(claimsDO.getComments())){
+			logger.debug("External comments - Claim creation "+claimsDO.getComments());
 				ClaimNote cNote = new ClaimNote();
 				cNote.setNotes(claimsDO.getComments());
 				cNote.setAccountId(accountDO.getId());
