@@ -716,22 +716,62 @@ public class ClaimsController extends BaseController {
 			AccountDO account = getAccountDetails(request);
 			ClaimReportDO reportDO = claimsService.getClaimReportDetails(id, claimId, account);
 			JRDataSource jrDataSource = null;
-			JRDataSource jrSubReportDataSource = null;
+			JRDataSource claimFileSubReportDataSource = null;
+			JRDataSource claimPartSubReportDataSource = null;
+			JRDataSource claimLaborSubReportDataSource = null;
+			JRDataSource claimNotesSubReportDataSource = null;
 			if(reportDO != null){
 				List<ClaimReportDO> reportDOList = new ArrayList<ClaimReportDO>();
 				reportDOList.add(reportDO);
 				jrDataSource = new JRBeanCollectionDataSource(reportDOList);
-				jrSubReportDataSource = new JRBeanCollectionDataSource(reportDO.getClaimFileDOList());
+				
+				if(reportDO.getClaimFileDOList() != null && !reportDO.getClaimFileDOList().isEmpty()){
+					claimFileSubReportDataSource = new JRBeanCollectionDataSource(reportDO.getClaimFileDOList());
+				}else{
+					claimFileSubReportDataSource = new JREmptyDataSource();
+				}
+				
+				if(reportDO.getClaimPartDOList() != null && !reportDO.getClaimPartDOList().isEmpty()){
+					claimPartSubReportDataSource = new JRBeanCollectionDataSource(reportDO.getClaimPartDOList());
+				}else{
+					claimPartSubReportDataSource = new JREmptyDataSource();
+				}
+				
+				if(reportDO.getClaimLaborDOList() != null && !reportDO.getClaimLaborDOList().isEmpty()){
+					claimLaborSubReportDataSource = new JRBeanCollectionDataSource(reportDO.getClaimLaborDOList());
+				}else{
+					claimLaborSubReportDataSource = new JREmptyDataSource();
+				}
+				
+				if(reportDO.getClaimNoteDOList() != null && !reportDO.getClaimNoteDOList().isEmpty()){
+					claimNotesSubReportDataSource = new JRBeanCollectionDataSource(reportDO.getClaimNoteDOList());
+				}else{
+					claimNotesSubReportDataSource = new JREmptyDataSource();
+				}
 			}else{
 				jrDataSource = new JREmptyDataSource();
-				jrSubReportDataSource = new JREmptyDataSource();
+				claimFileSubReportDataSource = new JREmptyDataSource();
+				claimPartSubReportDataSource = new JREmptyDataSource();
+				claimLaborSubReportDataSource = new JREmptyDataSource();
+				claimNotesSubReportDataSource = new JREmptyDataSource();
 			}
 			
 			modelMap.put("datasource", jrDataSource);
-			modelMap.put("subReportData", jrSubReportDataSource);
+			modelMap.put("claimFileList", claimFileSubReportDataSource);
+			modelMap.put("claimPartList", claimPartSubReportDataSource);
+			modelMap.put("claimLaborList", claimLaborSubReportDataSource);
+			modelMap.put("claimExtCommentList", claimNotesSubReportDataSource);
 			modelMap.put("format", "pdf");
 			modelMap.put("SUBREPORT_DIR", System.getProperty("user.dir")+"/src/main/resources/jrxml/");
 			modelMap.put("imagePath", appUrl+"/assets/images/logo.png");
+			modelMap.put("totalReqPartsCost", reportDO.getTotalReqPartsCost());
+			modelMap.put("totalAdjPartsCost", reportDO.getTotalAdjPartsCost());
+			modelMap.put("totalReqLaborCost", reportDO.getTotalReqLaborCost());
+			modelMap.put("totalAdjLaborCost", reportDO.getTotalAdjLaborCost());
+			modelMap.put("totalReqClaimCost", reportDO.getTotalReqClaimCost());
+			modelMap.put("totalAdjClaimCost", reportDO.getTotalAdjClaimCost());
+			modelMap.put("totalReimbursedAmount", reportDO.getTotalReimbursedAmount());
+			modelMap.put("totalAmtOwnedByCustomer", reportDO.getTotalAmtOwnedByCustomer());
 			
 			modelAndView = new ModelAndView("rpt_claimDetails", modelMap);
 		}
