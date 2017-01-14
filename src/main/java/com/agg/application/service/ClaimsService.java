@@ -18,7 +18,7 @@ public interface ClaimsService {
 	Claims saveClaim(ClaimsDO claimsDO, AccountDO accountDO);
 	List<ClaimsDO> getClaimsByCStatus(byte cStatus, boolean contractInfo, int dealerId);
 	List<ClaimsDO> getClaimsByCStatus(byte cStatus, int dealerId, boolean contractInfo);
-	void updateStatus(final int id, final byte status, int dealerId, String extComment);
+	void updateStatus(final int id, final byte status, int dealerId, long accountId, String extComment);
 	int updateClaimAdjudicate(ClaimsDO claim, AccountDO accountDO);
 	ClaimsDO getClaim(int claimId, int dealerId);
 	int getContractsCount(String contractId);

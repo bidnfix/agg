@@ -411,8 +411,10 @@ public class ClaimsController extends BaseController {
 		if(!sessionExists(request)){
 			return new Result("failure", "Session Expired", null);
 		}else{
-			int dealerId = (int)getAccountDetails(request).getDealerId();
-			claimsService.updateStatus(claimPreAuthVO.getId(), Util.getClaimStatusCode(claimPreAuthVO.getcStatus()), dealerId, claimPreAuthVO.getExtComment());
+			AccountDO account = getAccountDetails(request);
+			int dealerId = (int)account.getDealerId();
+			long accountId = account.getId();
+			claimsService.updateStatus(claimPreAuthVO.getId(), Util.getClaimStatusCode(claimPreAuthVO.getcStatus()), dealerId, accountId, claimPreAuthVO.getExtComment());
 			PreAuthMail mail = new PreAuthMail();
 			Context context = new Context();
 			context.setVariable("claimNo", claimPreAuthVO.getId());
@@ -434,8 +436,10 @@ public class ClaimsController extends BaseController {
 		if(!sessionExists(request)){
 			return new Result("failure", "Session Expired", null);
 		}else{
-			int dealerId = (int)getAccountDetails(request).getDealerId();
-			claimsService.updateStatus(claimPreAuthVO.getId(), claimPreAuthVO.getcStatusValue(), dealerId, claimPreAuthVO.getExtComment());
+			AccountDO account = getAccountDetails(request);
+			int dealerId = (int)account.getDealerId();
+			long accountId = account.getId();
+			claimsService.updateStatus(claimPreAuthVO.getId(), claimPreAuthVO.getcStatusValue(), dealerId, accountId, claimPreAuthVO.getExtComment());
 			return new Result("success", null, "status updated");
 		}
 	}
@@ -546,6 +550,8 @@ public class ClaimsController extends BaseController {
 			claimsDO.setComments(vo.getExtComment());
 			claimsDO.setCheqNo(vo.getCheqNo());
 			claimsDO.setPaidDate(vo.getPaidDate());
+			claimsDO.setComments(vo.getExtComment());
+			logger.debug("vo.getExtComment() "+vo.getExtComment());
 			
 			List<ClaimFileDO> claimFileDO = new ArrayList<>();
 			for(MultipartFile uploadedFile : fileList) {
