@@ -318,7 +318,7 @@ routingApp.controller('AddUserController', function($scope, $http) {
     });
 });
 
-routingApp.controller('HomeController', function($scope, $http, $timeout) {
+routingApp.controller('HomeController', function($scope, $http, $timeout, $window) {
 	$scope.contractsFlag = true;
 	$scope.quotesFlag = true;
 	$scope.claimsFlag = true;
@@ -462,6 +462,11 @@ routingApp.controller('HomeController', function($scope, $http, $timeout) {
 	        }, 300);
 	    });
 	}
+	
+	$scope.editClaimByDealer = function(claimId, status){
+		$window.location = '#/agg/fileClaim/' + claimId;
+		
+	};
 	
 });
 
