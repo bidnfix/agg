@@ -37,6 +37,25 @@ public class UserDO {
 	private RoleDO roleDO;
 	
 	private int status;
+	
+	private String roleName;
+	
+	private String dealerName;
+	
+	public UserDO(){
+		
+	}
+	
+	public UserDO(long id, String userName, String firstName, String lastName, String accountType, String rTitle, String dealerName, int status){
+		this.id = id;
+		this.userName = userName;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.userType = accountType;
+		this.roleName = rTitle;
+		this.dealerName = dealerName;
+		this.status = status;
+	}
 
 	/**
 	 * @return the dealerDO
@@ -288,6 +307,34 @@ public class UserDO {
 	 */
 	public void setStatus(int status) {
 		this.status = status;
+	}
+
+	/**
+	 * @return the roleName
+	 */
+	public String getRoleName() {
+		return roleName;
+	}
+
+	/**
+	 * @param roleName the roleName to set
+	 */
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
+	}
+
+	/**
+	 * @return the dealerName
+	 */
+	public String getDealerName() {
+		return dealerName;
+	}
+
+	/**
+	 * @param dealerName the dealerName to set
+	 */
+	public void setDealerName(String dealerName) {
+		this.dealerName = dealerName;
 	}
 	
 }

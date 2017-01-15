@@ -48,8 +48,8 @@
             	<td>{{user.firstName}}</td>
                 <td>{{user.lastName}}</td>
                 <td>{{user.userType}}</td>
-                <td>{{user.roleDO.name}}</td>
-                <td>{{user.dealerDO.name}}</td>
+                <td>{{user.roleName}}</td>
+                <td>{{user.dealerName}}</td>
                 <td>{{(user.status === 0)?"Terminated":(user.status === 1)?"Active":"Pending"}}</td>
                 <td>
                 	<div class="manage-sec"><!-- <a href="#"><img src="../assets/images/delete-icon.png" alt="Delete" title="Delete"/></a> -->

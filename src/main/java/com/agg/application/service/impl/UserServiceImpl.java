@@ -21,7 +21,6 @@ import com.agg.application.model.RoleDO;
 import com.agg.application.model.UserDO;
 import com.agg.application.service.UserService;
 import com.agg.application.utils.AggConstants;
-import com.agg.application.utils.Util;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -39,18 +38,25 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<UserDO> getUsers(AccountDO accountDetails) {
 		logger.debug("In getUsers"); ;
-		List<Account> accountList = null;
+		//List<Account> accountList = null;
+		List<UserDO> userDOList = null;
 		if(accountDetails.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)){
-			accountList = Util.toList(accountDAO.findAll());
+			//accountList = Util.toList(accountDAO.findAll());
+			userDOList = accountDAO.findAllUsers();
 		}else{
 			Account account = accountDAO.findOne(accountDetails.getId());
 			if(account != null){
-				accountList = Util.toList(accountDAO.findByDealerId(account.getDealer().getId()));
+				//accountList = Util.toList(accountDAO.findByDealerId(account.getDealer().getId()));
+				userDOList = accountDAO.findAllUsers(account.getDealer().getId());
 			}
 		}
 		
+		//return getUserDOList(accountList);
+		if(userDOList != null){
+			logger.debug("userDOList size: "+userDOList.size());
+		}
+		return userDOList;
 		
-		return getUserDOList(accountList);
 	}
 	
 	public List<AccountDO> getAdminDetails(){
@@ -95,6 +101,7 @@ public class UserServiceImpl implements UserService {
 			roleDO.setId(role.getRId());
 			roleDO.setName(role.getRTitle());
 			userDO.setRoleDO(roleDO);
+			userDO.setRoleName(role.getRTitle());
 			
 			userDO.setStatus(account.getStatus());
 			userDO.setUserType(account.getAccountType().getAccountType());
@@ -106,6 +113,7 @@ public class UserServiceImpl implements UserService {
 				dealerDO.setId(dealer.getId());
 				dealerDO.setCode(dealer.getCode());
 				userDO.setDealerDO(dealerDO);
+				userDO.setDealerName(dealer.getName());
 			}
 		}
 		
