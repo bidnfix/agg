@@ -56,6 +56,16 @@ public class UserDO {
 		this.dealerName = dealerName;
 		this.status = status;
 	}
+	
+	public UserDO(long id, String userName, String firstName, String lastName, String accountType, String rTitle, int status){
+		this.id = id;
+		this.userName = userName;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.userType = accountType;
+		this.roleName = rTitle;
+		this.status = status;
+	}
 
 	/**
 	 * @return the dealerDO

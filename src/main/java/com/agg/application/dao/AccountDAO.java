@@ -26,10 +26,15 @@ public interface AccountDAO extends CrudRepository<Account, Long>{
 	@Query("select new com.agg.application.model.UserDO(account.id, account.userName, account.firstName, "
 			+ "account.lastName, account.accountType.accountType, account.role.rTitle, account.dealer.name, account.status) "
 			+ "from Account account")
-	List<UserDO> findAllUsers();
+	List<UserDO> findAllDealerUsers();
+	
+	@Query("select new com.agg.application.model.UserDO(account.id, account.userName, account.firstName, "
+			+ "account.lastName, account.accountType.accountType, account.role.rTitle, account.status) "
+			+ "from Account account where account.role.rTitle = :rTitle")
+	List<UserDO> findAllAdminUsers(@Param("rTitle") String rTitle);
 	
 	@Query("select new com.agg.application.model.UserDO(account.id, account.userName, account.firstName, "
 			+ "account.lastName, account.accountType.accountType, account.role.rTitle, account.dealer.name, account.status) "
 			+ "from Account account where account.dealer.id = :dealerId")
-	List<UserDO> findAllUsers(@Param("dealerId") long dealerId);
+	List<UserDO> findAllDealerUsers(@Param("dealerId") long dealerId);
 }

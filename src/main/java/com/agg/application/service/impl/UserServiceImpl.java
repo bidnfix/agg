@@ -40,14 +40,19 @@ public class UserServiceImpl implements UserService {
 		logger.debug("In getUsers"); ;
 		//List<Account> accountList = null;
 		List<UserDO> userDOList = null;
+		List<UserDO> dealerUserDOList = null;
 		if(accountDetails.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)){
 			//accountList = Util.toList(accountDAO.findAll());
-			userDOList = accountDAO.findAllUsers();
+			userDOList = accountDAO.findAllAdminUsers(AggConstants.ACCOUNT_TYPE_ADMIN);
+			dealerUserDOList = accountDAO.findAllDealerUsers();
+			if( dealerUserDOList != null){
+				userDOList.addAll(dealerUserDOList);
+			}
 		}else{
 			Account account = accountDAO.findOne(accountDetails.getId());
 			if(account != null){
 				//accountList = Util.toList(accountDAO.findByDealerId(account.getDealer().getId()));
-				userDOList = accountDAO.findAllUsers(account.getDealer().getId());
+				userDOList = accountDAO.findAllDealerUsers(account.getDealer().getId());
 			}
 		}
 		
