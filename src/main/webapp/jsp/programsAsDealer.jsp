@@ -6,7 +6,7 @@
 			<div class="col-md-6 col-sm-12">
 				<div class="sec-title">
 
-					<h3 class="wow animated bounceInLeft">Vew as Dealer</h3>
+					<h3 class="wow animated bounceInLeft">Enroll a Machine</h3>
 				</div>
 			</div>
 
