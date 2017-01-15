@@ -40,8 +40,8 @@
  
         <tbody>
             <tr ng-repeat="machine in machineInfoList">
-            	<td>{{machine.manufacturerDO.name}}</td>
-                <td>{{machine.machineTypeDO.name}}</td>
+            	<td>{{machine.manfName}}</td>
+                <td>{{machine.machineType}}</td>
                 <td>{{machine.model}}</td>
                 <td>{{machine.enginePower}}</td>
                 <td>{{machine.groupId}}</td>

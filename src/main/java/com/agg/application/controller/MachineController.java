@@ -1,6 +1,5 @@
 package com.agg.application.controller;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -41,7 +40,7 @@ public class MachineController extends BaseController {
 	@RequestMapping(value = "/machineInfo", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
 	public @ResponseBody Result machineInfo(ModelMap model, HttpServletResponse response) {
 		logger.info("Inside machineInfo()");
-		List<MachineDO> machineInfoList = machineService.getmachineInfo();
+		List<MachineDO> machineInfoList = machineService.getMachineInfo();
 		model.put("machineInfoList", machineInfoList);
 		return new Result("success", null, model);	
 	}

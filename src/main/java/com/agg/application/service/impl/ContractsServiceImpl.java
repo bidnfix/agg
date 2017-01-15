@@ -84,13 +84,17 @@ public class ContractsServiceImpl implements ContractsService{
 	 */
 	@Override
 	public List<ContractDO> getAllContracts(AccountDO accountDO) {
-		List<Contracts> contracts = null;
+		//List<Contracts> contracts = null;
+		List<ContractDO> contractDOList = null;
 		if(accountDO.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)){
-			contracts = Util.toList(contractDAO.findAll());
+			//contracts = Util.toList(contractDAO.findAll());
+			contractDOList = contractDAO.findAllContracts();
 		}else{
-			contracts = Util.toList(contractDAO.findByDealerId(accountDO.getDealerId()));
+			//contracts = Util.toList(contractDAO.findByDealerId(accountDO.getDealerId()));
+			contractDOList = contractDAO.findAllContracts(accountDO.getDealerId());
 		}
-		return formatEntityToDO(contracts);
+		//return formatEntityToDO(contracts);
+		return contractDOList;
 	}
 	
 	/* (non-Javadoc)

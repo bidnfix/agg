@@ -1,6 +1,5 @@
 package com.agg.application.service;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import com.agg.application.model.GroupDO;
@@ -12,7 +11,7 @@ import com.agg.application.model.ManufacturerDO;
 
 public interface MachineService {
 
-	List<MachineDO> getmachineInfo();
+	List<MachineDO> getMachineInfo();
 	
 	List<ManufacturerDO> getManufacturerDetails();
 	

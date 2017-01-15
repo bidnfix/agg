@@ -31,6 +31,21 @@ public class MachineInfoDO {
 		
 		private double lolToDisplay;
 		
+		private String manfName;
+		
+		public MachineInfoDO(){
+			
+		}
+		
+		public MachineInfoDO(long machineId, String manfName, String machineType, String model, double ePower, long groupId){
+			this.machineId = machineId;
+			this.manfName = manfName;
+			this.machineType = machineType;
+			this.model = model;
+			this.ePower = ePower;
+			this.groupId = new Long(groupId).intValue();
+		}
+		
 		public String getMachineType() {
 			return machineType;
 		}
@@ -147,6 +162,20 @@ public class MachineInfoDO {
 
 		public void setLolToDisplay(double lolToDisplay) {
 			this.lolToDisplay = lolToDisplay;
+		}
+
+		/**
+		 * @return the manfName
+		 */
+		public String getManfName() {
+			return manfName;
+		}
+
+		/**
+		 * @param manfName the manfName to set
+		 */
+		public void setManfName(String manfName) {
+			this.manfName = manfName;
 		}
 		
 	}

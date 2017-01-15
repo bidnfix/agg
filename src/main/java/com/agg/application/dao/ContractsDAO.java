@@ -11,6 +11,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Component;
 
 import com.agg.application.entity.Contracts;
+import com.agg.application.model.ContractDO;
 
 /**
  * @author htamada
@@ -67,4 +68,14 @@ public interface ContractsDAO extends CrudRepository<Contracts, Long>{
 	
 	@Query("SELECT COUNT(*) AS contractsCount FROM Contracts c WHERE c.contractId = :contractId")
 	int getContractsCount(@Param("contractId") String contractId);
+	
+	@Query("select new com.agg.application.model.ContractDO(contract.id, contract.contractId, contract.machineSerialNo, contract.lol, contract.inceptionDate, "
+			+ "contract.expirationDate, contract.expirationUsageHours, contract.status) from Contracts contract")
+	public List<ContractDO> findAllContracts();
+	
+	@Query("select new com.agg.application.model.ContractDO(contract.id, contract.contractId, contract.machineSerialNo, contract.lol, contract.inceptionDate, "
+			+ "contract.expirationDate, contract.expirationUsageHours, contract.status) "
+			+ "from Contracts contract, Quote quote "
+			+ "where contract.quoteId=quote.id.id and quote.dealer.id = :dealerId")
+	public List<ContractDO> findAllContracts(@Param("dealerId") long dealerId);
 }

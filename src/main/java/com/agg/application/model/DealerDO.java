@@ -46,6 +46,23 @@ public class DealerDO {
 	
 	private DealerDO parentDealerDO;
 	
+	public DealerDO(){
+		
+	}
+	
+	public DealerDO(long id, long code, String name, String state, String marketEmail, String invoiceEmail, String phone, long parentCode, String rTitle, int status){
+		this.id = id;
+		this.code = code;
+		this.name = name;
+		this.state = state;
+		this.marketEmail = marketEmail;
+		this.invoiceEmail = invoiceEmail;
+		this.phone = phone;
+		this.parentCode = parentCode;
+		this.roleName = rTitle;
+		this.status = status;
+	}
+	
 	/**
 	 * @return the id
 	 */

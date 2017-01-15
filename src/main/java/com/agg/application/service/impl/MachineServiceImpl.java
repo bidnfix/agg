@@ -1,6 +1,5 @@
 package com.agg.application.service.impl;
 
-import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
@@ -57,9 +56,10 @@ public class MachineServiceImpl implements MachineService {
 	
 	
 	@Override
-	public List<MachineDO> getmachineInfo() {
+	public List<MachineDO> getMachineInfo() {
 		logger.debug("Inside getmachineInfo()");
-		List<MachineInfo>  machineInfoList =  Lists.newArrayList(machineInfoDAO.findAll());
+		List<MachineDO> machineDOList = machineInfoDAO.findAllMachineInfos();
+		/*List<MachineInfo>  machineInfoList =  Lists.newArrayList(machineInfoDAO.findAll());
 		
 		List<MachineDO> machineDOList = null;
 		if(!machineInfoList.isEmpty()){
@@ -109,6 +109,7 @@ public class MachineServiceImpl implements MachineService {
 			}
 		}
 		//logger.debug(""+machineDOList.size());
+		 */		
 		return machineDOList;
 	}
 	
@@ -137,6 +138,8 @@ public class MachineServiceImpl implements MachineService {
 			machineTypeDO.setId((int)machineType.getMachineTypeId());
 			machineTypeDO.setName(machineType.getMachineType());
 			machineDO.setMachineTypeDO(machineTypeDO);
+			machineDO.setMachineType(machineType.getMachineType());
+			machineDO.setManfName(manufacturer.getManfName());
 			
 			
 			//machineDO.setMachineType(machine.getMachineType().getMachineType());
