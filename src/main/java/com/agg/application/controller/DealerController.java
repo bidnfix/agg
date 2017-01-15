@@ -25,6 +25,7 @@ import com.agg.application.model.Result;
 import com.agg.application.model.RoleDO;
 import com.agg.application.model.UserDO;
 import com.agg.application.service.DealerService;
+import com.agg.application.utils.AggConstants;
 
 @RestController
 @RequestMapping("/agg")
@@ -146,7 +147,7 @@ public class DealerController extends BaseController {
 		if (!sessionExists(request)){
 			opResult = new Result("failure", "Invalid Login", null);
 		}else{
-			List<DealerDO> dealerDOList = dealerService.getDealers();
+			List<DealerDO> dealerDOList = dealerService.findAllDealers(AggConstants.DEALER_ADMIN);
 			model.addAttribute("dealerDOList", dealerDOList);
 			opResult = new Result("success", "Dealer Info", model);
 		}

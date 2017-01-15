@@ -10,7 +10,7 @@
 
 	<div class="modal-body">
 		<form class="form-horizontal" role="form" ng-submit="editSubmitMachine()">
-			<h3>Edit Machine</h3>
+			<!-- <h3>Edit Machine</h3> -->
 			<div class="form-group">
 				<label for="manufacturer" class="col-sm-3 control-label">Manufacturer</label>
 				<div class="col-sm-9">

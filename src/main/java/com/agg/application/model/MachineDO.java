@@ -18,6 +18,22 @@ public class MachineDO {
 	
 	private long groupId;
 	
+	private String manfName;
+	
+	private String machineType;
+	
+	public MachineDO(){
+		
+	}
+	
+	public MachineDO(long machineId, String manfName, String machineType, String model, double ePower, long groupId){
+		this.machineId = machineId;
+		this.manfName = manfName;
+		this.machineType = machineType;
+		this.model = model;
+		this.enginePower = ePower;
+		this.groupId = new Long(groupId).intValue();
+	}
 	
 
 	public long getMachineId() {
@@ -82,6 +98,34 @@ public class MachineDO {
 
 	public void setGroupId(long groupId) {
 		this.groupId = groupId;
+	}
+
+	/**
+	 * @return the manfName
+	 */
+	public String getManfName() {
+		return manfName;
+	}
+
+	/**
+	 * @param manfName the manfName to set
+	 */
+	public void setManfName(String manfName) {
+		this.manfName = manfName;
+	}
+
+	/**
+	 * @return the machineType
+	 */
+	public String getMachineType() {
+		return machineType;
+	}
+
+	/**
+	 * @param machineType the machineType to set
+	 */
+	public void setMachineType(String machineType) {
+		this.machineType = machineType;
 	}
 	
 }

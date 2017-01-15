@@ -41,8 +41,6 @@ public class MachineInfo implements Serializable {
 	@Column(name="e_power")
 	private double ePower;
 
-	
-
 	@Column(name="last_update")
 	private Timestamp lastUpdate;
 

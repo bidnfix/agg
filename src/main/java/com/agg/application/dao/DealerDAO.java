@@ -4,9 +4,11 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Component;
 
 import com.agg.application.entity.Dealer;
+import com.agg.application.model.DealerDO;
 
 @Component
 public interface DealerDAO extends CrudRepository<Dealer, Long>{
@@ -23,5 +25,11 @@ public interface DealerDAO extends CrudRepository<Dealer, Long>{
 	public long countByStatus(int status);
 
 	//public List<Dealer> findByIdAndStatus(long id, int active);
+	
+	@Query("select new com.agg.application.model.DealerDO(dealer.id, dealer.code, dealer.name, dealer.state, "
+			+ "dealer.marketEmail, dealer.invoiceEmail, dealer.phone, dealer.parentCode, role.rTitle, dealer.status) "
+			+ "from Dealer dealer, Account account, Role role "
+			+ "where dealer.id = account.dealer.id and account.role.rTitle = :roleTitle")
+	public List<DealerDO> findAllDealers(@Param("roleTitle")String roleTitle);
 
 }

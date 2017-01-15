@@ -704,5 +704,11 @@ public class DealerServiceImpl implements DealerService {
 		return cond;
 	}
 
+	@Override
+	public List<DealerDO> findAllDealers(String dealerType) {
+		logger.info("inside findAllDealers method with dealerType: "+dealerType);
+		return dealerDAO.findAllDealers(dealerType);
+	}
+
 }
 

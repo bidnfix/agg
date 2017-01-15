@@ -35,6 +35,18 @@ public class ContractDO {
 	private int expirationUsageHours;
 	private String comments;
 	private Date lastUpdatedDate;
+	
+	public ContractDO(long id, String contractId, String machineSerialNo, double lol, Date inceptionDate, Date expirationDate, int expirationUsageHours, int status){
+		this.id = id;
+		this.contractId = contractId;
+		this.machineSerialNo = machineSerialNo;
+		this.lol = lol;
+		this.inceptionDate = inceptionDate;
+		this.expirationDate = expirationDate;
+		this.expirationUsageHours = expirationUsageHours;
+		this.status = status;
+	}
+	
 	/**
 	 * @return the id
 	 */
