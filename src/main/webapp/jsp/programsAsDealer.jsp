@@ -5,7 +5,6 @@
 		<header class="page-header">
 			<div class="col-md-6 col-sm-12">
 				<div class="sec-title">
-
 					<h3 class="wow animated bounceInLeft">Enroll a Machine</h3>
 				</div>
 			</div>
