@@ -44,7 +44,7 @@ public class AggConstants {
 	
 	public static final byte B_ACTIVE_CONTRACT = 1;
 	
-	public static final byte B_INACTIVE_CONTRACT = 0;
+	public static final byte B_INACTIVE_CONTRACT = 2;
 	
 	public static final String MACHINE_STATUS_USED = "Used";
 	

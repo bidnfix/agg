@@ -14,6 +14,8 @@ public interface ProgramDAO extends CrudRepository<Sprogram, Long>{
 
 	public List<Sprogram> findByDealerId(long id);
 	
+	public List<Sprogram> findByDealerIdAndPrIsActive(long id, byte isActive);
+	
 	@Query("SELECT program FROM Sprogram program WHERE program.dealer.id IN (:dealerId, :parentDealerId)")
 	public List<Sprogram> findByDealerIds(@Param("dealerId") long dealerId, @Param("parentDealerId") long parentDealerId);
 

@@ -114,7 +114,7 @@ public class ProgramServiceImpl implements ProgramService {
 				if(dealer != null){
 					if(dealer.getCode() == dealer.getParentCode()){
 						//fetching dealer program details.
-						programList = programDAO.findByDealerId(dealer.getId());
+						programList = programDAO.findByDealerIdAndPrIsActive(dealer.getId(), (byte)1);
 					}else{
 						Dealer parentDealer = dealerDAO.findByCode(dealer.getParentCode());
 						if(parentDealer != null){

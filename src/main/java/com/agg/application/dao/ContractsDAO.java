@@ -43,10 +43,10 @@ public interface ContractsDAO extends CrudRepository<Contracts, Long>{
 	@Query("SELECT COUNT(*) FROM Contracts c, Quote q WHERE c.status= 1 and  c.quoteId = q.id.id and  q.dealer.id = :dealerId")
 	public int countActiveContractByDealer(@Param("dealerId") long dealerId);
 	
-	@Query("SELECT COUNT(*) FROM Contracts c WHERE c.status= 0")
+	@Query("SELECT COUNT(*) FROM Contracts c WHERE c.status= 2")
 	public int countByInactive();
 	
-	@Query("SELECT COUNT(*) FROM Contracts c, Quote q WHERE c.status= 0 and  c.quoteId = q.id.id and  q.dealer.id = :dealerId")
+	@Query("SELECT COUNT(*) FROM Contracts c, Quote q WHERE c.status= 2 and  c.quoteId = q.id.id and  q.dealer.id = :dealerId")
 	public int countInActiveContractByDealer(@Param("dealerId") long dealerId);
 	
 	/*@Query("SELECT COUNT(*) FROM Contracts c WHERE c.status= :status and c.dealer.id = :dealerId")
@@ -55,13 +55,13 @@ public interface ContractsDAO extends CrudRepository<Contracts, Long>{
 	@Query("SELECT c FROM Contracts c WHERE c.status = 1")
 	List<Contracts> findActive();
 	
-	@Query("SELECT c FROM Contracts c WHERE c.status = 0")
+	@Query("SELECT c FROM Contracts c WHERE c.status = 2")
 	List<Contracts> findInactive();
 	
-	@Query("SELECT c FROM Contracts c, Quote q WHERE c.quoteId = q.id.id and  q.dealer.id = :dealerId")
+	@Query("SELECT c FROM Contracts c, Quote q WHERE c.quoteId = q.id.id and c.status = 1 and  q.dealer.id = :dealerId")
 	List<Contracts> findActiveByDealerId(@Param("dealerId") long dealerId);
 	
-	@Query("SELECT c FROM Contracts c, Quote q WHERE c.quoteId = q.id.id and  q.dealer.id = :dealerId")
+	@Query("SELECT c FROM Contracts c, Quote q WHERE c.quoteId = q.id.id and c.status = 2 and  q.dealer.id = :dealerId")
 	List<Contracts> findInactiveByDealerId(@Param("dealerId") long dealerId);
 	
 	List<Contracts> findByIdAndContractId(long id, String contractId);

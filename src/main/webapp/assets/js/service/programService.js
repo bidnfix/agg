@@ -54,7 +54,7 @@ routingApp.factory('programService', function($http, $q, $window) {
 							function(response) {
 								alert(response.data.status);
 								if (response.data.status == 'success') {
-									$window.location = '#/agg/programs';
+									$window.location = '#/agg/quotes';
 								} else {
 									alert('Error in adding program: '+response.data.errMessage)
 									//$('#errMsg').html(response.data.errMessage);

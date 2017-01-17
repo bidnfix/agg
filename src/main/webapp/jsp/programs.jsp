@@ -25,6 +25,7 @@
                 <th>Dealer</th>
                 <c:if test="${user.roleName eq 'admin'}">
                 	<th>Tasks</th>
+                	<th>Status</th>
                 </c:if>
             </tr>
         </thead>
@@ -51,6 +52,7 @@
 	                		<img src="../assets/images/edit-pencil.png" alt="Edit" title="Edit"/></a>
 	                	</div>
 	                </td>
+	                <td>{{(program.isActive === 1)?"Active":"In-Active"}}</td>
                 </c:if>
             </tr>
         </tbody>
