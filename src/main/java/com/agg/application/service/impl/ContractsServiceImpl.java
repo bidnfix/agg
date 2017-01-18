@@ -137,7 +137,7 @@ public class ContractsServiceImpl implements ContractsService{
 				manufacturerDO.setId(quote.getManufacturer().getManfId());
 				manufacturerDO.setName(manf.getManfName());
 				contractDO.setManufacturerDO(manufacturerDO);
-				contractDO.setMachineModel(quote.getMachineModel());
+				contractDO.setMachineModel(quote.getMachineInfo().getModel());
 			}
 			
 			contractsDOList.add(contractDO);

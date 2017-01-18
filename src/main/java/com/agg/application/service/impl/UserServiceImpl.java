@@ -98,6 +98,7 @@ public class UserServiceImpl implements UserService {
 			userDO = new UserDO();
 			userDO.setId(account.getId());
 			userDO.setUserName(account.getUserName());
+			userDO.setPassword(account.getPassword());
 			userDO.setFirstName(account.getFirstName());
 			userDO.setLastName(account.getLastName());
 			
@@ -178,6 +179,10 @@ public class UserServiceImpl implements UserService {
 		account.setLastName(userDO.getLastName());
 		account.setUpdatedDate(new Date());
 		account.setUpdatedBy(accountDetails.getUsername());
+		if(userDO.getPassword() != null && !userDO.getPassword().trim().isEmpty() && !account.getPassword().equals(userDO.getPassword())){
+			account.setPassword(userDO.getPassword());
+			logger.debug("password changed");
+		}
 		Role role = roleDAO.findOne(userDO.getRoleDO().getId());
 		account.setRole(role);
 		

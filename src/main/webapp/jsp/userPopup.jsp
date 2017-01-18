@@ -41,12 +41,12 @@
 					<input type="text" id="userName" name="userName" ng-model="user.userName" placeholder="User Name" class="form-control" readonly="readonly">
 				</div>
 			</div>
-			<!-- <div class="form-group">
+			<div class="form-group">
 				<label for="password" class="col-sm-3 control-label">Password</label>
 				<div class="col-sm-9">
-					<input type="text" id="password" name="password" ng-model="user.password" placeholder="Password" class="form-control" required="required">
+					<input type="password" id="password" name="password" ng-model="user.password" placeholder="Password" class="form-control" required="required">
 				</div>
-			</div> -->
+			</div>
 			<div class="form-group">
 				<label for="firstName" class="col-sm-3 control-label">First Name</label>
 				<div class="col-sm-9">

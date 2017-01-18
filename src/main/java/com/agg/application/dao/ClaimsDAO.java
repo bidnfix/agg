@@ -25,8 +25,8 @@ public interface ClaimsDAO extends CrudRepository<Claims, Integer> {
 	@Query("UPDATE Claims c SET c.cStatus = :cStatus WHERE c.id = :id ")
 	void updateStatus(@Param("id") int id, @Param("cStatus") byte cStatus);
 	
-	@Query("select new com.agg.application.model.ClaimsDO(claims.claimId, cus.name, dealer.name, claims.serial, quotes.manfName, "
-			+ "quotes.machineModel, claims.cStatus) from "
+	@Query("select new com.agg.application.model.ClaimsDO(claims.claimId, cus.name, dealer.name, claims.serial, quotes.manufacturer.manfName, "
+			+ "quotes.machineInfo.model, claims.cStatus) from "
 			+ "Claims claims, Contracts contracts, Quote quotes, CustomerInfo cus, Dealer dealer "
 			+ "where claims.contractId = contracts.contractId "
 			+ "and contracts.quoteId = quotes.id.id "
@@ -35,8 +35,8 @@ public interface ClaimsDAO extends CrudRepository<Claims, Integer> {
 			+ "and claims.dealerId = dealer.id")
 	List<ClaimsDO> findClaimsInfo(@Param("dealerId") int dealerId);
 	
-	@Query("select new com.agg.application.model.ClaimsDO(claims.claimId, cus.name, dealer.name, claims.serial, quotes.manfName, "
-			+ "quotes.machineModel, claims.cStatus) from "
+	@Query("select new com.agg.application.model.ClaimsDO(claims.claimId, cus.name, dealer.name, claims.serial, quotes.manufacturer.manfName, "
+			+ "quotes.machineInfo.model, claims.cStatus) from "
 			+ "Claims claims, Contracts contracts, Quote quotes, CustomerInfo cus, Dealer dealer "
 			+ "where claims.contractId = contracts.contractId "
 			+ "and contracts.quoteId = quotes.id.id "
@@ -44,8 +44,8 @@ public interface ClaimsDAO extends CrudRepository<Claims, Integer> {
 			+ "and claims.dealerId = dealer.id")
 	List<ClaimsDO> findClaimsInfo();
 	
-	@Query("select new com.agg.application.model.ClaimsDO(claims.claimId, cus.name, dealer.name, claims.serial, quotes.manfName, "
-			+ "quotes.machineModel, claims.cStatus) from "
+	@Query("select new com.agg.application.model.ClaimsDO(claims.claimId, cus.name, dealer.name, claims.serial, quotes.manufacturer.manfName, "
+			+ "quotes.machineInfo.model, claims.cStatus) from "
 			+ "Claims claims, Contracts contracts, Quote quotes, CustomerInfo cus, Dealer dealer "
 			+ "where claims.contractId = contracts.contractId "
 			+ "and contracts.quoteId = quotes.id.id "
@@ -54,8 +54,8 @@ public interface ClaimsDAO extends CrudRepository<Claims, Integer> {
 			+ "and claims.cStatus = :cStatus")
 	List<ClaimsDO> findApprovedClaims(@Param("cStatus") byte cStatus);
 	
-	@Query("select new com.agg.application.model.ClaimsDO(claims.claimId, cus.name, dealer.name, claims.serial, quotes.manfName, "
-			+ "quotes.machineModel, claims.cStatus) from "
+	@Query("select new com.agg.application.model.ClaimsDO(claims.claimId, cus.name, dealer.name, claims.serial, quotes.manufacturer.manfName, "
+			+ "quotes.machineInfo.model, claims.cStatus) from "
 			+ "Claims claims, Contracts contracts, Quote quotes, CustomerInfo cus, Dealer dealer "
 			+ "where claims.contractId = contracts.contractId "
 			+ "and contracts.quoteId = quotes.id.id "
@@ -65,8 +65,8 @@ public interface ClaimsDAO extends CrudRepository<Claims, Integer> {
 			+ "and dealer.id = :dealerId")
 	List<ClaimsDO> findApprovedClaims(@Param("cStatus") byte cStatus, @Param("dealerId") long dealerId);
 	
-	@Query("select new com.agg.application.model.ClaimsDO(claims.claimId, cus.name, dealer.name, claims.serial, quotes.manfName, "
-			+ "quotes.machineModel, claims.cStatus) from "
+	@Query("select new com.agg.application.model.ClaimsDO(claims.claimId, cus.name, dealer.name, claims.serial, quotes.manufacturer.manfName, "
+			+ "quotes.machineInfo.model, claims.cStatus) from "
 			+ "Claims claims, Contracts contracts, Quote quotes, CustomerInfo cus, Dealer dealer "
 			+ "where claims.contractId = contracts.contractId "
 			+ "and contracts.quoteId = quotes.id.id "
@@ -75,8 +75,8 @@ public interface ClaimsDAO extends CrudRepository<Claims, Integer> {
 			+ "and claims.cStatus in (:cStatuses)")
 	List<ClaimsDO> findRejectedClaims(@Param("cStatuses") List<Byte> cStatuses);
 	
-	@Query("select new com.agg.application.model.ClaimsDO(claims.claimId, cus.name, dealer.name, claims.serial, quotes.manfName, "
-			+ "quotes.machineModel, claims.cStatus) from "
+	@Query("select new com.agg.application.model.ClaimsDO(claims.claimId, cus.name, dealer.name, claims.serial, quotes.manufacturer.manfName, "
+			+ "quotes.machineInfo.model, claims.cStatus) from "
 			+ "Claims claims, Contracts contracts, Quote quotes, CustomerInfo cus, Dealer dealer "
 			+ "where claims.contractId = contracts.contractId "
 			+ "and contracts.quoteId = quotes.id.id "
@@ -86,8 +86,8 @@ public interface ClaimsDAO extends CrudRepository<Claims, Integer> {
 			+ "and dealer.id = :dealerId")
 	List<ClaimsDO> findRejectedClaims(@Param("cStatuses") List<Byte> cStatuses, @Param("dealerId") long dealerId);
 	
-	@Query("select new com.agg.application.model.ClaimsDO(claims.claimId, cus.name, dealer.name, claims.serial, quotes.manfName, "
-			+ "quotes.machineModel, claims.cStatus) from "
+	@Query("select new com.agg.application.model.ClaimsDO(claims.claimId, cus.name, dealer.name, claims.serial, quotes.manufacturer.manfName, "
+			+ "quotes.machineInfo.model, claims.cStatus) from "
 			+ "Claims claims, Contracts contracts, Quote quotes, CustomerInfo cus, Dealer dealer "
 			+ "where claims.contractId = contracts.contractId "
 			+ "and contracts.quoteId = quotes.id.id "

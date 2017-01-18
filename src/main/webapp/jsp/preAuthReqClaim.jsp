@@ -16,14 +16,27 @@
 			                <th>Dealer Name</th>
 			                <th>Dealer Contact Name</th>
 			                <th>Serial #</th>
+			                <th></th>
 			            </tr>
 			        </thead>
+			        <tfoot>
+			            <tr>
+			            	<th>Claim #</th>
+			                <th>Dealer Name</th>
+			                <th>Dealer Contact Name</th>
+			                <th>Serial #</th>
+			                <th></th>
+			            </tr>
+			        </tfoot>
 					<tbody>
-			            <tr ng-repeat="claim in preAuthClaimList" ng-click="onClickSelectClaim(claim)">
+			            <tr ng-repeat="claim in preAuthClaimList">
 			                <td>{{claim.claimId}}</td>
 			                <td>{{claim.dealerDO.name}}</td>
 			                <td>{{claim.createdUser}}</td>
 			                <td>{{claim.serial}}</td>
+			                <td>
+			                	<a ng-click="onClickSelectClaim(claim)"><img src="../assets/images/edit-pencil.png" alt="Edit" title="Edit"/></a>
+			                </td>
 			            </tr>
 			        </tbody>
 				</table>

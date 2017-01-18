@@ -445,6 +445,9 @@ routingApp.factory('claimPreAuthReqService', ['$http', '$q', '$window', '$timeou
 	    .then(function(response) {
 	    	if(response.data.data){
 	    		$scope.preAuthClaimList = response.data.data.preAuthClaimList;
+	    		$timeout(function () {
+		        	$('#preauthClaimsListTable').DataTable();
+		        }, 300);
 	    	}
 	    });
 	},
@@ -536,6 +539,9 @@ routingApp.factory('claimsAdjudicateService', ['$http', '$q', '$window', '$timeo
 		$http.get("/agg/adjudicateClaim")
 	    .then(function(response) {
 	    	$scope.adjudicateClaimList = response.data.data.preAuthClaimList;
+	    	$timeout(function () {
+	        	$('#preauthClaimsListTable').DataTable();
+	        }, 300);
 	    });
 	},
 	calcCost = function(adjudicateClaim){
@@ -916,7 +922,7 @@ routingApp.factory('claimDraftService', ['$http', '$q', '$window', '$timeout', '
 		       .success(function(data, status) {
 		    	   hideSpinner();
 		    	   if(status === 200 && data.status === "success"){
-		    		   alert("success");
+		    		   //alert("success");
 		    		   $window.location.href = '#/agg/fileClaim';
 		    	   }else{
 		    		   hideSpinner();

@@ -44,6 +44,7 @@ public class MachineInfo implements Serializable {
 	@Column(name="last_update")
 	private Timestamp lastUpdate;
 
+	@Column(name="model")
 	private String model;
 
 	@Temporal(TemporalType.DATE)

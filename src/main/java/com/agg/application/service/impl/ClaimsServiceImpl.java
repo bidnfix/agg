@@ -167,7 +167,7 @@ public class ClaimsServiceImpl implements ClaimsService {
 			quoteDO.setManufacturerDO(manufacturerDO);
 			
 			
-			quoteDO.setMachineModel(quote.getMachineModel());
+			quoteDO.setMachineModel(quote.getMachineInfo().getModel());
 			quoteDO.setMachineSerial(quote.getMachineSerial());
 			quoteDO.setCoverageTerm(quote.getCoverageTerm());
 			quoteDOList.add(quoteDO);
@@ -210,7 +210,7 @@ public class ClaimsServiceImpl implements ClaimsService {
 				quoteDO.setManufacturerDO(manufacturerDO);
 				
 				
-				quoteDO.setMachineModel(quote.getMachineModel());
+				quoteDO.setMachineModel(quote.getMachineInfo().getModel());
 				quoteDO.setMachineSerial(quote.getMachineSerial());
 				quoteDO.setCoverageTerm(quote.getCoverageTerm());
 				//quoteDOList.add(quoteDO);
@@ -514,8 +514,8 @@ public class ClaimsServiceImpl implements ClaimsService {
 				claimDO.setCreatedDate(claim.getCreatedDate());
 				Contracts contract = contractsDAO.findByContractId(claim.getContractId());
 				Quote quote = quoteDAO.findOne((int)contract.getQuoteId());
-				claimDO.setManufacturer(quote.getManfName());
-				claimDO.setMachineModel(quote.getMachineModel());
+				claimDO.setManufacturer(quote.getManufacturer().getManfName());
+				claimDO.setMachineModel(quote.getMachineInfo().getModel());
 				claimDO.setCoverageType(quote.getCoverageType());
 				if(null != laborMap.get(claim.getId())){
 					List<ClaimLaborDO> cpl = new ArrayList<>();
@@ -570,7 +570,7 @@ public class ClaimsServiceImpl implements ClaimsService {
 					contractDO.setExpirationUsageHours(con.getExpirationUsageHours());
 					contractDO.setCoverageLevelHours(con.getCoverageLevelHours());
 					contractDO.setExpirationDate(con.getExpirationDate());
-					contractDO.setMachineModel(quote.getMachineModel());
+					contractDO.setMachineModel(quote.getMachineInfo().getModel());
 					contractDO.setMachineSerialNo(con.getMachineSerialNo());
 					contractDO.setCoverageType(con.getCoverageType());
 					claimDO.setContractDO(contractDO);
@@ -762,8 +762,8 @@ public class ClaimsServiceImpl implements ClaimsService {
 			
 			Contracts contract = contractsDAO.findByContractId(claim.getContractId());
 			Quote quote = quoteDAO.findOne((int)contract.getQuoteId());
-			claimReportDO.setManufacturer(quote.getManfName());
-			claimReportDO.setMachineModel(quote.getMachineModel());
+			claimReportDO.setManufacturer(quote.getManufacturer().getManfName());
+			claimReportDO.setMachineModel(quote.getMachineInfo().getModel());
 			claimReportDO.setContractId(claim.getContractId());
 			claimReportDO.setContractExpirationDate((contract.getExpirationDate() != null)?reportDateFormat.format(contract.getExpirationDate()):"");
 			claimReportDO.setUsageHoursCovered(contract.getExpirationUsageHours());
