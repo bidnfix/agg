@@ -143,6 +143,14 @@
 							<label>Corrective Action</label>
 							{{claim.correctiveAction}}
 						</div>
+						<div class="form-group col-xs-12 no-pad">
+							<label>Adjusted Other Charge 1 ($) </label>
+							{{claim.approvedOtherCharges1}}
+						</div>
+						<div class="form-group col-xs-12 no-pad">
+							<label>Adjusted Other Charge 2 ($) </label>
+							{{claim.approvedOtherCharges2}}
+						</div>
 					</div>
 				</div>
 			</div>
@@ -216,6 +224,43 @@
 							<div class="col-sm-4 t-r">
 								{{claim.totalLaborCost | currency}}
 							</div>
+							<div class="col-sm-8 no-pad">
+                              Total Requested Labor Cost
+                            </div>
+							<div class="col-sm-4 t-r">
+                              {{claim.totalLaborCost | currency}}
+                            </div>
+                            <div class="col-sm-8 no-pad">
+                              Total Adjusted Labor Cost
+                            </div>
+                            <div class="col-sm-4 t-r">
+                              {{claim.totalAdjustmentLaborsCost | currency}}
+                            </div>
+                            <div class="col-sm-8 no-pad">
+                              Total Requested Claim Cost
+                            </div>
+                            <div class="col-sm-4 t-r">
+                                  {{claim.totalClaimCost | currency}}                         
+                            </div>
+                            <div class="col-sm-8 no-pad">
+                              Total Adjusted Claim Cost
+                            </div>
+                            <div class="col-sm-4 t-r">
+                                  {{claim.totalAdjustedClaimCost | currency}}                         
+                            </div>
+                            <div class="col-sm-8 no-pad">
+                              Total Re-imbursed Amount
+                            </div>
+                            <div class="col-sm-4 t-r">
+                                  {{claim.tra | currency}}                         
+                            </div>
+                            <div class="col-sm-8 no-pad">
+                              Total Amount owed by the Customer
+                            </div>
+                            <div class="col-sm-4 t-r">
+                                  {{claim.customerOwes | currency}}                         
+                            </div> 
+							
 						</div>
 
 					</div>
