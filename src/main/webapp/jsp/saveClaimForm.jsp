@@ -9,23 +9,23 @@
 			<div class="col-md-6 no-pad pad10-right">
 				<span class="ag-tab-title col-xs-12 no-pad marg10-bottom">Contract
 					Information</span> <br clear="all"> <br>
-				<div class="form-group pad10-top">
+				<div class="form-group pad10-top col-xs-12">
 					<label>Contract ID</label>
 					<p>{{contractInfoList.contractID}}</p>
 				</div>
-				<div class="form-group">
+				<div class="form-group col-xs-12 no-pad">
 					<label>Manufacturer</label>
 					<p>{{contractInfoList.manfactureName}}</p>
 				</div>
-				<div class="form-group">
+				<div class="form-group col-xs-12 no-pad">
 					<label>Contract Expiration Date</label>
 					<p>{{contractInfoList.expirationDate |  date:"MM/dd/yyyy"}}</p>
 				</div>
-				<div class="form-group">
+				<div class="form-group col-xs-12 no-pad">
 					<label>Limit of Liability (LOL)</label>
 					<p>{{contractInfoList.lol | currency:"$":0}}</p>
 				</div>
-				<div class="form-group">
+				<div class="form-group col-xs-12 no-pad">
 					<label>Deductible</label>
 					<p>{{contractInfoList.deductible | currency:"$":0}}</p>
 				</div>
@@ -38,20 +38,20 @@
 				<div class="col-xs-12 no-pad pad10-left">
 					<br clear="all">
 
-					<div class="col-xs-12 no-pad">
+					<div class="col-xs-12 col-xs-12 no-pad">
 						<div class="form-group">
 							<label>Serial/VIN #</label>
 							<p>{{contractInfoList.machineSerialNo}}</p>
 						</div>
-						<div class="form-group">
+						<div class="form-group col-xs-12 no-pad">
 							<label>Model</label>
 							<p>{{contractInfoList.machineModel}}</p>
 						</div>
-						<div class="form-group">
+						<div class="form-group col-xs-12 no-pad">
 							<label>Usage Hours covered</label>
 							<p>{{contractInfoList.usageHoursCovered}}</p>
 						</div>
-						<div class="form-group">
+						<div class="form-group col-xs-12 no-pad">
 							<label>Available LOL</label>
 							<p>{{contractInfoList.availableLol | currency:"$":0}}</p>
 						</div>
@@ -64,25 +64,25 @@
 			<div class="col-md-6 no-pad pad10-right">
 				<span class="ag-tab-title col-xs-12 no-pad marg10-bottom">Claim
 					Information</span> <br clear="all"> <br>
-				<div class="form-group pad10-top">
+				<div class="form-group pad10-top col-xs-12">
 					<label>Serial Number</label> <input type="text"
 						class="form-control" ng-model="contractInfoList.machineSerialNo"
 						ng-readonly=true>
 				</div>
-				<div class="form-group">
+				<div class="form-group col-xs-12 no-pad">
 					<label>Manufacturer</label> <input type="text" class="form-control"
 						ng-model="contractInfoList.manfactureName" ng-readonly=true>
 				</div>
-				<div class="form-group">
+				<div class="form-group col-xs-12 no-pad">
 					<label>Model Number</label> <input type="text" class="form-control"
 						ng-model="contractInfoList.machineModel" ng-readonly=true>
 				</div>
-				<div class="form-group">
+				<div class="form-group col-xs-12 no-pad">
 					<label>Coverage Type</label> <input type="text"
 						class="form-control" ng-model="contractInfoList.coverageType"
 						ng-readonly=true>
 				</div>
-				<div class="form-group">
+				<div class="form-group col-xs-12 no-pad">
 					<label>Failure Date</label>
 					<div class="input-group">
 						<!-- <input type="date" class="form-control"
@@ -109,7 +109,7 @@
 			            </span>
 					</div>
 				</div>
-				<div class="form-group">
+				<div class="form-group col-xs-12 no-pad">
 					<label>Reported On</label>
 					<div class="input-group">
 						<!-- <input type="date" class="form-control"
@@ -135,27 +135,27 @@
 			            </span>
 					</div>
 				</div>
-				<div class="form-group">
+				<div class="form-group col-xs-12 no-pad">
 					<label>Work Order Number</label> <input type="text"
 						class="form-control" ng-model="claim.workOrder"
 						ngRequired="required" ng-readonly="commentUpdateBtnFlag">
 				</div>
-				<div class="form-group">
+				<div class="form-group col-xs-12 no-pad">
 					<label>Hours @ Breakdown</label> <input type="number"
 						class="form-control" ng-model="claim.hoursBreakDown"
 						required="required" ng-readonly="commentUpdateBtnFlag">
 				</div>
-				<div class="form-group">
+				<div class="form-group col-xs-12 no-pad">
 					<label>Other Charge 1 ($)</label> <input type="number"
 						class="form-control" ng-model="claim.requestedOtherCharges1"
 						required="required" ng-readonly="commentUpdateBtnFlag">
 				</div>
-				<div class="form-group">
+				<div class="form-group col-xs-12 no-pad">
 					<label>Other Charge 2 ($)</label> <input type="number"
 						class="form-control" ng-model="claim.requestedOtherCharges2"
 						required="required" ng-readonly="commentUpdateBtnFlag">
 				</div>
-				<div class="form-group">
+				<div class="form-group col-xs-12 no-pad">
 					<label>Total Claim ($)</label> <input type="number"
 						class="form-control" ng-model="claim.totalClaimCost"
 						ng-readonly=true>
@@ -172,17 +172,17 @@
 					<br clear="all">
 
 					<div class="col-xs-12 no-pad">
-						<div class="form-group">
+						<div class="form-group col-xs-12 no-pad">
 							<label>Customer Complaint</label>
 							<textarea class="form-control" rows="2"
 								ng-model="claim.custComplaint" required="required" ng-readonly="commentUpdateBtnFlag"></textarea>
 						</div>
-						<div class="form-group">
+						<div class="form-group col-xs-12 no-pad">
 							<label>Cause of Failure</label>
 							<textarea class="form-control" rows="5"
 								ng-model="claim.causeFail" required="required" ng-readonly="commentUpdateBtnFlag"></textarea>
 						</div>
-						<div class="form-group">
+						<div class="form-group col-xs-12 no-pad">
 							<label>Corrective Action</label>
 							<textarea class="form-control" rows="2"
 								ng-model="claim.correctiveAction" required="required" ng-readonly="commentUpdateBtnFlag"></textarea>

@@ -190,8 +190,12 @@
 								<!-- <input type="text" class="form-control" name="" ng-model="claim.partsTotalCost" ng-readonly=true> -->
 								{{claim.partsTotalCost | currency}}
 							</div>
+							<div class="col-sm-8 no-pad">Total Adjusted Parts Cost</div>
+							<div class="col-sm-4 t-r">
+								<!-- <input type="text" class="form-control" name="" ng-model="claim.partsTotalCost" ng-readonly=true> -->
+								{{claim.totalAdjustedPartsCost | currency}}
+							</div>
 						</div>
-
 					</div>
 				</div>
 				<br clear="all">
@@ -224,12 +228,6 @@
 							<div class="col-sm-4 t-r">
 								{{claim.totalLaborCost | currency}}
 							</div>
-							<div class="col-sm-8 no-pad">
-                              Total Requested Labor Cost
-                            </div>
-							<div class="col-sm-4 t-r">
-                              {{claim.totalLaborCost | currency}}
-                            </div>
                             <div class="col-sm-8 no-pad">
                               Total Adjusted Labor Cost
                             </div>

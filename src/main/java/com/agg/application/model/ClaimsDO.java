@@ -78,7 +78,9 @@ public class ClaimsDO {
 	public void setContractDO(ContractDO contractDO) {
 		this.contractDO = contractDO;
 	}
-	public ClaimsDO(String claimId, String custName, String dealerName, String serialNo, String manfName, String machineModel, byte status){
+
+	public ClaimsDO(String claimId, String custName, String dealerName, String serialNo, String manfName,
+			String machineModel, byte status, String cheqNo, Date paidDate) {
 		this.claimId = claimId;
 		this.custName = custName;
 		this.dealerName = dealerName;
@@ -86,6 +88,8 @@ public class ClaimsDO {
 		this.manufacturer = manfName;
 		this.machineModel = machineModel;
 		this.cStatus = status;
+		this.cheqNo = cheqNo;
+		this.paidDate = paidDate;
 	}
 	/**
 	 * 

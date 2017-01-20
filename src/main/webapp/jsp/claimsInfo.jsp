@@ -24,6 +24,8 @@
                 <th>Serial</th>
                 <th>Manufacturer</th>
                 <th>Model</th>
+                <th>Cheque#</th>
+                <th>Paid Date</th>
                 <th>Status</th>
                 <th></th>
             </tr>
@@ -37,6 +39,8 @@
                 <th>Serial</th>
                 <th>Manufacturer</th>
                 <th>Model</th>
+                <th>Cheque#</th>
+                <th>Paid Date</th>
                 <th>Status</th>
                 <th></th>
             </tr>
@@ -50,6 +54,8 @@
                 <td>{{claimDO.serial}}</td>
                 <td>{{claimDO.manufacturer}}</td>
                 <td>{{claimDO.machineModel}}</td>
+                <td>{{claimDO.cheqNo}}</td>
+                <td>{{claimDO.paidDate |  date:"MM/dd/yyyy"}}</td>
                 <td>{{(claimDO.cStatus === 1)?"Open":(claimDO.cStatus === 2)?"Pre-Auth Requested":(claimDO.cStatus === 3)?"Submitted":
                 (claimDO.cStatus === 4)?"Approved":(claimDO.cStatus === 5)?"Pre-Auth Approved":(claimDO.cStatus === 6)?"Pre-Auth Rejected":
                 (claimDO.cStatus === 7)?"Approved with adjustment":(claimDO.cStatus === 8)?"Pending":(claimDO.cStatus === 9)?"Draft":

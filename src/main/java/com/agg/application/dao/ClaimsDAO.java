@@ -26,7 +26,7 @@ public interface ClaimsDAO extends CrudRepository<Claims, Integer> {
 	void updateStatus(@Param("id") int id, @Param("cStatus") byte cStatus);
 	
 	@Query("select new com.agg.application.model.ClaimsDO(claims.claimId, cus.name, dealer.name, claims.serial, quotes.manufacturer.manfName, "
-			+ "quotes.machineInfo.model, claims.cStatus) from "
+			+ "quotes.machineInfo.model, claims.cStatus, claims.cheqNo, claims.paidDate) from "
 			+ "Claims claims, Contracts contracts, Quote quotes, CustomerInfo cus, Dealer dealer "
 			+ "where claims.contractId = contracts.contractId "
 			+ "and contracts.quoteId = quotes.id.id "
@@ -36,7 +36,7 @@ public interface ClaimsDAO extends CrudRepository<Claims, Integer> {
 	List<ClaimsDO> findClaimsInfo(@Param("dealerId") int dealerId);
 	
 	@Query("select new com.agg.application.model.ClaimsDO(claims.claimId, cus.name, dealer.name, claims.serial, quotes.manufacturer.manfName, "
-			+ "quotes.machineInfo.model, claims.cStatus) from "
+			+ "quotes.machineInfo.model, claims.cStatus, claims.cheqNo, claims.paidDate) from "
 			+ "Claims claims, Contracts contracts, Quote quotes, CustomerInfo cus, Dealer dealer "
 			+ "where claims.contractId = contracts.contractId "
 			+ "and contracts.quoteId = quotes.id.id "
@@ -45,7 +45,7 @@ public interface ClaimsDAO extends CrudRepository<Claims, Integer> {
 	List<ClaimsDO> findClaimsInfo();
 	
 	@Query("select new com.agg.application.model.ClaimsDO(claims.claimId, cus.name, dealer.name, claims.serial, quotes.manufacturer.manfName, "
-			+ "quotes.machineInfo.model, claims.cStatus) from "
+			+ "quotes.machineInfo.model, claims.cStatus, claims.cheqNo, claims.paidDate) from "
 			+ "Claims claims, Contracts contracts, Quote quotes, CustomerInfo cus, Dealer dealer "
 			+ "where claims.contractId = contracts.contractId "
 			+ "and contracts.quoteId = quotes.id.id "
@@ -55,7 +55,7 @@ public interface ClaimsDAO extends CrudRepository<Claims, Integer> {
 	List<ClaimsDO> findApprovedClaims(@Param("cStatus") byte cStatus);
 	
 	@Query("select new com.agg.application.model.ClaimsDO(claims.claimId, cus.name, dealer.name, claims.serial, quotes.manufacturer.manfName, "
-			+ "quotes.machineInfo.model, claims.cStatus) from "
+			+ "quotes.machineInfo.model, claims.cStatus, claims.cheqNo, claims.paidDate) from "
 			+ "Claims claims, Contracts contracts, Quote quotes, CustomerInfo cus, Dealer dealer "
 			+ "where claims.contractId = contracts.contractId "
 			+ "and contracts.quoteId = quotes.id.id "
@@ -66,7 +66,7 @@ public interface ClaimsDAO extends CrudRepository<Claims, Integer> {
 	List<ClaimsDO> findApprovedClaims(@Param("cStatus") byte cStatus, @Param("dealerId") long dealerId);
 	
 	@Query("select new com.agg.application.model.ClaimsDO(claims.claimId, cus.name, dealer.name, claims.serial, quotes.manufacturer.manfName, "
-			+ "quotes.machineInfo.model, claims.cStatus) from "
+			+ "quotes.machineInfo.model, claims.cStatus, claims.cheqNo, claims.paidDate) from "
 			+ "Claims claims, Contracts contracts, Quote quotes, CustomerInfo cus, Dealer dealer "
 			+ "where claims.contractId = contracts.contractId "
 			+ "and contracts.quoteId = quotes.id.id "
@@ -76,7 +76,7 @@ public interface ClaimsDAO extends CrudRepository<Claims, Integer> {
 	List<ClaimsDO> findRejectedClaims(@Param("cStatuses") List<Byte> cStatuses);
 	
 	@Query("select new com.agg.application.model.ClaimsDO(claims.claimId, cus.name, dealer.name, claims.serial, quotes.manufacturer.manfName, "
-			+ "quotes.machineInfo.model, claims.cStatus) from "
+			+ "quotes.machineInfo.model, claims.cStatus, claims.cheqNo, claims.paidDate) from "
 			+ "Claims claims, Contracts contracts, Quote quotes, CustomerInfo cus, Dealer dealer "
 			+ "where claims.contractId = contracts.contractId "
 			+ "and contracts.quoteId = quotes.id.id "
@@ -87,7 +87,7 @@ public interface ClaimsDAO extends CrudRepository<Claims, Integer> {
 	List<ClaimsDO> findRejectedClaims(@Param("cStatuses") List<Byte> cStatuses, @Param("dealerId") long dealerId);
 	
 	@Query("select new com.agg.application.model.ClaimsDO(claims.claimId, cus.name, dealer.name, claims.serial, quotes.manufacturer.manfName, "
-			+ "quotes.machineInfo.model, claims.cStatus) from "
+			+ "quotes.machineInfo.model, claims.cStatus, claims.cheqNo, claims.paidDate) from "
 			+ "Claims claims, Contracts contracts, Quote quotes, CustomerInfo cus, Dealer dealer "
 			+ "where claims.contractId = contracts.contractId "
 			+ "and contracts.quoteId = quotes.id.id "

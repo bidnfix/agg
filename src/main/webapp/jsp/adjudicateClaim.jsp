@@ -78,19 +78,19 @@
 							<div class="col-md-6 no-pad pad10-right">
 								<span class="ag-tab-title col-xs-12 no-pad marg10-bottom">Contract
 									Information</span> <br clear="all"> <br>
-								<div class="form-group pad10-top">
+								<div class="form-group pad10-top col-xs-12">
 									<label>Contract ID</label>
 									<p>{{adjudicateClaim.contractDO.contractId}}</p>
 								</div>
-								<div class="form-group">
+								<div class="form-group col-xs-12 no-pad">
 									<label>Contract Expiration Date</label>
 									<p>{{adjudicateClaim.contractDO.expirationDate |  date:"MM/dd/yyyy"}}</p>
 								</div>
-								<div class="form-group">
+								<div class="form-group col-xs-12 no-pad">
 									<label>Limit of Liability (LOL)</label>
 									<p>{{adjudicateClaim.contractDO.lol | currency:"$":0}}</p>
 								</div>
-								<div class="form-group">
+								<div class="form-group col-xs-12 no-pad">
 									<label>Deductible</label>
 									<p>{{adjudicateClaim.contractDO.deductible | currency:"$":0}}</p>
 								</div>
@@ -104,23 +104,23 @@
 									<br clear="all">
 					
 									<div class="col-xs-12 no-pad">
-										<div class="form-group">
+										<div class="form-group col-xs-12 no-pad">
 											<label>Serial/VIN #</label>
 											<p>{{adjudicateClaim.contractDO.machineSerialNo}}</p>
 										</div>
-										<div class="form-group">
+										<div class="form-group col-xs-12 no-pad">
 											<label>Manufacturer</label>
 											<p>{{adjudicateClaim.manufacturer}}</p>
 										</div>
-										<div class="form-group">
+										<div class="form-group col-xs-12 no-pad">
 											<label>Model</label>
 											<p>{{adjudicateClaim.contractDO.machineModel}}</p>
 										</div>
-										<div class="form-group">
+										<div class="form-group col-xs-12 no-pad">
 											<label>Usage Hours covered</label>
 											<p>{{adjudicateClaim.contractDO.expirationUsageHours}}</p>
 										</div>
-										<div class="form-group">
+										<div class="form-group col-xs-12 no-pad">
 											<label>Available LOL</label>
 											<p>{{adjudicateClaim.contractDO.availabeLol | currency:"$":0}}</p>
 										</div>
@@ -133,7 +133,7 @@
                          <span class="ag-tab-title col-xs-12 no-pad marg10-bottom">Claim Information</span>
                          <br clear="all">
                          <br>
-                          <div class="form-group pad10-top">
+                          <div class="form-group pad10-top col-xs-12">
                             <label>Serial Number</label>
                             {{adjudicateClaim.serial}}
                           </div>
@@ -149,37 +149,37 @@
                             <label>Coverage Type</label>
                             <input type="text" class="form-control" ng-model="contractInfoList.coverageType" ng-readonly=true>
                           </div> -->
-                          <div class="form-group">
+                          <div class="form-group col-xs-12 no-pad">
                             <label>Failure Date</label>
                             <div class="input-group">
                             	{{adjudicateClaim.failDate | date:'MM/dd/yyyy'}}
                             </div>
                           </div>
-                          <div class="form-group">
+                          <div class="form-group col-xs-12 no-pad">
                             <label>Reported On</label>
                             <div class="input-group">
                             	{{adjudicateClaim.reportDate | date:'MM/dd/yyyy'}}
                             </div>
                           </div>
-                          <div class="form-group">
+                          <div class="form-group col-xs-12 no-pad">
                             <label>Work Order Number</label>
                             {{adjudicateClaim.workOrder}}
                           </div>
-                          <div class="form-group">
+                          <div class="form-group col-xs-12 no-pad">
                             <label>Hours @ Breakdown</label>
                             {{adjudicateClaim.hoursBreakDown}}
                           </div>
-                          <div class="form-group">
+                          <div class="form-group col-xs-12 no-pad">
                             <label>Requested Other Charge 1 ($)</label>
                             {{adjustments.requestedOtherCharges1 | currency}}
                             <!-- <input type="text" class="form-control" ng-model="adjustments.requestedOtherCharges1" required="required" ng-readonly= "{{editFlag}}" ng-change="calcOnChange()"> -->
                           </div>
-                          <div class="form-group">
+                          <div class="form-group col-xs-12 no-pad">
                             <label>Requested Other Charge 2 ($)</label>
                             {{adjustments.requestedOtherCharges2 | currency}}
                             <!-- <input type="text" class="form-control" ng-model="adjustments.requestedOtherCharges2" required="required" ng-readonly= "{{editFlag}}" ng-change="calcOnChange()"> -->
                           </div>
-                          <div class="form-group">
+                          <div class="form-group col-xs-12 no-pad">
                             <label>Total Claim ($)</label>
                             {{adjustments.totalClaimCost | currency}}
                           </div>
@@ -194,35 +194,35 @@
                          <br clear="all">
                         
                         <div class="col-xs-12 no-pad">
-                          <div class="form-group">
+                          <div class="form-group col-xs-12 no-pad">
 							<label>Dealer</label>
 							{{(adjudicateClaim.dealerDO.name != null)?adjudicateClaim.dealerDO.name:"&nbsp;"}}
 						  </div>
-						  <div class="form-group">
+						  <div class="form-group col-xs-12 no-pad">
 							<label>Dealer Email</label>
 							{{(adjudicateClaim.dealerDO.invoiceEmail != null)?adjudicateClaim.dealerDO.invoiceEmail:"&nbsp;"}}
 						  </div>
-                          <div class="form-group">
+                          <div class="form-group col-xs-12 no-pad">
                             <label>Dealer Contact</label>
                             {{(adjudicateClaim.createdUser != null)?adjudicateClaim.createdUser:"&nbsp;"}}
                           </div>
-                          <div class="form-group">
+                          <div class="form-group col-xs-12 no-pad">
                             <label>Customer Complaint</label>
                             {{adjudicateClaim.custComplaint}}
                           </div>
-                          <div class="form-group">
+                          <div class="form-group col-xs-12 no-pad">
                             <label>Cause of Failure</label>
                             {{adjudicateClaim.causeFail}}
                           </div>
-                          <div class="form-group">
+                          <div class="form-group col-xs-12 no-pad">
                             <label>Corrective Action</label>
                             {{adjudicateClaim.correctiveAction}}
                           </div>
-                          <div class="form-group">
+                          <div class="form-group col-xs-12 no-pad">
                             <label>Adjusted Other Charge 1 ($)</label>
                             <input type="text" class="form-control" ng-model="adjustments.approvedOtherCharges1" required="required" ng-readonly= "{{editFlag}}" ng-change="calcOnChange()">
                           </div>
-                          <div class="form-group">
+                          <div class="form-group col-xs-12 no-pad">
                             <label>Adjusted Other Charge 2 ($)</label>
                             <input type="text" class="form-control" ng-model="adjustments.approvedOtherCharges2" required="required" ng-readonly= "{{editFlag}}" ng-change="calcOnChange()">
                           </div>
@@ -348,13 +348,13 @@
                            <span class="ag-tab-title col-xs-12 no-pad marg10-bottom">Payment Details</span>
                            <br clear="all">
                            <br>
-                           <div class="form-group clearfix">
+                           <div class="form-group clearfix col-xs-12 no-pad">
                               <span class="col-sm-3 no-pad">Cheque#  :</span> 
                                 <div class="col-sm-6 no-pad">
                                		<input type="text" class="form-control" ng-model="adjustments.cheqNo" ng-required="cheqFlag" ng-readonly= "{{editFlag}}">
                                 </div>
                             </div>
-                            <div class="form-group clearfix">
+                            <div class="form-group clearfix col-xs-12 no-pad">
                               <span class="col-sm-3 no-pad">Paid Date  :</span> 
                                 <div class="col-sm-3 input-group no-pad">
                                		<input type="text" class="form-control" 
