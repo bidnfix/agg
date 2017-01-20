@@ -8,23 +8,23 @@
 			<div class="col-md-6 no-pad pad10-right">
 				<span class="ag-tab-title col-xs-12 no-pad marg10-bottom">Contract
 					Information</span> <br clear="all"> <br>
-				<div class="form-group pad10-top">
+				<div class="form-group pad10-top col-xs-12">
 					<label>Contract ID</label>
 					<p>{{contractInfoList.contractID}}</p>
 				</div>
-				<div class="form-group">
+				<div class="form-group col-xs-12 no-pad">
 					<label>Manufacturer</label>
 					<p>{{contractInfoList.manfactureName}}</p>
 				</div>
-				<div class="form-group">
+				<div class="form-group col-xs-12 no-pad">
 					<label>Contract Expiration Date</label>
 					<p>{{contractInfoList.expirationDate |  date:"MM/dd/yyyy"}}</p>
 				</div>
-				<div class="form-group">
+				<div class="form-group col-xs-12 no-pad">
 					<label>Limit of Liability (LOL)</label>
 					<p>{{contractInfoList.lol | currency:"$":0}}</p>
 				</div>
-				<div class="form-group">
+				<div class="form-group col-xs-12 no-pad">
 					<label>Deductible</label>
 					<p>{{contractInfoList.deductible | currency:"$":0}}</p>
 				</div>
@@ -37,20 +37,20 @@
 				<div class="col-xs-12 no-pad pad10-left">
 					<br clear="all">
 
-					<div class="col-xs-12 no-pad">
+					<div class="col-xs-12 col-xs-12 no-pad">
 						<div class="form-group">
 							<label>Serial/VIN #</label>
 							<p>{{contractInfoList.machineSerialNo}}</p>
 						</div>
-						<div class="form-group">
+						<div class="form-group col-xs-12 no-pad">
 							<label>Model</label>
 							<p>{{contractInfoList.machineModel}}</p>
 						</div>
-						<div class="form-group">
+						<div class="form-group col-xs-12 no-pad">
 							<label>Usage Hours covered</label>
 							<p>{{contractInfoList.usageHoursCovered}}</p>
 						</div>
-						<div class="form-group">
+						<div class="form-group col-xs-12 no-pad">
 							<label>Available LOL</label>
 							<p>{{contractInfoList.availableLol | currency:"$":0}}</p>
 						</div>
@@ -63,47 +63,47 @@
 			<div class="col-md-6 no-pad pad10-right">
 				<span class="ag-tab-title col-xs-12 no-pad marg10-bottom">Claim
 					Information</span> <br clear="all"> <br>
-				<div class="form-group pad10-top">
+				<div class="form-group pad10-top col-xs-12">
 					<label>Serial Number</label> 
 					{{contractInfoList.machineSerialNo}}
 				</div>
-				<div class="form-group">
+				<div class="form-group col-xs-12 no-pad">
 					<label>Manufacturer</label> 
 					{{contractInfoList.manfactureName}}
 				</div>
-				<div class="form-group">
+				<div class="form-group col-xs-12 no-pad">
 					<label>Model Number</label> 
 					{{contractInfoList.machineModel}}
 				</div>
-				<div class="form-group">
+				<div class="form-group col-xs-12 no-pad">
 					<label>Coverage Type</label> 
 					{{contractInfoList.coverageType}}
 				</div>
-				<div class="form-group">
+				<div class="form-group col-xs-12 no-pad">
 					<label>Failure Date</label>
 					{{claim.failDate | date:'yyyy-MM-dd'}}
 				</div>
-				<div class="form-group">
+				<div class="form-group col-xs-12 no-pad">
 					<label>Reported On</label>
 					{{claim.reportDate | date:'yyyy-MM-dd'}}					
 				</div>
-				<div class="form-group">
+				<div class="form-group col-xs-12 no-pad">
 					<label>Work Order Number</label> 
 					{{claim.workOrder}}
 				</div>
-				<div class="form-group">
+				<div class="form-group col-xs-12 no-pad">
 					<label>Hours @ Breakdown</label>
 					{{claim.hoursBreakDown}}
 				</div>
-				<div class="form-group">
+				<div class="form-group col-xs-12 no-pad">
 					<label>Other Charge 1 ($)</label> 
 					{{claim.requestedOtherCharges1}}
 				</div>
-				<div class="form-group">
+				<div class="form-group col-xs-12 no-pad">
 					<label>Other Charge 2 ($)</label> 
 					{{claim.requestedOtherCharges2}}
 				</div>
-				<div class="form-group">
+				<div class="form-group col-xs-12 no-pad">
 					<label>Total Claim ($)</label>
 					{{claim.totalClaimCost}}
 				</div>
@@ -119,27 +119,27 @@
 					<br clear="all">
 
 					<div class="col-xs-12 no-pad">
-						<div class="form-group">
+						<div class="form-group col-xs-12 no-pad">
 							<label>Dealer</label>
 							{{(claim.dealerDO.name != null)?claim.dealerDO.name:"&nbsp;"}}
 					  	</div>
-					  	<div class="form-group">
+					  	<div class="form-group col-xs-12 no-pad">
 							<label>Dealer Email</label>
 							{{(claim.dealerDO.invoiceEmail != null)?claim.dealerDO.invoiceEmail:"&nbsp;"}}
 					  	</div>
-                        <div class="form-group">
+                        <div class="form-group col-xs-12 no-pad">
                           <label>Dealer Contact</label>
                           {{(claim.createdUser != null)?claim.createdUser:"&nbsp;"}}
                         </div>
-						<div class="form-group">
+						<div class="form-group col-xs-12 no-pad">
 							<label>Customer Complaint</label>
 							{{claim.custComplaint}}
 						</div>
-						<div class="form-group">
+						<div class="form-group col-xs-12 no-pad">
 							<label>Cause of Failure</label>
 							{{claim.causeFail}}
 						</div>
-						<div class="form-group">
+						<div class="form-group col-xs-12 no-pad">
 							<label>Corrective Action</label>
 							{{claim.correctiveAction}}
 						</div>
