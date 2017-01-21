@@ -76,6 +76,27 @@ public class LoginController extends BaseController {
 			return "redirect:/agg/home";
 		return "registration";
 	}
+	
+	@RequestMapping(value = "/aboutRisk", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+	public String aboutRisk(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		if (sessionExists(request))
+			return "redirect:/agg/home";
+		return "aboutRisk";
+	}
+	
+	@RequestMapping(value = "/whoWeAre", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+	public String whoWeAre(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		if (sessionExists(request))
+			return "redirect:/agg/home";
+		return "whoWeAre";
+	}
+	
+	@RequestMapping(value = "/momsPinkTractor", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+	public String momsPinkTractor(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		if (sessionExists(request))
+			return "redirect:/agg/home";
+		return "momsPinkTractor";
+	}
 
 	@RequestMapping(value = "/logout", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
 	public String logout(HttpServletRequest request, HttpServletResponse response) {

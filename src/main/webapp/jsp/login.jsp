@@ -35,7 +35,7 @@
       <ul class="nav navbar-nav pull-right">
         <li class="active"><a href="/agg/home">Home</a></li>
         <li><a href="/agg/register">Register</a></li>
-        <li><a href="#">About Risk</a></li>
+        <li><a href="/agg/aboutRisk">About Risk</a></li>
         <li><a href="#">Who We Are</a></li>
         
         
