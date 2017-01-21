@@ -8,7 +8,12 @@ routingApp.factory('machineService', function($http, $q, $window) {
 							function(response) {
 								//alert(response.data.status);
 								if (response.data.status == 'success') {
-									$window.location = '#/agg/machineInfo';
+									//$window.location = '#/agg/machineInfo';
+									$('#machineSuccessMsg').html("Machine '<strong>"+machine.model+"</strong>' successfully added");
+					            	$('#machineSuccessMsg').removeClass('hidden');
+					            	window.setTimeout(function() {
+					        			 $('#machineSuccessMsg').addClass('hidden');
+					        		}, 3000);
 								} else {
 									alert('Error in adding machine: '+response.data.errMessage)
 									//$('#errMsg').html(response.data.errMessage);

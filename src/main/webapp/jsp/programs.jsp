@@ -52,7 +52,7 @@
 	                		<img src="../assets/images/edit-pencil.png" alt="Edit" title="Edit"/></a>
 	                	</div>
 	                </td>
-	                <td>{{(program.isActive === 1)?"Active":"In-Active"}}</td>
+	                <td>{{(program.isActive === 1)?"Active":"Inactive"}}</td>
                 </c:if>
             </tr>
         </tbody>

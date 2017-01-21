@@ -21,6 +21,7 @@
 	<!-- data table section -->
 	<div class="inner-main" ng-controller="machineController">
 		<form class="form-horizontal" role="form" ng-submit="submitMachine()">
+		 <div id="machineSuccessMsg" class="alert alert-info text-center hidden"></div>
 		<!-- 	<h2>Registration Form</h2> -->
 			<div class="form-group">
 				<label for="manufacturer" class="col-sm-3 control-label">Manufacturer</label>
