@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="claimDetails" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c0ec05e7-1fb2-4f7a-a475-4bbe0eaa13dc">
 	<property name="ireport.zoom" value="0.9090909090909091"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="168"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="imagePath" class="java.lang.String"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
@@ -52,18 +52,15 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="55" splitType="Stretch">
-			<image scaleImage="RetainShape">
-				<reportElement x="21" y="1" width="118" height="43" uuid="c10e2300-e2e9-431f-be7d-ef99a3250de2"/>
+		<band height="41" splitType="Stretch">
+			<image scaleImage="FillFrame">
+				<reportElement x="0" y="1" width="555" height="40" uuid="c10e2300-e2e9-431f-be7d-ef99a3250de2"/>
 				<imageExpression><![CDATA[$P{imagePath}]]></imageExpression>
 			</image>
-			<line>
-				<reportElement x="13" y="52" width="530" height="1" forecolor="#999999" uuid="076591a9-214f-4c30-ba59-4b0f6c172280"/>
-			</line>
 			<staticText>
-				<reportElement mode="Transparent" x="155" y="12" width="392" height="15" forecolor="#333333" uuid="bd79e7e7-4b90-4345-9bf3-24b52519d529"/>
-				<textElement>
-					<font fontName="SansSerif" size="10"/>
+				<reportElement x="185" y="11" width="370" height="20" forecolor="#FFFFFF" uuid="c1a66dae-031d-4642-8ac2-1d4c592a840a"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Ag Guard LLC, 21295 Hollingsworth Road, Tonganoxie, KS 66086 • 816-223-1978]]></text>
 			</staticText>

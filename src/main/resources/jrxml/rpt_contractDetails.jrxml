@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="contractDetails" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c0ec05e7-1fb2-4f7a-a475-4bbe0eaa13dc">
 	<property name="ireport.zoom" value="0.9090909090909091"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="25"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="imagePath" class="java.lang.String"/>
 	<field name="contractId" class="java.lang.String"/>
 	<field name="inceptionDate" class="java.lang.String"/>
@@ -42,21 +42,18 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="58" splitType="Stretch">
+		<band height="50" splitType="Stretch">
+			<image scaleImage="FillFrame">
+				<reportElement x="0" y="1" width="555" height="49" uuid="c10e2300-e2e9-431f-be7d-ef99a3250de2"/>
+				<imageExpression><![CDATA[$P{imagePath}]]></imageExpression>
+			</image>
 			<staticText>
-				<reportElement mode="Transparent" x="155" y="11" width="392" height="33" forecolor="#333333" uuid="023d74bb-7d31-46f9-abe9-5d0ff8f31df7"/>
-				<textElement textAlignment="Center">
-					<font fontName="SansSerif" size="14" isBold="true"/>
+				<reportElement x="247" y="11" width="255" height="27" forecolor="#FFFFFF" uuid="37bd255e-a3c3-47b5-a783-92783c084848"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Extended Coverage Estimator]]></text>
 			</staticText>
-			<image scaleImage="RetainShape">
-				<reportElement x="21" y="1" width="118" height="43" uuid="c10e2300-e2e9-431f-be7d-ef99a3250de2"/>
-				<imageExpression><![CDATA[$P{imagePath}]]></imageExpression>
-			</image>
-			<line>
-				<reportElement x="16" y="50" width="530" height="2" forecolor="#999999" uuid="076591a9-214f-4c30-ba59-4b0f6c172280"/>
-			</line>
 		</band>
 	</title>
 	<detail>

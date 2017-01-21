@@ -375,7 +375,7 @@ public class ProgramServiceImpl implements ProgramService {
 			//******** Code for report which being commented for now ********//
 			
 			Map<String, Object> parameterMap = new HashMap<String, Object>();
-			parameterMap.put("imagePath", appUrl+"/assets/images/logo.png");
+			parameterMap.put("imagePath", appUrl+"/assets/images/report_banner.png");
 			
 			List<ReportDO> reportDOList = new ArrayList<ReportDO>();
 			reportDOList.add(getQuoteReportDO(quoteDO));

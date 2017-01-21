@@ -763,7 +763,7 @@ public class ClaimsController extends BaseController {
 			modelMap.put("claimExtCommentList", claimNotesSubReportDataSource);
 			modelMap.put("format", "pdf");
 			modelMap.put("SUBREPORT_DIR", System.getProperty("user.dir")+"/src/main/resources/jrxml/");
-			modelMap.put("imagePath", appUrl+"/assets/images/logo.png");
+			modelMap.put("imagePath", appUrl+"/assets/images/report_banner.png");
 			modelMap.put("totalReqPartsCost", reportDO.getTotalReqPartsCost());
 			modelMap.put("totalAdjPartsCost", reportDO.getTotalAdjPartsCost());
 			modelMap.put("totalReqLaborCost", reportDO.getTotalReqLaborCost());

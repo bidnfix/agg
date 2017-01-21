@@ -232,7 +232,7 @@ public class QuoteController extends BaseController {
 			
 			modelMap.put("datasource", jrDataSource);
 			modelMap.put("format", "pdf");
-			modelMap.put("imagePath", appUrl+"/assets/images/logo.png");
+			modelMap.put("imagePath", appUrl+"/assets/images/report_banner.png");
 			if(reportType != null && reportType.equalsIgnoreCase("customer")){
 				modelAndView = new ModelAndView("rpt_customerQuote", modelMap);
 			}else if(reportType != null && reportType.equalsIgnoreCase("dealer")){

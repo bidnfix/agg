@@ -8,7 +8,7 @@
 			<div class="col-md-6 no-pad pad10-right">
 				<span class="ag-tab-title col-xs-12 no-pad marg10-bottom">Contract
 					Information</span> <br clear="all"> <br>
-				<div class="form-group pad10-top col-xs-12">
+				<div class="form-group no-pad col-xs-12">
 					<label>Contract ID</label>
 					<p>{{contractInfoList.contractID}}</p>
 				</div>
@@ -63,7 +63,7 @@
 			<div class="col-md-6 no-pad pad10-right">
 				<span class="ag-tab-title col-xs-12 no-pad marg10-bottom">Claim
 					Information</span> <br clear="all"> <br>
-				<div class="form-group pad10-top col-xs-12">
+				<div class="form-group no-pad col-xs-12">
 					<label>Serial Number</label> 
 					{{contractInfoList.machineSerialNo}}
 				</div>
@@ -149,7 +149,7 @@
 						</div>
 						<div class="form-group col-xs-12 no-pad">
 							<label>Paid Date</label>
-							{{claim.paidDate}}
+							{{claim.paidDate |  date:"MM/dd/yyyy"}}
 						</div>
 						<div class="form-group col-xs-12 no-pad">
 							<label>Adjusted Other Charge 1 ($) </label>

@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="customerQuote" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c0ec05e7-1fb2-4f7a-a475-4bbe0eaa13dc">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="227"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="imagePath" class="java.lang.String"/>
 	<field name="dealerName" class="java.lang.String"/>
 	<field name="quoteDate" class="java.lang.String"/>
@@ -39,24 +39,21 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="52" splitType="Stretch">
+		<band height="44" splitType="Stretch">
 			<rectangle>
 				<reportElement x="-21" y="-23" width="596" height="10" forecolor="#FFFFFF" backcolor="#00FF33" uuid="99b89fec-d99d-4a62-93cc-0d4428059e08"/>
 			</rectangle>
+			<image scaleImage="FillFrame">
+				<reportElement x="0" y="1" width="555" height="43" uuid="c10e2300-e2e9-431f-be7d-ef99a3250de2"/>
+				<imageExpression><![CDATA[$P{imagePath}]]></imageExpression>
+			</image>
 			<staticText>
-				<reportElement mode="Transparent" x="155" y="16" width="392" height="15" forecolor="#333333" uuid="023d74bb-7d31-46f9-abe9-5d0ff8f31df7"/>
-				<textElement>
-					<font fontName="SansSerif" size="10"/>
+				<reportElement x="180" y="12" width="375" height="20" forecolor="#FFFFFF" uuid="86c5c747-a251-4e53-8c10-fef51df93a90"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Ag Guard LLC, 21295 Hollingsworth Road, Tonganoxie, KS 66086 • 816-223-1978]]></text>
 			</staticText>
-			<image scaleImage="RetainShape">
-				<reportElement x="21" y="1" width="118" height="43" uuid="c10e2300-e2e9-431f-be7d-ef99a3250de2"/>
-				<imageExpression><![CDATA[$P{imagePath}]]></imageExpression>
-			</image>
-			<line>
-				<reportElement x="21" y="50" width="520" height="2" forecolor="#999999" uuid="076591a9-214f-4c30-ba59-4b0f6c172280"/>
-			</line>
 		</band>
 	</title>
 	<detail>

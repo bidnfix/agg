@@ -523,7 +523,7 @@ public class QuoteServiceImpl implements QuoteService {
 			}
 			
 			Map<String, Object> parameterMap = new HashMap<String, Object>();
-			parameterMap.put("imagePath", appUrl+"/assets/images/logo.png");
+			parameterMap.put("imagePath", appUrl+"/assets/images/report_banner.png");
 			
 			List<ReportDO> reportDOList = new ArrayList<ReportDO>();
 			reportDOList.add(getQuoteReportDO(quoteDO));
@@ -1273,7 +1273,7 @@ public class QuoteServiceImpl implements QuoteService {
 				}
 				
 				Map<String, Object> parameterMap = new HashMap<String, Object>();
-				parameterMap.put("imagePath", appUrl+"/assets/images/logo.png");
+				parameterMap.put("imagePath", appUrl+"/assets/images/report_banner.png");
 				
 				List<ReportDO> reportDOList = new ArrayList<ReportDO>();
 				reportDOList.add(getInvoiceReportDO(quoteDO));
@@ -1490,7 +1490,7 @@ public class QuoteServiceImpl implements QuoteService {
 		condition = true;
 		
 		Map<String, Object> parameterMap = new HashMap<String, Object>();
-		parameterMap.put("imagePath", appUrl+"/assets/images/logo.png");
+		parameterMap.put("imagePath", appUrl+"/assets/images/report_banner.png");
 		
 		JRDataSource jrDataSource = null;
 		DataSource[] pdfAttachments = new DataSource[2];
