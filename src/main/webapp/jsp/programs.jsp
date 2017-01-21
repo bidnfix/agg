@@ -36,6 +36,7 @@
                 <th>Dealer</th>
                 <c:if test="${user.roleName eq 'admin'}">
                 	<th>Tasks</th>
+                	<th>Status</th>
                 </c:if>
             </tr>
         </tfoot>

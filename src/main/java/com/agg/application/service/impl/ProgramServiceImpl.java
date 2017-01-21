@@ -153,6 +153,7 @@ public class ProgramServiceImpl implements ProgramService {
 				programDO.setLol(program.getPrLol());
 				programDO.setCost(program.getPrCost());
 				programDO.setDesc(program.getPrDesc());
+				programDO.setIsActive(program.getPrIsActive());
 				
 				dealerDO = new DealerDO();
 				Dealer dealer = program.getDealer();
