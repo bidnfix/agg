@@ -189,7 +189,7 @@ public class DealerServiceImpl implements DealerService {
 
 	@Override
 	@Transactional
-	public long saveDealer(DealerDO dealerDO, AccountDO accountDO, boolean dealerRegistration) throws Exception {
+	public long saveDealer(DealerDO dealerDO, AccountDO accountDO, boolean dealerRegistration, String appUrl) throws Exception {
 		logger.debug("In saveDealer");
 		Dealer dealer = new Dealer();
 		Timestamp date = new Timestamp(new Date().getTime());
@@ -268,6 +268,7 @@ public class DealerServiceImpl implements DealerService {
 			context.setVariable("dealerLastName", dealerDO.getLastName());
 			context.setVariable("dealerPhone", dealerDO.getPhone());
 			context.setVariable("dealerMarketEmail", dealerDO.getMarketEmail());
+			context.setVariable("appUrl", appUrl);
 			
 			logger.info("b4 Email sending to the dealer: "+dealer.getName());
 			//sending email to dealer

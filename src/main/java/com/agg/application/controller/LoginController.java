@@ -87,7 +87,13 @@ public class LoginController extends BaseController {
 	public @ResponseBody Result register(@RequestBody DealerDO dealerDO, BindingResult result, Model model,
 			HttpServletRequest request, HttpServletResponse response) throws Exception {
 		logger.debug("Inside register method with userName: ", dealerDO.getUserName());
-		long dealerId = dealerService.saveDealer(dealerDO, null, true);
+		
+		StringBuffer url = request.getRequestURL();
+		String uri = request.getRequestURI();
+		String appUrl = url.substring(0, url.length() - uri.length());
+		logger.info("appUrl: "+appUrl);
+		
+		long dealerId = dealerService.saveDealer(dealerDO, null, true, appUrl);
 		logger.debug("registered dealerId: "+dealerId);
 		return new Result("success", null, "Dealer registered successfully");
 	}

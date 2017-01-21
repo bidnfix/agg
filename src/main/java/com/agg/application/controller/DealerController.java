@@ -83,7 +83,12 @@ public class DealerController extends BaseController {
 			long id = 0;
 			try
 			{
-				id = dealerService.saveDealer(dealerDO, getAccountDetails(request), false);
+				StringBuffer url = request.getRequestURL();
+				String uri = request.getRequestURI();
+				String appUrl = url.substring(0, url.length() - uri.length());
+				logger.info("appUrl: "+appUrl);
+				
+				id = dealerService.saveDealer(dealerDO, getAccountDetails(request), false, appUrl);
 			}catch (Exception e) {
 		    	if (e instanceof DataIntegrityViolationException) {
 		    		logger.error("Dealer already exists");

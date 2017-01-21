@@ -7,22 +7,22 @@
 	<meta name="author"      content="AgGuard"/>
 	
 	<title>Ag Guard</title>
-<link rel="favicon" href="http://52.33.87.12:8080/assets/images/favicon.png"/>
-<link rel="stylesheet" href="http://52.33.87.12:8080/assets/css/bootstrap.min.css"/>
-<link rel="stylesheet" href="http://52.33.87.12:8080/assets/css/font-awesome.min.css"/>
-<!-- Custom styles for our template -->
-<link rel="stylesheet" href="http://52.33.87.12:8080/assets/css/bootstrap-theme.css" media="screen" />
-<link rel="stylesheet" type="text/css" href="http://52.33.87.12:8080/assets/css/da-slider.css" />
-<link rel="stylesheet" href="http://52.33.87.12:8080/assets/css/style.css"/>
-<link href="http://52.33.87.12:8080/assets/css/animate.min.css" rel="stylesheet" />
-<link rel="stylesheet" href="http://52.33.87.12:8080/assets/css/hover.css"/>
+	<link rel="favicon" th:href="${appUrl + '/assets/images/favicon.png'}"/>
+	<link rel="stylesheet" th:href="${appUrl + '/assets/css/bootstrap.min.css'}"/>
+	<link rel="stylesheet" th:href="${appUrl + '/assets/css/font-awesome.min.css'}"/>
+	<!-- Custom styles for our template -->
+	<link rel="stylesheet" th:href="${appUrl + '/assets/css/bootstrap-theme.css'}" media="screen" />
+	<link rel="stylesheet" type="text/css" th:href="${appUrl + '/assets/css/da-slider.css'}" />
+	<link rel="stylesheet" th:href="${appUrl + '/assets/css/style.css'}"/>
+	<link href="${appUrl + '/assets/css/animate.min.css'}" rel="stylesheet" />
+	<link rel="stylesheet" th:href="${appUrl + '/assets/css/hover.css'}"/>
 
 
 
 <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>
-	<script src="http://52.33.87.12:8080/assets/js/html5shiv.js"></script>
-	<script src="http://52.33.87.12:8080/assets/js/respond.min.js"></script>
+	<script th:src="${appUrl + '/assets/js/html5shiv.js'}"></script>
+	<script th:src="${appUrl + '/assets/js/respond.min.js'}"></script>
 	<![endif]-->
 </head>
 
@@ -33,7 +33,7 @@
     <div class="navbar-header"> 
       <!-- Button for smallest screens -->
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-      <a class="navbar-brand animated fadeInDownBig" href="http://52.33.87.12:8080/agg/login"><img src="http://52.33.87.12:8080/assets/images/logo.png" alt="AgGuard"/></a> </div>
+      <a class="navbar-brand animated fadeInDownBig" th:href="${appUrl + '/agg/login'}"><img th:src="${appUrl + '/assets/images/logo.png'}" alt="AgGuard"/></a> </div>
   </div>
 </div>
 <!-- /.navbar --> 
@@ -107,12 +107,12 @@
   <div class="footer1">
     <div class="container">
       <div class="row">
-        <div class="col-md-5 panel">
+       <!--  <div class="col-md-5 panel">
           <h3 class="panel-title">Lates News</h3>
           <div class="panel-body">
             <p>Lorem ipsum dolor amet, consectetur adipiscing elit. Aenean leo lectus sollicitudin convallis eget libero. Aliquam laoreet tellus ut libero semper, egestas velit malesuada. Sed non risus eget dolor amet vestibulum ullamcorper. Integer feugiat molestie.</p>
           </div>
-        </div>
+        </div> -->
         <div class="col-md-4 panel contact">
           <h3 class="panel-title">
           Contact Info

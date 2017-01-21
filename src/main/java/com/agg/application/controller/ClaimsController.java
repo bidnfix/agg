@@ -241,6 +241,12 @@ public class ClaimsController extends BaseController {
 				if(dealerDO != null){
 					dealerFirstName = dealerDO.getFirstName();
 				}
+				
+				StringBuffer url = request.getRequestURL();
+				String uri = request.getRequestURI();
+				String appUrl = url.substring(0, url.length() - uri.length());
+				logger.info("appUrl: "+appUrl);
+				
 				Context context = new Context();
 				context.setVariable("claimNo", claimsDO.getClaimId());
 				context.setVariable("dealerName", dealerFirstName);
@@ -252,7 +258,8 @@ public class ClaimsController extends BaseController {
 				context.setVariable("deductible", claimsVO.getDeductible());
 				context.setVariable("lol", claimsVO.getLol());
 				context.setVariable("availableLol", claimsVO.getAvailabeLol());
-				context.setVariable("externalComments", "");
+				context.setVariable("externalComments", claimsVO.getExtComments());
+				context.setVariable("appUrl", appUrl);
 				mail.setContext(context);
 				mail.setEmailSender(emailSender);
 				mail.setUserService(userService);
@@ -422,9 +429,16 @@ public class ClaimsController extends BaseController {
 			claimsService.updateStatus(claimPreAuthVO.getId(), Util.getClaimStatusCode(claimPreAuthVO.getcStatus()), dealerId, accountId, claimPreAuthVO.getExtComment());
 			PreAuthMail mail = new PreAuthMail();
 			Context context = new Context();
+			
+			StringBuffer url = request.getRequestURL();
+			String uri = request.getRequestURI();
+			String appUrl = url.substring(0, url.length() - uri.length());
+			logger.info("appUrl: "+appUrl);
+			
 			context.setVariable("claimNo", claimPreAuthVO.getId());
 			context.setVariable("dealerId", dealerId);
 			context.setVariable("externalComments", claimPreAuthVO.getExtComment());
+			context.setVariable("appUrl", appUrl);
 			mail.setContext(context);
 			mail.setEmailSender(emailSender);
 			mail.setUserService(userService);

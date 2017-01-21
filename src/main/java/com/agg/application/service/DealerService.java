@@ -18,7 +18,7 @@ public interface DealerService {
 	
 	public List<DealerDO> getParentDealers();
 
-	public long saveDealer(DealerDO dealerDO, AccountDO accountDO, boolean dealerRegistration) throws Exception;
+	public long saveDealer(DealerDO dealerDO, AccountDO accountDO, boolean dealerRegistration, String appUrl) throws Exception;
 
 	public DealerDO getDealer(long dealerId);
 
