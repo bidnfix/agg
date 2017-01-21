@@ -74,8 +74,8 @@
                 	
                     <div class="main-login main-center registration_overflow" ng-controller="registrationController">
                     <h3 class="mar-bot">Dealer Registration</h3>
-                    <p class="success-msg" id="successMsg" hidden="true"></p>
-                    <p class="err-msg" id="errMsg" hidden="true"></p>
+                    <div id="successMsg" class="alert alert-info text-center hidden"></div>
+                    <div id="errMsg" class="alert alert-danger text-center hidden"></div>
                     <form role="form" ng-submit="submitDealer()">
 					<div class="col-md-6">
                     
@@ -84,7 +84,7 @@
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i aria-hidden="true" class="fa fa-user fa"></i></span>
-									<input type="text" ng-model="dealer.userName" placeholder="User Name" id="userName" name="userName" class="form-control" required="required">
+									<input type="text" ng-model="dealer.userName" placeholder="User Name" id="userName" name="userName" class="form-control" required="required" ng-blur="isUserNameExists(dealer.userName)">
 								</div>
 							</div>
 						</div>

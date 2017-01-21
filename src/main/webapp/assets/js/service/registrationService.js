@@ -10,15 +10,16 @@ App.factory('registrationService', function($http, $q, $window) {
 						if (response.data.status == 'success') {
 							//$window.location = '/agg/home';
 							$scope.dealer={};
-							$('#errMsg').hide();
-							$('#successMsg').show();
+							
+							$('#errMsg').addClass('hidden');
 							$('#errMsg').html("");
-							$('#successMsg').html("Thank you for submitting your information. We will be in contact shortly.");
+							$('#successMsg').removeClass('hidden');
+			            	$('#successMsg').html("Thank you for submitting your information. We will be in contact shortly.");
 						} else {
 							//alert('error in registration dealer: '+response.data.errMessage)
-							$('#successMsg').hide();
-							$('#errMsg').show();
-							$('#successMsg').html("");
+							$('#successMsg').addClass('hidden');
+			            	$('#successMsg').html("");
+							$('#errMsg').removeClass('hidden');
 							$('#errMsg').html(response.data.errMessage);
 						}
 						hideSpinner();

@@ -92,4 +92,12 @@ public class LoginController extends BaseController {
 		return new Result("success", null, "Dealer registered successfully");
 	}
 	
+	@RequestMapping(value = "/isDealerUserNameExists", method = RequestMethod.POST)
+	public @ResponseBody Result isUserNameExists(@RequestBody String userName, HttpServletRequest request, HttpServletResponse response, Model model) {
+		logger.debug("In isDealerUserNameExists with userName: "+userName);
+		Result opResult = new Result("success", "Dealer User Info", dealerService.isUserNameExists(userName));
+		
+		return opResult;
+	}
+	
 }
