@@ -107,6 +107,9 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
 						$scope.claim.claimFileDO = claim.claimFileDO;
 						$scope.claim.claimsNoteList = claim.claimsNoteList;
 						
+						$scope.claim.cheqNo = claim.cheqNo;
+						$scope.claim.paidDate = claim.paidDate;
+						
 						claim.claimLaborDO = (claim.claimLaborDO === null) ? [] : claim.claimLaborDO;
 						commons.renameJsonPropertyNameArray(claim.claimLaborDO, "rate", "laborHourlyRate");
 						$scope.claim.claimLabourVOList = claim.claimLaborDO;
@@ -176,6 +179,10 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
 				$scope.claim.requestedOtherCharges2 = 0;
 				$scope.claim.failDate = $scope.failureDateValid;
 				$scope.claim.reportDate = $scope.todayDate;
+				
+				$scope.claim.cheqNo = $scope.claim.cheqNo;
+				$scope.claim.paidDate = $scope.claim.paidDate;
+				
 			}else{
 				if($scope.statusFlag === 9){
 					$scope.saveClaimShow = true;
@@ -783,6 +790,10 @@ routingApp.factory('claimDraftService', ['$http', '$q', '$window', '$timeout', '
 			$scope.claim.claimLabourVOList = claim.claimLaborDO;
 			$scope.claim.failDate = new Date(claim.failDate);
 			$scope.claim.reportDate = new Date(claim.reportDate);
+			
+			$scope.claim.cheqNo = claim.cheqNo;
+			$scope.claim.paidDate = claim.paidDate;
+			
 			if(!$scope.claim.claimPartVOList){
 				$scope.claim.claimPartVOList = [];
 				$scope.claim.claimPartVOList.push({});

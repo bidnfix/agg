@@ -512,6 +512,9 @@ public class ClaimsServiceImpl implements ClaimsService {
 				claimDO.setCreatedBy(claim.getCrtaedBy());
 				claimDO.setUpdatedBy(claim.getUpdatedBy());
 				claimDO.setCreatedDate(claim.getCreatedDate());
+				claimDO.setCheqNo(claim.getCheqNo());
+				claimDO.setPaidDate(claim.getPaidDate());
+				
 				Contracts contract = contractsDAO.findByContractId(claim.getContractId());
 				Quote quote = quoteDAO.findOne((int)contract.getQuoteId());
 				claimDO.setManufacturer(quote.getManufacturer().getManfName());

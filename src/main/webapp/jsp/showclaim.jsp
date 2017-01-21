@@ -144,6 +144,14 @@
 							{{claim.correctiveAction}}
 						</div>
 						<div class="form-group col-xs-12 no-pad">
+							<label>Cheque#</label>
+							{{claim.cheqNo}}
+						</div>
+						<div class="form-group col-xs-12 no-pad">
+							<label>Paid Date</label>
+							{{claim.paidDate}}
+						</div>
+						<div class="form-group col-xs-12 no-pad">
 							<label>Adjusted Other Charge 1 ($) </label>
 							{{claim.approvedOtherCharges1}}
 						</div>
