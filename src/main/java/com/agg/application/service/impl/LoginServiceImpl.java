@@ -86,27 +86,31 @@ public class LoginServiceImpl implements LoginService {
 		UserSubMenus userSubMenus = null;
 		for(UserRoleMenus userRoleMenus : userRoleMenuList){
 			userMenus = userRoleMenus.getUserMenus();
-			userMenuDO = new UserMenuDO();
-			userMenuDO.setId(userMenus.getId());
-			userMenuDO.setName(userMenus.getName());
-			userMenuDO.setUrl(userMenus.getNavUrl());
-			
-			userSubMenuDOList = new ArrayList<UserSubMenuDO>();
-			userRoleSubMenusList = userRoleSubMenusDAO.findByRoleRIdAndUserMenusId(userRoleMenus.getRole().getRId(),
-					userMenus.getId());
-			for(UserRoleSubMenus userRoleSubMenus : userRoleSubMenusList){
-				userSubMenus = userRoleSubMenus.getUserSubMenus();
-				userSubMenuDO = new UserSubMenuDO();
-				userSubMenuDO.setId(userSubMenus.getId());
-				userSubMenuDO.setName(userSubMenus.getName());
-				userSubMenuDO.setUrl(userSubMenus.getNavUrl());
+			if(userMenus.getStatus() == AggConstants.ACTIVE){
+				userMenuDO = new UserMenuDO();
+				userMenuDO.setId(userMenus.getId());
+				userMenuDO.setName(userMenus.getName());
+				userMenuDO.setUrl(userMenus.getNavUrl());
 				
-				userSubMenuDOList.add(userSubMenuDO);
+				userSubMenuDOList = new ArrayList<UserSubMenuDO>();
+				userRoleSubMenusList = userRoleSubMenusDAO.findByRoleRIdAndUserMenusId(userRoleMenus.getRole().getRId(),
+						userMenus.getId());
+				for(UserRoleSubMenus userRoleSubMenus : userRoleSubMenusList){
+					userSubMenus = userRoleSubMenus.getUserSubMenus();
+					if(userSubMenus.getStatus() == AggConstants.ACTIVE){
+						userSubMenuDO = new UserSubMenuDO();
+						userSubMenuDO.setId(userSubMenus.getId());
+						userSubMenuDO.setName(userSubMenus.getName());
+						userSubMenuDO.setUrl(userSubMenus.getNavUrl());
+						
+						userSubMenuDOList.add(userSubMenuDO);
+					}
+				}
+				Collections.sort(userSubMenuDOList);
+				userMenuDO.setUserSubMenuDOList(userSubMenuDOList);
+				
+				userMenuDOList.add(userMenuDO);
 			}
-			Collections.sort(userSubMenuDOList);
-			userMenuDO.setUserSubMenuDOList(userSubMenuDOList);
-			
-			userMenuDOList.add(userMenuDO);
 		}
 		
 		Collections.sort(userMenuDOList);

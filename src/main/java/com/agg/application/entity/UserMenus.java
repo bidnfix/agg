@@ -30,6 +30,9 @@ public class UserMenus implements Serializable {
 
 	@Column(name="nav_url")
 	private String navUrl;
+	
+	@Column(name="status")
+	private int status;
 
 	//bi-directional many-to-one association to UserRoleMenus
 	@OneToMany(mappedBy="userMenus")
@@ -68,6 +71,20 @@ public class UserMenus implements Serializable {
 
 	public void setNavUrl(String navUrl) {
 		this.navUrl = navUrl;
+	}
+	
+	/**
+	 * @return the status
+	 */
+	public int getStatus() {
+		return status;
+	}
+
+	/**
+	 * @param status the status to set
+	 */
+	public void setStatus(int status) {
+		this.status = status;
 	}
 
 	public List<UserRoleMenus> getUserRoleMenuses() {

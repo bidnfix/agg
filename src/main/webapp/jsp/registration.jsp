@@ -17,6 +17,8 @@
 <link rel="stylesheet" href="/assets/css/style.css">
 <link href="/assets/css/animate.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="/assets/css/hover.css">
+<link rel="stylesheet" href="/assets/css/mask.css">
+<link rel="stylesheet" href="/assets/css/spinner.css" >
 
 <!--data table css-->
 <link href="https://cdn.datatables.net/1.10.9/css/dataTables.bootstrap.min.css" rel="stylesheet">
@@ -29,6 +31,8 @@
 </head>
 
 <body ng-app="aggApp">
+    <div class="mask" id="popup_mask" style="z-index: 10001; display: none;"> </div>
+	<jsp:include page="spinner.jsp"></jsp:include>
 	<!-- Fixed navbar -->
 	<div class="navbar navbar-inverse navbar-fixed-top headroom" >
   <div class="container">
@@ -387,6 +391,8 @@
 	<script src="/assets/js/app.js"></script>
 	<script src="/assets/js/service/registrationService.js"></script>
 	<script src="/assets/js/controller/registrationController.js"></script>
+	<script src="/assets/js/mask.js"></script>
+	<script src="/assets/js/popup.js"></script>
 
 </body>
 </html>

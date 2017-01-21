@@ -1079,7 +1079,7 @@ routingApp.controller('QuotesDetailController', function($scope, $http, $timeout
     });
 	
 	/*$scope.viewQuote = function(id, quoteId){
-		alert(id+" "+quoteId);
+		//alert(id+" "+quoteId);
 		return '../../jsp/pendingDealers.jsp';
 	}*/
 })

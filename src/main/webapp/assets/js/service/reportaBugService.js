@@ -6,7 +6,7 @@ routingApp.factory('reportaBugService', function($http, $q, $window) {
 					showSpinner();
 					return $http.post('/agg/postBug', bug).then(
 							function(response) {
-								alert(response.data.status);
+								//alert(response.data.status);
 								if (response.data.status == 'success') {
 									$window.location = '#/agg/reportaBug';
 								} else {
@@ -22,11 +22,11 @@ routingApp.factory('reportaBugService', function($http, $q, $window) {
 				},
 			
 			editBugInfo : function(bug, $scope) {
-				alert('in edit bug');
+				//alert('in edit bug');
 				showSpinner();
 				return $http.post('/agg/editBug', bug).then(
 						function(response) {
-							alert(response.data.status);
+							//alert(response.data.status);
 							if (response.data.status == 'success') {
 								closePopup('bugEditPopup');
 								//$window.location.href = '#/agg/dealers';

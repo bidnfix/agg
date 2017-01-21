@@ -751,7 +751,7 @@ routingApp.factory('claimDraftService', ['$http', '$q', '$window', '$timeout', '
 		    });
 		},
 		showClaimList = function($scope){
-			alert(JSON.stringify($scope.draftsClaimList));
+			//alert(JSON.stringify($scope.draftsClaimList));
 			$scope.showDraftsClaimList = false;
 		},
 		selectClaim = function($scope, claim){

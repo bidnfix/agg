@@ -6,7 +6,7 @@ routingApp.factory('dealerService', function($http, $q, $window) {
 					showSpinner();
 					return $http.post('/agg/addDealer', dealer).then(
 							function(response) {
-								alert(response.data.data);
+								//alert(response.data.data);
 								if (response.data.status == 'success') {
 									//$window.location = '/agg/home';
 									if(response.data.data != null && response.data.data > 0){

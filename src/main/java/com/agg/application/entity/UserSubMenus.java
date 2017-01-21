@@ -32,6 +32,9 @@ public class UserSubMenus implements Serializable {
 
 	@Column(name="nav_url")
 	private String navUrl;
+	
+	@Column(name="status")
+	private int status;
 
 	//bi-directional one-to-one association to UserMenus
 	@ManyToOne
@@ -83,6 +86,21 @@ public class UserSubMenus implements Serializable {
 		this.navUrl = navUrl;
 	}
 	
+	
+	/**
+	 * @return the status
+	 */
+	public int getStatus() {
+		return status;
+	}
+
+	/**
+	 * @param status the status to set
+	 */
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
 	public List<UserRoleSubMenus> getUserRoleSubMenuses() {
 		return this.userRoleSubMenuses;
 	}
