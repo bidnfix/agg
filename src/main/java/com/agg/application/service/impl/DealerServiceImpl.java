@@ -296,9 +296,10 @@ public class DealerServiceImpl implements DealerService {
 	
 	@Override
 	@Transactional
-	public long editDealer(DealerDO dealerDO, AccountDO accountDO) {
+	public long editDealer(DealerDO dealerDO, AccountDO accountDO, String appUrl) {
 		logger.debug("In editDealer with dealerId: "+dealerDO.getId());
 		Dealer dealer = dealerDAO.findOne(dealerDO.getId());
+		int status =  dealer.getStatus();
 		Timestamp date = new Timestamp(new Date().getTime());
 		dealer.setAddress(dealerDO.getAddress1());
 		dealer.setAddress2(dealerDO.getAddress2());
@@ -358,6 +359,36 @@ public class DealerServiceImpl implements DealerService {
 		account = accountDAO.save(account);
 		*/
 		dealer = dealerDAO.save(dealer);
+		
+		if((status == AggConstants.PENDING) && (dealerDO.getStatus() == AggConstants.ACTIVE)){
+			Context context = new Context();
+			context.setVariable("dealerName", dealer.getName());
+			context.setVariable("dealerCode", dealer.getCode());
+			context.setVariable("dealerFirstName", dealerDO.getFirstName());
+			context.setVariable("dealerLastName", dealerDO.getLastName());
+			context.setVariable("dealerPhone", dealerDO.getPhone());
+			context.setVariable("dealerMarketEmail", dealerDO.getMarketEmail());
+			
+			List<Account> accounts = dealer.getAccounts();
+			for(Account account : accounts){
+				if(account.getRole().getRTitle().equalsIgnoreCase(AggConstants.DEALER_ADMIN)){
+					context.setVariable("userName", account.getUserName());
+					context.setVariable("password", account.getPassword());
+					break;
+				}
+			}
+			context.setVariable("appUrl", appUrl);
+			
+			logger.info("b4 Email sending to the dealer: "+dealer.getName());
+			//sending email to dealer
+			EmailStatus emailStatus = emailSender.sendMailAsHtml(dealer.getMarketEmail(), "Dealer Activation", "email/dealer-activation-template", context);
+			if(emailStatus != null){
+				logger.info("email status: "+emailStatus.isSuccess());
+				if(emailStatus.isSuccess()){
+					logger.info("Dealer Activation Email Send succssfully to dealer: "+emailStatus.getTo());
+				}
+			}
+		}
 		
 		return dealer.getId();
 	}

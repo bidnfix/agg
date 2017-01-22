@@ -24,7 +24,7 @@
                 <th>Email</th>
                 <th>Phone</th>
                 <th>Parent</th>
-                <th>Role</th>
+               <!--  <th>Role</th> -->
                 <th>Status</th>
                 <th></th>
             </tr>
@@ -38,7 +38,7 @@
                 <th>Email</th>
                 <th>Phone</th>
                 <th>Parent</th>
-                <th>Role</th>
+                <!-- <th>Role</th> -->
                 <th>Status</th>
                 <th></th>
             </tr>
@@ -52,7 +52,7 @@
                 <td>{{dealer.invoiceEmail}}</td>
                 <td>{{dealer.phone}}</td>
                 <td>{{dealer.parentCode}}</td>
-                <td>{{dealer.roleName}}</td>
+                <!-- <td>{{dealer.roleName}}</td> -->
                 <td>{{(dealer.status === 0)?"Terminated":(dealer.status === 1)?"Active":"Pending"}}</td>
                 <td>
                 	<div class="manage-sec"><!-- <a href="#"><img src="../assets/images/delete-icon.png" alt="Delete" title="Delete"/></a> -->

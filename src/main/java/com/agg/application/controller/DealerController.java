@@ -118,8 +118,13 @@ public class DealerController extends BaseController {
 			if (result.hasErrors()){
 				opResult = new Result("failure", "Invalid dealer form field values", null);
 			}
+			
+			StringBuffer url = request.getRequestURL();
+			String uri = request.getRequestURI();
+			String appUrl = url.substring(0, url.length() - uri.length());
+			logger.info("appUrl: "+appUrl);
 	
-			long id = dealerService.editDealer(dealerDO, getAccountDetails(request));
+			long id = dealerService.editDealer(dealerDO, getAccountDetails(request), appUrl);
 			if(id > 0){
 				opResult = new Result("success", "Dealer edited successfully", null);
 			}

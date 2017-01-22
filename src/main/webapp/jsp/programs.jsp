@@ -24,8 +24,8 @@
             	<th>Program Name</th>
                 <th>Dealer</th>
                 <c:if test="${user.roleName eq 'admin'}">
-                	<th>Tasks</th>
                 	<th>Status</th>
+                	<th>Tasks</th>
                 </c:if>
             </tr>
         </thead>
@@ -35,8 +35,8 @@
             	<th>Program Name</th>
                 <th>Dealer</th>
                 <c:if test="${user.roleName eq 'admin'}">
-                	<th>Tasks</th>
                 	<th>Status</th>
+                	<th>Tasks</th>
                 </c:if>
             </tr>
         </tfoot>
@@ -46,6 +46,7 @@
             	<td>{{program.name}}</td>
                 <td>{{program.dealerDO.name}}</td>
                 <c:if test="${user.roleName eq 'admin'}">
+	                <td>{{(program.isActive === 1)?"Active":"Inactive"}}</td>
 	                <td><div class="manage-sec">
 	                		<!-- <a ng-click="deleteProgram(program.prId)">
 	                		<img src="../assets/images/delete-icon.png" alt="Delete" title="Delete"/></a> -->
@@ -53,7 +54,6 @@
 	                		<img src="../assets/images/edit-pencil.png" alt="Edit" title="Edit"/></a>
 	                	</div>
 	                </td>
-	                <td>{{(program.isActive === 1)?"Active":"Inactive"}}</td>
                 </c:if>
             </tr>
         </tbody>

@@ -27,8 +27,8 @@ public interface DealerDAO extends CrudRepository<Dealer, Long>{
 	//public List<Dealer> findByIdAndStatus(long id, int active);
 	
 	@Query("select new com.agg.application.model.DealerDO(dealer.id, dealer.code, dealer.name, dealer.state, "
-			+ "dealer.marketEmail, dealer.invoiceEmail, dealer.phone, dealer.parentCode, role.rTitle, dealer.status) "
-			+ "from Dealer dealer, Account account, Role role "
+			+ "dealer.marketEmail, dealer.invoiceEmail, dealer.phone, dealer.parentCode, account.role.rTitle, dealer.status) "
+			+ "from Dealer dealer, Account account "
 			+ "where dealer.id = account.dealer.id and account.role.rTitle = :roleTitle")
 	public List<DealerDO> findAllDealers(@Param("roleTitle")String roleTitle);
 

@@ -50,7 +50,7 @@
                 <td>{{user.userType}}</td>
                 <td>{{user.roleName}}</td>
                 <td>{{user.dealerName}}</td>
-                <td>{{(user.status === 0)?"Terminated":(user.status === 1)?"Active":"Pending"}}</td>
+                <td>{{(user.status === 0)?"Terminated":(user.status === 1)?"Active":""}}</td>
                 <td>
                 	<div class="manage-sec"><!-- <a href="#"><img src="../assets/images/delete-icon.png" alt="Delete" title="Delete"/></a> -->
                 		<a ng-click="editUser(user.id)"><img src="../assets/images/edit-pencil.png" alt="Edit" title="Edit"/></a>

@@ -25,28 +25,28 @@
 		<div id="navbar">
 			<ul class="nav navbar-nav ">
 				<li>
-					<a class="worksheet-no-marg" ng-click="getInactiveContracts()">Expired Contract<span class="badge">{{expContracts}}</span></a>
+					<a class="worksheet-no-marg" ng-click="getInactiveContracts()">Expired Contract&nbsp;<span class="badge">{{expContracts}}</span></a>
 				</li>
                 
                 <li>
-					<a class="worksheet-no-marg" ng-click="getActiveContracts()">Active Contract<span class="badge">{{actContracts}}</span></a>
+					<a class="worksheet-no-marg" ng-click="getActiveContracts()">Active Contract&nbsp;<span class="badge">{{actContracts}}</span></a>
 				</li>
 				
                 
                 <li>
-					<a class="worksheet-no-marg" ng-click="getEstQuotes()">Estimating Price<span class="badge">{{estPrice}}</span></a>
+					<a class="worksheet-no-marg" ng-click="getEstQuotes()">Estimating Price&nbsp;<span class="badge">{{estPrice}}</span></a>
 				</li>
 				<li>
-					<a class="worksheet-no-marg" ng-click="getInvoicedQuotes()">Invoiced<span class="badge">{{invoiced}}</span></a>
+					<a class="worksheet-no-marg" ng-click="getInvoicedQuotes()">Invoiced&nbsp;<span class="badge">{{invoiced}}</span></a>
 				</li>
                 
                 <li>
-					<a class="worksheet-no-marg" ng-click="getReqQuotes()">Purchase Requested<span class="badge">{{purchaseReq}}</span></a>
+					<a class="worksheet-no-marg" ng-click="getReqQuotes()">Purchase Requested&nbsp;<span class="badge">{{purchaseReq}}</span></a>
 				</li>
 				
                 
                 <li>
-					<a class="worksheet-no-marg"ng-click="getClaims()">Claims<span class="badge">{{claims}}</span></a>
+					<a class="worksheet-no-marg"ng-click="getClaims()">Claims&nbsp;<span class="badge">{{claims}}</span></a>
 				</li>
 				
 			</ul>

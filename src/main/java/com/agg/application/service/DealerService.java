@@ -34,7 +34,7 @@ public interface DealerService {
 
 	//public List<RoleDO> getDealerRoles(long id);
 
-	public long editDealer(DealerDO dealerDO, AccountDO accountDO);
+	public long editDealer(DealerDO dealerDO, AccountDO accountDO, String appUrl);
 
 	public List<DealerDO> getPendingDealers();
 
