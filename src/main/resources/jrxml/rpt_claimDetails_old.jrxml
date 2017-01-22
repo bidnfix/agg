@@ -47,7 +47,7 @@
 			<staticText>
 				<reportElement x="185" y="11" width="370" height="20" forecolor="#FFFFFF" uuid="f5eb18bc-cd8c-4e46-8e16-bf5b2c3b78f6"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="9" isBold="true"/>
+					<font fontName="SansSerif" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Ag Guard LLC, 21295 Hollingsworth Road, Tonganoxie, KS 66086 • 816-223-1978]]></text>
 			</staticText>
