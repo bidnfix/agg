@@ -89,9 +89,9 @@ public class PreAuthMail implements Runnable{
 		int dealerId = Integer.parseInt(context.getVariables().get("dealerId").toString());
 		ClaimsDO claimsDO = claimsService.getClaim(id, dealerId);
 		ClaimsController con = new ClaimsController();
-		int laborsCost = con.calcTotalLaborsCost(claimsDO.getClaimLaborDO());
-		int partsCost = con.calcTotalPartsCost(claimsDO.getClaimPartDO());
-		int otherCost = claimsDO.getRequestedOtherCharges1() + claimsDO.getRequestedOtherCharges2();
+		double laborsCost = con.calcTotalLaborsCost(claimsDO.getClaimLaborDO());
+		double partsCost = con.calcTotalPartsCost(claimsDO.getClaimPartDO());
+		double otherCost = claimsDO.getRequestedOtherCharges1() + claimsDO.getRequestedOtherCharges2();
 		
 		String subject = String.format("%s - Claim Request for Pre-authorization Decision", claimsDO.getClaimId());
 		
