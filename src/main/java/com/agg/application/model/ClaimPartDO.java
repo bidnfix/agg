@@ -13,7 +13,7 @@ public class ClaimPartDO {
 	private String partNo;
 	private String partDescr;
 	private int qty;
-	private int unitPrice;
+	private double unitPrice;
 	private String partTotal;
 	/**
 	 * 
@@ -85,13 +85,13 @@ public class ClaimPartDO {
 	/**
 	 * @return the unitPrice
 	 */
-	public int getUnitPrice() {
+	public double getUnitPrice() {
 		return unitPrice;
 	}
 	/**
 	 * @param unitPrice the unitPrice to set
 	 */
-	public void setUnitPrice(int unitPrice) {
+	public void setUnitPrice(double unitPrice) {
 		this.unitPrice = unitPrice;
 	}
 	public String getPartTotal() {

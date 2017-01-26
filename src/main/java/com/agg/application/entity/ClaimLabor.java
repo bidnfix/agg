@@ -35,7 +35,7 @@ public class ClaimLabor {
 	@Column(name="labor_hrs")
 	private int laborHrs;
 	
-	private int rate;
+	private double rate;
 
 	/**
 	 * 
@@ -118,14 +118,15 @@ public class ClaimLabor {
 	/**
 	 * @return the rate
 	 */
-	public int getRate() {
+	public double getRate() {
 		return rate;
 	}
 
 	/**
 	 * @param rate the rate to set
 	 */
-	public void setRate(int rate) {
+	public void setRate(double rate) {
 		this.rate = rate;
 	}
+
 }

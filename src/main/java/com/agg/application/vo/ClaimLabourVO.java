@@ -5,7 +5,7 @@ public class ClaimLabourVO {
 	private String laborNo;
 	private String laborDescr;
 	private int laborHrs;
-	private int laborHourlyRate;
+	private double laborHourlyRate;
 	/**
 	 * 
 	 */
@@ -64,16 +64,18 @@ public class ClaimLabourVO {
 	public void setLaborHrs(int laborHrs) {
 		this.laborHrs = laborHrs;
 	}
+
 	/**
 	 * @return the laborHourlyRate
 	 */
-	public int getLaborHourlyRate() {
+	public double getLaborHourlyRate() {
 		return laborHourlyRate;
 	}
+
 	/**
 	 * @param laborHourlyRate the laborHourlyRate to set
 	 */
-	public void setLaborHourlyRate(int laborHourlyRate) {
+	public void setLaborHourlyRate(double laborHourlyRate) {
 		this.laborHourlyRate = laborHourlyRate;
 	}
 	

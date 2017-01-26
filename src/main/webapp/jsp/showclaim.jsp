@@ -52,7 +52,7 @@
 						</div>
 						<div class="form-group col-xs-12 no-pad">
 							<label>Available LOL</label>
-							<p>{{contractInfoList.availableLol | currency:"$":0}}</p>
+							<p>{{contractInfoList.availableLol | currency}}</p>
 						</div>
 					</div>
 				</div>
@@ -97,15 +97,15 @@
 				</div>
 				<div class="form-group col-xs-12 no-pad">
 					<label>Other Charge 1 ($)</label> 
-					{{claim.requestedOtherCharges1}}
+					{{claim.requestedOtherCharges1 | number : 2}}
 				</div>
 				<div class="form-group col-xs-12 no-pad">
 					<label>Other Charge 2 ($)</label> 
-					{{claim.requestedOtherCharges2}}
+					{{claim.requestedOtherCharges2 | number : 2}}
 				</div>
 				<div class="form-group col-xs-12 no-pad">
 					<label>Total Claim ($)</label>
-					{{claim.totalClaimCost}}
+					{{claim.totalClaimCost | number : 2}}
 				</div>
 			</div>
 
@@ -153,11 +153,11 @@
 						</div>
 						<div class="form-group col-xs-12 no-pad">
 							<label>Adjusted Other Charge 1 ($) </label>
-							{{claim.approvedOtherCharges1}}
+							{{claim.approvedOtherCharges1 | number : 2}}
 						</div>
 						<div class="form-group col-xs-12 no-pad">
 							<label>Adjusted Other Charge 2 ($) </label>
-							{{claim.approvedOtherCharges2}}
+							{{claim.approvedOtherCharges2 | number : 2}}
 						</div>
 					</div>
 				</div>
@@ -184,7 +184,7 @@
 								<td>{{claimPartVO.partNo}}</td>
 								<td>{{claimPartVO.partDescr}}</td>
 								<td>{{claimPartVO.qty}}</td>
-								<td>{{claimPartVO.unitPrice}}</td>
+								<td>{{claimPartVO.unitPrice | number : 2}}</td>
 								<td class="t-r">{{claimPartVO.partsTotal | currency}}</td>
 							</tr>
 						</tbody>
@@ -223,7 +223,7 @@
 								<td>{{claimLabourVO.laborNo}}</td>
 								<td>{{claimLabourVO.laborDescr}}</td>
 								<td>{{claimLabourVO.laborHrs}}</td>
-								<td>{{claimLabourVO.laborHourlyRate}}</td>
+								<td>{{claimLabourVO.laborHourlyRate | number : 2}}</td>
 								<td class="t-r">{{claimLabourVO.labourTotal | currency}}</td>
 							</tr>
 						</tbody>

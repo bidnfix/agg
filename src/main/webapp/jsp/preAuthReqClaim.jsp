@@ -122,7 +122,7 @@
 										</div>
 										<div class="form-group col-xs-12 no-pad">
 											<label>Available LOL</label>
-											<p>{{preAuthClaim.contractDO.availabeLol | currency:"$":0}}</p>
+											<p>{{preAuthClaim.contractDO.availabeLol | currency}}</p>
 										</div>
 									</div>
 								</div>
@@ -184,17 +184,17 @@
                           <div class="form-group col-xs-12 no-pad">
                             <label>Other Charge 1 ($)</label>
                             <!-- <input type="number" class="form-control" ng-model="preAuthClaim.requestedOtherCharges1" ng-readonly=true> -->
-                            {{preAuthClaim.requestedOtherCharges1}}
+                            {{preAuthClaim.requestedOtherCharges1 | number : 2}}
                           </div>
                           <div class="form-group col-xs-12 no-pad">
                             <label>Other Charge 2 ($)</label>
                             <!-- <input type="number" class="form-control" ng-model="preAuthClaim.requestedOtherCharges2" ng-readonly=true> -->
-                            {{preAuthClaim.requestedOtherCharges2}}
+                            {{preAuthClaim.requestedOtherCharges2 | number : 2}}
                           </div>
                           <div class="form-group col-xs-12 no-pad">
                             <label>Total Claim ($)</label>
                             <!-- <input type="number" class="form-control" ng-model="preAuthClaim.totalClaimCost" ng-readonly=true> -->
-                            {{preAuthClaim.totalClaimCost}}
+                            {{preAuthClaim.totalClaimCost | number : 2}}
                           </div>
                         </div>
 
@@ -264,7 +264,7 @@
                                   <td>{{claimPartVO.partNo}}</td>
                                   <td>{{claimPartVO.partDescr}}</td>
                                   <td>{{claimPartVO.qty}}</td>
-                                  <td>{{claimPartVO.unitPrice | currency}}</td>
+                                  <td>{{claimPartVO.unitPrice | number : 2}}</td>
                                   <td class="t-r">{{claimPartVO.partsTotal | currency}}</td>
                                 </tr>
                               </tbody>
@@ -306,12 +306,13 @@
                                   <td>{{claimLabourVO.laborNo}}</td>
                                   <td>{{claimLabourVO.laborDescr}}</td>
                                   <td>{{claimLabourVO.laborHrs}}</td>
-                                  <td>{{claimLabourVO.rate}}</td>
+                                  <td>{{claimLabourVO.rate | number : 2}}</td>
                                   <td class="t-r">{{claimLabourVO.labourTotal | currency}}</td>
                                 </tr>
                               </tbody>
                             </table>
                             <div class="col-sm-12">
+                            <div class="col-sm-6"></div>
                             <div class="col-sm-6">
                             <div class="col-sm-8 no-pad">
                               Total Requested Labor Cost

@@ -266,6 +266,8 @@ public class ClaimsServiceImpl implements ClaimsService {
 				claimPart.setUnitPrice(claimPartDO.getUnitPrice());
 				claimPartList.add(claimPart);
 			}
+			int records = claimPartDAO.deleteClaimPartsByClaimId(newClaim.getId());
+			logger.info("b4 insert ClaimParts, "+records+" records deleted for claim: "+newClaim.getClaimId());
 			claimPartDAO.save(claimPartList);
 		}
 		
@@ -281,6 +283,8 @@ public class ClaimsServiceImpl implements ClaimsService {
 				claimLabor.setClaimId(newClaim.getId());
 				claimLaborList.add(claimLabor);
 			}
+			int records = claimLaborDAO.deleteClaimLaborsByClaimId(newClaim.getId());
+			logger.info("b4 insert ClaimLabors, "+records+" records deleted for claim: "+newClaim.getClaimId());
 			claimLaborDAO.save(claimLaborList);
 		}
 		
@@ -790,7 +794,7 @@ public class ClaimsServiceImpl implements ClaimsService {
 			//claimReportDO.setQuoteId(quote.getId().getQuoteId());
 			claimReportDO.setReportedOn(reportDateFormat.format(claim.getReportDate()));
 			claimReportDO.setSerialNumber(claim.getSerial());
-			int totalAdjClaimCost = (claim.getApprovedOtherCharges1()+claim.getApprovedOtherCharges2()+claim.getTotalAdjustedPartsCost()+claim.getTotalAdjustedLaborCost());
+			double totalAdjClaimCost = (claim.getApprovedOtherCharges1()+claim.getApprovedOtherCharges2()+claim.getTotalAdjustedPartsCost()+claim.getTotalAdjustedLaborCost());
 			claimReportDO.setTotalAdjClaimCost(currencyFormat.format(totalAdjClaimCost));
 			
 			List<Integer> claimIdList = new ArrayList<Integer>();
@@ -800,7 +804,7 @@ public class ClaimsServiceImpl implements ClaimsService {
 			List<ClaimFile> claimFileList = claimFileDAO.findAllByClaimID(claimIdList);
 			List<ClaimNote> claimNoteList = claimNotesDAO.findByClaimId(claim.getId());
 			
-			long totalLaborCost = 0;
+			double totalLaborCost = 0;
 			if(null != claimsLaborList && !claimsLaborList.isEmpty()){
 				List<ClaimLaborDO> claimLaborDOList = new ArrayList<ClaimLaborDO>();
 				ClaimLaborDO laborDO = null;
@@ -820,7 +824,7 @@ public class ClaimsServiceImpl implements ClaimsService {
 				claimReportDO.setTotalReqLaborCost(currencyFormat.format(totalLaborCost));
 			}
 			
-			long totalPartCost = 0;
+			double totalPartCost = 0;
 			if(null != claimPartList && !claimPartList.isEmpty()){
 				List<ClaimPartDO> claimPartDOList = new ArrayList<ClaimPartDO>();
 				ClaimPartDO partDO = null;
@@ -874,22 +878,22 @@ public class ClaimsServiceImpl implements ClaimsService {
 				claimReportDO.setClaimNoteDOList(claimNoteDOList);
 			}
 			
-			int contractDeductible = totalAdjClaimCost - new Double(contract.getDeductible()).intValue();
+			double contractDeductible = totalAdjClaimCost - contract.getDeductible();
 			if(contractDeductible < 0){
 				contractDeductible = 0;
 			}
-			int deductibleTRA = new Double(contract.getAvailabeLol()).intValue() - contractDeductible;
+			double deductibleTRA = contract.getAvailabeLol() - contractDeductible;
 			//total Re-imbursed amount
-			int tra = 0;
+			double tra = 0;
 			if(deductibleTRA < 0){
-				tra = new Double(contract.getAvailabeLol()).intValue();
+				tra = contract.getAvailabeLol();
 			}else{
 				tra = contractDeductible;
 			}
 			
-			int customerOwes = 0;
+			double customerOwes = 0;
 			if(tra == totalAdjClaimCost){
-				customerOwes = new Double(contract.getDeductible()).intValue();
+				customerOwes = contract.getDeductible();
 			}else{
 				customerOwes = totalAdjClaimCost - tra;
 			}
@@ -900,8 +904,6 @@ public class ClaimsServiceImpl implements ClaimsService {
 			if(customerOwes >= 0){
 				claimReportDO.setTotalAmtOwnedByCustomer(currencyFormat.format(customerOwes));
 			}
-			
-			
 			
 		}
 		

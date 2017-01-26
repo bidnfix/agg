@@ -13,7 +13,7 @@ public class ClaimLaborDO {
 	private String laborNo;
 	private String laborDescr;
 	private int laborHrs;
-	private int rate;
+	private double rate;
 	private String laborTotal;
 	/**
 	 * 
@@ -85,13 +85,13 @@ public class ClaimLaborDO {
 	/**
 	 * @return the rate
 	 */
-	public int getRate() {
+	public double getRate() {
 		return rate;
 	}
 	/**
 	 * @param rate the rate to set
 	 */
-	public void setRate(int rate) {
+	public void setRate(double rate) {
 		this.rate = rate;
 	}
 	public String getLaborTotal() {

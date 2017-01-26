@@ -35,7 +35,7 @@ public class ClaimPart {
 	private int qty;
 	
 	@Column(name="unit_price")
-	private int unitPrice;
+	private double unitPrice;
 
 	/**
 	 * 
@@ -117,16 +117,15 @@ public class ClaimPart {
 	/**
 	 * @return the unitPrice
 	 */
-	public int getUnitPrice() {
+	public double getUnitPrice() {
 		return unitPrice;
 	}
 
 	/**
 	 * @param unitPrice the unitPrice to set
 	 */
-	public void setUnitPrice(int unitPrice) {
+	public void setUnitPrice(double unitPrice) {
 		this.unitPrice = unitPrice;
 	}
-	
-	
+
 }

@@ -233,9 +233,9 @@ public class ClaimsController extends BaseController {
 			Long id = (null != claim) ? (long)claim.getId() : -1; 
 			if(id != -1 ){
 				ClaimMail mail = new ClaimMail();
-				int partsCost = calcTotalPartsCost(claimsDO.getClaimPartDO());
-				int laborsCost = calcTotalLaborsCost(claimsDO.getClaimLaborDO());
-				int otherCost = claimsDO.getRequestedOtherCharges1() + claimsDO.getRequestedOtherCharges2();
+				double partsCost = calcTotalPartsCost(claimsDO.getClaimPartDO());
+				double laborsCost = calcTotalLaborsCost(claimsDO.getClaimLaborDO());
+				double otherCost = claimsDO.getRequestedOtherCharges1() + claimsDO.getRequestedOtherCharges2();
 				String dealerFirstName = "";
 				DealerDO dealerDO = dealerService.getDealer(claim.getDealerId());
 				if(dealerDO != null){
@@ -624,8 +624,8 @@ public class ClaimsController extends BaseController {
 		return cliamsList;
 	}
 	
-	public int calcTotalPartsCost(List<ClaimPartDO> parts){
-		int sum = 0;
+	public double calcTotalPartsCost(List<ClaimPartDO> parts){
+		double sum = 0;
 		if(null != parts){
 			for(ClaimPartDO part : parts){
 				sum += (part.getQty() * part.getUnitPrice());
@@ -634,8 +634,8 @@ public class ClaimsController extends BaseController {
 		return sum;
 	}
 	
-	public int calcTotalLaborsCost(List<ClaimLaborDO> labors){
-		int sum = 0;
+	public double calcTotalLaborsCost(List<ClaimLaborDO> labors){
+		double sum = 0;
 		if(null != labors){
 			for(ClaimLaborDO labor : labors){
 				sum += (labor.getLaborHrs() * labor.getRate());

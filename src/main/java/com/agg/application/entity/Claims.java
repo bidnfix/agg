@@ -82,23 +82,23 @@ public class Claims implements Serializable {
 	private Date lastUpdate;
 	
 	@Column(name="requested_other_charges1")
-	private int requestedOtherCharges1;
+	private double requestedOtherCharges1;
 	
 	@Column(name="requested_other_charges2")
-	private int requestedOtherCharges2;
+	private double requestedOtherCharges2;
 	
 	@Column(name="total_adjusted_parts_cost")
-	private int totalAdjustedPartsCost;
+	private double totalAdjustedPartsCost;
 	
 	@Column(name="total_adjusted_labor_cost")
-	private int totalAdjustedLaborCost;
+	private double totalAdjustedLaborCost;
 	
 	@Column(name="approved_other_charges1")
-	private int approvedOtherCharges1;
+	private double approvedOtherCharges1;
 	
 	
 	@Column(name="approved_other_charges2")
-	private int approvedOtherCharges2;
+	private double approvedOtherCharges2;
 	
 	@Column(name="cheq_no")
 	private String cheqNo;
@@ -347,84 +347,84 @@ public class Claims implements Serializable {
 	/**
 	 * @return the requestedOtherCharges1
 	 */
-	public int getRequestedOtherCharges1() {
+	public double getRequestedOtherCharges1() {
 		return requestedOtherCharges1;
 	}
 
 	/**
 	 * @param requestedOtherCharges1 the requestedOtherCharges1 to set
 	 */
-	public void setRequestedOtherCharges1(int requestedOtherCharges1) {
+	public void setRequestedOtherCharges1(double requestedOtherCharges1) {
 		this.requestedOtherCharges1 = requestedOtherCharges1;
 	}
 
 	/**
 	 * @return the requestedOtherCharges2
 	 */
-	public int getRequestedOtherCharges2() {
+	public double getRequestedOtherCharges2() {
 		return requestedOtherCharges2;
 	}
 
 	/**
 	 * @param requestedOtherCharges2 the requestedOtherCharges2 to set
 	 */
-	public void setRequestedOtherCharges2(int requestedOtherCharges2) {
+	public void setRequestedOtherCharges2(double requestedOtherCharges2) {
 		this.requestedOtherCharges2 = requestedOtherCharges2;
 	}
 
 	/**
 	 * @return the totalAdjustedPartsCost
 	 */
-	public int getTotalAdjustedPartsCost() {
+	public double getTotalAdjustedPartsCost() {
 		return totalAdjustedPartsCost;
 	}
 
 	/**
 	 * @param totalAdjustedPartsCost the totalAdjustedPartsCost to set
 	 */
-	public void setTotalAdjustedPartsCost(int totalAdjustedPartsCost) {
+	public void setTotalAdjustedPartsCost(double totalAdjustedPartsCost) {
 		this.totalAdjustedPartsCost = totalAdjustedPartsCost;
 	}
 
 	/**
 	 * @return the totalAdjustedLaborCost
 	 */
-	public int getTotalAdjustedLaborCost() {
+	public double getTotalAdjustedLaborCost() {
 		return totalAdjustedLaborCost;
 	}
 
 	/**
 	 * @param totalAdjustedLaborCost the totalAdjustedLaborCost to set
 	 */
-	public void setTotalAdjustedLaborCost(int totalAdjustedLaborCost) {
+	public void setTotalAdjustedLaborCost(double totalAdjustedLaborCost) {
 		this.totalAdjustedLaborCost = totalAdjustedLaborCost;
 	}
 
 	/**
 	 * @return the approvedOtherCharges1
 	 */
-	public int getApprovedOtherCharges1() {
+	public double getApprovedOtherCharges1() {
 		return approvedOtherCharges1;
 	}
 
 	/**
 	 * @param approvedOtherCharges1 the approvedOtherCharges1 to set
 	 */
-	public void setApprovedOtherCharges1(int approvedOtherCharges1) {
+	public void setApprovedOtherCharges1(double approvedOtherCharges1) {
 		this.approvedOtherCharges1 = approvedOtherCharges1;
 	}
 
 	/**
 	 * @return the approvedOtherCharges2
 	 */
-	public int getApprovedOtherCharges2() {
+	public double getApprovedOtherCharges2() {
 		return approvedOtherCharges2;
 	}
 
 	/**
 	 * @param approvedOtherCharges2 the approvedOtherCharges2 to set
 	 */
-	public void setApprovedOtherCharges2(int approvedOtherCharges2) {
+	public void setApprovedOtherCharges2(double approvedOtherCharges2) {
 		this.approvedOtherCharges2 = approvedOtherCharges2;
 	}
 

@@ -207,7 +207,7 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
 			}
 			
 			$scope.$watchCollection('[claim.totalLaborCost, claim.partsTotalCost, claim.requestedOtherCharges1, claim.requestedOtherCharges2]', function(newValues){
-				$scope.claim.totalClaimCost = parseInt(newValues[0]) + parseInt(newValues[1]) + parseInt(newValues[2]) + parseInt(newValues[3]);
+				$scope.claim.totalClaimCost = parseFloat(newValues[0]) + parseFloat(newValues[1]) + parseFloat(newValues[2]) + parseFloat(newValues[3]);
 				if(flag || ($scope.statusFlag === 9)){
 					$scope.isSubmitDisabled = $scope.claim.totalClaimCost > 1500;
 				}
@@ -255,21 +255,21 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
 			});
 		},
 		calReimburshedCost = function($scope){
-			var contractDeductible = parseInt($scope.claim.totalAdjustedClaimCost) - parseInt($scope.contractInfoList.deductible);
+			var contractDeductible = parseFloat($scope.claim.totalAdjustedClaimCost) - parseFloat($scope.contractInfoList.deductible);
 			if(contractDeductible < 0){
 				contractDeductible = 0;
 			}
-			var deductibleTRA = parseInt($scope.contractInfoList.availabeLol) - contractDeductible;
+			var deductibleTRA = parseFloat($scope.contractInfoList.availabeLol) - contractDeductible;
 			if(deductibleTRA < 0){
-				$scope.claim.tra = parseInt($scope.contractInfoList.availabeLol);
+				$scope.claim.tra = parseFloat($scope.contractInfoList.availabeLol);
 			}else{
 				$scope.claim.tra = contractDeductible;
 			}
 			
-			if(parseInt($scope.claim.tra) === parseInt($scope.claim.totalAdjustedClaimCost)){
-				$scope.claim.customerOwes = parseInt($scope.contractInfoList.deductible);
+			if(parseFloat($scope.claim.tra) === parseFloat($scope.claim.totalAdjustedClaimCost)){
+				$scope.claim.customerOwes = parseFloat($scope.contractInfoList.deductible);
 			}else{
-				$scope.claim.customerOwes = parseInt($scope.claim.totalAdjustedClaimCost) - parseInt($scope.claim.tra);
+				$scope.claim.customerOwes = parseFloat($scope.claim.totalAdjustedClaimCost) - parseFloat($scope.claim.tra);
 			}
 		},
 		getPreAuthRequest = function(){
@@ -610,27 +610,27 @@ routingApp.factory('claimsAdjudicateService', ['$http', '$q', '$window', '$timeo
 					adjustment.totalAdjustmentLaborsCost += adjustment.labors[i].laborsTotal;
 				}
 			}
-			adjustment.totalAdjustedClaimCost = parseInt(adjustment.totalAdjustmentPartsCost)  + parseInt(adjustment.totalAdjustmentLaborsCost)
-				+ parseInt(adjustment.approvedOtherCharges1) + parseInt(adjustment.approvedOtherCharges2);
+			adjustment.totalAdjustedClaimCost = parseFloat(adjustment.totalAdjustmentPartsCost)  + parseFloat(adjustment.totalAdjustmentLaborsCost)
+				+ parseFloat(adjustment.approvedOtherCharges1) + parseFloat(adjustment.approvedOtherCharges2);
 		}
 	},
 	calReimburshedCost = function($scope){
 		//var coveredUsageHours = 
-		var contractDeductible = parseInt($scope.adjustments.totalAdjustedClaimCost) - parseInt($scope.adjudicateClaim.contractDO.deductible);
+		var contractDeductible = parseFloat($scope.adjustments.totalAdjustedClaimCost) - parseFloat($scope.adjudicateClaim.contractDO.deductible);
 		if(contractDeductible < 0){
 			contractDeductible = 0;
 		}
-		var deductibleTRA = parseInt($scope.adjudicateClaim.contractDO.availabeLol) - contractDeductible;
+		var deductibleTRA = parseFloat($scope.adjudicateClaim.contractDO.availabeLol) - contractDeductible;
 		if(deductibleTRA < 0){
-			$scope.adjustments.tra = parseInt($scope.adjudicateClaim.contractDO.availabeLol);
+			$scope.adjustments.tra = parseFloat($scope.adjudicateClaim.contractDO.availabeLol);
 		}else{
 			$scope.adjustments.tra = contractDeductible;
 		}
 		
-		if(parseInt($scope.adjustments.tra) === parseInt($scope.adjustments.totalAdjustedClaimCost)){
-			$scope.adjustments.customerOwes = parseInt($scope.adjudicateClaim.contractDO.deductible);
+		if(parseFloat($scope.adjustments.tra) === parseFloat($scope.adjustments.totalAdjustedClaimCost)){
+			$scope.adjustments.customerOwes = parseFloat($scope.adjudicateClaim.contractDO.deductible);
 		}else{
-			$scope.adjustments.customerOwes = parseInt($scope.adjustments.totalAdjustedClaimCost) - parseInt($scope.adjustments.tra);
+			$scope.adjustments.customerOwes = parseFloat($scope.adjustments.totalAdjustedClaimCost) - parseFloat($scope.adjustments.tra);
 		}
 	},
 	selectClaim = function($scope, claim){
@@ -808,7 +808,7 @@ routingApp.factory('claimDraftService', ['$http', '$q', '$window', '$timeout', '
 			calcCost($scope.claim);
 			$scope.$watchCollection('[claim.totalLaborCost, claim.partsTotalCost, claim.requestedOtherCharges1, claim.requestedOtherCharges2]', function(newValues){
 				if($scope.claim){
-					$scope.claim.totalClaimCost = parseInt(newValues[0]) + parseInt(newValues[1]) + parseInt(newValues[2]) + parseInt(newValues[3]);
+					$scope.claim.totalClaimCost = parseFloat(newValues[0]) + parseFloat(newValues[1]) + parseFloat(newValues[2]) + parseFloat(newValues[3]);
 					$scope.isSubmitDisabled = $scope.claim.totalClaimCost > 1500;
 				}
 			});

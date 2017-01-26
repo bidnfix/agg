@@ -120,9 +120,9 @@ public class AdjudicateMail implements Runnable{
 	public void run() {
 		ClaimsDO claimsDO = claimsService.getClaim(id, dealerId);
 		ClaimsController con = new ClaimsController();
-		int laborsCost = con.calcTotalLaborsCost(claimsDO.getClaimLaborDO());
-		int partsCost = con.calcTotalPartsCost(claimsDO.getClaimPartDO());
-		int otherCost = claimsDO.getRequestedOtherCharges1() + claimsDO.getRequestedOtherCharges2();
+		double laborsCost = con.calcTotalLaborsCost(claimsDO.getClaimLaborDO());
+		double partsCost = con.calcTotalPartsCost(claimsDO.getClaimPartDO());
+		double otherCost = claimsDO.getRequestedOtherCharges1() + claimsDO.getRequestedOtherCharges2();
 		
 		String subject = String.format("AgGuard – %s – Adjudication Complete", claimsDO.getClaimId());
 		

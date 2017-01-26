@@ -3,8 +3,6 @@
  */
 package com.agg.application.vo;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 /**
  * @author htamada
  *
@@ -14,7 +12,7 @@ public class ClaimPartVO {
 	private String partNo;
 	private String partDescr;
 	private int qty;
-	private int unitPrice;
+	private double unitPrice;
 	/**
 	 * 
 	 */
@@ -76,17 +74,22 @@ public class ClaimPartVO {
 	public void setQty(int qty) {
 		this.qty = qty;
 	}
+
+
 	/**
 	 * @return the unitPrice
 	 */
-	public int getUnitPrice() {
+	public double getUnitPrice() {
 		return unitPrice;
 	}
+
+
 	/**
 	 * @param unitPrice the unitPrice to set
 	 */
-	public void setUnitPrice(int unitPrice) {
+	public void setUnitPrice(double unitPrice) {
 		this.unitPrice = unitPrice;
 	}
+	
 	
 }
