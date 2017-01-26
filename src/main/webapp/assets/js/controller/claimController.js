@@ -89,6 +89,16 @@ routingApp.controller('ClaimsController', ['$scope', 'claimService', '$http', '$
     	claimService.calcTotalPartCost($scope.claim);
     };
     
+    $scope.removeClaimPart = function(claimPart){
+    	var index = $scope.claim.claimPartVOList.indexOf(claimPart);
+		$scope.claim.claimPartVOList.splice(index, 1);
+    };
+    
+    $scope.removeClaimLabor = function(claimLabor){
+    	var index = $scope.claim.claimLabourVOList.indexOf(claimLabor);
+		$scope.claim.claimLabourVOList.splice(index, 1);
+    };
+    
     $scope.calcTotalLabourLine = function(index){
     	claimService.calcTotalLabourLine($scope.claim, index);
     };

@@ -208,6 +208,7 @@
 								<th class="col-sm-1">Quantity</th>
 								<th class="col-sm-2">Unit Price</th>
 								<th class="t-r col-sm-2">Part Total</th>
+								<th class="col-sm-1"></th>
 							</tr>
 						</thead>
 						<tbody data-ng-repeat="claimPartVO in claim.claimPartVOList">
@@ -223,6 +224,12 @@
 									ng-model="claimPartVO.unitPrice" required="required"
 									ng-change="calcTotalPartLine($index)" ng-readonly="commentUpdateBtnFlag"></td>
 								<td class="t-r">{{claimPartVO.partsTotal | currency}}</td>
+								<td>
+									<button ng-if="claim.claimPartVOList.length > 1" type="button" class="btn btn-primary btn-sm"
+									ng-click="removeClaimPart(claimPartVO);calcTotalPartCost(claim)">
+										<i class="fa fa-minus" ng-readonly="commentUpdateBtnFlag"></i>
+									</button>
+								</td>
 							</tr>
 						</tbody>
 					</table>
@@ -232,10 +239,10 @@
 								ng-click="claim.claimPartVOList.push({})">
 								<i class="fa fa-plus" ng-readonly="commentUpdateBtnFlag"></i> Add Part
 							</button>
-							<button ng-if="claim.claimPartVOList.length > 1" type="button" class="btn btn-primary btn-sm"
+							<!-- <button ng-if="claim.claimPartVOList.length > 1" type="button" class="btn btn-primary btn-sm"
 								ng-click="claim.claimPartVOList.pop();calcTotalPartCost(claim)">
 								<i class="fa fa-minus" ng-readonly="commentUpdateBtnFlag"></i> Delete Part
-							</button>
+							</button> -->
 						</div>
 						<div class="col-sm-6">
 							<div class="col-sm-8 no-pad">Total Requested Parts Cost</div>
@@ -257,6 +264,7 @@
 								<th class="col-sm-1">Hours</th>
 								<th class="col-sm-2">Hourly Rate</th>
 								<th class="t-r col-sm-2">Total</th>
+								<th class="col-sm-1"></th>
 							</tr>
 						</thead>
 						<tbody data-ng-repeat="claimLabourVO in claim.claimLabourVOList">
@@ -272,6 +280,12 @@
 									ng-model="claimLabourVO.laborHourlyRate" required="required"
 									ng-change="calcTotalLabourLine($index)" ng-readonly="commentUpdateBtnFlag"></td>
 								<td class="t-r">{{claimLabourVO.labourTotal | currency}}</td>
+								<td>
+									<button ng-if="claim.claimLabourVOList.length > 1" type="button" class="btn btn-primary btn-sm"
+										ng-click="removeClaimLabor(claimLabourVO);calcTotalLabourCost(claim)" ng-readonly="commentUpdateBtnFlag">
+										<i class="fa fa-minus"></i>
+									</button>
+								</td>
 							</tr>
 						</tbody>
 					</table>
@@ -281,10 +295,10 @@
 								ng-click="claim.claimLabourVOList.push({})" ng-readonly="commentUpdateBtnFlag">
 								<i class="fa fa-plus"></i> Add Labor
 							</button>
-							<button ng-if="claim.claimLabourVOList.length > 1" type="button" class="btn btn-primary btn-sm"
+							<!-- <button ng-if="claim.claimLabourVOList.length > 1" type="button" class="btn btn-primary btn-sm"
 								ng-click="claim.claimLabourVOList.pop();calcTotalLabourCost(claim)" ng-readonly="commentUpdateBtnFlag">
 								<i class="fa fa-minus"></i> Delete Labor
-							</button>
+							</button> -->
 						</div>
 						<div class="col-sm-6">
 							<div class="col-sm-8 no-pad">Total Requested Labor Cost</div>
