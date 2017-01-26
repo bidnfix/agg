@@ -220,11 +220,11 @@
                           </div>
                           <div class="form-group col-xs-12 no-pad">
                             <label>Adjusted Other Charge 1 ($)</label>
-                            <input type="number" step="0.01" class="form-control" ng-model="adjustments.approvedOtherCharges1" required="required" ng-readonly= "{{editFlag}}" ng-change="calcOnChange()">
+                            <input type="text" class="form-control" ng-model="adjustments.approvedOtherCharges1" required="required" ng-readonly= "{{editFlag}}" ng-change="calcOnChange()">
                           </div>
                           <div class="form-group col-xs-12 no-pad">
                             <label>Adjusted Other Charge 2 ($)</label>
-                            <input type="number" step="0.01" class="form-control" ng-model="adjustments.approvedOtherCharges2" required="required" ng-readonly= "{{editFlag}}" ng-change="calcOnChange()">
+                            <input type="text" class="form-control" ng-model="adjustments.approvedOtherCharges2" required="required" ng-readonly= "{{editFlag}}" ng-change="calcOnChange()">
                           </div>
                         </div>
                       </div>
@@ -272,7 +272,7 @@
                               Total Adjusted Parts Cost
                             </div>
                             <div class="col-sm-4 t-r">
-                              <input type="number" step="0.01" class="form-control" style="text-align: right;" ng-model="adjustments.totalAdjustmentPartsCost" required="required" ng-readonly= "{{editFlag}}" ng-change="calcOnChange()">
+                              <input type="text" class="form-control" style="text-align: right;" ng-model="adjustments.totalAdjustmentPartsCost" required="required" ng-readonly= "{{editFlag}}" ng-change="calcOnChange()">
                             </div>  
                             </div>
                               
@@ -314,7 +314,7 @@
                               Total Adjusted Labor Cost
                             </div>
                             <div class="col-sm-4 t-r">
-                            	<input type="number" step="0.01" style="text-align: right;" class="form-control" ng-model="adjustments.totalAdjustmentLaborsCost" required="required" ng-readonly= "{{editFlag}}" ng-change="calcOnChange()">
+                            	<input type="text" style="text-align: right;" class="form-control" ng-model="adjustments.totalAdjustmentLaborsCost" required="required" ng-readonly= "{{editFlag}}" ng-change="calcOnChange()">
                             </div>
                             <div class="col-sm-8 no-pad">
                               Total Requested Claim Cost
