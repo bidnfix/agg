@@ -117,7 +117,14 @@
                         <div class="row">
                             <div class="col-sm-4">
                                 <label class="radio-inline">
-                                    External Comments <span th:text="${externalComments}"></span>
+                                    External Comments:
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row" th:each="claimNote : ${externalComments}">
+                            <div class="col-sm-4">
+                                <label class="radio-inline">
+                                    <span th:text="${#dates.format(claimNote.lastUpdate, 'dd-MMM-yyyy')}"></span> - <span th:text="${claimNote.updatedBy}"></span> : <span th:text="${claimNote.notes}"></span>
                                 </label>
                             </div>
                         </div>

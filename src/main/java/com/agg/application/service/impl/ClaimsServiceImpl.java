@@ -927,6 +927,22 @@ public class ClaimsServiceImpl implements ClaimsService {
 		return claimNoteDO;
 		
 	}
+
+	@Override
+	public List<ClaimNoteDO> getClaimNotes(int claimId) {
+		logger.info("Inside getClaimNotes method with claimId: "+claimId);
+		List<ClaimNote> claimNoteList = claimNotesDAO.findByClaimId(claimId);
+		List<ClaimNoteDO> claimNoteDOLst = null;
+		if(claimNoteList !=null){
+			claimNoteDOLst = new ArrayList<ClaimNoteDO>();
+			for(ClaimNote claimNote : claimNoteList){
+				ClaimNoteDO claimNoteDO = convertClaimNoteDO(claimNote);
+				claimNoteDOLst.add(claimNoteDO);
+			}
+		}
+		
+		return claimNoteDOLst;
+	}
 	
 	
 }

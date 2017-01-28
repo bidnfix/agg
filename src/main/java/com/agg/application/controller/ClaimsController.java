@@ -35,6 +35,7 @@ import com.agg.application.entity.Claims;
 import com.agg.application.model.AccountDO;
 import com.agg.application.model.ClaimFileDO;
 import com.agg.application.model.ClaimLaborDO;
+import com.agg.application.model.ClaimNoteDO;
 import com.agg.application.model.ClaimPartDO;
 import com.agg.application.model.ClaimReportDO;
 import com.agg.application.model.ClaimsDO;
@@ -231,7 +232,7 @@ public class ClaimsController extends BaseController {
 			claimsDO.setClaimFileDO(claimFileDO);
 			Claims claim = claimsService.saveClaim(claimsDO, accountDO);
 			Long id = (null != claim) ? (long)claim.getId() : -1; 
-			if(id != -1 ){
+			if(id != -1  && (claim.getcStatus() != AggConstants.CLAIM_STATUS_DRAFT)){
 				ClaimMail mail = new ClaimMail();
 				double partsCost = calcTotalPartsCost(claimsDO.getClaimPartDO());
 				double laborsCost = calcTotalLaborsCost(claimsDO.getClaimLaborDO());
@@ -247,6 +248,8 @@ public class ClaimsController extends BaseController {
 				String appUrl = url.substring(0, url.length() - uri.length());
 				logger.info("appUrl: "+appUrl);
 				
+				List<ClaimNoteDO> claimNoteDOList = claimsService.getClaimNotes(claim.getId());
+				
 				Context context = new Context();
 				context.setVariable("claimNo", claimsDO.getClaimId());
 				context.setVariable("dealerName", dealerFirstName);
@@ -258,7 +261,7 @@ public class ClaimsController extends BaseController {
 				context.setVariable("deductible", claimsVO.getDeductible());
 				context.setVariable("lol", claimsVO.getLol());
 				context.setVariable("availableLol", claimsVO.getAvailabeLol());
-				context.setVariable("externalComments", claimsVO.getExtComments());
+				context.setVariable("externalComments", claimNoteDOList);
 				context.setVariable("appUrl", appUrl);
 				mail.setContext(context);
 				mail.setEmailSender(emailSender);

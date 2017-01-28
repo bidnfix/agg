@@ -604,12 +604,15 @@ routingApp.factory('claimsAdjudicateService', ['$http', '$q', '$window', '$timeo
 					adjustment.parts[i].partsTotal = adjustment.parts[i].qty * adjustment.parts[i].unitPrice;
 					adjustment.totalAdjustmentPartsCost += adjustment.parts[i].partsTotal;
 				}
+				
+				adjustment.totalAdjustmentPartsCost = parseFloat(adjustment.totalAdjustmentPartsCost).toFixed(2);
 			}
 			if(adjustment.labors && adjustment.totalAdjustmentLaborsCost === 0){
 				for(var i in adjustment.labors){
 					adjustment.labors[i].laborsTotal = adjustment.labors[i].laborHrs * adjustment.labors[i].rate;
 					adjustment.totalAdjustmentLaborsCost += adjustment.labors[i].laborsTotal;
 				}
+				adjustment.totalAdjustmentLaborsCost = parseFloat(adjustment.totalAdjustmentLaborsCost).toFixed(2);
 			}
 			adjustment.totalAdjustedClaimCost = parseFloat(adjustment.totalAdjustmentPartsCost)  + parseFloat(adjustment.totalAdjustmentLaborsCost)
 				+ parseFloat(adjustment.approvedOtherCharges1) + parseFloat(adjustment.approvedOtherCharges2);

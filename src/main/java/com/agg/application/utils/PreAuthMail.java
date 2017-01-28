@@ -111,7 +111,7 @@ public class PreAuthMail implements Runnable{
 		context.setVariable("deductible", claimsDO.getContractDO().getDeductible());
 		context.setVariable("lol", claimsDO.getContractDO().getLol());
 		context.setVariable("availableLol", claimsDO.getContractDO().getAvailabeLol());
-		context.setVariable("externalComments", "");
+		context.setVariable("externalComments", claimsDO.getClaimsNoteList());
 		
 		String statusDesc = "";
 		if(claimsDO.getcStatus() != 0){
