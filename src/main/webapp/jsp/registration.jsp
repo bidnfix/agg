@@ -295,7 +295,7 @@
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i aria-hidden="true" class="fa fa-globe fa"></i></span>
-									<input type="text" id="dealerUrl" name="dealerUrl" ng-model="dealer.dealerUrl" placeholder="URL" class="form-control" required="required">
+									<input type="text" id="dealerUrl" name="dealerUrl" ng-model="dealer.dealerUrl" placeholder="Website URL" class="form-control" required="required">
 								</div>
 							</div>
 						</div>	
