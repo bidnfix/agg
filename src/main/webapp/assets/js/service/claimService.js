@@ -207,7 +207,8 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
 			}
 			
 			$scope.$watchCollection('[claim.totalLaborCost, claim.partsTotalCost, claim.requestedOtherCharges1, claim.requestedOtherCharges2]', function(newValues){
-				$scope.claim.totalClaimCost = parseFloat(newValues[0]) + parseFloat(newValues[1]) + parseFloat(newValues[2]) + parseFloat(newValues[3]);
+				var totalClaimCosst = parseFloat(newValues[0]) + parseFloat(newValues[1]) + parseFloat(newValues[2]) + parseFloat(newValues[3]);
+				$scope.claim.totalClaimCost = parseFloat(totalClaimCosst).toFixed(2);
 				if(flag || ($scope.statusFlag === 9)){
 					$scope.isSubmitDisabled = $scope.claim.totalClaimCost > 1500;
 				}
@@ -808,7 +809,8 @@ routingApp.factory('claimDraftService', ['$http', '$q', '$window', '$timeout', '
 			calcCost($scope.claim);
 			$scope.$watchCollection('[claim.totalLaborCost, claim.partsTotalCost, claim.requestedOtherCharges1, claim.requestedOtherCharges2]', function(newValues){
 				if($scope.claim){
-					$scope.claim.totalClaimCost = parseFloat(newValues[0]) + parseFloat(newValues[1]) + parseFloat(newValues[2]) + parseFloat(newValues[3]);
+					var totalClaimCosst = parseFloat(newValues[0]) + parseFloat(newValues[1]) + parseFloat(newValues[2]) + parseFloat(newValues[3]);
+					$scope.claim.totalClaimCost = parseFloat(totalClaimCosst).toFixed(2);
 					$scope.isSubmitDisabled = $scope.claim.totalClaimCost > 1500;
 				}
 			});

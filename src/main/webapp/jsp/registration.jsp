@@ -291,7 +291,7 @@
                         
 
 					<div class="form-group">
-							<label class="cols-sm-2 control-label" for="dealerUrl">URL</label>
+							<label class="cols-sm-2 control-label" for="dealerUrl">Dealer Website</label>
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i aria-hidden="true" class="fa fa-globe fa"></i></span>

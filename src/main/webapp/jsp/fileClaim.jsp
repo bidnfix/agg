@@ -160,7 +160,7 @@
 	                        </div>
 	                        <div class="form-group">
 	                          <label>Total Claim ($)</label>
-	                          <input type="number" class="form-control" ng-model="claim.totalClaimCost" ng-readonly=true>
+	                          <input type="text" class="form-control" ng-model="claim.totalClaimCost" ng-readonly=true>
 	                        </div>
 	                      </div>
 	

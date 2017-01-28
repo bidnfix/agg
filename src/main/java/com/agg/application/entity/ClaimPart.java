@@ -32,7 +32,7 @@ public class ClaimPart {
 	@Column(name="part_descr")
 	private String partDescr;
 	
-	private int qty;
+	private double qty;
 	
 	@Column(name="unit_price")
 	private double unitPrice;
@@ -103,14 +103,14 @@ public class ClaimPart {
 	/**
 	 * @return the qty
 	 */
-	public int getQty() {
+	public double getQty() {
 		return qty;
 	}
 
 	/**
 	 * @param qty the qty to set
 	 */
-	public void setQty(int qty) {
+	public void setQty(double qty) {
 		this.qty = qty;
 	}
 

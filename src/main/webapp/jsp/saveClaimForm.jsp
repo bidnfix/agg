@@ -156,7 +156,7 @@
 						required="required" ng-readonly="commentUpdateBtnFlag">
 				</div>
 				<div class="form-group col-xs-12 no-pad">
-					<label>Total Claim ($)</label> <input type="number" step="0.01"
+					<label>Total Claim ($)</label> <input type="text" 
 						class="form-control" ng-model="claim.totalClaimCost"
 						ng-readonly=true>
 				</div>
@@ -204,8 +204,8 @@
 						<thead>
 							<tr>
 								<th class="col-sm-2">Part #</th>
-								<th class="col-sm-4">Description</th>
-								<th class="col-sm-1">Quantity</th>
+								<th class="col-sm-3">Description</th>
+								<th class="col-sm-2">Quantity</th>
 								<th class="col-sm-2">Unit Price</th>
 								<th class="t-r col-sm-2">Part Total</th>
 								<th class="col-sm-1"></th>
@@ -217,7 +217,7 @@
 									ng-model="claimPartVO.partNo" required="required" ng-readonly="commentUpdateBtnFlag"></td>
 								<td><input type="text" class="form-control" name=""
 									ng-model="claimPartVO.partDescr" required="required" ng-readonly="commentUpdateBtnFlag"></td>
-								<td><input type="number" class="form-control" name=""
+								<td><input type="number" step="0.01" class="form-control" name=""
 									ng-model="claimPartVO.qty" required="required"
 									ng-change="calcTotalPartLine($index)" ng-readonly="commentUpdateBtnFlag"></td>
 								<td><input type="number" step="0.01" class="form-control" name=""
@@ -260,8 +260,8 @@
 						<thead>
 							<tr>
 								<th class="col-sm-2">Labor #</th>
-								<th class="col-sm-4">Description</th>
-								<th class="col-sm-1">Hours</th>
+								<th class="col-sm-3">Description</th>
+								<th class="col-sm-2">Hours</th>
 								<th class="col-sm-2">Hourly Rate</th>
 								<th class="t-r col-sm-2">Total</th>
 								<th class="col-sm-1"></th>
@@ -273,7 +273,7 @@
 									ng-model="claimLabourVO.laborNo" ng-readonly="commentUpdateBtnFlag"></td>
 								<td><input type="text" class="form-control" name=""
 									ng-model="claimLabourVO.laborDescr" required="required" ng-readonly="commentUpdateBtnFlag"></td>
-								<td><input type="number" class="form-control" name=""
+								<td><input type="number" step="0.01" class="form-control" name=""
 									ng-model="claimLabourVO.laborHrs" required="required"
 									ng-change="calcTotalLabourLine($index)" ng-readonly="commentUpdateBtnFlag"></td>
 								<td><input type="number" step="0.01" class="form-control" name=""

@@ -141,7 +141,7 @@ public class ContractsController extends BaseController{
 		if (!sessionExists(request)){
 			result = new Result("failure", "Invalid Login", null);
 		}else{
-			List<ContractDO> responseDO = contractService.getActiveContracts();
+			List<ContractDO> responseDO = contractService.getActiveContracts(getAccountDetails(request));
 			List<Map<String, Object>> contractDOList = formatGetContracts(responseDO);
 			result = new Result("success", "", model.addAttribute("contractDOList",contractDOList));
 		}
