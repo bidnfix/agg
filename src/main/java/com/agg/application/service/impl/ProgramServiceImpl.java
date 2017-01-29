@@ -247,9 +247,11 @@ public class ProgramServiceImpl implements ProgramService {
 	
 	@Override
 	@Transactional
-	public int saveProgramsAsDealr(QuoteDO quoteDO, AccountDO accountDO, String appUrl) throws Exception{
+	public QuoteDO saveProgramsAsDealr(QuoteDO quoteDO, AccountDO accountDO, String appUrl) throws Exception{
 		logger.debug("In saveProgramsAsDealr");
 		Timestamp date = new Timestamp(new Date().getTime());
+		
+		QuoteDO newQuoteDO = null;
 		
 		if(quoteDO != null)
 		{
@@ -343,6 +345,20 @@ public class ProgramServiceImpl implements ProgramService {
 			
 			quote = quoteDAO.save(quote);
 			
+			newQuoteDO = new QuoteDO();
+			//logger.debug("To test 1111: "+quote.getId().getId());
+			newQuoteDO.setQuoteId(quote.getId().getQuoteId());
+			
+			Quote newQuote = quoteDAO.findByIdQuoteId(quote.getId().getQuoteId());
+			if(newQuote != null)
+			{
+				if(newQuote.getId() != null)
+				newQuoteDO.setId(newQuote.getId().getId());
+			}
+			//logger.debug("To test 2222: "+quoteDO.getId());
+			
+			
+			
 			if(custDO != null)
 			{
 				CustomerInfo custInfo = new CustomerInfo();
@@ -401,7 +417,7 @@ public class ProgramServiceImpl implements ProgramService {
 			
 		}
 		
-		return 0;
+		return newQuoteDO;
 		
 		/*
 		int generatedQuoteId = 0;
@@ -693,7 +709,7 @@ public class ProgramServiceImpl implements ProgramService {
 		reportDO.setQuoteId(quoteDO.getQuoteId());
 		reportDO.setAddress(quoteDO.getCustomerInfoDO().getAddress()+", "+quoteDO.getCustomerInfoDO().getState()+" "+quoteDO.getCustomerInfoDO().getZip());
 		reportDO.setOutStandingDesc(AggConstants.QUOTE_REPORT_OUT_STANDING_DESC);
-		reportDO.setManufacturerName(quoteDO.getManufacturerDO().getName());
+		reportDO.setManufacturerName(quoteDO.getManufacturerDO().getName());	
 		reportDO.setModelName(quoteDO.getMachineInfoDO().getModel());
 		reportDO.setModelSerialNo(quoteDO.getSerialNumber());
 		//TODO

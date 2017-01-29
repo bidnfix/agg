@@ -97,9 +97,9 @@ public class ProgramController extends BaseController {
 		String uri = request.getRequestURI();
 		String appUrl = url.substring(0, url.length() - uri.length());
 
-		int id = programService.saveProgramsAsDealr(quoteDO, getAccountDetails(request), appUrl);
-		logger.debug("Quote id :"+id);
-		return new Result("success", null, id);
+		QuoteDO newQuoteDO = programService.saveProgramsAsDealr(quoteDO, getAccountDetails(request), appUrl);
+		logger.debug("Quote id :"+newQuoteDO.getQuoteId());
+		return new Result("success", null, newQuoteDO);
 	}
 	
 	@RequestMapping(value = "/programs/{id}", method = RequestMethod.GET)
