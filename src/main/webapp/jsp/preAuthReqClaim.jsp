@@ -74,6 +74,7 @@
                 <div class="inner-main">
                      <form name="newClaimForm" ng-submit="onClickSubmitClaim()">   
                       <div class="col-xs-12 agf1 main-login pad10-top">
+                      	<div id="claimErrMsg" class="alert alert-danger text-center hidden"></div>
                       	<div class="col-xs-12 no-pad clearfix">
 							<div class="col-md-6 no-pad pad10-right">
 								<span class="ag-tab-title col-xs-12 no-pad marg10-bottom">Contract

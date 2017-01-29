@@ -21,7 +21,7 @@ var commons = {
 		}
 }
 
-routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filter', function($http, $q, $window, $timeout, $filter){
+routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filter', '$rootScope', function($http, $q, $window, $timeout, $filter, $rootScope){
 	
 	var draft = function($scope, claimId, adminFlag){
 			$scope.fromDraftFlag = true;
@@ -388,13 +388,26 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
 		    	   if(status === 200 && data.status === "success"){
 		    		   //alert("success");
 		    		   if(!$scope.fromDraftFlag){
-		    			   $route.reload();
+		    			   //$route.reload();
+		    			   $window.location = '#/agg/fileClaim/' + claim.claimId;
 		    		   }else{
-		    			   $window.location = '#/agg/fileClaim';
+		    			   //$window.location = '#/agg/fileClaim';
+		    			   $rootScope.draftClaimsFlag = false;
+		    			   $route.reload();
+		    			   //$window.location = '#/agg/fileClaim/' + claim.claimId;
 		    		   }
 		    		   
 		    	   }else{
-		    		   alert("failed");
+		    		   $('#claimErrMsg').html("Error occured while saving/submitting a Claim# '<strong>"+claim.claimId+"</strong>'. Please validate your input data");
+		            	$('#claimErrMsg').removeClass('hidden');
+		            	window.setTimeout(function() {
+		        		  //$("#quoteSuccessMsg").fadeTo(500, 0).slideUp(500, function(){
+		        		    //$(this).remove();
+		            		 $('#claimErrMsg').html("");
+		        			 $('#claimErrMsg').addClass('hidden');
+		        		  //});
+		        		}, 5000);
+		    		   //alert("Error occured while saving/submitting Claim# "+claim.claimId+". Please validate your input data");
 		    	   }
 		        });
 			hideSpinner();
@@ -525,13 +538,20 @@ routingApp.factory('claimPreAuthReqService', ['$http', '$q', '$window', '$timeou
 					//alert(response.data.status);
 					hideSpinner();
 					if (response.data.status == 'success') {
-						$window.location = '#/agg/fileClaim';
+						$window.location = '#/agg/fileClaim/' + $scope.preAuthClaim.claimId;
+						//$window.location = '#/agg/fileClaim';
 					} else {
-						alert('Error in adding program: '+response.data.errMessage)
+						//alert('Error in adding program: '+response.data.errMessage)
 						//$('#errMsg').html(response.data.errMessage);
+						$('#claimErrMsg').html("Error occured while updating a Pre-auth request Claim# '<strong>"+$scope.preAuthClaim.claimId+"</strong>'. Please validate your input data");
+		            	$('#claimErrMsg').removeClass('hidden');
+		            	window.setTimeout(function() {
+		            		 $('#claimErrMsg').html("");
+		        			 $('#claimErrMsg').addClass('hidden');
+		        		}, 5000);
 					}
 				}, function(errResponse) {
-					alert('Error while creating program');
+					alert('Error occured while updating the pre-auth-request');
 					return $q.reject(errResponse);
 				});
 		hideSpinner();
@@ -725,7 +745,18 @@ routingApp.factory('claimsAdjudicateService', ['$http', '$q', '$window', '$timeo
 				       .success(function(data, status) {
 				           //alert("success");
 				    	   hideSpinner();
-				           $window.location.href = '#/agg/fileClaim';
+				           //$window.location.href = '#/agg/fileClaim';
+				           //$window.location = '#/agg/fileClaim/' + $scope.adjudicateClaim.claimId;
+				           if (data.status == 'success') {
+				        	   $window.location = '#/agg/fileClaim/' + $scope.adjudicateClaim.claimId;
+							} else {
+								$('#claimErrMsg').html("Error occured while updating a Claim# '<strong>"+$scope.adjudicateClaim.claimId+"</strong>'. Please validate your input data");
+				            	$('#claimErrMsg').removeClass('hidden');
+				            	window.setTimeout(function() {
+				            		 $('#claimErrMsg').html("");
+				        			 $('#claimErrMsg').addClass('hidden');
+				        		}, 5000);
+							}
 				        });
 			}
 			hideSpinner();

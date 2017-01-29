@@ -7,8 +7,8 @@
 	<parameter name="totalAdjPartsCost" class="java.lang.String"/>
 	<field name="partNo" class="java.lang.String"/>
 	<field name="partDescr" class="java.lang.String"/>
-	<field name="qty" class="java.lang.Integer"/>
-	<field name="unitPrice" class="java.lang.Integer"/>
+	<field name="qty" class="java.lang.Double"/>
+	<field name="unitPrice" class="java.lang.Double"/>
 	<field name="partTotal" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
