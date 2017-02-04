@@ -70,11 +70,11 @@ public interface ContractsDAO extends CrudRepository<Contracts, Long>{
 	int getContractsCount(@Param("contractId") String contractId);
 	
 	@Query("select new com.agg.application.model.ContractDO(contract.id, contract.contractId, contract.machineSerialNo, contract.lol, contract.inceptionDate, "
-			+ "contract.expirationDate, contract.expirationUsageHours, contract.status) from Contracts contract")
+			+ "contract.expirationDate, contract.expirationUsageHours, contract.status, contract.lastUpdatedDate, contract.cheqNo, contract.receivedDate) from Contracts contract")
 	public List<ContractDO> findAllContracts();
 	
 	@Query("select new com.agg.application.model.ContractDO(contract.id, contract.contractId, contract.machineSerialNo, contract.lol, contract.inceptionDate, "
-			+ "contract.expirationDate, contract.expirationUsageHours, contract.status) "
+			+ "contract.expirationDate, contract.expirationUsageHours, contract.status, contract.lastUpdatedDate, contract.cheqNo, contract.receivedDate) "
 			+ "from Contracts contract, Quote quote "
 			+ "where contract.quoteId=quote.id.id and quote.dealer.id = :dealerId")
 	public List<ContractDO> findAllContracts(@Param("dealerId") long dealerId);

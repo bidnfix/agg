@@ -80,7 +80,7 @@ public class ClaimsDO {
 	}
 
 	public ClaimsDO(String claimId, String custName, String dealerName, String serialNo, String manfName,
-			String machineModel, byte status, String cheqNo, Date paidDate) {
+			String machineModel, byte status, String cheqNo, Date paidDate, Date createdDate) {
 		this.claimId = claimId;
 		this.custName = custName;
 		this.dealerName = dealerName;
@@ -90,6 +90,7 @@ public class ClaimsDO {
 		this.cStatus = status;
 		this.cheqNo = cheqNo;
 		this.paidDate = paidDate;
+		this.createdDate = createdDate;
 	}
 	/**
 	 * 

@@ -64,6 +64,32 @@
 				</div>
 			</div>
 			<div class="form-group">
+				<label for="cheqNo" class="col-sm-3 control-label">Cheque Number</label>
+				<div class="col-sm-9">
+					<input type="text" id="cheqNo" name="cheqNo" ng-model="quote.cheqNo" class="form-control">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="receivedDate" class="col-sm-3 control-label">Received Date</label>
+				<div class="col-sm-9">
+					<!-- <input type="date" id="receivedDate" name="receivedDate" ng-model="quote.receivedDate" class="form-control"> -->
+					<div class="input-group">
+						<input type="text" class="form-control" 
+		                   datepicker-popup="MM/dd/yyyy"
+		                   datepicker-options="dateOptions" 
+		                   is-open="receivedDatePickerIsOpen" 
+		                   ng-click="receivedDatePickerOpen()"
+		                   ng-model="quote.receivedDate"/>
+			            <span class="input-group-btn">
+			              <button type="button" class="btn btn-default" 
+			                      ng-click="receivedDatePickerOpen($event)">
+			                <i class="glyphicon glyphicon-calendar"></i>
+			              </button>
+			            </span>
+		            </div>
+				</div>
+			</div>
+			<div class="form-group">
 				<label for="address2" class="col-sm-3 control-label">Deal History</label>
 				<div class="col-sm-9">
 					<textarea class="form-control" placeholder="" ng-model="quote.dealHistory"></textarea>

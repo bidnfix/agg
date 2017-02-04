@@ -174,6 +174,7 @@ public class ContractsController extends BaseController{
 			itemMap.put("lol", item.getLol());
 			itemMap.put("availableLol", item.getAvailabeLol());
 			itemMap.put("deductible", item.getDeductible());
+			itemMap.put("lastUpdatedDate", item.getLastUpdatedDate());
 			responseList.add(itemMap);
 		}
 		return responseList;

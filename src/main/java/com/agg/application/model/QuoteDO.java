@@ -214,11 +214,15 @@ public class QuoteDO {
 	
 	private String dealerCustName;
 	
+	private String cheqNo;
+	
+	private Date receivedDate;
+	
 	public QuoteDO(){
 		
 	}
 	
-	public QuoteDO(int id, String quoteId, String dealerName, String custName, String machineModel, Date machineSaleDate, byte status){
+	public QuoteDO(int id, String quoteId, String dealerName, String custName, String machineModel, Date machineSaleDate, byte status, Date createdDate){
 		this.id = id;
 		this.quoteId = quoteId;
 		this.dealerName = dealerName;
@@ -241,6 +245,7 @@ public class QuoteDO {
 		
 		this.statusDesc = statusDesc;
 		this.status = status;
+		this.createDate = createdDate;
 	}
 	
 	public int getcHours() {
@@ -1411,6 +1416,34 @@ public class QuoteDO {
 	 */
 	public void setDealerCustName(String dealerCustName) {
 		this.dealerCustName = dealerCustName;
+	}
+
+	/**
+	 * @return the cheqNo
+	 */
+	public String getCheqNo() {
+		return cheqNo;
+	}
+
+	/**
+	 * @param cheqNo the cheqNo to set
+	 */
+	public void setCheqNo(String cheqNo) {
+		this.cheqNo = cheqNo;
+	}
+
+	/**
+	 * @return the receivedDate
+	 */
+	public Date getReceivedDate() {
+		return receivedDate;
+	}
+
+	/**
+	 * @param receivedDate the receivedDate to set
+	 */
+	public void setReceivedDate(Date receivedDate) {
+		this.receivedDate = receivedDate;
 	}
 	
 }

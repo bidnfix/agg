@@ -262,7 +262,7 @@
 						<div class="form-group">
 							<label>Email</label> <input type="text" d="email" name="email"
 													ng-model="program.customerInfoDO.email" placeholder="Email" class="form-control" validate-on="dirty"
-								required="required" ng-disabled="disabled">
+								ng-disabled="disabled">
 						</div>
 					</div>
 				</div>

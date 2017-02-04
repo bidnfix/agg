@@ -1368,7 +1368,8 @@ public class QuoteServiceImpl implements QuoteService {
 			
 			activeContract = contractsDAO.countByActive();
 			inactiveContract = contractsDAO.countByInactive();
-			claims = claimsDAO.count();
+			//claims = claimsDAO.count();
+			claims = claimsDAO.findClaimsCountByAdmin((byte)AggConstants.CLAIM_STATUS_DRAFT);
 			
 		}else{
 			estPrice = quoteDAO.countByEstPrice(accountDO.getDealerId());
@@ -1479,6 +1480,8 @@ public class QuoteServiceImpl implements QuoteService {
 		Quote quote = quoteDAO.findByIdQuoteId(quoteDO.getQuoteId());
 		contracts.setQuoteId(quote.getId().getId());
 		contracts.setStatus(1);
+		contracts.setCheqNo(quoteDO.getCheqNo());
+		contracts.setReceivedDate(quoteDO.getReceivedDate());
 		
 		contracts = contractsDAO.save(contracts);
 		
@@ -1532,7 +1535,13 @@ public class QuoteServiceImpl implements QuoteService {
 		
 		String subject = "Contract Details: "+contracts.getContractId()+" pdf files";
 		String emailBody = "PFA Contract Details: "+contracts.getContractId()+" details.";
-		EmailStatus emailStatus = emailSender.sendMailAsAttachment(quoteDO.getDealerEmail()+","+quoteDO.getDealerDO().getInvoiceEmail(), subject, emailBody, pdfAttachments, fileNames);
+		String emails = "";
+		if(quoteDO.getDealerEmail() != null && !quoteDO.getDealerEmail().isEmpty()){
+			emails = quoteDO.getDealerEmail()+","+quoteDO.getDealerDO().getInvoiceEmail();
+		}else{
+			emails = quoteDO.getDealerDO().getInvoiceEmail();
+		}
+		EmailStatus emailStatus = emailSender.sendMailAsAttachment(emails, subject, emailBody, pdfAttachments, fileNames);
 		if(emailStatus != null){
 			logger.info("emailStatus: "+emailStatus.getStatus());
 			logger.info("Contract pdf Attachment files emailed successfully to "+quoteDO.getDealerEmail()+" & "+quoteDO.getDealerDO().getInvoiceEmail());

@@ -79,6 +79,13 @@ public class Contracts implements Serializable{
 	@Column(name="last_updated_date")
 	private Date lastUpdatedDate;
 	
+	@Column(name="cheq_no")
+	private String cheqNo;
+	
+	@Temporal(TemporalType.DATE)
+	@Column(name="received_date")
+	private Date receivedDate;
+	
 	/**
 	 * 
 	 */
@@ -309,5 +316,32 @@ public class Contracts implements Serializable{
 		this.lastUpdatedDate = lastUpdatedDate;
 	}
 
+	/**
+	 * @return the cheqNo
+	 */
+	public String getCheqNo() {
+		return cheqNo;
+	}
+
+	/**
+	 * @param cheqNo the cheqNo to set
+	 */
+	public void setCheqNo(String cheqNo) {
+		this.cheqNo = cheqNo;
+	}
+
+	/**
+	 * @return the receivedDate
+	 */
+	public Date getReceivedDate() {
+		return receivedDate;
+	}
+
+	/**
+	 * @param receivedDate the receivedDate to set
+	 */
+	public void setReceivedDate(Date receivedDate) {
+		this.receivedDate = receivedDate;
+	}
 	
 }

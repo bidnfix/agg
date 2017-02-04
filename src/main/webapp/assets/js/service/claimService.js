@@ -323,7 +323,12 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
     						$scope.showActiveContractDetails = true;
     						$scope.contractDOList = response.data.data.contractDOList;
     						 $timeout(function () {
-    					        	$('#contractsTable').DataTable();
+    					        	$('#contractsTable').DataTable({
+    					        		"aaSorting": [[ 9, "desc" ]],
+ 					        	       columnDefs: [
+ 					        	           { targets: 9, visible: false }    
+ 					        	       ]
+ 					        	    });
     						 }, 500);
     					}else{
     						hideSpinner();
@@ -350,7 +355,12 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
     						$scope.showActiveContractDetails = true;
     						$scope.contractDOList = response.data.data.contractDOList;
     						 $timeout(function () {
-    					        	$('#contractsTable').DataTable();
+    					        	$('#contractsTable').DataTable({
+    					        		"aaSorting": [[ 9, "desc" ]],
+    					        	       columnDefs: [
+    					        	           { targets: 9, visible: false }    
+    					        	       ]
+    					        	    });
     						 }, 500);
     					}else{
     						hideSpinner();
@@ -492,7 +502,12 @@ routingApp.factory('claimPreAuthReqService', ['$http', '$q', '$window', '$timeou
 	    	if(response.data.data){
 	    		$scope.preAuthClaimList = response.data.data.preAuthClaimList;
 	    		$timeout(function () {
-		        	$('#preauthClaimsListTable').DataTable();
+		        	$('#preauthClaimsListTable').DataTable({
+		        		"aaSorting": [[ 5, "desc" ]],
+		        	       columnDefs: [
+		        	           { targets: 5, visible: false }    
+		        	       ]
+		        	    });
 		        }, 300);
 	    	}
 	    });
@@ -593,7 +608,12 @@ routingApp.factory('claimsAdjudicateService', ['$http', '$q', '$window', '$timeo
 	    .then(function(response) {
 	    	$scope.adjudicateClaimList = response.data.data.preAuthClaimList;
 	    	$timeout(function () {
-	        	$('#preauthClaimsListTable').DataTable();
+	        	$('#preauthClaimsListTable').DataTable({
+	        		"aaSorting": [[ 5, "desc" ]],
+	        	       columnDefs: [
+	        	           { targets: 5, visible: false }    
+	        	       ]
+	        	    });
 	        }, 300);
 	    });
 	},
@@ -959,7 +979,12 @@ routingApp.factory('claimDraftService', ['$http', '$q', '$window', '$timeout', '
     						$scope.showActiveContractDetails = true;
     						$scope.contractDOList = response.data.data.contractDOList;
     						 $timeout(function () {
-    					        	$('#contractsTable').DataTable();
+    					        	$('#contractsTable').DataTable({
+    					        		"aaSorting": [[ 9, "desc" ]],
+    					        	       columnDefs: [
+    					        	           { targets: 9, visible: false }    
+    					        	       ]
+    					        	    });
     						 }, 500);
     					}else{
     						hideSpinner();

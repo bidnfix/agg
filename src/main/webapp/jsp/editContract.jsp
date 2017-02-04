@@ -84,6 +84,28 @@
 						<p>{{contract.expirationUsageHours}}</p>
 					</div>
 					<div class="form-group">
+						<label for="cheqNo">Cheque Number</label>
+						<input type="text" id="cheqNo" name="cheqNo" ng-model="contract.cheqNo" class="form-control">
+					</div>
+					<div class="form-group">
+						<label for="receivedDate">Received Date</label>
+						<!-- <input type="date" id="receivedDate" name="receivedDate" ng-model="contract.receivedDate" class="form-control"> -->
+						<div class="input-group">
+							<input type="text" class="form-control" 
+			                   datepicker-popup="MM/dd/yyyy"
+			                   datepicker-options="dateOptions" 
+			                   is-open="receivedDatePickerIsOpen" 
+			                   ng-click="receivedDatePickerOpen()"
+			                   ng-model="contract.receivedDate"/>
+				            <span class="input-group-btn">
+				              <button type="button" class="btn btn-default" 
+				                      ng-click="receivedDatePickerOpen($event)">
+				                <i class="glyphicon glyphicon-calendar"></i>
+				              </button>
+				            </span>
+			            </div>
+					</div>
+					<div class="form-group">
 						<label>Comments</label>
 						<textarea id="comments" name="comments" ng-model="contract.comments"
 							placeholder="" class="form-control"></textarea>

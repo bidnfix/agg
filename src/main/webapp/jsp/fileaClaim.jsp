@@ -34,6 +34,7 @@
 			                <th>LOL</th>
 			                <th>Available LOL</th>
 			                <th>Deductible</th>
+			                <th></th>
 			            </tr>
 			        </thead>
 					<tbody>
@@ -47,6 +48,7 @@
 			                <td>{{contract.lol}}</td>
 			                <td>{{contract.availableLol}}</td>
 			                <td>{{contract.deductible}}</td>
+			                <td>{{contract.lastUpdatedDate}}</td>
 			            </tr>
 			        </tbody>
 				</table>

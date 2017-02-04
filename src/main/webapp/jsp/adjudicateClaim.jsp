@@ -1,4 +1,4 @@
-	<div ng-controller="ClaimsAdjudicateController" ng-init="showAdjudicateClaimList=true">
+	<div ng-init="showAdjudicateClaimList=true">
 		<!-- Article main content -->
 		<article class="col-md-9 maincontent" ng-if='showAdjudicateClaimList'>
 			<header class="page-header">
@@ -17,6 +17,7 @@
 			                <th>Dealer Contact Name</th>
 			                <th>Serial #</th>
 			                <th></th>
+			                <th></th>
 			            </tr>
 			        </thead>
 			        <tfoot>
@@ -25,6 +26,7 @@
 			                <th>Dealer Name</th>
 			                <th>Dealer Contact Name</th>
 			                <th>Serial #</th>
+			                <th></th>
 			                <th></th>
 			            </tr>
 			        </tfoot>
@@ -37,6 +39,7 @@
 			                <td>
 			                	<a ng-click="onClickSelectClaim(claim)"><img src="../assets/images/edit-pencil.png" alt="Edit" title="Edit"/></a>
 			                </td>
+			                <td>{{claim.createdDate}}</td>
 			            </tr>
 			        </tbody>
 				</table>

@@ -40,7 +40,7 @@
         </tfoot>
  
         <tbody>
-            <tr ng-repeat="quote in quoteList">
+            <tr ng-repeat="quote in quoteList | orderBy:'-createDate'">
             	<td>{{quote.quoteId}}</td>
             	<td>{{quote.dealerName}}</td>
                 <td>{{quote.dealerCustName}}</td>

@@ -191,7 +191,7 @@
 				</div>
 				<div class="form-group">
 					<label>Email Address</label> 
-					<input type="text" id="dealerEmail" name="dealerEmail" ng-model="quote.dealerEmail" placeholder="Email" class="form-control" required="required">
+					<input type="text" id="dealerEmail" name="dealerEmail" ng-model="quote.dealerEmail" placeholder="Email" class="form-control">
 				</div>
 			</div>
 
