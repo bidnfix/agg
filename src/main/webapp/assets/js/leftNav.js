@@ -1082,7 +1082,12 @@ routingApp.controller('QuotesDetailController', function($scope, $http, $timeout
 	.then(function(response) {
         $scope.quoteList = response.data.data;
         $timeout(function () {
-        	$('#quotesTbl').DataTable();
+        	$('#quotesTbl').DataTable({
+        		"aaSorting": [[ 6, "desc" ]],
+     	       columnDefs: [
+     	           { targets: 6, visible: false }    
+     	       ]
+     	    });
         }, 300);
     });
 	
@@ -1589,7 +1594,12 @@ routingApp.controller('ContractsController', function($scope, $http, $timeout, $
 	.then(function(response) {
         $scope.contractList = response.data.data.contractDOList;
         $timeout(function () {
-        	$('#contractsTbl').DataTable();
+        	$('#contractsTbl').DataTable({
+        		"aaSorting": [[ 9, "desc" ]],
+     	       columnDefs: [
+     	           { targets: 9, visible: false }    
+     	       ]
+     	    });
         }, 300);
     });
 })

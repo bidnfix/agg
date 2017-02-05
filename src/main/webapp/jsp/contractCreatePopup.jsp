@@ -69,7 +69,7 @@
 					<input type="text" id="cheqNo" name="cheqNo" ng-model="quote.cheqNo" class="form-control">
 				</div>
 			</div>
-			<div class="form-group">
+			<div class="agf1 form-group">
 				<label for="receivedDate" class="col-sm-3 control-label">Received Date</label>
 				<div class="col-sm-9">
 					<!-- <input type="date" id="receivedDate" name="receivedDate" ng-model="quote.receivedDate" class="form-control"> -->

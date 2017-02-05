@@ -28,6 +28,7 @@
                 <th>Cheque#</th>
                 <th>Received Date</th>
                 <th>Status</th>
+                <th></th>
                 <c:if test="${user.roleDO.accountType eq 'admin'}">
                 <th></th>
                 </c:if>
@@ -45,6 +46,7 @@
                 <th>Cheque#</th>
                 <th>Received Date</th>
                 <th>Status</th>
+                <th></th>
                 <c:if test="${user.roleDO.accountType eq 'admin'}">
                 <th></th>
                 </c:if>
@@ -52,7 +54,7 @@
         </tfoot>
  
         <tbody>
-            <tr ng-repeat="contract in contractList | orderBy:'-lastUpdatedDate'">
+            <tr ng-repeat="contract in contractList">
             	<td>{{contract.contractId}}</td>
             	<td>{{contract.machineSerialNo}}</td>
                 <td>{{contract.lol}}</td>
