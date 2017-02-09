@@ -43,99 +43,81 @@
 					<p>This is to inform you that your request for Pre-authorization to claim <span th:text="${claimNo}"></span> has been received and actioned.  Below are the details of the claim and the status.</p>
 					<br/>
 					<br/>
-                    <div class="col-sm-6">
-                       <div class="row">
-                            <div class="col-sm-4">
-                                <label class="radio-inline">
-                                    Claim# <span th:text="${claimNo}"></span>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <label class="radio-inline">
-                                    Status <span th:text="${status}"></span>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <label class="radio-inline">
-                                    Contract# <span th:text="${contractNo}"></span>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <label class="radio-inline">
-                                    Total Labor Cost <span th:text="${totalLaborCost}"></span>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <label class="radio-inline">
-                                    Total Parts Cost <span th:text="${totalPartsCost}"></span>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <label class="radio-inline">
-                                    Total Other Costs <span th:text="${totalOtherCost}"></span>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <label class="radio-inline">
-                                    Total Claim Cost <span th:text="${totalClaimCost}"></span>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <label class="radio-inline">
-                                    Deductible <span th:text="${deductible}"></span>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <label class="radio-inline">
-                                    LOL <span th:text="${lol}"></span>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <label class="radio-inline">
-                                    Available LOL <span th:text="${availableLol}"></span>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <label class="radio-inline">
-                                    External Comments:
-                                </label>
-                            </div>
-                        </div>
-                        <div class="row" th:each="claimNote : ${externalComments}">
-                            <div class="col-sm-4">
-                                <label class="radio-inline">
+               <div class="col-sm-6">
+                  <div class="row">
+                    <table>
+                          <tr>
+                            <td><b>Claim #</b></td>
+                            <td><span th:text="${claimNo}"></span></td>
+                            <td>&nbsp;&nbsp;</td>
+                            <td><b>Status</b></td>
+                            <td><span th:text="${status}"></span></td>
+                          </tr>
+                          <tr>
+                            <td><b>Contract #</b></td>
+                            <td><span th:text="${contractNo}"></span></td>
+                            <td>&nbsp;&nbsp;</td>
+                            <td></td>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            <td><b>Total Labor Cost</b></td>
+                            <td><span th:text="${totalLaborCost}"></span></td>
+                            <td>&nbsp;&nbsp;</td>
+                            <td><b>Total Parts Cost</b></td>
+                            <td><span th:text="${totalPartsCost}"></span></td>
+                          </tr>
+                          <tr>
+                            <td><b>Requested Parts Cost</b></td>
+                            <td><span th:text="${reqPartsCost}"></span></td>
+                            <td>&nbsp;&nbsp;</td>
+                            <td><b>Adjusted Parts Cost</b></td>
+                            <td><span th:text="${adjPartsCost}"></span></td>
+                          </tr>
+                          <tr>
+                            <td><b>Total Other Costs</b></td>
+                            <td><span th:text="${totalOtherCost}"></span></td>
+                            <td>&nbsp;&nbsp;</td>
+                            <td></td>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            <td><b>Total Claim Cost</b></td>
+                            <td><span th:text="${totalClaimCost}"></span></td>
+                            <td>&nbsp;&nbsp;</td>
+                            <td><b>Deductible</b></td>
+                            <td><span th:text="${deductible}"></span></td>
+                          </tr>
+                          <tr>
+                            <td><b>LOL</b></td>
+                            <td><span th:text="${lol}"></span></td>
+                            <td>&nbsp;&nbsp;</td>
+                            <td><b>Available LOL</b></td>
+                            <td><span th:text="${availableLol}"></span></td>
+                          </tr>
+                       </table>
+                  </div>
+                    <div class="row">
+                         <div class="col-sm-4">
+                             <label class="radio-inline">
+                                 External Comments:
+                             </label>
+                         </div>
+                     </div>
+                     <div class="row" th:each="claimNote : ${externalComments}">
+                         <div class="col-sm-4">
+                             <label class="radio-inline">
                                     <span th:text="${#dates.format(claimNote.lastUpdate, 'dd-MMM-yyyy')}"></span> - <span th:text="${claimNote.updatedBy}"></span> : <span th:text="${claimNote.notes}"></span>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="row">
-                        	<br/>
-							<br/>        
-							<p>Regards,</p>
-							<p><b>AgGuard Team</b></p>
-                        </div>
-                        
-                    </div>
+                              </label>
+                         </div>
+                     </div>
+                      <div class="row">
+                      <br/>
+            <br/>        
+            <p>Regards,</p>
+            <p><b>AgGuard Admin</b></p>
+                     </div>
+               </div>     
 				</div>
 			</div>
 

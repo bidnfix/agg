@@ -53,38 +53,29 @@
 					<br/>
                     <div class="col-sm-6">
                        <div class="row">
-                            <div class="col-sm-4">
-                                <label class="radio-inline">
-                                    Dealer Code: <p th:text="${dealerCode}"></p>
-                                </label>
-                            </div>
-                            <div class="col-sm-4">
-                                <label class="radio-inline">
-                                   Dealer Name:	<p th:text="${dealerName}"></p>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <label class="radio-inline">
-                                    Dealer Primary Contact: <p th:text="${dealerFirstName}+' '+${dealerLastName}"></p>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <label class="radio-inline">
-                                    Phone# <p th:text="${dealerPhone}"></p>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <label class="radio-inline">
-                                    Email# <p th:text="${dealerMarketEmail}"></p>
-                                </label>
-                            </div>
-                        </div>
+                        <table>
+                          <tr>
+                            <td><b>Dealer Code:</b></td>
+                            <td><span th:text="${dealerCode}"></span></td>
+                            <td>&nbsp;&nbsp;</td>
+                            <td><b>Dealer Name:</b></td>
+                            <td><span th:text="${dealerName}"></span></td>
+                          </tr>
+                          <tr>
+                            <td><b>Dealer Primary Contact:</b></td>
+                            <td><span th:text="${dealerFirstName}+' '+${dealerLastName}"></span></td>
+                            <td>&nbsp;&nbsp;</td>
+                            <td></td>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            <td><b>Phone# </b></td>
+                            <td><span th:text="${dealerPhone}"></span></td>
+                            <td>&nbsp;&nbsp;</td>
+                            <td><b>Email#</b></td>
+                            <td><span th:text="${dealerMarketEmail}"></span></td>
+                          </tr>
+                       </table>
                         <div class="row">
                         	<br/>
 							<br/>        
