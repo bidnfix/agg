@@ -53,30 +53,31 @@
 					<br/>
                     <div class="col-sm-6">
                        <div class="row">
-                       <table>
-                          <tr>
-                            <td><b>Dealer Code:</b></td>
-                            <td><span th:text="${dealerCode}"></span></td>
-                            <td>&nbsp;&nbsp;</td>
-                            <td></td>
-                            <td></td>
-                          </tr>
-                          <tr>
-                            <td><b>Dealer Name:</b></td>
-                            <td><span th:text="${dealerName}"></span></td>
-                            <td>&nbsp;&nbsp;</td>
-                            <td></td>
-                            <td></td>
-                          </tr>
-                          <tr>
-                            <td><b>User Name:</b></td>
-                            <td><span th:text="${userName}"></span></td>
-                            <td>&nbsp;&nbsp;</td>
-                            <td><b>Password:</b></td>
-                            <td><span th:text="${password}"></span></td>
-                          </tr>
-                       </table>
-                     </div>
+                            <div class="col-sm-4">
+                                <label class="radio-inline">
+                                    Dealer Code: <p th:text="${dealerCode}"></p>
+                                </label>
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="radio-inline">
+                                   Dealer Name:	<p th:text="${dealerName}"></p>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label class="radio-inline">
+                                    User Name: <p th:text="${userName}"></p>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label class="radio-inline">
+                                    Password: <p th:text="${password}"></p>
+                                </label>
+                            </div>
+                        </div>
                         <div class="row">
                         	<br/>
 							<br/>        
