@@ -2,8 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="coverageDetails" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c0ec05e7-1fb2-4f7a-a475-4bbe0eaa13dc">
 	<property name="ireport.zoom" value="0.9090909090909091"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
-	<subDataset name="dataset1" uuid="1ff90dc7-8379-4320-8170-3ec2286e2442"/>
+	<property name="ireport.y" value="3207"/>
 	<parameter name="imagePath" class="java.lang.String"/>
 	<field name="contractId" class="java.lang.String"/>
 	<field name="inceptionDate" class="java.lang.String"/>
@@ -932,7 +931,206 @@
 				<textFieldExpression><![CDATA["d. <u>How could this Failure have been avoided</u>: Rule out any service bulletins, field bulletins, recalls, programs, etc. related to the component and group. By better understanding the Failure, a repair can be made that is efficient, effective and will not lead to a repeat Failure. This feedback is also valuable, because WE want to help develop best practices for the repair and give advice to manufactures on product reliability. (For example: The seal does not appear to be sturdy enough for the operating pressures that are typical with this pump. It is unlikely that the owner or any service could have prevented this Failure. The pump needs better seals. No bulletins or recalls address this issue.)"]]></textFieldExpression>
 			</textField>
 		</band>
-		<band height="246"/>
+		<band height="316">
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="16" y="5" width="530" height="17" uuid="bafad8db-9400-4f06-a072-fa387ea58bee"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["5. Substantiation is the best way to avoid disputes. Provide robust information about the Claim. The following are typical examples of information that should be included with a Claim or pre-authorization request:"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="25" width="524" height="17" uuid="a86fa875-4e43-4428-8f44-4cc0fbc31d61"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["a. Invoice with itemized parts and labor."]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="45" width="524" height="17" uuid="824d4572-7fbe-40ca-b0a6-2764abf09cc5"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["b. Copy of any parts invoice over \$500 or involving a core deposit."]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="64" width="524" height="17" uuid="34d0373c-3ec0-4a98-8b75-49736982c4cd"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["c. Diagrams from a parts book and identification of Failed parts/components."]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="83" width="524" height="17" uuid="6934d8cb-dfae-4d92-bea0-19e4ee5f8084"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["d. Manufacturer's flat rate or time estimate for repair."]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="102" width="524" height="17" uuid="19dbc6ef-aedb-4e0e-b76e-f6350a80e55b"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["e. Photos of the Machine, any involved filter (showing ID and any other markings), and detailed photos indicating how the Failure occurred and what parts were affected. (Photos should be attached to Claim as a .jpg file)."]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="122" width="524" height="17" uuid="2529db96-457f-4f17-b871-ccd31b86713e"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["f. Any other documentation, evidence or descriptions that support the Claim."]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="16" y="145" width="530" height="17" uuid="085c45e0-962a-44a5-aa27-409e75a93960"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["6. The Administrator must be notified of any proposed alterations or additions to the Equipment and of any proposed departure from ordinary working conditions for which the Machine was designed. If any such modifications are made/or if the maximum current or maximum pressure for which the Equipment is designed to operate is altered, or any lower maximum as stipulated by the Manufacturer in writing is exceeded without the written consent of the Administrator, then, in the event of Mechanical Breakdown or Failure, no coverage shall exist. If the Administrator cannot approve the proposed modification, then the Coverage may be eligible for cancelation."]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="16" y="169" width="530" height="17" uuid="d82fb932-54ac-4ddd-80f5-00442b95b38e"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Covered Parts AND Components: (Inclusions)"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="16" y="188" width="530" height="17" uuid="dc6bc150-362e-4e60-b828-18bcb34fa9be"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["The Coverage YOU selected is identified in the Coverage section above. The components WE cover are separated into three distinct groups for which YOU can request coverage. These groups are described as: Powertrain, Hydraulic Systems and Platform."]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="16" y="207" width="530" height="17" uuid="3764cb20-39b9-4dc7-8544-063d5f0f052c"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["YOU must purchase Powertrain coverage, but YOU have a choice of adding Hydraulic Systems. YOU may then also add Platform, which will give you the highest level of coverage."]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="16" y="248" width="530" height="17" uuid="57c27206-7c35-4360-b052-40e1011f0bc9"/>
+				<textElement markup="styled">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">PowerTrain:</style>"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="16" y="266" width="530" height="17" uuid="962f8b8b-7c16-4a5f-8c48-2317bd88e419"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["The Powertrain group includes the following components which produce, transmit or control engine horsepower for propelling the machine:"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="16" y="285" width="530" height="17" uuid="e1688e0f-413f-4e06-9ae9-54af37c13c96"/>
+				<textElement textAlignment="Left" markup="html">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<ul><li>Core engine (except hang-on attachments)</li><li>Engine fan & flywheel</li><li>Engine lubrication system (except oil and oil filter)</li><li>Engine electronic controls & sensors (e.g., electronic control module - ECM)</li><li>Turbo air induction & exhaust system (except muffler, hoses/tubes, exhaust stack & air filters)</li><li>Engine water pump and water temperature regulator</li><li>Fuel injection components</li><li>Engine drive-line coupler, drive-line shafts, U-joints, transfer gears & differential</li><li>Transmission, transmission oil pumps, valves, controls & sensors</li><li>Final drives, drive axles and non-powered axles</li><li>Hydro propel pumps, motors, controls, sensors & lines/hoses (Hydro-powered threshing cylinders on combines are not covered-they are considered part of Hydraulic System)</li><li>Creeper drive components, controls & sensors</li><li>Power take off (PTO) components, controls & sensors</li><li>Electronic clutch on commercial mowers</li></ul>"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="16" y="226" width="530" height="17" uuid="93f599bb-1bed-42c2-b07e-2fbc694f052d"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Each category builds on the previous category to include more Covered Parts. WE no longer use the terminology \"full machine\" because WE feel this description is misleading. Much like the Manufacturer's initial warranty, there are a number of parts that are not covered. However, by adding Platform coverage you are typically extended the Coverage on all of the parts covered under the Manufacturer's warranty. Below is a more precise description of the parts and components covered by each category of coverage:"]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="303">
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="16" y="4" width="530" height="17" uuid="d4607ecc-b263-4f86-a663-566f91ba8998"/>
+				<textElement markup="styled">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">PowerTrain + Hydraulic Systems:</style>"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="16" y="23" width="530" height="17" uuid="9060959f-67e2-4b85-9092-7641ce5b274a"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["The Powertrain + Hydraulic Systems group includes all components in the Powertrain group plus hydraulic systems parts and components associated with steering and implement control:"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="16" y="42" width="530" height="17" uuid="2008e666-249c-4c4c-99ff-11d76f9df15d"/>
+				<textElement textAlignment="Left" markup="html">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<ul><li>Hydraulic tanks, pumps, oil coolers, motors, controls & sensors</li><li>Hydraulic valves, cylinders, accumulators, hoses/lines, quick couplers & swivels, filter bases</li></ul>"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="16" y="63" width="530" height="17" uuid="ba999c8f-92df-4ff1-b74e-18e2bf7198df"/>
+				<textElement markup="styled">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">PowerTrain + Hydraulic Systems + Platform:</style>"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="16" y="83" width="530" height="17" uuid="cfb600a8-e1d2-48de-a471-d939bf8837c2"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["The Platform group includes all components in the Powertrain group + Hydraulic Systems group plus additional mechanical, electrical and structural components:"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="16" y="102" width="530" height="17" uuid="7e9a8462-684f-4883-bfea-1a9e9f7b1a03"/>
+				<textElement textAlignment="Left" markup="html">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<ul><li>Engine starting aid, starter, alternator, air compressor & engine block heater</li><li>Air conditioning compressor, evaporator and connecting lines</li><li>Radiator, coolant reservoir & coolant hoses/lines</li><li>Air inlet/exhaust hoses/tubes (except muffler and exhaust stack)</li><li>Fuel tanks & tank-attached fuel lines</li><li>Service brake system components (except friction pads/shoes and related wear parts)</li><li>Cab frame enclosure, mounting, platform & suspension</li><li>ROPS, FOPS and Back-up alarm</li><li>Hood, fenders, sweep/bottom/cylinder guards & ladders/steps</li></ul>"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="16" y="125" width="530" height="17" uuid="5f2b6860-92fc-4ade-8d57-a376c715052f"/>
+				<textElement markup="styled">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">General Items COVERED by all Categories:</style>"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="144" width="524" height="17" uuid="d8130c05-0440-4374-84c7-8c32bcf2a9f0"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["1. WE will pay for replacement of necessary fluids, oils, greases, lubricants and approved A/C gases that must be replaced in conjunction with a covered repair. THIS COVERAGE DOES NOT APPLY TO SHOP SUPPLIES."]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="162" width="524" height="17" uuid="ff6ac4de-f794-4a03-9590-d838fe5ff160"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["2. WE will pay for reasonable, necessary and customary diagnostic charges incurred in conjunction with a covered repair, not to exceed the labor time listed in a nationally recognized parts and labor guide."]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="28" y="181" width="507" height="17" uuid="60a15c8e-abf8-422d-b5d3-d85f5bf0e06b"/>
+				<textElement textAlignment="Left" markup="html">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<ul><li>Diagnostic time will not be paid when the proper repair is readily apparent to the normal senses of sight, touch, smell and/or sound.</li><li>Diagnostic costs that will exceed \$500 must be pre-approved by the Administrator.</li></ul>"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="199" width="524" height="17" uuid="e5d54ed8-97f6-4e50-ae49-e30b9e07d446"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["3. RELATED DAMAGE COVERAGE: WE will pay for the replacement of brake pads, belts and hoses that are damaged and require replacement as a direct result of a covered Mechanical Breakdown."]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="16" y="220" width="530" height="17" uuid="ad46ec6a-6a03-4433-b94e-57de5e0a11df"/>
+				<textElement markup="styled">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">Exclusions:</style><style forecolor=\"#da2b12\">What is not covered and what this Contract will not pay or reimburse:</style>"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="16" y="239" width="530" height="17" uuid="4654a926-de24-4531-9120-16fdeee5117d"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["The Coverage YOU selected does not include:"]]></textFieldExpression>
+			</textField>
+		</band>
 	</detail>
 	<pageFooter>
 		<band height="40" splitType="Stretch">
