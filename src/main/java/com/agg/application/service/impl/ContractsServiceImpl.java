@@ -71,6 +71,9 @@ public class ContractsServiceImpl implements ContractsService{
 		record.setExpirationUsageHours(contract.getExpirationUsageHours());
 		record.setComments(contract.getComments());
 		record.setLastUpdatedDate(contract.getLastUpdatedDate());
+		record.setCheqNo(contract.getCheqNo());
+		record.setReceivedDate(contract.getReceivedDate());
+		
 		try{
 			response = contractDAO.save(record);
 		}catch(Exception e){
@@ -129,6 +132,8 @@ public class ContractsServiceImpl implements ContractsService{
 			contractDO.setExpirationUsageHours(item.getExpirationUsageHours());
 			contractDO.setComments(item.getComments());
 			contractDO.setLastUpdatedDate(item.getLastUpdatedDate());
+			contractDO.setCheqNo(item.getCheqNo());
+			contractDO.setReceivedDate(item.getReceivedDate());
 			
 			Quote quote = quoteDAO.findOne((int)item.getQuoteId());
 			if(null != quote){
@@ -238,6 +243,8 @@ public class ContractsServiceImpl implements ContractsService{
 			contracts.setComments(contractDO.getComments());
 			contracts.setStatus(contractDO.getStatus());
 			contracts.setLastUpdatedDate(new Date());
+			contracts.setCheqNo(contractDO.getCheqNo());
+			contracts.setReceivedDate(contractDO.getReceivedDate());
 			
 			contractDAO.save(contracts);
 			

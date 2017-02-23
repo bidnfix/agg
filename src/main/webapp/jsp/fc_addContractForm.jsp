@@ -144,7 +144,7 @@
 		<label for="totalClaimCost" class="col-sm-3 control-label">Total
 			Claim Cost</label>
 		<div class="col-sm-9">
-			<input type="number" ng-model="claim.totalClaimCost"
+			<input type="text" ng-model="claim.totalClaimCost"
 				id="totalClaimCost" name="totalClaimCost" class="form-control"
 				ng-readonly=true>
 		</div>

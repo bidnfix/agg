@@ -170,7 +170,7 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="dealerUrl" class="col-sm-3 control-label">URL</label>
+				<label for="dealerUrl" class="col-sm-3 control-label">Dealer Website</label>
 				<div class="col-sm-9">
 					<input type="text" id="dealerUrl" name="dealerUrl" ng-model="dealer.dealerUrl" class="form-control" required="required">
 				</div>

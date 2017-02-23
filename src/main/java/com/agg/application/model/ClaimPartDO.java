@@ -12,8 +12,8 @@ public class ClaimPartDO {
 	private int claimId;
 	private String partNo;
 	private String partDescr;
-	private int qty;
-	private int unitPrice;
+	private double qty;
+	private double unitPrice;
 	private String partTotal;
 	/**
 	 * 
@@ -70,28 +70,29 @@ public class ClaimPartDO {
 	public void setPartDescr(String partDescr) {
 		this.partDescr = partDescr;
 	}
+	
 	/**
 	 * @return the qty
 	 */
-	public int getQty() {
+	public double getQty() {
 		return qty;
 	}
 	/**
 	 * @param qty the qty to set
 	 */
-	public void setQty(int qty) {
+	public void setQty(double qty) {
 		this.qty = qty;
 	}
 	/**
 	 * @return the unitPrice
 	 */
-	public int getUnitPrice() {
+	public double getUnitPrice() {
 		return unitPrice;
 	}
 	/**
 	 * @param unitPrice the unitPrice to set
 	 */
-	public void setUnitPrice(int unitPrice) {
+	public void setUnitPrice(double unitPrice) {
 		this.unitPrice = unitPrice;
 	}
 	public String getPartTotal() {

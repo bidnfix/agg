@@ -26,74 +26,81 @@ public interface ClaimsDAO extends CrudRepository<Claims, Integer> {
 	void updateStatus(@Param("id") int id, @Param("cStatus") byte cStatus);
 	
 	@Query("select new com.agg.application.model.ClaimsDO(claims.claimId, cus.name, dealer.name, claims.serial, quotes.manufacturer.manfName, "
-			+ "quotes.machineInfo.model, claims.cStatus, claims.cheqNo, claims.paidDate) from "
+			+ "quotes.machineInfo.model, claims.cStatus, claims.cheqNo, claims.paidDate, claims.createdDate) from "
 			+ "Claims claims, Contracts contracts, Quote quotes, CustomerInfo cus, Dealer dealer "
 			+ "where claims.contractId = contracts.contractId "
 			+ "and contracts.quoteId = quotes.id.id "
 			+ "and quotes.id.quoteId = cus.quoteId "
 			+ "and claims.dealerId = :dealerId "
-			+ "and claims.dealerId = dealer.id")
+			+ "and claims.dealerId = dealer.id "
+			+ "ORDER BY claims.createdDate DESC")
 	List<ClaimsDO> findClaimsInfo(@Param("dealerId") int dealerId);
 	
 	@Query("select new com.agg.application.model.ClaimsDO(claims.claimId, cus.name, dealer.name, claims.serial, quotes.manufacturer.manfName, "
-			+ "quotes.machineInfo.model, claims.cStatus, claims.cheqNo, claims.paidDate) from "
-			+ "Claims claims, Contracts contracts, Quote quotes, CustomerInfo cus, Dealer dealer "
-			+ "where claims.contractId = contracts.contractId "
-			+ "and contracts.quoteId = quotes.id.id "
-			+ "and quotes.id.quoteId = cus.quoteId "
-			+ "and claims.dealerId = dealer.id")
-	List<ClaimsDO> findClaimsInfo();
-	
-	@Query("select new com.agg.application.model.ClaimsDO(claims.claimId, cus.name, dealer.name, claims.serial, quotes.manufacturer.manfName, "
-			+ "quotes.machineInfo.model, claims.cStatus, claims.cheqNo, claims.paidDate) from "
+			+ "quotes.machineInfo.model, claims.cStatus, claims.cheqNo, claims.paidDate, claims.createdDate) from "
 			+ "Claims claims, Contracts contracts, Quote quotes, CustomerInfo cus, Dealer dealer "
 			+ "where claims.contractId = contracts.contractId "
 			+ "and contracts.quoteId = quotes.id.id "
 			+ "and quotes.id.quoteId = cus.quoteId "
 			+ "and claims.dealerId = dealer.id "
-			+ "and claims.cStatus = :cStatus")
-	List<ClaimsDO> findApprovedClaims(@Param("cStatus") byte cStatus);
+			+ "ORDER BY claims.createdDate DESC")
+	List<ClaimsDO> findClaimsInfo();
 	
 	@Query("select new com.agg.application.model.ClaimsDO(claims.claimId, cus.name, dealer.name, claims.serial, quotes.manufacturer.manfName, "
-			+ "quotes.machineInfo.model, claims.cStatus, claims.cheqNo, claims.paidDate) from "
+			+ "quotes.machineInfo.model, claims.cStatus, claims.cheqNo, claims.paidDate, claims.createdDate) from "
 			+ "Claims claims, Contracts contracts, Quote quotes, CustomerInfo cus, Dealer dealer "
 			+ "where claims.contractId = contracts.contractId "
 			+ "and contracts.quoteId = quotes.id.id "
 			+ "and quotes.id.quoteId = cus.quoteId "
 			+ "and claims.dealerId = dealer.id "
 			+ "and claims.cStatus = :cStatus "
-			+ "and dealer.id = :dealerId")
-	List<ClaimsDO> findApprovedClaims(@Param("cStatus") byte cStatus, @Param("dealerId") long dealerId);
+			+ "ORDER BY claims.createdDate DESC")
+	List<ClaimsDO> findApprovedClaims(@Param("cStatus") byte cStatus);
 	
 	@Query("select new com.agg.application.model.ClaimsDO(claims.claimId, cus.name, dealer.name, claims.serial, quotes.manufacturer.manfName, "
-			+ "quotes.machineInfo.model, claims.cStatus, claims.cheqNo, claims.paidDate) from "
+			+ "quotes.machineInfo.model, claims.cStatus, claims.cheqNo, claims.paidDate, claims.createdDate) from "
 			+ "Claims claims, Contracts contracts, Quote quotes, CustomerInfo cus, Dealer dealer "
 			+ "where claims.contractId = contracts.contractId "
 			+ "and contracts.quoteId = quotes.id.id "
 			+ "and quotes.id.quoteId = cus.quoteId "
 			+ "and claims.dealerId = dealer.id "
-			+ "and claims.cStatus in (:cStatuses)")
-	List<ClaimsDO> findRejectedClaims(@Param("cStatuses") List<Byte> cStatuses);
+			+ "and claims.cStatus = :cStatus "
+			+ "and dealer.id = :dealerId "
+			+ "ORDER BY claims.createdDate DESC")
+	List<ClaimsDO> findApprovedClaims(@Param("cStatus") byte cStatus, @Param("dealerId") long dealerId);
 	
 	@Query("select new com.agg.application.model.ClaimsDO(claims.claimId, cus.name, dealer.name, claims.serial, quotes.manufacturer.manfName, "
-			+ "quotes.machineInfo.model, claims.cStatus, claims.cheqNo, claims.paidDate) from "
+			+ "quotes.machineInfo.model, claims.cStatus, claims.cheqNo, claims.paidDate, claims.createdDate) from "
 			+ "Claims claims, Contracts contracts, Quote quotes, CustomerInfo cus, Dealer dealer "
 			+ "where claims.contractId = contracts.contractId "
 			+ "and contracts.quoteId = quotes.id.id "
 			+ "and quotes.id.quoteId = cus.quoteId "
 			+ "and claims.dealerId = dealer.id "
 			+ "and claims.cStatus in (:cStatuses) "
-			+ "and dealer.id = :dealerId")
+			+ "ORDER BY claims.createdDate DESC")
+	List<ClaimsDO> findRejectedClaims(@Param("cStatuses") List<Byte> cStatuses);
+	
+	@Query("select new com.agg.application.model.ClaimsDO(claims.claimId, cus.name, dealer.name, claims.serial, quotes.manufacturer.manfName, "
+			+ "quotes.machineInfo.model, claims.cStatus, claims.cheqNo, claims.paidDate, claims.createdDate) from "
+			+ "Claims claims, Contracts contracts, Quote quotes, CustomerInfo cus, Dealer dealer "
+			+ "where claims.contractId = contracts.contractId "
+			+ "and contracts.quoteId = quotes.id.id "
+			+ "and quotes.id.quoteId = cus.quoteId "
+			+ "and claims.dealerId = dealer.id "
+			+ "and claims.cStatus in (:cStatuses) "
+			+ "and dealer.id = :dealerId "
+			+ "ORDER BY claims.createdDate DESC")
 	List<ClaimsDO> findRejectedClaims(@Param("cStatuses") List<Byte> cStatuses, @Param("dealerId") long dealerId);
 	
 	@Query("select new com.agg.application.model.ClaimsDO(claims.claimId, cus.name, dealer.name, claims.serial, quotes.manufacturer.manfName, "
-			+ "quotes.machineInfo.model, claims.cStatus, claims.cheqNo, claims.paidDate) from "
+			+ "quotes.machineInfo.model, claims.cStatus, claims.cheqNo, claims.paidDate, claims.createdDate) from "
 			+ "Claims claims, Contracts contracts, Quote quotes, CustomerInfo cus, Dealer dealer "
 			+ "where claims.contractId = contracts.contractId "
 			+ "and contracts.quoteId = quotes.id.id "
 			+ "and quotes.id.quoteId = cus.quoteId "
 			+ "and claims.cStatus != :cStatus "
-			+ "and claims.dealerId = dealer.id")
+			+ "and claims.dealerId = dealer.id "
+			+ "ORDER BY claims.createdDate DESC")
 	List<ClaimsDO> findAdminClaimsInfo(@Param("cStatus") byte cStatus);
 	
 	@Query("SELECT COUNT(*) AS claimsCount FROM Claims c WHERE c.contractId = :contractId")
@@ -101,6 +108,9 @@ public interface ClaimsDAO extends CrudRepository<Claims, Integer> {
 	
 	@Query("SELECT COUNT(*) FROM Claims c WHERE c.dealerId = :dealerId")
 	long findClaimsCountByDealer(@Param("dealerId") int dealerId);
+	
+	@Query("SELECT COUNT(*) FROM Claims c WHERE c.cStatus != :cStatus and c.dealerId > 0")
+	long findClaimsCountByAdmin(@Param("cStatus") byte cStatus);
 	
 	@Query("SELECT c FROM Claims c WHERE c.claimId = :claimId")
 	Claims findClaimsByClaimId(@Param("claimId")String claimId);

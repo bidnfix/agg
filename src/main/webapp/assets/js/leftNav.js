@@ -394,6 +394,8 @@ routingApp.controller('HomeController', function($scope, $http, $timeout, $windo
 		.then(function(response) {
 	        $scope.quoteList = response.data.data;
 	        //if($scope.quoteList != null){
+	        	$('#quotesTbl').dataTable().fnClearTable();
+	        	$('#quotesTbl').dataTable().fnDestroy();
 	    		$scope.contractsFlag = true;
 	    		$scope.quotesFlag = false;
 	    		$scope.claimsFlag = true;
@@ -413,6 +415,8 @@ routingApp.controller('HomeController', function($scope, $http, $timeout, $windo
 		.then(function(response) {
 			$scope.contractList = response.data.data.contractDOList;
 			//if($scope.contractList != null){
+				$('#contractsTbl').dataTable().fnClearTable();
+	    		$('#contractsTbl').dataTable().fnDestroy();
 	    		$scope.contractsFlag = false;
 	    		$scope.quotesFlag = true;
 	    		$scope.claimsFlag = true;
@@ -431,6 +435,8 @@ routingApp.controller('HomeController', function($scope, $http, $timeout, $windo
 		.then(function(response) {
 			$scope.claimDOList = response.data.data.claimDOList;
 	        //if($scope.quoteList != null){
+				$('#claimsTbl').dataTable().fnClearTable();
+				$('#claimsTbl').dataTable().fnDestroy();
 	    		$scope.contractsFlag = true;
 	    		$scope.quotesFlag = true;
 	    		$scope.claimsFlag = false;
@@ -450,6 +456,8 @@ routingApp.controller('HomeController', function($scope, $http, $timeout, $windo
 		.then(function(response) {
 			$scope.contractList = response.data.data.contractDOList;
 			//if($scope.contractList != null){
+				$('#contractsTbl').dataTable().fnClearTable();
+				$('#contractsTbl').dataTable().fnDestroy();
 	    		$scope.contractsFlag = false;
 	    		$scope.quotesFlag = true;
 	    		$scope.claimsFlag = true;
@@ -1074,7 +1082,12 @@ routingApp.controller('QuotesDetailController', function($scope, $http, $timeout
 	.then(function(response) {
         $scope.quoteList = response.data.data;
         $timeout(function () {
-        	$('#quotesTbl').DataTable();
+        	$('#quotesTbl').DataTable({
+        		"aaSorting": [[ 6, "desc" ]],
+     	       columnDefs: [
+     	           { targets: 6, visible: false }    
+     	       ]
+     	    });
         }, 300);
     });
 	
@@ -1140,7 +1153,12 @@ routingApp.controller('ClaimsInfoController', function($scope, $http, $timeout, 
 			showSpinner();
 			$scope.claimDOList = response.data.data.claimDOList;
 	        $timeout(function () {
-	        	$('#claimsTbl').DataTable();
+	        	$('#claimsTbl').DataTable({
+	        		"aaSorting": [[ 10, "desc" ]],
+	        	       columnDefs: [
+	        	           { targets: 10, visible: false }    
+	        	       ]
+	        	    });
 	        }, 300);
 	        hideSpinner();
 	    });
@@ -1150,7 +1168,12 @@ routingApp.controller('ClaimsInfoController', function($scope, $http, $timeout, 
 			showSpinner();
 			 $scope.claimDOList = response.data.data.claimDOList;
 	        $timeout(function () {
-	        	$('#claimsTbl').DataTable();
+	        	$('#claimsTbl').DataTable({
+	        		"aaSorting": [[ 10, "desc" ]],
+	        	       columnDefs: [
+	        	           { targets: 10, visible: false }    
+	        	       ]
+	        	    });
 	        }, 300);
 	        hideSpinner();
 	    });
@@ -1160,7 +1183,12 @@ routingApp.controller('ClaimsInfoController', function($scope, $http, $timeout, 
 			showSpinner();
 			 $scope.claimDOList = response.data.data.claimDOList;
 	        $timeout(function () {
-	        	$('#claimsTbl').DataTable();
+	        	$('#claimsTbl').DataTable({
+	        		"aaSorting": [[ 10, "desc" ]],
+	        	       columnDefs: [
+	        	           { targets: 10, visible: false }    
+	        	       ]
+	        	    });
 	        }, 300);
 	        hideSpinner();
 	    });
@@ -1171,7 +1199,12 @@ routingApp.controller('ClaimsInfoController', function($scope, $http, $timeout, 
 			$scope.claimDOList = response.data.data.claimDOList;
 			$rootScope.draftClaimsFlag = true;
 	        $timeout(function () {
-	        	$('#claimsTbl').DataTable();
+	        	$('#claimsTbl').DataTable({
+	        		"aaSorting": [[ 10, "desc" ]],
+	        	       columnDefs: [
+	        	           { targets: 10, visible: false }    
+	        	       ]
+	        	    });
 	        }, 300);
 	        hideSpinner();
 	    });
@@ -1284,6 +1317,15 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
             $event.stopPropagation(); // This is the magic
         }
         $scope.expirationDatePickerIsOpen = true;
+    };
+    
+    $scope.receivedDatePickerIsOpen = false;
+    $scope.receivedDatePickerOpen = function ($event) {
+        if ($event) {
+            $event.preventDefault();
+            $event.stopPropagation(); // This is the magic
+        }
+        $scope.receivedDatePickerIsOpen = true;
     };
 	
 	$http.get("/agg/quoteInfo/"+$routeParams.quoteId+"/"+$routeParams.quoteCode)
@@ -1552,7 +1594,12 @@ routingApp.controller('ContractsController', function($scope, $http, $timeout, $
 	.then(function(response) {
         $scope.contractList = response.data.data.contractDOList;
         $timeout(function () {
-        	$('#contractsTbl').DataTable();
+        	$('#contractsTbl').DataTable({
+        		"aaSorting": [[ 9, "desc" ]],
+     	       columnDefs: [
+     	           { targets: 9, visible: false }    
+     	       ]
+     	    });
         }, 300);
     });
 })
@@ -1585,6 +1632,15 @@ routingApp.controller('ContractDetailController', function($scope, $http, $timeo
             $event.stopPropagation(); // This is the magic
         }
         $scope.expirationDatePickerIsOpen = true;
+    };
+    
+    $scope.receivedDatePickerIsOpen = false;
+    $scope.receivedDatePickerOpen = function ($event) {
+        if ($event) {
+            $event.preventDefault();
+            $event.stopPropagation(); // This is the magic
+        }
+        $scope.receivedDatePickerIsOpen = true;
     };
 	
 	$http.get("/agg/contractInfo/"+$routeParams.contractId+"/"+$routeParams.contractCode)

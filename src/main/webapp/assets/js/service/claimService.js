@@ -21,7 +21,7 @@ var commons = {
 		}
 }
 
-routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filter', function($http, $q, $window, $timeout, $filter){
+routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filter', '$rootScope', function($http, $q, $window, $timeout, $filter, $rootScope){
 	
 	var draft = function($scope, claimId, adminFlag){
 			$scope.fromDraftFlag = true;
@@ -207,7 +207,8 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
 			}
 			
 			$scope.$watchCollection('[claim.totalLaborCost, claim.partsTotalCost, claim.requestedOtherCharges1, claim.requestedOtherCharges2]', function(newValues){
-				$scope.claim.totalClaimCost = parseInt(newValues[0]) + parseInt(newValues[1]) + parseInt(newValues[2]) + parseInt(newValues[3]);
+				var totalClaimCosst = parseFloat(newValues[0]) + parseFloat(newValues[1]) + parseFloat(newValues[2]) + parseFloat(newValues[3]);
+				$scope.claim.totalClaimCost = parseFloat(totalClaimCosst).toFixed(2);
 				if(flag || ($scope.statusFlag === 9)){
 					$scope.isSubmitDisabled = $scope.claim.totalClaimCost > 1500;
 				}
@@ -255,21 +256,21 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
 			});
 		},
 		calReimburshedCost = function($scope){
-			var contractDeductible = parseInt($scope.claim.totalAdjustedClaimCost) - parseInt($scope.contractInfoList.deductible);
+			var contractDeductible = parseFloat($scope.claim.totalAdjustedClaimCost) - parseFloat($scope.contractInfoList.deductible);
 			if(contractDeductible < 0){
 				contractDeductible = 0;
 			}
-			var deductibleTRA = parseInt($scope.contractInfoList.availabeLol) - contractDeductible;
+			var deductibleTRA = parseFloat($scope.contractInfoList.availabeLol) - contractDeductible;
 			if(deductibleTRA < 0){
-				$scope.claim.tra = parseInt($scope.contractInfoList.availabeLol);
+				$scope.claim.tra = parseFloat($scope.contractInfoList.availabeLol);
 			}else{
 				$scope.claim.tra = contractDeductible;
 			}
 			
-			if(parseInt($scope.claim.tra) === parseInt($scope.claim.totalAdjustedClaimCost)){
-				$scope.claim.customerOwes = parseInt($scope.contractInfoList.deductible);
+			if(parseFloat($scope.claim.tra) === parseFloat($scope.claim.totalAdjustedClaimCost)){
+				$scope.claim.customerOwes = parseFloat($scope.contractInfoList.deductible);
 			}else{
-				$scope.claim.customerOwes = parseInt($scope.claim.totalAdjustedClaimCost) - parseInt($scope.claim.tra);
+				$scope.claim.customerOwes = parseFloat($scope.claim.totalAdjustedClaimCost) - parseFloat($scope.claim.tra);
 			}
 		},
 		getPreAuthRequest = function(){
@@ -322,7 +323,12 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
     						$scope.showActiveContractDetails = true;
     						$scope.contractDOList = response.data.data.contractDOList;
     						 $timeout(function () {
-    					        	$('#contractsTable').DataTable();
+    					        	$('#contractsTable').DataTable({
+    					        		"aaSorting": [[ 9, "desc" ]],
+ 					        	       columnDefs: [
+ 					        	           { targets: 9, visible: false }    
+ 					        	       ]
+ 					        	    });
     						 }, 500);
     					}else{
     						hideSpinner();
@@ -349,7 +355,12 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
     						$scope.showActiveContractDetails = true;
     						$scope.contractDOList = response.data.data.contractDOList;
     						 $timeout(function () {
-    					        	$('#contractsTable').DataTable();
+    					        	$('#contractsTable').DataTable({
+    					        		"aaSorting": [[ 9, "desc" ]],
+    					        	       columnDefs: [
+    					        	           { targets: 9, visible: false }    
+    					        	       ]
+    					        	    });
     						 }, 500);
     					}else{
     						hideSpinner();
@@ -387,13 +398,26 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
 		    	   if(status === 200 && data.status === "success"){
 		    		   //alert("success");
 		    		   if(!$scope.fromDraftFlag){
-		    			   $route.reload();
+		    			   //$route.reload();
+		    			   $window.location = '#/agg/fileClaim/' + claim.claimId;
 		    		   }else{
-		    			   $window.location = '#/agg/fileClaim';
+		    			   //$window.location = '#/agg/fileClaim';
+		    			   $rootScope.draftClaimsFlag = false;
+		    			   $route.reload();
+		    			   //$window.location = '#/agg/fileClaim/' + claim.claimId;
 		    		   }
 		    		   
 		    	   }else{
-		    		   alert("failed");
+		    		   $('#claimErrMsg').html("Error occured while saving/submitting a Claim# '<strong>"+claim.claimId+"</strong>'. Please validate your input data");
+		            	$('#claimErrMsg').removeClass('hidden');
+		            	window.setTimeout(function() {
+		        		  //$("#quoteSuccessMsg").fadeTo(500, 0).slideUp(500, function(){
+		        		    //$(this).remove();
+		            		 $('#claimErrMsg').html("");
+		        			 $('#claimErrMsg').addClass('hidden');
+		        		  //});
+		        		}, 5000);
+		    		   //alert("Error occured while saving/submitting Claim# "+claim.claimId+". Please validate your input data");
 		    	   }
 		        });
 			hideSpinner();
@@ -478,7 +502,12 @@ routingApp.factory('claimPreAuthReqService', ['$http', '$q', '$window', '$timeou
 	    	if(response.data.data){
 	    		$scope.preAuthClaimList = response.data.data.preAuthClaimList;
 	    		$timeout(function () {
-		        	$('#preauthClaimsListTable').DataTable();
+		        	$('#preauthClaimsListTable').DataTable({
+		        		"aaSorting": [[ 5, "desc" ]],
+		        	       columnDefs: [
+		        	           { targets: 5, visible: false }    
+		        	       ]
+		        	    });
 		        }, 300);
 	    	}
 	    });
@@ -524,13 +553,20 @@ routingApp.factory('claimPreAuthReqService', ['$http', '$q', '$window', '$timeou
 					//alert(response.data.status);
 					hideSpinner();
 					if (response.data.status == 'success') {
-						$window.location = '#/agg/fileClaim';
+						$window.location = '#/agg/fileClaim/' + $scope.preAuthClaim.claimId;
+						//$window.location = '#/agg/fileClaim';
 					} else {
-						alert('Error in adding program: '+response.data.errMessage)
+						//alert('Error in adding program: '+response.data.errMessage)
 						//$('#errMsg').html(response.data.errMessage);
+						$('#claimErrMsg').html("Error occured while updating a Pre-auth request Claim# '<strong>"+$scope.preAuthClaim.claimId+"</strong>'. Please validate your input data");
+		            	$('#claimErrMsg').removeClass('hidden');
+		            	window.setTimeout(function() {
+		            		 $('#claimErrMsg').html("");
+		        			 $('#claimErrMsg').addClass('hidden');
+		        		}, 5000);
 					}
 				}, function(errResponse) {
-					alert('Error while creating program');
+					alert('Error occured while updating the pre-auth-request');
 					return $q.reject(errResponse);
 				});
 		hideSpinner();
@@ -572,7 +608,12 @@ routingApp.factory('claimsAdjudicateService', ['$http', '$q', '$window', '$timeo
 	    .then(function(response) {
 	    	$scope.adjudicateClaimList = response.data.data.preAuthClaimList;
 	    	$timeout(function () {
-	        	$('#preauthClaimsListTable').DataTable();
+	        	$('#preauthClaimsListTable').DataTable({
+	        		"aaSorting": [[ 5, "desc" ]],
+	        	       columnDefs: [
+	        	           { targets: 5, visible: false }    
+	        	       ]
+	        	    });
 	        }, 300);
 	    });
 	},
@@ -603,34 +644,37 @@ routingApp.factory('claimsAdjudicateService', ['$http', '$q', '$window', '$timeo
 					adjustment.parts[i].partsTotal = adjustment.parts[i].qty * adjustment.parts[i].unitPrice;
 					adjustment.totalAdjustmentPartsCost += adjustment.parts[i].partsTotal;
 				}
+				
+				adjustment.totalAdjustmentPartsCost = parseFloat(adjustment.totalAdjustmentPartsCost).toFixed(2);
 			}
 			if(adjustment.labors && adjustment.totalAdjustmentLaborsCost === 0){
 				for(var i in adjustment.labors){
 					adjustment.labors[i].laborsTotal = adjustment.labors[i].laborHrs * adjustment.labors[i].rate;
 					adjustment.totalAdjustmentLaborsCost += adjustment.labors[i].laborsTotal;
 				}
+				adjustment.totalAdjustmentLaborsCost = parseFloat(adjustment.totalAdjustmentLaborsCost).toFixed(2);
 			}
-			adjustment.totalAdjustedClaimCost = parseInt(adjustment.totalAdjustmentPartsCost)  + parseInt(adjustment.totalAdjustmentLaborsCost)
-				+ parseInt(adjustment.approvedOtherCharges1) + parseInt(adjustment.approvedOtherCharges2);
+			adjustment.totalAdjustedClaimCost = parseFloat(adjustment.totalAdjustmentPartsCost)  + parseFloat(adjustment.totalAdjustmentLaborsCost)
+				+ parseFloat(adjustment.approvedOtherCharges1) + parseFloat(adjustment.approvedOtherCharges2);
 		}
 	},
 	calReimburshedCost = function($scope){
 		//var coveredUsageHours = 
-		var contractDeductible = parseInt($scope.adjustments.totalAdjustedClaimCost) - parseInt($scope.adjudicateClaim.contractDO.deductible);
+		var contractDeductible = parseFloat($scope.adjustments.totalAdjustedClaimCost) - parseFloat($scope.adjudicateClaim.contractDO.deductible);
 		if(contractDeductible < 0){
 			contractDeductible = 0;
 		}
-		var deductibleTRA = parseInt($scope.adjudicateClaim.contractDO.availabeLol) - contractDeductible;
+		var deductibleTRA = parseFloat($scope.adjudicateClaim.contractDO.availabeLol) - contractDeductible;
 		if(deductibleTRA < 0){
-			$scope.adjustments.tra = parseInt($scope.adjudicateClaim.contractDO.availabeLol);
+			$scope.adjustments.tra = parseFloat($scope.adjudicateClaim.contractDO.availabeLol);
 		}else{
 			$scope.adjustments.tra = contractDeductible;
 		}
 		
-		if(parseInt($scope.adjustments.tra) === parseInt($scope.adjustments.totalAdjustedClaimCost)){
-			$scope.adjustments.customerOwes = parseInt($scope.adjudicateClaim.contractDO.deductible);
+		if(parseFloat($scope.adjustments.tra) === parseFloat($scope.adjustments.totalAdjustedClaimCost)){
+			$scope.adjustments.customerOwes = parseFloat($scope.adjudicateClaim.contractDO.deductible);
 		}else{
-			$scope.adjustments.customerOwes = parseInt($scope.adjustments.totalAdjustedClaimCost) - parseInt($scope.adjustments.tra);
+			$scope.adjustments.customerOwes = parseFloat($scope.adjustments.totalAdjustedClaimCost) - parseFloat($scope.adjustments.tra);
 		}
 	},
 	selectClaim = function($scope, claim){
@@ -721,7 +765,18 @@ routingApp.factory('claimsAdjudicateService', ['$http', '$q', '$window', '$timeo
 				       .success(function(data, status) {
 				           //alert("success");
 				    	   hideSpinner();
-				           $window.location.href = '#/agg/fileClaim';
+				           //$window.location.href = '#/agg/fileClaim';
+				           //$window.location = '#/agg/fileClaim/' + $scope.adjudicateClaim.claimId;
+				           if (data.status == 'success') {
+				        	   $window.location = '#/agg/fileClaim/' + $scope.adjudicateClaim.claimId;
+							} else {
+								$('#claimErrMsg').html("Error occured while updating a Claim# '<strong>"+$scope.adjudicateClaim.claimId+"</strong>'. Please validate your input data");
+				            	$('#claimErrMsg').removeClass('hidden');
+				            	window.setTimeout(function() {
+				            		 $('#claimErrMsg').html("");
+				        			 $('#claimErrMsg').addClass('hidden');
+				        		}, 5000);
+							}
 				        });
 			}
 			hideSpinner();
@@ -808,7 +863,8 @@ routingApp.factory('claimDraftService', ['$http', '$q', '$window', '$timeout', '
 			calcCost($scope.claim);
 			$scope.$watchCollection('[claim.totalLaborCost, claim.partsTotalCost, claim.requestedOtherCharges1, claim.requestedOtherCharges2]', function(newValues){
 				if($scope.claim){
-					$scope.claim.totalClaimCost = parseInt(newValues[0]) + parseInt(newValues[1]) + parseInt(newValues[2]) + parseInt(newValues[3]);
+					var totalClaimCosst = parseFloat(newValues[0]) + parseFloat(newValues[1]) + parseFloat(newValues[2]) + parseFloat(newValues[3]);
+					$scope.claim.totalClaimCost = parseFloat(totalClaimCosst).toFixed(2);
 					$scope.isSubmitDisabled = $scope.claim.totalClaimCost > 1500;
 				}
 			});
@@ -923,7 +979,12 @@ routingApp.factory('claimDraftService', ['$http', '$q', '$window', '$timeout', '
     						$scope.showActiveContractDetails = true;
     						$scope.contractDOList = response.data.data.contractDOList;
     						 $timeout(function () {
-    					        	$('#contractsTable').DataTable();
+    					        	$('#contractsTable').DataTable({
+    					        		"aaSorting": [[ 9, "desc" ]],
+    					        	       columnDefs: [
+    					        	           { targets: 9, visible: false }    
+    					        	       ]
+    					        	    });
     						 }, 500);
     					}else{
     						hideSpinner();

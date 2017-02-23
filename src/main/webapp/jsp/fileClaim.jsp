@@ -61,7 +61,7 @@
              		<form name="newClaimForm" ng-submit="onClickSubmitClaim()">
                     <div class="col-xs-12 agf1 main-login pad10-top">
 	                    <div class="col-xs-12">
-	                      If the repair estimate is over $1,000 or if diagnostic cost is over $500, then the repair facility must contact AgGuard before proceeding with the repair-unless a higher amount for that has been authorized by AgGuard. Failure to pre-notify us could disqualify the Claim.
+	                      If the repair estimate is over $1500 a pre-authorization claim must be submitted. If the diagnostic cost is estimated to exceed $500, the repair facility must contact Agguard before proceeding. Failure to notify us could result in a maximum of $500 being allowed for diagnostics.
 	                    </div>
                     	<div class="col-xs-12 no-pad clearfix">
 	                      <div class="col-md-6 no-pad pad10-right">
@@ -160,7 +160,7 @@
 	                        </div>
 	                        <div class="form-group">
 	                          <label>Total Claim ($)</label>
-	                          <input type="number" class="form-control" ng-model="claim.totalClaimCost" ng-readonly=true>
+	                          <input type="text" class="form-control" ng-model="claim.totalClaimCost" ng-readonly=true>
 	                        </div>
 	                      </div>
 	

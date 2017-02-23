@@ -1,9 +1,5 @@
 <div class="col-xs-12 agf1 main-login pad10-top">
-		<div class="col-xs-12">If the repair estimate is over $1,000 or
-			if diagnostic cost is over $500, then the repair facility must
-			contact AgGuard before proceeding with the repair-unless a higher
-			amount for that has been authorized by AgGuard. Failure to pre-notify
-			us could disqualify the Claim.</div>
+		<div class="col-xs-12">If the repair estimate is over $1500 a pre-authorization claim must be submitted. If the diagnostic cost is estimated to exceed $500, the repair facility must contact Agguard before proceeding. Failure to notify us could result in a maximum of $500 being allowed for diagnostics.</div>
 		<div class="col-xs-12 no-pad clearfix">
 			<div class="col-md-6 no-pad pad10-right">
 				<span class="ag-tab-title col-xs-12 no-pad marg10-bottom">Contract
@@ -52,7 +48,7 @@
 						</div>
 						<div class="form-group col-xs-12 no-pad">
 							<label>Available LOL</label>
-							<p>{{contractInfoList.availableLol | currency:"$":0}}</p>
+							<p>{{contractInfoList.availableLol | currency}}</p>
 						</div>
 					</div>
 				</div>
@@ -97,15 +93,15 @@
 				</div>
 				<div class="form-group col-xs-12 no-pad">
 					<label>Other Charge 1 ($)</label> 
-					{{claim.requestedOtherCharges1}}
+					{{claim.requestedOtherCharges1 | number : 2}}
 				</div>
 				<div class="form-group col-xs-12 no-pad">
 					<label>Other Charge 2 ($)</label> 
-					{{claim.requestedOtherCharges2}}
+					{{claim.requestedOtherCharges2 | number : 2}}
 				</div>
 				<div class="form-group col-xs-12 no-pad">
 					<label>Total Claim ($)</label>
-					{{claim.totalClaimCost}}
+					{{claim.totalClaimCost | number : 2}}
 				</div>
 			</div>
 
@@ -153,11 +149,11 @@
 						</div>
 						<div class="form-group col-xs-12 no-pad">
 							<label>Adjusted Other Charge 1 ($) </label>
-							{{claim.approvedOtherCharges1}}
+							{{claim.approvedOtherCharges1 | number : 2}}
 						</div>
 						<div class="form-group col-xs-12 no-pad">
 							<label>Adjusted Other Charge 2 ($) </label>
-							{{claim.approvedOtherCharges2}}
+							{{claim.approvedOtherCharges2 | number : 2}}
 						</div>
 					</div>
 				</div>
@@ -184,7 +180,7 @@
 								<td>{{claimPartVO.partNo}}</td>
 								<td>{{claimPartVO.partDescr}}</td>
 								<td>{{claimPartVO.qty}}</td>
-								<td>{{claimPartVO.unitPrice}}</td>
+								<td>{{claimPartVO.unitPrice | number : 2}}</td>
 								<td class="t-r">{{claimPartVO.partsTotal | currency}}</td>
 							</tr>
 						</tbody>
@@ -223,7 +219,7 @@
 								<td>{{claimLabourVO.laborNo}}</td>
 								<td>{{claimLabourVO.laborDescr}}</td>
 								<td>{{claimLabourVO.laborHrs}}</td>
-								<td>{{claimLabourVO.laborHourlyRate}}</td>
+								<td>{{claimLabourVO.laborHourlyRate | number : 2}}</td>
 								<td class="t-r">{{claimLabourVO.labourTotal | currency}}</td>
 							</tr>
 						</tbody>

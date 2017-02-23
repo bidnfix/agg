@@ -24,6 +24,7 @@
                 <th>Est. Sale Date</th>
                 <th>Status</th>
                 <th></th>
+                <th></th>
             </tr>
         </thead>
  
@@ -36,6 +37,7 @@
                 <th>Est. Sale Date</th>
                 <th>Status</th>
                 <th></th>
+                <th></th>
             </tr>
         </tfoot>
  
@@ -47,6 +49,7 @@
                 <td>{{quote.machineModel}}</td>
                 <td>{{quote.machineSaleDate |  date:"MM/dd/yyyy"}}</td>
                 <td>{{quote.statusDesc}}</td>
+                <td>{{quote.createDate |  date:"MM/dd/yyyy"}}</td>
                 <td>
                 	<div class="manage-sec"><!-- <a href="#"><img src="../assets/images/delete-icon.png" alt="Delete" title="Delete"/></a> -->
                 		<!-- <a ng-click="viewQuote(quote.id, quote.quoteId)"><img src="../assets/images/edit-icon.png" alt="Edit" title="Edit"/></a> -->

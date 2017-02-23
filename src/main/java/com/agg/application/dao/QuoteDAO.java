@@ -68,14 +68,14 @@ public interface QuoteDAO extends CrudRepository<Quote, QuotePK> {
 	public List<Quote> findByInvoiced(@Param("status")byte status, @Param("dealerId")long dealerId);*/
 	
 	@Query("SELECT new com.agg.application.model.QuoteDO(quote.id.id, quote.id.quoteId, quote.dealer.name, customerInfo.name, "
-			+ "quote.machineInfo.model, quote.machineSaleDate, quote.status)"
+			+ "quote.machineInfo.model, quote.machineSaleDate, quote.status, quote.createDate)"
 			+ " from Quote quote, CustomerInfo customerInfo"
 			+ " where quote.id.quoteId=customerInfo.quoteId")
 	public List<QuoteDO> findAllQuotes();
 	
 	
 	@Query("SELECT new com.agg.application.model.QuoteDO(quote.id.id, quote.id.quoteId, quote.dealer.name, customerInfo.name, "
-			+ "quote.machineInfo.model, quote.machineSaleDate, quote.status)"
+			+ "quote.machineInfo.model, quote.machineSaleDate, quote.status, quote.createDate)"
 			+ " from Quote quote, CustomerInfo customerInfo"
 			+ " where quote.id.quoteId=customerInfo.quoteId"
 			+ " and quote.dealer.id = :dealerId")

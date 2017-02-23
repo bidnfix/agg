@@ -33,9 +33,9 @@ public class ClaimLabor {
 	private String laborDescr;
 	
 	@Column(name="labor_hrs")
-	private int laborHrs;
+	private double laborHrs;
 	
-	private int rate;
+	private double rate;
 
 	/**
 	 * 
@@ -100,32 +100,34 @@ public class ClaimLabor {
 	public void setLaborDescr(String laborDescr) {
 		this.laborDescr = laborDescr;
 	}
-
+	
+	
 	/**
 	 * @return the laborHrs
 	 */
-	public int getLaborHrs() {
+	public double getLaborHrs() {
 		return laborHrs;
 	}
 
 	/**
 	 * @param laborHrs the laborHrs to set
 	 */
-	public void setLaborHrs(int laborHrs) {
+	public void setLaborHrs(double laborHrs) {
 		this.laborHrs = laborHrs;
 	}
 
 	/**
 	 * @return the rate
 	 */
-	public int getRate() {
+	public double getRate() {
 		return rate;
 	}
 
 	/**
 	 * @param rate the rate to set
 	 */
-	public void setRate(int rate) {
+	public void setRate(double rate) {
 		this.rate = rate;
 	}
+
 }

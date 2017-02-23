@@ -4,15 +4,15 @@ import java.util.Date;
 
 public class AdjudicateClaimFormVO {
 	private int id;
-	private int totalAdjustmentLaborsCost;
-	private int totalAdjustmentPartsCost;
-	private int requestedOtherCharges1;
-	private int requestedOtherCharges2;
+	private double totalAdjustmentLaborsCost;
+	private double totalAdjustmentPartsCost;
+	private double requestedOtherCharges1;
+	private double requestedOtherCharges2;
 	private double customerOwes;
 	private double tra;
 	private String extComment;
-	private int approvedOtherCharges1;
-	private int approvedOtherCharges2;
+	private double approvedOtherCharges1;
+	private double approvedOtherCharges2;
 	private String cheqNo;
 	private Date paidDate;
 	
@@ -27,36 +27,6 @@ public class AdjudicateClaimFormVO {
 	}
 	public void setId(int id) {
 		this.id = id;
-	}
-	/**
-	 * @return the totalAdjustmentLaborsCost
-	 */
-	public int getTotalAdjustmentLaborsCost() {
-		return totalAdjustmentLaborsCost;
-	}
-	/**
-	 * @param totalAdjustmentLaborsCost the totalAdjustmentLaborsCost to set
-	 */
-	public void setTotalAdjustmentLaborsCost(int totalAdjustmentLaborsCost) {
-		this.totalAdjustmentLaborsCost = totalAdjustmentLaborsCost;
-	}
-	public int getTotalAdjustmentPartsCost() {
-		return totalAdjustmentPartsCost;
-	}
-	public void setTotalAdjustmentPartsCost(int totalAdjustmentPartsCost) {
-		this.totalAdjustmentPartsCost = totalAdjustmentPartsCost;
-	}
-	public int getRequestedOtherCharges1() {
-		return requestedOtherCharges1;
-	}
-	public void setRequestedOtherCharges1(int requestedOtherCharges1) {
-		this.requestedOtherCharges1 = requestedOtherCharges1;
-	}
-	public int getRequestedOtherCharges2() {
-		return requestedOtherCharges2;
-	}
-	public void setRequestedOtherCharges2(int requestedOtherCharges2) {
-		this.requestedOtherCharges2 = requestedOtherCharges2;
 	}
 	public double getCustomerOwes() {
 		return customerOwes;
@@ -78,30 +48,86 @@ public class AdjudicateClaimFormVO {
 	}
 
 	/**
+	 * @return the totalAdjustmentLaborsCost
+	 */
+	public double getTotalAdjustmentLaborsCost() {
+		return totalAdjustmentLaborsCost;
+	}
+
+	/**
+	 * @param totalAdjustmentLaborsCost the totalAdjustmentLaborsCost to set
+	 */
+	public void setTotalAdjustmentLaborsCost(double totalAdjustmentLaborsCost) {
+		this.totalAdjustmentLaborsCost = totalAdjustmentLaborsCost;
+	}
+
+	/**
+	 * @return the totalAdjustmentPartsCost
+	 */
+	public double getTotalAdjustmentPartsCost() {
+		return totalAdjustmentPartsCost;
+	}
+
+	/**
+	 * @param totalAdjustmentPartsCost the totalAdjustmentPartsCost to set
+	 */
+	public void setTotalAdjustmentPartsCost(double totalAdjustmentPartsCost) {
+		this.totalAdjustmentPartsCost = totalAdjustmentPartsCost;
+	}
+
+	/**
+	 * @return the requestedOtherCharges1
+	 */
+	public double getRequestedOtherCharges1() {
+		return requestedOtherCharges1;
+	}
+
+	/**
+	 * @param requestedOtherCharges1 the requestedOtherCharges1 to set
+	 */
+	public void setRequestedOtherCharges1(double requestedOtherCharges1) {
+		this.requestedOtherCharges1 = requestedOtherCharges1;
+	}
+
+	/**
+	 * @return the requestedOtherCharges2
+	 */
+	public double getRequestedOtherCharges2() {
+		return requestedOtherCharges2;
+	}
+
+	/**
+	 * @param requestedOtherCharges2 the requestedOtherCharges2 to set
+	 */
+	public void setRequestedOtherCharges2(double requestedOtherCharges2) {
+		this.requestedOtherCharges2 = requestedOtherCharges2;
+	}
+
+	/**
 	 * @return the approvedOtherCharges1
 	 */
-	public int getApprovedOtherCharges1() {
+	public double getApprovedOtherCharges1() {
 		return approvedOtherCharges1;
 	}
 
 	/**
 	 * @param approvedOtherCharges1 the approvedOtherCharges1 to set
 	 */
-	public void setApprovedOtherCharges1(int approvedOtherCharges1) {
+	public void setApprovedOtherCharges1(double approvedOtherCharges1) {
 		this.approvedOtherCharges1 = approvedOtherCharges1;
 	}
 
 	/**
 	 * @return the approvedOtherCharges2
 	 */
-	public int getApprovedOtherCharges2() {
+	public double getApprovedOtherCharges2() {
 		return approvedOtherCharges2;
 	}
 
 	/**
 	 * @param approvedOtherCharges2 the approvedOtherCharges2 to set
 	 */
-	public void setApprovedOtherCharges2(int approvedOtherCharges2) {
+	public void setApprovedOtherCharges2(double approvedOtherCharges2) {
 		this.approvedOtherCharges2 = approvedOtherCharges2;
 	}
 

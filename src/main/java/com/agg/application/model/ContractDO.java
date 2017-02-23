@@ -35,8 +35,12 @@ public class ContractDO {
 	private int expirationUsageHours;
 	private String comments;
 	private Date lastUpdatedDate;
+	private String cheqNo;
+	private Date receivedDate;
 	
-	public ContractDO(long id, String contractId, String machineSerialNo, double lol, Date inceptionDate, Date expirationDate, int expirationUsageHours, int status){
+	public ContractDO(long id, String contractId, String machineSerialNo, double lol, Date inceptionDate,
+			Date expirationDate, int expirationUsageHours, int status, Date lastUpdatedDate, String cheqNo,
+			Date receivedDate) {
 		this.id = id;
 		this.contractId = contractId;
 		this.machineSerialNo = machineSerialNo;
@@ -45,6 +49,9 @@ public class ContractDO {
 		this.expirationDate = expirationDate;
 		this.expirationUsageHours = expirationUsageHours;
 		this.status = status;
+		this.lastUpdatedDate = lastUpdatedDate;
+		this.cheqNo = cheqNo;
+		this.receivedDate = receivedDate;
 	}
 	
 	/**
@@ -263,6 +270,34 @@ public class ContractDO {
 	 */
 	public void setManufacturerDO(ManufacturerDO manufacturerDO) {
 		this.manufacturerDO = manufacturerDO;
+	}
+
+	/**
+	 * @return the cheqNo
+	 */
+	public String getCheqNo() {
+		return cheqNo;
+	}
+
+	/**
+	 * @param cheqNo the cheqNo to set
+	 */
+	public void setCheqNo(String cheqNo) {
+		this.cheqNo = cheqNo;
+	}
+
+	/**
+	 * @return the receivedDate
+	 */
+	public Date getReceivedDate() {
+		return receivedDate;
+	}
+
+	/**
+	 * @param receivedDate the receivedDate to set
+	 */
+	public void setReceivedDate(Date receivedDate) {
+		this.receivedDate = receivedDate;
 	}
 	
 }

@@ -1,4 +1,4 @@
-	<div ng-controller="ClaimsAdjudicateController" ng-init="showAdjudicateClaimList=true">
+	<div ng-init="showAdjudicateClaimList=true">
 		<!-- Article main content -->
 		<article class="col-md-9 maincontent" ng-if='showAdjudicateClaimList'>
 			<header class="page-header">
@@ -17,6 +17,7 @@
 			                <th>Dealer Contact Name</th>
 			                <th>Serial #</th>
 			                <th></th>
+			                <th></th>
 			            </tr>
 			        </thead>
 			        <tfoot>
@@ -25,6 +26,7 @@
 			                <th>Dealer Name</th>
 			                <th>Dealer Contact Name</th>
 			                <th>Serial #</th>
+			                <th></th>
 			                <th></th>
 			            </tr>
 			        </tfoot>
@@ -37,6 +39,7 @@
 			                <td>
 			                	<a ng-click="onClickSelectClaim(claim)"><img src="../assets/images/edit-pencil.png" alt="Edit" title="Edit"/></a>
 			                </td>
+			                <td>{{claim.createdDate}}</td>
 			            </tr>
 			        </tbody>
 				</table>
@@ -74,6 +77,7 @@
                 <div class="inner-main">
                      <form name="newClaimForm" ng-submit="onClickSubmitClaim()">   
                       <div class="col-xs-12 agf1 main-login pad10-top">
+                      	<div id="claimErrMsg" class="alert alert-danger text-center hidden"></div>
                       	<div class="col-xs-12 no-pad clearfix">
 							<div class="col-md-6 no-pad pad10-right">
 								<span class="ag-tab-title col-xs-12 no-pad marg10-bottom">Contract
@@ -122,7 +126,7 @@
 										</div>
 										<div class="form-group col-xs-12 no-pad">
 											<label>Available LOL</label>
-											<p>{{adjudicateClaim.contractDO.availabeLol | currency:"$":0}}</p>
+											<p>{{adjudicateClaim.contractDO.availabeLol | currency}}</p>
 										</div>
 									</div>
 								</div>
@@ -171,17 +175,17 @@
                           </div>
                           <div class="form-group col-xs-12 no-pad">
                             <label>Requested Other Charge 1 ($)</label>
-                            {{adjustments.requestedOtherCharges1 | currency}}
+                            {{adjustments.requestedOtherCharges1 | number : 2}}
                             <!-- <input type="text" class="form-control" ng-model="adjustments.requestedOtherCharges1" required="required" ng-readonly= "{{editFlag}}" ng-change="calcOnChange()"> -->
                           </div>
                           <div class="form-group col-xs-12 no-pad">
                             <label>Requested Other Charge 2 ($)</label>
-                            {{adjustments.requestedOtherCharges2 | currency}}
+                            {{adjustments.requestedOtherCharges2 | number : 2}}
                             <!-- <input type="text" class="form-control" ng-model="adjustments.requestedOtherCharges2" required="required" ng-readonly= "{{editFlag}}" ng-change="calcOnChange()"> -->
                           </div>
                           <div class="form-group col-xs-12 no-pad">
                             <label>Total Claim ($)</label>
-                            {{adjustments.totalClaimCost | currency}}
+                            {{adjustments.totalClaimCost | number : 2}}
                           </div>
                         </div>
 
@@ -253,7 +257,7 @@
                                   <td>{{claimPartVO.partNo}}<!-- <input type="text" class="form-control" name="" ng-model="claimPartVO.partNo" ng-readonly=true> --></td>
                                   <td>{{claimPartVO.partDescr}}<!-- <input type="text" class="form-control" name="" ng-model="claimPartVO.partDescr" ng-readonly=true> --></td>
                                   <td>{{claimPartVO.qty}}<!-- <input type="number" class="form-control" name="" ng-model="claimPartVO.qty" required="required" ng-readonly= "true" ng-change="calcOnChange()"> --></td>
-                                  <td>{{claimPartVO.unitPrice}}<!-- <input type="number" class="form-control" name="" ng-model="claimPartVO.unitPrice" required="required" ng-readonly= "true" ng-change="calcOnChange()"> --></td>
+                                  <td>{{claimPartVO.unitPrice | number : 2}}<!-- <input type="number" class="form-control" name="" ng-model="claimPartVO.unitPrice" required="required" ng-readonly= "true" ng-change="calcOnChange()"> --></td>
                                   <td class="t-r">{{claimPartVO.partsTotal | currency}}</td>
                                 </tr>
                               </tbody>
@@ -295,7 +299,7 @@
                                   <td>{{claimLabourVO.laborNo}}<!-- <input type="text" class="form-control" name="" ng-model="claimLabourVO.laborNo" ng-readonly=true> --></td>
                                   <td>{{claimLabourVO.laborDescr}}<!-- <input type="text" class="form-control" name="" ng-model="claimLabourVO.laborDescr" ng-readonly=true> --></td>
                                   <td>{{claimLabourVO.laborHrs}}<!-- <input type="number" class="form-control" name="" ng-model="claimLabourVO.laborHrs" required="required" ng-readonly= "true" ng-change="calcOnChange()"> --></td>
-                                  <td>{{claimLabourVO.rate}}<!-- <input type="number" class="form-control" name="" ng-model="claimLabourVO.rate" required="required" ng-readonly= "true" ng-change="calcOnChange()"> --></td>
+                                  <td>{{claimLabourVO.rate | number : 2}}<!-- <input type="number" class="form-control" name="" ng-model="claimLabourVO.rate" required="required" ng-readonly= "true" ng-change="calcOnChange()"> --></td>
                                   <td class="t-r">{{claimLabourVO.laborsTotal | currency}}</td>
                                 </tr>
                               </tbody>

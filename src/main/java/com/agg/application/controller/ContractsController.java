@@ -141,7 +141,7 @@ public class ContractsController extends BaseController{
 		if (!sessionExists(request)){
 			result = new Result("failure", "Invalid Login", null);
 		}else{
-			List<ContractDO> responseDO = contractService.getActiveContracts();
+			List<ContractDO> responseDO = contractService.getActiveContracts(getAccountDetails(request));
 			List<Map<String, Object>> contractDOList = formatGetContracts(responseDO);
 			result = new Result("success", "", model.addAttribute("contractDOList",contractDOList));
 		}
@@ -174,6 +174,7 @@ public class ContractsController extends BaseController{
 			itemMap.put("lol", item.getLol());
 			itemMap.put("availableLol", item.getAvailabeLol());
 			itemMap.put("deductible", item.getDeductible());
+			itemMap.put("lastUpdatedDate", item.getLastUpdatedDate());
 			responseList.add(itemMap);
 		}
 		return responseList;

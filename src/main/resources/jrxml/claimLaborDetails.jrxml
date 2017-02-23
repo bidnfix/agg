@@ -11,8 +11,8 @@
 	<parameter name="totalAmtOwnedByCustomer" class="java.lang.String"/>
 	<field name="laborNo" class="java.lang.String"/>
 	<field name="laborDescr" class="java.lang.String"/>
-	<field name="laborHrs" class="java.lang.Integer"/>
-	<field name="rate" class="java.lang.Integer"/>
+	<field name="laborHrs" class="java.lang.Double"/>
+	<field name="rate" class="java.lang.Double"/>
 	<field name="laborTotal" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>

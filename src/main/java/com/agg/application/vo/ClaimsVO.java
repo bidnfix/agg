@@ -31,49 +31,55 @@ public class ClaimsVO {
 	private byte isArchived;
 	private String cStatus;
 	private Timestamp lastUpdate;
-	private int requestedOtherCharges1;
-	private int requestedOtherCharges2;
-	private int totalAdjustedPartsCost;
-	private int totalAdjustedLaborCost;
-	private int approvedOtherCharges1;
-	private int approvedOtherCharges2;
+	private double requestedOtherCharges1;
+	private double requestedOtherCharges2;
+	private double totalAdjustedPartsCost;
+	private double totalAdjustedLaborCost;
+	private double approvedOtherCharges1;
+	private double approvedOtherCharges2;
 	private List<ClaimPartVO> claimPartVOList;
 	private List<ClaimLabourVO> claimLabourVOList;
 	private byte cStatusValue;
-	private int deductible;
-	private int lol;
-	private int availabeLol;
+	private double deductible;
+	private double lol;
+	private double availabeLol;
 	private String extComments;
+	
 	
 	/**
 	 * @return the deductible
 	 */
-	public int getDeductible() {
+	public double getDeductible() {
 		return deductible;
 	}
 	/**
 	 * @param deductible the deductible to set
 	 */
-	public void setDeductible(int deductible) {
+	public void setDeductible(double deductible) {
 		this.deductible = deductible;
 	}
 	/**
 	 * @return the lol
 	 */
-	public int getLol() {
+	public double getLol() {
 		return lol;
 	}
 	/**
 	 * @param lol the lol to set
 	 */
-	public void setLol(int lol) {
+	public void setLol(double lol) {
 		this.lol = lol;
 	}
-	
-	public int getAvailabeLol() {
+	/**
+	 * @return the availabeLol
+	 */
+	public double getAvailabeLol() {
 		return availabeLol;
 	}
-	public void setAvailabeLol(int availabeLol) {
+	/**
+	 * @param availabeLol the availabeLol to set
+	 */
+	public void setAvailabeLol(double availabeLol) {
 		this.availabeLol = availabeLol;
 	}
 	/**
@@ -303,73 +309,73 @@ public class ClaimsVO {
 	/**
 	 * @return the requestedOtherCharges1
 	 */
-	public int getRequestedOtherCharges1() {
+	public double getRequestedOtherCharges1() {
 		return requestedOtherCharges1;
 	}
 	/**
 	 * @param requestedOtherCharges1 the requestedOtherCharges1 to set
 	 */
-	public void setRequestedOtherCharges1(int requestedOtherCharges1) {
+	public void setRequestedOtherCharges1(double requestedOtherCharges1) {
 		this.requestedOtherCharges1 = requestedOtherCharges1;
 	}
 	/**
 	 * @return the requestedOtherCharges2
 	 */
-	public int getRequestedOtherCharges2() {
+	public double getRequestedOtherCharges2() {
 		return requestedOtherCharges2;
 	}
 	/**
 	 * @param requestedOtherCharges2 the requestedOtherCharges2 to set
 	 */
-	public void setRequestedOtherCharges2(int requestedOtherCharges2) {
+	public void setRequestedOtherCharges2(double requestedOtherCharges2) {
 		this.requestedOtherCharges2 = requestedOtherCharges2;
 	}
 	/**
 	 * @return the totalAdjustedPartsCost
 	 */
-	public int getTotalAdjustedPartsCost() {
+	public double getTotalAdjustedPartsCost() {
 		return totalAdjustedPartsCost;
 	}
 	/**
 	 * @param totalAdjustedPartsCost the totalAdjustedPartsCost to set
 	 */
-	public void setTotalAdjustedPartsCost(int totalAdjustedPartsCost) {
+	public void setTotalAdjustedPartsCost(double totalAdjustedPartsCost) {
 		this.totalAdjustedPartsCost = totalAdjustedPartsCost;
 	}
 	/**
 	 * @return the totalAdjustedLaborCost
 	 */
-	public int getTotalAdjustedLaborCost() {
+	public double getTotalAdjustedLaborCost() {
 		return totalAdjustedLaborCost;
 	}
 	/**
 	 * @param totalAdjustedLaborCost the totalAdjustedLaborCost to set
 	 */
-	public void setTotalAdjustedLaborCost(int totalAdjustedLaborCost) {
+	public void setTotalAdjustedLaborCost(double totalAdjustedLaborCost) {
 		this.totalAdjustedLaborCost = totalAdjustedLaborCost;
 	}
 	/**
 	 * @return the approvedOtherCharges1
 	 */
-	public int getApprovedOtherCharges1() {
+	public double getApprovedOtherCharges1() {
 		return approvedOtherCharges1;
 	}
 	/**
 	 * @param approvedOtherCharges1 the approvedOtherCharges1 to set
 	 */
-	public void setApprovedOtherCharges1(int approvedOtherCharges1) {
+	public void setApprovedOtherCharges1(double approvedOtherCharges1) {
 		this.approvedOtherCharges1 = approvedOtherCharges1;
 	}
 	/**
 	 * @return the approvedOtherCharges2
 	 */
-	public int getApprovedOtherCharges2() {
+	public double getApprovedOtherCharges2() {
 		return approvedOtherCharges2;
 	}
 	/**
 	 * @param approvedOtherCharges2 the approvedOtherCharges2 to set
 	 */
-	public void setApprovedOtherCharges2(int approvedOtherCharges2) {
+	public void setApprovedOtherCharges2(double approvedOtherCharges2) {
 		this.approvedOtherCharges2 = approvedOtherCharges2;
 	}
 	/**

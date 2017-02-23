@@ -25,7 +25,10 @@
                 <th>Inception Date</th>
                 <th>Expiration Date</th>
                 <th>Expiration Hours</th>
+                <th>Cheque#</th>
+                <th>Received Date</th>
                 <th>Status</th>
+                <th></th>
                 <c:if test="${user.roleDO.accountType eq 'admin'}">
                 <th></th>
                 </c:if>
@@ -40,7 +43,10 @@
                 <th>Inception Date</th>
                 <th>Expiration Date</th>
                 <th>Expiration Hours</th>
+                <th>Cheque#</th>
+                <th>Received Date</th>
                 <th>Status</th>
+                <th></th>
                 <c:if test="${user.roleDO.accountType eq 'admin'}">
                 <th></th>
                 </c:if>
@@ -55,7 +61,10 @@
                 <td>{{contract.inceptionDate |  date:"MM/dd/yyyy"}}</td>
                 <td>{{contract.expirationDate |  date:"MM/dd/yyyy"}}</td>
                 <td>{{contract.expirationUsageHours}}</td>
+                <td>{{contract.cheqNo}}</td>
+                <td>{{contract.receivedDate |  date:"MM/dd/yyyy"}}</td>
                 <td>{{(contract.status == 1)?"Active":(contract.status == 2)?"Expired":(contract.status == 3)?"Cancelled":"Archived"}}</td>
+                <td>{{contract.lastUpdatedDate |  date:"MM/dd/yyyy"}}</td>
                 <c:if test="${user.roleDO.accountType eq 'admin'}">
 	                <td>
 	                	<div class="manage-sec"><!-- <a href="#"><img src="../assets/images/delete-icon.png" alt="Delete" title="Delete"/></a> -->

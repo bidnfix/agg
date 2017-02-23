@@ -52,9 +52,11 @@ routingApp.factory('programService', function($http, $q, $window) {
 					showSpinner();
 					return $http.post('/agg/saveProgramsAsDealr', program).then(
 							function(response) {
-								alert(response.data.status);
+								//alert(response.data.status);
 								if (response.data.status == 'success') {
-									$window.location = '#/agg/quotes';
+									//alert(response.data.data.id);
+									//alert(response.data.data.quoteId);
+									$window.location = '#/agg/viewQuote/'+response.data.data.id+'/'+response.data.data.quoteId;
 								} else {
 									alert('Error in adding program: '+response.data.errMessage)
 									//$('#errMsg').html(response.data.errMessage);

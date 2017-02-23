@@ -1,10 +1,7 @@
 <form name="newClaimForm" ng-submit="onClickSubmitClaim()">
 	<div class="col-xs-12 agf1 main-login pad10-top">
-		<div class="col-xs-12">If the repair estimate is over $1,000 or
-			if diagnostic cost is over $500, then the repair facility must
-			contact AgGuard before proceeding with the repair-unless a higher
-			amount for that has been authorized by AgGuard. Failure to pre-notify
-			us could disqualify the Claim.</div>
+		<div id="claimErrMsg" class="alert alert-danger text-center hidden"></div>
+		<div class="col-xs-12">If the repair estimate is over $1500 a pre-authorization claim must be submitted. If the diagnostic cost is estimated to exceed $500, the repair facility must contact Agguard before proceeding. Failure to notify us could result in a maximum of $500 being allowed for diagnostics.</div>
 		<div class="col-xs-12 no-pad clearfix">
 			<div class="col-md-6 no-pad pad10-right">
 				<span class="ag-tab-title col-xs-12 no-pad marg10-bottom">Contract
@@ -53,7 +50,7 @@
 						</div>
 						<div class="form-group col-xs-12 no-pad">
 							<label>Available LOL</label>
-							<p>{{contractInfoList.availableLol | currency:"$":0}}</p>
+							<p>{{contractInfoList.availableLol | currency}}</p>
 						</div>
 					</div>
 				</div>
@@ -146,17 +143,17 @@
 						required="required" ng-readonly="commentUpdateBtnFlag">
 				</div>
 				<div class="form-group col-xs-12 no-pad">
-					<label>Other Charge 1 ($)</label> <input type="number"
+					<label>Other Charge 1 ($)</label> <input type="number" step="0.01" 
 						class="form-control" ng-model="claim.requestedOtherCharges1"
 						required="required" ng-readonly="commentUpdateBtnFlag">
 				</div>
 				<div class="form-group col-xs-12 no-pad">
-					<label>Other Charge 2 ($)</label> <input type="number"
+					<label>Other Charge 2 ($)</label> <input type="number" step="0.01"
 						class="form-control" ng-model="claim.requestedOtherCharges2"
 						required="required" ng-readonly="commentUpdateBtnFlag">
 				</div>
 				<div class="form-group col-xs-12 no-pad">
-					<label>Total Claim ($)</label> <input type="number"
+					<label>Total Claim ($)</label> <input type="text" 
 						class="form-control" ng-model="claim.totalClaimCost"
 						ng-readonly=true>
 				</div>
@@ -204,10 +201,11 @@
 						<thead>
 							<tr>
 								<th class="col-sm-2">Part #</th>
-								<th class="col-sm-4">Description</th>
-								<th class="col-sm-1">Quantity</th>
+								<th class="col-sm-3">Description</th>
+								<th class="col-sm-2">Quantity</th>
 								<th class="col-sm-2">Unit Price</th>
 								<th class="t-r col-sm-2">Part Total</th>
+								<th class="col-sm-1"></th>
 							</tr>
 						</thead>
 						<tbody data-ng-repeat="claimPartVO in claim.claimPartVOList">
@@ -216,13 +214,19 @@
 									ng-model="claimPartVO.partNo" required="required" ng-readonly="commentUpdateBtnFlag"></td>
 								<td><input type="text" class="form-control" name=""
 									ng-model="claimPartVO.partDescr" required="required" ng-readonly="commentUpdateBtnFlag"></td>
-								<td><input type="number" class="form-control" name=""
+								<td><input type="number" step="0.01" class="form-control" name=""
 									ng-model="claimPartVO.qty" required="required"
 									ng-change="calcTotalPartLine($index)" ng-readonly="commentUpdateBtnFlag"></td>
-								<td><input type="number" class="form-control" name=""
+								<td><input type="number" step="0.01" class="form-control" name=""
 									ng-model="claimPartVO.unitPrice" required="required"
 									ng-change="calcTotalPartLine($index)" ng-readonly="commentUpdateBtnFlag"></td>
 								<td class="t-r">{{claimPartVO.partsTotal | currency}}</td>
+								<td>
+									<button ng-if="claim.claimPartVOList.length > 1" type="button" class="btn btn-primary btn-sm"
+									ng-click="removeClaimPart(claimPartVO);calcTotalPartCost(claim)">
+										<i class="fa fa-minus" ng-readonly="commentUpdateBtnFlag"></i>
+									</button>
+								</td>
 							</tr>
 						</tbody>
 					</table>
@@ -230,8 +234,12 @@
 						<div class="col-sm-6">
 							<button type="button" class="btn btn-primary btn-sm"
 								ng-click="claim.claimPartVOList.push({})">
-								<i class="fa fa-plus" ng-readonly="commentUpdateBtnFlag"></i> New Line
+								<i class="fa fa-plus" ng-readonly="commentUpdateBtnFlag"></i> Add Part
 							</button>
+							<!-- <button ng-if="claim.claimPartVOList.length > 1" type="button" class="btn btn-primary btn-sm"
+								ng-click="claim.claimPartVOList.pop();calcTotalPartCost(claim)">
+								<i class="fa fa-minus" ng-readonly="commentUpdateBtnFlag"></i> Delete Part
+							</button> -->
 						</div>
 						<div class="col-sm-6">
 							<div class="col-sm-8 no-pad">Total Requested Parts Cost</div>
@@ -249,25 +257,32 @@
 						<thead>
 							<tr>
 								<th class="col-sm-2">Labor #</th>
-								<th class="col-sm-4">Description</th>
-								<th class="col-sm-1">Hours</th>
+								<th class="col-sm-3">Description</th>
+								<th class="col-sm-2">Hours</th>
 								<th class="col-sm-2">Hourly Rate</th>
 								<th class="t-r col-sm-2">Total</th>
+								<th class="col-sm-1"></th>
 							</tr>
 						</thead>
 						<tbody data-ng-repeat="claimLabourVO in claim.claimLabourVOList">
 							<tr>
 								<td><input type="text" class="form-control" name=""
-									ng-model="claimLabourVO.laborNo" required="required" ng-readonly="commentUpdateBtnFlag"></td>
+									ng-model="claimLabourVO.laborNo" ng-readonly="commentUpdateBtnFlag"></td>
 								<td><input type="text" class="form-control" name=""
 									ng-model="claimLabourVO.laborDescr" required="required" ng-readonly="commentUpdateBtnFlag"></td>
-								<td><input type="number" class="form-control" name=""
+								<td><input type="number" step="0.01" class="form-control" name=""
 									ng-model="claimLabourVO.laborHrs" required="required"
 									ng-change="calcTotalLabourLine($index)" ng-readonly="commentUpdateBtnFlag"></td>
-								<td><input type="number" class="form-control" name=""
+								<td><input type="number" step="0.01" class="form-control" name=""
 									ng-model="claimLabourVO.laborHourlyRate" required="required"
 									ng-change="calcTotalLabourLine($index)" ng-readonly="commentUpdateBtnFlag"></td>
 								<td class="t-r">{{claimLabourVO.labourTotal | currency}}</td>
+								<td>
+									<button ng-if="claim.claimLabourVOList.length > 1" type="button" class="btn btn-primary btn-sm"
+										ng-click="removeClaimLabor(claimLabourVO);calcTotalLabourCost(claim)" ng-readonly="commentUpdateBtnFlag">
+										<i class="fa fa-minus"></i>
+									</button>
+								</td>
 							</tr>
 						</tbody>
 					</table>
@@ -275,8 +290,12 @@
 						<div class="col-sm-6">
 							<button type="button" class="btn btn-primary btn-sm"
 								ng-click="claim.claimLabourVOList.push({})" ng-readonly="commentUpdateBtnFlag">
-								<i class="fa fa-plus"></i> New Line
+								<i class="fa fa-plus"></i> Add Labor
 							</button>
+							<!-- <button ng-if="claim.claimLabourVOList.length > 1" type="button" class="btn btn-primary btn-sm"
+								ng-click="claim.claimLabourVOList.pop();calcTotalLabourCost(claim)" ng-readonly="commentUpdateBtnFlag">
+								<i class="fa fa-minus"></i> Delete Labor
+							</button> -->
 						</div>
 						<div class="col-sm-6">
 							<div class="col-sm-8 no-pad">Total Requested Labor Cost</div>

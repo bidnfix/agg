@@ -291,11 +291,11 @@
                         
 
 					<div class="form-group">
-							<label class="cols-sm-2 control-label" for="dealerUrl">URL</label>
+							<label class="cols-sm-2 control-label" for="dealerUrl">Dealer Website</label>
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i aria-hidden="true" class="fa fa-globe fa"></i></span>
-									<input type="text" id="dealerUrl" name="dealerUrl" ng-model="dealer.dealerUrl" placeholder="URL" class="form-control" required="required">
+									<input type="text" id="dealerUrl" name="dealerUrl" ng-model="dealer.dealerUrl" placeholder="Website URL" class="form-control" required="required">
 								</div>
 							</div>
 						</div>	
@@ -327,12 +327,12 @@
   <div class="footer1">
     <div class="container">
       <div class="row">
-        <div class="col-md-5 panel">
+        <!-- <div class="col-md-5 panel">
           <h3 class="panel-title">Lates News</h3>
           <div class="panel-body">
             <p>Lorem ipsum dolor amet, consectetur adipiscing elit. Aenean leo lectus sollicitudin convallis eget libero. Aliquam laoreet tellus ut libero semper, egestas velit malesuada. Sed non risus eget dolor amet vestibulum ullamcorper. Integer feugiat molestie.</p>
           </div>
-        </div>
+        </div> -->
         <div class="col-md-4 panel contact">
           <h3 class="panel-title">
           Contact Info
