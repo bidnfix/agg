@@ -84,7 +84,7 @@
 						<p>{{contract.expirationUsageHours}}</p>
 					</div>
 					<div class="form-group">
-						<label for="cheqNo">Cheque Number</label>
+						<label for="cheqNo">Check Number</label>
 						<input type="text" id="cheqNo" name="cheqNo" ng-model="contract.cheqNo" class="form-control">
 					</div>
 					<div class="form-group">

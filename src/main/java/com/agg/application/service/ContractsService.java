@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.agg.application.model.AccountDO;
 import com.agg.application.model.ContractDO;
+import com.agg.application.model.ContractReportDO;
 import com.agg.application.model.DealerDO;
 
 /**
@@ -25,4 +26,5 @@ public interface ContractsService {
 	int getContractsCount(String contractId);
 	List<ContractDO> getActiveContracts();
 	ContractDO getContract(String contractId);
+	ContractReportDO getContractReportDetails(long id, String contractId);
 }

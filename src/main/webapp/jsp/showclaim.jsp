@@ -140,7 +140,7 @@
 							{{claim.correctiveAction}}
 						</div>
 						<div class="form-group col-xs-12 no-pad">
-							<label>Cheque#</label>
+							<label>Check#</label>
 							{{claim.cheqNo}}
 						</div>
 						<div class="form-group col-xs-12 no-pad">

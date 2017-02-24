@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="coverageDetails" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c0ec05e7-1fb2-4f7a-a475-4bbe0eaa13dc">
 	<property name="ireport.zoom" value="0.9090909090909091"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="3207"/>
+	<property name="ireport.y" value="148"/>
 	<parameter name="imagePath" class="java.lang.String"/>
 	<field name="contractId" class="java.lang.String"/>
 	<field name="inceptionDate" class="java.lang.String"/>
@@ -104,28 +104,28 @@
 				<text><![CDATA[Term:]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement positionType="Float" x="51" y="126" width="24" height="20" uuid="0f22d6f3-f8b5-4fcc-974b-4f1c0f022d3f"/>
+				<reportElement positionType="Float" x="51" y="126" width="30" height="20" uuid="0f22d6f3-f8b5-4fcc-974b-4f1c0f022d3f"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{coverageTerm}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="Float" x="75" y="126" width="55" height="20" uuid="f118f370-ed47-4ec6-92a9-815139522151"/>
+				<reportElement positionType="Float" x="81" y="126" width="55" height="20" uuid="f118f370-ed47-4ec6-92a9-815139522151"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[months or]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement positionType="Float" x="130" y="126" width="28" height="20" uuid="e676a622-9766-4679-a64c-b84d3629fa6b"/>
+				<reportElement positionType="Float" x="136" y="126" width="28" height="20" uuid="e676a622-9766-4679-a64c-b84d3629fa6b"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{coverageHours}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="Float" x="158" y="126" width="55" height="20" uuid="2a216f93-6d0e-4570-a1a6-b10208ae1d25"/>
+				<reportElement positionType="Float" x="164" y="126" width="55" height="20" uuid="2a216f93-6d0e-4570-a1a6-b10208ae1d25"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
@@ -153,28 +153,28 @@
 				<text><![CDATA[(See Contract Period)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" x="303" y="127" width="65" height="20" uuid="f54661dc-bb2d-493d-940b-9e71b784ceeb"/>
+				<reportElement positionType="Float" x="297" y="127" width="65" height="20" uuid="f54661dc-bb2d-493d-940b-9e71b784ceeb"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Deductible:]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement positionType="Float" x="368" y="127" width="115" height="20" uuid="57eaf307-8229-420f-aa3a-83fbff283aa1"/>
+				<reportElement positionType="Float" x="362" y="127" width="115" height="20" uuid="57eaf307-8229-420f-aa3a-83fbff283aa1"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{deductibleAmount}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement positionType="Float" x="403" y="148" width="80" height="20" uuid="9d6a2e02-79eb-4e5b-be36-82000cd3ed20"/>
+				<reportElement positionType="Float" x="397" y="148" width="80" height="20" uuid="9d6a2e02-79eb-4e5b-be36-82000cd3ed20"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{expirationHours}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="Float" x="303" y="148" width="100" height="20" uuid="0b8d1b76-ceb8-4de5-8b95-11c370b2973d"/>
+				<reportElement positionType="Float" x="297" y="148" width="100" height="20" uuid="0b8d1b76-ceb8-4de5-8b95-11c370b2973d"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
@@ -195,14 +195,14 @@
 				<textFieldExpression><![CDATA[$F{coverageType}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement positionType="Float" x="390" y="169" width="93" height="20" uuid="45d4b8ba-00e0-423e-a8e0-0c04d81c3d2f"/>
+				<reportElement positionType="Float" x="384" y="169" width="93" height="20" uuid="45d4b8ba-00e0-423e-a8e0-0c04d81c3d2f"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{lol}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="Float" x="303" y="169" width="87" height="20" uuid="2d5361c4-f81f-408f-ba9f-ca797e32c1f2"/>
+				<reportElement positionType="Float" x="297" y="169" width="87" height="20" uuid="2d5361c4-f81f-408f-ba9f-ca797e32c1f2"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
@@ -230,14 +230,14 @@
 				<textFieldExpression><![CDATA[$F{manufacturer}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement positionType="Float" x="348" y="234" width="207" height="20" uuid="97c66fed-92f6-47a7-bfee-1b77ab381beb"/>
+				<reportElement positionType="Float" x="335" y="234" width="220" height="20" uuid="97c66fed-92f6-47a7-bfee-1b77ab381beb"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{serialNo}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="Float" x="303" y="234" width="45" height="20" uuid="6989cb50-9dd0-49fe-bf01-5e8af1cec5d8"/>
+				<reportElement positionType="Float" x="290" y="234" width="45" height="20" uuid="6989cb50-9dd0-49fe-bf01-5e8af1cec5d8"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
@@ -258,28 +258,28 @@
 				<text><![CDATA[Model#:]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement positionType="Float" x="501" y="255" width="54" height="20" uuid="bff45c0d-d2a6-4e9a-8418-d2d7936cc682"/>
+				<reportElement positionType="Float" x="488" y="255" width="67" height="20" uuid="bff45c0d-d2a6-4e9a-8418-d2d7936cc682"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{manfEndDate}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="Float" x="303" y="255" width="198" height="20" uuid="8387d20b-e871-4b0f-85f2-7f062c9aaaa3"/>
+				<reportElement positionType="Float" x="290" y="255" width="198" height="20" uuid="8387d20b-e871-4b0f-85f2-7f062c9aaaa3"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Date Manufacturer’s Warranty Ends:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" x="303" y="276" width="115" height="20" uuid="dabb7c61-39a0-46a0-a352-b550a8a9ead1"/>
+				<reportElement positionType="Float" x="290" y="276" width="115" height="20" uuid="dabb7c61-39a0-46a0-a352-b550a8a9ead1"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Machine Application:]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement positionType="Float" x="418" y="276" width="137" height="20" uuid="27d69c73-971e-4186-ae9e-7e5a75833e50"/>
+				<reportElement positionType="Float" x="405" y="276" width="150" height="20" uuid="27d69c73-971e-4186-ae9e-7e5a75833e50"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>

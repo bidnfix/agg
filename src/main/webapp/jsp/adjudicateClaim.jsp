@@ -37,7 +37,9 @@
 			                <td>{{claim.createdUser}}</td>
 			                <td>{{claim.serial}}</td>
 			                <td>
-			                	<a ng-click="onClickSelectClaim(claim)"><img src="../assets/images/edit-pencil.png" alt="Edit" title="Edit"/></a>
+			                	<div class="manage-sec">
+			                		<a ng-click="onClickSelectClaim(claim)"><img src="../assets/images/edit-pencil.png" alt="Edit" title="Edit"/></a>
+			                	</div>
 			                </td>
 			                <td>{{claim.createdDate}}</td>
 			            </tr>
@@ -353,7 +355,7 @@
                            <br clear="all">
                            <br>
                            <div class="form-group clearfix col-xs-12 no-pad">
-                              <span class="col-sm-3 no-pad">Cheque#  :</span> 
+                              <span class="col-sm-3 no-pad">Check#  :</span> 
                                 <div class="col-sm-6 no-pad">
                                		<input type="text" class="form-control" ng-model="adjustments.cheqNo" ng-required="cheqFlag" ng-readonly= "{{editFlag}}">
                                 </div>

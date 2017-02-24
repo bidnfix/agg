@@ -25,7 +25,7 @@
                 <th>Inception Date</th>
                 <th>Expiration Date</th>
                 <th>Expiration Hours</th>
-                <th>Cheque#</th>
+                <th>Check#</th>
                 <th>Received Date</th>
                 <th>Status</th>
                 <th></th>
@@ -43,7 +43,7 @@
                 <th>Inception Date</th>
                 <th>Expiration Date</th>
                 <th>Expiration Hours</th>
-                <th>Cheque#</th>
+                <th>Check#</th>
                 <th>Received Date</th>
                 <th>Status</th>
                 <th></th>
@@ -67,14 +67,13 @@
                 <td>{{contract.lastUpdatedDate |  date:"MM/dd/yyyy"}}</td>
                 <c:if test="${user.roleDO.accountType eq 'admin'}">
 	                <td>
-	                	<div class="manage-sec"><!-- <a href="#"><img src="../assets/images/delete-icon.png" alt="Delete" title="Delete"/></a> -->
-	                		<!-- <a ng-click="viewQuote(quote.id, quote.quoteId)"><img src="../assets/images/edit-icon.png" alt="Edit" title="Edit"/></a> -->
+	                	<div class="manage-sec">
 	                		<c:choose>
 	                			<c:when test="${user.roleDO.accountType eq 'admin'}">
 	                				<a href="#/agg/viewContract/{{contract.id}}/{{contract.contractId}}"><img src="../assets/images/edit-pencil.png" alt="View" title="View"/></a>
 	                			</c:when>
 	                			<c:otherwise>
-	                				<img src="../assets/images/edit-pencil.png" alt="View" title="View"/>
+	                				<a href="#/agg/viewContractDetails/{{contract.id}}/{{contract.contractId}}"><img src="../assets/images/edit-pencil.png" alt="View" title="View"/></a>
 	                			</c:otherwise>
 	                		</c:choose>
 	                	</div>

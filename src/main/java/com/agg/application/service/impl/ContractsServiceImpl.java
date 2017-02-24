@@ -3,10 +3,13 @@
  */
 package com.agg.application.service.impl;
 
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 
 import javax.transaction.Transactional;
 
@@ -15,15 +18,20 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.agg.application.dao.AdminAdjustmentDAO;
 import com.agg.application.dao.ContractsDAO;
+import com.agg.application.dao.CustomerInfoDAO;
 import com.agg.application.dao.ManufacturerDAO;
 import com.agg.application.dao.QuoteDAO;
+import com.agg.application.entity.AdminAdjustment;
 import com.agg.application.entity.Contracts;
+import com.agg.application.entity.CustomerInfo;
 import com.agg.application.entity.Dealer;
 import com.agg.application.entity.Manufacturer;
 import com.agg.application.entity.Quote;
 import com.agg.application.model.AccountDO;
 import com.agg.application.model.ContractDO;
+import com.agg.application.model.ContractReportDO;
 import com.agg.application.model.DealerDO;
 import com.agg.application.model.ManufacturerDO;
 import com.agg.application.service.ContractsService;
@@ -45,7 +53,15 @@ public class ContractsServiceImpl implements ContractsService{
 	private QuoteDAO quoteDAO;
 	
 	@Autowired
+	private CustomerInfoDAO customerInfoDAO;
+	
+	@Autowired
+	private AdminAdjustmentDAO adminAdjustmentDAO;
+	
+	@Autowired
 	private ManufacturerDAO manufacturerDAO;
+	
+	private static final SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 
 	/* (non-Javadoc)
 	 * @see com.agg.application.service.ContractsService#saveContract(com.agg.application.model.ContractDO)
@@ -256,6 +272,69 @@ public class ContractsServiceImpl implements ContractsService{
 	@Override
 	public int getContractsCount(String contractId) {
 		return contractDAO.getContractsCount(contractId);
+	}
+
+	@Override
+	public ContractReportDO getContractReportDetails(long id, String contractId) {
+		List<Contracts> contractsList = contractDAO.findByIdAndContractId(id, contractId);
+		ContractReportDO contractReportDO = null;
+		if(contractsList != null && !contractsList.isEmpty()){
+			Contracts contract = contractsList.get(0);
+			contractReportDO = new ContractReportDO();
+			Quote quote = quoteDAO.findOne(new Long(contract.getQuoteId()).intValue());
+			CustomerInfo customerInfo = customerInfoDAO.findOne(quote.getId().getQuoteId());
+			AdminAdjustment adminAdjustment = adminAdjustmentDAO.findOne(quote.getId().getQuoteId());
+			
+			Locale locale = new Locale("en", "US");
+			NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
+			
+			contractReportDO.setContractId(contract.getContractId());
+			contractReportDO.setInceptionDate((contract.getInceptionDate() != null)?dateFormat.format(contract.getInceptionDate()):"");
+			contractReportDO.setCoverageTerm(contract.getCoverageTermMonths());
+			contractReportDO.setCoverageHours(contract.getCoverageLevelHours());
+			contractReportDO.setExpirationDate((contract.getExpirationDate() != null)?dateFormat.format(contract.getExpirationDate()):"");
+			contractReportDO.setDeductibleAmount(currencyFormat.format(contract.getDeductible()));
+			contractReportDO.setExpirationHours(contract.getExpirationUsageHours()+"");
+			String coverageType = contract.getCoverageType();
+			if(coverageType != null && !coverageType.isEmpty()){
+				if(coverageType.equalsIgnoreCase("PT")){
+					contractReportDO.setCoverageType("Powertrain");
+				}else if(coverageType.equalsIgnoreCase("PH")){
+					contractReportDO.setCoverageType("Powertrain + Hydraulic");
+				}else if(coverageType.equalsIgnoreCase("PL")){
+					contractReportDO.setCoverageType("Powertrain + Hydraulic + Platform");
+				}
+			}
+			//contractReportDO.setCoverageType(contract.getCoverageType());
+			contractReportDO.setLol(currencyFormat.format(contract.getLol()));
+			contractReportDO.setManufacturer(quote.getManufacturer().getManfName());
+			contractReportDO.setSerialNo(contract.getMachineSerialNo());
+			contractReportDO.setMachineModel(quote.getMachineInfo().getModel());
+			contractReportDO.setManfEndDate((quote.getManfEndDate() != null)?dateFormat.format(quote.getManfEndDate()):"");
+			contractReportDO.setUseOfEquipment(quote.getUseOfEquip().getEquipName());
+			contractReportDO.setMachineHours(quote.getMachineMeterHours());
+			contractReportDO.setCustomerAddress1(customerInfo.getAddress());
+			contractReportDO.setCustomerAddress2(customerInfo.getCity()+" "+customerInfo.getState());
+			contractReportDO.setCustomerAddress3(customerInfo.getZip());
+			contractReportDO.setCustomerContact(customerInfo.getAddress());
+			contractReportDO.setCustomerPhone(customerInfo.getPhone());
+			contractReportDO.setCustomerEmail(customerInfo.getEmail());
+			contractReportDO.setDealerAddress1(quote.getDealer().getAddress());
+			contractReportDO.setDealerAddress2(quote.getDealer().getAddress2());
+			contractReportDO.setDealerAddress3(quote.getDealer().getCity()+" "+quote.getDealer().getState()+" "+quote.getDealer().getZip());
+			contractReportDO.setDealerContact(quote.getDealer().getAddress());
+			contractReportDO.setDealerEmail(quote.getDealer().getInvoiceEmail());
+			contractReportDO.setDealerPhone(quote.getDealer().getPhone());
+			contractReportDO.setServiceProviderAddr1(quote.getDealer().getAddress());
+			contractReportDO.setServiceProviderAddr2(quote.getDealer().getAddress2());
+			contractReportDO.setServiceProviderAddr3(quote.getDealer().getCity()+" "+quote.getDealer().getState()+" "+quote.getDealer().getZip());
+			contractReportDO.setServiceProviderContact(quote.getDealer().getAddress());
+			contractReportDO.setServiceProviderEmail(quote.getDealer().getInvoiceEmail());
+			contractReportDO.setServiceProviderPhone(quote.getDealer().getPhone());
+			contractReportDO.setSpecialConsiderations(adminAdjustment.getSpecialConsideration());
+		}
+		
+		return contractReportDO;
 	}
 	
 }

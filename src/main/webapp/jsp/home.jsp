@@ -138,21 +138,11 @@
                 <td>{{contract.expirationDate |  date:"MM/dd/yyyy"}}</td>
                 <td>{{contract.expirationUsageHours}}</td>
                 <td>{{(contract.status == 1)?"Active":(contract.status == 2)?"Expired":(contract.status == 3)?"Cancelled":"Archived"}}</td>
-                <c:if test="${user.roleDO.accountType eq 'admin'}">
-	                <td>
-	                	<div class="manage-sec"><!-- <a href="#"><img src="../assets/images/delete-icon.png" alt="Delete" title="Delete"/></a> -->
-	                		<!-- <a ng-click="viewQuote(quote.id, quote.quoteId)"><img src="../assets/images/edit-icon.png" alt="Edit" title="Edit"/></a> -->
-	                		<c:choose>
-	                			<c:when test="${user.roleDO.accountType eq 'admin'}">
-	                				<a href="#/agg/viewContract/{{contract.id}}/{{contract.contractId}}"><img src="../assets/images/edit-pencil.png" alt="View" title="View"/></a>
-	                			</c:when>
-	                			<c:otherwise>
-	                				<img src="../assets/images/edit-pencil.png" alt="View" title="View"/>
-	                			</c:otherwise>
-	                		</c:choose>
-	                	</div>
-	                </td>
-                </c:if>
+                <td>
+                	<div class="manage-sec">
+                		<a href="#/agg/viewContractDetails/{{contract.id}}/{{contract.contractId}}"><img src="../assets/images/edit-pencil.png" alt="View" title="View"/></a>
+                	</div>
+                </td>
             </tr>
         </tbody>
     </table>

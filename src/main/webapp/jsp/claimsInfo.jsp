@@ -24,7 +24,7 @@
                 <th>Serial</th>
                 <th>Manufacturer</th>
                 <th>Model</th>
-                <th>Cheque#</th>
+                <th>Check#</th>
                 <th>Paid Date</th>
                 <th>Status</th>
                 <th></th>
@@ -40,7 +40,7 @@
                 <th>Serial</th>
                 <th>Manufacturer</th>
                 <th>Model</th>
-                <th>Cheque#</th>
+                <th>Check#</th>
                 <th>Paid Date</th>
                 <th>Status</th>
                 <th></th>

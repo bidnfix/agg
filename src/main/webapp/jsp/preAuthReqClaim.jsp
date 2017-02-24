@@ -37,7 +37,9 @@
 			                <td>{{claim.createdUser}}</td>
 			                <td>{{claim.serial}}</td>
 			                <td>
-			                	<a ng-click="onClickSelectClaim(claim)"><img src="../assets/images/edit-pencil.png" alt="Edit" title="Edit"/></a>
+			                	<div class="manage-sec">
+			                		<a ng-click="onClickSelectClaim(claim)"><img src="../assets/images/edit-pencil.png" alt="Edit" title="Edit"/></a>
+			                	</div>
 			                </td>
 			                <td>{{claim.createdDate}}</td>
 			            </tr>

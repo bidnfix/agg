@@ -18,6 +18,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,11 +26,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.agg.application.model.ContractDO;
+import com.agg.application.model.ContractReportDO;
 import com.agg.application.model.Result;
 import com.agg.application.service.ContractsService;
 import com.agg.application.utils.Util;
+
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.JREmptyDataSource;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 /**
  * @author htamada
@@ -158,6 +165,42 @@ public class ContractsController extends BaseController{
 			opResult = new Result("success", "", contractService.updateContract(contractDO));
 		}
 		return opResult;
+	}
+	
+	@RequestMapping(value = "contract/report/{reportType}/{id}/{contractId}", method = RequestMethod.GET, produces="application/pdf;charset=UTF-8")
+	public ModelAndView showContractReport(@PathVariable String reportType, @PathVariable long id, @PathVariable String contractId, ModelAndView modelAndView, HttpServletRequest request, 
+			HttpServletResponse response, ModelMap modelMap) throws Exception{
+		logger.debug("In showContractReport with reportType: "+reportType+", id: "+id+" and contractId: "+contractId);
+		if (!sessionExists(request)){
+			modelAndView = new ModelAndView("login");
+		}else{
+			StringBuffer url = request.getRequestURL();
+			String uri = request.getRequestURI();
+			String appUrl = url.substring(0, url.length() - uri.length());
+			logger.info("appUrl: "+appUrl);
+			
+			ContractReportDO contractReportDO = contractService.getContractReportDetails(id, contractId);
+			JRDataSource jrDataSource = null;
+			if(contractReportDO != null){
+				List<ContractReportDO> contractReportDOList = new ArrayList<ContractReportDO>();
+				contractReportDOList.add(contractReportDO);
+				jrDataSource = new JRBeanCollectionDataSource(contractReportDOList);
+			}else{
+				jrDataSource = new JREmptyDataSource();
+			}
+			
+			modelMap.put("datasource", jrDataSource);
+			modelMap.put("format", "pdf");
+			modelMap.put("imagePath", appUrl+"/assets/images/report_banner.png");
+			if(reportType != null && reportType.equalsIgnoreCase("contract")){
+				modelAndView = new ModelAndView("rpt_contractDetails", modelMap);
+			}else if(reportType != null && reportType.equalsIgnoreCase("coverage")){
+				modelAndView = new ModelAndView("rpt_coverageDetails", modelMap);
+			}
+			
+		}
+		
+		return modelAndView;
 	}
 	
 	private List<Map<String, Object>> formatGetContracts(final List<ContractDO> contractsList){

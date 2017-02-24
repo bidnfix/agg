@@ -64,7 +64,7 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="cheqNo" class="col-sm-3 control-label">Cheque Number</label>
+				<label for="cheqNo" class="col-sm-3 control-label">Check Number</label>
 				<div class="col-sm-9">
 					<input type="text" id="cheqNo" name="cheqNo" ng-model="quote.cheqNo" class="form-control">
 				</div>

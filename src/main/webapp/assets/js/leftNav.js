@@ -181,6 +181,10 @@ routingApp.config(['$routeProvider',
                     	  templateUrl: '../../jsp/editContract.jsp',
                     	  controller: 'ContractDetailController'
                       }).
+                      when('/agg/viewContractDetails/:contractId/:contractCode', {
+                    	  templateUrl: '../../jsp/viewContract.jsp',
+                    	  controller: 'ContractViewDetailController'
+                      }).
                       otherwise({
                     	  redirectTo: '/agg/home'
                       });
@@ -1669,3 +1673,23 @@ routingApp.controller('ContractDetailController', function($scope, $http, $timeo
         }
       };
    });
+
+routingApp.controller('ContractViewDetailController', function($scope, $http, $timeout, $window, $routeParams, contractService) {
+	$http.get("/agg/contractInfo/"+$routeParams.contractId+"/"+$routeParams.contractCode)
+	.then(function(response) {
+        $scope.contract = response.data.data.contractDO;
+    });
+	
+	$scope.cancelContract = function(){
+		$window.location.href = '#/agg/contracts';
+	}
+	
+	$scope.printContract = function(contractPrintType){
+		if(contractPrintType == 'contract'){
+			$window.open('/agg/contract/report/contract/'+$scope.contract.id+'/'+$scope.contract.contractId);
+		}else if(contractPrintType == 'coverage'){
+			$window.open('/agg/contract/report/coverage/'+$scope.contract.id+'/'+$scope.contract.contractId);
+		}
+	}
+	
+})

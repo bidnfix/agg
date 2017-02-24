@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="contractDetails" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c0ec05e7-1fb2-4f7a-a475-4bbe0eaa13dc">
 	<property name="ireport.zoom" value="0.9090909090909091"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="189"/>
 	<parameter name="imagePath" class="java.lang.String"/>
 	<field name="contractId" class="java.lang.String"/>
 	<field name="inceptionDate" class="java.lang.String"/>
@@ -101,28 +101,28 @@
 				<text><![CDATA[Term:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="51" y="98" width="24" height="20" uuid="0f22d6f3-f8b5-4fcc-974b-4f1c0f022d3f"/>
+				<reportElement x="51" y="98" width="28" height="20" uuid="0f22d6f3-f8b5-4fcc-974b-4f1c0f022d3f"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{coverageTerm}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="75" y="98" width="55" height="20" uuid="f118f370-ed47-4ec6-92a9-815139522151"/>
+				<reportElement x="79" y="98" width="57" height="20" uuid="f118f370-ed47-4ec6-92a9-815139522151"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[months or]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="130" y="98" width="28" height="20" uuid="e676a622-9766-4679-a64c-b84d3629fa6b"/>
+				<reportElement x="136" y="98" width="30" height="20" uuid="e676a622-9766-4679-a64c-b84d3629fa6b"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{coverageHours}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="158" y="98" width="55" height="20" uuid="2a216f93-6d0e-4570-a1a6-b10208ae1d25"/>
+				<reportElement x="166" y="98" width="55" height="20" uuid="2a216f93-6d0e-4570-a1a6-b10208ae1d25"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
@@ -157,14 +157,14 @@
 				<text><![CDATA[Deductible:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="368" y="99" width="130" height="20" uuid="57eaf307-8229-420f-aa3a-83fbff283aa1"/>
+				<reportElement x="368" y="99" width="187" height="20" uuid="57eaf307-8229-420f-aa3a-83fbff283aa1"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{deductibleAmount}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="403" y="120" width="95" height="20" uuid="9d6a2e02-79eb-4e5b-be36-82000cd3ed20"/>
+				<reportElement x="403" y="120" width="152" height="20" uuid="9d6a2e02-79eb-4e5b-be36-82000cd3ed20"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
@@ -192,7 +192,7 @@
 				<textFieldExpression><![CDATA[$F{coverageType}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="390" y="141" width="108" height="20" uuid="45d4b8ba-00e0-423e-a8e0-0c04d81c3d2f"/>
+				<reportElement x="390" y="141" width="165" height="20" uuid="45d4b8ba-00e0-423e-a8e0-0c04d81c3d2f"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
@@ -227,14 +227,14 @@
 				<textFieldExpression><![CDATA[$F{manufacturer}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="348" y="206" width="207" height="20" uuid="97c66fed-92f6-47a7-bfee-1b77ab381beb"/>
+				<reportElement x="333" y="206" width="222" height="20" uuid="97c66fed-92f6-47a7-bfee-1b77ab381beb"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{serialNo}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="303" y="206" width="45" height="20" uuid="6989cb50-9dd0-49fe-bf01-5e8af1cec5d8"/>
+				<reportElement x="288" y="206" width="45" height="20" uuid="6989cb50-9dd0-49fe-bf01-5e8af1cec5d8"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
@@ -255,28 +255,28 @@
 				<text><![CDATA[Model#:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="501" y="227" width="54" height="20" uuid="bff45c0d-d2a6-4e9a-8418-d2d7936cc682"/>
+				<reportElement x="486" y="227" width="69" height="20" uuid="bff45c0d-d2a6-4e9a-8418-d2d7936cc682"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{manfEndDate}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="303" y="227" width="198" height="20" uuid="8387d20b-e871-4b0f-85f2-7f062c9aaaa3"/>
+				<reportElement x="288" y="227" width="198" height="20" uuid="8387d20b-e871-4b0f-85f2-7f062c9aaaa3"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Date Manufacturer’s Warranty Ends:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="303" y="248" width="115" height="20" uuid="dabb7c61-39a0-46a0-a352-b550a8a9ead1"/>
+				<reportElement x="288" y="248" width="115" height="20" uuid="dabb7c61-39a0-46a0-a352-b550a8a9ead1"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Machine Application:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="418" y="248" width="137" height="20" uuid="27d69c73-971e-4186-ae9e-7e5a75833e50"/>
+				<reportElement x="403" y="248" width="152" height="20" uuid="27d69c73-971e-4186-ae9e-7e5a75833e50"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
