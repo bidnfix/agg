@@ -325,6 +325,7 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
     						 $timeout(function () {
     					        	$('#contractsTable').DataTable({
     					        		"aaSorting": [[ 9, "desc" ]],
+    					        		"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
  					        	       columnDefs: [
  					        	           { targets: 9, visible: false }    
  					        	       ]
@@ -357,6 +358,7 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
     						 $timeout(function () {
     					        	$('#contractsTable').DataTable({
     					        		"aaSorting": [[ 9, "desc" ]],
+    					        		"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
     					        	       columnDefs: [
     					        	           { targets: 9, visible: false }    
     					        	       ]
@@ -504,6 +506,7 @@ routingApp.factory('claimPreAuthReqService', ['$http', '$q', '$window', '$timeou
 	    		$timeout(function () {
 		        	$('#preauthClaimsListTable').DataTable({
 		        		"aaSorting": [[ 5, "desc" ]],
+		        		"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
 		        	       columnDefs: [
 		        	           { targets: 5, visible: false }    
 		        	       ]
@@ -610,6 +613,7 @@ routingApp.factory('claimsAdjudicateService', ['$http', '$q', '$window', '$timeo
 	    	$timeout(function () {
 	        	$('#preauthClaimsListTable').DataTable({
 	        		"aaSorting": [[ 5, "desc" ]],
+	        		"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
 	        	       columnDefs: [
 	        	           { targets: 5, visible: false }    
 	        	       ]
@@ -981,6 +985,7 @@ routingApp.factory('claimDraftService', ['$http', '$q', '$window', '$timeout', '
     						 $timeout(function () {
     					        	$('#contractsTable').DataTable({
     					        		"aaSorting": [[ 9, "desc" ]],
+    					        		"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
     					        	       columnDefs: [
     					        	           { targets: 9, visible: false }    
     					        	       ]

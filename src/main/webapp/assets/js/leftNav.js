@@ -223,7 +223,7 @@ routingApp.controller('GetDealerController', function($scope, dealerService, $ht
         		}, 3000);
 	        }
 	        $timeout(function () {
-	        	$('#dealerTbl').DataTable();
+	        	$('#dealerTbl').DataTable({"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]]});
 	        }, 300);
 	    });
 		
@@ -232,7 +232,7 @@ routingApp.controller('GetDealerController', function($scope, dealerService, $ht
 		.then(function(response) {
 	        $scope.dealerList = response.data.data;
 	        $timeout(function () {
-	        	$('#dealerTbl').DataTable();
+	        	$('#dealerTbl').DataTable({"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]]});
 	        }, 300);
 	    });
 	}
@@ -283,7 +283,7 @@ routingApp.controller('GetMachineInfoController', function($scope, machineServic
     .then(function(response) {
         $scope.machineInfoList = response.data.data.machineInfoList;
         $timeout(function () {
-        	$('#table1').DataTable();
+        	$('#table1').DataTable({"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]]});
         }, 300);
     });
 	
@@ -349,7 +349,7 @@ routingApp.controller('HomeController', function($scope, $http, $timeout, $windo
     	//}
     	
     	$timeout(function () {
-        	$('#quotesTbl').DataTable();
+        	$('#quotesTbl').DataTable({"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]]});
         }, 300);
     });
 	
@@ -368,7 +368,7 @@ routingApp.controller('HomeController', function($scope, $http, $timeout, $windo
 	    		$('#claimsTbl').parents('div.dataTables_wrapper').first().hide();
 	    	//}
 	        $timeout(function () {
-	        	$('#quotesTbl').DataTable();
+	        	$('#quotesTbl').DataTable({"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]]});
 	        }, 300);
 	    });
 	}
@@ -388,7 +388,7 @@ routingApp.controller('HomeController', function($scope, $http, $timeout, $windo
 	    		$('#claimsTbl').parents('div.dataTables_wrapper').first().hide();
 	    	//}
 	        $timeout(function () {
-	        	$('#quotesTbl').DataTable();
+	        	$('#quotesTbl').DataTable({"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]]});
 	        }, 300);
 	    });
 	}
@@ -408,7 +408,7 @@ routingApp.controller('HomeController', function($scope, $http, $timeout, $windo
 	    		$('#claimsTbl').parents('div.dataTables_wrapper').first().hide();
 	    	//}
 	        $timeout(function () {
-	        	$('#quotesTbl').DataTable();
+	        	$('#quotesTbl').DataTable({"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]]});
 	        }, 300);
 	    });
 	}
@@ -429,7 +429,7 @@ routingApp.controller('HomeController', function($scope, $http, $timeout, $windo
 	    		$('#claimsTbl').parents('div.dataTables_wrapper').first().hide();
 	    	//}
 	        $timeout(function () {
-	        	$('#contractsTbl').DataTable();
+	        	$('#contractsTbl').DataTable({"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]]});
 	        }, 300);
 	    });
 	}
@@ -449,7 +449,7 @@ routingApp.controller('HomeController', function($scope, $http, $timeout, $windo
 	    		$('#quotesTbl').parents('div.dataTables_wrapper').first().hide();
 	    	//}
 	        $timeout(function () {
-	        	$('#claimsTbl').DataTable();
+	        	$('#claimsTbl').DataTable({"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]]});
 	        }, 300);
 	    });
 	}
@@ -470,7 +470,7 @@ routingApp.controller('HomeController', function($scope, $http, $timeout, $windo
 	    		$('#claimsTbl').parents('div.dataTables_wrapper').first().hide();
 	    	//}
 	        $timeout(function () {
-	        	$('#contractsTbl').DataTable();
+	        	$('#contractsTbl').DataTable({"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]]});
 	        }, 300);
 	    });
 	}
@@ -518,7 +518,7 @@ routingApp.controller('GetProgramsController', function($scope, programService, 
     .then(function(response) {
         $scope.programsList = response.data.data.programs;
         $timeout(function () {
-        	$('#table1').DataTable();
+        	$('#table1').DataTable({"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]]});
         }, 300);
     });
 	
@@ -992,7 +992,7 @@ routingApp.controller('BugInfoController', function($scope, $http, reportaBugSer
 	    .then(function(response) {
 	        $scope.bugDOList = response.data.data;
 	        $timeout(function () {
-	        	$('#userTbl').DataTable();
+	        	$('#userTbl').DataTable({"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]]});
 	        }, 300);
 	    });
 	 
@@ -1044,7 +1044,7 @@ routingApp.controller('GetUserController', function($scope, userService, $http, 
 	.then(function(response) {
         $scope.userList = response.data.data;
         $timeout(function () {
-        	$('#userTbl').DataTable();
+        	$('#userTbl').DataTable({"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]]});
         }, 300);
     });
 	
@@ -1088,6 +1088,7 @@ routingApp.controller('QuotesDetailController', function($scope, $http, $timeout
         $timeout(function () {
         	$('#quotesTbl').DataTable({
         		"aaSorting": [[ 6, "desc" ]],
+        		"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
      	       columnDefs: [
      	           { targets: 6, visible: false }    
      	       ]
@@ -1159,6 +1160,7 @@ routingApp.controller('ClaimsInfoController', function($scope, $http, $timeout, 
 	        $timeout(function () {
 	        	$('#claimsTbl').DataTable({
 	        		"aaSorting": [[ 10, "desc" ]],
+	        		"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
 	        	       columnDefs: [
 	        	           { targets: 10, visible: false }    
 	        	       ]
@@ -1174,6 +1176,7 @@ routingApp.controller('ClaimsInfoController', function($scope, $http, $timeout, 
 	        $timeout(function () {
 	        	$('#claimsTbl').DataTable({
 	        		"aaSorting": [[ 10, "desc" ]],
+	        		"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
 	        	       columnDefs: [
 	        	           { targets: 10, visible: false }    
 	        	       ]
@@ -1189,6 +1192,7 @@ routingApp.controller('ClaimsInfoController', function($scope, $http, $timeout, 
 	        $timeout(function () {
 	        	$('#claimsTbl').DataTable({
 	        		"aaSorting": [[ 10, "desc" ]],
+	        		"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
 	        	       columnDefs: [
 	        	           { targets: 10, visible: false }    
 	        	       ]
@@ -1205,6 +1209,7 @@ routingApp.controller('ClaimsInfoController', function($scope, $http, $timeout, 
 	        $timeout(function () {
 	        	$('#claimsTbl').DataTable({
 	        		"aaSorting": [[ 10, "desc" ]],
+	        		"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
 	        	       columnDefs: [
 	        	           { targets: 10, visible: false }    
 	        	       ]
@@ -1600,6 +1605,7 @@ routingApp.controller('ContractsController', function($scope, $http, $timeout, $
         $timeout(function () {
         	$('#contractsTbl').DataTable({
         		"aaSorting": [[ 9, "desc" ]],
+        		 "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
      	       columnDefs: [
      	           { targets: 9, visible: false }    
      	       ]
