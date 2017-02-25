@@ -349,7 +349,10 @@ routingApp.controller('HomeController', function($scope, $http, $timeout, $windo
     	//}
     	
     	$timeout(function () {
-        	$('#quotesTbl').DataTable({"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]]});
+        	$('#quotesTbl').DataTable({
+        		"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]], 
+        		"columnDefs": [{ "width": "12%", "targets": 0 }]
+        	});
         }, 300);
     });
 	
@@ -368,7 +371,10 @@ routingApp.controller('HomeController', function($scope, $http, $timeout, $windo
 	    		$('#claimsTbl').parents('div.dataTables_wrapper').first().hide();
 	    	//}
 	        $timeout(function () {
-	        	$('#quotesTbl').DataTable({"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]]});
+	        	$('#quotesTbl').DataTable({
+	        		"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]], 
+	        		"columnDefs": [{ "width": "12%", "targets": 0 }]
+	        	});
 	        }, 300);
 	    });
 	}
@@ -388,7 +394,10 @@ routingApp.controller('HomeController', function($scope, $http, $timeout, $windo
 	    		$('#claimsTbl').parents('div.dataTables_wrapper').first().hide();
 	    	//}
 	        $timeout(function () {
-	        	$('#quotesTbl').DataTable({"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]]});
+	        	$('#quotesTbl').DataTable({
+	        		"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]], 
+	        		"columnDefs": [{ "width": "12%", "targets": 0 }]
+	        	});
 	        }, 300);
 	    });
 	}
@@ -408,7 +417,10 @@ routingApp.controller('HomeController', function($scope, $http, $timeout, $windo
 	    		$('#claimsTbl').parents('div.dataTables_wrapper').first().hide();
 	    	//}
 	        $timeout(function () {
-	        	$('#quotesTbl').DataTable({"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]]});
+	        	$('#quotesTbl').DataTable({
+	        		"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]], 
+	        		"columnDefs": [{ "width": "12%", "targets": 0 }]
+	        	});
 	        }, 300);
 	    });
 	}
@@ -429,7 +441,10 @@ routingApp.controller('HomeController', function($scope, $http, $timeout, $windo
 	    		$('#claimsTbl').parents('div.dataTables_wrapper').first().hide();
 	    	//}
 	        $timeout(function () {
-	        	$('#contractsTbl').DataTable({"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]]});
+	        	$('#contractsTbl').DataTable({
+	        		"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]], 
+	        		"columnDefs": [{ "width": "12%", "targets": 0 }]
+	        	});
 	        }, 300);
 	    });
 	}
@@ -449,7 +464,10 @@ routingApp.controller('HomeController', function($scope, $http, $timeout, $windo
 	    		$('#quotesTbl').parents('div.dataTables_wrapper').first().hide();
 	    	//}
 	        $timeout(function () {
-	        	$('#claimsTbl').DataTable({"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]]});
+	        	$('#claimsTbl').DataTable({
+	        		"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]], 
+	        		"columnDefs": [{ "width": "12%", "targets": 0 }]
+	        	});
 	        }, 300);
 	    });
 	}
@@ -470,7 +488,10 @@ routingApp.controller('HomeController', function($scope, $http, $timeout, $windo
 	    		$('#claimsTbl').parents('div.dataTables_wrapper').first().hide();
 	    	//}
 	        $timeout(function () {
-	        	$('#contractsTbl').DataTable({"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]]});
+	        	$('#contractsTbl').DataTable({
+	        		"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]], 
+	        		"columnDefs": [{ "width": "12%", "targets": 0 }]
+	        	});
 	        }, 300);
 	    });
 	}
