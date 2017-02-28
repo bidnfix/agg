@@ -55,11 +55,11 @@
 							ng-model="quote.serialNumber" placeholder="Serial Number"
 							class="form-control"
 							required-message="'Please enter serial number of machine.'"
-							required="required">
+							 ng-required="machineSerialFlag">
 						<div class="col-sm-6 no-pad pull-right">
 							<input type="checkbox" id="serialNumberUnknown"
 								name="serialNumberUnknown" ng-model="quote.serialNumberUnknown"
-								value="serialNumberUnknown"> Check if unknown
+								value="serialNumberUnknown" ng-change="changeMachineSerialFlag(quote.serialNumberUnknown)"> Check if unknown
 						</div>
 					</div>
 				</div>

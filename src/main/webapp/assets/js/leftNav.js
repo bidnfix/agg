@@ -351,7 +351,8 @@ routingApp.controller('HomeController', function($scope, $http, $timeout, $windo
     	$timeout(function () {
         	$('#quotesTbl').DataTable({
         		"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]], 
-        		"columnDefs": [{ "width": "12%", "targets": 0 }]
+        		"columnDefs": [{ "width": "12%", "targets": 0 }],
+        		"bDestroy": true
         	});
         }, 300);
     });
@@ -373,7 +374,8 @@ routingApp.controller('HomeController', function($scope, $http, $timeout, $windo
 	        $timeout(function () {
 	        	$('#quotesTbl').DataTable({
 	        		"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]], 
-	        		"columnDefs": [{ "width": "12%", "targets": 0 }]
+	        		"columnDefs": [{ "width": "12%", "targets": 0 }],
+	        		"bDestroy": true
 	        	});
 	        }, 300);
 	    });
@@ -396,7 +398,8 @@ routingApp.controller('HomeController', function($scope, $http, $timeout, $windo
 	        $timeout(function () {
 	        	$('#quotesTbl').DataTable({
 	        		"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]], 
-	        		"columnDefs": [{ "width": "12%", "targets": 0 }]
+	        		"columnDefs": [{ "width": "12%", "targets": 0 }],
+	        		"bDestroy": true
 	        	});
 	        }, 300);
 	    });
@@ -419,7 +422,8 @@ routingApp.controller('HomeController', function($scope, $http, $timeout, $windo
 	        $timeout(function () {
 	        	$('#quotesTbl').DataTable({
 	        		"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]], 
-	        		"columnDefs": [{ "width": "12%", "targets": 0 }]
+	        		"columnDefs": [{ "width": "12%", "targets": 0 }],
+	        		"bDestroy": true
 	        	});
 	        }, 300);
 	    });
@@ -443,7 +447,8 @@ routingApp.controller('HomeController', function($scope, $http, $timeout, $windo
 	        $timeout(function () {
 	        	$('#contractsTbl').DataTable({
 	        		"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]], 
-	        		"columnDefs": [{ "width": "12%", "targets": 0 }]
+	        		"columnDefs": [{ "width": "12%", "targets": 0 }],
+	        		"bDestroy": true
 	        	});
 	        }, 300);
 	    });
@@ -466,7 +471,8 @@ routingApp.controller('HomeController', function($scope, $http, $timeout, $windo
 	        $timeout(function () {
 	        	$('#claimsTbl').DataTable({
 	        		"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]], 
-	        		"columnDefs": [{ "width": "12%", "targets": 0 }]
+	        		"columnDefs": [{ "width": "12%", "targets": 0 }],
+	        		"bDestroy": true
 	        	});
 	        }, 300);
 	    });
@@ -490,7 +496,8 @@ routingApp.controller('HomeController', function($scope, $http, $timeout, $windo
 	        $timeout(function () {
 	        	$('#contractsTbl').DataTable({
 	        		"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]], 
-	        		"columnDefs": [{ "width": "12%", "targets": 0 }]
+	        		"columnDefs": [{ "width": "12%", "targets": 0 }],
+	        		"bDestroy": true
 	        	});
 	        }, 300);
 	    });
@@ -716,6 +723,7 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService, $
 	$scope.quote.dealerMarkupType = "price";
 	$scope.quote.custRemorsePeriod = true;
 	$scope.quote.custUnderstandCoverage = true;
+	$scope.machineSerialFlag = true;
 	
 	$scope.date = new Date();
 	
@@ -936,6 +944,14 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService, $
 	
 	$scope.validateQuoteSummaryForm = function(){
 		//alert(4);
+	}
+	
+	$scope.changeMachineSerialFlag = function(serialNumberUnknown){
+		if(serialNumberUnknown){
+			$scope.machineSerialFlag = false;
+		}else{
+			$scope.machineSerialFlag = true;
+		}
 	}
 });
 
