@@ -311,7 +311,7 @@ public class ContractsServiceImpl implements ContractsService{
 			contractReportDO.setSerialNo(contract.getMachineSerialNo());
 			contractReportDO.setMachineModel(quote.getMachineInfo().getModel());
 			contractReportDO.setManfEndDate((quote.getManfEndDate() != null)?dateFormat.format(quote.getManfEndDate()):"");
-			contractReportDO.setUseOfEquipment(quote.getUseOfEquip().getEquipName());
+			contractReportDO.setUseOfEquipment((quote.getUseOfEquip() != null)?quote.getUseOfEquip().getEquipName():"");
 			contractReportDO.setMachineHours(quote.getMachineMeterHours());
 			contractReportDO.setCustomerAddress1(customerInfo.getAddress());
 			contractReportDO.setCustomerAddress2(customerInfo.getCity()+" "+customerInfo.getState());
