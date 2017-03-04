@@ -1306,25 +1306,15 @@ public class QuoteServiceImpl implements QuoteService {
 	public List<QuoteDO> getEstPriceQuotes(AccountDO accountDO) {
 		List<QuoteDO> quoteDOList = null;
 		if(accountDO.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)){
-			/*List<Quote> quoteList = Util.toList(quoteDAO.findByStatus(AggConstants.B_QUOTE_STATUS_ESTIMATING_PRICE));
+			List<Quote> quoteList = Util.toList(quoteDAO.findByStatus(AggConstants.B_QUOTE_STATUS_ESTIMATING_PRICE));
 			//logger.debug("quoteList for estPrice --------------> "+ quoteList.size());
-			quoteDOList = getQuoteDetails(quoteList);*/
-			quoteDOList = quoteDAO.findEstPriceQuotesByStatus(AggConstants.B_QUOTE_STATUS_ESTIMATING_PRICE);
+			quoteDOList = getQuoteDetails(quoteList);
 		}else{
-			/*List<Quote> quoteList = Util.toList(quoteDAO.findByStatusAndDealerId(AggConstants.B_QUOTE_STATUS_ESTIMATING_PRICE, accountDO.getDealerId()));
+			List<Quote> quoteList = Util.toList(quoteDAO.findByStatusAndDealerId(AggConstants.B_QUOTE_STATUS_ESTIMATING_PRICE, accountDO.getDealerId()));
 			//logger.debug("quoteList for estPrice --------------> "+ quoteList.size());
-			quoteDOList = getQuoteDetails(quoteList);*/
-			quoteDOList = quoteDAO.findEstPriceQuotesByStatusAndDealerId(AggConstants.B_QUOTE_STATUS_ESTIMATING_PRICE, accountDO.getDealerId());
+			quoteDOList = getQuoteDetails(quoteList);
 		}
-		if(quoteDOList != null && !quoteDOList.isEmpty()){
-			CustomerInfo customerInfo = null;
-			for(QuoteDO quoteDO : quoteDOList){
-				customerInfo = customerInfoDAO.findOne(quoteDO.getQuoteId());
-				if(customerInfo != null){
-					quoteDO.setDealerCustName(customerInfo.getName());
-				}
-			}
-		}
+		
 		return quoteDOList;
 	}
 	
