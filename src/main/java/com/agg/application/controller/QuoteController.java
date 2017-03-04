@@ -230,6 +230,8 @@ public class QuoteController extends BaseController {
 				jrDataSource = new JREmptyDataSource();
 			}
 			
+			logger.debug("image path: "+request.getServletContext().getRealPath("/assets/images/"));
+			logger.debug("system user.dir path: "+System.getProperty("user.dir"));
 			modelMap.put("datasource", jrDataSource);
 			modelMap.put("format", "pdf");
 			modelMap.put("imagePath", appUrl+"/assets/images/report_banner.png");

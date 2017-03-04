@@ -260,9 +260,9 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
 			if(contractDeductible < 0){
 				contractDeductible = 0;
 			}
-			var deductibleTRA = parseFloat($scope.contractInfoList.availabeLol) - contractDeductible;
+			var deductibleTRA = parseFloat($scope.contractInfoList.availableLol) - contractDeductible;
 			if(deductibleTRA < 0){
-				$scope.claim.tra = parseFloat($scope.contractInfoList.availabeLol);
+				$scope.claim.tra = parseFloat($scope.contractInfoList.availableLol);
 			}else{
 				$scope.claim.tra = contractDeductible;
 			}

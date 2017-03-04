@@ -196,13 +196,18 @@ public class ContractsServiceImpl implements ContractsService{
 	
 	@Override
 	public List<ContractDO> getActiveContracts(AccountDO accountDO) {
-		List<Contracts> contracts = null;
+		//List<Contracts> contracts = null;
+		List<ContractDO> contractDOList = null;
 		if(accountDO.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)){
-			contracts = Util.toList(contractDAO.findActive());
+			//contracts = Util.toList(contractDAO.findActive());
+			contractDOList = contractDAO.findContractsByStatus(AggConstants.B_ACTIVE_CONTRACT);
 		}else{
-			contracts = Util.toList(contractDAO.findActiveByDealerId(accountDO.getDealerId()));
+			//contracts = Util.toList(contractDAO.findActiveByDealerId(accountDO.getDealerId()));
+			contractDOList = contractDAO.findContractsByStatusAndDelaerId(AggConstants.B_ACTIVE_CONTRACT, accountDO.getDealerId());
 		}
-		return formatEntityToDO(contracts);
+		//return formatEntityToDO(contracts);
+		
+		return contractDOList;
 	}
 	
 	@Override
@@ -214,13 +219,17 @@ public class ContractsServiceImpl implements ContractsService{
 	
 	@Override
 	public List<ContractDO> getInactiveContracts(AccountDO accountDO) {
-		List<Contracts> contracts = null;
+		//List<Contracts> contracts = null;
+		List<ContractDO> contractDOList = null;
 		if(accountDO.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)){
-			contracts = Util.toList(contractDAO.findInactive());
+			//contracts = Util.toList(contractDAO.findInactive());
+			contractDOList = contractDAO.findContractsByStatus(AggConstants.B_INACTIVE_CONTRACT);
 		}else{
-			contracts = Util.toList(contractDAO.findInactiveByDealerId(accountDO.getDealerId()));
+			//contracts = Util.toList(contractDAO.findInactiveByDealerId(accountDO.getDealerId()));
+			contractDOList = contractDAO.findContractsByStatusAndDelaerId(AggConstants.B_INACTIVE_CONTRACT, accountDO.getDealerId());
 		}
-		return formatEntityToDO(contracts);
+		//return formatEntityToDO(contracts);
+		return contractDOList;
 	}
 
 	@Override

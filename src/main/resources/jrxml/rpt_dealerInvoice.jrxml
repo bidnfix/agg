@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="dealerQuote" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c0ec05e7-1fb2-4f7a-a475-4bbe0eaa13dc">
 	<property name="ireport.zoom" value="0.9090909090909091"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="300"/>
+	<property name="ireport.y" value="204"/>
 	<parameter name="imagePath" class="java.lang.String"/>
 	<field name="dealerName" class="java.lang.String"/>
 	<field name="invoiceDate" class="java.lang.String"/>
@@ -59,7 +59,7 @@
 		</band>
 	</title>
 	<detail>
-		<band height="609" splitType="Stretch">
+		<band height="596" splitType="Stretch">
 			<staticText>
 				<reportElement x="25" y="9" width="128" height="20" forecolor="#333333" uuid="075e45f4-9b62-47be-a2c9-b9880ca4758f"/>
 				<textElement>
@@ -211,138 +211,132 @@
 				</textElement>
 				<text><![CDATA[Extended Service Contract Terms and Coverage]]></text>
 			</staticText>
-			<staticText>
-				<reportElement positionType="Float" x="25" y="281" width="97" height="15" forecolor="#330099" uuid="f67119db-7b21-4069-8743-ea1b608f8b81"/>
-				<textElement>
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Inception Date:]]></text>
-			</staticText>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement positionType="Float" x="25" y="296" width="485" height="15" uuid="876d5d37-fb04-47b3-96d8-0aca1c03ca4b"/>
-				<textFieldExpression><![CDATA[$F{coverageDesc}]]></textFieldExpression>
+				<reportElement positionType="Float" x="25" y="281" width="485" height="15" uuid="876d5d37-fb04-47b3-96d8-0aca1c03ca4b"/>
+				<textElement markup="styled"/>
+				<textFieldExpression><![CDATA["<style forecolor=\"#330099\">Inception Date:</style> Coverage begins upon the acceptance of any Outstanding Conditions (noted above) and the receipt of good funds. Our responsibility begins when the Manufacturer's coverage ends. Coverage is for the specified time period in months or hours of use, whichever is reached first."]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="Float" x="25" y="311" width="25" height="14" forecolor="#000000" uuid="05cfad10-77e1-46cf-a843-b91966f879ce"/>
+				<reportElement positionType="Float" x="25" y="297" width="25" height="14" forecolor="#000000" uuid="05cfad10-77e1-46cf-a843-b91966f879ce"/>
 				<textFieldExpression><![CDATA[$F{coverageTerm}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="Float" x="90" y="311" width="25" height="14" forecolor="#000000" uuid="c903cfdf-8f6e-4e6d-9d05-8ad96e89d3d6"/>
+				<reportElement positionType="Float" x="90" y="297" width="25" height="14" forecolor="#000000" uuid="c903cfdf-8f6e-4e6d-9d05-8ad96e89d3d6"/>
 				<textFieldExpression><![CDATA[$F{coverageHours}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="Float" x="115" y="311" width="33" height="14" uuid="db8adcde-6583-4013-92d9-6d57f09ea64f"/>
+				<reportElement positionType="Float" x="115" y="297" width="33" height="14" uuid="db8adcde-6583-4013-92d9-6d57f09ea64f"/>
 				<text><![CDATA[Hours,]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="Float" x="148" y="311" width="25" height="14" forecolor="#000000" uuid="3688b6e7-a51f-44c5-acfc-71f521055919"/>
+				<reportElement positionType="Float" x="148" y="297" width="25" height="14" forecolor="#000000" uuid="3688b6e7-a51f-44c5-acfc-71f521055919"/>
 				<textFieldExpression><![CDATA[$F{deductibleAmount}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="Float" x="173" y="311" width="61" height="14" uuid="7986de78-10d4-4e98-ab5d-e5ea4f50b56f"/>
+				<reportElement positionType="Float" x="173" y="297" width="61" height="14" uuid="7986de78-10d4-4e98-ab5d-e5ea4f50b56f"/>
 				<text><![CDATA[Deductible]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" x="25" y="325" width="83" height="14" uuid="fd7d99fd-c448-4b68-bc28-18aff276aa64"/>
+				<reportElement positionType="Float" x="25" y="312" width="83" height="14" uuid="fd7d99fd-c448-4b68-bc28-18aff276aa64"/>
 				<text><![CDATA[Coverage Type:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="Float" x="108" y="325" width="249" height="14" forecolor="#000000" uuid="32baeba0-09e0-462b-ac02-9ce9954a4eea"/>
+				<reportElement positionType="Float" x="108" y="312" width="249" height="14" forecolor="#000000" uuid="32baeba0-09e0-462b-ac02-9ce9954a4eea"/>
 				<textFieldExpression><![CDATA[$F{coverageType}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="Float" x="25" y="339" width="210" height="14" uuid="cdbfa4c4-9b79-4e5a-8035-8027410f42c0"/>
+				<reportElement positionType="Float" x="25" y="326" width="210" height="14" uuid="cdbfa4c4-9b79-4e5a-8035-8027410f42c0"/>
 				<text><![CDATA[Manufacturer's Power Train Coverage: ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" x="25" y="353" width="210" height="14" uuid="2be2e166-7f9c-4780-b549-c1384852589c"/>
+				<reportElement positionType="Float" x="25" y="340" width="210" height="14" uuid="2be2e166-7f9c-4780-b549-c1384852589c"/>
 				<text><![CDATA[Manufacturer's Hydraulic Coverage:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" x="25" y="367" width="210" height="14" uuid="e4c2fb69-1d5a-469a-bbfb-d000fba79f63"/>
+				<reportElement positionType="Float" x="25" y="354" width="210" height="14" uuid="e4c2fb69-1d5a-469a-bbfb-d000fba79f63"/>
 				<text><![CDATA[Full Machine Coverage:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="Float" x="235" y="339" width="25" height="14" uuid="b071fb21-7aea-46df-ae1c-cc7f98071760"/>
+				<reportElement positionType="Float" x="235" y="326" width="25" height="14" uuid="b071fb21-7aea-46df-ae1c-cc7f98071760"/>
 				<textFieldExpression><![CDATA[$F{powerTrainMonths}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="Float" x="260" y="339" width="40" height="14" uuid="0f5c4d2f-1ed3-42cf-bbe4-01ee4d1f0d69"/>
+				<reportElement positionType="Float" x="260" y="326" width="40" height="14" uuid="0f5c4d2f-1ed3-42cf-bbe4-01ee4d1f0d69"/>
 				<text><![CDATA[Months]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="Float" x="300" y="339" width="25" height="14" uuid="95c992d1-afc8-43c8-a8dc-842637a18ef3"/>
+				<reportElement positionType="Float" x="300" y="326" width="25" height="14" uuid="95c992d1-afc8-43c8-a8dc-842637a18ef3"/>
 				<textFieldExpression><![CDATA[$F{powerTrainHours}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="Float" x="325" y="339" width="32" height="14" uuid="fc2e72ee-7265-499f-8ca2-beac2c267e5a"/>
+				<reportElement positionType="Float" x="325" y="326" width="32" height="14" uuid="fc2e72ee-7265-499f-8ca2-beac2c267e5a"/>
 				<text><![CDATA[Hours]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" x="325" y="353" width="32" height="14" uuid="7e7a057e-ffc0-4172-92f4-2cc340e40583"/>
+				<reportElement positionType="Float" x="325" y="340" width="32" height="14" uuid="7e7a057e-ffc0-4172-92f4-2cc340e40583"/>
 				<text><![CDATA[Hours]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" x="260" y="353" width="40" height="14" uuid="82d1ab1c-52b7-4353-acfc-723c29709a00"/>
+				<reportElement positionType="Float" x="260" y="340" width="40" height="14" uuid="82d1ab1c-52b7-4353-acfc-723c29709a00"/>
 				<text><![CDATA[Months]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="Float" x="300" y="353" width="25" height="14" uuid="5cc63947-02f3-41bc-9912-a5eba632e50a"/>
+				<reportElement positionType="Float" x="300" y="340" width="25" height="14" uuid="5cc63947-02f3-41bc-9912-a5eba632e50a"/>
 				<textFieldExpression><![CDATA[$F{hydraulicHours}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="Float" x="235" y="353" width="25" height="14" uuid="ea57057a-d2e1-4b28-9757-beeaa70d5e5f"/>
+				<reportElement positionType="Float" x="235" y="340" width="25" height="14" uuid="ea57057a-d2e1-4b28-9757-beeaa70d5e5f"/>
 				<textFieldExpression><![CDATA[$F{hydraulicMonths}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="Float" x="325" y="367" width="32" height="14" uuid="dddf3f50-50cc-4893-870e-e784f1d7bd48"/>
+				<reportElement positionType="Float" x="325" y="354" width="32" height="14" uuid="dddf3f50-50cc-4893-870e-e784f1d7bd48"/>
 				<text><![CDATA[Hours]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" x="260" y="367" width="40" height="14" uuid="58254dbf-3821-4d35-83d3-32b546629f65"/>
+				<reportElement positionType="Float" x="260" y="354" width="40" height="14" uuid="58254dbf-3821-4d35-83d3-32b546629f65"/>
 				<text><![CDATA[Months]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="Float" x="235" y="367" width="25" height="14" uuid="fc591a57-ed84-4b62-9abd-bf7f5a41ed16"/>
+				<reportElement positionType="Float" x="235" y="354" width="25" height="14" uuid="fc591a57-ed84-4b62-9abd-bf7f5a41ed16"/>
 				<textFieldExpression><![CDATA[$F{fullMachineMonths}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="Float" x="300" y="367" width="25" height="14" uuid="1dfad9f9-4256-4fe0-ba02-510482e5d715"/>
+				<reportElement positionType="Float" x="300" y="354" width="25" height="14" uuid="1dfad9f9-4256-4fe0-ba02-510482e5d715"/>
 				<textFieldExpression><![CDATA[$F{fullMachineHours}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="Float" x="25" y="391" width="130" height="14" uuid="3ede5672-fb34-4707-9cdd-4ba2417440d9"/>
+				<reportElement positionType="Float" x="25" y="378" width="130" height="14" uuid="3ede5672-fb34-4707-9cdd-4ba2417440d9"/>
 				<text><![CDATA[MFG Warranty End Date:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="Float" x="155" y="391" width="105" height="14" forecolor="#000000" uuid="bcaadece-d88c-473f-8cee-14b7fad985ed"/>
+				<reportElement positionType="Float" x="155" y="378" width="105" height="14" forecolor="#000000" uuid="bcaadece-d88c-473f-8cee-14b7fad985ed"/>
 				<textFieldExpression><![CDATA[$F{warrantyEndDate}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="Float" x="304" y="391" width="98" height="14" uuid="ba0f4fc3-960f-4cce-a19e-8fe164feb64a"/>
+				<reportElement positionType="Float" x="304" y="378" width="98" height="14" uuid="ba0f4fc3-960f-4cce-a19e-8fe164feb64a"/>
 				<text><![CDATA[Limit of Liability:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="Float" x="402" y="391" width="108" height="14" forecolor="#000000" uuid="035d0ff7-0288-4369-af1f-3d1b0fdb0349"/>
+				<reportElement positionType="Float" x="402" y="378" width="108" height="14" forecolor="#000000" uuid="035d0ff7-0288-4369-af1f-3d1b0fdb0349"/>
 				<textFieldExpression><![CDATA[$F{limitOfLiability}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="Float" x="25" y="405" width="130" height="14" uuid="9f689a5c-5f8e-4001-92e5-defeede63d26"/>
+				<reportElement positionType="Float" x="25" y="392" width="130" height="14" uuid="9f689a5c-5f8e-4001-92e5-defeede63d26"/>
 				<text><![CDATA[Customer Price:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="Float" x="155" y="405" width="105" height="14" forecolor="#000000" uuid="2c56f666-89fd-423d-bea6-8199cacabaf3"/>
+				<reportElement positionType="Float" x="155" y="392" width="105" height="14" forecolor="#000000" uuid="2c56f666-89fd-423d-bea6-8199cacabaf3"/>
 				<textFieldExpression><![CDATA[$F{price}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="Float" x="25" y="458" width="268" height="16" uuid="187239b9-c798-4d4f-8648-3b7c2269e80b"/>
+				<reportElement positionType="Float" x="25" y="445" width="268" height="16" uuid="187239b9-c798-4d4f-8648-3b7c2269e80b"/>
 				<textElement>
 					<font size="11" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Special Considerations (if any)]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement positionType="Float" x="25" y="474" width="485" height="14" uuid="b96c13da-f2a0-4608-a627-46344e2b966f"/>
+				<reportElement positionType="Float" x="25" y="461" width="485" height="14" uuid="b96c13da-f2a0-4608-a627-46344e2b966f"/>
 				<textFieldExpression><![CDATA[$F{specialConsiderationDesc}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
@@ -350,86 +344,86 @@
 				<textFieldExpression><![CDATA[$F{address}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="Float" x="25" y="419" width="130" height="14" uuid="599adfc1-51d9-42f3-9778-b77a2d719e58"/>
+				<reportElement positionType="Float" x="25" y="406" width="130" height="14" uuid="599adfc1-51d9-42f3-9778-b77a2d719e58"/>
 				<text><![CDATA[(less) Dealer Mark-up:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="Float" x="155" y="419" width="105" height="14" forecolor="#000000" uuid="8882606c-b7b6-4dae-a411-08dadeab69f5"/>
+				<reportElement positionType="Float" x="155" y="406" width="105" height="14" forecolor="#000000" uuid="8882606c-b7b6-4dae-a411-08dadeab69f5"/>
 				<textFieldExpression><![CDATA[$F{dealerMarkup}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="Float" x="50" y="311" width="40" height="14" uuid="4dd15634-0ee9-45e6-81ba-d04de4c686aa"/>
+				<reportElement positionType="Float" x="50" y="297" width="40" height="14" uuid="4dd15634-0ee9-45e6-81ba-d04de4c686aa"/>
 				<text><![CDATA[Months,]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="Float" x="155" y="433" width="105" height="14" forecolor="#000000" uuid="750ec924-9e21-49ae-9c50-815e0aee5a83"/>
+				<reportElement positionType="Float" x="155" y="420" width="105" height="14" forecolor="#000000" uuid="750ec924-9e21-49ae-9c50-815e0aee5a83"/>
 				<textFieldExpression><![CDATA[$F{amountDue}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="Float" x="25" y="433" width="130" height="14" forecolor="#330099" uuid="59473839-e736-43af-887c-8c64e17d9501"/>
+				<reportElement positionType="Float" x="25" y="420" width="130" height="14" forecolor="#330099" uuid="59473839-e736-43af-887c-8c64e17d9501"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Amount Due:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" x="25" y="498" width="322" height="16" uuid="92ef7a14-cd19-4ac1-ae70-b5e43578b98c"/>
+				<reportElement positionType="Float" x="25" y="485" width="322" height="16" uuid="92ef7a14-cd19-4ac1-ae70-b5e43578b98c"/>
 				<textElement>
 					<font size="11" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Please Remit Payment in US Dollars To Ag Guard:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" x="25" y="525" width="344" height="16" uuid="f2100a55-1cc3-4058-8e92-9d3150cb311e"/>
+				<reportElement positionType="Float" x="25" y="512" width="344" height="16" uuid="f2100a55-1cc3-4058-8e92-9d3150cb311e"/>
 				<textElement>
 					<font size="10" isBold="false"/>
 				</textElement>
 				<text><![CDATA[By Check (Please note the Invoice # in the memo section of your check)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" x="376" y="525" width="165" height="16" uuid="e1b0ac0e-02fb-466c-b689-1c5427f1c2a0"/>
+				<reportElement positionType="Float" x="376" y="512" width="165" height="16" uuid="e1b0ac0e-02fb-466c-b689-1c5427f1c2a0"/>
 				<textElement>
 					<font size="10" isBold="false"/>
 				</textElement>
 				<text><![CDATA[ By ACH, Wire or Canadian Dollars]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" x="42" y="543" width="141" height="16" uuid="e7019e33-b779-402f-8b07-4353be9b0409"/>
+				<reportElement positionType="Float" x="42" y="530" width="141" height="16" uuid="e7019e33-b779-402f-8b07-4353be9b0409"/>
 				<textElement>
 					<font size="10" isBold="false"/>
 				</textElement>
 				<text><![CDATA[AgGuard]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" x="42" y="559" width="141" height="16" uuid="80d9d0c6-e999-4723-bce9-a5e1d26f4d61"/>
+				<reportElement positionType="Float" x="42" y="546" width="141" height="16" uuid="80d9d0c6-e999-4723-bce9-a5e1d26f4d61"/>
 				<textElement>
 					<font size="10" isBold="false"/>
 				</textElement>
 				<text><![CDATA[21295 Hollingsworth Road ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" x="42" y="575" width="141" height="16" uuid="754d039d-165f-4398-95e8-1c07b618e81e"/>
+				<reportElement positionType="Float" x="42" y="562" width="141" height="16" uuid="754d039d-165f-4398-95e8-1c07b618e81e"/>
 				<textElement>
 					<font size="10" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Tonganoxie, KS 66086]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" x="389" y="543" width="141" height="16" uuid="40738b7c-7807-4b9b-8f4f-c6d02f8b2624"/>
+				<reportElement positionType="Float" x="389" y="530" width="141" height="16" uuid="40738b7c-7807-4b9b-8f4f-c6d02f8b2624"/>
 				<textElement>
 					<font size="10" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Please contact us]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="Float" x="404" y="595" width="105" height="14" forecolor="#000000" uuid="6a45235a-dc2f-4394-9b56-a69c1972ed16"/>
+				<reportElement positionType="Float" x="404" y="582" width="105" height="14" forecolor="#000000" uuid="6a45235a-dc2f-4394-9b56-a69c1972ed16"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{amountDue}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="Float" x="274" y="595" width="130" height="14" forecolor="#330099" uuid="b03da210-5975-4f96-bbd5-38f93f860dfa"/>
+				<reportElement positionType="Float" x="274" y="582" width="130" height="14" forecolor="#330099" uuid="b03da210-5975-4f96-bbd5-38f93f860dfa"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>

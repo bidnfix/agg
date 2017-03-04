@@ -29,9 +29,9 @@
                 <th>Received Date</th>
                 <th>Status</th>
                 <th></th>
-                <c:if test="${user.roleDO.accountType eq 'admin'}">
+                <%-- <c:if test="${user.roleDO.accountType eq 'admin'}"> --%>
                 <th></th>
-                </c:if>
+                <%-- </c:if> --%>
             </tr>
         </thead>
  
@@ -47,9 +47,9 @@
                 <th>Received Date</th>
                 <th>Status</th>
                 <th></th>
-                <c:if test="${user.roleDO.accountType eq 'admin'}">
+               <%--  <c:if test="${user.roleDO.accountType eq 'admin'}"> --%>
                 <th></th>
-                </c:if>
+                <%-- </c:if> --%>
             </tr>
         </tfoot>
  
@@ -65,7 +65,7 @@
                 <td>{{contract.receivedDate |  date:"MM/dd/yyyy"}}</td>
                 <td>{{(contract.status == 1)?"Active":(contract.status == 2)?"Expired":(contract.status == 3)?"Cancelled":"Archived"}}</td>
                 <td>{{contract.lastUpdatedDate |  date:"MM/dd/yyyy"}}</td>
-                <c:if test="${user.roleDO.accountType eq 'admin'}">
+                <%-- <c:if test="${user.roleDO.accountType eq 'admin'}"> --%>
 	                <td>
 	                	<div class="manage-sec">
 	                		<c:choose>
@@ -78,7 +78,7 @@
 	                		</c:choose>
 	                	</div>
 	                </td>
-                </c:if>
+                <%-- </c:if> --%>
             </tr>
         </tbody>
     </table>

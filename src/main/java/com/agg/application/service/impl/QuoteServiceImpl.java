@@ -1306,13 +1306,15 @@ public class QuoteServiceImpl implements QuoteService {
 	public List<QuoteDO> getEstPriceQuotes(AccountDO accountDO) {
 		List<QuoteDO> quoteDOList = null;
 		if(accountDO.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)){
-			List<Quote> quoteList = Util.toList(quoteDAO.findByStatus(AggConstants.B_QUOTE_STATUS_ESTIMATING_PRICE));
+			/*List<Quote> quoteList = Util.toList(quoteDAO.findByStatus(AggConstants.B_QUOTE_STATUS_ESTIMATING_PRICE));
 			//logger.debug("quoteList for estPrice --------------> "+ quoteList.size());
-			quoteDOList = getQuoteDetails(quoteList);
+			quoteDOList = getQuoteDetails(quoteList);*/
+			quoteDOList = quoteDAO.findByDealerStatus(AggConstants.B_QUOTE_STATUS_ESTIMATING_PRICE);
 		}else{
-			List<Quote> quoteList = Util.toList(quoteDAO.findByStatusAndDealerId(AggConstants.B_QUOTE_STATUS_ESTIMATING_PRICE, accountDO.getDealerId()));
+			/*List<Quote> quoteList = Util.toList(quoteDAO.findByStatusAndDealerId(AggConstants.B_QUOTE_STATUS_ESTIMATING_PRICE, accountDO.getDealerId()));
 			//logger.debug("quoteList for estPrice --------------> "+ quoteList.size());
-			quoteDOList = getQuoteDetails(quoteList);
+			quoteDOList = getQuoteDetails(quoteList);*/
+			quoteDOList = quoteDAO.findByDealerStatusAndDealerId(AggConstants.B_QUOTE_STATUS_ESTIMATING_PRICE, accountDO.getDealerId());
 		}
 		return quoteDOList;
 	}
@@ -1321,13 +1323,15 @@ public class QuoteServiceImpl implements QuoteService {
 	public List<QuoteDO> getPurchaseReqQuotes(AccountDO accountDO) {
 		List<QuoteDO> quoteDOList = null;
 		if(accountDO.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)){
-			List<Quote> quoteList = Util.toList(quoteDAO.findByStatus(AggConstants.B_QUOTE_STATUS_PURCHASE_REQUESTED));
+			/*List<Quote> quoteList = Util.toList(quoteDAO.findByStatus(AggConstants.B_QUOTE_STATUS_PURCHASE_REQUESTED));
 			//logger.debug("quoteList for purchaseReq--------------> "+ quoteList.size());
-			quoteDOList = getQuoteDetails(quoteList);
+			quoteDOList = getQuoteDetails(quoteList);*/
+			quoteDOList = quoteDAO.findByDealerStatus(AggConstants.B_QUOTE_STATUS_PURCHASE_REQUESTED);
 		}else{
-			List<Quote> quoteList = Util.toList(quoteDAO.findByStatusAndDealerId(AggConstants.B_QUOTE_STATUS_PURCHASE_REQUESTED, accountDO.getDealerId()));
+			/*List<Quote> quoteList = Util.toList(quoteDAO.findByStatusAndDealerId(AggConstants.B_QUOTE_STATUS_PURCHASE_REQUESTED, accountDO.getDealerId()));
 			//logger.debug("quoteList for purchaseReq --------------> "+ quoteList.size());
-			quoteDOList = getQuoteDetails(quoteList);
+			quoteDOList = getQuoteDetails(quoteList);*/
+			quoteDOList = quoteDAO.findByDealerStatusAndDealerId(AggConstants.B_QUOTE_STATUS_PURCHASE_REQUESTED, accountDO.getDealerId());
 		}
 		return quoteDOList;
 	}
@@ -1336,13 +1340,15 @@ public class QuoteServiceImpl implements QuoteService {
 	public List<QuoteDO> getInvoicedQuotes(AccountDO accountDO) {
 		List<QuoteDO> quoteDOList = null;
 		if(accountDO.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)){
-			List<Quote> quoteList = Util.toList(quoteDAO.findByStatus(AggConstants.B_QUOTE_STATUS_INVOICED));
+			/*List<Quote> quoteList = Util.toList(quoteDAO.findByStatus(AggConstants.B_QUOTE_STATUS_INVOICED));
 			//logger.debug("quoteList for getInvoicedQuotes--------------> "+ quoteList.size());
-			quoteDOList = getQuoteDetails(quoteList);
+			quoteDOList = getQuoteDetails(quoteList);*/
+			quoteDOList = quoteDAO.findByDealerStatus(AggConstants.B_QUOTE_STATUS_INVOICED);
 		}else{
-			List<Quote> quoteList = Util.toList(quoteDAO.findByStatusAndDealerId(AggConstants.B_QUOTE_STATUS_INVOICED, accountDO.getDealerId()));
+			/*List<Quote> quoteList = Util.toList(quoteDAO.findByStatusAndDealerId(AggConstants.B_QUOTE_STATUS_INVOICED, accountDO.getDealerId()));
 			//logger.debug("quoteList for getInvoicedQuotes--------------> "+ quoteList.size());
-			quoteDOList = getQuoteDetails(quoteList);
+			quoteDOList = getQuoteDetails(quoteList);*/
+			quoteDOList = quoteDAO.findByDealerStatusAndDealerId(AggConstants.B_QUOTE_STATUS_INVOICED, accountDO.getDealerId());
 		}
 		return quoteDOList;
 	}

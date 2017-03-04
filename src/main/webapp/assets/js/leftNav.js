@@ -350,9 +350,10 @@ routingApp.controller('HomeController', function($scope, $http, $timeout, $windo
     	
     	$timeout(function () {
         	$('#quotesTbl').DataTable({
-        		"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]], 
-        		"columnDefs": [{ "width": "12%", "targets": 0 }],
-        		"bDestroy": true
+        		"aaSorting": [[ 6, "desc" ]],
+        		"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+        		"bDestroy": true,
+        		columnDefs: [{ targets: 6, visible: false },{ width: "12%", targets: 0 }]
         	});
         }, 300);
     });
@@ -373,8 +374,9 @@ routingApp.controller('HomeController', function($scope, $http, $timeout, $windo
 	    	//}
 	        $timeout(function () {
 	        	$('#quotesTbl').DataTable({
+	        		"aaSorting": [[ 6, "desc" ]],
+	        		columnDefs: [{ targets: 6, visible: false }, { width: "12%", targets: 0 }],
 	        		"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]], 
-	        		"columnDefs": [{ "width": "12%", "targets": 0 }],
 	        		"bDestroy": true
 	        	});
 	        }, 300);
@@ -397,8 +399,9 @@ routingApp.controller('HomeController', function($scope, $http, $timeout, $windo
 	    	//}
 	        $timeout(function () {
 	        	$('#quotesTbl').DataTable({
+	        		"aaSorting": [[ 6, "desc" ]],
+	        		columnDefs: [{ targets: 6, visible: false }, { width: "12%", targets: 0 }],
 	        		"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]], 
-	        		"columnDefs": [{ "width": "12%", "targets": 0 }],
 	        		"bDestroy": true
 	        	});
 	        }, 300);
@@ -421,8 +424,9 @@ routingApp.controller('HomeController', function($scope, $http, $timeout, $windo
 	    	//}
 	        $timeout(function () {
 	        	$('#quotesTbl').DataTable({
+	        		"aaSorting": [[ 6, "desc" ]],
+	        		columnDefs: [{ targets: 6, visible: false }, { width: "12%", targets: 0 }],
 	        		"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]], 
-	        		"columnDefs": [{ "width": "12%", "targets": 0 }],
 	        		"bDestroy": true
 	        	});
 	        }, 300);
@@ -446,8 +450,9 @@ routingApp.controller('HomeController', function($scope, $http, $timeout, $windo
 	    	//}
 	        $timeout(function () {
 	        	$('#contractsTbl').DataTable({
+	        		"aaSorting": [[ 7, "desc" ]],
+	        		columnDefs: [{ targets: 7, visible: false }, { width: "12%", targets: 0 }],
 	        		"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]], 
-	        		"columnDefs": [{ "width": "12%", "targets": 0 }],
 	        		"bDestroy": true
 	        	});
 	        }, 300);
@@ -470,8 +475,9 @@ routingApp.controller('HomeController', function($scope, $http, $timeout, $windo
 	    	//}
 	        $timeout(function () {
 	        	$('#claimsTbl').DataTable({
+	        		"aaSorting": [[ 8, "desc" ]],
+	        		columnDefs: [{ targets: 8, visible: false }, { width: "12%", targets: 0 }],
 	        		"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]], 
-	        		"columnDefs": [{ "width": "12%", "targets": 0 }],
 	        		"bDestroy": true
 	        	});
 	        }, 300);
@@ -495,8 +501,9 @@ routingApp.controller('HomeController', function($scope, $http, $timeout, $windo
 	    	//}
 	        $timeout(function () {
 	        	$('#contractsTbl').DataTable({
+	        		"aaSorting": [[ 7, "desc" ]],
+	        		columnDefs: [{ targets: 7, visible: false }, { width: "12%", targets: 0 }],
 	        		"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]], 
-	        		"columnDefs": [{ "width": "12%", "targets": 0 }],
 	        		"bDestroy": true
 	        	});
 	        }, 300);
@@ -1126,9 +1133,9 @@ routingApp.controller('QuotesDetailController', function($scope, $http, $timeout
         	$('#quotesTbl').DataTable({
         		"aaSorting": [[ 6, "desc" ]],
         		"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
-     	       columnDefs: [
+     	       	columnDefs: [
      	           { targets: 6, visible: false }    
-     	       ]
+     	        ]
      	    });
         }, 300);
     });

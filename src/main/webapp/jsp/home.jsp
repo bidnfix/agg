@@ -25,25 +25,24 @@
 		<div id="navbar">
 			<ul class="nav navbar-nav ">
 				<li>
-					<a class="worksheet-no-marg" ng-click="getInactiveContracts()">Expired Contract&nbsp;<span class="badge">{{expContracts}}</span></a>
-				</li>
-                
-                <li>
-					<a class="worksheet-no-marg" ng-click="getActiveContracts()">Active Contract&nbsp;<span class="badge">{{actContracts}}</span></a>
-				</li>
-				
-                
-                <li>
-					<a class="worksheet-no-marg" ng-click="getEstQuotes()">Estimating Price&nbsp;<span class="badge">{{estPrice}}</span></a>
-				</li>
-				<li>
 					<a class="worksheet-no-marg" ng-click="getInvoicedQuotes()">Invoiced&nbsp;<span class="badge">{{invoiced}}</span></a>
 				</li>
-                
-                <li>
+				
+				 <li>
 					<a class="worksheet-no-marg" ng-click="getReqQuotes()">Purchase Requested&nbsp;<span class="badge">{{purchaseReq}}</span></a>
 				</li>
 				
+				<li>
+					<a class="worksheet-no-marg" ng-click="getEstQuotes()">Estimating Price&nbsp;<span class="badge">{{estPrice}}</span></a>
+				</li>
+				
+				<li>
+					<a class="worksheet-no-marg" ng-click="getActiveContracts()">Active Contract&nbsp;<span class="badge">{{actContracts}}</span></a>
+				</li>
+				
+				<li>
+					<a class="worksheet-no-marg" ng-click="getInactiveContracts()">Expired Contract&nbsp;<span class="badge">{{expContracts}}</span></a>
+				</li>
                 
                 <li>
 					<a class="worksheet-no-marg"ng-click="getClaims()">Claims&nbsp;<span class="badge">{{claims}}</span></a>
@@ -61,10 +60,11 @@
             <tr>
             	<th>ID</th>
                 <th>Dealership</th>
-                <th>Sales Contact</th>
+                <th>Customer Contact</th>
                 <th>Model</th>
                 <th>Est. Sale Date</th>
                 <th>Status</th>
+                <th></th>
                 <th></th>
             </tr>
         </thead>
@@ -73,10 +73,11 @@
            <tr>
             	<th>ID</th>
                 <th>Dealership</th>
-                <th>Sales Contact</th>
+                <th>Customer Contact</th>
                 <th>Model</th>
                 <th>Est. Sale Date</th>
                 <th>Status</th>
+                <th></th>
                 <th></th>
             </tr>
         </tfoot>
@@ -84,11 +85,12 @@
         <tbody>
             <tr ng-repeat="quote in quoteList">
             	<td>{{quote.quoteId}}</td>
-            	<td>{{quote.dealerDO.name}}</td>
-                <td>{{quote.dealerName}}</td>
-                <td>{{quote.machineInfoDO.model}}</td>
-                <td>{{quote.estSaleDate |  date:"MM/dd/yyyy"}}</td>
+            	<td>{{quote.dealerName}}</td>
+                <td>{{quote.dealerCustName}}</td>
+                <td>{{quote.machineModel}}</td>
+                <td>{{quote.machineSaleDate |  date:"MM/dd/yyyy"}}</td>
                 <td>{{quote.statusDesc}}</td>
+                <td>{{quote.createDate |  date:"MM/dd/yyyy"}}</td>
                 <td>
                 	<div class="manage-sec"><!-- <a href="#"><img src="../assets/images/delete-icon.png" alt="Delete" title="Delete"/></a> -->
                 		<!-- <a ng-click="viewQuote(quote.id, quote.quoteId)"><img src="../assets/images/edit-icon.png" alt="Edit" title="Edit"/></a> -->
@@ -113,6 +115,7 @@
                 <th>Expiration Hours</th>
                 <th>Status</th>
                 <th></th>
+                <th></th>
             </tr>
         </thead>
  
@@ -126,6 +129,7 @@
                 <th>Expiration Hours</th>
                 <th>Status</th>
                 <th></th>
+                <th></th>
             </tr>
         </tfoot>
  
@@ -138,6 +142,7 @@
                 <td>{{contract.expirationDate |  date:"MM/dd/yyyy"}}</td>
                 <td>{{contract.expirationUsageHours}}</td>
                 <td>{{(contract.status == 1)?"Active":(contract.status == 2)?"Expired":(contract.status == 3)?"Cancelled":"Archived"}}</td>
+                <td>{{contract.lastUpdatedDate |  date:"MM/dd/yyyy"}}</td>
                 <td>
                 	<div class="manage-sec">
                 		<a href="#/agg/viewContractDetails/{{contract.id}}/{{contract.contractId}}"><img src="../assets/images/edit-pencil.png" alt="View" title="View"/></a>
@@ -158,6 +163,7 @@
                 <th>Model</th>
                 <th>Status</th>
                 <th></th>
+                <th></th>
             </tr>
         </thead>
  
@@ -170,6 +176,7 @@
                 <th>Manufacturer</th>
                 <th>Model</th>
                 <th>Status</th>
+                <th></th>
                 <th></th>
             </tr>
         </tfoot>
@@ -194,6 +201,7 @@
 				    	<a target="_blank" href="/agg/claim/report/{{claimDO.claimId}}"><img src="../assets/images/printer-icon.png" alt="Print" title="Print"/></a>
                 	</div>
                 </td>
+                <td>{{claimDO.createdDate |  date:"MM/dd/yyyy"}}</td>
             </tr>
         </tbody>
     </table>

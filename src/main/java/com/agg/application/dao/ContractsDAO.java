@@ -78,4 +78,18 @@ public interface ContractsDAO extends CrudRepository<Contracts, Long>{
 			+ "from Contracts contract, Quote quote "
 			+ "where contract.quoteId=quote.id.id and quote.dealer.id = :dealerId")
 	public List<ContractDO> findAllContracts(@Param("dealerId") long dealerId);
+	
+	@Query("select new com.agg.application.model.ContractDO(contract.id, contract.contractId, contract.machineSerialNo, contract.lol, contract.inceptionDate, "
+			+ "contract.expirationDate, contract.expirationUsageHours, contract.status, contract.lastUpdatedDate, contract.cheqNo, contract.receivedDate) "
+			+ "from Contracts contract "
+			+ "where contract.status = :status")
+	public List<ContractDO> findContractsByStatus(@Param("status") int status);
+	
+	@Query("select new com.agg.application.model.ContractDO(contract.id, contract.contractId, contract.machineSerialNo, contract.lol, contract.inceptionDate, "
+			+ "contract.expirationDate, contract.expirationUsageHours, contract.status, contract.lastUpdatedDate, contract.cheqNo, contract.receivedDate) "
+			+ "from Contracts contract, Quote quote "
+			+ "where contract.quoteId=quote.id.id "
+			+ "and quote.dealer.id = :dealerId "
+			+ "and contract.status = :status")
+	public List<ContractDO> findContractsByStatusAndDelaerId(@Param("status") int status, @Param("dealerId") long dealerId);
 }
