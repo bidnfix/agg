@@ -1309,12 +1309,21 @@ public class QuoteServiceImpl implements QuoteService {
 			/*List<Quote> quoteList = Util.toList(quoteDAO.findByStatus(AggConstants.B_QUOTE_STATUS_ESTIMATING_PRICE));
 			//logger.debug("quoteList for estPrice --------------> "+ quoteList.size());
 			quoteDOList = getQuoteDetails(quoteList);*/
-			quoteDOList = quoteDAO.findByDealerStatus(AggConstants.B_QUOTE_STATUS_ESTIMATING_PRICE);
+			quoteDOList = quoteDAO.findEstPriceQuotesByStatus(AggConstants.B_QUOTE_STATUS_ESTIMATING_PRICE);
 		}else{
 			/*List<Quote> quoteList = Util.toList(quoteDAO.findByStatusAndDealerId(AggConstants.B_QUOTE_STATUS_ESTIMATING_PRICE, accountDO.getDealerId()));
 			//logger.debug("quoteList for estPrice --------------> "+ quoteList.size());
 			quoteDOList = getQuoteDetails(quoteList);*/
-			quoteDOList = quoteDAO.findByDealerStatusAndDealerId(AggConstants.B_QUOTE_STATUS_ESTIMATING_PRICE, accountDO.getDealerId());
+			quoteDOList = quoteDAO.findEstPriceQuotesByStatusAndDealerId(AggConstants.B_QUOTE_STATUS_ESTIMATING_PRICE, accountDO.getDealerId());
+		}
+		if(quoteDOList != null && !quoteDOList.isEmpty()){
+			CustomerInfo customerInfo = null;
+			for(QuoteDO quoteDO : quoteDOList){
+				customerInfo = customerInfoDAO.findOne(quoteDO.getQuoteId());
+				if(customerInfo != null){
+					quoteDO.setDealerCustName(customerInfo.getName());
+				}
+			}
 		}
 		return quoteDOList;
 	}
@@ -1326,7 +1335,7 @@ public class QuoteServiceImpl implements QuoteService {
 			/*List<Quote> quoteList = Util.toList(quoteDAO.findByStatus(AggConstants.B_QUOTE_STATUS_PURCHASE_REQUESTED));
 			//logger.debug("quoteList for purchaseReq--------------> "+ quoteList.size());
 			quoteDOList = getQuoteDetails(quoteList);*/
-			quoteDOList = quoteDAO.findByDealerStatus(AggConstants.B_QUOTE_STATUS_PURCHASE_REQUESTED);
+			quoteDOList = quoteDAO.findByQuoteStatus(AggConstants.B_QUOTE_STATUS_PURCHASE_REQUESTED);
 		}else{
 			/*List<Quote> quoteList = Util.toList(quoteDAO.findByStatusAndDealerId(AggConstants.B_QUOTE_STATUS_PURCHASE_REQUESTED, accountDO.getDealerId()));
 			//logger.debug("quoteList for purchaseReq --------------> "+ quoteList.size());
@@ -1343,7 +1352,7 @@ public class QuoteServiceImpl implements QuoteService {
 			/*List<Quote> quoteList = Util.toList(quoteDAO.findByStatus(AggConstants.B_QUOTE_STATUS_INVOICED));
 			//logger.debug("quoteList for getInvoicedQuotes--------------> "+ quoteList.size());
 			quoteDOList = getQuoteDetails(quoteList);*/
-			quoteDOList = quoteDAO.findByDealerStatus(AggConstants.B_QUOTE_STATUS_INVOICED);
+			quoteDOList = quoteDAO.findByQuoteStatus(AggConstants.B_QUOTE_STATUS_INVOICED);
 		}else{
 			/*List<Quote> quoteList = Util.toList(quoteDAO.findByStatusAndDealerId(AggConstants.B_QUOTE_STATUS_INVOICED, accountDO.getDealerId()));
 			//logger.debug("quoteList for getInvoicedQuotes--------------> "+ quoteList.size());
