@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -50,6 +51,9 @@ public class ContractsController extends BaseController{
 	
 	@Autowired
 	private ContractsService contractService ;
+	
+	@Value("${file.banner.image.path}")
+	private String reportImagePath;
 	
 	@RequestMapping(value = "/contract", method = RequestMethod.POST)
 	public @ResponseBody Result addContract(@RequestBody ContractDO contractDO, BindingResult result,
@@ -191,7 +195,8 @@ public class ContractsController extends BaseController{
 			
 			modelMap.put("datasource", jrDataSource);
 			modelMap.put("format", "pdf");
-			modelMap.put("imagePath", appUrl+"/assets/images/report_banner.png");
+			//modelMap.put("imagePath", appUrl+"/assets/images/report_banner.png");
+			modelMap.put("imagePath", System.getProperty("user.dir")+reportImagePath);
 			if(reportType != null && reportType.equalsIgnoreCase("contract")){
 				modelAndView = new ModelAndView("rpt_contractDetails", modelMap);
 			}else if(reportType != null && reportType.equalsIgnoreCase("coverage")){

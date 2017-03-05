@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -50,6 +51,9 @@ public class QuoteController extends BaseController {
 	
 	@Autowired
 	private QuoteService quoteService;
+	
+	@Value("${file.banner.image.path}")
+	private String reportImagePath;
 
 	@RequestMapping(value = "/quoteInfo", method = RequestMethod.GET)
 	public @ResponseBody Result getQuoteInfo(HttpServletRequest request, HttpServletResponse response, Model model) {
@@ -230,13 +234,13 @@ public class QuoteController extends BaseController {
 				jrDataSource = new JREmptyDataSource();
 			}
 			
-			logger.debug("image path: "+request.getServletContext().getRealPath("/assets/images/"));
-			logger.debug("resource image path: "+request.getServletContext().getResource("/assets/images/").getPath());
+			//logger.debug("image path: "+request.getServletContext().getRealPath("/assets/images/"));
+			//logger.debug("resource image path: "+request.getServletContext().getResource("/assets/images/").getPath());
 			logger.debug("system user.dir path: "+System.getProperty("user.dir"));
 			modelMap.put("datasource", jrDataSource);
 			modelMap.put("format", "pdf");
 			//modelMap.put("imagePath", appUrl+"/assets/images/report_banner.png");
-			modelMap.put("imagePath", request.getServletContext().getResource("/assets/images/").getPath()+"report_banner.png");
+			modelMap.put("imagePath", System.getProperty("user.dir")+reportImagePath);
 			if(reportType != null && reportType.equalsIgnoreCase("customer")){
 				modelAndView = new ModelAndView("rpt_customerQuote", modelMap);
 			}else if(reportType != null && reportType.equalsIgnoreCase("dealer")){

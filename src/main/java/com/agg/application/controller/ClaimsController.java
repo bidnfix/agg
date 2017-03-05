@@ -96,6 +96,12 @@ public class ClaimsController extends BaseController {
 	
 	@Value("${file.upload.dir}")
 	private String uploadingdir;
+	
+	@Value("${file.banner.image.path}")
+	private String reportImagePath;
+	
+	@Value("${jrxml.folder.path}")
+	private String jrxmlFolderPath;
 
 	@RequestMapping(value = "/editClaim", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
 	public @ResponseBody Result machineModel(ModelMap model, HttpServletResponse response/*, @PathVariable String claimId*/) {
@@ -779,8 +785,9 @@ public class ClaimsController extends BaseController {
 			modelMap.put("claimLaborList", claimLaborSubReportDataSource);
 			modelMap.put("claimExtCommentList", claimNotesSubReportDataSource);
 			modelMap.put("format", "pdf");
-			modelMap.put("SUBREPORT_DIR", System.getProperty("user.dir")+"/src/main/resources/jrxml/");
-			modelMap.put("imagePath", appUrl+"/assets/images/report_banner.png");
+			modelMap.put("SUBREPORT_DIR", System.getProperty("user.dir")+jrxmlFolderPath);
+			//modelMap.put("imagePath", appUrl+"/assets/images/report_banner.png");
+			modelMap.put("imagePath", System.getProperty("user.dir")+reportImagePath);
 			modelMap.put("totalReqPartsCost", reportDO.getTotalReqPartsCost());
 			modelMap.put("totalAdjPartsCost", reportDO.getTotalAdjPartsCost());
 			modelMap.put("totalReqLaborCost", reportDO.getTotalReqLaborCost());

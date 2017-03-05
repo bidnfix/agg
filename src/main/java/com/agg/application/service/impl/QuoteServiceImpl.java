@@ -110,6 +110,9 @@ public class QuoteServiceImpl implements QuoteService {
 	@Autowired
 	private ContractsDAO contractsDAO;
 	
+	@Value("${file.banner.image.path}")
+	private String reportImagePath;
+	
 	private static final SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 
 	@Override
@@ -523,7 +526,8 @@ public class QuoteServiceImpl implements QuoteService {
 			}
 			
 			Map<String, Object> parameterMap = new HashMap<String, Object>();
-			parameterMap.put("imagePath", appUrl+"/assets/images/report_banner.png");
+			//parameterMap.put("imagePath", appUrl+"/assets/images/report_banner.png");
+			parameterMap.put("imagePath", System.getProperty("user.dir")+reportImagePath);
 			
 			List<ReportDO> reportDOList = new ArrayList<ReportDO>();
 			reportDOList.add(getQuoteReportDO(quoteDO));
@@ -1273,7 +1277,8 @@ public class QuoteServiceImpl implements QuoteService {
 				}
 				
 				Map<String, Object> parameterMap = new HashMap<String, Object>();
-				parameterMap.put("imagePath", appUrl+"/assets/images/report_banner.png");
+				//parameterMap.put("imagePath", appUrl+"/assets/images/report_banner.png");
+				parameterMap.put("imagePath", System.getProperty("user.dir")+reportImagePath);
 				
 				List<ReportDO> reportDOList = new ArrayList<ReportDO>();
 				reportDOList.add(getInvoiceReportDO(quoteDO));
@@ -1513,7 +1518,8 @@ public class QuoteServiceImpl implements QuoteService {
 		condition = true;
 		
 		Map<String, Object> parameterMap = new HashMap<String, Object>();
-		parameterMap.put("imagePath", appUrl+"/assets/images/report_banner.png");
+		//parameterMap.put("imagePath", appUrl+"/assets/images/report_banner.png");
+		parameterMap.put("imagePath", System.getProperty("user.dir")+reportImagePath);
 		
 		JRDataSource jrDataSource = null;
 		DataSource[] pdfAttachments = new DataSource[2];

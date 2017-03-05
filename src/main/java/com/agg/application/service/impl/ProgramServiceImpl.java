@@ -101,6 +101,9 @@ public class ProgramServiceImpl implements ProgramService {
 	@Value("${admin.email}")
 	private String adminEmail;
 	
+	@Value("${file.banner.image.path}")
+	private String reportImagePath;
+	
 	@Override
 	public List<ProgramDO> getPrograms(AccountDO accountDO) {
 		logger.debug("In getPrograms");
@@ -392,7 +395,8 @@ public class ProgramServiceImpl implements ProgramService {
 			//******** Code for report which being commented for now ********//
 			
 			Map<String, Object> parameterMap = new HashMap<String, Object>();
-			parameterMap.put("imagePath", appUrl+"/assets/images/report_banner.png");
+			//parameterMap.put("imagePath", appUrl+"/assets/images/report_banner.png");
+			parameterMap.put("imagePath", System.getProperty("user.dir")+reportImagePath);
 			
 			List<ReportDO> reportDOList = new ArrayList<ReportDO>();
 			reportDOList.add(getQuoteReportDO(quoteDO));
