@@ -231,10 +231,12 @@ public class QuoteController extends BaseController {
 			}
 			
 			logger.debug("image path: "+request.getServletContext().getRealPath("/assets/images/"));
+			logger.debug("resource image path: "+request.getServletContext().getResource("/assets/images/").getPath());
 			logger.debug("system user.dir path: "+System.getProperty("user.dir"));
 			modelMap.put("datasource", jrDataSource);
 			modelMap.put("format", "pdf");
-			modelMap.put("imagePath", appUrl+"/assets/images/report_banner.png");
+			//modelMap.put("imagePath", appUrl+"/assets/images/report_banner.png");
+			modelMap.put("imagePath", request.getServletContext().getResource("/assets/images/").getPath()+"report_banner.png");
 			if(reportType != null && reportType.equalsIgnoreCase("customer")){
 				modelAndView = new ModelAndView("rpt_customerQuote", modelMap);
 			}else if(reportType != null && reportType.equalsIgnoreCase("dealer")){
