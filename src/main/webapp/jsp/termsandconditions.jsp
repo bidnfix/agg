@@ -4,7 +4,7 @@
 		<div class="col-md-6 col-sm-12">
 			<div class="sec-title">
 
-				<h3>Coverage Details</h3>
+				<h3>Equipment Service Contract Terms and Conditions</h3>
 			</div>
 		</div>
 	</header>
@@ -17,77 +17,7 @@
 
 
  
-<p><strong>Contract Number : </strong></p>
- 
-<p><strong>&nbsp;&nbsp;&nbsp;&nbsp;COVERAGE:</strong></p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;Contract Inception Date:</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;Term:</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;Expiration Date: (See Contract Period)</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;Coverage: <strong>PowerTrain + Hydraulic + Platform</strong></p>
- 
-<p>&nbsp;&nbsp;&nbsp;&nbsp;Deductible:</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;Expiration Hours:</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;Limit of Liability:</p>
-<p><br /> </p>
-<p><strong>&nbsp;&nbsp;&nbsp;&nbsp;EQUIPMENT DESCRIPTION: </strong>Manufacturer:</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;Model#:</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;Hours on Machine:</p>
- 
-<p>&nbsp;&nbsp;&nbsp;&nbsp;Serial #:</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;Date Manufacturer&rsquo;s Warranty Ends:</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;Machine Application: Agriculture:</p>
-<p><br /> </p>
-<p><strong>&nbsp;&nbsp;&nbsp;&nbsp;CONTRACT HOLDER:</strong></p>
- 
-<p>&nbsp;&nbsp;&nbsp;&nbsp;Contact:</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;Email:</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;Phone:</p>
-<p><br /> </p>
-<p><strong>&nbsp;&nbsp;&nbsp;&nbsp;DEALER INFORMATION:</strong></p>
- 
-<p>&nbsp;&nbsp;&nbsp;&nbsp;Contact:</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;Email:</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;Phone:</p>
-<p><br /> </p>
-<p><strong>&nbsp;&nbsp;&nbsp;&nbsp;SERVICE PROVIDER:</strong></p>
- 
-<p>&nbsp;&nbsp;&nbsp;&nbsp;Contact:</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;Email:</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;Phone:</p>
- <p><br /> </p>
-<p><strong>&nbsp;&nbsp;&nbsp;&nbsp;SPECIAL CONSIDERATIONS UNIQUE TO THIS CONTRACT (IF ANY):</strong></p>
- 
-<p>&nbsp;&nbsp;&nbsp;&nbsp;0</p>
-&nbsp
- 
-<p><h3>Congratulations!</h3></p>
- 
-<p><strong>You increased the value of your equipment with AgGuard coverage!</strong></p>
- 
-<p>Your dealer and Ag Guard chose each other because of our mutual desire to provide you with peace of mind and to give you <strong><em>a tool to protect your investment. </em></strong>Machines break and they tend to break at the worst times. If that happens to you, we hope this product will allow you to get back to work quickly and with minimal financial impact. We have found if you sell or trade your machine with coverage remaining, then you will likely recoup the cost of this Contract in the transaction because of the value the market places on the coverage.</p>
- 
-<p><strong>WHY is the Equipment Service Contract (Terms and Conditions) so detailed?</strong></p>
- 
-<p>We tried hard to simplify the Contract but we discovered that in order to write in plain English and make the terms clear we actually needed our Contract to be longer and more detailed.</p>
- 
-<p>Our chief concern is that you might think the Contract covers something it does not. Therefore, we try to include as much detail and to cover as many of the situations we have encountered over the years as possible. We also have the most customer friendly buyer's remorse clause in the business, just in case you change your mind. Bottom line: <strong>we want you to be happy with our product. </strong>To fully understand your coverage, you must read the entire Contract. However, below is a synopsis:</p>
-<p><strong><u>POWERTRAIN</u></strong> covers components that produce, transmit or control engine horsepower for propelling the machine along the ground, (e.g., engine, engine electronic controls/sensors, turbo, water pump, fuel injection, drive-line couplers/shafts, U- joints, transfer gears, differential, transmission, final drives, axles, hydro, creeper, PTO, etc.). Combine &amp; Forage harvesters &ndash; Also includes rotor drive gearcase, cylinder drive gearcase, reverser gearcase and all parts contained within these components.</p>
- 
-<p><strong><u>POWERTRAIN + HYDRAULIC SYSTEMS</u></strong> includes Powertrain coverage plus hydraulic systems, parts and components associated with steering and implement control, (e.g. pumps, coolers, motors, controls, valves, cylinders, accumulators, metal<span style="text-decoration: line-through;">/</span>lines, filter bases, etc.)</p>
- 
-<p><strong><u>POWERTRAIN + HYDRAULIC SYSTEMS + PLATFORM</u></strong> includes Powertrain + Hydraulic Systems coverage plus additional mechanical, electrical, hi-tech systems, such as cab &amp; front axle suspension, auto steer, and self-leveling systems and structural components. Some call this "full machine", but we think that is misleading. It doesn't cover everything; however, it is intended to be similar to the manufacturer's warranty.</p>
-<p>Note: Individual Hi-tech systems may be purchased with Powertrain and Hydraulic Systems coverage at an additional charge &ndash; Please contact Ag Guard for pricing.</p>
- 
-<p><strong>GENERAL ITEMS COVERED BY ALL CATEGORIES: </strong>replacement of fluids in conjunction with a covered repair, reasonable diagnostic charges and the replacement of wear items damaged by a failure.</p>
- 
-<p><strong>WHAT IS NOT COVERED: </strong>Our coverage begins were your warranty and other coverage ends. We don't cover failure due to wear, wear items or maintenance items, (e.g., clutch, belts, brakes, batteries, tires, tracks, bogie wheels, freeze plugs, radiator hoses, rubber hoses/lines, shocks, ground-engaging tools, rattles, handles, bed liners, upholstery, glass, paint, bulbs, seats, tune-ups, etc.). We don&rsquo;t cover systems and appliances not factory installed, expenses arising from the equipment not being available for use, core charges or adjustments, transportation, storage, freight charges, EPA charges, taxes, failure caused you by misuse/abuse/negligence, damage caused by any external cause, contamination/overheating/oil viscosity/sludge/salt/chemicals/rust, parts subject to a recall, Epidemic Failure, continued operation and failure to protect the equipment from further damage.</p>
- 
-<p>If you are unclear on any of the features of this contract, then please ask your dealer or send us your question at:</p>
-<p><a href="mailto:info@AgGuard.com">info@AgGuard.com</a></p>
-<p><center>________________________________________________________________________________________________________________________________</center></p>
-&nbsp;
-&nbsp; 
-<p><center><h3>Equipment Service Contract Terms and Conditions</h3></center></p>
+
  
 <p><strong>Parties to this Equipment Service Contract: </strong>The following terms that appear throughout this Contract have the following meanings: &ldquo;YOU&rdquo;, &ldquo;YOUR&rdquo; and &ldquo;Contract Holder&rdquo; mean the customer named as the Contract Holder in the Coverage Details who is the owner of the &ldquo;Equipment&rdquo; described in the Equipment Description section in Coverage Details . &ldquo;WE&rdquo;, &ldquo;US&rdquo; and &ldquo;OUR&rdquo; refer to the entities issuing this Contract, i.e., the Dealer and the Guarantor.</p>
  
@@ -716,13 +646,14 @@ when the Mechanical Breakdown or Failure is deemed to be covered under this Cont
 <ol start="6">
 <li>If I had questions, I asked and received satisfactory explanations. I understand that if I have "buyer's remorse" I can cancel this Contract according to the terms in the Cancellation section.</li>
 </ol>
+<!-- 
  &nbsp;
 <p>Customer Signature:______________________________________________&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Date:________________________</p>
  
  <p><strong>&nbsp;</strong></p>
 <p>Customer Name:__________________________________________________</p>	</div>
-	<!--inner main-->
+	<!--inner main
 
-
+ -->
 </article>
 <!-- /Article -->
