@@ -19,45 +19,45 @@
  
 <p><strong>Contract Number : </strong></p>
  
-<p><strong>COVERAGE:</strong></p>
-<p>Contract Inception Date:</p>
-<p>Term:</p>
-<p>Expiration Date: (See Contract Period)</p>
-<p>Coverage: <strong>PowerTrain + Hydraulic + Platform</strong></p>
+<p><strong>&nbsp;&nbsp;&nbsp;&nbsp;COVERAGE:</strong></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;Contract Inception Date:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;Term:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;Expiration Date: (See Contract Period)</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;Coverage: <strong>PowerTrain + Hydraulic + Platform</strong></p>
  
-<p>Deductible:</p>
-<p>Expiration Hours:</p>
-<p>Limit of Liability:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;Deductible:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;Expiration Hours:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;Limit of Liability:</p>
 <p><br /> </p>
-<p><strong>EQUIPMENT DESCRIPTION: </strong>Manufacturer:</p>
-<p>Model#:</p>
-<p>Hours on Machine:</p>
+<p><strong>&nbsp;&nbsp;&nbsp;&nbsp;EQUIPMENT DESCRIPTION: </strong>Manufacturer:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;Model#:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;Hours on Machine:</p>
  
-<p>Serial #:</p>
-<p>Date Manufacturer&rsquo;s Warranty Ends:</p>
-<p>Machine Application: Agriculture:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;Serial #:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;Date Manufacturer&rsquo;s Warranty Ends:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;Machine Application: Agriculture:</p>
 <p><br /> </p>
-<p><strong>CONTRACT HOLDER:</strong></p>
+<p><strong>&nbsp;&nbsp;&nbsp;&nbsp;CONTRACT HOLDER:</strong></p>
  
-<p>Contact:</p>
-<p>Email:</p>
-<p>Phone:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;Contact:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;Email:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;Phone:</p>
 <p><br /> </p>
-<p><strong>DEALER INFORMATION:</strong></p>
+<p><strong>&nbsp;&nbsp;&nbsp;&nbsp;DEALER INFORMATION:</strong></p>
  
-<p>Contact:</p>
-<p>Email:</p>
-<p>Phone:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;Contact:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;Email:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;Phone:</p>
 <p><br /> </p>
-<p><strong>SERVICE PROVIDER:</strong></p>
+<p><strong>&nbsp;&nbsp;&nbsp;&nbsp;SERVICE PROVIDER:</strong></p>
  
-<p>Contact:</p>
-<p>Email:</p>
-<p>Phone:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;Contact:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;Email:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;Phone:</p>
+ <p><br /> </p>
+<p><strong>&nbsp;&nbsp;&nbsp;&nbsp;SPECIAL CONSIDERATIONS UNIQUE TO THIS CONTRACT (IF ANY):</strong></p>
  
-<p><strong>SPECIAL CONSIDERATIONS UNIQUE TO THIS CONTRACT (IF ANY):</strong></p>
- 
-<p>0</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;0</p>
 &nbsp
  
 <p><h3>Congratulations!</h3></p>
@@ -172,9 +172,8 @@
 </ol>
  
 <ol start="2">
-<li>Provide reasonable proof to the Administrator that required service was performed when submitting a Claim.</li>
+<li>Provide reasonable proof to the Administrator that required service was performed when submitting a Claim. Such proof should include the date and the service-meter Hours of the Equipment at the time of service. Failure to provide proof of service may terminate the Contract and result in the denial of the Claim.</li>
 </ol>
-<p>Such proof should include the date and the service-meter Hours of the Equipment at the time of service. Failure to provide proof of service may terminate the Contract and result in the denial of the Claim.</p>
  
 <ol start="3">
 <li>Upon customary and reasonable notice of the occurrence of a Mechanical Breakdown or Failure, YOU shall protect the Equipment from further damage, whether or not such Mechanical Breakdown or Failure is covered by this Contract. Any operation of the Equipment that results in further damage, related to the original Mechanical Breakdown or Failure, shall be considered YOUR failure to protect the Equipment and shall not be covered under this Contract.</li>
@@ -182,50 +181,45 @@
 
  
 <ol start="4">
-<li>Upon submission of a Claim, the repairing Dealer or YOU must provide all of the required information WE request. In addition, YOU must provide a detailed analysis of the Failure that describes:</li>
-</ol>
+<li>Upon submission of a Claim, the repairing Dealer or YOU must provide all of the required information WE request. In addition, YOU must provide a detailed analysis of the Failure that describes: </li>
+
+
+<p> 
+<ol type="a">
+<li><u>Situation</u>: <strong>When </strong>the Machine failed, <strong>where </strong>the Equipment was located and <strong>how </strong>the Failure (<em>For example: On June 22, 2012, on flat, dry ground while planting, the hydraulics would not respond.)</em></li>
 
  
-<ol>
-<li>a<u>. </u><u>Situation</u>: <strong>When </strong>the Machine failed, <strong>where </strong>the Equipment was located and <strong>how </strong>the Failure (<em>For example: On June 22, 2012, on flat, dry ground while planting, the hydraulics would not respond.)</em></li>
-</ol>
+
+<li><u>Cause</u>: <strong>Why </strong>the Failure occurred and <strong>what </strong>failed, if known. Identify the specific manufacturing defect. Avoid oversimplifications, such as "failed" or "leaked," without an explanation of what caused the Failure and why the Failure should be covered. If the cause cannot be determined, indicate this and provide information proving the Machine was properly maintained and used as designed. (<em>For example: the hydraulics failed because of a bad main seal causing instant loss of pressure.)</em></li>
+
  
-<ol>
-<li><u>Cause</u>: <strong>Why </strong>the Failure occurred and <strong>what </strong>failed, if known. Identify the specific manufacturing defect.</li>
-</ol>
-<p>Avoid oversimplifications, such as "failed" or "leaked," without an explanation of what caused the Failure and why the Failure should be covered. If the cause cannot be determined, indicate this and provide information proving the Machine was properly maintained and used as designed. (<em>For example: the hydraulics failed because of a bad main seal causing instant loss of pressure.)</em></p>
- 
-<ol>
+
 <li><u>Recommendation for repair</u>: In addition to describing the strategy for repair, this should also include a repair estimate detailing parts and prices along with the estimated labor and rates. If possible, photos should be attached showing the Failure and any affected parts.</li>
-</ol>
+
  
-<ol>
+
 <li><u>How could this Failure have been avoided</u>: Rule out any service bulletins, field bulletins, recalls, programs, etc. related to the component and group. By better understanding the Failure, a repair can be made that is efficient, effective and will not lead to a repeat Failure. This feedback is also valuable, because WE want to help develop best practices for the repair and give advice to manufactures on product reliability. <em>(For example: The seal does not appear to be sturdy enough for the operating pressures that are typical with this pump. It is unlikely that the owner or any service could have prevented this Failure. The pump needs better seals. No bulletins or recalls address this issue.)</em></li>
+
 </ol>
- 
+</ol>
+</p> 
 <ol start="5">
 <li>Substantiation is the best way to avoid disputes. Provide robust information about the Claim. The following are typical examples of information that should be included with a Claim or pre-authorization request:</li>
+
+
+ 
+<ol type="a">
 <li>Invoice with itemized parts and labor;</li>
-</ol>
- 
-<ol>
 <li>Copy of any parts invoice over $500 or involving a core deposit;</li>
-</ol>
- 
-<ol>
+
 <li>Diagrams from a parts book and identification of Failed parts/components;</li>
-</ol>
- 
-<ol>
+
 <li>Manufacturer's flat rate or time estimate for repair;</li>
-</ol>
- 
-<ol>
+
 <li>Photos of the Machine, any involved filter (showing ID and any other markings), and detailed photos indicating how the Failure occurred and what parts were affected. (Photos should be attached to Claim as a .jpg file);</li>
-</ol>
- 
-<ol>
+
 <li>Any other documentation, evidence or descriptions that support the Claim.</li>
+</ol>
 </ol>
  
 <ol start="6">
@@ -239,7 +233,7 @@
  
 <p>Each category builds on the previous category to include more Covered Parts. WE no longer use the terminology "full machine" because WE feel this description is misleading. Much like the Manufacturer's initial warranty, there are a number of parts that are not covered. However, by adding Platform coverage you are typically extended the Coverage on all of the parts covered under the Manufacturer's warranty. Below is a more precise description of the parts and components covered by each category of coverage:</p>
  
-
+&nbsp;
 <p><strong>PowerTrain:</strong></p>
  
 <p>The Powertrain group includes the following components which produce, transmit or control engine horsepower for propelling the machine:</p>
@@ -300,11 +294,7 @@
  
 <p>Service brake system components (except friction pads/shoes and related wear parts) Cab frame enclosure, mounting, platform, cab &amp; front axle suspension</p>
 <p>ROPS, FOPS and Back-up alarm</p>
-<p><span style="text-decoration: line-through;">&nbsp;</span></p>
-<p><span style="text-decoration: line-through;">&nbsp;</span></p>
 <p><strong>Note: Individual Hi-tech systems may be purchased with Powertrain and Hydraulic Systems coverage at an additional charge &ndash; Please contact Ag Guard for pricing. </strong></p>
-<p><span style="text-decoration: line-through;">&nbsp;</span></p>
-
  
 <p><strong>General Items COVERED by all Categories:</strong></p>
  
@@ -315,18 +305,20 @@
  
 <ol start="2">
 <li>WE will pay for reasonable, necessary and customary diagnostic charges incurred in conjunction with a covered repair, not to exceed the labor time listed in a nationally recognized parts and labor guide.</li>
+
+ 
+<ul>
+<li>Diagnostic time will not be paid when the proper repair is readily apparent to the normal senses of sight, touch, smell and/or sound.</li>
+ 
+<li>Diagnostic costs that will exceed $500 must be pre-approved by the Administrator.</li>
+</ul>
 </ol>
- 
-<p>Diagnostic time will not be paid when the proper repair is readily apparent to the normal senses of sight, touch, smell and/or sound.</p>
- 
-<p>Diagnostic costs that will exceed $500 must be pre-approved by the Administrator.</p>
- 
 <ol start="3">
 <li>RELATED DAMAGE COVERAGE: WE will pay for the replacement of brake pads, belts and hoses that are damaged and require replacement as a direct result of a covered Mechanical Breakdown.</li>
 </ol>
  
 <p><strong>Exclusions</strong>:<em> <strong><u>What is not covered and what this Contract will not pay or reimburse)</u></strong></em></p>
-<p><strong><u>&nbsp;</u></strong></p>
+
 <p>The Coverage YOU selected does not include:</p>
  
 <ol>
@@ -401,37 +393,38 @@
 <li>Any Mechanical Breakdown or Failure:</li>
 </ol>
  
-<p>Caused by misuse, abuse, negligence (including the negligence of any repair facility), improper towing, or lack of maintenance of the failed-Covered Part;</p>
+ <ul>
+<li>Caused by misuse, abuse, negligence (including the negligence of any repair facility), improper towing, or lack of maintenance of the failed-Covered Part;</li>
  
-<p>Caused by any external cause, such as accidents, collision, upset damage , lightning, explosion, the extinguishing of a fire or subsequent demolition, aircraft and other aerial devices (or articles dropped there from), falling objects, collapse of buildings, theft (or any attempt of theft), larceny, malicious</p>
-<p>mischief, vandalism, civil commotion, riots, terrorism, war, subfreezing temperature, earthquake, tsunami, volcanic eruption (or other convulsion of nature), subsidence, landslide, rock fall, avalanche, hurricane, windstorm, tornado, typhoon, cyclone (or other atmospheric disturbances), hail, flood, inundation, escaping water from water containing apparatus, clearance of debris, demolition or dismantling arising from these causes;</p>
+<li>Caused by any external cause, such as accidents, collision, upset damage , lightning, explosion, the extinguishing of a fire or subsequent demolition, aircraft and other aerial devices (or articles dropped there from), falling objects, collapse of buildings, theft (or any attempt of theft), larceny, malicious</li>
+<li>mischief, vandalism, civil commotion, riots, terrorism, war, subfreezing temperature, earthquake, tsunami, volcanic eruption (or other convulsion of nature), subsidence, landslide, rock fall, avalanche, hurricane, windstorm, tornado, typhoon, cyclone (or other atmospheric disturbances), hail, flood, inundation, escaping water from water containing apparatus, clearance of debris, demolition or dismantling arising from these causes;</li>
  
-<p>Arising out of the Failure of an otherwise Covered Part that does not meet Manufacturer's specifications, including modification and/or alterations to the Equipment not approved by the Manufacturer's authorized representative or the Administrator;</p>
+<li>Arising out of the Failure of an otherwise Covered Part that does not meet Manufacturer's specifications, including modification and/or alterations to the Equipment not approved by the Manufacturer's authorized representative or the Administrator;</li>
  
-<p>Any loss, damage or expense caused by accidents, any alterations to the Machine or its parts not authorized by the Manufacturer. Use of undersized or oversized tires, wheels or tracks.</p>
+<li>Any loss, damage or expense caused by accidents, any alterations to the Machine or its parts not authorized by the Manufacturer. Use of undersized or oversized tires, wheels or tracks.</li>
  
-<p>Failure of any part not covered by this Contract;</p>
+<li>Failure of any part not covered by this Contract;</li>
  
-<p>Caused by contamination, overheating, lack of oil viscosity, sludge, restricted oil or hydraulic fluid flow, salt, environmental damage, chemicals, rust and rust damage;</p>
+<li>Caused by contamination, overheating, lack of oil viscosity, sludge, restricted oil or hydraulic fluid flow, salt, environmental damage, chemicals, rust and rust damage;</li>
  
-<p>Caused by the application of any tool or process during the course of maintenance, inspection, modification or overhaul;</p>
+<li>Caused by the application of any tool or process during the course of maintenance, inspection, modification or overhaul;</li>
  
-<p>Transportation to and from the repair facility;</p>
+<li>Transportation to and from the repair facility;</li>
  
-<p>Covered by warranty, repairer&rsquo;s guarantee, other service Contract, or insurance policy;</p>
+<li>Covered by warranty, repairer&rsquo;s guarantee, other service Contract, or insurance policy;</li>
  
-<p>Caused by the imposition of abnormal conditions, directly or indirectly resulting from testing, intentional overloading or experiments;</p>
+<li>Caused by the imposition of abnormal conditions, directly or indirectly resulting from testing, intentional overloading or experiments;</li>
  
  
-<p>Where it is determined that the service meter has been inaccurate, inoperative, or altered for more than one (1) month or two hundred (200) hours so that the Equipment's true usage cannot be verified;</p>
-<p>That is a direct result of a mechanical or structural defect when the Manufacturer has announced a public recall or a product support program for the purpose of correcting such defect or the Mechanical Breakdown is the result of Epidemic Failure. (Epidemic Failure is defined as failure exhibiting the same root cause or symptom that appears to be attributable to, or caused by, a design or engineering defect that results in a failure rate greater than five (5) percent on equipment that WE cover. In the event of Epidemic Failure, the Manufacturer shall be notified of such failures Costs associated with the repair of Covered Parts resulting from an Epidemic Failure should be borne by the Manufacturer. However, WE may elect to pay a portion of any Claim which is the result of an Epidemic Failure and WE deem there are special circumstances that</p>
-<p>make the cost of the repair unduly burdensome on YOU. Such decisions are made at OUR sole</p>
-<p>discretion and do not represent a constructive change to this Contract. WE will also attempt to notify YOU whenever WE discover an Epidemic Failure that could affect YOU and WE will endeavor to devise a plan to mitigate YOUR risk to such failures.);</p>
+<li>Where it is determined that the service meter has been inaccurate, inoperative, or altered for more than one (1) month or two hundred (200) hours so that the Equipment's true usage cannot be verified;</li>
+<li>That is a direct result of a mechanical or structural defect when the Manufacturer has announced a public recall or a product support program for the purpose of correcting such defect or the Mechanical Breakdown is the result of Epidemic Failure. (Epidemic Failure is defined as failure exhibiting the same root cause or symptom that appears to be attributable to, or caused by, a design or engineering defect that results in a failure rate greater than five (5) percent on equipment that WE cover. In the event of Epidemic Failure, the Manufacturer shall be notified of such failures Costs associated with the repair of Covered Parts resulting from an Epidemic Failure should be borne by the Manufacturer. However, WE may elect to pay a portion of any Claim which is the result of an Epidemic Failure and WE deem there are special circumstances that</li>
+<li>make the cost of the repair unduly burdensome on YOU. Such decisions are made at OUR sole</li>
+<li>discretion and do not represent a constructive change to this Contract. WE will also attempt to notify YOU whenever WE discover an Epidemic Failure that could affect YOU and WE will endeavor to devise a plan to mitigate YOUR risk to such failures.);</li>
  
-<p>Due to continued operation and failure to protect the Equipment from further damage caused by lack of necessary coolants or lubricants, of a Covered Part which is damaged by fuel or lubricant contamination or rust;</p>
+<li>Due to continued operation and failure to protect the Equipment from further damage caused by lack of necessary coolants or lubricants, of a Covered Part which is damaged by fuel or lubricant contamination or rust;</li>
  
-<p>That occurs prior to Contract Inception Date, or after this Contract's expiration;</p>
- 
+<li>That occurs prior to Contract Inception Date, or after this Contract's expiration;</li>
+ </ul>
 <ol start="20">
 <li>Additional loss or damage which is occasioned by the Contract Holder or operator's failure to use all reasonable precautions to protect the Equipment from any further loss or damage after a Mechanical Breakdown or Failure has occurred</li>
 </ol>
@@ -503,29 +496,31 @@
  
 <p>WE believe that this Contract adds value to YOUR Equipment and should enhance the value of the Machine when sold or traded. Therefore, WE encourage the transfer of the Contract to new owners; however, to transfer the Contract YOU must contact US and submit the following:</p>
  
-<p>Written evidence verifying all maintenance requirements have been met, (e.g., service logs or a certification from the Dealer)</p>
+ <ul>
+<li>Written evidence verifying all maintenance requirements have been met, (e.g., service logs or a certification from the Dealer)</li>
  
  
-<p>Documentation evidencing the change of ownership and service Hours at date of sale. (e.g., the title or notarized bill of sale)</p>
+<li>Documentation evidencing the change of ownership and service Hours at date of sale. (e.g., the title or notarized bill of sale)</li>
  
-<p>Proof that the Manufacturer has been notified of the transfer of the factory warranty, if applicable</p>
+<li>Proof that the Manufacturer has been notified of the transfer of the factory warranty, if applicable</li>
  
-<p>This Contract cannot be transferred to a different Machine<em>. (However, YOU may be able to exchange this</em></p>
-<p><em>Contract for a new, discounted Contract.) </em>This Contract can only be transferred to a different owner. The Equipment is subject to inspection and diagnostic testing.</p>
-<p>Transfer must take place within fifteen (15) days of a change of ownership, unless WE expressly allow an extension of time.</p>
+<li>This Contract cannot be transferred to a different Machine<em>. (However, YOU may be able to exchange this</em></li>
+<li><em>Contract for a new, discounted Contract.) </em>This Contract can only be transferred to a different owner. The Equipment is subject to inspection and diagnostic testing.</li>
+<li>Transfer must take place within fifteen (15) days of a change of ownership, unless WE expressly allow an extension of time.</li>
  
-<p>All remaining warranties on the Machine must also be transferred to the new owner. Failure to notify the Administrator of the transfer will void the remaining Contract period.</p>
-<p>There is a nominal $50 charge for transferring the Contract to be paid to the Dealer. A new Contract will be prepared and delivered to the new owner and that new Contract will replace and supersede this Contract.</p>
+<li>All remaining warranties on the Machine must also be transferred to the new owner. Failure to notify the Administrator of the transfer will void the remaining Contract period.</li>
+<li>There is a nominal $50 charge for transferring the Contract to be paid to the Dealer. A new Contract will be prepared and delivered to the new owner and that new Contract will replace and supersede this Contract.</li	>
  
-<p>This Contract will be binding upon and enure to the benefit of YOUR heirs, executors, administrators, successors</p>
-<p>and permitted assigns.</p>
- 
+<li>This Contract will be binding upon and enure to the benefit of YOUR heirs, executors, administrators, successors</li>
+<li>and permitted assigns.</li>
+ </ul>
 <p><strong>GENERAL:</strong></p>
  
 <ol>
 <li>The terms and conditions outlined above are the full and complete agreement between the parties.</li>
-</ol>
 <p><strong><em>No oral representation or statement should be relied upon by any party to this Contract.</em></strong></p>
+</ol>
+
  
 <ol start="2">
 <li>If any provision of this Contract is held unenforceable, then such provision will be modified to reflect the parties' intention. All remaining provisions of this Contract shall remain in full force and effect.</li>
@@ -556,7 +551,7 @@
 
  
 <p>invoices and receipts pertaining to the repairs along with a copy of page 1 of this Contract and a letter requesting WE pay for the repair. Send your request by mail to the Administrator.</p>
-<p><strong>"We measure the time to process and make Claims payments in hours, not in days!" THE CLAIMS PROCESS:</strong></p>
+<p><strong><center>"We measure the time to process and make Claims payments in hours, not in days!" THE CLAIMS PROCESS:</center></strong></p>
 <p>WE have attempted to keep the Claims handling process as simple as possible. The initial decision as to whether or</p>
 <p>not a Mechanical Breakdown is a covered Failure is made by the service or warranty manager of the Dealership or repair facility.</p>
  
@@ -602,12 +597,9 @@
 <p><strong>HOW TO MAKE A CLAIM:</strong></p>
 <p>When repairs are required, YOU or the repair facility must contact the Administrator to receive instructions. If YOU or the repair facility does not follow the Administrator's instructions, WE may not be obligated to reimburse YOU for the cost of any repairs.</p>
  
-<p>Authorization must be obtained from the Administrator prior to having YOUR Machine repaired.<em>(If you were paying for the repair, you would want the opportunity to authorize any repairs or any significant change to the estimated repair cost before work started-we are no different.) </em>Unless WE have entered into a special agreement with a repair facility any repair over $1,500 must be preauthorized.</p>
+<p>Authorization must be obtained from the Administrator prior to having YOUR Machine repaired.<em>(If you were paying for the repair, you would want the opportunity to authorize any repairs or any significant change to the estimated repair cost before work started-we are no different.) </em>Unless WE have entered into a special agreement with a repair facility any repair over $1,500 must be preauthorized. WE reserve the right to inspect any Machine before authorization of any repairs.</p>
  
  
- 
-<p>WE reserve the right to inspect any Machine before authorization of any repairs.</p>
-
  
 <p>YOU may be required to supply the Administrator with all maintenance records for service performed on the Equipment along with photographs, the results of diagnostic tests and any samples WE may reasonably request that will help US to better understand the nature of the Failure.</p>
  
@@ -647,9 +639,6 @@
  
 <p>We adjust labor in accordance with the Manufacturer's time requirement guidelines. If the Claim being filed is more than the Manufacturer's time guide, please provide an explanation for the extra time. This allows our claims administrators to consider exceptions.</p>
  
-<p><strong>&nbsp;</strong></p>
-
-
 <p><strong><u>Pictures</u></strong></p>
  
 <p>Pictures of parts should attempt to show the cause of Failure or the extent of the damage. A picture of the outside of a component will not help visually verify an internal part Failure.</p>
@@ -690,12 +679,13 @@
  
 <p>The Contract Holder, Dealer and Guarantor, (the "Parties) agree to be contractually bound by this Contract based on the <u>offer</u> agreed to by the Guarantor and made to the Contract Holder by the Dealer. The offer was made at the Contract Price listed below according to the terms detailed herein with the <u>intent</u> that it be mutual and binding. No material terms of the Contract are open for negotiation. There is a <u>meeting of the minds</u>; each party's consent to <u>accept</u> the terms of this Contract is exemplified by the following actions and <u>consideration</u>:</p>
  
-<p>Dealer: Offer of Contract to Contract Holder, acceptance of terms and Price quoted by Administrator</p>
+ <ul>
+<li>Dealer: Offer of Contract to Contract Holder, acceptance of terms and Price quoted by Administrator</li>
  
-<p>Contract Holder: Acceptance of terms and payment of Contract Price to Dealer</p>
+<li>Contract Holder: Acceptance of terms and payment of Contract Price to Dealer</li>
  
-<p>Guarantor: Invoice to Dealer and receipt of good funds for the invoiced amount</p>
- 
+<li>Guarantor: Invoice to Dealer and receipt of good funds for the invoiced amount</li>
+</ul>
 <p>This Contract may be cancelled according to the provisions detailed in the Cancellation section above and it is subject to Arbitration Provision which will survive any termination, payoff, or transfer of this Contract.</p>
  
 <p>An electronic copy of this Contract will be provided to the Parties by the Guarantor and a hard copy will be mailed to any party at any time upon their request.</p>
@@ -704,9 +694,8 @@
 <p>Dealer has explained them adequately. Please acknowledge by initialing below.</p>
  
 <ol>
-<li>I have reviewed the <em>Coverage, Equipment Description, Contract Holder </em>and <em>Dealer Information </em>sections of the</li>
+<li>I have reviewed the <em>Coverage, Equipment Description, Contract Holder </em>and <em>Dealer Information </em>sections of the Contract below and they are accurate.</li>
 </ol>
-<p>Contract below and they are accurate.</p>
  
 <ol start="2">
 <li>I have reviewed the <em>Your Responsibilities </em>section above and understand that I must: service the Machine as recommended by the Manufacturer and maintain good service records; protect the Equipment from further damage if a Failure occurs; submit Claims within 90 days of a Failure; and notify the Administrator of any proposed alterations or additions to the Equipment and of any proposed departure from ordinary working conditions.</li>
@@ -728,10 +717,10 @@
 <li>If I had questions, I asked and received satisfactory explanations. I understand that if I have "buyer's remorse" I can cancel this Contract according to the terms in the Cancellation section.</li>
 </ol>
  &nbsp;
-<p>Customer Signature:______________________________&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Date:__________________</p>
+<p>Customer Signature:______________________________________________&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Date:________________________</p>
  
  <p><strong>&nbsp;</strong></p>
-<p>Customer Name:________________________________</p>	</div>
+<p>Customer Name:__________________________________________________</p>	</div>
 	<!--inner main-->
 
 
