@@ -97,12 +97,12 @@
  
 <p><strong>Equipment Service Contract Coverage: </strong>In the event of a Mechanical Breakdown of a Covered Part, WE agree to make repairs or reimburse YOU for the cost of parts and labor, to repair or replace a Covered Part, less applicable Deductible, subject to the terms, conditions, exclusions and limitations herein<u>. Mechanical Breakdown means: The Failure of a Covered Part due to faulty workmanship or materials supplied by the original Manufacturer or distributor; </u></p>
  
-<p><strong>THE DETAILS OF YOUR COVERAGE CAN BE FOUND ON THE LAST PAGE OF THIS CONTRACT CANCELLATION: </strong><em>("Buyer's Remorse" Clause)</em></p>
+<p><center><h5>THE DETAILS OF YOUR COVERAGE CAN BE FOUND ON THE LAST PAGE OF THIS CONTRACT CANCELLATION: </strong><em>("Buyer's Remorse" Clause)</em></h5></center></p>
 <p>YOU may cancel this Contract at any time during the initial 90-day period following the Contract Inception Date at no charge, if YOU have not filed a Claim, and WE will refund the entire Contract Price. After the initial 90-day period, if YOU have not filed a Claim, YOU may still cancel the Contract but YOU will forfeit a pro-rata portion of the Contract Price, or 30% of the Contract Price, whichever is greater. YOU may not cancel the Contract during the one (1) year period prior to the Expiration Date. All refunds will be made within 25 days. If allowed by law, WE may cancel the Contract at any time for material misrepresentation or fraud at the time of sale, or for non-payment of Contract Price. WE may cancel the Contract during the initial 45-day period following the Contract Inception Date if the Equipment does not meet the Guarantor&rsquo;s underwriting guidelines. In all such cases, YOU will receive a full refund of the Contract Price from US, not including any outstanding Claims.</p>
  
 <p>The terms of this cancellation clause are intended to go beyond all federal and state consumer protection rules and provide you with ample opportunity to obtain a refund if YOU experience "buyer's remorse". &nbsp;<strong>Only YOU can truly determine if this Contract is a good value and WE want YOU to be satisfied that it does</strong><strong>. </strong>From time to time states change their rules; WE will always honor the consumer protection rule that is most advantageous to YOU.</p>
- &nbsp;
-<p><center><h4>KEY TERMS AND DEFINITIONS</h4></center></p>
+ 
+<p><center><h5>KEY TERMS AND DEFINITIONS</h5></center></p>
  
 <p><strong>CONTRACT: </strong>: means this EQUIPMENT SERVICE CONTRACT. It is a CONTRACT between YOU and US.</p>
  
@@ -141,9 +141,9 @@
  
 <p>Why is the Limit of Liability less than the purchase price the Machine? WE reserve funds for the payment of Claims based on the Limit of Liability; by keeping that number low, but still high enough to cover 99% of Claims (based on our historical experience and actuarial projections), WE can greatly reduce the cost of the Contract for YOU, while still covering almost every claim.</p>
  
-<p><strong><u>CONTRACT </u></strong><strong><u>RESPONSIBILITIES, &nbsp;LIMITATIONS AND EXTENSIONS</u></strong> <strong>OUR RESPONSIBILITIES:</strong></p>
-<p>WE agree to repair or replace any of the Covered Parts, if required due to a Mechanical Breakdown or Failure;</p>
-<p>when the Mechanical Breakdown or Failure is deemed to be covered under this Contract. Following YOUR payment of any applicable Deductible, WE will pay the following costs arising from a Mechanical Breakdown of the Covered Parts occurring during the term of this Contract:</p>
+<p><h5><center><strong><u>CONTRACT </u></strong><strong><u>RESPONSIBILITIES, &nbsp;LIMITATIONS AND EXTENSIONS :</u></strong></center></h5></p>
+<p><strong>OUR RESPONSIBILITIES: </strong>WE agree to repair or replace any of the Covered Parts, if required due to a Mechanical Breakdown or Failure;
+when the Mechanical Breakdown or Failure is deemed to be covered under this Contract. Following YOUR payment of any applicable Deductible, WE will pay the following costs arising from a Mechanical Breakdown of the Covered Parts occurring during the term of this Contract:</p>
  
 <ol>
 <li>WE will pay for repair or replacement of the Covered Parts causing the Failure and any components that are rendered unserviceable as a direct result of the Failure.</li>
@@ -237,72 +237,77 @@
 <p><strong>PowerTrain:</strong></p>
  
 <p>The Powertrain group includes the following components which produce, transmit or control engine horsepower for propelling the machine:</p>
+ <ul>
+<li>Core engine (except hang-on attachments) Engine fan &amp; flywheel</li>
+<li>Engine lubrication system (except oil and oil filter)</li>
  
-<p>Core engine (except hang-on attachments) Engine fan &amp; flywheel</p>
-<p>Engine lubrication system (except oil and oil filter)</p>
+<li>Engine electronic controls &amp; sensors (e.g., electronic control module - ECM)</li>
  
-<p>Engine electronic controls &amp; sensors (e.g., electronic control module - ECM)</p>
+<li>Turbo air induction &amp; exhaust system (except muffler, hoses/tubes, exhaust stack &amp; air filters) Engine water pump and water temperature regulator</li>
+<li>Fuel injection pump &amp; injectors.</li>
  
-<p>Turbo air induction &amp; exhaust system (except muffler, hoses/tubes, exhaust stack &amp; air filters) Engine water pump and water temperature regulator</p>
-<p>Fuel injection pump &amp; injectors.</p>
+<li>Engine drive-line coupler, drive-line shafts, U-joints, transfer gears &amp; differential</li>
  
-<p>Engine drive-line coupler, drive-line shafts, U-joints, transfer gears &amp; differential</p>
+<li>Transmission, transmission oil pumps, valves, controls &amp; sensors</li>
  
-<p>Transmission, transmission oil pumps, valves, controls &amp; sensors</p>
+<li>Final drives, drive axles and non-powered axles</li>
  
-<p>Final drives, drive axles and non-powered axles</p>
- 
-<p>Hydro propel pumps, motors, controls, sensors &amp; metal lines (Pumps and motors for Hydro-powered threshing cylinders on combines are not covered-they are considered part of Hydraulic System)</p>
+<li>Hydro propel pumps, motors, controls, sensors &amp; metal lines (Pumps and motors for Hydro-powered threshing cylinders on combines are not covered-they are considered part of Hydraulic System)</li>
 <ul>
 <li>Combines - Mechanical cylinder/rotor transmission/gearcase, reverser gearcase.</li>
 <li>Forage Harvesters &ndash; Mechanical feed roll Transmission/gearcase, chopper and reverser gearcase.</li>
 </ul>
  
-<p>Creeper drive components, controls &amp; sensors</p>
+<li>Creeper drive components, controls &amp; sensors</li>
  
-<p>Power take off (PTO) components, controls &amp; sensors</p>
+<li>Power take off (PTO) components, controls &amp; sensors</li>
  
-<p>Electronic clutch on commercial mowers</p>
+<li>Electronic clutch on commercial mowers</li>
+ 
+ </ul>
+ 
  
 <p><strong>PowerTrain + Hydraulic Systems:</strong></p>
  
 <p>The Powertrain + Hydraulic Systems group includes all components in the Powertrain group plus hydraulic systems parts and components associated with steering and implement control:</p>
+ <ul>
+<li>Hydraulic pumps, oil coolers, motors, controls &amp; sensors</li>
  
-<p>Hydraulic pumps, oil coolers, motors, controls &amp; sensors</p>
- 
-<p>Hydraulic valves, cylinders, accumulators, metal lines, filter bases</p>
+<li>Hydraulic valves, cylinders, accumulators, metal lines, filter bases</li>
 <ul>
 <li>Combines &ndash; Hydraulic drive components to the threshing cylinder/rotor.</li>
 <li>Forage Harvesters: Hydraulic drive components for the feed roll/chopper.</li>
 </ul>
+ </ul>
+ 
  
 <p><strong>PowerTrain + Hydraulic Systems + Platform:</strong></p>
  
 <p>The Platform group includes all components in the Powertrain group + Hydraulic Systems group plus additional mechanical, electrical and structural components:</p>
  
-<p>Engine starting aid, starter, alternator, air compressor &amp; engine block heater</p>
+ <ul>
+<li>Engine starting aid, starter, alternator, air compressor &amp; engine block heater</li>
  
-<p>Air conditioning compressor, evaporator and connecting lines</p>
+<li>Air conditioning compressor, evaporator and connecting lines</li>
  
-<p>Radiator, coolant reservoir &amp; coolant hoses/lines</p>
+<li>Radiator, coolant reservoir &amp; coolant hoses/lines</li>
  
-<p>Air inlet/exhaust hoses/tubes (except muffler and exhaust stack) Fuel tanks &amp; tank-attached fuel lines</p>
+<li>Air inlet/exhaust hoses/tubes (except muffler and exhaust stack) Fuel tanks &amp; tank-attached fuel lines</li>
 <ul>
 <li>Auto Steer (factory installed)</li>
 <li>Self-leveling systems (combines)</li>
+<li>Service brake system components (except friction pads/shoes and related wear parts) Cab frame enclosure, mounting, platform, cab &amp; front axle suspension</li>
+<li>ROPS, FOPS and Back-up alarm</li>
 </ul>
- 
-<p>Service brake system components (except friction pads/shoes and related wear parts) Cab frame enclosure, mounting, platform, cab &amp; front axle suspension</p>
-<p>ROPS, FOPS and Back-up alarm</p>
+ </ul>
+
 <p><strong>Note: Individual Hi-tech systems may be purchased with Powertrain and Hydraulic Systems coverage at an additional charge &ndash; Please contact Ag Guard for pricing. </strong></p>
  
 <p><strong>General Items COVERED by all Categories:</strong></p>
  
 <ol>
-<li>WE will pay for replacement of necessary fluids, oils, greases, lubricants and approved A/C gases that must</li>
+<li>WE will pay for replacement of necessary fluids, oils, greases, lubricants and approved A/C gases that must be replaced in conjunction with a covered repair. THIS COVERAGE DOES NOT APPLY TO SHOP SUPPLIES.</li>
 </ol>
-<p>be replaced in conjunction with a covered repair. THIS COVERAGE DOES NOT APPLY TO SHOP SUPPLIES.</p>
- 
 <ol start="2">
 <li>WE will pay for reasonable, necessary and customary diagnostic charges incurred in conjunction with a covered repair, not to exceed the labor time listed in a nationally recognized parts and labor guide.</li>
 
@@ -417,9 +422,7 @@
  
  
 <li>Where it is determined that the service meter has been inaccurate, inoperative, or altered for more than one (1) month or two hundred (200) hours so that the Equipment's true usage cannot be verified;</li>
-<li>That is a direct result of a mechanical or structural defect when the Manufacturer has announced a public recall or a product support program for the purpose of correcting such defect or the Mechanical Breakdown is the result of Epidemic Failure. (Epidemic Failure is defined as failure exhibiting the same root cause or symptom that appears to be attributable to, or caused by, a design or engineering defect that results in a failure rate greater than five (5) percent on equipment that WE cover. In the event of Epidemic Failure, the Manufacturer shall be notified of such failures Costs associated with the repair of Covered Parts resulting from an Epidemic Failure should be borne by the Manufacturer. However, WE may elect to pay a portion of any Claim which is the result of an Epidemic Failure and WE deem there are special circumstances that</li>
-<li>make the cost of the repair unduly burdensome on YOU. Such decisions are made at OUR sole</li>
-<li>discretion and do not represent a constructive change to this Contract. WE will also attempt to notify YOU whenever WE discover an Epidemic Failure that could affect YOU and WE will endeavor to devise a plan to mitigate YOUR risk to such failures.);</li>
+<li>That is a direct result of a mechanical or structural defect when the Manufacturer has announced a public recall or a product support program for the purpose of correcting such defect or the Mechanical Breakdown is the result of Epidemic Failure. (Epidemic Failure is defined as failure exhibiting the same root cause or symptom that appears to be attributable to, or caused by, a design or engineering defect that results in a failure rate greater than five (5) percent on equipment that WE cover. In the event of Epidemic Failure, the Manufacturer shall be notified of such failures Costs associated with the repair of Covered Parts resulting from an Epidemic Failure should be borne by the Manufacturer. However, WE may elect to pay a portion of any Claim which is the result of an Epidemic Failure and WE deem there are special circumstances that make the cost of the repair unduly burdensome on YOU. Such decisions are made at OUR sole discretion and do not represent a constructive change to this Contract. WE will also attempt to notify YOU whenever WE discover an Epidemic Failure that could affect YOU and WE will endeavor to devise a plan to mitigate YOUR risk to such failures.);</li>
  
 <li>Due to continued operation and failure to protect the Equipment from further damage caused by lack of necessary coolants or lubricants, of a Covered Part which is damaged by fuel or lubricant contamination or rust;</li>
  
@@ -484,9 +487,7 @@
  
 <p><strong>&nbsp;</strong></p>
 <p><strong>ARBITRATION:</strong></p>
-<p>YOU must first request arbitration from US in writing within sixty (60) days after YOU receive written notice that the dispute cannot be resolved. For Claims arbitration, written demand must be made to US within sixty (60) days of the denial of a Claim. All arbitration proceedings must be held in or near Kansas City unless another venue is agreed upon by all parties. YOU agree that all individual, class action, or other claims arising from or relating to this Contract, whether in contract, tort, pursuant to statute, regulation, ordinance or in equity or otherwise, are subject, at</p>
-<p>YOUR, the Dealer's, or the Guarantor's election, to neutral binding arbitration by The American Arbitration Association under the applicable AAA rules then in effect as modified by this Arbitration Provision. This includes, but is not limited to, Claims asserted by YOU against the Dealer, Guarantor, AgGuard LLC, their affiliates, and/or their and their affiliates' employees, officers, successors, or assigns. Any arbitration hereunder shall be governed by the Federal Arbitration Act (9 U.S.C. : 1 et seq.) and not by any state law concerning arbitration. The Arbitrator shall follow applicable statutes of limitations, shall honor claims of privilege recognized at law, and, if timely requested by either party, shall provide a brief written explanation of the award's basis. Each party shall be responsible for its own attorney, expert, or other fees unless applicable law provides otherwise. Any Claim or dispute is to be arbitrated on an individual basis and not as a class action. YOU expressly waive any right to arbitrate a class action or in a</p>
-<p>private attorney general capacity, and there shall be no joinder or consolidation of parties, except for parties to the same Contract. In the event of a conflict between this Arbitration Provision and any other applicable arbitration provision, the other provision's terms shall apply; provided however, that this Arbitration Provision's prohibition on classwide arbitration shall apply. If any portion of this Arbitration Provision is deemed invalid or unenforceable, it shall not invalidate the other provisions or the Contract; provided however, that if the provision prohibiting classwide arbitration is deemed invalid, then this entire Arbitration Provision shall be null and void. This Arbitration Provision shall not apply to any individual claim brought by YOU in small claims court, unless such claim is transferred, removed or appealed to a different court. Neither YOU, the Dealer, the Guarantor nor AgGuard LLC will have the right to have a jury trial on any Claim for which arbitration is elected. Discovery and rights to appeal are generally more limited than in a lawsuit, and other rights applicable in court may not be available in arbitration. This Arbitration Provision will survive any termination, payoff, or transfer of this Service Contract. Information regarding AAA and its procedures for filing a Claim can be found at <a href="http://www.adr.org">www.adr.org.</a></p>
+<p>YOU must first request arbitration from US in writing within sixty (60) days after YOU receive written notice that the dispute cannot be resolved. For Claims arbitration, written demand must be made to US within sixty (60) days of the denial of a Claim. All arbitration proceedings must be held in or near Kansas City unless another venue is agreed upon by all parties. YOU agree that all individual, class action, or other claims arising from or relating to this Contract, whether in contract, tort, pursuant to statute, regulation, ordinance or in equity or otherwise, are subject, at YOUR, the Dealer's, or the Guarantor's election, to neutral binding arbitration by The American Arbitration Association under the applicable AAA rules then in effect as modified by this Arbitration Provision. This includes, but is not limited to, Claims asserted by YOU against the Dealer, Guarantor, AgGuard LLC, their affiliates, and/or their and their affiliates' employees, officers, successors, or assigns. Any arbitration hereunder shall be governed by the Federal Arbitration Act (9 U.S.C. : 1 et seq.) and not by any state law concerning arbitration. The Arbitrator shall follow applicable statutes of limitations, shall honor claims of privilege recognized at law, and, if timely requested by either party, shall provide a brief written explanation of the award's basis. Each party shall be responsible for its own attorney, expert, or other fees unless applicable law provides otherwise. Any Claim or dispute is to be arbitrated on an individual basis and not as a class action. YOU expressly waive any right to arbitrate a class action or in a private attorney general capacity, and there shall be no joinder or consolidation of parties, except for parties to the same Contract. In the event of a conflict between this Arbitration Provision and any other applicable arbitration provision, the other provision's terms shall apply; provided however, that this Arbitration Provision's prohibition on classwide arbitration shall apply. If any portion of this Arbitration Provision is deemed invalid or unenforceable, it shall not invalidate the other provisions or the Contract; provided however, that if the provision prohibiting classwide arbitration is deemed invalid, then this entire Arbitration Provision shall be null and void. This Arbitration Provision shall not apply to any individual claim brought by YOU in small claims court, unless such claim is transferred, removed or appealed to a different court. Neither YOU, the Dealer, the Guarantor nor AgGuard LLC will have the right to have a jury trial on any Claim for which arbitration is elected. Discovery and rights to appeal are generally more limited than in a lawsuit, and other rights applicable in court may not be available in arbitration. This Arbitration Provision will survive any termination, payoff, or transfer of this Service Contract. Information regarding AAA and its procedures for filing a Claim can be found at <a href="http://www.adr.org">www.adr.org.</a></p>
  
 <p><strong>SUBROGATION</strong></p>
  
@@ -547,11 +548,10 @@
 </ol>
  
 <p><strong>PAYMENTS:</strong></p>
-<p>WE will pay the repair facility for authorized repairs covered under this Contract. If a repair facility charges YOU directly for repairs that may have otherwise been covered under this Contract, YOU may submit copies of all</p>
+<p>WE will pay the repair facility for authorized repairs covered under this Contract. If a repair facility charges YOU directly for repairs that may have otherwise been covered under this Contract, YOU may submit copies of all invoices and receipts pertaining to the repairs along with a copy of page 1 of this Contract and a letter requesting WE pay for the repair. Send your request by mail to the Administrator.</p>
+<p><strong><center>"We measure the time to process and make Claims payments in hours, not in days!"</center></strong></p>
 
- 
-<p>invoices and receipts pertaining to the repairs along with a copy of page 1 of this Contract and a letter requesting WE pay for the repair. Send your request by mail to the Administrator.</p>
-<p><strong><center>"We measure the time to process and make Claims payments in hours, not in days!" THE CLAIMS PROCESS:</center></strong></p>
+<p><strong>THE CLAIMS PROCESS:</strong></p>
 <p>WE have attempted to keep the Claims handling process as simple as possible. The initial decision as to whether or</p>
 <p>not a Mechanical Breakdown is a covered Failure is made by the service or warranty manager of the Dealership or repair facility.</p>
  
