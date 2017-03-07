@@ -211,6 +211,17 @@ public class ContractsServiceImpl implements ContractsService{
 	}
 	
 	@Override
+	public List<ContractDO> getActiveContractDetails(AccountDO accountDO) {
+		List<Contracts> contracts = null;
+		if(accountDO.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)){
+			contracts = Util.toList(contractDAO.findActive());
+		}else{
+			contracts = Util.toList(contractDAO.findActiveByDealerId(accountDO.getDealerId()));
+		}
+		return formatEntityToDO(contracts);
+	}
+	
+	@Override
 	public List<ContractDO> getActiveContracts() {
 		List<Contracts> contracts = null;
 		contracts = Util.toList(contractDAO.findActive());

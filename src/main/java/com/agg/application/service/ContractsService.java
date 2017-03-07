@@ -27,4 +27,5 @@ public interface ContractsService {
 	List<ContractDO> getActiveContracts();
 	ContractDO getContract(String contractId);
 	ContractReportDO getContractReportDetails(long id, String contractId);
+	List<ContractDO> getActiveContractDetails(AccountDO accountDetails);
 }

@@ -322,13 +322,14 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
     					if(response.data.data.contractDOList.length > 1){
     						$scope.showActiveContractDetails = true;
     						$scope.contractDOList = response.data.data.contractDOList;
+    						$('#contractsTable').dataTable().fnClearTable();
+    						$('#contractsTable').dataTable().fnDestroy();
     						 $timeout(function () {
     					        	$('#contractsTable').DataTable({
     					        		"aaSorting": [[ 9, "desc" ]],
     					        		"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
- 					        	       columnDefs: [
- 					        	           { targets: 9, visible: false }    
- 					        	       ]
+ 					        	        columnDefs: [{ targets: 9, visible: false }],
+ 					        	        "bDestroy": true
  					        	    });
     						 }, 500);
     					}else{
@@ -355,13 +356,14 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
     					if(response.data.data.contractDOList.length > 1){
     						$scope.showActiveContractDetails = true;
     						$scope.contractDOList = response.data.data.contractDOList;
+    						$('#contractsTable').dataTable().fnClearTable();
+    						$('#contractsTable').dataTable().fnDestroy();
     						 $timeout(function () {
     					        	$('#contractsTable').DataTable({
     					        		"aaSorting": [[ 9, "desc" ]],
     					        		"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
-    					        	       columnDefs: [
-    					        	           { targets: 9, visible: false }    
-    					        	       ]
+    					        	    columnDefs: [{ targets: 9, visible: false }],
+    					        	    "bDestroy": true
     					        	    });
     						 }, 500);
     					}else{
@@ -382,7 +384,7 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
 			claim.reportDate = $filter('date')(claim.reportDate, 'yyyy-MM-dd');
 			claim.failDate = $filter('date')(claim.failDate, 'yyyy-MM-dd');
 			claim.cStatus = $scope.newClaimClick;
-			console.log(angular.toJson(claim));
+			//console.log(angular.toJson(claim));
 			var fd = new FormData();
 			fd.append('data', angular.toJson(claim));
 			 angular.forEach($scope.attachments, function (value, key) {
@@ -434,7 +436,7 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
 				delete claim['cStatus'];
 			}
 			//claim.cStatus = $scope.newClaimClick;
-			console.log(angular.toJson(claim));
+			//console.log(angular.toJson(claim));
 			var fd = new FormData();
 			fd.append('data', angular.toJson(claim));
 			 angular.forEach($scope.attachments, function (value, key) {
@@ -601,7 +603,7 @@ routingApp.factory('claimsAdjudicateService', ['$http', '$q', '$window', '$timeo
 		$http.get("/agg/currentUserRole")
 	    .then(function(response) {
 	    	//$scope.adjudicateClaimList = response.data.data.preAuthClaimList;
-	    	console.log(angular.toJson(response));
+	    	//console.log(angular.toJson(response));
 	    	//$scope.editFlag = true;
 	    	$scope.editFlag = (response.data.data.roleList.accountType === 'admin') ? false : true;
 	    	$scope.commentFlag = true;
@@ -1008,7 +1010,7 @@ routingApp.factory('claimDraftService', ['$http', '$q', '$window', '$timeout', '
 			claim.reportDate = $filter('date')(claim.reportDate, 'yyyy-MM-dd');
 			claim.failDate = $filter('date')(claim.failDate, 'yyyy-MM-dd');
 			claim.cStatus = $scope.newClaimClick;
-			console.log(angular.toJson(claim));
+			//console.log(angular.toJson(claim));
 			var fd = new FormData();
 			fd.append('data', angular.toJson(claim));
 			 angular.forEach($scope.attachments, function (value, key) {
