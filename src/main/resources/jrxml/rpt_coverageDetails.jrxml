@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="coverageDetails" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c0ec05e7-1fb2-4f7a-a475-4bbe0eaa13dc">
 	<property name="ireport.zoom" value="0.9090909090909091"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="3256"/>
+	<property name="ireport.y" value="807"/>
 	<parameter name="imagePath" class="java.lang.String"/>
 	<field name="contractId" class="java.lang.String"/>
 	<field name="inceptionDate" class="java.lang.String"/>
@@ -589,11 +589,11 @@
 				<textFieldExpression><![CDATA["<style isBold=\"true\" pdfFontName=\"Helvetica-Bold\" isUnderline=\"true\">POWERTRAIN + HYDRAULIC SYSTEMS</style> includes Powertrain coverage plus hydraulic systems, parts and components associated with steering and implement control, (e.g. pumps, coolers, motors, controls, valves, cylinders, accumulators, metal/lines, filter bases, etc.)"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
-				<reportElement positionType="Float" x="16" y="345" width="530" height="47" uuid="ed295f27-87e1-4b4e-97d2-4af2c630e5cd"/>
-				<textElement markup="html">
+				<reportElement positionType="Float" x="16" y="345" width="530" height="33" uuid="ed295f27-87e1-4b4e-97d2-4af2c630e5cd"/>
+				<textElement markup="styled">
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA["<b><u>POWERTRAIN + HYDRAULIC SYSTEMS + PLATFORM</u></b> includes Powertrain + Hydraulic Systems coverage plus additional mechanical, electrical, hi-tech systems, such as cab &amp; front axle suspension, auto steer, and self-leveling systems and structural components. Some call this \"full machine\", but we think that is misleading. It doesn't cover everything; however, it is intended to be similar to the manufacturer's warranty.<br>Note: Individual Hi-tech systems may be purchased with Powertrain and Hydraulic Systems coverage at an additional charge – Please contact Ag Guard for pricing."]]></textFieldExpression>
+				<textFieldExpression><![CDATA["<style isBold=\"true\" pdfFontName=\"Helvetica-Bold\" isUnderline=\"true\">POWERTRAIN + HYDRAULIC SYSTEMS + PLATFORM</style> includes Powertrain + Hydraulic Systems coverage plus additional mechanical, electrical, hi-tech systems, such as cab &amp; front axle suspension, auto steer, and self-leveling systems and structural components. Some call this \"full machine\", but we think that is misleading. It doesn't cover everything; however, it is intended to be similar to the manufacturer's warranty."]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
 				<reportElement positionType="Float" x="16" y="394" width="530" height="47" uuid="fb55c992-8212-4752-9c44-1f76e282fac1"/>
@@ -615,6 +615,13 @@
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA["If you are unclear on any of the features of this contract, then please ask your dealer or send us your question at: info@AgGuard.com"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="16" y="380" width="530" height="12" uuid="6661704a-9cda-4e00-b42d-ddca78a0d30e"/>
+				<textElement markup="styled">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Note: Individual Hi-tech systems may be purchased with Powertrain and Hydraulic Systems coverage at an additional charge – Please contact Ag Guard for pricing."]]></textFieldExpression>
 			</textField>
 		</band>
 		<band height="720">
