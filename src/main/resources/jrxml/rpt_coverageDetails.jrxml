@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="coverageDetails" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c0ec05e7-1fb2-4f7a-a475-4bbe0eaa13dc">
 	<property name="ireport.zoom" value="0.9090909090909091"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="3245"/>
+	<property name="ireport.y" value="3256"/>
 	<parameter name="imagePath" class="java.lang.String"/>
 	<field name="contractId" class="java.lang.String"/>
 	<field name="inceptionDate" class="java.lang.String"/>
@@ -531,7 +531,7 @@
 				<text><![CDATA[Coverage Details]]></text>
 			</staticText>
 		</band>
-		<band height="720">
+		<band height="639">
 			<staticText>
 				<reportElement x="16" y="5" width="139" height="22" uuid="5724b9f9-73a9-4465-b3cc-72fbd2fab467"/>
 				<textElement>
@@ -579,21 +579,21 @@
 				<textElement markup="styled">
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA["<style forecolor=\"#1e07f7\">POWERTRAIN</style> covers components that produce, transmit or control engine horsepower for propelling the machine, (e.g., engine, engine electronic controls/sensors, turbo, water pump, fuel injection, drive-line couplers/shafts, Ujoints, transfer gears, differential, transmission, final drives, axles, hydro, creeper, PTO, etc.)"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["<style isBold=\"true\" pdfFontName=\"Helvetica-Bold\" isUnderline=\"true\">POWERTRAIN</style> covers components that produce, transmit or control engine horsepower for propelling the machine along the ground, (e.g., engine, engine electronic controls/sensors, turbo, water pump, fuel injection, drive-line couplers/shafts, U- joints, transfer gears, differential, transmission, final drives, axles, hydro, creeper, PTO, etc.). Combine &amp; Forage harvesters – Also includes rotor drive gearcase, cylinder drive gearcase, reverser gearcase and all parts contained within these components."]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
 				<reportElement positionType="Float" x="16" y="296" width="530" height="47" uuid="3c529f7e-17e4-4dc5-a789-64397faf661f"/>
 				<textElement markup="styled">
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA["<style forecolor=\"#3bab1d\">POWERTRAIN + HYDRAULIC SYSTEMS</style> includes Powertrain coverage plus hydraulic systems, parts and components associated with steering and implement control, (e.g., tanks, pumps, coolers, motors, controls, sensors, valves, cylinders, accumulators, hoses/lines, couplers, swivels, filter bases, etc.)"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["<style isBold=\"true\" pdfFontName=\"Helvetica-Bold\" isUnderline=\"true\">POWERTRAIN + HYDRAULIC SYSTEMS</style> includes Powertrain coverage plus hydraulic systems, parts and components associated with steering and implement control, (e.g. pumps, coolers, motors, controls, valves, cylinders, accumulators, metal/lines, filter bases, etc.)"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
 				<reportElement positionType="Float" x="16" y="345" width="530" height="47" uuid="ed295f27-87e1-4b4e-97d2-4af2c630e5cd"/>
-				<textElement markup="styled">
+				<textElement markup="html">
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA["<style forecolor=\"#da2b12\">POWERTRAIN + HYDRAULIC SYSTEMS + PLATFORM</style> includes Powertrain + Hydraulic Systems coverage plus additional mechanical, electrical and structural components. Some call this \"full machine\", but we think that is misleading. It doesn't cover everything; however, it is intended to be similar to the manufacturer's warranty."]]></textFieldExpression>
+				<textFieldExpression><![CDATA["<b><u>POWERTRAIN + HYDRAULIC SYSTEMS + PLATFORM</u></b> includes Powertrain + Hydraulic Systems coverage plus additional mechanical, electrical, hi-tech systems, such as cab &amp; front axle suspension, auto steer, and self-leveling systems and structural components. Some call this \"full machine\", but we think that is misleading. It doesn't cover everything; however, it is intended to be similar to the manufacturer's warranty.<br>Note: Individual Hi-tech systems may be purchased with Powertrain and Hydraulic Systems coverage at an additional charge – Please contact Ag Guard for pricing."]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
 				<reportElement positionType="Float" x="16" y="394" width="530" height="47" uuid="fb55c992-8212-4752-9c44-1f76e282fac1"/>
@@ -644,38 +644,38 @@
 				<textElement markup="styled">
 					<font size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA["<style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">Terminology:</style> This Contract is subject to the terms, provisions, conditions, limitations, extensions, exceptions and definitions, which are described in the Coverage, Equipment Description, Contract Holder and Dealer Information sections in Coverage Details and in the section titled “Key Terms and Definitions”. No person has the authority to change or to waive any of the Contract’s provisions. <style forecolor=\"#da2b12\">This Equipment Service Contract is not an insurance policy (pursuant to chapter 40 of the Kansas Statutes Annotated), a warranty, or a guarantee.</style> This Contract is for the sole benefit of the Contract Holder and applies only to the Equipment described herein. <style forecolor=\"#da2b12\">Please read this Contract carefully to ensure that YOU understand each provision. This agreement requires the use of arbitration to resolve disputes, rather than jury trials or class actions, and limits remedies available to YOU in the event of a dispute.</style>"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["<style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">Terminology:</style> This Contract is subject to the terms, provisions, conditions, limitations, extensions, exceptions and definitions, which are described in the Coverage, Equipment Description, Contract Holder and Dealer Information sections in Coverage Details and in the section titled \"Key Terms and Definitions\". No person has the authority to change or to waive any of the Contract’s provisions. <style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">(pursuant to chapter 40 of the Kansas Statutes Annotated), a warranty, or a guarantee. This Equipment Service Contract is not an insurance policy.</style> This Contract is for the sole benefit of the Contract Holder and applies only to the Equipment described herein. <style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">Please read this Contract carefully to ensure that YOU understand each provision. This agreement requires the use of arbitration to resolve disputes, rather than jury trials or class actions, and limits remedies available to YOU in the event of a dispute.</style>"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
-				<reportElement positionType="Float" x="16" y="296" width="530" height="127" uuid="6cfe5924-20dd-4c6c-a54a-ca991904a0e1"/>
+				<reportElement positionType="Float" x="16" y="296" width="530" height="59" uuid="6cfe5924-20dd-4c6c-a54a-ca991904a0e1"/>
 				<textElement markup="styled">
 					<font size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA["<style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">Equipment Service Contract Coverage:</style> In the event of a Mechanical Breakdown of a Covered Part, WE agree to make repairs or reimburse YOU for the cost of parts and labor, to repair or replace a Covered Part, less applicable Deductible, subject to the terms, conditions, exclusions and limitations herein. Mechanical Breakdown means: (1) The Failure of a Covered Part due to faulty workmanship or materials supplied by the original Manufacturer or distributor; (2) The Failure of a Covered Part due to a gradual reduction in operating performance as a result of normal wear and tear. A Covered Part has failed when it can no longer perform the function for which it was designed solely because of its condition and not because of the action, inaction, or Failure of any non-Covered Parts. If the Mechanical Breakdown is covered under any other warranty, service policy, recall, or repair adjustment (other coverage), WE will pay the difference, if any, between the payments due under this service Contract and the payments due under the other coverage."]]></textFieldExpression>
+				<textFieldExpression><![CDATA["<style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">Equipment Service Contract Coverage:</style> In the event of a Mechanical Breakdown of a Covered Part, WE agree to make repairs or reimburse YOU for the cost of parts and labor, to repair or replace a Covered Part, less applicable Deductible, subject to the terms, conditions, exclusions and limitations herein. <style isUnderline=\"true\">Mechanical Breakdown means: The Failure of a Covered Part due to faulty workmanship or materials supplied by the original Manufacturer or distributor;</style>"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
-				<reportElement positionType="Float" x="16" y="426" width="530" height="28" uuid="d319fa47-2528-41c3-b067-6c6c4ca60fdf"/>
+				<reportElement positionType="Float" x="16" y="358" width="530" height="28" uuid="d319fa47-2528-41c3-b067-6c6c4ca60fdf"/>
 				<textElement markup="styled">
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA["<style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">THE DETAILS OF YOUR COVERAGE CAN BE FOUND ON THE LAST PAGE OF THIS CONTRACT CANCELLATION:</style> (\"Buyer's Remorse\" Clause)"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
-				<reportElement positionType="Float" x="16" y="457" width="530" height="127" uuid="58b8f5a7-861e-4cc5-bd2f-6f115294ad3e"/>
+				<reportElement positionType="Float" x="16" y="389" width="530" height="127" uuid="58b8f5a7-861e-4cc5-bd2f-6f115294ad3e"/>
 				<textElement markup="styled">
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA["YOU may cancel this Contract at any time during the initial 90-day period following the Contract Inception Date at no charge, if YOU have not filed a Claim, and WE will refund the entire Contract Price. After the initial 90-day period, if YOU have not filed a Claim, YOU may still cancel the Contract but YOU will forfeit a pro-rata portion of the Contract Price, or 30% of the Contract Price, whichever is greater. YOU may not cancel the Contract during the one (1) year period prior to the Expiration Date. All refunds will be made within 25 days. If allowed by law, WE may cancel the Contract at any time for material misrepresentation or fraud at the time of sale, or for non-payment of Contract Price. WE may cancel the Contract during the initial 45-day period following the Contract Inception Date if the Equipment does not meet the Guarantor’s underwriting guidelines. In all such cases, YOU will receive a full refund of the Contract Price from US, not including any outstanding Claims."]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
-				<reportElement positionType="Float" x="16" y="588" width="530" height="30" uuid="c285f006-bda1-40da-b6af-644b0408af81"/>
+				<reportElement positionType="Float" x="16" y="520" width="530" height="30" uuid="c285f006-bda1-40da-b6af-644b0408af81"/>
 				<textElement markup="styled">
 					<font size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA["The terms of this cancellation clause are intended to go beyond all federal and state consumer protection rules and provide you with ample opportunity to obtain a refund if YOU experience \"buyer's remorse\". <style forecolor=\"#da2b12\"><u>Only YOU can truly determine if this Contract is a good value and WE want YOU to be satisfied that it does.</u></style> From time to time states change their rules; WE will always honor the consumer protection rule that is most advantageous to YOU."]]></textFieldExpression>
+				<textFieldExpression><![CDATA["The terms of this cancellation clause are intended to go beyond all federal and state consumer protection rules and provide you with ample opportunity to obtain a refund if YOU experience \"buyer's remorse\". <style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">Only YOU can truly determine if this Contract is a good value and WE want YOU to be satisfied that it does.</style> From time to time states change their rules; WE will always honor the consumer protection rule that is most advantageous to YOU."]]></textFieldExpression>
 			</textField>
 		</band>
-		<band height="649">
+		<band height="618">
 			<staticText>
 				<reportElement x="153" y="5" width="249" height="20" uuid="17bb5574-fb93-4860-9ef6-134fde302b49"/>
 				<textElement>
@@ -740,60 +740,60 @@
 				<textFieldExpression><![CDATA["<style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">MECHANICAL BREAKDOWN or FAILURE:</style> means the actual breaking or electronic failure of any covered part of the covered MACHINE while in ordinary use arising from faults attributable to manufacturing defects in workmanship or materials in such MACHINE causing sudden stoppage of the functions thereof and necessitating repair before it can resume work."]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
-				<reportElement positionType="Float" x="16" y="329" width="530" height="64" uuid="54ce4678-11dc-4536-a7cc-9e5494b28d70"/>
+				<reportElement positionType="Float" x="16" y="329" width="530" height="32" uuid="54ce4678-11dc-4536-a7cc-9e5494b28d70"/>
 				<textElement markup="styled">
 					<font size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA["<style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">DEDUCTIBLE:</style> for each unrelated MECHANICAL BREAKDOWN or FAILURE, YOU will be responsible for the DEDUCTIBLE amount as shown in the Coverage section above and for any other costs not covered by this CONTRACT. When a breakdown to a COVERED PART occurs which is covered by a Manufacturer's Warranty, WE will reimburse YOU for the difference between OUR DEDUCTIBLE and the Manufacturer's Deductible. If the same COVERD PART (previously repaired under this CONTRACT) fails again, then the DEDUCTIBLE will be waived."]]></textFieldExpression>
+				<textFieldExpression><![CDATA["<style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">DEDUCTIBLE:</style> for each unrelated MECHANICAL BREAKDOWN or FAILURE, YOU will be responsible for the DEDUCTIBLE amount as shown in the Coverage section above and for any other costs not covered by this CONTRACT."]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
-				<reportElement positionType="Float" x="16" y="394" width="530" height="52" uuid="f83db388-3df1-4231-929c-700ecc9ef5f8"/>
+				<reportElement positionType="Float" x="16" y="363" width="530" height="52" uuid="f83db388-3df1-4231-929c-700ecc9ef5f8"/>
 				<textElement markup="styled">
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA["<style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">CLAIM:</style> means a formal request to US asking for a payment based on the terms of this CONTRACT. CLAIMS must be presented to US using the methods described in the Claims Process section below. CLAIMS are reviewed by the ADMINISTRATOR or its agent for validity and then paid to the repair facility by the Guarantor. (See the \"Claims Process\" section below.)"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
-				<reportElement positionType="Float" x="16" y="448" width="530" height="54" uuid="d7e80449-efaf-4ac7-86cd-418eb0e1fd38"/>
+				<reportElement positionType="Float" x="16" y="417" width="530" height="54" uuid="d7e80449-efaf-4ac7-86cd-418eb0e1fd38"/>
 				<textElement markup="styled">
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA["<style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">Contract Inception Date:</style> means the date shown in the Coverage section above that establishes when coverage under this EQUIPMENT SERVICE CONTRACT begins. The <style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">Expiration Date</style> is the date the Contract period ends unless the MACHINE reaches the total allowed Hours first. <style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">The date the Manufacturer's warranty ends</style> is specified by the MANUFACTURER and verified by the DEALER."]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
-				<reportElement positionType="Float" x="16" y="504" width="530" height="20" uuid="7a260731-cd31-43f7-bad8-60388de729a5"/>
+				<reportElement positionType="Float" x="16" y="473" width="530" height="20" uuid="7a260731-cd31-43f7-bad8-60388de729a5"/>
 				<textElement markup="styled">
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA["<style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">CONTRACT PRICE:</style> means the entire amount in U.S. Dollars paid by YOU to the DEALER for the CONTRACT."]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
-				<reportElement positionType="Float" x="16" y="526" width="530" height="27" uuid="5365153c-0e80-426b-bb64-bf97c75f395b"/>
+				<reportElement positionType="Float" x="16" y="495" width="530" height="27" uuid="5365153c-0e80-426b-bb64-bf97c75f395b"/>
 				<textElement markup="styled">
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA["<style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">HOURS ON MACHINE:</style> Means the Hours shown on the MACHINE's Hours meter or service meter, or a reasonable estimate which can be documented to the satisfaction of the ADMINISTRATOR."]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
-				<reportElement positionType="Float" x="16" y="554" width="530" height="27" uuid="424dbec6-e3c6-4fb4-b935-dad90216ed62"/>
+				<reportElement positionType="Float" x="16" y="523" width="530" height="27" uuid="424dbec6-e3c6-4fb4-b935-dad90216ed62"/>
 				<textElement markup="styled">
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA["<style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">APPLICATION:</style> Means the primary task for which the MACHINE will be used, (i.e. crop production, livestock production, dairy, landscaping, orchard, mowing, lumber, snow, construction, or other specified Application)"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
-				<reportElement positionType="Float" x="16" y="582" width="530" height="27" uuid="ba87e2e7-f0e6-4c4b-9142-d6266668376c"/>
+				<reportElement positionType="Float" x="16" y="551" width="530" height="27" uuid="ba87e2e7-f0e6-4c4b-9142-d6266668376c"/>
 				<textElement markup="styled">
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA["<style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">COVERED PARTS:</style> Means any part of the MACHINE listed in the CONTRACT as a COVERED PART and not excluded from coverage by the CONTRACT. (See the \"Covered Parts\" section below.)"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
-				<reportElement positionType="Float" mode="Transparent" x="16" y="610" width="530" height="39" isRemoveLineWhenBlank="true" uuid="f52e82fa-4ae5-4514-a26d-4a98ed511f5a"/>
+				<reportElement positionType="Float" mode="Transparent" x="16" y="579" width="530" height="39" isRemoveLineWhenBlank="true" uuid="f52e82fa-4ae5-4514-a26d-4a98ed511f5a"/>
 				<textElement markup="styled">
 					<font size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA["<style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">LIMITS OF LIABILITY:</style> The Limit of Liability shall be restricted to the reasonable price for repair or replacement of any Covered Part; not to exceed 50% 0f the Manufacturer's Suggested Retail Price (MSRP) for the Equipment, or such lower Limit of Liability as stated in the Coverage section above. The \"reasonable price\" for repair or replacement is based upon nationally recognized flat rate and/or factory manuals. Labor reimbursement will be based on the Dealer's suggested list price for shop labor. This Contract will only allow for a difference of three (3) dollars between different labor classifications as they are related to the Dealer's suggested list price for shop labor. The necessary replacement and/or repairs must be made with parts of like kind and quality, when available. If any parts are found to be unprocurable, the maximum liability shall be limited to the retail price for the costs associated with the necessary repairs to return the unit to an efficient operating condition as if the repair parts were available to the repairing service facility. Unlike some extended service contracts, there is not a limit of liability per Mechanical Breakdown or Failure under this Contract-a featured sometimes referred to as a \"stop-loss\" provision."]]></textFieldExpression>
+				<textFieldExpression><![CDATA["<style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">LIMITS OF LIABILITY:</style> The Limit of Liability shall be restricted to the reasonable price for repair or replacement of any Covered Part; not to exceed 50% 0f the Manufacturer's Suggested Retail Price (MSRP) for the Equipment, or such lower Limit of Liability as stated in the Coverage section above. The \"reasonable price\" for repair or replacement is based upon nationally recognized flat rate and/or factory manuals. Labor reimbursement will be based on the Dealer's suggested list price for shop labor. This Contract will only allow for a difference of three (3) dollars between different labor classifications as they are related to the Dealer's suggested list price for shop labor. The necessary replacement and/or repairs must be made with parts of like kind and quality, when available. If any parts are found to be unprocurable, the maximum liability shall be limited to the retail price for the costs associated with the necessary repairs to return the unit to an efficient operating condition as if the repair parts were available to the repairing service facility. Unlike some extended service contracts, there is <style isUnderline=\"true\">not</style> a limit of liability per Mechanical Breakdown or Failure under this Contract-a featured sometimes referred to as a \"stop-loss\" provision."]]></textFieldExpression>
 			</textField>
 		</band>
 		<band height="407">
@@ -802,7 +802,7 @@
 				<textElement markup="styled">
 					<font size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA["The intent of this Contract is not to restore the Machine to a like-new condition, but rather to restore the Machine to its operating condition just prior to the covered Mechanical Breakdown or Failure. All repairs must be performed by an authorized repair facility. The repair facility that performs the repairs must warranty its work to be free of defects in material or poor workmanship for a period of no less than six (6) months or 1,000 hours, starting from the date that the Machine is put back into service."]]></textFieldExpression>
+				<textFieldExpression><![CDATA["The intent of this Contract is not to restore the Machine to a like-new condition, but rather to restore the Machine to its operating condition just prior to the covered Mechanical Breakdown or Failure. All repairs must be performed by an authorized repair facility. <style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">The repair facility that performs the repairs must warranty its work to be free of defects in material or poor workmanship for a period of no less than six (6) months or 1,000 hours, starting from the date that the Machine is put back into service.</style>"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
 				<reportElement positionType="Float" x="16" y="33" width="530" height="40" uuid="31faa4c6-bb6a-4272-aec3-f088d37ee3d5"/>
@@ -907,14 +907,14 @@
 				<textElement textAlignment="Left" markup="styled">
 					<font size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA["a. <u>Situation</u>: <style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">When</style> the Machine failed, <style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">where</style> the Equipment was located and <style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">how</style> the Failure occurred. (For example: On June 22, 2012, on flat, dry ground while planting, the hydraulics would not respond.)"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["a. <u>Situation</u>: <style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">When</style> the Machine failed, <style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">where</style> the Equipment was located and <style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">how</style> the Failure occurred. <style isItalic=\"true\">(For example: On June 22, 2012, on flat, dry ground while planting, the hydraulics would not respond.)</style>"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
 				<reportElement positionType="Float" x="22" y="350" width="524" height="17" uuid="47da1907-14ab-4762-b925-e935b36d0af3"/>
 				<textElement textAlignment="Left" markup="styled">
 					<font size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA["b. <u>Cause</u>: <style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">Why</style> the Failure occurred and <style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">what</style> failed, if known. Identify the specific manufacturing defect. Avoid oversimplifications, such as \"failed\" or \"leaked,\" without an explanation of what caused the Failure and why the Failure should be covered. If the cause cannot be determined, indicate this and provide information proving the Machine was properly maintained and used as designed. (For example: the hydraulics failed because of a bad main seal causing instant loss of pressure.)"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["b. <u>Cause</u>: <style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">Why</style> the Failure occurred and <style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">what</style> failed, if known. Identify the specific manufacturing defect. Avoid oversimplifications, such as \"failed\" or \"leaked,\" without an explanation of what caused the Failure and why the Failure should be covered. If the cause cannot be determined, indicate this and provide information proving the Machine was properly maintained and used as designed. <style isItalic=\"true\">(For example: the hydraulics failed because of a bad main seal causing instant loss of pressure.)</style>"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
 				<reportElement positionType="Float" x="22" y="370" width="524" height="17" uuid="ba0eab26-1f20-4811-a9e5-ca6afd896538"/>
@@ -928,7 +928,7 @@
 				<textElement textAlignment="Left" markup="styled">
 					<font size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA["d. <u>How could this Failure have been avoided</u>: Rule out any service bulletins, field bulletins, recalls, programs, etc. related to the component and group. By better understanding the Failure, a repair can be made that is efficient, effective and will not lead to a repeat Failure. This feedback is also valuable, because WE want to help develop best practices for the repair and give advice to manufactures on product reliability. (For example: The seal does not appear to be sturdy enough for the operating pressures that are typical with this pump. It is unlikely that the owner or any service could have prevented this Failure. The pump needs better seals. No bulletins or recalls address this issue.)"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["d. <u>How could this Failure have been avoided</u>: Rule out any service bulletins, field bulletins, recalls, programs, etc. related to the component and group. By better understanding the Failure, a repair can be made that is efficient, effective and will not lead to a repeat Failure. This feedback is also valuable, because WE want to help develop best practices for the repair and give advice to manufactures on product reliability. <style isItalic=\"true\">(For example: The seal does not appear to be sturdy enough for the operating pressures that are typical with this pump. It is unlikely that the owner or any service could have prevented this Failure. The pump needs better seals. No bulletins or recalls address this issue.)</style>"]]></textFieldExpression>
 			</textField>
 		</band>
 		<band height="316">
@@ -993,7 +993,7 @@
 				<textElement textAlignment="Left" markup="styled">
 					<font size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Covered Parts AND Components: (Inclusions)"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Covered Parts AND Components: <style isItalic=\"true\">(Inclusions)</style>"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
 				<reportElement positionType="Float" x="16" y="188" width="530" height="17" uuid="dc6bc150-362e-4e60-b828-18bcb34fa9be"/>
@@ -1028,7 +1028,7 @@
 				<textElement textAlignment="Left" markup="html">
 					<font size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA["<ul><li>Core engine (except hang-on attachments)</li><li>Engine fan & flywheel</li><li>Engine lubrication system (except oil and oil filter)</li><li>Engine electronic controls & sensors (e.g., electronic control module - ECM)</li><li>Turbo air induction & exhaust system (except muffler, hoses/tubes, exhaust stack & air filters)</li><li>Engine water pump and water temperature regulator</li><li>Fuel injection components</li><li>Engine drive-line coupler, drive-line shafts, U-joints, transfer gears & differential</li><li>Transmission, transmission oil pumps, valves, controls & sensors</li><li>Final drives, drive axles and non-powered axles</li><li>Hydro propel pumps, motors, controls, sensors & lines/hoses (Hydro-powered threshing cylinders on combines are not covered-they are considered part of Hydraulic System)</li><li>Creeper drive components, controls & sensors</li><li>Power take off (PTO) components, controls & sensors</li><li>Electronic clutch on commercial mowers</li></ul>"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["<ul><li>Core engine (except hang-on attachments)</li><li>Engine fan & flywheel</li><li>Engine lubrication system (except oil and oil filter)</li><li>Engine electronic controls & sensors (e.g., electronic control module - ECM)</li><li>Turbo air induction & exhaust system (except muffler, hoses/tubes, exhaust stack & air filters)</li><li>Engine water pump and water temperature regulator</li><li>Fuel injection components</li><li>Engine drive-line coupler, drive-line shafts, U-joints, transfer gears & differential</li><li>Transmission, transmission oil pumps, valves, controls & sensors</li><li>Final drives, drive axles and non-powered axles</li><li>Hydro propel pumps, motors, controls, sensors & lines/hoses (Hydro-powered threshing cylinders on combines are not covered-they are considered part of Hydraulic System)<ul><li>Combines - Mechanical cylinder/rotor transmission/gearcase, reverser gearcase.</li><li>Forage Harvesters – Mechanical feed roll Transmission/gearcase, chopper and reverser gearcase.</li></ul></li><li>Creeper drive components, controls & sensors</li><li>Power take off (PTO) components, controls & sensors</li><li>Electronic clutch on commercial mowers</li></ul>"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
 				<reportElement positionType="Float" x="16" y="226" width="530" height="17" uuid="93f599bb-1bed-42c2-b07e-2fbc694f052d"/>
@@ -1038,7 +1038,7 @@
 				<textFieldExpression><![CDATA["Each category builds on the previous category to include more Covered Parts. WE no longer use the terminology \"full machine\" because WE feel this description is misleading. Much like the Manufacturer's initial warranty, there are a number of parts that are not covered. However, by adding Platform coverage you are typically extended the Coverage on all of the parts covered under the Manufacturer's warranty. Below is a more precise description of the parts and components covered by each category of coverage:"]]></textFieldExpression>
 			</textField>
 		</band>
-		<band height="303">
+		<band height="366">
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
 				<reportElement positionType="Float" x="16" y="4" width="530" height="17" uuid="d4607ecc-b263-4f86-a663-566f91ba8998"/>
 				<textElement markup="styled">
@@ -1058,7 +1058,7 @@
 				<textElement textAlignment="Left" markup="html">
 					<font size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA["<ul><li>Hydraulic tanks, pumps, oil coolers, motors, controls & sensors</li><li>Hydraulic valves, cylinders, accumulators, hoses/lines, quick couplers & swivels, filter bases</li></ul>"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["<ul><li>Hydraulic tanks, pumps, oil coolers, motors, controls & sensors</li><li>Hydraulic valves, cylinders, accumulators, hoses/lines, quick couplers & swivels, filter bases<ul><li>Combines – Hydraulic drive components to the threshing cylinder/rotor.</li><li>Forage Harvesters: Hydraulic drive components for the feed roll/chopper.</li></ul></li></ul>"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
 				<reportElement positionType="Float" x="16" y="63" width="530" height="17" uuid="ba999c8f-92df-4ff1-b74e-18e2bf7198df"/>
@@ -1079,7 +1079,7 @@
 				<textElement textAlignment="Left" markup="html">
 					<font size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA["<ul><li>Engine starting aid, starter, alternator, air compressor & engine block heater</li><li>Air conditioning compressor, evaporator and connecting lines</li><li>Radiator, coolant reservoir & coolant hoses/lines</li><li>Air inlet/exhaust hoses/tubes (except muffler and exhaust stack)</li><li>Fuel tanks & tank-attached fuel lines</li><li>Service brake system components (except friction pads/shoes and related wear parts)</li><li>Cab frame enclosure, mounting, platform & suspension</li><li>ROPS, FOPS and Back-up alarm</li><li>Hood, fenders, sweep/bottom/cylinder guards & ladders/steps</li></ul>"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["<ul><li>Engine starting aid, starter, alternator, air compressor & engine block heater</li><li>Air conditioning compressor, evaporator and connecting lines</li><li>Radiator, coolant reservoir & coolant hoses/lines</li><li>Air inlet/exhaust hoses/tubes (except muffler and exhaust stack)</li><li>Fuel tanks & tank-attached fuel lines<ul><li>Auto Steer (factory installed)</li><li>Self-leveling systems (combines)</li></ul></li><li>Service brake system components (except friction pads/shoes and related wear parts)</li><li>Cab frame enclosure, mounting, platform & suspension</li><li>ROPS, FOPS and Back-up alarm</li></ul><br><b>Note: Individual Hi-tech systems may be purchased with Powertrain and Hydraulic Systems coverage at an additional charge – Please contact Ag Guard for pricing.</b>"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
 				<reportElement positionType="Float" x="16" y="125" width="530" height="17" uuid="5f2b6860-92fc-4ade-8d57-a376c715052f"/>
@@ -1121,7 +1121,7 @@
 				<textElement markup="styled">
 					<font size="11"/>
 				</textElement>
-				<textFieldExpression><![CDATA["<style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">Exclusions:</style><style forecolor=\"#da2b12\">What is not covered and what this Contract will not pay or reimburse:</style>"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["<style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">Exclusions:</style> <style isBold=\"true\" pdfFontName=\"Helvetica-Bold\" isUnderline=\"true\">What is not covered and what this Contract will not pay or reimburse)</style>"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
 				<reportElement positionType="Float" x="16" y="239" width="530" height="17" uuid="4654a926-de24-4531-9120-16fdeee5117d"/>
@@ -1129,6 +1129,616 @@
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA["The Coverage YOU selected does not include:"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="258" width="524" height="17" uuid="51189314-48e9-4a96-81cd-0f9f264e7b66"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["1. Any invoice presented to US for payment for services that were not performed as described at the time of authorization"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="276" width="524" height="17" uuid="672578bb-5126-4420-9052-801298a6ef55"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["2. Any invoice presented to US for payment for services that WE did not authorize. WE require the repair facility to obtain authorization from US before making any repairs unless such authorization requirements have been waived or modified in writing by US"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="294" width="524" height="17" uuid="897eb0f1-8839-440d-ae2e-1e07b98cce25"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["3. Any pre-existing condition or Mechanical Breakdown caused by a condition known to YOU or where there is sufficient reason to believe the breakdown was the result of a pre-existing condition, on or prior to the Contract Purchase Date."]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="313" width="524" height="17" uuid="1ede59fb-2dd7-4142-bf0c-bdec819477d7"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["4. Repairs covered by another entity, including the repair or replacement of a Covered Part pursuant to any Manufacturer's Warranty, pursuant to any other coverage, or for any other reason the Manufacturer, Dealer, insurer, importer, distributor, seller or repairer of the Equipment will repair or replace the part at its expense or at a reduced cost. Sole coverage for such repairs or replacements shall rest with the Manufacturer's Warranty or other coverage, regardless of whether the Manufacturer or other coverage provider honors their claim, because we relied on the existence of such coverage. If the other coverage only partially covers a repair, WE will pay the difference less any applicable deductible"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="331" width="524" height="17" uuid="07ea7ac7-a917-4eff-83e8-f61df28f02a6"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["5. Failure of a covered component that is due to wear"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="349" width="524" height="17" uuid="24693deb-e2aa-44b4-8b64-e5cc337b757c"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["6. Wear items, such as: dry clutch and brake discs, including brake bands (internal wet brakes are covered), batteries, tires, wheels, tracks, bogie wheels, external control cables, freeze plugs, rubber lines/hoses, heater and radiator hoses, exhaust system, shock absorbers, all ground-engaging tools, and undercarriage components that fail as a result of normal wear"]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="275">
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="2" width="524" height="17" uuid="ecd6b2e1-630b-42aa-a617-c802cdbbad3f"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["7. Correction of rattles, squeaks, wind noise or odor. Minor adjustments"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="20" width="524" height="17" uuid="c1c16711-9c8b-4272-8c73-c211e1b627ba"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["8. Maintenance items, such as: paint, wiper blades, lenses, bulbs, sealed beams, operating lights, warning lights, horn, seat assembly & controls, safety restraint systems and belts, engine tune-ups, supply items, filters, hydraulic oil filter media, tires, wheels, bogie wheels and mufflers"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="38" width="524" height="17" uuid="4bf6356b-f350-42cd-9d2f-62c17ee8028e"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["9. Body Parts subject to wear, such as: trim, moldings, sheet metal, door latches, handles or hinges, lock cylinders, bed liners, upholstery, vinyl, canvass, doors, glass, windows, mirrors, mirror brackets, and weather stripping"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="57" width="524" height="17" uuid="f3849f60-3ece-40bd-9363-59941744b3cd"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["10. Electronic systems and appliances not factory installed or factory endorsed including Failure of Covered Parts caused by the use of such systems, (e.g., Stereos, radios, CD Players, etc.)"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="75" width="524" height="17" uuid="d09afa33-3154-439e-be7f-bcebdd73aed8"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["11. Loss of time, inconvenience, bodily injury and property damage. Other incidental or consequential damage that results from a Mechanical Breakdown or Failure, including: the loss of use of any Equipment or the consequential loss of any nature whatsoever. Penalties for delay, detention, or in connection with guarantees of performance or efficiency. This Contract does not cover a Machine's downtime with relation to parts availability or job completion deadlines"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="93" width="524" height="17" uuid="81c82649-4ead-4937-bb3c-5bf1207bb9e7"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["12. Any expenses arising because the Equipment is not available for use"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="112" width="524" height="17" uuid="b8d3fd8a-d254-41f4-919b-a4532e34840e"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["13. Core charges or adjustments"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="130" width="524" height="17" uuid="6b622a9f-5fe4-4d0a-bb14-f7cd6d6afc6f"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["14. Storage or freight charges"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="148" width="524" height="17" uuid="27eabf7c-ec41-461a-b62c-18f815cc6a07"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["15. Hazardous waste disposal charges, environmental fees, shop supplies, EPA charges, and taxes."]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="167" width="524" height="17" uuid="f076d59a-e032-4b08-9220-00b9eefc984e"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["16. Repairs to any non-Covered Parts"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="185" width="524" height="17" uuid="4e36df49-bea5-4bb8-8d75-769be9625bde"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["17. The cost of establishing preventative procedures or the cost of recall by the Manufacturer of the covered Equipment or any part thereof"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="203" width="524" height="17" uuid="b47d8008-c542-4e67-947b-74923605501e"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["18. The cost of alterations, additions, improvements or overhauls"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="222" width="524" height="17" uuid="ecba49d4-3112-454b-b098-a0658f15ac12"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["19. Any Mechanical Breakdown or Failure:"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="28" y="240" width="518" height="17" uuid="76769879-4848-4f74-973e-a2083f7907c1"/>
+				<textElement textAlignment="Left" markup="html">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<ul><li>Caused by misuse, abuse, negligence (including the negligence of any repair facility), improper towing, or lack of maintenance of the failed-Covered Part;</li><li>Caused by any external cause, such as accidents, collision, upset damage , lightning, explosion, the extinguishing of a fire or subsequent demolition, aircraft and other aerial devices (or articles dropped there from), falling objects, collapse of buildings, theft (or any attempt of theft), larceny, malicious mischief, vandalism, civil commotion, riots, terrorism, war, subfreezing temperature, earthquake, tsunami, volcanic eruption (or other convulsion of nature), subsidence, landslide, rock fall, avalanche, hurricane, windstorm, tornado, typhoon, cyclone (or other atmospheric disturbances), hail, flood, inundation, escaping water from water containing apparatus, clearance of debris, demolition or dismantling arising from these causes;</li><li>Arising out of the Failure of an otherwise Covered Part that does not meet Manufacturer's specifications, including modification and/or alterations to the Equipment not approved by the Manufacturer's authorized representative or the Administrator;</li><li>Any loss, damage or expense caused by accidents, any alterations to the Machine or its parts not authorized by the Manufacturer. Use of undersized or oversized tires, wheels or tracks.</li><li>Failure of any part not covered by this Contract;</li><li>Caused by contamination, overheating, lack of oil viscosity, sludge, restricted oil or hydraulic fluid flow, salt, environmental damage, chemicals, rust and rust damage;</li><li>Caused by the application of any tool or process during the course of maintenance, inspection, modification or overhaul;</li><li>Transportation to and from the repair facility;</li><li>Covered by warranty, repairer’s guarantee, other service Contract, or insurance policy;</li><li>Caused by the imposition of abnormal conditions, directly or indirectly resulting from testing, intentional overloading or experiments;</li><li>Where it is determined that the service meter has been inaccurate, inoperative, or altered for more than one (1) month or two hundred (200) hours so that the Equipment's true usage cannot be verified;</li><li>That is a direct result of a mechanical or structural defect when the Manufacturer has announced a public recall or a product support program for the purpose of correcting such defect or the Mechanical Breakdown is the result of Epidemic Failure. (Epidemic Failure is defined as failure exhibiting the same root cause or symptom that appears to be attributable to, or caused by, a design or engineering defect that results in a failure rate greater than five (5) percent on equipment that WE cover. In the event of Epidemic Failure, the Manufacturer shall be notified of such failures Costs associated with the repair of Covered Parts resulting from an Epidemic Failure should be borne by the Manufacturer. However, WE may elect to pay a portion of any Claim which is the result of an Epidemic Failure and WE deem there are special circumstances that make the cost of the repair unduly burdensome on YOU. Such decisions are made at OUR sole discretion and do not represent a constructive change to this Contract. WE will also attempt to notify YOU whenever WE discover an Epidemic Failure that could affect YOU and WE will endeavor to devise a plan to mitigate YOUR risk to such failures.);</li><li>Due to continued operation and failure to protect the Equipment from further damage caused by lack of necessary coolants or lubricants, of a Covered Part which is damaged by fuel or lubricant contamination or rust;</li><li>That occurs prior to Contract Inception Date, or after this Contract's expiration;</li></ul>"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" mode="Transparent" x="22" y="258" width="524" height="17" uuid="6a91703d-2b84-4959-9028-c4f7ca510afa"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["20. Additional loss or damage which is occasioned by the Contract Holder or operator's failure to use all reasonable precautions to protect the Equipment from any further loss or damage after a Mechanical Breakdown or Failure has occurred"]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="272">
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="2" width="524" height="17" uuid="ae9b151c-8f13-4d1a-8ab0-19431ec9a889"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["21. Any wastage of material, wearing away or wearing out of any part of the Equipment caused by or resulting from ordinary usage, rust, boiler scale, other deposits, erosion, corrosion, cavitation or deterioration due to chemical or atmospheric conditions, or other scratching of painted or polished surfaces and or other environmental conditions"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="20" width="524" height="17" uuid="65b2324f-5f65-4ff3-9104-c2d117b1bdd4"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["22. Slowly developing, deformation, distortion, cracks, fractures, blisters, laminations, flaws or grooving or the making good of defective tube joints or other defective joints or seams unless such defects in damage are otherwise covered under this Contract"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="38" width="524" height="17" uuid="950de4a9-df4b-4362-b100-1de1b5acd9f9"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["23. Any Claim if the Equipment's hour meter has been altered, disconnected, is inoperable, or the actual hours on the Machine cannot be documented or reasonably estimated"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="57" width="524" height="17" uuid="15633ce4-b32e-4ff1-8adc-ce942cd53b2e"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["24. Any legal liability whatsoever of any nature arising out of the operation, maintenance or use of the Equipment, whether or not related to any of the Covered Parts or related to Mechanical Breakdown or Failure"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="75" width="524" height="17" uuid="71c1a87b-5a5a-4d9d-bdc1-5f082649f55c"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["25. Any consequential damages, including but not limited, to fire damage, secondary damages or unreasonable costs that YOU may suffer as a result of YOUR failure to repair or replaced a Covered Part in need of repair or replacement"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="93" width="524" height="17" uuid="e0ad38b3-ed33-420a-9084-60c3d5ae4d2b"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["26. Any engine damage resulting from the ingestion of dust and/or water through the engine's air intake system"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="112" width="524" height="17" uuid="9d3002be-22f2-45f5-853f-ca974b55e7df"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["27. Damage to a covered component that is caused by the Failure of a non-covered component"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="130" width="524" height="17" uuid="b9e97e0f-c550-4536-9239-087bde42cd6e"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["28. Any Claim related to a Mechanical Breakdown or Failure occurring outside the United States or Canada, unless Claims from another country are specifically allowed pursuant to the Terms."]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="149" width="524" height="17" uuid="6661f0cf-49d3-4d55-9e68-b3f77ada22c1"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<style isBold=\"true\" pdfFontName=\"Helvetica-Bold\" isUnderline=\"true\">Dispute Resolution Process</style>"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="167" width="524" height="17" uuid="10398326-9998-48ee-9585-4c9134a81674"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["In the event of any dispute concerning the interpretation of the Contract or OUR performance, WE recommend that you consider the following actions, in order, prior to requesting arbitration."]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="28" y="185" width="518" height="17" uuid="365a5597-c31f-4a84-be97-49cf9fd334ba"/>
+				<textElement textAlignment="Left" markup="html">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<ol><li>Contact the Chief Relationship Officer or the Director of Sales at AgGuard</li><li>Contact the Guarantor, Wild Jay, Inc.</li><li>Request that Wild Jay, Inc. present YOUR dispute to the Dealer Review Panel (a panel of equipment dealers who have no stake in the dispute and can provide rational perspective)</li></ol>"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="204" width="524" height="17" uuid="066d8f70-19f6-4b26-8d22-b56ad64c8760"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Reasonable people can disagree. This provision is intended to create an efficient and cost effective way of resolving disputes reasonably and respectfully. <style isUnderline=\"true\">WE will admit when WE are wrong, say WE are sorry and then do what WE can to make things right.</style>"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="236" width="524" height="17" uuid="1ecfcd4d-c99f-445c-8a4e-4b115f88519c"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">ARBITRATION:</style>"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="255" width="524" height="17" uuid="d397aa6e-c44d-4107-a702-930eb783e44b"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["YOU must first request arbitration from US in writing within sixty (60) days after YOU receive written notice that the dispute cannot be resolved. For Claims arbitration, written demand must be made to US within sixty (60) days of the denial of a Claim. All arbitration proceedings must be held in or near Kansas City unless another venue is agreed upon by all parties. YOU agree that all individual, class action, or other claims arising from or relating to this Contract, whether in contract, tort, pursuant to statute, regulation, ordinance or in equity or otherwise, are subject, at YOUR, the Dealer's, or the Guarantor's election, to neutral binding arbitration by The American Arbitration Association under the applicable AAA rules then in effect as modified by this Arbitration Provision. This includes, but is not limited to, Claims asserted by YOU against the Dealer, Guarantor, AgGuard LLC, their affiliates, and/or their and their affiliates' employees, officers, successors, or assigns. Any arbitration hereunder shall be governed by the Federal Arbitration Act (9 U.S.C. : 1 et seq.) and not by any state law concerning arbitration. The Arbitrator shall follow applicable statutes of limitations, shall honor claims of privilege recognized at law, and, if timely requested by either party, shall provide a brief written explanation of the award's basis. Each party shall be responsible for its own attorney, expert, or other fees unless applicable law provides otherwise. Any Claim or dispute is to be arbitrated on an individual basis and not as a class action. YOU expressly waive any right to arbitrate a class action or in a private attorney general capacity, and there shall be no joinder or consolidation of parties, except for parties to the same Contract. In the event of a conflict between this Arbitration Provision and any other applicable arbitration provision, the other provision's terms shall apply; provided however, that this Arbitration Provision's prohibition on classwide arbitration shall apply. If any portion of this Arbitration Provision is deemed invalid or unenforceable, it shall not invalidate the other provisions or the Contract; provided however, that if the provision prohibiting classwide arbitration is deemed invalid, then this entire Arbitration Provision shall be null and void. This Arbitration Provision shall not apply to any individual claim brought by YOU in small claims court, unless such claim is transferred, removed or appealed to a different court. Neither YOU, the Dealer, the Guarantor nor AgGuard LLC will have the right to have a jury trial on any Claim for which arbitration is elected. Discovery and rights to appeal are generally more limited than in a lawsuit, and other rights applicable in court may not be available in arbitration. This Arbitration Provision will survive any termination, payoff, or transfer of this Service Contract. Information regarding AAA and its procedures for filing a Claim can be found at www.adr.org."]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="154">
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="4" width="524" height="17" uuid="1be3ab9c-86be-433b-944c-a78644671383"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">SUBROGATION</style>"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="22" width="524" height="17" uuid="c1c71e2f-cf4d-47d2-aa63-727dffdf28ea"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["YOU agree that WE, after honoring a Claim on YOUR Contract, have all rights of subrogation against those who may be responsible for YOUR Mechanical Breakdown or Failure. YOU shall do whatever is necessary to secure such rights on OUR behalf. YOU shall do nothing to prejudice such rights and YOU shall execute and deliver to US instruments and papers required to either secure or maintain such rights. All amounts recovered by YOU, for which YOU were previously reimbursed under this Contract, shall become OUR property or the property of OUR designee and shall be forwarded to same by YOU, up to the total amount paid by US under this Contract. OUR subrogation rights become effective after YOU are made whole."]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="42" width="524" height="17" uuid="9783fadd-146c-4819-9ddb-5adeaf58ef1c"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">TRANSFER OF THIS CONTRACT</style>"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="60" width="524" height="17" uuid="957e9ccd-4054-44c1-8a6b-64f7d66decc7"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["WE believe that this Contract adds value to YOUR Equipment and should enhance the value of the Machine when sold or traded. Therefore, WE encourage the transfer of the Contract to new owners; however, to transfer the Contract YOU must contact US and submit the following:"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="28" y="78" width="518" height="17" uuid="a05229a2-2a6d-4ca8-85ba-b74ff36607cb"/>
+				<textElement textAlignment="Left" markup="html">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<ul><li>Written evidence verifying all maintenance requirements have been met, (e.g., service logs or a certification from the Dealer)</li><li>Documentation evidencing the change of ownership and service Hours at date of sale. (e.g., the title or notarized bill of sale)</li><li>Proof that the Manufacturer has been notified of the transfer of the factory warranty, if applicable</li><li>This Contract cannot be transferred to a different Machine. (However, YOU may be able to exchange this Contract for a new, discounted Contract.) This Contract can only be transferred to a different owner.</li><li>The Equipment is subject to inspection and diagnostic testing.</li><li>Transfer must take place within fifteen (15) days of a change of ownership, unless WE expressly allow an extension of time.</li><li>All remaining warranties on the Machine must also be transferred to the new owner.</li><li>Failure to notify the Administrator of the transfer will void the remaining Contract period.</li><li>There is a nominal \$50 charge for transferring the Contract to be paid to the Dealer. A new Contract will be prepared and delivered to the new owner and that new Contract will replace and supersede this Contract.</li></ul>"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="98" width="524" height="17" uuid="32b37aef-917e-4327-8708-e36da9b8d48f"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["This Contract will be binding upon and enure to the benefit of YOUR heirs, executors, administrators, successors and permitted assigns."]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="119" width="524" height="17" uuid="7299ed53-76f3-4a40-9f1e-9a1e0519d3a7"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">GENERAL:</style>"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="137" width="524" height="17" uuid="bad74d2a-1636-4d86-92d9-e2a7e22edbbb"/>
+				<textElement textAlignment="Left" markup="html">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<ol><li>The terms and conditions outlined above are the full and complete agreement between the parties. <br><b>No oral representation or statement should be relied upon by any party to this Contract.</b></li><li>If any provision of this Contract is held unenforceable, then such provision will be modified to reflect the parties' intention. All remaining provisions of this Contract shall remain in full force and effect.</li><li>If any of the Terms or Coverage in this Contract is not clear to YOU, or if YOU discover that the Terms and Coverage do not match with what YOU thought YOU purchased from the Dealer, please contact the Dealer or the Administrator. Hopefully WE can clarify the Terms for YOU or modify the Coverage to meet your needs. However, if you remain unsatisfied, you have up to 90 days to cancel this Contract (see the section titled \"Cancellation\" above). Only YOU can truly determine if this Contract is a good value and WE want YOU to be satisfied that it does.</li><li>This Contract will be governed by the laws of the state of Kansas. However, WE will abide by consumer protection rules of the state of the Contract Holder or the Dealer if they provide a greater level of consumer protection.</li><li>WE may delegate the performance of OUR duties and obligations and assign OUR rights and benefits hereunder. No amendment, supplement, or waiver of any provision of this Contract will be binding against US unless it is in writing and signed by US.</li><li>Failure by US to require performance of any provision of this Contract shall not affect OUR right to require performance at any time thereafter, nor shall a waiver of any breach or default of this Contract constitute a waiver of any subsequent breach or default or a waiver of the provision itself.</li><li>WE may elect to pay a Claim for which WE are not contractually obligated if WE deem there are special circumstances that make enforcement of the terms of the Contract inappropriate or unduly burdensome on YOU. Such decisions are made at OUR sole discretion and do not represent a constructive change to this Contract. Such Claims will be paid from a special reserve account so as not to affect OUR actuarial analysis. For example, we waived the cancelation and subrogation provisions for equipment lost during Hurricane Katrina and either returned the purchase price or applied it to contracts on replacement equipment. We do not want this Contract to ever prevent US from doing \"what is right\" for our customers.</li></ol>"]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="314">
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="4" width="524" height="17" uuid="a1a1ee4b-cdf4-479a-b208-a93deb5073bf"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">PAYMENTS:</style>"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="23" width="524" height="17" uuid="02e46af6-300a-49f3-b093-2aa923bd94e4"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["WE will pay the repair facility for authorized repairs covered under this Contract. If a repair facility charges YOU directly for repairs that may have otherwise been covered under this Contract, YOU may submit copies of all invoices and receipts pertaining to the repairs along with a copy of page 1 of this Contract and a letter requesting WE pay for the repair. Send your request by mail to the Administrator."]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="42" width="524" height="17" uuid="cd1aae17-2965-4929-9305-964d8043c9e0"/>
+				<textElement textAlignment="Center" markup="styled">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["\"We measure the time to process and make Claims payments in hours, not in days!\""]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="60" width="524" height="17" uuid="0cd4c5d8-0bf0-4f8c-8cfe-06dfb99a7141"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">THE CLAIMS PROCESS:</style>"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="78" width="524" height="17" uuid="e8e9dc8f-db7a-4be5-89b4-a891865e0540"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["WE have attempted to keep the Claims handling process as simple as possible. The initial decision as to whether or not a Mechanical Breakdown is a covered Failure is made by the service or warranty manager of the Dealership or repair facility."]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="98" width="524" height="17" uuid="e1b942c5-c615-47ee-a5fb-ebfd22cc9f35"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["It is <style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">YOUR</style> responsibility to protect the Equipment from further damage,"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="118" width="524" height="17" uuid="c3058554-0ad0-418a-b9b1-c7a4bdf75133"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["It is <style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">YOUR</style> to notify the Administrator before starting any repairs"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="139" width="524" height="17" uuid="ec0f3d2d-9835-4d4f-a187-19446c33f068"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["It is then <style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">YOUR</style> responsibility to file the claim with the Administrator"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="159" width="524" height="17" uuid="07daaaa5-93a0-4be7-96fb-a2e9d181796f"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">Step1 (Obtain authorization to start the repair):</style> If the Failure is deemed to be a covered by the Contract, the repair facility should submit a repair estimate via the AgGuard website (<style isBold=\"true\" pdfFontName=\"Helvetica-Bold\" isUnderline=\"true\">www.agguard.com/claims</style>). The repair estimate should be filed with AgGuard within 90 days of Failure. If the repair estimate is over one thousand five hundred dollars (\$1,500.00) or if diagnostic cost is over (\$500) then the repair facility must contact AgGuard before proceeding with the repair-unless a higher amount for that repair facility has been agreed to and authorized by AgGuard in writing. Failure to pre-notify US could disqualify the Claim."]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="179" width="524" height="17" uuid="4d996ad0-8ad1-4383-ba76-1f3991a2e5cb"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["YOU must authorize any work on the Machine; therefore, all repair options and considerations should be presented to YOU, no matter what the estimated cost, before any work is done. If We authorize a repair, you must also authorize the repair before the facility begins work. After all, it is your Machine."]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="200" width="524" height="17" uuid="4f1ec3fa-dec3-49ec-839f-d00b45b3d0d7"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">Step2:(Submit the Claim):</style> The section below \"How to Make a Claim\" provides specific directions on how to successfully submit a claim and receive quick resolution."]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="221" width="524" height="17" uuid="84fa31d1-5a4d-46c1-a770-96c6cc95182d"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">Step3: (Get Paid):</style> Upon receipt, OUR staff will carefully review the Claim. If there are no apparent discrepancies, questions, or missing information, a member of the claims staff will determine that:"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="239" width="524" height="17" uuid="7f51e09b-dccd-4482-86b3-baf558d6e111"/>
+				<textElement textAlignment="Left" markup="html">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<ol><li>The Machine is covered, that it has been properly reported and WE have received payment for the Contract</li><li>The loss occurred after the expiration of the Manufacturer's Warranty (or any other coverage) and before the expiration of the Contract</li><li>The loss amount is less than the limit of liability</li><li>The appropriate repair strategy was followed and cost for parts and labor is reasonable</li><li>Coverage will then be determined based on the terms, conditions and exclusions of the Contract</li></ol>"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="259" width="524" height="17" uuid="627caeba-e92d-49bb-a350-15e7453fecc4"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["If the Claim is authorized, then a check is issued to the repair facility less any items that are not covered (e.g., overtime, labor costs, travel, mileage, freight, etc.). If there is an issue, we work to resolve it as soon as possible and provide clear communication to you and the repair facility about the status of the claim."]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="279" width="524" height="17" uuid="b31ccf10-7654-4954-bb74-31ac2c14d286"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">HOW TO MAKE A CLAIM:</style>"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="297" width="524" height="17" uuid="0a34ab38-5fcc-4ae2-afd6-3e4a664d15c5"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["When repairs are required, YOU or the repair facility must contact the Administrator to receive instructions. If YOU or the repair facility does not follow the Administrator's instructions, WE may not be obligated to reimburse YOU for the cost of any repairs."]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="290">
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="3" width="524" height="17" uuid="14ee3c85-e779-4737-96b5-588cabaa1270"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Authorization must be obtained from the Administrator prior to having YOUR Machine repaired.(If you were paying for the repair, you would want the opportunity to authorize any repairs or any significant change to the estimated repair cost before work started-we are no different.) Unless WE have entered into a special agreement with a repair facility any repair over \$1,500 must be preauthorized."]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="23" width="524" height="17" uuid="567ec9dc-cbb8-4557-9e62-79622ccfac42"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["WE reserve the right to inspect any Machine before authorization of any repairs."]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="43" width="524" height="17" uuid="c0cae30d-aa66-4202-8d9f-c6aeb16d612d"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["YOU may be required to supply the Administrator with all maintenance records for service performed on the Equipment along with photographs, the results of diagnostic tests and any samples WE may reasonably request that will help US to better understand the nature of the Failure."]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="63" width="524" height="17" uuid="a775c230-3683-4483-8263-bb2c6767db42"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["In the event of an emergency situation and the Administrator cannot be reached, YOU can proceed with repairs, but payment will be in accordance with the other provisions of this Contract."]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="82" width="524" height="17" uuid="4882aaeb-a86c-4761-bf4e-83fe66c1641a"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["If the cost of repair is greater than \$1,500, then YOU or the repair facility must, if requested, provide the Administrator with adequate photographic evidence of the affected parts, or preserve the parts affected and make them available for inspection by the Administrator or its agent."]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="101" width="524" height="17" uuid="fc13b22a-d113-4ace-b5c6-a8628fe0dffc"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["When requesting authorization to begin work or submitting the Claim on the Ag Guard website ( <style isBold=\"true\" pdfFontName=\"Helvetica-Bold\" isUnderline=\"true\">www.agguard.com/claims</style>) YOU must provide all of the required information WE request. In addition, YOU must provide a detailed analysis of the Failure that describes:"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="121" width="524" height="17" uuid="91168f92-1521-4acd-a432-02e02c2d23d5"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<style isBold=\"true\" pdfFontName=\"Helvetica-Bold\" isUnderline=\"true\">Situation:</style> When the Machine failed, <style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">where</style> the Equipment was located and <style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">how</style> the Failure occurred. <style isItalic=\"true\">(For example: On June 22, 2012, on flat, dry ground while planting, the hydraulics would not respond.)</style>"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="141" width="524" height="17" uuid="aab36cf8-071f-46f0-ab7e-b34e3cd80753"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<style isBold=\"true\" pdfFontName=\"Helvetica-Bold\" isUnderline=\"true\">Cause:</style> Why the Failure occurred and <style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">what</style> failed, if known. <style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">Identify the specific manufacturing defect</style>. Avoid oversimplifications, such as \"failed\" or \"leaked,\" without an explanation of what caused the Failure and why the Failure should be covered. If the cause cannot be determined, indicate this and provide information proving the Machine was properly maintained and used as designed. <style isItalic=\"true\">(For example: the hydraulics failed because of a bad main seal causing instant loss of pressure.)</style>"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="160" width="524" height="17" uuid="61ff2275-4caa-4165-a2ef-9e2ee15a6702"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<style isBold=\"true\" pdfFontName=\"Helvetica-Bold\" isUnderline=\"true\">Recommendation for repair:</style>"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="178" width="524" height="17" uuid="a0418b15-c707-45fe-8191-708995cefbb5"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["In addition to describing the strategy for repair, this should also include a repair estimate detailing parts and prices along with the estimated labor and rates. If possible, photos should be attached showing the Failure and any affected parts."]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="198" width="524" height="17" uuid="1eefbca9-341d-4800-86bd-4758879da4ec"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<style isBold=\"true\" pdfFontName=\"Helvetica-Bold\" isUnderline=\"true\">How could this Failure have been avoided:</style>"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="216" width="524" height="17" uuid="d01afe16-cfd4-4680-8e8e-58bb079f8ab0"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Rule out any service bulletins, field bulletins, recalls, programs, etc. related to the component and group. By better understanding the Failure, a repair can be made that is efficient, effective and will not lead to a repeat Failure. This feedback is also valuable, because WE want to help develop best practices for the repair and give advice to manufactures on product reliability. <style isItalic=\"true\">(For example: The seal does not appear to be sturdy enough for the operating pressures that are typical with this pump. It is unlikely that the owner or any service could have prevented this Failure. The pump needs better seals. No bulletins or recalls address this issue.)</style>"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="236" width="524" height="17" uuid="56c0414a-0ef0-43e5-a6d2-7be5fa3bf2e2"/>
+				<textElement textAlignment="Left" markup="html">
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Substantiation is the best way to avoid disputes. Provide robust information about the Claim. The following are typical examples of information that should be included with a Claim or pre-authorization request:<br><br>Invoice with itemized parts and labor;<br><br>Copy of any parts invoice over \$500 or involving a core deposit;<br><br>Diagrams from a parts book and identification of Failed parts/components; Manufacturer's flat rate or time estimate for repair; Photos of the Machine, any involved filter (showing ID and any other markings), and detailed photos indicating how the Failure occurred and what parts were affected. (Photos should be attached to Claim as a .jpg file);<br><br>Any other documentation, evidence or descriptions that support the Claim."]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="254" width="524" height="17" uuid="e0a3cf64-7570-4fce-8ccc-ad4bb1cb4fdd"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<style isBold=\"true\" pdfFontName=\"Helvetica-Bold\" isUnderline=\"true\">Labor Charges</style>"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="273" width="524" height="17" uuid="d1120424-70fc-428a-aef0-b21ecec28b00"/>
+				<textElement textAlignment="Left" markup="html">
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["We pay overtime at standard time rates only.<br><br>An explanation of labor rate and hours charged on the repair invoice will expedite the Claim.<br><br>We adjust labor in accordance with the Manufacturer's time requirement guidelines. If the Claim being filed is more than the Manufacturer's time guide, please provide an explanation for the extra time. This allows our claims administrators to consider exceptions."]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="158">
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="1" width="524" height="17" uuid="ce547706-9907-4547-8fbf-a805a94e8ad2"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<style isBold=\"true\" pdfFontName=\"Helvetica-Bold\" isUnderline=\"true\">Pictures</style>"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="20" width="524" height="17" uuid="807f1875-dfa7-4594-872d-e615ad4e2cd6"/>
+				<textElement textAlignment="Left" markup="html">
+					<font fontName="SansSerif" size="10"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Pictures of parts should attempt to show the cause of Failure or the extent of the damage. A picture of the outside of a component will not help visually verify an internal part Failure.<br>Pictures should generally be taken as close as possible to the part to show detail.<br>Digital photo's should be sent to US as .PJG files, (They can also be mailed if necessary).<br><b>Manufacturer's Warranty Period, Recalls, AND Product Improvements</b><br>Our coverage begins the day after the Manufacturer's warranty expires. If a unit is still under factory coverage and a Claim occurs, it must be filed with the Manufacturer.<br>If the Manufacturer's warranty period has expired and a Claim is covered by a Manufacturer recall or Product Support Program, the Claim must be filed with the Manufacturer. Our coverage will not apply in such an instance. If a Manufacturer's recall or Product Support Program only partially covers a Claim, the Claim may be submitted to US for review. We will require a full explanation of what the Manufacturer allowed along with a copy of the Manufacturer's settlement statement."]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="40" width="524" height="17" uuid="2f68efc8-abe7-4a2c-a0ca-64a291afc818"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<style isBold=\"true\" pdfFontName=\"Helvetica-Bold\" isUnderline=\"true\">Replacement versus Repair Cost</style>"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="60" width="524" height="17" uuid="66b1fdb8-c41a-47e5-8cf0-92434258ad1d"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["We allow the use of exchange components under certain circumstances. The guidelines are as follows: The cost to repair the failed component meets or exceeds 70% of the value of a remanufactured or new exchange component. If the repair cost falls under 70%, the failed component should be repaired and WE will pay only for parts and labor associated with the actual failed parts. In an exchange unit WE will not pay for parts which have not failed, but due to normal wear and tear need to be replaced to bring the component back to new exchange specifications."]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="80" width="524" height="17" uuid="fbf4b732-0e25-40ec-9131-94cc046f3f64"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<style isBold=\"true\" pdfFontName=\"Helvetica-Bold\" isUnderline=\"true\">Save the Old Parts, Fluids and Cores</style>"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="99" width="524" height="17" uuid="11a6fa4e-7aac-4acc-b370-fc8838775b6b"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Save the Failed component and parts related to the Failure until the Claim is resolved. Occasionally WE may need to have parts sent to US. We will ask for these parts within 30 days of a Claim being received. We will return the parts as quickly as possible. If there is a rush to get the parts back, notify US and WE will ship the parts back to you within three business days of receiving them. Save involved/related compartment fluid samples until the Claim is resolved in case the samples are needed to determine the cause of the Failure. We may direct you to deliver a core for rebate/deposit or to reduce the cost of the Claim if the core has residual value."]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="121" width="524" height="17" uuid="ac2a74e4-8933-4d50-a283-3ec6f5bd58dd"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">CONTACT INFORMATION</style>"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="141" width="214" height="17" uuid="6919f036-a89b-4e87-b9aa-cc9bc69daf9a"/>
+				<textElement textAlignment="Left" markup="html">
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["AgGuard<br>21295 Hollingsworth Rd<br>Tonganoxie, KS 66086<br>Phone 816.223.1978<br>AgGuard.com<br>Customer Service: info@agguard.com"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="259" y="141" width="219" height="17" uuid="ee4b1ba7-cb77-4df9-b77f-05cd068d5e68"/>
+				<textElement textAlignment="Left" markup="html">
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<br>Wild Jay, Inc., as Guarantor for AgGuard<br>PO Box 2033<br>Mission, Kansas 66201-1033<br>WildJinc.com"]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="240">
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="8" width="524" height="17" uuid="0d36f811-a2db-4cab-a7bf-51f887b3ceda"/>
+				<textElement textAlignment="Left" markup="styled">
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">ACCEPTANCE AND Consummation of this Contract</style>"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="22" y="28" width="524" height="17" uuid="427dd953-b45a-4fb3-bb1c-548bb10a2a20"/>
+				<textElement textAlignment="Left" markup="html">
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["This Contract does not need to be signed to be accepted and executed. However, WE do ask that YOU and the Dealer review the Contract together and initial the following six (6) statements. This helps ensure that YOU understand the Terms of this Contract which prevents confusion and hard feelings later in our relationship.<br><br>The Contract Holder, Dealer and Guarantor, (the \"Parties) agree to be contractually bound by this Contract based on the <u>offer</u> agreed to by the Guarantor and made to the Contract Holder by the Dealer. The offer was made at the Contract Price listed below according to the terms detailed herein with the <u>intent</u> that it be mutual and binding. No material terms of the Contract are open for negotiation. There is a <u>meeting of the minds</u>; each party's consent to <u>accept</u> the terms of this Contract is exemplified by the following actions and <u>consideration</u>:<ul><li>Dealer: Offer of Contract to Contract Holder, acceptance of terms and Price quoted by Administrator</li><li>Contract Holder: Acceptance of terms and payment of Contract Price to Dealer</li><li>Guarantor: Invoice to Dealer and receipt of good funds for the invoiced amount</li></ul><br>This Contract may be cancelled according to the provisions detailed in the Cancellation section above and it is subject to Arbitration Provision which will survive any termination, payoff, or transfer of this Contract.<br>An electronic copy of this Contract will be provided to the Parties by the Guarantor and a hard copy will be mailed to any party at any time upon their request.<br><br>It is beneficial to ensure the purchaser has a clear understanding of the Contract's terms and conditions and the Dealer has explained them adequately. Please acknowledge by initialing below.<ol><li>I have reviewed the <i>Coverage, Equipment Description, Contract Holder and Dealer Information</i> sections of the Contract below and they are accurate.</li><li>I have reviewed the <i>Your Responsibilities</i> section above and understand that I must: service the Machine as recommended by the Manufacturer and maintain good service records; protect the Equipment from further damage if a Failure occurs; submit Claims within 90 days of a Failure; and notify the Administrator of any proposed alterations or additions to the Equipment and of any proposed departure from ordinary working conditions.</li><li>I have reviewed the covered parts and components as well as the excluded parts and components and I have a firm understand of the coverage.</li><li>I understand the Claims process and how to make a Claim. I understand that any Claim that exceeds \$1,000 and any diagnostics needed prior to a Claim that exceed \$500 will require preauthorization from AgGuard.</li><li>I understand that this Contract is transferrable and can be used to enhance the market value of the equipment.</li><li>If I had questions, I asked and received satisfactory explanations. I understand that if I have \"buyer's remorse\" I can cancel this Contract according to the terms in the Cancellation section.</li></ol><br><br>Customer Signature:______________________________ &emsp;&emsp;Date:__________________<br><br><br>Customer Name:________________________________"]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
