@@ -10,7 +10,9 @@
 				currently have a recommended markup.</div>
 			<div class="col-xs-12 no-pad">
 				<div class="col-sm-5 no-pad">
-					<input type="text" id="dealerMarkup" name="dealerMarkup" ng-model="quote.dealerMarkup" placeholder="Dealer Markup" class="form-control" required>
+					<div class="form-group">
+						<input type="text" id="dealerMarkup" name="dealerMarkup" ng-model="quote.dealerMarkup" placeholder="Dealer Markup" class="form-control" required="required">
+					</div>
 					<input type="radio" id="dealerMarkupVlaue" name="dealerMarkupVlaue" ng-model="quote.dealerMarkupType" value="price" class=""> Price 
 					<input type="radio" id="dealerMarkupVlaue" name="dealerMarkupVlaue" ng-model="quote.dealerMarkupType" value="percent" class=""> Percentage
 				</div>
@@ -101,7 +103,7 @@
 			<div class="col-sm-6">
 				<div class="form-group">
 					<label>*Name/Nickname</label> 
-					<input type="text" id="dealerName" name="dealerName" ng-model="quote.dealerName" placeholder="Dealer Name" class="form-control" required>
+					<input type="text" id="dealerName" name="dealerName" ng-model="quote.dealerName" placeholder="Dealer Name" class="form-control" required="required">
 				</div>
 				<div class="form-group">
 					<label>Address</label> 
@@ -113,7 +115,7 @@
 				</div>
 				<div class="form-group">
 					<label>State/Province</label> 
-					<select class="form-control" name="dealerState" ng-model="quote.dealerState" id="dealerState" required="required">
+					<select class="form-control" name="dealerState" ng-model="quote.dealerState" id="dealerState">
 						<option value="">Select State/Province</option>
 						<option value="AL">Alabama</option>
 						<option value="AK">Alaska</option>
@@ -183,11 +185,11 @@
 				</div>
 				<div class="form-group">
 					<label>Zip</label> 
-					<input type="text" id="dealerZip" name="dealerZip" ng-model="quote.dealerZip" placeholder="Zip" class="form-control" required="required">
+					<input type="text" id="dealerZip" name="dealerZip" ng-model="quote.dealerZip" placeholder="Zip" class="form-control">
 				</div>
 				<div class="form-group">
 					<label>Phone Number</label> 
-					<input type="text" id="dealerPhone" name="dealerPhone" ng-model="quote.dealerPhone" placeholder="Phone Number" class="form-control" required="required">
+					<input type="text" id="dealerPhone" name="dealerPhone" ng-model="quote.dealerPhone" placeholder="Phone Number" class="form-control">
 				</div>
 				<div class="form-group">
 					<label>Email Address</label> 
@@ -218,6 +220,6 @@
 	other options. </span>
 
 <div class="col-sm-12 no-pad t-c marg10-top marg10-bottom">
-	<button type="button" class="btn btn-primary" ng-click="changeTab(3, coverageInfoForm)"> Continue to Quote Summary</button>
+	<button type="submit" class="btn btn-primary" ng-click="changeTab(3, coverageInfoForm)"> Continue to Quote Summary</button>
 </div>
 </form>

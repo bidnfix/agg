@@ -367,11 +367,11 @@ public class ProgramServiceImpl implements ProgramService {
 				CustomerInfo custInfo = new CustomerInfo();
 				custInfo.setQuoteId(quoteId);
 				custInfo.setName(custDO.getName());
-				custInfo.setAddress(custDO.getAddress());
+				custInfo.setAddress((custDO.getAddress() != null)?custDO.getAddress():"");
 				custInfo.setCity(custDO.getCity());
-				custInfo.setState(custDO.getState());
-				custInfo.setZip(custDO.getZip());
-				custInfo.setPhone(custDO.getPhone());
+				custInfo.setState((custDO.getState() != null)?custDO.getState():"");
+				custInfo.setZip((custDO.getZip() != null)?custDO.getZip():"");
+				custInfo.setPhone((custDO.getPhone() != null)?custDO.getPhone():"");
 				custInfo.setEmail(custDO.getEmail());
 				custInfo.setRemorse((quoteDO.isCustRemorsePeriod())?(byte)1:(byte)0);
 				custInfo.setUnderstand((quoteDO.isCustUnderstandCoverage())?(byte)1:(byte)0);

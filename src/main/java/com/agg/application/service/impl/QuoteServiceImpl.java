@@ -388,15 +388,15 @@ public class QuoteServiceImpl implements QuoteService {
 			
 			CustomerInfo customerInfo = new CustomerInfo();
 			customerInfo.setQuoteId(quoteDO.getQuoteId());
-			customerInfo.setAddress(quoteDO.getDealerAddress());
+			customerInfo.setAddress((quoteDO.getDealerAddress() != null)?quoteDO.getDealerAddress():"");
 			customerInfo.setCity(quoteDO.getDealerCity());
 			customerInfo.setEmail(quoteDO.getDealerEmail());
 			customerInfo.setName(quoteDO.getDealerName());
-			customerInfo.setPhone(quoteDO.getDealerPhone());
+			customerInfo.setPhone((quoteDO.getDealerPhone() != null)?quoteDO.getDealerPhone():"");
 			customerInfo.setRemorse((quoteDO.isCustRemorsePeriod())?(byte)1:(byte)0);
-			customerInfo.setState(quoteDO.getDealerState());
+			customerInfo.setState((quoteDO.getDealerState() != null)?quoteDO.getDealerState():"");
 			customerInfo.setUnderstand((quoteDO.isCustUnderstandCoverage())?(byte)1:(byte)0);
-			customerInfo.setZip(quoteDO.getDealerZip());
+			customerInfo.setZip((quoteDO.getDealerZip() != null)?quoteDO.getDealerZip():"");
 			customerInfo.setLastUpdate(new Date());
 			
 			//TODO
@@ -492,17 +492,21 @@ public class QuoteServiceImpl implements QuoteService {
 			//purchased status to 4
 			quote.setStatus(AggConstants.B_QUOTE_STATUS_PURCHASE_REQUESTED);
 			
-			CustomerInfo customerInfo = new CustomerInfo();
-			customerInfo.setQuoteId(quoteDO.getQuoteId());
-			customerInfo.setAddress(quoteDO.getDealerAddress());
+			CustomerInfo customerInfo = null;
+			customerInfo = customerInfoDAO.findOne(quoteDO.getQuoteId());
+			if(customerInfo == null){
+				customerInfo = new CustomerInfo();
+				customerInfo.setQuoteId(quoteDO.getQuoteId());
+			}
+			customerInfo.setAddress((quoteDO.getDealerAddress() != null)?quoteDO.getDealerAddress():"");
 			customerInfo.setCity(quoteDO.getDealerCity());
 			customerInfo.setEmail(quoteDO.getDealerEmail());
 			customerInfo.setName(quoteDO.getDealerName());
-			customerInfo.setPhone(quoteDO.getDealerPhone());
+			customerInfo.setPhone((quoteDO.getDealerPhone() != null)?quoteDO.getDealerPhone():"");
 			customerInfo.setRemorse((quoteDO.isCustRemorsePeriod())?(byte)1:(byte)0);
-			customerInfo.setState(quoteDO.getDealerState());
+			customerInfo.setState((quoteDO.getDealerState() != null)?quoteDO.getDealerState():"");
 			customerInfo.setUnderstand((quoteDO.isCustUnderstandCoverage())?(byte)1:(byte)0);
-			customerInfo.setZip(quoteDO.getDealerZip());
+			customerInfo.setZip((quoteDO.getDealerZip() != null)?quoteDO.getDealerZip():"");
 			customerInfo.setLastUpdate(new Date());
 			
 			//TODO
@@ -1061,17 +1065,17 @@ public class QuoteServiceImpl implements QuoteService {
 			CustomerInfo customerInfo = customerInfoDAO.findOne(quoteDO.getQuoteId());
 			if(customerInfo == null){
 				customerInfo = new CustomerInfo();
+				customerInfo.setQuoteId(quoteDO.getQuoteId());
 			}
-			customerInfo.setQuoteId(quoteDO.getQuoteId());
-			customerInfo.setAddress(quoteDO.getDealerAddress());
+			customerInfo.setAddress((quoteDO.getDealerAddress() != null)?quoteDO.getDealerAddress():"");
 			customerInfo.setCity(quoteDO.getDealerCity());
 			customerInfo.setEmail(quoteDO.getDealerEmail());
 			customerInfo.setName(quoteDO.getDealerName());
-			customerInfo.setPhone(quoteDO.getDealerPhone());
+			customerInfo.setPhone((quoteDO.getDealerPhone() != null)?quoteDO.getDealerPhone():"");
 			customerInfo.setRemorse((quoteDO.isCustRemorsePeriod())?(byte)1:(byte)0);
-			customerInfo.setState(quoteDO.getDealerState());
+			customerInfo.setState((quoteDO.getDealerState() != null)?quoteDO.getDealerState():"");
 			customerInfo.setUnderstand((quoteDO.isCustUnderstandCoverage())?(byte)1:(byte)0);
-			customerInfo.setZip(quoteDO.getDealerZip());
+			customerInfo.setZip((quoteDO.getDealerZip() != null)?quoteDO.getDealerZip():"");
 			customerInfo.setLastUpdate(new Date());
 			
 			//TODO
@@ -1199,17 +1203,21 @@ public class QuoteServiceImpl implements QuoteService {
 			
 			quote.setStatus(AggConstants.B_QUOTE_STATUS_INVOICED);
 			
-			CustomerInfo customerInfo = new CustomerInfo();
-			customerInfo.setQuoteId(quoteDO.getQuoteId());
-			customerInfo.setAddress(quoteDO.getDealerAddress());
+			CustomerInfo customerInfo = null;
+			customerInfo = customerInfoDAO.findOne(quoteDO.getQuoteId());
+			if(customerInfo == null){
+				customerInfo = new CustomerInfo();
+				customerInfo.setQuoteId(quoteDO.getQuoteId());
+			}
+			customerInfo.setAddress((quoteDO.getDealerAddress() != null)?quoteDO.getDealerAddress():"");
 			customerInfo.setCity(quoteDO.getDealerCity());
 			customerInfo.setEmail(quoteDO.getDealerEmail());
 			customerInfo.setName(quoteDO.getDealerName());
-			customerInfo.setPhone(quoteDO.getDealerPhone());
+			customerInfo.setPhone((quoteDO.getDealerPhone() != null)?quoteDO.getDealerPhone():"");
 			customerInfo.setRemorse((quoteDO.isCustRemorsePeriod())?(byte)1:(byte)0);
-			customerInfo.setState(quoteDO.getDealerState());
+			customerInfo.setState((quoteDO.getDealerState() != null)?quoteDO.getDealerState():"");
 			customerInfo.setUnderstand((quoteDO.isCustUnderstandCoverage())?(byte)1:(byte)0);
-			customerInfo.setZip(quoteDO.getDealerZip());
+			customerInfo.setZip((quoteDO.getDealerZip() != null)?quoteDO.getDealerZip():"");
 			customerInfo.setLastUpdate(new Date());
 			
 			//TODO

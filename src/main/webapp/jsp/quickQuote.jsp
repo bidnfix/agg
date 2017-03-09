@@ -403,7 +403,7 @@
                        </div>
                        <div class="form-group">
                          <label>State/Province</label>
-                         <select class="form-control" name="dealerState" ng-model="quote.dealerState" id="dealerState"  validate-on="dirty" required="required" ng-disabled="disabled">
+                         <select class="form-control" name="dealerState" ng-model="quote.dealerState" id="dealerState"  ng-disabled="disabled">
 							<option value="">Select State/Province</option>
 							<option value="AL">Alabama</option>
 							<option value="AK">Alaska</option>
@@ -473,15 +473,15 @@
                        </div>
                        <div class="form-group">
                          <label>Zip</label>
-                         <input type="text" id="dealerZip" name="dealerZip" ng-model="quote.dealerZip" placeholder="Zip" class="form-control"  validate-on="dirty" required="required" ng-disabled="disabled">
+                         <input type="text" id="dealerZip" name="dealerZip" ng-model="quote.dealerZip" placeholder="Zip" class="form-control"  ng-disabled="disabled">
                        </div>
                        <div class="form-group">
                          <label>Phone Number</label>
-                         <input type="text" id="dealerPhone" name="dealerPhone" ng-model="quote.dealerPhone" placeholder="Phone Number" class="form-control"  validate-on="dirty" required="required" ng-disabled="disabled">
+                         <input type="text" id="dealerPhone" name="dealerPhone" ng-model="quote.dealerPhone" placeholder="Phone Number" class="form-control"  ng-disabled="disabled">
                        </div>
                        <div class="form-group">
                          <label>Email</label>
-                         <input type="text" id="dealerEmail" name="dealerEmail" ng-model="quote.dealerEmail" placeholder="Email" class="form-control"  validate-on="dirty" ng-disabled="disabled">
+                         <input type="text" id="dealerEmail" name="dealerEmail" ng-model="quote.dealerEmail" placeholder="Email" class="form-control"  ng-disabled="disabled">
                        </div>
                        <div class="checkbox">
                          <label>

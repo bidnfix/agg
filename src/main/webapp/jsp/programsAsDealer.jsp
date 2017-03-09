@@ -180,7 +180,7 @@
 						<div class="form-group">
 							<label>State/Province</label> <select class="form-control"
 								name="state" ng-model="program.customerInfoDO.state" id="state"
-								validate-on="dirty" required="required" ng-disabled="disabled">
+								ng-disabled="disabled">
 								<option value="">Select State/Province</option>
 								<option value="AL">Alabama</option>
 								<option value="AK">Alaska</option>
@@ -251,17 +251,17 @@
 						<div class="form-group">
 							<label>Zip</label> <input type="text" id="Zip"
 								name="Zip" ng-model="program.customerInfoDO.zip" placeholder="Zip"
-								class="form-control" validate-on="dirty" required="required"
+								class="form-control" 
 								ng-disabled="disabled">
 						</div>
 						<div class="form-group">
 							<label>Phone Number</label> <input type="text" id="phone" name="phone"
 													ng-model="program.customerInfoDO.phone" placeholder="Phone" class="form-control"
-								validate-on="dirty" required="required" ng-disabled="disabled">
+								 ng-disabled="disabled">
 						</div>
 						<div class="form-group">
 							<label>Email</label> <input type="text" d="email" name="email"
-													ng-model="program.customerInfoDO.email" placeholder="Email" class="form-control" validate-on="dirty"
+													ng-model="program.customerInfoDO.email" placeholder="Email" class="form-control"
 								ng-disabled="disabled">
 						</div>
 					</div>
