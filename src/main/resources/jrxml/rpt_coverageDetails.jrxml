@@ -3,8 +3,9 @@
 	<property name="ireport.zoom" value="0.9090909090909091"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="3571"/>
-	<template><![CDATA["aggStyles.jrtx"]]></template>
+	<template><![CDATA[$P{styleSheetPath}]]></template>
 	<parameter name="imagePath" class="java.lang.String"/>
+	<parameter name="styleSheetPath" class="java.lang.String"/>
 	<field name="contractId" class="java.lang.String"/>
 	<field name="inceptionDate" class="java.lang.String"/>
 	<field name="coverageTerm" class="java.lang.Integer"/>

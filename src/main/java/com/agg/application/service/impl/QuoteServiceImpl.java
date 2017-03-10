@@ -113,6 +113,9 @@ public class QuoteServiceImpl implements QuoteService {
 	@Value("${file.banner.image.path}")
 	private String reportImagePath;
 	
+	@Value("${jrxml.folder.path}")
+	private String jrxmlFolderPath;
+	
 	private static final SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 
 	@Override
@@ -1528,6 +1531,7 @@ public class QuoteServiceImpl implements QuoteService {
 		Map<String, Object> parameterMap = new HashMap<String, Object>();
 		//parameterMap.put("imagePath", appUrl+"/assets/images/report_banner.png");
 		parameterMap.put("imagePath", System.getProperty("user.dir")+reportImagePath);
+		parameterMap.put("styleSheetPath", System.getProperty("user.dir")+jrxmlFolderPath+"aggStyles.jrtx");
 		
 		JRDataSource jrDataSource = null;
 		DataSource[] pdfAttachments = new DataSource[2];

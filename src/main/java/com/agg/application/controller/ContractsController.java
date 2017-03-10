@@ -55,6 +55,9 @@ public class ContractsController extends BaseController{
 	@Value("${file.banner.image.path}")
 	private String reportImagePath;
 	
+	@Value("${jrxml.folder.path}")
+	private String jrxmlFolderPath;
+	
 	@RequestMapping(value = "/contract", method = RequestMethod.POST)
 	public @ResponseBody Result addContract(@RequestBody ContractDO contractDO, BindingResult result,
 			HttpServletRequest request, HttpServletResponse response) {
@@ -197,6 +200,7 @@ public class ContractsController extends BaseController{
 			modelMap.put("format", "pdf");
 			//modelMap.put("imagePath", appUrl+"/assets/images/report_banner.png");
 			modelMap.put("imagePath", System.getProperty("user.dir")+reportImagePath);
+			modelMap.put("styleSheetPath", System.getProperty("user.dir")+jrxmlFolderPath+"aggStyles.jrtx");
 			if(reportType != null && reportType.equalsIgnoreCase("contract")){
 				modelAndView = new ModelAndView("rpt_contractDetails", modelMap);
 			}else if(reportType != null && reportType.equalsIgnoreCase("coverage")){
