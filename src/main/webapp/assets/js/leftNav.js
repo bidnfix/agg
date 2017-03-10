@@ -774,7 +774,15 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService, $
 	$scope.changeTab = function(index, tabForm){
 		//alert(tabForm.$valid);
 		if(tabForm.$valid){
-			if(index !=5){
+			if(index == 3){
+				var rowIndex = $scope.selectedRow;
+				var colIndex = $scope.selectedCloumn;
+				if(rowIndex == null || colIndex == null || colIndex == 0){
+					alert("Please select at least one coverage level hours");
+				}else{
+					myTabs.goToTab(index);
+				}
+			}else if(index !=5){
 				myTabs.goToTab(index);
 			}
 			if(index == 1){
