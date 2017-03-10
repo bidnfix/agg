@@ -1141,9 +1141,8 @@ routingApp.controller('QuotesDetailController', function($scope, $http, $timeout
         	$('#quotesTbl').DataTable({
         		"aaSorting": [[ 6, "desc" ]],
         		"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
-     	       	columnDefs: [
-     	           { targets: 6, visible: false }    
-     	        ]
+     	       	columnDefs: [{ targets: 6, visible: false }],
+     	       "bDestroy": true
      	    });
         }, 300);
     });
@@ -1658,9 +1657,8 @@ routingApp.controller('ContractsController', function($scope, $http, $timeout, $
         	$('#contractsTbl').DataTable({
         		"aaSorting": [[ 9, "desc" ]],
         		 "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
-     	       columnDefs: [
-     	           { targets: 9, visible: false }    
-     	       ]
+	     	     columnDefs: [{ targets: 9, visible: false }],
+	     	     "bDestroy": true
      	    });
         }, 300);
     });
