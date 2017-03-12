@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="coverageDetails" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c0ec05e7-1fb2-4f7a-a475-4bbe0eaa13dc">
 	<property name="ireport.zoom" value="0.9090909090909091"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="3571"/>
+	<property name="ireport.y" value="1290"/>
 	<template><![CDATA[$P{styleSheetPath}]]></template>
 	<parameter name="imagePath" class="java.lang.String"/>
 	<parameter name="styleSheetPath" class="java.lang.String"/>
@@ -609,7 +609,7 @@
 				<textElement markup="styled">
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA["<style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">WHAT IS NOT COVERED:</style> Our coverage begins were your warranty and other coverage ends. We don't cover failure due to wear, wear items or maintenance items, (e.g., clutch, brakes, batteries, tires, tracks, bogie wheels, freeze plugs, radiator hoses, shocks, ground-engaging tools, rattles, handles, bed liners, upholstery, glass, paint, bulbs, seats, tune-ups, etc.). We don’t cover systems and appliances not factory installed, expenses arising from the equipment not being available for use, core charges or adjustments, transportation, storage, freight charges, EPA charges, taxes, failure caused you by misuse/abuse/negligence, damage caused by any external cause, contamination/overheating/oil viscosity/sludge/salt/chemicals/rust, parts subject to a recall, Epidemic Failure, continued operation and failure to protect the equipment from further damage."]]></textFieldExpression>
+				<textFieldExpression><![CDATA["<style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">WHAT IS NOT COVERED:</style> Our coverage begins where your warranty and other coverage ends. We don't cover failure due to wear, wear items or maintenance items, (e.g., clutch, brakes, batteries, tires, tracks, bogie wheels, freeze plugs, radiator hoses, shocks, ground-engaging tools, rattles, handles, bed liners, upholstery, glass, paint, bulbs, seats, tune-ups, etc.). We don’t cover systems and appliances not factory installed, expenses arising from the equipment not being available for use, core charges or adjustments, transportation, storage, freight charges, EPA charges, taxes, failure caused you by misuse/abuse/negligence, damage caused by any external cause, contamination/overheating/oil viscosity/sludge/salt/chemicals/rust, parts subject to a recall, Epidemic Failure, continued operation and failure to protect the equipment from further damage."]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
 				<reportElement positionType="Float" x="16" y="596" width="530" height="43" uuid="49a7c3bb-33cc-4abc-ad42-f43a31837d80"/>
