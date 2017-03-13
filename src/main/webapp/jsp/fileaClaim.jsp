@@ -6,6 +6,9 @@
 						<div class="sec-title">
 							<h3 class="wow animated bounceInLeft">File a Claim</h3>
 						</div>
+						<div>
+							<h4 class="wow animated bounceInLeft">Please submit one failure per claim</h4>
+						</div>
                     </div>
 			</header>
 			<!-- search serial/vin# form -->

@@ -8,7 +8,7 @@
           <div class="col-md-6 col-sm-12">
 			<div class="sec-title">
                      
-				<h3 class="wow animated bounceInLeft">Quick Quote</h3>
+				<h3 class="wow animated bounceInLeft">Quote</h3>
 				<p class="wow animated bounceInRight">Quote #: {{quote.quoteId}}</p>
 			</div>
           </div>
@@ -366,6 +366,14 @@
                          </div>
                          <div class="col-xs-6 no-pad">
                             {{(quote.dealerMarkupPrice + quote.quoteBasePrice) | currency:"$":0}}
+                         </div>
+                       </div>
+                       <div class="col-xs-12 no-pad clearfix" ng-hide="invoiced">
+                         <div class="col-xs-6 no-pad">
+                           Dealer Invoice Summary:
+                         </div>
+                         <div class="col-xs-6 no-pad">
+                            <button class="btn btn-primary btn-xs mar-right" ng-click="printQuote('invoice')">View</button>
                          </div>
                        </div>
                        <div class="col-xs-12 no-pad clearfix">

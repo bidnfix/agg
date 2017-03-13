@@ -9,9 +9,9 @@
 			<div class="col-sm-5">What would you like to do?</div>
 			<div class="col-sm-7 no-pad">
 				<div class="col-xs-12 no-pad">
-					<div class="col-sm-5 no-pad">
+					<!-- <div class="col-sm-5 no-pad">
 						<a class="btn btn-primary pull-left" href="#">New Quote</a>
-					</div>
+					</div> -->
 					<div class="col-sm-7 no-pad">
 						<div class="input-group">
 							<input type="text" class="form-control" aria-label="Find Quote">

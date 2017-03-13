@@ -16,7 +16,7 @@
             <p>Ag Guard LLC, 21295 Hollingsworth Road, Tonganoxie, KS 66086.</p>
             <ul>
               <li><i class="fa fa-phone"></i>816-223-1978</li>
-              <li><a href="#"><i class="fa fa-envelope-o"></i> contact@agguard.com</a></li>
+              <li><a href="#"><i class="fa fa-envelope-o"></i>info@agguard.com</a></li>
               
             </ul>
           </div>
@@ -36,7 +36,7 @@
       <div class="row">
         <div class="col-md-6 panel">
           <div class="panel-body">
-            <p class="simplenav"> <a href="index.html">Home</a> | <a href="#">Who we are</a> | <a href="#">Register</a> | <a href="#">About Risk</a> | <a href="#">Mom's Pink Tractor</a> </p>
+            <p class="simplenav"> <a href="/agg/home">Home</a> | <a href="#">Who we are</a> | <a href="/agg/register">Register</a> | <a href="/agg/aboutRisk">About Risk</a> | <a href="#">Mom's Pink Tractor</a> </p>
           </div>
         </div>
         <div class="col-md-6 panel">
