@@ -1612,6 +1612,8 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 			$window.open('/agg/quote/report/dealer/'+$scope.quote.quoteId);
 		}else if(quotePrintType == 'customer'){
 			$window.open('/agg/quote/report/customer/'+$scope.quote.quoteId);
+		}else if(quotePrintType == 'invoice'){
+			$window.open('/agg/quote/report/invoice/'+$scope.quote.quoteId);
 		}
 	}
 	

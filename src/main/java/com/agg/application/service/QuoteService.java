@@ -26,7 +26,7 @@ public interface QuoteService {
 	
 	public void savePurchaseInfo(QuoteDO quoteDO, String appUrl) throws Exception;
 
-	public ReportDO getQuoteReportDetails(String quoteId);
+	public ReportDO getQuoteReportDetails(String quoteId, String reportType);
 
 	public List<QuoteDO> getQuotes(AccountDO accountDO);
 

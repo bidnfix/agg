@@ -224,7 +224,7 @@ public class QuoteController extends BaseController {
 			String appUrl = url.substring(0, url.length() - uri.length());
 			logger.info("appUrl: "+appUrl);
 			
-			ReportDO reportDO = quoteService.getQuoteReportDetails(quoteId);
+			ReportDO reportDO = quoteService.getQuoteReportDetails(quoteId, reportType);
 			JRDataSource jrDataSource = null;
 			if(reportDO != null){
 				List<ReportDO> reportDOList = new ArrayList<ReportDO>();
@@ -245,6 +245,8 @@ public class QuoteController extends BaseController {
 				modelAndView = new ModelAndView("rpt_customerQuote", modelMap);
 			}else if(reportType != null && reportType.equalsIgnoreCase("dealer")){
 				modelAndView = new ModelAndView("rpt_dealerQuote", modelMap);
+			}else if(reportType != null && reportType.equalsIgnoreCase("invoice")){
+				modelAndView = new ModelAndView("rpt_dealerInvoice", modelMap);
 			}
 			
 		}

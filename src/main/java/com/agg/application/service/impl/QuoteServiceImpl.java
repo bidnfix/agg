@@ -607,8 +607,8 @@ public class QuoteServiceImpl implements QuoteService {
 	}
 
 	@Override
-	public ReportDO getQuoteReportDetails(String quoteId) {
-		logger.info("Inside getQuoteReportDetails with quoteId: "+quoteId); 
+	public ReportDO getQuoteReportDetails(String quoteId, String reportType) {
+		logger.info("Inside getQuoteReportDetails with quoteId: "+quoteId+" and reportType: "+reportType); 
 		ReportDO reportDO = null;
 		
 		Quote quote = quoteDAO.findByIdQuoteId(quoteId);
@@ -632,7 +632,8 @@ public class QuoteServiceImpl implements QuoteService {
 				reportDO.setEmail(customerInfo.getEmail());
 				reportDO.setPhone(customerInfo.getPhone());
 			}
-			reportDO.setOutStandingDesc(AggConstants.QUOTE_REPORT_OUT_STANDING_DESC);
+			reportDO.setOutStandingDesc((reportType != null && reportType.equals(AggConstants.REPORT_TYPE_INVOICE))
+					? AggConstants.INVOICE_REPORT_OUT_STANDING_DESC : AggConstants.QUOTE_REPORT_OUT_STANDING_DESC);
 			reportDO.setManufacturerName(quote.getManufacturer().getManfName());
 			reportDO.setModelName(quote.getMachineInfo().getModel());
 			reportDO.setModelSerialNo(quote.getMachineSerial());
@@ -700,6 +701,7 @@ public class QuoteServiceImpl implements QuoteService {
 			reportDO.setQuotePrice(currencyFormat.format(coveragePrice));
 			reportDO.setDealerMarkup(currencyFormat.format(dealerMarkupPrice));
 			reportDO.setSpecialConsiderationDesc("None");
+			reportDO.setAmountDue(currencyFormat.format(coveragePrice));
 		}
 		
 		return reportDO;
