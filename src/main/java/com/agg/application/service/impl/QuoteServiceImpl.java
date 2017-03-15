@@ -643,7 +643,7 @@ public class QuoteServiceImpl implements QuoteService {
 				reportDO.setEquipment("");
 			}
 			reportDO.setRetailPrice(currencyFormat.format(quote.getMachineRetailPrice()));
-			reportDO.setCurrentHours(quote.getMachineHours()+"");
+			reportDO.setCurrentHours(quote.getMachineMeterHours()+"");
 			if((quote.getManfExpired() == 1) || (quote.getManfEndDate() != null && (quote.getManfEndDate().compareTo(new Date()) < 0))){
 				reportDO.setMachineStatus(AggConstants.MACHINE_STATUS_USED);
 			}else{
