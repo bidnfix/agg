@@ -36,7 +36,7 @@
             <i class="fa fa-file-text-o"></i>
             <span>Quote Summary</span>
           </a>
-          <a href="#" class="c-tabs-nav__link">
+          <a href="#" class="c-tabs-nav__link" ng-click="changeTab(4, quoteSummaryForm)">
             <i class="fa fa-money"></i>
             <span>Purchase</span>
           </a>

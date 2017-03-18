@@ -805,7 +805,12 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService, $
 				}else{
 					myTabs.goToTab(index);
 				}
-			}else if(index !=5){
+			}else if(index == 4){
+				var cond = $scope.validateQuoteData();
+				if(cond){
+					myTabs.goToTab(index);
+				}
+			}else if(index != 5){
 				myTabs.goToTab(index);
 			}
 			if(index == 1){
@@ -876,10 +881,171 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService, $
 				quoteService.saveCoverageInfo($scope.quote, $scope);
 				
 			}else if(index == 5){
-				//saving coverage information
-				quoteService.savePurchanseInfo($scope.quote, $scope);
+				var cond = $scope.validateQuoteData();
+				if(cond){
+					//saving coverage information
+					quoteService.savePurchanseInfo($scope.quote, $scope);
+				}
 			}
 		}
+		
+	}
+	
+	$scope.validateQuoteData = function(){
+		var errorMsg = "";
+		var serialNoFlag = false;
+		var customerInfoFlag = false;
+		if(!$scope.warrantyInfoForm.dealer.$valid){
+			if(errorMsg == ""){
+				errorMsg = "Please select a dealer \n";
+			}else{
+				errorMsg += "Please select a dealer \n";
+			}
+		}
+		if(!$scope.machineInfoForm.manufacturer.$valid){
+			if(errorMsg == ""){
+				errorMsg = "Please select a manufacturer \n";
+			}else{
+				errorMsg += "Please select a manufacturer \n";
+			}
+		}
+		if(!$scope.machineInfoForm.machineModel.$valid){
+			if(errorMsg == ""){
+				errorMsg = "Please select a machine model \n";
+			}else{
+				errorMsg += "Please select a machine model \n";
+			}
+		}
+		serialNoFlag = false;
+		if($scope.quote.serialNumber == null || $scope.quote.serialNumber == ""){
+			serialNoFlag = true;
+			if(errorMsg == ""){
+				errorMsg = "Please select a serial number \n";
+			}else{
+				errorMsg += "Please select a serial number \n";
+			}
+		}else{
+			serialNoFlag = false;
+		}
+		if(!$scope.machineInfoForm.meterHours.$valid){
+			if(errorMsg == ""){
+				errorMsg = "Please select a meter hours \n";
+			}else{
+				errorMsg += "Please select a meter hours \n";
+			}
+		}
+		if(!$scope.machineInfoForm.equipment.$valid){
+			if(errorMsg == ""){
+				errorMsg = "Please select a use of equipment \n";
+			}else{
+				errorMsg += "Please select a use of equipment \n";
+			}
+		}
+		if(!$scope.machineInfoForm.estSaleDate.$valid){
+			if(errorMsg == ""){
+				errorMsg = "Please select a estimated sale date \n";
+			}else{
+				errorMsg += "Please select a estimated sale date \n";
+			}
+		}
+		if(!$scope.coverageInfoForm.dealerMarkup.$valid){
+			if(errorMsg == ""){
+				errorMsg = "Please select a dealer markup \n";
+			}else{
+				errorMsg += "Please select a dealer markup \n";
+			}
+		}
+		var rowIndex = $scope.selectedRow;
+		var colIndex = $scope.selectedCloumn;
+		if(rowIndex == null || colIndex == null || colIndex == 0){
+			if(errorMsg == ""){
+				errorMsg = "Please select at least one coverage level hours \n";
+			}else{
+				errorMsg += "Please select at least one coverage level hours \n";
+			}
+		}
+		if(!$scope.coverageInfoForm.dealerName.$valid){
+			if(errorMsg == ""){
+				errorMsg = "Please select a customer name \n";
+			}else{
+				errorMsg += "Please select a customer name \n";
+			}
+			
+		}
+		customerInfoFlag = false;
+		if($scope.quote.dealerAddress == null || $scope.quote.dealerAddress == ""){
+			customerInfoFlag = true;
+			if(errorMsg == ""){
+				errorMsg = "Please select a customer address \n";
+			}else{
+				errorMsg += "Please select a customer address \n";
+			}
+		}
+		if($scope.quote.dealerState == null || $scope.quote.dealerState == ""){
+			customerInfoFlag = true;
+			if(errorMsg == ""){
+				errorMsg = "Please select a customer state \n";
+			}else{
+				errorMsg += "Please select a customer state \n";
+			}
+		}
+		if($scope.quote.dealerZip == null || $scope.quote.dealerZip == ""){
+			customerInfoFlag = true;
+			if(errorMsg == ""){
+				errorMsg = "Please select a customer zip \n";
+			}else{
+				errorMsg += "Please select a customer zip \n";
+			}
+		}
+		if($scope.quote.dealerPhone == null || $scope.quote.dealerPhone == ""){
+			customerInfoFlag = true;
+			if(errorMsg == ""){
+				errorMsg = "Please select a customer phone \n";
+			}else{
+				errorMsg += "Please select a customer phone \n";
+			}
+		}
+		if($scope.quote.dealerEmail == null || $scope.quote.dealerEmail == ""){
+			customerInfoFlag = true;
+			if(errorMsg == ""){
+				errorMsg = "Please select a customer email \n";
+			}else{
+				errorMsg += "Please select a customer email \n";
+			}
+		}
+		if(!$scope.coverageInfoForm.custUnderstandCoverage.$valid){
+			if(errorMsg == ""){
+				errorMsg = "Please select a Customer understands coverage \n";
+			}else{
+				errorMsg += "Please select a Customer understands coverage \n";
+			}
+		}
+		if(!$scope.coverageInfoForm.custRemorsePeriod.$valid){
+			if(errorMsg == ""){
+				errorMsg = "Please select a Customer is aware of 90-day remorse period \n";
+			}else{
+				errorMsg += "Please select a Customer is aware of 90-day remorse period \n";
+			}
+		}
+		
+		if(errorMsg != ""){
+			if($window.confirm(errorMsg)) {
+				if(!$scope.warrantyInfoForm.$valid){
+					myTabs.goToTab(0);
+				}else if(!$scope.machineInfoForm.$valid || serialNoFlag == true){
+					myTabs.goToTab(1);
+				}else if(!$scope.coverageInfoForm.$valid || customerInfoFlag == true){
+					myTabs.goToTab(2);
+				}
+			}
+		}
+		
+		if(!$scope.warrantyInfoForm.$valid || !$scope.machineInfoForm.$valid || !$scope.coverageInfoForm.$valid || serialNoFlag == true || customerInfoFlag == true){
+			return false;
+		}else{
+			return true;
+		}
+	
 	}
 	
 	$scope.disableSelected = true;
