@@ -47,9 +47,9 @@ public class MachineInfo implements Serializable {
 	@Column(name="model")
 	private String model;
 
-	@Temporal(TemporalType.DATE)
+	//@Temporal(TemporalType.DATE)
 	@Column(name="model_year")
-	private Date modelYear;
+	private int modelYear;
 
 	private double power;
 
@@ -138,11 +138,11 @@ public class MachineInfo implements Serializable {
 		this.model = model;
 	}
 
-	public Date getModelYear() {
+	public int getModelYear() {
 		return this.modelYear;
 	}
 
-	public void setModelYear(Date modelYear) {
+	public void setModelYear(int modelYear) {
 		this.modelYear = modelYear;
 	}
 

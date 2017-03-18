@@ -339,6 +339,9 @@ public class MachineServiceImpl implements MachineService {
 		//macineInfo.setRetailPrice(machineDO.getRetailPrice());
 		//macineInfo.setBasePrice(machineDO.getBasePrice());
 		logger.debug("machineDO.getGroupId() -->"+machineDO.getGroupId());
+		
+		logger.debug("machineInfo.getModelYear -->"+machineInfo.getModelYear());
+		//machineInfo.setModelYear(machineInfo.getModelYear().getYear());
 
 		machineInfo.setGroupConstant(groupConstantDAO.findOne(Long.valueOf(machineDO.getGroupId())));
 		

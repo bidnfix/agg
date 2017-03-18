@@ -21,7 +21,7 @@ public class MachineInfoDO {
 
 		private String model;
 
-		private Date modelYear;
+		private int modelYear;
 
 		private double power;
 
@@ -102,11 +102,11 @@ public class MachineInfoDO {
 			this.model = model;
 		}
 
-		public Date getModelYear() {
+		public int getModelYear() {
 			return this.modelYear;
 		}
 
-		public void setModelYear(Date modelYear) {
+		public void setModelYear(int modelYear) {
 			this.modelYear = modelYear;
 		}
 

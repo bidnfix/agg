@@ -14,10 +14,10 @@ import com.agg.application.model.ClaimsDO;
 
 @Component
 public interface ClaimsDAO extends CrudRepository<Claims, Integer> {
-	@Query("SELECT c FROM Claims c WHERE c.cStatus = :cStatus")
+	@Query("SELECT c FROM Claims c WHERE c.cStatus = :cStatus ORDER BY c.createdDate DESC")
 	List<Claims> findAllByCStatus(@Param("cStatus") byte cStatus);
 	
-	@Query("SELECT c FROM Claims c WHERE c.cStatus = :cStatus AND c.dealerId = :dealerId")
+	@Query("SELECT c FROM Claims c WHERE c.cStatus = :cStatus AND c.dealerId = :dealerId ORDER BY c.createdDate DESC")
 	List<Claims> findAllByCStatus(@Param("cStatus") byte cStatus, @Param("dealerId") int dealerId);
 	
 	@Modifying
@@ -112,7 +112,7 @@ public interface ClaimsDAO extends CrudRepository<Claims, Integer> {
 	@Query("SELECT COUNT(*) FROM Claims c WHERE c.cStatus != :cStatus and c.dealerId > 0")
 	long findClaimsCountByAdmin(@Param("cStatus") byte cStatus);
 	
-	@Query("SELECT c FROM Claims c WHERE c.claimId = :claimId")
+	@Query("SELECT c FROM Claims c WHERE c.claimId = :claimId ORDER BY c.createdDate DESC")
 	Claims findClaimsByClaimId(@Param("claimId")String claimId);
 	
 	Claims findByIdAndClaimId(int id, String claimId);
