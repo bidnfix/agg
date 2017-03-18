@@ -616,6 +616,9 @@ routingApp.controller('ProgramAsDealerController', function($scope, programServi
 	
 	$scope.coverageStartDateDisabled = true;
 	$scope.mfgCoverageDisabled = true;
+	$scope.coverageStartDateRequired = false;
+	$scope.mfgCoverageRequired = false;
+	
 	
 	
 	//datepicker changes
@@ -672,15 +675,21 @@ routingApp.controller('ProgramAsDealerController', function($scope, programServi
 		 if(programDO.condition == 0){
 			$scope.coverageStartDateDisabled = false;
 			$scope.mfgCoverageDisabled = true;
+			$scope.coverageStartDateRequired = true;
+			$scope.mfgCoverageRequired = false;
 		 }else if(programDO.condition == 1){
 			$scope.coverageStartDateDisabled = true;
 			$scope.mfgCoverageDisabled = false;
+			$scope.coverageStartDateRequired = false;
+			$scope.mfgCoverageRequired = true;
 		 }
 
 	 }
    
-   $scope.submitProgramAsDel = function() {
-		programService.submitProgramAsDealr($scope.program, $scope);
+   $scope.submitProgramAsDel = function(programForm) {
+	   if(programForm.$valid){
+		   programService.submitProgramAsDealr($scope.program, $scope);
+	   }
    };
 });
 

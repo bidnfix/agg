@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -537,6 +538,7 @@ public class QuoteServiceImpl implements QuoteService {
 			parameterMap.put("imagePath", System.getProperty("user.dir")+reportImagePath);
 			
 			List<ReportDO> reportDOList = new ArrayList<ReportDO>();
+			quoteDO.setCreateDate(quote.getCreateDate());
 			reportDOList.add(getQuoteReportDO(quoteDO));
 			JRDataSource jrDataSource = null;
 			if(!reportDOList.isEmpty()){
@@ -569,12 +571,33 @@ public class QuoteServiceImpl implements QuoteService {
 		
 		reportDO.setDealerName(quoteDO.getDealerDO().getName());
 		reportDO.setQuoteDate((quoteDO.getEstSaleDate() != null)?dateFormat.format(quoteDO.getEstSaleDate()):"");
-		//TODO
-		reportDO.setAttn("");
-		//TODO
-		reportDO.setQuoteExpires("");
+		
+		//TODO with created_by field
+		Dealer dealer = dealerDAO.findByCode(quoteDO.getDealerDO().getCode());
+		if(dealer != null){
+			if(dealer.getParentCode() != 0 && dealer.getParentCode() == dealer.getCode()){
+				reportDO.setAttn(dealer.getName());
+			}else{
+				Dealer parentDealer = dealerDAO.findByCode(dealer.getCode());
+				if(parentDealer != null){
+					reportDO.setAttn(parentDealer.getName());
+				}
+			}
+			
+		}else{
+			reportDO.setAttn("");
+		}
+		
+		//TODO with purchase requested date
+		Date createdDate = quoteDO.getCreateDate();
+		if(createdDate != null){
+			reportDO.setQuoteExpires(dateFormat.format(getQuoteExpirationDate(createdDate)));
+		}else{
+			reportDO.setQuoteExpires("");
+		}
 		reportDO.setQuoteId(quoteDO.getQuoteId());
 		reportDO.setAddress(quoteDO.getDealerAddress()+", "+quoteDO.getDealerState()+" "+quoteDO.getDealerZip());
+		reportDO.setCustName(quoteDO.getDealerName());
 		reportDO.setOutStandingDesc(AggConstants.QUOTE_REPORT_OUT_STANDING_DESC);
 		reportDO.setManufacturerName(quoteDO.getManufacturerDO().getName());
 		reportDO.setModelName(quoteDO.getMachineInfoDO().getModel());
@@ -621,16 +644,36 @@ public class QuoteServiceImpl implements QuoteService {
 			
 			reportDO.setDealerName(quote.getDealer().getName());
 			reportDO.setQuoteDate((quote.getMachineSaleDate() != null)?dateFormat.format(quote.getMachineSaleDate()):"");
-			//TODO
-			reportDO.setAttn("");
-			//TODO
-			reportDO.setQuoteExpires("");
+			
+			//TODO with created_by field
+			Dealer dealer = quote.getDealer();
+			if(dealer != null){
+				if(dealer.getParentCode() != 0 && dealer.getParentCode() == dealer.getCode()){
+					reportDO.setAttn(dealer.getName());
+				}else{
+					Dealer parentDealer = dealerDAO.findByCode(dealer.getCode());
+					if(parentDealer != null){
+						reportDO.setAttn(parentDealer.getName());
+					}
+				}
+				
+			}else{
+				reportDO.setAttn("");
+			}
+			
+			Date createdDate = quote.getCreateDate();
+			if(createdDate != null){
+				reportDO.setQuoteExpires(dateFormat.format(getQuoteExpirationDate(createdDate)));
+			}else{
+				reportDO.setQuoteExpires("");
+			}
 			reportDO.setQuoteId(quoteId);
 			CustomerInfo customerInfo = customerInfoDAO.findOne(quoteId);
 			if(customerInfo != null){
 				reportDO.setAddress(customerInfo.getAddress()+", "+customerInfo.getState()+" "+customerInfo.getZip());
 				reportDO.setEmail(customerInfo.getEmail());
 				reportDO.setPhone(customerInfo.getPhone());
+				reportDO.setCustName(customerInfo.getName());
 			}
 			reportDO.setOutStandingDesc((reportType != null && reportType.equals(AggConstants.REPORT_TYPE_INVOICE))
 					? AggConstants.INVOICE_REPORT_OUT_STANDING_DESC : AggConstants.QUOTE_REPORT_OUT_STANDING_DESC);
@@ -684,6 +727,8 @@ public class QuoteServiceImpl implements QuoteService {
 				if(adminAdjustment.getBasePrice() > 0){
 					coveragePrice = adminAdjustment.getBasePrice();
 				}
+				
+				reportDO.setInvoiceDate((adminAdjustment.getInvoiceDate() != null)?dateFormat.format(adminAdjustment.getInvoiceDate()):"");
 			}
 			reportDO.setLimitOfLiability(currencyFormat.format(lol));
 			String dealerMarkupType = quote.getDealerMarkupType();
@@ -702,6 +747,7 @@ public class QuoteServiceImpl implements QuoteService {
 			reportDO.setDealerMarkup(currencyFormat.format(dealerMarkupPrice));
 			reportDO.setSpecialConsiderationDesc("None");
 			reportDO.setAmountDue(currencyFormat.format(coveragePrice));
+			//reportDO
 		}
 		
 		return reportDO;
@@ -1294,6 +1340,7 @@ public class QuoteServiceImpl implements QuoteService {
 				parameterMap.put("imagePath", System.getProperty("user.dir")+reportImagePath);
 				
 				List<ReportDO> reportDOList = new ArrayList<ReportDO>();
+				quoteDO.setCreateDate(quote.getCreateDate());
 				reportDOList.add(getInvoiceReportDO(quoteDO));
 				JRDataSource jrDataSource = null;
 				if(!reportDOList.isEmpty()){
@@ -1441,14 +1488,33 @@ public class QuoteServiceImpl implements QuoteService {
 		
 		reportDO.setDealerName(quoteDO.getDealerDO().getName());
 		reportDO.setQuoteDate((quoteDO.getEstSaleDate() != null)?dateFormat.format(quoteDO.getEstSaleDate()):"");
-		//TODO
 		reportDO.setInvoiceDate(dateFormat.format(new Date()));
-		//TODO
-		reportDO.setAttn("");
-		//TODO
-		reportDO.setQuoteExpires("");
+		//TODO with created_by field
+		Dealer dealer = dealerDAO.findByCode(quoteDO.getDealerDO().getCode());
+		if(dealer != null){
+			if(dealer.getParentCode() != 0 && dealer.getParentCode() == dealer.getCode()){
+				reportDO.setAttn(dealer.getName());
+			}else{
+				Dealer parentDealer = dealerDAO.findByCode(dealer.getCode());
+				if(parentDealer != null){
+					reportDO.setAttn(parentDealer.getName());
+				}
+			}
+			
+		}else{
+			reportDO.setAttn("");
+		};
+		
+		//TODO with purchase requested date
+		Date createdDate = quoteDO.getCreateDate();
+		if(createdDate != null){
+			reportDO.setQuoteExpires(dateFormat.format(getQuoteExpirationDate(createdDate)));
+		}else{
+			reportDO.setQuoteExpires("");
+		}
 		reportDO.setQuoteId(quoteDO.getQuoteId());
 		reportDO.setAddress(quoteDO.getDealerAddress()+", "+quoteDO.getDealerState()+" "+quoteDO.getDealerZip());
+		reportDO.setCustName(quoteDO.getDealerName());
 		reportDO.setOutStandingDesc(AggConstants.INVOICE_REPORT_OUT_STANDING_DESC);
 		reportDO.setManufacturerName(quoteDO.getManufacturerDO().getName());
 		reportDO.setModelName(quoteDO.getMachineInfoDO().getModel());
@@ -1614,24 +1680,35 @@ public class QuoteServiceImpl implements QuoteService {
 		reportDO.setCustomerAddress1(quoteDO.getDealerAddress());
 		reportDO.setCustomerAddress2(quoteDO.getDealerCity()+" "+quoteDO.getDealerState());
 		reportDO.setCustomerAddress3(quoteDO.getDealerZip());
-		reportDO.setCustomerContact(quoteDO.getDealerAddress());
+		reportDO.setCustomerContact(quoteDO.getDealerName());
 		reportDO.setCustomerPhone(quoteDO.getDealerPhone());
 		reportDO.setCustomerEmail(quoteDO.getDealerEmail());
 		reportDO.setDealerAddress1(quoteDO.getDealerDO().getAddress1());
 		reportDO.setDealerAddress2(quoteDO.getDealerDO().getAddress2());
 		reportDO.setDealerAddress3(quoteDO.getDealerCity()+" "+quoteDO.getDealerState()+" "+quoteDO.getDealerZip());
-		reportDO.setDealerContact(quoteDO.getDealerDO().getAddress1());
+		reportDO.setDealerContact(quoteDO.getDealerDO().getName());
 		reportDO.setDealerEmail(quoteDO.getDealerDO().getInvoiceEmail());
 		reportDO.setDealerPhone(quoteDO.getDealerDO().getPhone());
 		reportDO.setServiceProviderAddr1(quoteDO.getDealerDO().getAddress1());
 		reportDO.setServiceProviderAddr2(quoteDO.getDealerDO().getAddress2());
 		reportDO.setServiceProviderAddr3(quoteDO.getDealerCity()+" "+quoteDO.getDealerState()+" "+quoteDO.getDealerZip());
-		reportDO.setServiceProviderContact(quoteDO.getDealerDO().getAddress1());
+		reportDO.setServiceProviderContact(quoteDO.getDealerDO().getName());
 		reportDO.setServiceProviderEmail(quoteDO.getDealerDO().getInvoiceEmail());
 		reportDO.setServiceProviderPhone(quoteDO.getDealerDO().getPhone());
 		reportDO.setSpecialConsiderations(quoteDO.getSpecialConsiderations());
 		
 		return reportDO;
+	}
+	
+	/**
+	 * @param createdDate
+	 * @return quoteDO
+	 */
+	private Date getQuoteExpirationDate(Date createdDate){
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(createdDate);
+		cal.add(Calendar.DATE, AggConstants.QUOTE_EXPIRATION_DAYS);
+		return cal.getTime();
 	}
 
 }

@@ -4,6 +4,8 @@ public class ReportDO {
 	
 	private String dealerName;
 	
+	private String custName;
+	
 	private String quoteDate;
 	
 	private String attn;
@@ -84,6 +86,14 @@ public class ReportDO {
 	 */
 	public void setDealerName(String dealerName) {
 		this.dealerName = dealerName;
+	}
+	
+	public String getCustName() {
+		return custName;
+	}
+
+	public void setCustName(String custName) {
+		this.custName = custName;
 	}
 
 	/**

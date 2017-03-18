@@ -44,7 +44,7 @@
 			<div class="form-group">
 				<label for="password" class="col-sm-3 control-label">Password</label>
 				<div class="col-sm-9">
-					<input type="password" id="password" name="password" ng-model="user.password" placeholder="Password" class="form-control" required="required">
+					<input type="text" id="password" name="password" ng-model="user.password" placeholder="Password" class="form-control" required="required">
 				</div>
 			</div>
 			<div class="form-group">

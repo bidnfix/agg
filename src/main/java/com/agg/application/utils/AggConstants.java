@@ -120,6 +120,8 @@ public class AggConstants {
 	
 	public static final String REPORT_TYPE_INVOICE = "invoice";
 	
+	public static final int QUOTE_EXPIRATION_DAYS = 90;
+	
 	
 	public static final String QUOTE_REPORT_OUT_STANDING_DESC = "Thank you for considering AgGuard coverage, we appreciate the opportunity to earn your trust. "
 			+ "This quote reflects the information provided in your request for an extended service Contract based on the current terms and "
