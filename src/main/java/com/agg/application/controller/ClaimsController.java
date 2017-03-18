@@ -104,14 +104,20 @@ public class ClaimsController extends BaseController {
 	private String jrxmlFolderPath;
 
 	@RequestMapping(value = "/editClaim", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
-	public @ResponseBody Result machineModel(ModelMap model, HttpServletResponse response/*, @PathVariable String claimId*/) {
-		String claimId = "GoR1858";
-		logger.info("Inside machineModel() with typeId: "+claimId);
-		if(claimId != null && !claimId.isEmpty()){
-			QuoteDO quoteDO = claimsService.getClaimInfo(claimId);
-			model.put("quoteDO", quoteDO);
+	public @ResponseBody Result machineModel(ModelMap model, HttpServletRequest request, HttpServletResponse response/*, @PathVariable String claimId*/) {
+		Result opResult = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			String claimId = "GoR1858";
+			logger.info("Inside machineModel() with typeId: "+claimId);
+			if(claimId != null && !claimId.isEmpty()){
+				QuoteDO quoteDO = claimsService.getClaimInfo(claimId);
+				model.put("quoteDO", quoteDO);
+			}
+			opResult = new Result("success", null, model);
 		}
-		return new Result("success", null, model);	
+		return opResult;	
 	}
 	
 	@RequestMapping(value = "/searchClaim/{id}", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
