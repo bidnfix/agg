@@ -47,4 +47,6 @@ public interface QuoteService {
 	public List<QuoteDO> getInvoicedQuotes(AccountDO accountDO);
 
 	public boolean createContract(QuoteDO quoteDO, AccountDO accountDO, String appUrl) throws Exception;
+
+	public Object getArchivedQuotes(AccountDO accountDO);
 }

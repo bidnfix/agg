@@ -760,11 +760,23 @@ public class QuoteServiceImpl implements QuoteService {
 		if(accountDO.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)){
 			//List<Quote> quoteList = Util.toList(quoteDAO.findAll());
 			//quoteDOList = getQuoteDetails(quoteList);
-			quoteDOList = quoteDAO.findAllQuotes();
+			quoteDOList = quoteDAO.findAllQuotes(AggConstants.B_QUOTE_STATUS_UNACRHIVE);
 		}else{
 			//List<Quote> quoteList = Util.toList(quoteDAO.findByDealerId(accountDO.getDealerId()));
 			//quoteDOList = getQuoteDetails(quoteList);
-			quoteDOList = quoteDAO.findAllQuotesByDealer(accountDO.getDealerId());
+			quoteDOList = quoteDAO.findAllQuotesByDealer(accountDO.getDealerId(), AggConstants.B_QUOTE_STATUS_UNACRHIVE);
+		}
+		
+		return quoteDOList;
+	}
+	
+	@Override
+	public List<QuoteDO> getArchivedQuotes(AccountDO accountDO) {
+		List<QuoteDO> quoteDOList = null;
+		if(accountDO.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)){
+			quoteDOList = quoteDAO.findAllQuotes(AggConstants.B_QUOTE_STATUS_ACRHIVE);
+		}else{
+			quoteDOList = quoteDAO.findAllQuotesByDealer(accountDO.getDealerId(), AggConstants.B_QUOTE_STATUS_ACRHIVE);
 		}
 		
 		return quoteDOList;
@@ -900,7 +912,7 @@ public class QuoteServiceImpl implements QuoteService {
 			quoteDO.setStatus(quote.getStatus());
 			quoteDO.setLastUpdate(quote.getLastUpdate());
 			String statusDesc = "";
-			if(quote.getStatus() == AggConstants.B_QUOTE_STATUS_ACRHIVE){
+			if(quote.getIsArchive() == AggConstants.B_QUOTE_STATUS_ACRHIVE){
 				statusDesc = AggConstants.QUOTE_STATUS_ACRHIVE;
 			}else if(quote.getStatus() == AggConstants.B_QUOTE_STATUS_ESTIMATING_PRICE){
 				statusDesc = AggConstants.QUOTE_STATUS_ESTIMATING_PRICE;
@@ -1374,12 +1386,12 @@ public class QuoteServiceImpl implements QuoteService {
 			/*List<Quote> quoteList = Util.toList(quoteDAO.findByStatus(AggConstants.B_QUOTE_STATUS_ESTIMATING_PRICE));
 			//logger.debug("quoteList for estPrice --------------> "+ quoteList.size());
 			quoteDOList = getQuoteDetails(quoteList);*/
-			quoteDOList = quoteDAO.findEstPriceQuotesByStatus(AggConstants.B_QUOTE_STATUS_ESTIMATING_PRICE);
+			quoteDOList = quoteDAO.findEstPriceQuotesByStatus(AggConstants.B_QUOTE_STATUS_ESTIMATING_PRICE, AggConstants.B_QUOTE_STATUS_UNACRHIVE);
 		}else{
 			/*List<Quote> quoteList = Util.toList(quoteDAO.findByStatusAndDealerId(AggConstants.B_QUOTE_STATUS_ESTIMATING_PRICE, accountDO.getDealerId()));
 			//logger.debug("quoteList for estPrice --------------> "+ quoteList.size());
 			quoteDOList = getQuoteDetails(quoteList);*/
-			quoteDOList = quoteDAO.findEstPriceQuotesByStatusAndDealerId(AggConstants.B_QUOTE_STATUS_ESTIMATING_PRICE, accountDO.getDealerId());
+			quoteDOList = quoteDAO.findEstPriceQuotesByStatusAndDealerId(AggConstants.B_QUOTE_STATUS_ESTIMATING_PRICE, accountDO.getDealerId(), AggConstants.B_QUOTE_STATUS_UNACRHIVE);
 		}
 		if(quoteDOList != null && !quoteDOList.isEmpty()){
 			CustomerInfo customerInfo = null;
@@ -1405,12 +1417,12 @@ public class QuoteServiceImpl implements QuoteService {
 			/*List<Quote> quoteList = Util.toList(quoteDAO.findByStatus(AggConstants.B_QUOTE_STATUS_PURCHASE_REQUESTED));
 			//logger.debug("quoteList for purchaseReq--------------> "+ quoteList.size());
 			quoteDOList = getQuoteDetails(quoteList);*/
-			quoteDOList = quoteDAO.findByQuoteStatus(AggConstants.B_QUOTE_STATUS_PURCHASE_REQUESTED);
+			quoteDOList = quoteDAO.findByQuoteStatus(AggConstants.B_QUOTE_STATUS_PURCHASE_REQUESTED, AggConstants.B_QUOTE_STATUS_UNACRHIVE);
 		}else{
 			/*List<Quote> quoteList = Util.toList(quoteDAO.findByStatusAndDealerId(AggConstants.B_QUOTE_STATUS_PURCHASE_REQUESTED, accountDO.getDealerId()));
 			//logger.debug("quoteList for purchaseReq --------------> "+ quoteList.size());
 			quoteDOList = getQuoteDetails(quoteList);*/
-			quoteDOList = quoteDAO.findByDealerStatusAndDealerId(AggConstants.B_QUOTE_STATUS_PURCHASE_REQUESTED, accountDO.getDealerId());
+			quoteDOList = quoteDAO.findByDealerStatusAndDealerId(AggConstants.B_QUOTE_STATUS_PURCHASE_REQUESTED, accountDO.getDealerId(), AggConstants.B_QUOTE_STATUS_UNACRHIVE);
 		}
 		return quoteDOList;
 	}
@@ -1422,12 +1434,12 @@ public class QuoteServiceImpl implements QuoteService {
 			/*List<Quote> quoteList = Util.toList(quoteDAO.findByStatus(AggConstants.B_QUOTE_STATUS_INVOICED));
 			//logger.debug("quoteList for getInvoicedQuotes--------------> "+ quoteList.size());
 			quoteDOList = getQuoteDetails(quoteList);*/
-			quoteDOList = quoteDAO.findByQuoteStatus(AggConstants.B_QUOTE_STATUS_INVOICED);
+			quoteDOList = quoteDAO.findByQuoteStatus(AggConstants.B_QUOTE_STATUS_INVOICED, AggConstants.B_QUOTE_STATUS_UNACRHIVE);
 		}else{
 			/*List<Quote> quoteList = Util.toList(quoteDAO.findByStatusAndDealerId(AggConstants.B_QUOTE_STATUS_INVOICED, accountDO.getDealerId()));
 			//logger.debug("quoteList for getInvoicedQuotes--------------> "+ quoteList.size());
 			quoteDOList = getQuoteDetails(quoteList);*/
-			quoteDOList = quoteDAO.findByDealerStatusAndDealerId(AggConstants.B_QUOTE_STATUS_INVOICED, accountDO.getDealerId());
+			quoteDOList = quoteDAO.findByDealerStatusAndDealerId(AggConstants.B_QUOTE_STATUS_INVOICED, accountDO.getDealerId(), AggConstants.B_QUOTE_STATUS_UNACRHIVE);
 		}
 		return quoteDOList;
 	}

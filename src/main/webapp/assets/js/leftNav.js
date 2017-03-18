@@ -167,7 +167,21 @@ routingApp.config(['$routeProvider',
                       }).
                       when('/agg/quotes', {
                     	  templateUrl: '../../jsp/quotes.jsp',
-                    	  controller: 'QuotesDetailController'
+                    	  controller: 'QuotesDetailController',
+                    	  resolve: {
+   	        		         quoteType: function () {
+   	        		           return 'All';
+   	        		         }
+   	        		      }
+                      }).
+                      when('/agg/archivedQuotes', {
+                    	  templateUrl: '../../jsp/quotes.jsp',
+                    	  controller: 'QuotesDetailController',
+                    	  resolve: {
+	        		         quoteType: function () {
+	        		           return 'Archive';
+	        		         }
+	        		      }
                       }).
                       when('/agg/viewQuote/:quoteId/:quoteCode', {
                     	  templateUrl: '../../jsp/quickQuote.jsp',
@@ -1142,19 +1156,35 @@ routingApp.controller('GetUserController', function($scope, userService, $http, 
     };
  });
 
-routingApp.controller('QuotesDetailController', function($scope, $http, $timeout) {
-	$http.get("/agg/quotesInfo")
-	.then(function(response) {
-        $scope.quoteList = response.data.data;
-        $timeout(function () {
-        	$('#quotesTbl').DataTable({
-        		"aaSorting": [[ 6, "desc" ]],
-        		"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
-     	       	columnDefs: [{ targets: 6, visible: false }],
-     	       "bDestroy": true
-     	    });
-        }, 300);
-    });
+routingApp.controller('QuotesDetailController', function($scope, $http, $timeout, quoteType) {
+	if(quoteType == 'All'){
+		$http.get("/agg/quotesInfo")
+		.then(function(response) {
+	        $scope.quoteList = response.data.data;
+	        $timeout(function () {
+	        	$('#quotesTbl').DataTable({
+	        		"aaSorting": [[ 6, "desc" ]],
+	        		"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+	     	       	columnDefs: [{ targets: 6, visible: false }],
+	     	       "bDestroy": true
+	     	    });
+	        }, 300);
+	    });
+	}else if(quoteType == 'Archive'){
+		$http.get("/agg/archivedQuotesInfo")
+		.then(function(response) {
+	        $scope.quoteList = response.data.data;
+	        $timeout(function () {
+	        	$('#quotesTbl').DataTable({
+	        		"aaSorting": [[ 6, "desc" ]],
+	        		"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+	     	       	columnDefs: [{ targets: 6, visible: false }],
+	     	       "bDestroy": true
+	     	    });
+	        }, 300);
+	    });
+	}
+	
 	
 	/*$scope.viewQuote = function(id, quoteId){
 		//alert(id+" "+quoteId);

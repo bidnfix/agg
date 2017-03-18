@@ -38,7 +38,9 @@ public class AggConstants {
 	
 	public static final byte B_QUOTE_STATUS_INVOICED = 5;
 	
-	public static final byte B_QUOTE_STATUS_ACRHIVE = 0;
+	public static final byte B_QUOTE_STATUS_ACRHIVE = 1;
+	
+	public static final byte B_QUOTE_STATUS_UNACRHIVE = 0;
 	
 	public static final byte B_QUOTE_STATUS_CLOSED = 6;
 	

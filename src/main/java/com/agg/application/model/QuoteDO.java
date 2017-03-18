@@ -222,7 +222,7 @@ public class QuoteDO {
 		
 	}
 	
-	public QuoteDO(int id, String quoteId, String dealerName, String custName, String machineModel, Date machineSaleDate, byte status, Date createdDate){
+	public QuoteDO(int id, String quoteId, String dealerName, String custName, String machineModel, Date machineSaleDate, byte status, Date createdDate, short isArchive){
 		this.id = id;
 		this.quoteId = quoteId;
 		this.dealerName = dealerName;
@@ -231,7 +231,7 @@ public class QuoteDO {
 		this.machineSaleDate = machineSaleDate;
 		
 		String statusDesc = "";
-		if(status == AggConstants.B_QUOTE_STATUS_ACRHIVE){
+		if(isArchive == AggConstants.B_QUOTE_STATUS_ACRHIVE){
 			statusDesc = AggConstants.QUOTE_STATUS_ACRHIVE;
 		}else if(status == AggConstants.B_QUOTE_STATUS_ESTIMATING_PRICE){
 			statusDesc = AggConstants.QUOTE_STATUS_ESTIMATING_PRICE;
@@ -248,14 +248,14 @@ public class QuoteDO {
 		this.createDate = createdDate;
 	}
 	
-	public QuoteDO(int id, String quoteId, String dealerName, Date machineSaleDate, byte status, Date createdDate){
+	public QuoteDO(int id, String quoteId, String dealerName, Date machineSaleDate, byte status, Date createdDate, short isArchive){
 		this.id = id;
 		this.quoteId = quoteId;
 		this.dealerName = dealerName;
 		this.machineSaleDate = machineSaleDate;
 		
 		String statusDesc = "";
-		if(status == AggConstants.B_QUOTE_STATUS_ACRHIVE){
+		if(isArchive == AggConstants.B_QUOTE_STATUS_ACRHIVE){
 			statusDesc = AggConstants.QUOTE_STATUS_ACRHIVE;
 		}else if(status == AggConstants.B_QUOTE_STATUS_ESTIMATING_PRICE){
 			statusDesc = AggConstants.QUOTE_STATUS_ESTIMATING_PRICE;

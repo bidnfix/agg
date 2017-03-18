@@ -266,6 +266,18 @@ public class QuoteController extends BaseController {
 		return opResult;
 	}
 	
+	@RequestMapping(value = "/archivedQuotesInfo", method = RequestMethod.GET)
+	public Result getArchivedQuotes(Model model, HttpServletRequest request, HttpServletResponse response) {
+		Result opResult = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			opResult = new Result("success", null, quoteService.getArchivedQuotes(getAccountDetails(request)));
+		}
+		
+		return opResult;
+	}
+	
 	@RequestMapping(value = "/quoteInfo/{id}/{quoteId}", method = RequestMethod.GET)
 	public Result getQuote(@PathVariable int id, @PathVariable String quoteId, Model model, HttpServletRequest request, HttpServletResponse response) {
 		logger.debug("Inside getQuote with id: "+id+" & quoteId: "+quoteId);
