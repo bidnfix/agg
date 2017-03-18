@@ -1154,7 +1154,9 @@ public class QuoteServiceImpl implements QuoteService {
 			adminAdjustment.setLol(quoteDO.getAdjustedLol());
 			adminAdjustment.setSpecialConsideration(quoteDO.getSpecialConsiderations());
 			adminAdjustment.setCConditions(quoteDO.getCondsForCoverage());
-			adminAdjustment.setLastUpdate(new Date()); 
+			adminAdjustment.setDealHistory(quoteDO.getDealHistory());
+			adminAdjustment.setLastUpdate(new Date());
+			adminAdjustment.setDealHistory(quoteDO.getDealHistory());
 			
 			adminAdjustmentDAO.save(adminAdjustment);
 			
@@ -1298,6 +1300,7 @@ public class QuoteServiceImpl implements QuoteService {
 			adminAdjustment.setCConditions(quoteDO.getCondsForCoverage());
 			adminAdjustment.setLastUpdate(new Date());
 			adminAdjustment.setInvoiceDate(new Date());
+			adminAdjustment.setDealHistory(quoteDO.getDealHistory());
 			
 			adminAdjustmentDAO.save(adminAdjustment);
 			
@@ -1574,14 +1577,13 @@ public class QuoteServiceImpl implements QuoteService {
 			adminAdjustment.setInceptionDate(quoteDO.getInceptionDate());
 			adminAdjustment.setExpirationDate(quoteDO.getExpirationDate());
 			adminAdjustment.setExpirationHours(quoteDO.getExpirationHours());
-			adminAdjustment.setDealHistory(quoteDO.getDealHistory());
 			
 			adminAdjustmentDAO.save(adminAdjustment);
 		}
 		
 		Contracts contracts = new Contracts();
 		contracts.setAvailabeLol(quoteDO.getMachineInfoDO().getLol());
-		contracts.setComments(quoteDO.getDealHistory());
+		contracts.setComments(quoteDO.getComments());
 		contracts.setContractId("CR-"+quoteDO.getQuoteId());
 		contracts.setCoverageLevelHours(quoteDO.getCoverageHours());
 		contracts.setCoverageTermMonths(quoteDO.getCoverageTerm());

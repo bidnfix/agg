@@ -92,7 +92,7 @@
 			<div class="form-group">
 				<label for="address2" class="col-sm-3 control-label">Deal History</label>
 				<div class="col-sm-9">
-					<textarea class="form-control" placeholder="" ng-model="quote.dealHistory"></textarea>
+					<textarea class="form-control" placeholder="" ng-model="quote.comments"></textarea>
 				</div>
 			</div>
 			<div class="form-group">

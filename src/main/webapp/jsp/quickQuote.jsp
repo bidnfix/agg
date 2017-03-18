@@ -559,6 +559,10 @@
 								<label>Conditions for Coverage</label>
 								<textarea class="form-control" placeholder="" ng-model="quote.condsForCoverage" ng-disabled="disabled"></textarea>
 							  </div>
+							  <div class="form-group">
+								<label>Deal History</label>
+								<textarea class="form-control" placeholder="" ng-model="quote.dealHistory"></textarea>
+							  </div>
 						</div>
                    </div>
              	</div>

@@ -218,6 +218,8 @@ public class QuoteDO {
 	
 	private Date receivedDate;
 	
+	private String comments;
+	
 	public QuoteDO(){
 		
 	}
@@ -1468,6 +1470,14 @@ public class QuoteDO {
 	 */
 	public void setReceivedDate(Date receivedDate) {
 		this.receivedDate = receivedDate;
+	}
+
+	public String getComments() {
+		return comments;
+	}
+
+	public void setComments(String comments) {
+		this.comments = comments;
 	}
 	
 }
