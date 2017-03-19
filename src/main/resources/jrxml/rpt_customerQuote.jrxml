@@ -36,6 +36,7 @@
 	<field name="price" class="java.lang.String"/>
 	<field name="specialConsiderationDesc" class="java.lang.String"/>
 	<field name="custName" class="java.lang.String"/>
+	<field name="dealerAddress" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -352,7 +353,7 @@
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="25" y="70" width="196" height="14" uuid="f53ad76b-1c26-4d18-8103-02060251d28a"/>
-				<textFieldExpression><![CDATA[$F{address}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{dealerAddress}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

@@ -73,6 +73,8 @@ public class ReportDO {
 	private String invoiceDate;
 	
 	private String amountDue;
+	
+	private String dealerAddress;
 
 	/**
 	 * @return the dealerName
@@ -570,6 +572,14 @@ public class ReportDO {
 	 */
 	public void setAmountDue(String amountDue) {
 		this.amountDue = amountDue;
+	}
+
+	public String getDealerAddress() {
+		return dealerAddress;
+	}
+
+	public void setDealerAddress(String dealerAddress) {
+		this.dealerAddress = dealerAddress;
 	}
 	
 }

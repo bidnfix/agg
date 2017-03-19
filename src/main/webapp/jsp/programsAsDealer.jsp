@@ -70,7 +70,8 @@
 							placeholder="Manufacturer Coverage end date" class="form-control"
 							validate-on="dirty" required="required" ng-disabled="disabled"> -->
 						<div class="input-group">
-                           <input type="text" class="form-control" 
+                           <input type="text" class="form-control"
+                           		   name="coverageEndDate" 
 				                   datepicker-popup="MM/dd/yyyy"
 				                   datepicker-options="dateOptions" 
 				                   is-open="coverageEndDatePickerIsOpen" 
@@ -96,6 +97,7 @@
 						
 						<div class="input-group">
                            <input type="text" class="form-control" 
+				                   name="estSaleDate"
 				                   datepicker-popup="MM/dd/yyyy"
 				                   datepicker-options="dateOptions" 
 				                   is-open="estSaleDatePickerIsOpen" 

@@ -577,15 +577,18 @@ public class QuoteServiceImpl implements QuoteService {
 		if(dealer != null){
 			if(dealer.getParentCode() != 0 && dealer.getParentCode() == dealer.getCode()){
 				reportDO.setAttn(dealer.getName());
+				reportDO.setDealerAddress(dealer.getAddress()+", "+dealer.getState()+" "+dealer.getZip());
 			}else{
 				Dealer parentDealer = dealerDAO.findByCode(dealer.getCode());
 				if(parentDealer != null){
 					reportDO.setAttn(parentDealer.getName());
+					reportDO.setDealerAddress(parentDealer.getAddress()+", "+parentDealer.getState()+" "+parentDealer.getZip());
 				}
 			}
 			
 		}else{
 			reportDO.setAttn("");
+			reportDO.setDealerAddress("");
 		}
 		
 		//TODO with purchase requested date
@@ -650,15 +653,18 @@ public class QuoteServiceImpl implements QuoteService {
 			if(dealer != null){
 				if(dealer.getParentCode() != 0 && dealer.getParentCode() == dealer.getCode()){
 					reportDO.setAttn(dealer.getName());
+					reportDO.setDealerAddress(dealer.getAddress()+", "+dealer.getState()+" "+dealer.getZip());
 				}else{
 					Dealer parentDealer = dealerDAO.findByCode(dealer.getCode());
 					if(parentDealer != null){
 						reportDO.setAttn(parentDealer.getName());
+						reportDO.setDealerAddress(parentDealer.getAddress()+", "+parentDealer.getState()+" "+parentDealer.getZip());
 					}
 				}
 				
 			}else{
 				reportDO.setAttn("");
+				reportDO.setDealerAddress("");
 			}
 			
 			Date createdDate = quote.getCreateDate();
@@ -1509,15 +1515,18 @@ public class QuoteServiceImpl implements QuoteService {
 		if(dealer != null){
 			if(dealer.getParentCode() != 0 && dealer.getParentCode() == dealer.getCode()){
 				reportDO.setAttn(dealer.getName());
+				reportDO.setDealerAddress(dealer.getAddress()+", "+dealer.getState()+" "+dealer.getZip());
 			}else{
 				Dealer parentDealer = dealerDAO.findByCode(dealer.getCode());
 				if(parentDealer != null){
 					reportDO.setAttn(parentDealer.getName());
+					reportDO.setDealerAddress(parentDealer.getAddress()+", "+parentDealer.getState()+" "+parentDealer.getZip());
 				}
 			}
 			
 		}else{
 			reportDO.setAttn("");
+			reportDO.setDealerAddress("");
 		};
 		
 		//TODO with purchase requested date

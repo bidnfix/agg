@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="dealerQuote" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c0ec05e7-1fb2-4f7a-a475-4bbe0eaa13dc">
 	<property name="ireport.zoom" value="0.9090909090909091"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="118"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="imagePath" class="java.lang.String"/>
 	<field name="dealerName" class="java.lang.String"/>
 	<field name="invoiceDate" class="java.lang.String"/>
@@ -38,6 +38,7 @@
 	<field name="dealerMarkup" class="java.lang.String"/>
 	<field name="amountDue" class="java.lang.String"/>
 	<field name="custName" class="java.lang.String"/>
+	<field name="dealerAddress" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -342,7 +343,7 @@
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="25" y="70" width="196" height="14" uuid="f53ad76b-1c26-4d18-8103-02060251d28a"/>
-				<textFieldExpression><![CDATA[$F{address}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{dealerAddress}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement positionType="Float" x="25" y="406" width="130" height="14" uuid="599adfc1-51d9-42f3-9778-b77a2d719e58"/>
