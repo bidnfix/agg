@@ -320,7 +320,7 @@ public class MachineServiceImpl implements MachineService {
 	
 	@Override
 	@Transactional
-	public long editMachineInfo(MachineDO machineDO) {
+	public long editMachineInfo(MachineDO machineDO) throws Exception{
 		logger.debug("In editMachineInfo : "+machineDO.getMachineId());
 		MachineInfo machineInfo = machineInfoDAO.findOne(machineDO.getMachineId());
 		Timestamp date = new Timestamp(new Date().getTime());

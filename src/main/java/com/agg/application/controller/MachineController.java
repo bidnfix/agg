@@ -147,7 +147,7 @@ public class MachineController extends BaseController {
 	
 	@RequestMapping(value = "/editMachine", method = RequestMethod.POST)
 	public @ResponseBody Result editMachine(@RequestBody MachineDO machineDO, BindingResult result,
-			HttpServletRequest request, HttpServletResponse response) {
+			HttpServletRequest request, HttpServletResponse response) throws Exception {
 		logger.debug("In saveOrEditMachine with groupId: "+machineDO.getGroupId());
 		Result opResult = null;
 		if (!sessionExists(request)){
@@ -156,8 +156,19 @@ public class MachineController extends BaseController {
 			if (result.hasErrors()){
 				opResult = new Result("failure", "Invalid dealer form field values", null);
 			}
+			long id = 0;
 	
-			long id = machineService.editMachineInfo(machineDO);
+			try
+			{
+			id = machineService.editMachineInfo(machineDO);
+			}catch (Exception e) {
+		    	if (e instanceof DataIntegrityViolationException) {
+		    		logger.error("Machine already exist");
+		    		throw new Exception("Machine already exists");
+		        } else {
+		        	throw e;
+		        }
+		    }
 			if(id > 0){
 				opResult = new Result("success", "Invalid Machine form field values", null);
 			}
