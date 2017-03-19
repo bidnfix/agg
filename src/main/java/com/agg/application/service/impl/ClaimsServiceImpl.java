@@ -223,7 +223,12 @@ public class ClaimsServiceImpl implements ClaimsService {
 	@Transactional
 	public Claims saveClaim(ClaimsDO claimsDO, AccountDO accountDO)
 	{
-		Claims claim = new Claims();
+		Claims claim = null;
+		if(claimsDO.getId() != 0){
+			claim = claimsDAO.findOne(claimsDO.getId());
+		}else{
+			claim = new Claims();
+		}
 		claim.setId(claimsDO.getId());
 		claim.setClaimId(claimsDO.getClaimId());
 		claim.setContractId(claimsDO.getContractId());

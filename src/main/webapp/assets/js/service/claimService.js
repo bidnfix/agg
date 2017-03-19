@@ -228,31 +228,31 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
 			return new Date(date.getTime()  + (days*24*60*60*1000));
 		},
 		calcTotalPartLine = function(claim, index){
-			if((claim.claimPartVOList[index].qty >= 0) && (claim.claimPartVOList[index].unitPrice >= 0)){
+			//if((claim.claimPartVOList[index].qty >= 0) && (claim.claimPartVOList[index].unitPrice >= 0)){
 				claim.claimPartVOList[index].partsTotal = claim.claimPartVOList[index].qty * claim.claimPartVOList[index].unitPrice;
 				calcTotalPartCost(claim);
-			}
+			//}
 		},
 		calcTotalPartCost = function(claim){
 			claim.partsTotalCost = 0;
 			angular.forEach(claim.claimPartVOList, function(claimPartVO, index){
-				if(claimPartVO.partsTotal >= 0){
+				//if(claimPartVO.partsTotal >= 0){
 					claim.partsTotalCost += claimPartVO.partsTotal;
-				}
+				//}
 			});
 		},
 		calcTotalLabourLine = function(claim, index){
-			if((claim.claimLabourVOList[index].laborHrs >= 0) && (claim.claimLabourVOList[index].laborHourlyRate >= 0)){
+			//if((claim.claimLabourVOList[index].laborHrs >= 0) && (claim.claimLabourVOList[index].laborHourlyRate >= 0)){
 				claim.claimLabourVOList[index].labourTotal = claim.claimLabourVOList[index].laborHrs * claim.claimLabourVOList[index].laborHourlyRate;
 				calcTotalLabourCost(claim);
-			}
+			//}
 		},
 		calcTotalLabourCost = function(claim){
 			claim.totalLaborCost = 0;
 			angular.forEach(claim.claimLabourVOList, function(claimLabourVO, index){
-				if(claimLabourVO.labourTotal >= 0){
+				//if(claimLabourVO.labourTotal >= 0){
 					claim.totalLaborCost += claimLabourVO.labourTotal;
-				}
+				//}
 			});
 		},
 		calReimburshedCost = function($scope){
@@ -894,31 +894,31 @@ routingApp.factory('claimDraftService', ['$http', '$q', '$window', '$timeout', '
 			return new Date(date.getTime()  + (days*24*60*60*1000));
 		},
 		calcTotalPartLine = function(claim, index){
-			if((claim.claimPartVOList[index].qty >= 0) && (claim.claimPartVOList[index].unitPrice >= 0)){
+			//if((claim.claimPartVOList[index].qty >= 0) && (claim.claimPartVOList[index].unitPrice >= 0)){
 				claim.claimPartVOList[index].partsTotal = claim.claimPartVOList[index].qty * claim.claimPartVOList[index].unitPrice;
 				calcTotalPartCost(claim);
-			}
+			//}
 		},
 		calcTotalPartCost = function(claim){
 			claim.partsTotalCost = 0;
 			angular.forEach(claim.claimPartVOList, function(claimPartVO, index){
-				if(claimPartVO.partsTotal >= 0){
+				//if(claimPartVO.partsTotal >= 0){
 					claim.partsTotalCost += claimPartVO.partsTotal;
-				}
+				//}
 			});
 		},
 		calcTotalLabourLine = function(claim, index){
-			if((claim.claimLabourVOList[index].laborHrs >= 0) && (claim.claimLabourVOList[index].laborHourlyRate >= 0)){
+			//if((claim.claimLabourVOList[index].laborHrs >= 0) && (claim.claimLabourVOList[index].laborHourlyRate >= 0)){
 				claim.claimLabourVOList[index].labourTotal = claim.claimLabourVOList[index].laborHrs * claim.claimLabourVOList[index].laborHourlyRate;
 				calcTotalLabourCost(claim);
-			}
+			//}
 		},
 		calcTotalLabourCost = function(claim){
 			claim.totalLaborCost = 0;
 			angular.forEach(claim.claimLabourVOList, function(claimLabourVO, index){
-				if(claimLabourVO.labourTotal >= 0){
+				//if(claimLabourVO.labourTotal >= 0){
 					claim.totalLaborCost += claimLabourVO.labourTotal;
-				}
+				//}
 			});
 		},
 		getPreAuthRequest = function(){
