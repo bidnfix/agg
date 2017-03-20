@@ -1162,7 +1162,6 @@ public class QuoteServiceImpl implements QuoteService {
 			adminAdjustment.setCConditions(quoteDO.getCondsForCoverage());
 			adminAdjustment.setDealHistory(quoteDO.getDealHistory());
 			adminAdjustment.setLastUpdate(new Date());
-			adminAdjustment.setDealHistory(quoteDO.getDealHistory());
 			
 			adminAdjustmentDAO.save(adminAdjustment);
 			
