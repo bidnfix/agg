@@ -534,7 +534,7 @@
 								        <select class="form-control" name="status" ng-model="quote.status" convert-to-number id="status"  validate-on="dirty" required="required" ng-disabled="disabled">
 										  <option value="1">Estimating Price</option>
 										  <option value="4">Purchase Requested</option>
-										  <option value="5">Invoiced</option>
+										  <!-- <option value="5">Invoiced</option> -->
 										  <option value="6">Closed</option>
 										</select>
 								    </c:when>
