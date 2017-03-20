@@ -240,7 +240,7 @@ public class MachineServiceImpl implements MachineService {
 				machineModel = it.next();
 				//machineModelDO.setModelId(machineModel.getModel());
 				machineModelDO.setModelName(machineModel.getModel());
-				machineModelDO.setModelYear(machineModel.getModelYear());
+				machineModelDO.setModelYear((machineModel.getModelYear() != null)?machineModel.getModelYear():0);
 				machineModelDO.setePower(machineModel.getePower());
 				//machineModelDO.setePower(machineModel.getePower());
 				machineModelDO.setRetailPrice(machineModel.getRetailPrice());

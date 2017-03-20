@@ -2,7 +2,6 @@ package com.agg.application.entity;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -16,8 +15,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 
 /**
@@ -49,7 +46,7 @@ public class MachineInfo implements Serializable {
 
 	//@Temporal(TemporalType.DATE)
 	@Column(name="model_year")
-	private int modelYear;
+	private Integer modelYear;
 
 	private double power;
 
@@ -138,11 +135,11 @@ public class MachineInfo implements Serializable {
 		this.model = model;
 	}
 
-	public int getModelYear() {
-		return this.modelYear;
+	public Integer getModelYear() {
+		return modelYear;
 	}
 
-	public void setModelYear(int modelYear) {
+	public void setModelYear(Integer modelYear) {
 		this.modelYear = modelYear;
 	}
 

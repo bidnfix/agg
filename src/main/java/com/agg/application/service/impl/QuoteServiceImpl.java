@@ -861,7 +861,7 @@ public class QuoteServiceImpl implements QuoteService {
 				machineInfoDO.setMachineId(machineInfo.getMachineId());
 				machineInfoDO.setMachineType(machineInfo.getMachineType().getMachineType());
 				machineInfoDO.setModel(machineInfo.getModel());
-				machineInfoDO.setModelYear(machineInfo.getModelYear());
+				machineInfoDO.setModelYear((machineInfo.getModelYear() != null)?machineInfo.getModelYear():0);
 				machineInfoDO.setEPower(machineInfo.getEPower());
 				machineInfoDO.setLol(machineInfo.getGroupConstant().getLol());
 				machineInfoDO.setLolToDisplay(machineInfo.getGroupConstant().getLol());
