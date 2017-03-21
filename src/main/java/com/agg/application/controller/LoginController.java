@@ -70,6 +70,11 @@ public class LoginController extends BaseController {
 		return "login";
 	}
 	
+	@RequestMapping(value = "/isLoggedIn", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+	public @ResponseBody Result isLoggedIn(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		return new Result("success", null, sessionExists(request));
+	}
+	
 	@RequestMapping(value = "/register", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
 	public String dealerRegister(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		if (sessionExists(request))

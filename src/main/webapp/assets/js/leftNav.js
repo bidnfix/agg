@@ -2,6 +2,19 @@
 
 var routingApp = angular.module('aggRoutingApp',['ngRoute', 'ui.bootstrap', 'angularValidator', 'angularModalService']);
 
+routingApp.config(['$httpProvider', function ($httpProvider) {
+    $httpProvider.interceptors.push(['$q', function ($q) {
+        return {
+            'responseError': function (response) {
+                if (response.status === 440) {//I prefer to use 440 to indicate the user is timeout.
+                   window.location.href = "/agg/login"; //redirect to your login page
+                }
+                return $q.reject(response);
+            }
+        };
+    }]);
+}]);
+
 routingApp.config(['$routeProvider',
                   function($routeProvider) {
                     $routeProvider.
@@ -203,6 +216,19 @@ routingApp.config(['$routeProvider',
                     	  redirectTo: '/agg/home'
                       });
                 }]);
+
+routingApp.run( function($rootScope, $location, $http) {
+    // register listener to watch route changes
+    $rootScope.$on( "$routeChangeStart", function(event, next, current) {
+    	$http.get("/agg/isLoggedIn")
+		.then(function(response) {
+			if(response.data.data === false){
+				window.location.href = "/agg/login";
+			}
+		});
+    });
+ });
+
 //Fileupload directive
 routingApp.directive('ngFiles', ['$parse', function ($parse) {
     function fn_link(scope, element, attrs) {
