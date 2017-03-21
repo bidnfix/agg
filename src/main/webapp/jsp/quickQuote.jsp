@@ -9,7 +9,7 @@
 			<div class="sec-title">
                      
 				<h3 class="wow animated bounceInLeft">Quote</h3>
-				<p class="wow animated bounceInRight">Quote #: {{quote.quoteId}}</p>
+				<p class="wow animated bounceInRight">Quote #: <b>{{quote.quoteId}}</b> &nbsp;&nbsp;&nbsp; Status: <b>{{quote.statusDesc}}</b></p>
 			</div>
           </div>
           <div class="col-md-6 col-sm-12">
