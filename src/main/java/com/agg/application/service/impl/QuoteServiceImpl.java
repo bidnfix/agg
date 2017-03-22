@@ -1464,9 +1464,15 @@ public class QuoteServiceImpl implements QuoteService {
 		long claims = 0;
 		
 		if(accountDO.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)){
-			estPrice = quoteDAO.countByEstPrice();
+			/*estPrice = quoteDAO.countByEstPrice();
 			purchaseReq = quoteDAO.countByPurRequested();
-			invoiced = quoteDAO.countByInvoiced();
+			invoiced = quoteDAO.countByInvoiced();*/
+			
+			estPrice = quoteDAO.countByStatus(AggConstants.B_QUOTE_STATUS_ESTIMATING_PRICE, AggConstants.B_QUOTE_STATUS_UNACRHIVE);
+			purchaseReq = quoteDAO.countByStatus(AggConstants.B_QUOTE_STATUS_PURCHASE_REQUESTED, AggConstants.B_QUOTE_STATUS_UNACRHIVE);
+			invoiced = quoteDAO.countByStatus(AggConstants.B_QUOTE_STATUS_INVOICED, AggConstants.B_QUOTE_STATUS_UNACRHIVE);
+			
+			
 			
 			//activeContract = contractsDAO.countByStatus(AggConstants.B_ACTIVE_CONTRACT);
 			//inactiveContract = contractsDAO.countByStatus(AggConstants.B_INACTIVE_CONTRACT);
@@ -1477,9 +1483,15 @@ public class QuoteServiceImpl implements QuoteService {
 			claims = claimsDAO.findClaimsCountByAdmin((byte)AggConstants.CLAIM_STATUS_DRAFT);
 			
 		}else{
-			estPrice = quoteDAO.countByEstPrice(accountDO.getDealerId());
+			/*estPrice = quoteDAO.countByEstPrice(accountDO.getDealerId());
 			purchaseReq = quoteDAO.countByPurRequested(accountDO.getDealerId());
-			invoiced = quoteDAO.countByInvoiced(accountDO.getDealerId());
+			invoiced = quoteDAO.countByInvoiced(accountDO.getDealerId());*/
+			
+			estPrice = quoteDAO.countByStatus(AggConstants.B_QUOTE_STATUS_ESTIMATING_PRICE, AggConstants.B_QUOTE_STATUS_UNACRHIVE, accountDO.getDealerId());
+			purchaseReq = quoteDAO.countByStatus(AggConstants.B_QUOTE_STATUS_PURCHASE_REQUESTED, AggConstants.B_QUOTE_STATUS_UNACRHIVE, accountDO.getDealerId());
+			invoiced = quoteDAO.countByStatus(AggConstants.B_QUOTE_STATUS_INVOICED, AggConstants.B_QUOTE_STATUS_UNACRHIVE, accountDO.getDealerId());
+			
+			
 			/*activeContract = contractsDAO.countByStatus(AggConstants.B_ACTIVE_CONTRACT, accountDO.getDealerId());
 			inactiveContract = contractsDAO.countByStatus(AggConstants.B_INACTIVE_CONTRACT, accountDO.getDealerId());*/
 			activeContract = contractsDAO.countActiveContractByDealer(accountDO.getDealerId());

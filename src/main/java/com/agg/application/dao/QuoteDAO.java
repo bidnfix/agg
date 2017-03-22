@@ -24,7 +24,7 @@ public interface QuoteDAO extends CrudRepository<Quote, QuotePK> {
 	
 	public List<Quote> findByDealerId(long dealerId);
 	
-	@Query("SELECT COUNT(*) FROM Quote q WHERE q.status=1")
+/*	@Query("SELECT COUNT(*) FROM Quote q WHERE q.status=1")
 	public int countByEstPrice();
 	
 	@Query("SELECT COUNT(*) FROM Quote q WHERE q.status=4")
@@ -40,7 +40,13 @@ public interface QuoteDAO extends CrudRepository<Quote, QuotePK> {
 	public int countByPurRequested(@Param("dealerId")long dealerId);
 	
 	@Query("SELECT COUNT(*) FROM Quote q WHERE q.status=5 and q.dealer.id = :dealerId")
-	public int countByInvoiced(@Param("dealerId")long dealerId);
+	public int countByInvoiced(@Param("dealerId")long dealerId);*/
+	
+	@Query("SELECT COUNT(*) FROM Quote quote WHERE quote.status = :status and quote.isArchive = :isArchive")
+	public int countByStatus(@Param("status")byte status, @Param("isArchive")short isArchive);
+	
+	@Query("SELECT COUNT(*) FROM Quote quote WHERE quote.status = :status and quote.isArchive = :isArchive and quote.dealer.id = :dealerId")
+	public int countByStatus(@Param("status")byte status, @Param("isArchive")short isArchive, @Param("dealerId")long dealerId);
 	
 	/*@Query("SELECT q FROM Quote q WHERE q.status=1")
 	public List<Quote> findByEstPrice();*/

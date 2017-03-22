@@ -6,7 +6,7 @@ routingApp.config(['$httpProvider', function ($httpProvider) {
     $httpProvider.interceptors.push(['$q', function ($q) {
         return {
             'responseError': function (response) {
-                if (response.status === 440) {//I prefer to use 440 to indicate the user is timeout.
+                if (response.status === 440) {//440 to indicate the user is timeout.
                    window.location.href = "/agg/login"; //redirect to your login page
                 }
                 return $q.reject(response);
