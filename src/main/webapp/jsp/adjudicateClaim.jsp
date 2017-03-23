@@ -41,7 +41,7 @@
 			                		<a ng-click="onClickSelectClaim(claim)"><img src="../assets/images/edit-pencil.png" alt="Edit" title="Edit"/></a>
 			                	</div>
 			                </td>
-			                <td>{{claim.createdDate}}</td>
+			                <td>{{claim.lastUpdate}}</td>
 			            </tr>
 			        </tbody>
 				</table>
