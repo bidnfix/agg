@@ -200,13 +200,13 @@
 			<div class="col-sm-6">
 				<div class="col-xs-12 no-pad">
 					<label> 
-						<input type="checkbox" id="custUnderstandCoverage" name="custUnderstandCoverage" ng-model="quote.custUnderstandCoverage" ng-value="true" ng-checked="true" required="required"> Customer
+						<input type="checkbox" id="custUnderstandCoverage" name="custUnderstandCoverage" ng-model="quote.custUnderstandCoverage" ng-value="true" required="required"> Customer
 						understands coverage.
 					</label>
 				</div>
 				<div class="col-xs-12 no-pad">
 					<label> 
-						<input type="checkbox" id="custRemorsePeriod" name="custRemorsePeriod" ng-model="quote.custRemorsePeriod" ng-value="true" ng-checked="true" required="required"> Customer is
+						<input type="checkbox" id="custRemorsePeriod" name="custRemorsePeriod" ng-model="quote.custRemorsePeriod" ng-value="true" required="required"> Customer is
 						aware of 90-day remorse period.
 					</label>
 				</div>

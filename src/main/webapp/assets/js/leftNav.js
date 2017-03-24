@@ -777,8 +777,8 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService, $
 	$scope.quote.fullMachineHours = 2000;
 	$scope.quote.estSaleDate = new Date();
 	$scope.quote.dealerMarkupType = "price";
-	$scope.quote.custRemorsePeriod = true;
-	$scope.quote.custUnderstandCoverage = true;
+	//$scope.quote.custRemorsePeriod = true;
+	//$scope.quote.custUnderstandCoverage = true;
 	$scope.machineSerialFlag = true;
 	
 	$scope.date = new Date();

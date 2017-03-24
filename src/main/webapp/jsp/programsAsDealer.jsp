@@ -61,7 +61,7 @@
 						<label>Hours at Enrollment</label> <input type="text"
 							id="machineMeterHours" name="machineMeterHours"
 							ng-model="program.machineMeterHours" placeholder="Hours at Enrollment"
-							class="form-control" ng-disabled="disabled">
+							validate-on="dirty" required="required" class="form-control" ng-disabled="disabled">
 					</div>
 					<div class="form-group" ng-hide="mfgCoverageDisabled">
 						<label>MFG Coverage Ends</label> 
