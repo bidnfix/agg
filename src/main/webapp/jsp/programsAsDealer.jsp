@@ -120,6 +120,19 @@
 							placeholder="Unusual Provisions" class="form-control"
 							ng-disabled="disabled">
 					</div>
+					
+					<div class="form-group">
+						<label>Use of Equipment</label> <select
+							name="equipment" ng-model="program.useOfEquipmentDO"
+							class="form-control"
+							ng-options="equipmentObj.equipName for equipmentObj in useOfEquipmentDOList track by equipmentObj.id"
+							required-message="'Please select use of equipment.'"
+							required="required">
+							<option value="">Use of Equipment</option>
+						</select>
+					</div>
+				
+				
 					<div class="form-group ">
 						<button class="btn btn-primary btn-lg btn-block login-button"
 							type="submit">Submit</button>
@@ -266,6 +279,16 @@
 													ng-model="program.customerInfoDO.email" placeholder="Email" class="form-control"
 								validate-on="dirty" required="required" ng-disabled="disabled">
 						</div>
+						<div class="checkbox">
+                         <label>
+                           <input type="checkbox" id="custUnderstandCoverage" name="custUnderstandCoverage" ng-model="program.custUnderstandCoverage" ng-value="true" required="required"  validate-on="dirty" ng-disabled="disabled"> Customer understands coverage.
+                         </label>
+                       </div>
+                       <div class="checkbox">
+                         <label>
+                           <input type="checkbox" id="custRemorsePeriod" name="custRemorsePeriod" ng-model="program.custRemorsePeriod" ng-value="true" required="required"  validate-on="dirty" ng-disabled="disabled"> Customer is aware of 90-day remorse period.
+                         </label>
+                       </div>
 					</div>
 				</div>
 			</div>

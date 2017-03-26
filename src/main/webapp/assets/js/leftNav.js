@@ -690,6 +690,7 @@ routingApp.controller('ProgramAsDealerController', function($scope, programServi
     .then(function(response) {
     	//alert(response.data.data.programList);
         $scope.programList = response.data.data.programList;
+        $scope.useOfEquipmentDOList = response.data.data.useOfEquipmentDOList;
     });
 	
 	$scope.getProgDetails = function (programDO)

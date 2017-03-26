@@ -305,7 +305,10 @@ public class ProgramServiceImpl implements ProgramService {
 			quote.setMachineSerial(quoteDO.getSerialNumber());
 			quote.setMachineRetailPrice(quoteDO.getRetailPrice());
 			quote.setMachineYear(quoteDO.getModelYear());
-			//quote.setUseOfEquip(useOfEquipmentDAO.findOne(quoteDO.getUseOfEquipmentDO().getId()));
+			quote.setUseOfEquip(useOfEquipmentDAO.findOne(quoteDO.getUseOfEquipmentDO().getId()));
+			
+			logger.debug("quoteDO.getUseOfEquipmentDO().getId() "+quoteDO.getUseOfEquipmentDO().getId());
+			
 			quote.setMachineSaleDate(new Date());
 			
 			//TODO
@@ -376,6 +379,9 @@ public class ProgramServiceImpl implements ProgramService {
 				custInfo.setEmail(custDO.getEmail());
 				custInfo.setRemorse((quoteDO.isCustRemorsePeriod())?(byte)1:(byte)0);
 				custInfo.setUnderstand((quoteDO.isCustUnderstandCoverage())?(byte)1:(byte)0);
+				
+				logger.debug("quoteDO.isCustRemorsePeriod() "+quoteDO.isCustRemorsePeriod());
+				logger.debug("quoteDO.isCustUnderstandCoverage() "+quoteDO.isCustUnderstandCoverage());
 				custInfo.setLastUpdate(date);
 				custInfo = customerInfoDAO.save(custInfo);
 			}

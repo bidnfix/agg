@@ -24,6 +24,7 @@ import com.agg.application.model.Result;
 import com.agg.application.service.DealerService;
 import com.agg.application.service.MachineService;
 import com.agg.application.service.ProgramService;
+import com.agg.application.service.QuoteService;
 
 @RestController
 @RequestMapping("/agg")
@@ -39,6 +40,9 @@ public class ProgramController extends BaseController {
 	
 	@Autowired
 	private DealerService dealerService;
+	
+	@Autowired
+	private QuoteService quoteService;
 
 	@RequestMapping(value = "/programs", method = RequestMethod.GET)
 	public @ResponseBody Result listPrograms(Map<String, Object> model, HttpServletRequest request, HttpServletResponse response) {
@@ -64,6 +68,7 @@ public class ProgramController extends BaseController {
 			opResult = new Result("failure", "Invalid Login", null);
 		}else{
 			model.put("programList", programService.getPrograms(getAccountDetails(request)));
+			model.put("useOfEquipmentDOList", quoteService.getUseOfEquipmentDetails());
 			opResult = new Result("success", null, model);
 		}
 		return opResult;
