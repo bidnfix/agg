@@ -224,7 +224,7 @@ public class QuoteDO {
 		
 	}
 	
-	public QuoteDO(int id, String quoteId, String dealerName, String custName, String machineModel, Date machineSaleDate, byte status, Date createdDate, short isArchive){
+	public QuoteDO(int id, String quoteId, String dealerName, String custName, String machineModel, Date machineSaleDate, byte status, Date lastUpdate, short isArchive){
 		this.id = id;
 		this.quoteId = quoteId;
 		this.dealerName = dealerName;
@@ -247,7 +247,7 @@ public class QuoteDO {
 		
 		this.statusDesc = statusDesc;
 		this.status = status;
-		this.createDate = createdDate;
+		this.lastUpdate = lastUpdate;
 	}
 	
 	public QuoteDO(int id, String quoteId, String dealerName, Date machineSaleDate, byte status, Date createdDate, short isArchive){
