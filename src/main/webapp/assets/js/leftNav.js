@@ -1631,7 +1631,9 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 		$scope.pricingDOList = response.data.data.pricingDOList;
 		$scope.coverageLevelHoursList = response.data.data.coverageLevelHoursList;
 		$scope.quote = response.data.data.quote;
-		$scope.quote.adjustedLol = $scope.quote.machineInfoDO.lol;
+		if( $scope.quote.machineInfoDO != null){
+			$scope.quote.adjustedLol = $scope.quote.machineInfoDO.lol;
+		}
 		$scope.quote.adjustedBasePrice = $scope.quote.quoteBasePrice;
 		
 		
@@ -1644,6 +1646,11 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 			$scope.purchaseRequested = false;
 		}else if($scope.quote.status == 5){
 			$scope.invoiced = false;
+		}
+		
+		if($scope.quote.dealerMarkupType == null){
+			$scope.quote.dealerMarkupType = "price";
+			$scope.quote.dealerMarkupTypee = "price";
 		}
 		
         if($scope.quote.coverageExpired != null && $scope.quote.coverageExpired == true){

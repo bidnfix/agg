@@ -14,9 +14,21 @@
           </div>
           <div class="col-md-6 col-sm-12">
           	<div ng-if="quote.status != 6 && quote.isArchive == 0">
-	          	<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="editQuote()">Edit</button>
-	          	<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="quoteInfoForm.$valid && updateQuote(quoteInfoForm)">Update</button>
-	          	<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="archiveQuote()">Archive</button>
+          		<c:choose>
+          			<c:when test="${user.roleDO.accountType eq 'admin'}">
+          				<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="editQuote()">Edit</button>
+			          	<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="quoteInfoForm.$valid && updateQuote(quoteInfoForm)">Update</button>
+			          	<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="archiveQuote()">Archive</button>
+          			</c:when>
+          			<c:otherwise>
+          				<div ng-hide="quote.status === 4 && !purchaseRequested">
+          					<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="editQuote()">Edit</button>
+				          	<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="quoteInfoForm.$valid && updateQuote(quoteInfoForm)">Update</button>
+				          	<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="archiveQuote()">Archive</button>
+          				</div>
+          			</c:otherwise>
+          		</c:choose>
+	          	
 	          	<c:if test="${user.roleDO.accountType eq 'admin'}">
 	           	<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="quoteInfoForm.$valid && invoiceQuote(quoteInfoForm)" ng-disabled="purchaseRequested">Invoice</button>
 	           	<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="quoteInfoForm.$valid && createContract(quoteInfoForm)" ng-disabled="invoiced">Create Contract</button>
@@ -111,7 +123,8 @@
                            <!-- <input type="text" class="form-control" aria-describedby="basic-addon2"> -->
                            <!-- <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span> -->
                            <div class="input-group">
-	                           <input type="text" class="form-control" 
+	                           <input type="text" class="form-control"
+	                           		   name="coverageEndDate" 
 					                   datepicker-popup="MM/dd/yyyy"
 					                   datepicker-options="dateOptions" 
 					                   is-open="valuationDatePickerIsOpen" 
@@ -191,7 +204,8 @@
                            <!-- <input type="text" class="form-control" aria-describedby="basic-addon2"> -->
                            <!-- <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span> -->
                            <div class="input-group">
-	                           <input type="text" class="form-control" 
+	                           <input type="text" class="form-control"
+	                           		   name="estSaleDate" 
 					                   datepicker-popup="MM/dd/yyyy"
 					                   datepicker-options="dateOptions" 
 					                   is-open="estSaleDatePickerIsOpen" 
@@ -539,7 +553,15 @@
 										</select>
 								    </c:when>
 								    <c:otherwise>
-								        <p>{{quote.statusDesc}}</p>
+								        <div ng-hide="quote.status === 4 && !purchaseRequested">
+									        <select class="form-control" name="status" ng-model="quote.status" convert-to-number id="status"  validate-on="dirty" required="required" ng-disabled="disabled">
+											  <option value="1">Estimating Price</option>
+											  <option value="4">Purchase Requested</option>
+											</select>
+										</div>
+										<div ng-hide="quote.status === 3 && purchaseRequested">
+											<p>{{quote.statusDesc}}</p>
+										</div>
 								    </c:otherwise>
 								</c:choose>
 							  </div>
