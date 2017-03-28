@@ -549,7 +549,7 @@
 										  <option value="1">Estimating Price</option>
 										  <option value="4">Purchase Requested</option>
 										  <!-- <option value="5">Invoiced</option> -->
-										  <option value="6">Closed</option>
+										  <!-- <option value="6">Closed</option> -->
 										</select>
 								    </c:when>
 								    <c:otherwise>
