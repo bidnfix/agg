@@ -23,6 +23,7 @@ import com.agg.application.model.LoginForm;
 import com.agg.application.model.Result;
 import com.agg.application.service.DealerService;
 import com.agg.application.service.LoginService;
+import com.agg.application.utils.AggConstants;
 
 @Controller
 @RequestMapping("/agg")
@@ -46,6 +47,7 @@ public class LoginController extends BaseController {
 		
 		logger.info("UserMenu size: "+account.getUserMenuDOList().size());
 		logger.debug("Account [{}]", account);
+		request.getSession().setMaxInactiveInterval(AggConstants.SESSION_EXPIRATION_TIMEOUT);
 		request.getSession().setAttribute("user", account);
 		return new Result("success", null, account);
 	}

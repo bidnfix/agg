@@ -124,6 +124,8 @@ public class AggConstants {
 	
 	public static final int QUOTE_EXPIRATION_DAYS = 90;
 	
+	public static final int SESSION_EXPIRATION_TIMEOUT = 14400; //in seconds - 4 hrs
+	
 	
 	public static final String QUOTE_REPORT_OUT_STANDING_DESC = "Thank you for considering AgGuard coverage, we appreciate the opportunity to earn your trust. "
 			+ "This quote reflects the information provided in your request for an extended service Contract based on the current terms and "
