@@ -98,6 +98,27 @@ routingApp.factory('quoteService', function($http, $q, $window) {
 						return $q.reject(errResponse);
 					});
 		},
+		saveQuoteSummaryInfo : function(quote, $scope) {
+			return $http.post('/agg/quote/addQuote/summaryInfo', quote).then(
+					function(response) {
+						//alert(response.data.status);
+						if (response.data.status == 'success') {
+							//alert(response.data.data.quoteId+" "+response.data.data.id);
+							//$scope.quote = response.data.data;
+							$scope.quote.quoteId = response.data.data.quoteId;
+							$scope.quote.id = response.data.data.id;
+							$scope.quote.statusDesc = response.data.data.statusDesc;
+							//$window.location.href = '#/agg/dealers';
+						} else {
+							alert('Error in adding Quote Summary Additional Unit Info: '+response.data.errMessage)
+							//$('#errMsg').html(response.data.errMessage);
+						}
+						
+					}, function(errResponse) {
+						alert('Error while saving Quote');
+						return $q.reject(errResponse);
+					});
+		},
 		savePurchanseInfo : function(quote, $scope) {
 			showSpinner();
 			return $http.post('/agg/quote/addQuote/purchaseInfo', quote).then(

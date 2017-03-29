@@ -1,9 +1,9 @@
 <form class="form-horizontal" name="quoteSummaryForm" id="quoteSummaryForm" angular-validator-submit="validateQuoteSummaryForm()" novalidate angular-validator>
 <div class="agf1 main-login col-xs-12 clearfix">
-	<span class="ag-tab-title col-xs-12 no-pad">Please review your
+	<!-- <span class="ag-tab-title col-xs-12 no-pad">Please review your
 		quote below. Click the edit button to modify.
 		<button class="btn btn-primary btn-sm pull-right" ng-click="editQuoteInfo()"> Edit</button>
-	</span>
+	</span> -->
 	<div class="col-xs-12 pad10">
 
 		<div class="col-sm-12 no-pad marg10-top marg10-bottom">
@@ -160,7 +160,7 @@
 				<div class="form-group">
 					<label><i class="fa fa-info-circle"></i> Additional Unit
 						Information</label>
-					<p>{{addUnitInformation}}</p>
+					<textarea class="form-control" placeholder="" ng-model="quote.otherProv"></textarea>
 				</div>
 			</div>
 

@@ -390,8 +390,14 @@ public class QuoteServiceImpl implements QuoteService {
 			quote.setServicingDealer(0);
 			quote.setLastUpdate(new Date());
 			
-			CustomerInfo customerInfo = new CustomerInfo();
-			customerInfo.setQuoteId(quoteDO.getQuoteId());
+			//updating quote summary additional info.
+			quote.setOtherProv(quoteDO.getOtherProv());
+			
+			CustomerInfo customerInfo = customerInfoDAO.findOne(quoteDO.getQuoteId());
+			if(customerInfo == null){
+				customerInfo = new CustomerInfo();
+				customerInfo.setQuoteId(quoteDO.getQuoteId());
+			}
 			customerInfo.setAddress((quoteDO.getDealerAddress() != null)?quoteDO.getDealerAddress():"");
 			customerInfo.setCity(quoteDO.getDealerCity());
 			customerInfo.setEmail(quoteDO.getDealerEmail());
@@ -492,6 +498,7 @@ public class QuoteServiceImpl implements QuoteService {
 			//quote.setPrId(0);
 			quote.setServicingDealer(0);
 			quote.setLastUpdate(new Date());
+			quote.setOtherProv(quoteDO.getOtherProv());
 			
 			//purchased status to 4
 			quote.setStatus(AggConstants.B_QUOTE_STATUS_PURCHASE_REQUESTED);

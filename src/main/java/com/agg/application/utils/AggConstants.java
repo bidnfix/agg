@@ -18,7 +18,7 @@ public class AggConstants {
 	
 	public static final String SEQUENCE_TYPE_DEALER = "dealer";
 	
-	public static final char[] CHARSET_AZ_09 = "ABCDFGHJKLMNPQRSTUVWXYZ0123456789".toCharArray();
+	public static final char[] CHARSET_AZ_09 = "ABCDFGHJKLMNPQRSTUVWXYZ123456789".toCharArray();
 	
 	public static final int QUOTE_ID_LENGTH = 5;
 	

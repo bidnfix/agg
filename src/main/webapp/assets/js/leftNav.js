@@ -832,12 +832,12 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService, $
 				}else{
 					myTabs.goToTab(index);
 				}
-			}else if(index == 4){
+			}/*else if(index == 4){
 				var cond = $scope.validateQuoteData();
 				if(cond){
 					myTabs.goToTab(index);
 				}
-			}else if(index != 5){
+			}*/else if(index != 5){
 				myTabs.goToTab(index);
 			}
 			if(index == 1){
@@ -849,6 +849,8 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService, $
 				var coverageExpired = true;
 				if($scope.quote.coverageExpired != null && $scope.quote.coverageExpired == true){
 					coverageExpired = true;
+				}else if($scope.quote.coverageEndDateUnknown != null && $scope.quote.coverageEndDateUnknown == true){
+					coverageExpired = false;
 				}else if($scope.quote.coverageEndDate != null && ($scope.quote.coverageEndDate > $scope.date)){
 					coverageExpired = false;
 				}else{
@@ -865,11 +867,41 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService, $
 					
 					$scope.coverageTermSelected = $scope.coverageTermList[0];
 					$scope.deductiblePriceSelected = $scope.deductibleAmtList[0];
+					
+					if(($scope.quote.coverageTerm != null && ($scope.coverageTermSelected != $scope.quote.coverageTerm)) 
+							|| ($scope.quote.deductiblePrice != null && ($scope.deductiblePriceSelected != $scope.quote.deductiblePrice))){
+						$scope.getCoveragePriceLevels($scope.quote.deductiblePrice, $scope.quote.coverageTerm)
+						
+						var colIndex = 0;
+						if($scope.coverageType != null){
+							if($scope.coverageType == 'PT'){
+								colIndex = 1;
+							}else if($scope.coverageType == 'PH'){
+								colIndex = 2;
+							}else if($scope.coverageType == 'PL'){
+								colIndex = 3;
+							} 
+						}
+						var rowIndex = -1;
+						angular.forEach($scope.pricingDOList, function(pricingDO, key){
+							if($scope.coverageHours == pricingDO.coverageLevelHours){
+								rowIndex = key;
+							}
+						});
+						
+						if(rowIndex >= 0 && colIndex > 0){
+							$scope.setClickedCloumn(rowIndex, colIndex);
+						}
+						
+					}
+					
 				});
 				
 			}else if(index == 3){
 				if($scope.quote.coverageExpired != null && $scope.quote.coverageExpired == true){
 					$scope.machineCondition = 'Used';
+				}else if($scope.quote.coverageEndDateUnknown != null && $scope.quote.coverageEndDateUnknown == true){
+					$scope.machineCondition = 'New';
 				}else if($scope.quote.coverageEndDate != null && ($scope.quote.coverageEndDate > $scope.date)){
 					$scope.machineCondition = 'New';
 				}else{
@@ -886,6 +918,11 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService, $
 					$scope.quoteBasePrice = (colIndex === 1)?$scope.pricingDOList[rowIndex].ptBasePrice:(colIndex === 2)?$scope.pricingDOList[rowIndex].phBasePrice:$scope.pricingDOList[rowIndex].plBasePrice;
 					$scope.coverageType = (colIndex === 1)?"PT":(colIndex === 2)?"PH":"PL";
 					$scope.coverageTypeDesc = (colIndex === 1)?"Powertrain":(colIndex === 2)?"Powertrain + Hydraulic":"Powertrain + Hydraulic + Platform";
+				}else{
+					$scope.coverageHours = 0;
+					$scope.quoteBasePrice = 0;
+					$scope.coverageType = null;
+					$scope.coverageTypeDesc = null;
 				}
 				
 				if($scope.quote.dealerMarkupType == 'price'){
@@ -907,6 +944,11 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService, $
 				//saving coverage information
 				quoteService.saveCoverageInfo($scope.quote, $scope);
 				
+			}else if(index == 4){
+				//saving Additional Unit information
+				if($scope.quote.otherProv != null){
+					quoteService.saveQuoteSummaryInfo($scope.quote, $scope);
+				}
 			}else if(index == 5){
 				var cond = $scope.validateQuoteData();
 				if(cond){
@@ -1120,6 +1162,8 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService, $
 		var coverageExpired = true;
 		if($scope.quote.coverageExpired != null && $scope.quote.coverageExpired == true){
 			coverageExpired = true;
+		}else if($scope.quote.coverageEndDateUnknown != null && $scope.quote.coverageEndDateUnknown == true){
+			coverageExpired = false;
 		}else if($scope.quote.coverageEndDate != null && ($scope.quote.coverageEndDate > $scope.date)){
 			coverageExpired = false;
 		}else{
