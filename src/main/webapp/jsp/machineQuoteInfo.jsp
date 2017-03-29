@@ -26,6 +26,7 @@
 						<label>*Model Number</label> <select class="form-control"
 							name="machineModel" ng-model="quote.machineInfoDO"
 							ng-options="machineModel.model group by machineModel.machineType for machineModel in machineModelList track by machineModel.machineId"
+							ng-change="changeMachineModelStatus()"
 							required-message="'Please select valid Model Number.'"
 							required="required">
 							<option value="">Model Number</option>

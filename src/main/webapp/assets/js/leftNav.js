@@ -781,6 +781,7 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService, $
 	//$scope.quote.custRemorsePeriod = true;
 	//$scope.quote.custUnderstandCoverage = true;
 	$scope.machineSerialFlag = true;
+	$scope.machineModelChanged = true;
 	
 	$scope.date = new Date();
 	
@@ -846,56 +847,60 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService, $
 				//saving machineInfo
 				quoteService.saveMachineInfo($scope.quote, $scope);
 				
-				var coverageExpired = true;
-				if($scope.quote.coverageExpired != null && $scope.quote.coverageExpired == true){
-					coverageExpired = true;
-				}else if($scope.quote.coverageEndDateUnknown != null && $scope.quote.coverageEndDateUnknown == true){
-					coverageExpired = false;
-				}else if($scope.quote.coverageEndDate != null && ($scope.quote.coverageEndDate > $scope.date)){
-					coverageExpired = false;
-				}else{
-					coverageExpired = true;
-				}
-				
-				//var coverageExpired = ($scope.quote.coverageExpired != null && $scope.quote.coverageExpired == true)?true:false;
-				var machineId = $scope.quote.machineInfoDO.machineId;
-				$http.get("/agg/quote/coverageDeductInfo/"+coverageExpired+"/"+machineId)
-				.then(function(response) {
-					$scope.deductibleAmtList = response.data.data.deductibleAmtList;
-					$scope.coverageTermList = response.data.data.coverageTermList;
-					$scope.pricingDOList = response.data.data.pricingDOList;
-					
-					$scope.coverageTermSelected = $scope.coverageTermList[0];
-					$scope.deductiblePriceSelected = $scope.deductibleAmtList[0];
-					
-					if(($scope.quote.coverageTerm != null && ($scope.coverageTermSelected != $scope.quote.coverageTerm)) 
-							|| ($scope.quote.deductiblePrice != null && ($scope.deductiblePriceSelected != $scope.quote.deductiblePrice))){
-						$scope.getCoveragePriceLevels($scope.quote.deductiblePrice, $scope.quote.coverageTerm)
-						
-						var colIndex = 0;
-						if($scope.coverageType != null){
-							if($scope.coverageType == 'PT'){
-								colIndex = 1;
-							}else if($scope.coverageType == 'PH'){
-								colIndex = 2;
-							}else if($scope.coverageType == 'PL'){
-								colIndex = 3;
-							} 
-						}
-						var rowIndex = -1;
-						angular.forEach($scope.pricingDOList, function(pricingDO, key){
-							if($scope.coverageHours == pricingDO.coverageLevelHours){
-								rowIndex = key;
-							}
-						});
-						
-						if(rowIndex >= 0 && colIndex > 0){
-							$scope.setClickedCloumn(rowIndex, colIndex);
-						}
-						
+				if($scope.machineModelChanged){
+					$scope.machineModelChanged = false;
+					var coverageExpired = true;
+					if($scope.quote.coverageExpired != null && $scope.quote.coverageExpired == true){
+						coverageExpired = true;
+					}else if($scope.quote.coverageEndDateUnknown != null && $scope.quote.coverageEndDateUnknown == true){
+						coverageExpired = false;
+					}else if($scope.quote.coverageEndDate != null && ($scope.quote.coverageEndDate > $scope.date)){
+						coverageExpired = false;
+					}else{
+						coverageExpired = true;
 					}
 					
-				});
+					
+					//var coverageExpired = ($scope.quote.coverageExpired != null && $scope.quote.coverageExpired == true)?true:false;
+					var machineId = $scope.quote.machineInfoDO.machineId;
+					$http.get("/agg/quote/coverageDeductInfo/"+coverageExpired+"/"+machineId)
+					.then(function(response) {
+						$scope.deductibleAmtList = response.data.data.deductibleAmtList;
+						$scope.coverageTermList = response.data.data.coverageTermList;
+						$scope.pricingDOList = response.data.data.pricingDOList;
+						
+						$scope.coverageTermSelected = $scope.coverageTermList[0];
+						$scope.deductiblePriceSelected = $scope.deductibleAmtList[0];
+						
+						/*if(($scope.quote.coverageTerm != null && ($scope.coverageTermSelected != $scope.quote.coverageTerm)) 
+								|| ($scope.quote.deductiblePrice != null && ($scope.deductiblePriceSelected != $scope.quote.deductiblePrice))){
+							$scope.getCoveragePriceLevels($scope.quote.deductiblePrice, $scope.quote.coverageTerm)
+							
+							var colIndex = 0;
+							if($scope.coverageType != null){
+								if($scope.coverageType == 'PT'){
+									colIndex = 1;
+								}else if($scope.coverageType == 'PH'){
+									colIndex = 2;
+								}else if($scope.coverageType == 'PL'){
+									colIndex = 3;
+								} 
+							}
+							var rowIndex = -1;
+							angular.forEach($scope.pricingDOList, function(pricingDO, key){
+								if($scope.coverageHours == pricingDO.coverageLevelHours){
+									rowIndex = key;
+								}
+							});
+							
+							if(rowIndex >= 0 && colIndex > 0){
+								$scope.setClickedCloumn(rowIndex, colIndex);
+							}
+							
+						}*/
+						
+					});
+				}
 				
 			}else if(index == 3){
 				if($scope.quote.coverageExpired != null && $scope.quote.coverageExpired == true){
@@ -1129,12 +1134,17 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService, $
 	}
 	
 	$scope.getMachineModel = function(manufacturerDO){
+		$scope.machineModelChanged = true;
 		if(manufacturerDO != null){
 			 $http.get("/agg/manfModel/"+manufacturerDO.id)
 			    .then(function(response) {
 			        $scope.machineModelList = response.data.data.machineModelList;
 			    });
 		}
+	}
+	
+	$scope.changeMachineModelStatus = function(){
+		$scope.machineModelChanged = true;
 	}
 	
 	$scope.setClickedCloumn = function(rowIndex, colIndex){
