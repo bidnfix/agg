@@ -284,7 +284,7 @@
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i aria-hidden="true" class="fa-phone fa"></i></span>
-									<input type="number" id="phone" name="phone" ng-model="dealer.phone" placeholder="Phone Number" class="form-control" required="required">
+									<input type="text" id="phone" name="phone" ng-model="dealer.phone" placeholder="Phone Number" class="form-control" required="required">
 								</div>
 							</div>
 						</div>          

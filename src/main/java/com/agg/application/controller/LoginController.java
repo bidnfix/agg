@@ -114,7 +114,7 @@ public class LoginController extends BaseController {
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public @ResponseBody Result register(@RequestBody DealerDO dealerDO, BindingResult result, Model model,
 			HttpServletRequest request, HttpServletResponse response) throws Exception {
-		logger.debug("Inside register method with userName: ", dealerDO.getUserName());
+		logger.debug("Inside register method with userName: "+ dealerDO.getUserName());
 		
 		StringBuffer url = request.getRequestURL();
 		String uri = request.getRequestURI();
