@@ -1692,7 +1692,9 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 		
 		
 		$scope.quote.dealerMarkupTypee = $scope.quote.dealerMarkupType;
-		$scope.quote.coverageEndDate = new Date($scope.quote.coverageEndDate);
+		if($scope.quote.coverageEndDate != null){
+			$scope.quote.coverageEndDate = new Date($scope.quote.coverageEndDate);
+		}
 		$scope.quote.estSaleDate = new Date($scope.quote.estSaleDate);
 		$scope.quote.lastUpdate = new Date($scope.quote.lastUpdate);
 		
@@ -1709,7 +1711,9 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 		
         if($scope.quote.coverageExpired != null && $scope.quote.coverageExpired == true){
     		$scope.machineCondition = 'Used';
-    	}else if($scope.quote.coverageEndDate != null && ($scope.quote.coverageEndDate > $scope.date)){
+    	}else if($scope.quote.coverageEndDateUnknown != null && $scope.quote.coverageEndDateUnknown == true){
+    		$scope.machineCondition = 'New';
+		}else if($scope.quote.coverageEndDate != null && ($scope.quote.coverageEndDate > $scope.date)){
     		$scope.machineCondition = 'New';
     	}else{
     		$scope.machineCondition = 'Used';
