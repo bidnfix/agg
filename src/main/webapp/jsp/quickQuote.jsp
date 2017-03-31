@@ -141,14 +141,14 @@
                        </div>
                        <div class="checkbox">
                          <label>
-                           <input type="checkbox" id="coverageExpired" name="coverageExpired" ng-model="quote.coverageExpired" ng-disabled="disabled"> Check here if the Manufacturer's Coverage has expired.
+                           <input type="checkbox" id="coverageExpired" name="coverageExpired" ng-model="quote.coverageExpired" ng-disabled="disabled" ng-change="getCoverageDetails(quote.machineInfoDO);getCoveragePriceLevels()"> Check here if the Manufacturer's Coverage has expired.
                          </label>
                        </div>
-                       <div class="checkbox">
+                      <!--  <div class="checkbox">
                          <label>
                            <input type="checkbox" id="coverageEndDateUnknown" name="coverageEndDateUnknown" ng-model="quote.coverageEndDateUnknown" ng-disabled="disabled">Check if Manufacturer's End Date unknown.
                          </label>
-                       </div>
+                       </div> -->
                        <div class="form-group">
                          <label>Deductible</label>
                          <div ng-if="quote.program == null">
@@ -313,11 +313,11 @@
 									 ng-model="quote.coverageExpired" value="true" ng-disabled="true"> Check here if the Manufacturer's Coverage has expired.
                             </label>
                           </div>
-                          <div class="checkbox">
+                          <!-- <div class="checkbox">
 	                         <label>
 	                           <input type="checkbox" id="coverageEndDateUnknown" name="coverageEndDateUnknown" ng-model="quote.coverageEndDateUnknown" value="true" ng-disabled="true">Check if Manufacturer's End Date unknown.
 	                         </label>
-	                      </div>
+	                      </div> -->
                           <div class="form-group">
                             <label>Deductible</label>
                              <p>{{quote.deductiblePrice | currency:"$":0}}</p>

@@ -42,7 +42,7 @@
 					Coverage has expired:</div>
 				<div class="col-sm-5">
 					<input type="checkbox" id="coverageExpired" name="coverageExpired"
-						ng-model="quote.coverageExpired" value="true">
+						ng-model="quote.coverageExpired" value="true" ng-change="changeMachineModelStatus()">
 				</div>
 			</div>
 			<div id="manfCoverageExp" ng-disabled="quote.coverageExpired"

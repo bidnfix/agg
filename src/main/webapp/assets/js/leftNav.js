@@ -849,16 +849,17 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService, $
 				
 				if($scope.machineModelChanged){
 					$scope.machineModelChanged = false;
-					var coverageExpired = true;
+					//var coverageExpired = true;
+					var coverageExpired = false;
 					if($scope.quote.coverageExpired != null && $scope.quote.coverageExpired == true){
 						coverageExpired = true;
-					}else if($scope.quote.coverageEndDateUnknown != null && $scope.quote.coverageEndDateUnknown == true){
+					}/*else if($scope.quote.coverageEndDateUnknown != null && $scope.quote.coverageEndDateUnknown == true){
 						coverageExpired = false;
 					}else if($scope.quote.coverageEndDate != null && ($scope.quote.coverageEndDate > $scope.date)){
 						coverageExpired = false;
 					}else{
 						coverageExpired = true;
-					}
+					}*/
 					
 					
 					//var coverageExpired = ($scope.quote.coverageExpired != null && $scope.quote.coverageExpired == true)?true:false;
@@ -905,12 +906,13 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService, $
 			}else if(index == 3){
 				if($scope.quote.coverageExpired != null && $scope.quote.coverageExpired == true){
 					$scope.machineCondition = 'Used';
-				}else if($scope.quote.coverageEndDateUnknown != null && $scope.quote.coverageEndDateUnknown == true){
+				}/*else if($scope.quote.coverageEndDateUnknown != null && $scope.quote.coverageEndDateUnknown == true){
 					$scope.machineCondition = 'New';
 				}else if($scope.quote.coverageEndDate != null && ($scope.quote.coverageEndDate > $scope.date)){
 					$scope.machineCondition = 'New';
-				}else{
-					$scope.machineCondition = 'Used';
+				}*/else{
+					//$scope.machineCondition = 'Used';
+					$scope.machineCondition = 'New';
 				}
 				
 				$scope.quote.machineCondition = $scope.machineCondition;
@@ -1169,16 +1171,17 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService, $
 		$scope.mouseoverRow = "";
 		$scope.mouseoverCloumn = "";
 		//var coverageExpired = ($scope.quote.coverageExpired != null && $scope.quoteBasePrice == true)?true:false;
-		var coverageExpired = true;
+		//var coverageExpired = true;
+		var coverageExpired = false;
 		if($scope.quote.coverageExpired != null && $scope.quote.coverageExpired == true){
 			coverageExpired = true;
-		}else if($scope.quote.coverageEndDateUnknown != null && $scope.quote.coverageEndDateUnknown == true){
+		}/*else if($scope.quote.coverageEndDateUnknown != null && $scope.quote.coverageEndDateUnknown == true){
 			coverageExpired = false;
 		}else if($scope.quote.coverageEndDate != null && ($scope.quote.coverageEndDate > $scope.date)){
 			coverageExpired = false;
 		}else{
 			coverageExpired = true;
-		}
+		}*/
 		var machineId = $scope.quote.machineInfoDO.machineId;
 		$scope.coverageTermSelected = coverageTerm;
 		$scope.deductiblePriceSelected = deductiblePrice;
@@ -1711,12 +1714,13 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 		
         if($scope.quote.coverageExpired != null && $scope.quote.coverageExpired == true){
     		$scope.machineCondition = 'Used';
-    	}else if($scope.quote.coverageEndDateUnknown != null && $scope.quote.coverageEndDateUnknown == true){
+    	}/*else if($scope.quote.coverageEndDateUnknown != null && $scope.quote.coverageEndDateUnknown == true){
     		$scope.machineCondition = 'New';
 		}else if($scope.quote.coverageEndDate != null && ($scope.quote.coverageEndDate > $scope.date)){
     		$scope.machineCondition = 'New';
-    	}else{
-    		$scope.machineCondition = 'Used';
+    	}*/else{
+    		//$scope.machineCondition = 'Used';
+    		$scope.machineCondition = 'New';
     	}
     });
 	
@@ -1730,14 +1734,15 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 	}
 	
 	$scope.getCoverageDetails = function (machineInfoDO){
-		var coverageExpired = true;
+		//var coverageExpired = true;
+		var coverageExpired = false;
 		if($scope.quote.coverageExpired != null && $scope.quote.coverageExpired == true){
 			coverageExpired = true;
-		}else if($scope.quote.coverageEndDate != null && ($scope.quote.coverageEndDate > $scope.date)){
+		}/*else if($scope.quote.coverageEndDate != null && ($scope.quote.coverageEndDate > $scope.date)){
 			coverageExpired = false;
 		}else{
 			coverageExpired = true;
-		}
+		}*/
 		
 		$scope.quote.groupId = machineInfoDO.groupId;
 		$scope.quote.adjustedLol = machineInfoDO.lol;
@@ -1758,14 +1763,15 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 	}
 	
 	$scope.getCoveragePriceLevels = function(){
-		var coverageExpired = true;
+		//var coverageExpired = true;
+		var coverageExpired = false;
 		if($scope.quote.coverageExpired != null && $scope.quote.coverageExpired == true){
 			coverageExpired = true;
-		}else if($scope.quote.coverageEndDate != null && ($scope.quote.coverageEndDate > $scope.date)){
+		}/*else if($scope.quote.coverageEndDate != null && ($scope.quote.coverageEndDate > $scope.date)){
 			coverageExpired = false;
 		}else{
 			coverageExpired = true;
-		}
+		}*/
 		var machineId = $scope.quote.machineInfoDO.machineId;
 		var deductiblePrice = $scope.quote.deductiblePrice;
 		var coverageTerm = $scope.quote.coverageTerm;
