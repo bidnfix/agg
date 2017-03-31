@@ -1736,8 +1736,10 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 	$scope.getCoverageDetails = function (machineInfoDO){
 		//var coverageExpired = true;
 		var coverageExpired = false;
+		$scope.machineCondition = 'New';
 		if($scope.quote.coverageExpired != null && $scope.quote.coverageExpired == true){
 			coverageExpired = true;
+			$scope.machineCondition = 'Used';
 		}/*else if($scope.quote.coverageEndDate != null && ($scope.quote.coverageEndDate > $scope.date)){
 			coverageExpired = false;
 		}else{
