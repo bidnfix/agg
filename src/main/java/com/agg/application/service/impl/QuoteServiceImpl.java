@@ -923,6 +923,7 @@ public class QuoteServiceImpl implements QuoteService {
 				quoteDO.setQuoteBasePrice(adminAdjustment.getBasePrice());
 			}
 			quoteDO.setStatus(quote.getStatus());
+			quoteDO.setIsArchive(quote.getIsArchive());
 			quoteDO.setLastUpdate(quote.getLastUpdate());
 			String statusDesc = "";
 			if(quote.getIsArchive() == AggConstants.B_QUOTE_STATUS_ACRHIVE){

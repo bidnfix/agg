@@ -21,7 +21,7 @@
 			          	<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="archiveQuote()">Archive</button>
           			</c:when>
           			<c:otherwise>
-          				<div ng-hide="quote.status === 4 && !purchaseRequested">
+          				<div ng-hide="estPriceFlag">
           					<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="editQuote()">Edit</button>
 				          	<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="quoteInfoForm.$valid && updateQuote(quoteInfoForm)">Update</button>
 				          	<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="archiveQuote()">Archive</button>
@@ -93,7 +93,7 @@
                        </div>
                        <div class="form-group">
                          <label>Serial Number</label>
-                         <input type="text" id="serialNumber" name="serialNumber" ng-model="quote.serialNumber" placeholder="Serial Number" class="form-control"  validate-on="dirty" required="required" ng-disabled="disabled">
+                         <input type="text" id="serialNumber" name="serialNumber" ng-model="quote.serialNumber" placeholder="Serial Number" class="form-control"  validate-on="dirty" ng-required="mandatoryFlag" ng-disabled="disabled">
                        </div>
                        <div class="form-group">
                          <label>Retail Price</label>
@@ -130,7 +130,7 @@
 					                   is-open="valuationDatePickerIsOpen" 
 					                   ng-click="valuationDatePickerOpen()"
 					                   ng-model="quote.coverageEndDate" 
-					                   required="required"/>
+					                   ng-required="mandatoryFlag"/>
 								<span class="input-group-btn">
 					              <button type="button" class="btn btn-default" 
 					                      ng-click="valuationDatePickerOpen($event)">
@@ -427,7 +427,7 @@
                        </div>
                        <div class="form-group">
                          <label>Address</label>
-                         <input type="text" id="dealerAddress" name="dealerAddress" ng-model="quote.dealerAddress" placeholder="Dealer Address" class="form-control" validate-on="dirty" required="required" ng-disabled="disabled">
+                         <input type="text" id="dealerAddress" name="dealerAddress" ng-model="quote.dealerAddress" placeholder="Dealer Address" class="form-control" validate-on="dirty" ng-required="mandatoryFlag" ng-disabled="disabled">
                        </div>
                        <div class="form-group">
                          <label>City</label>
@@ -435,7 +435,7 @@
                        </div>
                        <div class="form-group">
                          <label>State/Province</label>
-                         <select class="form-control" name="dealerState" ng-model="quote.dealerState" id="dealerState" validate-on="dirty" required="required"  ng-disabled="disabled">
+                         <select class="form-control" name="dealerState" ng-model="quote.dealerState" id="dealerState" validate-on="dirty" ng-required="mandatoryFlag"  ng-disabled="disabled">
 							<option value="">Select State/Province</option>
 							<option value="AL">Alabama</option>
 							<option value="AK">Alaska</option>
@@ -505,24 +505,24 @@
                        </div>
                        <div class="form-group">
                          <label>Zip</label>
-                         <input type="text" id="dealerZip" name="dealerZip" ng-model="quote.dealerZip" placeholder="Zip" class="form-control" validate-on="dirty" required="required" ng-disabled="disabled">
+                         <input type="text" id="dealerZip" name="dealerZip" ng-model="quote.dealerZip" placeholder="Zip" class="form-control" validate-on="dirty" ng-required="mandatoryFlag" ng-disabled="disabled">
                        </div>
                        <div class="form-group">
                          <label>Phone Number</label>
-                         <input type="text" id="dealerPhone" name="dealerPhone" ng-model="quote.dealerPhone" placeholder="Phone Number" class="form-control" validate-on="dirty" required="required" ng-disabled="disabled">
+                         <input type="text" id="dealerPhone" name="dealerPhone" ng-model="quote.dealerPhone" placeholder="Phone Number" class="form-control" validate-on="dirty" ng-required="mandatoryFlag" ng-disabled="disabled">
                        </div>
                        <div class="form-group">
                          <label>Email</label>
-                         <input type="text" id="dealerEmail" name="dealerEmail" ng-model="quote.dealerEmail" placeholder="Email" class="form-control" validate-on="dirty" required="required" ng-disabled="disabled">
+                         <input type="text" id="dealerEmail" name="dealerEmail" ng-model="quote.dealerEmail" placeholder="Email" class="form-control" validate-on="dirty" ng-required="mandatoryFlag" ng-disabled="disabled">
                        </div>
                        <div class="checkbox">
                          <label>
-                           <input type="checkbox" id="custUnderstandCoverage" name="custUnderstandCoverage" ng-model="quote.custUnderstandCoverage" ng-value="true" required="required"  validate-on="dirty" ng-disabled="disabled"> Customer understands coverage.
+                           <input type="checkbox" id="custUnderstandCoverage" name="custUnderstandCoverage" ng-model="quote.custUnderstandCoverage" ng-value="true" ng-required="mandatoryFlag"  validate-on="dirty" ng-disabled="disabled"> Customer understands coverage.
                          </label>
                        </div>
                        <div class="checkbox">
                          <label>
-                           <input type="checkbox" id="custRemorsePeriod" name="custRemorsePeriod" ng-model="quote.custRemorsePeriod" ng-value="true" required="required"  validate-on="dirty" ng-disabled="disabled"> Customer is aware of 90-day remorse period.
+                           <input type="checkbox" id="custRemorsePeriod" name="custRemorsePeriod" ng-model="quote.custRemorsePeriod" ng-value="true" ng-required="mandatoryFlag"  validate-on="dirty" ng-disabled="disabled"> Customer is aware of 90-day remorse period.
                          </label>
                        </div>
                      </div>
@@ -555,7 +555,7 @@
 								<label>Current Status</label>
 								<c:choose>
 								 	<c:when test="${user.roleDO.accountType eq 'admin'}">
-								        <select class="form-control" name="status" ng-model="quote.status" convert-to-number id="status"  validate-on="dirty" required="required" ng-disabled="disabled">
+								        <select class="form-control" name="status" ng-model="quote.status" convert-to-number id="status"  validate-on="dirty" required="required" ng-disabled="disabled" ng-change="changeMandatoryFlg(quote.status)">
 										  <option value="1">Estimating Price</option>
 										  <option value="4">Purchase Requested</option>
 										  <!-- <option value="5">Invoiced</option> -->
@@ -563,13 +563,13 @@
 										</select>
 								    </c:when>
 								    <c:otherwise>
-								        <div ng-hide="quote.status === 4 && !purchaseRequested">
-									        <select class="form-control" name="status" ng-model="quote.status" convert-to-number id="status"  validate-on="dirty" required="required" ng-disabled="disabled">
+								        <div ng-hide="estPriceFlag">
+									        <select class="form-control" name="status" ng-model="quote.status" convert-to-number id="status"  validate-on="dirty" required="required" ng-disabled="disabled" ng-change="changeMandatoryFlg(quote.status)">
 											  <option value="1">Estimating Price</option>
 											  <option value="4">Purchase Requested</option>
 											</select>
 										</div>
-										<div ng-hide="quote.status === 3 && purchaseRequested">
+										<div ng-hide="!estPriceFlag">
 											<p>{{quote.statusDesc}}</p>
 										</div>
 								    </c:otherwise>

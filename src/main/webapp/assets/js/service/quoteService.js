@@ -183,24 +183,32 @@ routingApp.factory('quoteService', function($http, $q, $window) {
 				        		
 				        		
 				        		$scope.quote.dealerMarkupTypee = $scope.quote.dealerMarkupType;
-				        		$scope.quote.coverageEndDate = new Date($scope.quote.coverageEndDate);
+				        		if($scope.quote.coverageEndDate != null){
+				        			$scope.quote.coverageEndDate = new Date($scope.quote.coverageEndDate);
+				        		}
 				        		$scope.quote.estSaleDate = new Date($scope.quote.estSaleDate);
 				        		$scope.quote.lastUpdate = new Date($scope.quote.lastUpdate);
 				        		
 				        		$scope.purchaseRequested = true;
 				        		$scope.invoiced = true;
+				        		$scope.estPriceFlag = true;
+				        		$scope.mandatoryFlag = true;
 				        		if($scope.quote.status == 4){
 				        			$scope.purchaseRequested = false;
 				        		}else if($scope.quote.status == 5){
 				        			$scope.invoiced = false;
+				        		}else if($scope.quote.status == 1){
+				        			$scope.estPriceFlag = false;
+				        			$scope.mandatoryFlag = false;
 				        		}
 				        		
 				                if($scope.quote.coverageExpired != null && $scope.quote.coverageExpired == true){
 				            		$scope.machineCondition = 'Used';
-				            	}else if($scope.quote.coverageEndDate != null && ($scope.quote.coverageEndDate > $scope.date)){
+				            	}/*else if($scope.quote.coverageEndDate != null && ($scope.quote.coverageEndDate > $scope.date)){
 				            		$scope.machineCondition = 'New';
-				            	}else{
-				            		$scope.machineCondition = 'Used';
+				            	}*/else{
+				            		//$scope.machineCondition = 'Used';
+				            		$scope.machineCondition = 'New';
 				            	}
 					        }
 						} else {

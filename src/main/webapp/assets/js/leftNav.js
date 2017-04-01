@@ -1622,6 +1622,8 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 	$scope.readOnlyFlag = false;
 	$scope.editableFlag = true;
 	$scope.contractBtnFlag = false;
+	$scope.estPriceFlag = true;
+	$scope.mandatoryFlag = true;
 	
 	//datepicker changes
 	
@@ -1705,6 +1707,9 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 			$scope.purchaseRequested = false;
 		}else if($scope.quote.status == 5){
 			$scope.invoiced = false;
+		}else if($scope.quote.status == 1){
+			$scope.estPriceFlag = false;
+			$scope.mandatoryFlag = false;
 		}
 		
 		if($scope.quote.dealerMarkupType == null){
@@ -1723,6 +1728,14 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
     		$scope.machineCondition = 'New';
     	}
     });
+	
+	$scope.changeMandatoryFlg = function(status){
+		if(status == 1){
+			$scope.mandatoryFlag = false;
+		}else{
+			$scope.mandatoryFlag = true;
+		}
+	}
 	
 	$scope.getMachineModel = function(manufacturerDO){
 		if(manufacturerDO != null){
