@@ -306,12 +306,13 @@ public class QuoteController extends BaseController {
 			if(quoteDO != null){
 				List<DealerDO> dealerDOList = dealerService.getActiveDealers(getAccountDetails(request));
 				List<ManufacturerDO> manufacturerDOList = machineService.getManufacturerDetails();
-				boolean coverageExpired = true;
+				//boolean coverageExpired = true;
+				boolean coverageExpired = false;
 				if(quoteDO.isCoverageExpired()){
 					coverageExpired = true;
-		    	}else if(quoteDO.getCoverageEndDate() != null && quoteDO.getCoverageEndDate().after(new Date())){
+		    	}/*else if(quoteDO.getCoverageEndDate() != null && quoteDO.getCoverageEndDate().after(new Date())){
 		    		coverageExpired = false;
-		    	}
+		    	}*/
 				Map<String, List<Integer>> deductCoverageMap = null;
 				List<PricingDO> pricingDOList = null;
 				List<MachineInfoDO> machineModels = null;

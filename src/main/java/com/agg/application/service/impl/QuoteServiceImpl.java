@@ -988,12 +988,13 @@ public class QuoteServiceImpl implements QuoteService {
 			}
 			
 			if(quote.getCoverageLevelHours() > 0){
-				boolean coverageExpired = true;
+				//boolean coverageExpired = true;
+				boolean coverageExpired = false;
 				if(quoteDO.isCoverageExpired()){
 					coverageExpired = true;
-		    	}else if(quoteDO.getCoverageEndDate() != null && quoteDO.getCoverageEndDate().after(new Date())){
+		    	}/*else if(quoteDO.getCoverageEndDate() != null && quoteDO.getCoverageEndDate().after(new Date())){
 		    		coverageExpired = false;
-		    	}
+		    	}*/
 				
 				List<PricingDO> pricingDOList = getCoveragePriceDetils(coverageExpired, (quoteDO.getMachineInfoDO()!=null)?quoteDO.getMachineInfoDO().getMachineId():0, 
 						new Double(quoteDO.getDeductiblePrice()).intValue(), quoteDO.getCoverageTerm(), quote.getCoverageLevelHours());
