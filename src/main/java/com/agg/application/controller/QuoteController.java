@@ -1,7 +1,6 @@
 package com.agg.application.controller;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -116,8 +115,17 @@ public class QuoteController extends BaseController {
 			opResult = new Result("failure", "Invalid Login", null);
 		}else{
 			List<PricingDO> pricingDOList = quoteService.getCoveragePriceDetils(coverageExpired, machineId, deductiblePrice, coverageTerm, coverageHours);
+			List<Integer> coverageLevelHoursList = null;
+			if(pricingDOList != null && !pricingDOList.isEmpty()){
+				coverageLevelHoursList = new ArrayList<Integer>();
+				for(PricingDO pricingDO : pricingDOList){
+					coverageLevelHoursList.add(pricingDO.getCoverageLevelHours());
+				}
+			}
+			model.addAttribute("pricingDOList", pricingDOList);
+			model.addAttribute("coverageLevelHoursList", coverageLevelHoursList);
 			
-			opResult = new Result("success", "Quote Coverage Level Price Info", pricingDOList);
+			opResult = new Result("success", "Quote Coverage Level Price Info", model);
 		}
 		
 		return opResult;

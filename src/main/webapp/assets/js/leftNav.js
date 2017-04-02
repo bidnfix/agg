@@ -1216,7 +1216,7 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService, $
 		$scope.deductiblePriceSelected = deductiblePrice;
 		$http.get("/agg/quote/coverageLevelPrice/"+coverageExpired+"/"+machineId+"/"+deductiblePrice+"/"+coverageTerm+"/0")
 		.then(function(response) {
-			$scope.pricingDOList = response.data.data;
+			$scope.pricingDOList = response.data.data.pricingDOList;
 		});  
 	}
 	
@@ -1825,7 +1825,7 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 		});
 	}
 	
-	$scope.getCoveragePriceLevels = function(){
+	$scope.getCoveragePriceLevels = function(type){
 		//var coverageExpired = true;
 		var coverageExpired = false;
 		if($scope.quote.coverageExpired != null && $scope.quote.coverageExpired == true){
@@ -1839,14 +1839,21 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 		var deductiblePrice = $scope.quote.deductiblePrice;
 		var coverageTerm = $scope.quote.coverageTerm;
 		var coverageHrs = 0;
-		if($scope.quote.coverageHours != null && $scope.quote.coverageHours != ""){
+		if(type == 'coverageHours' && $scope.quote.coverageHours != null && $scope.quote.coverageHours != ""){
 			coverageHrs = $scope.quote.coverageHours;
 		}
 		$scope.quote.coverageTypeSet = [];
 		$scope.quote.coverageType = "";
+		if(coverageHrs == 0){
+			$scope.quote.coverageHours = "";
+		}
 		$http.get("/agg/quote/coverageLevelPrice/"+coverageExpired+"/"+machineId+"/"+deductiblePrice+"/"+coverageTerm+"/"+coverageHrs)
 		.then(function(response) {
-			$scope.pricingDOList = response.data.data;
+			$scope.pricingDOList = response.data.data.pricingDOList;
+			if(coverageHrs == 0){
+				$scope.coverageLevelHoursList = response.data.data.coverageLevelHoursList;
+			}
+			
 			var phBasePriceCond = true;
 			var plBasePriceCond = true;
 			var ptBasePriceCond = true;

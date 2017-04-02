@@ -152,7 +152,7 @@
                        <div class="form-group">
                          <label>Deductible</label>
                          <div ng-if="quote.program == null">
-						     <select name="deductiblePrice" ng-model="quote.deductiblePrice" class="form-control" ng-options="deductibleAmt for deductibleAmt in deductibleAmtList track by deductibleAmt"  validate-on="dirty" required="required" ng-disabled="disabled" ng-change="getCoveragePriceLevels()">
+						     <select name="deductiblePrice" ng-model="quote.deductiblePrice" class="form-control" ng-options="deductibleAmt for deductibleAmt in deductibleAmtList track by deductibleAmt"  validate-on="dirty" required="required" ng-disabled="disabled" ng-change="getCoveragePriceLevels('deductible')">
 	                         	<option value="">Select Deductible</option>
 							 </select>
 						 </div>
@@ -163,7 +163,7 @@
                        <div class="form-group">
                          <label>Coverage Term</label>
                          <div ng-if="quote.program == null">
-						     <select name="coverageTerm" ng-model="quote.coverageTerm" class="form-control" ng-options="coverageTermVal for coverageTermVal in coverageTermList track by coverageTermVal"  validate-on="dirty" required="required" ng-disabled="disabled" ng-change="getCoveragePriceLevels()">
+						     <select name="coverageTerm" ng-model="quote.coverageTerm" class="form-control" ng-options="coverageTermVal for coverageTermVal in coverageTermList track by coverageTermVal"  validate-on="dirty" required="required" ng-disabled="disabled" ng-change="getCoveragePriceLevels('coverageTerm')">
 	                         	<option value="">Select Coverage Term</option>
 							 </select>
 						</div>
@@ -174,7 +174,7 @@
                        <div class="form-group">
                          <label>Covered Hours</label>
                          <div ng-if="quote.program == null">
-						     <select name="coverageHours" ng-model="quote.coverageHours" class="form-control" ng-options="coverageLevelHour for coverageLevelHour in coverageLevelHoursList track by coverageLevelHour"  validate-on="dirty" required="required" ng-disabled="disabled" ng-change="getCoveragePriceLevels()">
+						     <select name="coverageHours" ng-model="quote.coverageHours" class="form-control" ng-options="coverageLevelHour for coverageLevelHour in coverageLevelHoursList track by coverageLevelHour"  validate-on="dirty" required="required" ng-disabled="disabled" ng-change="getCoveragePriceLevels('coverageHours')">
 	                         	<option value="">Select Covered Hours</option>
 							 </select>
 						</div>
