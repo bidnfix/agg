@@ -193,6 +193,7 @@ routingApp.factory('quoteService', function($http, $q, $window) {
 				        		$scope.invoiced = true;
 				        		$scope.estPriceFlag = true;
 				        		$scope.mandatoryFlag = true;
+				        		$scope.expirationFlag = true;
 				        		if($scope.quote.status == 4){
 				        			$scope.purchaseRequested = false;
 				        		}else if($scope.quote.status == 5){
@@ -200,15 +201,23 @@ routingApp.factory('quoteService', function($http, $q, $window) {
 				        		}else if($scope.quote.status == 1){
 				        			$scope.estPriceFlag = false;
 				        			$scope.mandatoryFlag = false;
+				        			$scope.expirationFlag = false;
 				        		}
 				        		
 				                if($scope.quote.coverageExpired != null && $scope.quote.coverageExpired == true){
 				            		$scope.machineCondition = 'Used';
+				            		$scope.expirationFlag = false;
 				            	}/*else if($scope.quote.coverageEndDate != null && ($scope.quote.coverageEndDate > $scope.date)){
 				            		$scope.machineCondition = 'New';
 				            	}*/else{
 				            		//$scope.machineCondition = 'Used';
 				            		$scope.machineCondition = 'New';
+				            		if($scope.quote.status == 1){
+				            			$scope.expirationFlag = false;
+				            		}else{
+				            			$scope.expirationFlag = true;
+				            		}
+				            		
 				            	}
 					        }
 						} else {

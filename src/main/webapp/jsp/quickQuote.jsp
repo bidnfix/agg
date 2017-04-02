@@ -130,7 +130,7 @@
 					                   is-open="valuationDatePickerIsOpen" 
 					                   ng-click="valuationDatePickerOpen()"
 					                   ng-model="quote.coverageEndDate" 
-					                   ng-required="mandatoryFlag"/>
+					                   ng-required="expirationFlag"/>
 								<span class="input-group-btn">
 					              <button type="button" class="btn btn-default" 
 					                      ng-click="valuationDatePickerOpen($event)">
@@ -141,7 +141,7 @@
                        </div>
                        <div class="checkbox">
                          <label>
-                           <input type="checkbox" id="coverageExpired" name="coverageExpired" ng-model="quote.coverageExpired" ng-disabled="disabled" ng-change="getCoverageDetails(quote.machineInfoDO);getCoveragePriceLevels()"> Check here if the Manufacturer's Coverage has expired.
+                           <input type="checkbox" id="coverageExpired" name="coverageExpired" ng-model="quote.coverageExpired" ng-disabled="disabled" ng-change="getCoverageDetails(quote.machineInfoDO)"> Check here if the Manufacturer's Coverage has expired.
                          </label>
                        </div>
                       <!--  <div class="checkbox">
