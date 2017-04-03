@@ -45,10 +45,10 @@
         <li><a href="/agg/home">Home</a></li>
         <li class="active"><a href="#">Register</a></li>
         <li><a href="/agg/aboutRisk">About Risk</a></li>
-        <li><a href="#">Who We Are</a></li>
+        <li><a href="/agg/whoWeAre">Who We Are</a></li>
         
         
-        <li><a href="#">Mom's Pink Tractor</a></li>
+        <li><a href="/agg/momsPinkTractor">Mom's Pink Tractor</a></li>
       </ul>
     </div>
     <!--/.nav-collapse --> 

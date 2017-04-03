@@ -134,4 +134,32 @@ public class LoginController extends BaseController {
 		return opResult;
 	}
 	
+	@RequestMapping(value = "/claimPaidQuickly", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+	public String claimPaidQuickly(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		if (sessionExists(request))
+			return "redirect:/agg/home";
+		return "claimPaidQuickly";
+	}
+	
+	@RequestMapping(value = "/agFocused", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+	public String agFocused(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		if (sessionExists(request))
+			return "redirect:/agg/home";
+		return "agFocused";
+	}
+	
+	@RequestMapping(value = "/expWithIntegrity", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+	public String expWithIntegrity(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		if (sessionExists(request))
+			return "redirect:/agg/home";
+		return "expWithIntegrity";
+	}
+	
+	@RequestMapping(value = "/fairAndFlexTerms", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+	public String fairAndFlexTerms(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		if (sessionExists(request))
+			return "redirect:/agg/home";
+		return "fairAndFlexTerms";
+	}
+	
 }
