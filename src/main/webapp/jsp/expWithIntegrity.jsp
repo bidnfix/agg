@@ -43,7 +43,7 @@
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav pull-right">
         <li><a href="/agg/home">Home</a></li>
-        <li class="active"><a href="#">Register</a></li>
+        <li class="active"><a href="/agg/register">Register</a></li>
         <li><a href="/agg/aboutRisk">About Risk</a></li>
         <li><a href="/agg/whoWeAre">Who We Are</a></li>
         
