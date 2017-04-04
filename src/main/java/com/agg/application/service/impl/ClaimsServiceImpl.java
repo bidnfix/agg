@@ -664,6 +664,7 @@ public class ClaimsServiceImpl implements ClaimsService {
 			claim.setCheqNo(claimDO.getCheqNo());
 			claim.setPaidDate(claimDO.getPaidDate());
 			claim.setUpdatedBy(accountDO.getId());
+			claim.setLastUpdate(new Date());
 			claim.setcStatus((byte)AggConstants.CLAIM_STATUS_CLOSED);
 			res = claimsDAO.save(claim);
 			
