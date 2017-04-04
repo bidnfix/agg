@@ -69,7 +69,7 @@
 	<div class="inner-main">
 		
 		<div class="main-login main-center registration_overflow">
-        <h3>Who We Are</h3>
+        <h3>WHO WE ARE</h3>
 			<p>There is an extraordinary combination of unique and compatible strengths among the AgGuard management team.  Our leaders have shared values and a common skill for creating innovative solutions for complex problems that are customer-focused and delivered with unquestioned integrity. </p>
 			
 			<h3>BUSINESS DESCRIPTION</h3>
