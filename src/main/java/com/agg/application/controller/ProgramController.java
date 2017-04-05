@@ -24,6 +24,7 @@ import com.agg.application.model.Result;
 import com.agg.application.service.DealerService;
 import com.agg.application.service.MachineService;
 import com.agg.application.service.ProgramService;
+import com.agg.application.service.QuoteService;
 
 @RestController
 @RequestMapping("/agg")
@@ -39,24 +40,38 @@ public class ProgramController extends BaseController {
 	
 	@Autowired
 	private DealerService dealerService;
+	
+	@Autowired
+	private QuoteService quoteService;
 
 	@RequestMapping(value = "/programs", method = RequestMethod.GET)
 	public @ResponseBody Result listPrograms(Map<String, Object> model, HttpServletRequest request, HttpServletResponse response) {
 
 /*		if (!sessionExists(request))
 			return "login";*/
-		model.put("programs", programService.getPrograms(getAccountDetails(request)));
-		return new Result("success", null, model);
+		Result opResult = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			model.put("programs", programService.getPrograms(getAccountDetails(request)));
+			opResult = new Result("success", null, model);
+		}
+		return opResult;
 	}
 	
 	
 	@RequestMapping(value = "/programAsDealer", method = RequestMethod.GET)
 	public @ResponseBody Result listProgramsForDealer(Map<String, Object> model, HttpServletRequest request, HttpServletResponse response) {
 		logger.info("Inside listProgramsForDealer()");
-/*		if (!sessionExists(request))
-			return "login";*/
-		model.put("programList", programService.getPrograms(getAccountDetails(request)));
-		return new Result("success", null, model);
+		Result opResult = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			model.put("programList", programService.getPrograms(getAccountDetails(request)));
+			model.put("useOfEquipmentDOList", quoteService.getUseOfEquipmentDetails());
+			opResult = new Result("success", null, model);
+		}
+		return opResult;
 	}
 
 	/*@RequestMapping(value = "/addPrograms", method = RequestMethod.GET)
@@ -72,20 +87,32 @@ public class ProgramController extends BaseController {
 	@RequestMapping(value = "/addPrograms", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
 	public @ResponseBody Result addPrograms(ModelMap model, HttpServletResponse response, HttpServletRequest request) {
 		logger.info("Inside addPrograms()");
-		//List<GroupDO> groupList = machineService.getGroups();
-		model.addAttribute("manufacturerList", machineService.getManufacturerDetails());
-		model.addAttribute("dealerList", dealerService.getActiveDealers(getAccountDetails(request)));
-		//model.put("groupList", groupList);
-		return new Result("success", null, model);	
+		Result opResult = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			//List<GroupDO> groupList = machineService.getGroups();
+			model.addAttribute("manufacturerList", machineService.getManufacturerDetails());
+			model.addAttribute("dealerList", dealerService.getActiveDealers(getAccountDetails(request)));
+			//model.put("groupList", groupList);
+			opResult = new Result("success", null, model);
+		}
+		return opResult;	
 	}
 
 	@RequestMapping(value = "/postPrograms", method = RequestMethod.POST)
 	public @ResponseBody Result saveOrEditPrograms(@RequestBody ProgramDO program, BindingResult result,
 			HttpServletRequest request, HttpServletResponse response) {
 		logger.debug("In addPrograms ");
-
-		Long id = programService.saveProgram(program);
-		return new Result("success", null, id);
+		
+		Result opResult = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			Long id = programService.saveProgram(program);
+			opResult = new Result("success", null, id);
+		}
+		return opResult;
 	}
 	
 	@RequestMapping(value = "/saveProgramsAsDealr", method = RequestMethod.POST)
@@ -93,33 +120,53 @@ public class ProgramController extends BaseController {
 			HttpServletRequest request, HttpServletResponse response) throws Exception{
 		logger.debug("In saveProgramsAsDealr");
 		
-		StringBuffer url = request.getRequestURL();
-		String uri = request.getRequestURI();
-		String appUrl = url.substring(0, url.length() - uri.length());
-
-		QuoteDO newQuoteDO = programService.saveProgramsAsDealr(quoteDO, getAccountDetails(request), appUrl);
-		logger.debug("Quote id :"+newQuoteDO.getQuoteId());
-		return new Result("success", null, newQuoteDO);
+		Result opResult = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			StringBuffer url = request.getRequestURL();
+			String uri = request.getRequestURI();
+			String appUrl = url.substring(0, url.length() - uri.length());
+	
+			QuoteDO newQuoteDO = programService.saveProgramsAsDealr(quoteDO, getAccountDetails(request), appUrl);
+			logger.debug("Quote id :"+newQuoteDO.getQuoteId());
+			
+			opResult = new Result("success", null, newQuoteDO);
+		}
+		return opResult;
 	}
 	
 	@RequestMapping(value = "/programs/{id}", method = RequestMethod.GET)
 	public @ResponseBody Result getOneProgram(@PathVariable Long id, Map<String, Object> model, HttpServletRequest request, HttpServletResponse response) {
 		logger.debug("In getOneProgram ");
-		ProgramDO programDO = programService.getProgram(id, getAccountDetails(request));
-		model.put("program", programDO);
-		model.put("manufacturerList", machineService.getManufacturerDetails());
-		model.put("dealerList", dealerService.getActiveDealers(getAccountDetails(request)));
-		if(programDO != null && programDO.getManufacturerDO() != null){
-			model.put("machineInfoList", machineService.getManfModel(programDO.getManufacturerDO().getId()));
+		Result opResult = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			ProgramDO programDO = programService.getProgram(id, getAccountDetails(request));
+			model.put("program", programDO);
+			model.put("manufacturerList", machineService.getManufacturerDetails());
+			model.put("dealerList", dealerService.getActiveDealers(getAccountDetails(request)));
+			if(programDO != null && programDO.getManufacturerDO() != null){
+				model.put("machineInfoList", machineService.getManfModel(programDO.getManufacturerDO().getId()));
+			}
+			
+			opResult = new Result("success", null, model);
 		}
-		return new Result("success", null, model);	
+		return opResult;
 	}
 	
 	@RequestMapping(value = "/programs/{id}", method = RequestMethod.DELETE)
 	public @ResponseBody Result deleteProgram(@PathVariable Long id, Map<String, Object> model, HttpServletRequest request, HttpServletResponse response) {
 		logger.debug("In getOneProgram ");
-		programService.deleteProgram(id);
-		return new Result("success", null, true);	
+		Result opResult = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			programService.deleteProgram(id);
+			opResult = new Result("success", null, true);
+		}
+		return opResult;
 	}
 	
 	@RequestMapping(value = "/editProgram", method = RequestMethod.POST)
@@ -127,10 +174,10 @@ public class ProgramController extends BaseController {
 			HttpServletRequest request, HttpServletResponse response) {
 		logger.debug("In saveOrEditMachine with groupId: "+programDO.getPrId());
 		Result opResult = null;
-		/*if (!sessionExists(request)){
+		if (!sessionExists(request)){
 			opResult = new Result("failure", "Invalid Login", null);
 		}else{
-			if (result.hasErrors()){
+			/*if (result.hasErrors()){
 				opResult = new Result("failure", "Invalid dealer form field values", null);
 			}*/
 	
@@ -139,7 +186,7 @@ public class ProgramController extends BaseController {
 				opResult = new Result("success", "Invalid Machine form field values", null);
 			}
 			
-		//}
+		}
 		
 		return opResult;
 	}

@@ -38,51 +38,81 @@ public class MachineController extends BaseController {
 	private MachineService machineService;
 
 	@RequestMapping(value = "/machineInfo", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
-	public @ResponseBody Result machineInfo(ModelMap model, HttpServletResponse response) {
+	public @ResponseBody Result machineInfo(ModelMap model, HttpServletRequest request, HttpServletResponse response) {
 		logger.info("Inside machineInfo()");
-		List<MachineDO> machineInfoList = machineService.getMachineInfo();
-		model.put("machineInfoList", machineInfoList);
-		return new Result("success", null, model);	
+		Result opResult = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			List<MachineDO> machineInfoList = machineService.getMachineInfo();
+			model.put("machineInfoList", machineInfoList);
+			opResult = new Result("success", null, model);
+		}
+		return opResult;	
 	}
 	
 	@RequestMapping(value = "/addMachine", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
-	public @ResponseBody Result addMachine(ModelMap model, HttpServletResponse response) {
+	public @ResponseBody Result addMachine(ModelMap model, HttpServletRequest request, HttpServletResponse response) {
 		logger.info("Inside addMachine()");
-		List<ManufacturerDO> manufacturers = machineService.getManufacturerDetails();
-		List<MachineTypeDO> machineTypes = machineService.getMachineTypes();
-		List<GroupDO> groupList = machineService.getGroups();
-		model.put("manufacturerList", manufacturers);
-		model.put("machineTypeList", machineTypes);
-		model.put("groupList", groupList);
-		return new Result("success", null, model);	
+		Result opResult = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			List<ManufacturerDO> manufacturers = machineService.getManufacturerDetails();
+			List<MachineTypeDO> machineTypes = machineService.getMachineTypes();
+			List<GroupDO> groupList = machineService.getGroups();
+			model.put("manufacturerList", manufacturers);
+			model.put("machineTypeList", machineTypes);
+			model.put("groupList", groupList);
+			opResult = new Result("success", null, model);
+		}
+		return opResult;	
 	}
 	
 	@RequestMapping(value = "/machineModel/{typeId}", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
-	public @ResponseBody Result machineModel(ModelMap model, HttpServletResponse response, @PathVariable String typeId) {
+	public @ResponseBody Result machineModel(ModelMap model, HttpServletRequest request, HttpServletResponse response, @PathVariable String typeId) {
 		logger.info("Inside machineModel() with typeId: "+typeId);
-		if(typeId != null && !typeId.isEmpty()){
-			List<MachineModelDO> machineModels = machineService.getMachineModel(Integer.valueOf(typeId));
-			model.put("machineModelList", machineModels);
+		Result opResult = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			if(typeId != null && !typeId.isEmpty()){
+				List<MachineModelDO> machineModels = machineService.getMachineModel(Integer.valueOf(typeId));
+				model.put("machineModelList", machineModels);
+			}
+			opResult = new Result("success", null, model);
 		}
-		return new Result("success", null, model);	
+		return opResult;	
 	}
 	
 	@RequestMapping(value = "/manfModel/{manfId}", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
-	public @ResponseBody Result getManfModel(ModelMap model, HttpServletResponse response, @PathVariable String manfId) {
+	public @ResponseBody Result getManfModel(ModelMap model, HttpServletRequest request, HttpServletResponse response, @PathVariable String manfId) {
 		logger.info("Inside manfModel() with manfId: "+manfId);
-		if(manfId != null && !manfId.isEmpty()){
-			List<MachineInfoDO> machineModels = machineService.getManfModel(Integer.valueOf(manfId));
-			model.put("machineModelList", machineModels);
+		Result opResult = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			if(manfId != null && !manfId.isEmpty()){
+				List<MachineInfoDO> machineModels = machineService.getManfModel(Integer.valueOf(manfId));
+				model.put("machineModelList", machineModels);
+			}
+			opResult = new Result("success", null, model);
 		}
-		return new Result("success", null, model);	
+		return opResult;	
 	}
 	
 	@RequestMapping(value = "/editMachine", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
-	public @ResponseBody Result editMachine(ModelMap model, HttpServletResponse response) {
+	public @ResponseBody Result editMachine(ModelMap model, HttpServletRequest request, HttpServletResponse response) {
 		logger.info("Inside editMachine()");
-		List<ManufacturerDO> manufacturers = machineService.getManufacturerDetails();
-		model.put("manufacturerList", manufacturers);
-		return new Result("success", null, model);
+		Result opResult = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			List<ManufacturerDO> manufacturers = machineService.getManufacturerDetails();
+			model.put("manufacturerList", manufacturers);
+			opResult = new Result("success", null, model);
+		}
+		return opResult;
 	}
 	
 	@RequestMapping(value = "/saveMachine", method = RequestMethod.POST)
@@ -90,12 +120,9 @@ public class MachineController extends BaseController {
 			HttpServletRequest request, HttpServletResponse response) throws Exception {
 		logger.debug("In saveOrEditMachine with groupId: "+machineDO.getGroupId());
 		Result opResult = null;
-		/*if (!sessionExists(request)){
+		if (!sessionExists(request)){
 			opResult = new Result("failure", "Invalid Login", null);
 		}else{
-			if (result.hasErrors()){
-				opResult = new Result("failure", "Invalid dealer form field values", null);
-			}*/
 	
 		long id = 0;
 			try
@@ -113,29 +140,40 @@ public class MachineController extends BaseController {
 				opResult = new Result("success", "Machine created successfully", null);
 			}
 			
-		//}
+		}
 		
 		return opResult;
 	}
 	
 	@RequestMapping(value = "/editMachine", method = RequestMethod.POST)
 	public @ResponseBody Result editMachine(@RequestBody MachineDO machineDO, BindingResult result,
-			HttpServletRequest request, HttpServletResponse response) {
+			HttpServletRequest request, HttpServletResponse response) throws Exception {
 		logger.debug("In saveOrEditMachine with groupId: "+machineDO.getGroupId());
 		Result opResult = null;
-		/*if (!sessionExists(request)){
+		if (!sessionExists(request)){
 			opResult = new Result("failure", "Invalid Login", null);
 		}else{
 			if (result.hasErrors()){
 				opResult = new Result("failure", "Invalid dealer form field values", null);
-			}*/
+			}
+			long id = 0;
 	
-			long id = machineService.editMachineInfo(machineDO);
+			try
+			{
+			id = machineService.editMachineInfo(machineDO);
+			}catch (Exception e) {
+		    	if (e instanceof DataIntegrityViolationException) {
+		    		logger.error("Machine already exist");
+		    		throw new Exception("Machine already exists");
+		        } else {
+		        	throw e;
+		        }
+		    }
 			if(id > 0){
 				opResult = new Result("success", "Invalid Machine form field values", null);
 			}
 			
-		//}
+		}
 		
 		return opResult;
 	}

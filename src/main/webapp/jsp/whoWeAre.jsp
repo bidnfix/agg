@@ -43,9 +43,9 @@
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav pull-right">
         <li><a href="/agg/home">Home</a></li>
-        <li class="active"><a href="#">Register</a></li>
+        <li ><a href="/agg/register">Register</a></li>
         <li><a href="/agg/aboutRisk">About Risk</a></li>
-        <li><a href="/agg/whoWeAre">Who We Are</a></li>
+        <li class="active"><a href="/agg/whoWeAre">Who We Are</a></li>
         
         
         <li><a href="/agg/momsPinkTractor">Mom's Pink Tractor</a></li>
@@ -69,7 +69,7 @@
 	<div class="inner-main">
 		
 		<div class="main-login main-center registration_overflow">
-        <h3>Who We Are</h3>
+        <h3>WHO WE ARE</h3>
 			<p>There is an extraordinary combination of unique and compatible strengths among the AgGuard management team.  Our leaders have shared values and a common skill for creating innovative solutions for complex problems that are customer-focused and delivered with unquestioned integrity. </p>
 			
 			<h3>BUSINESS DESCRIPTION</h3>
@@ -91,7 +91,8 @@
 			<p><strong>Gregg Denholm, Principal</strong> (Founder and Chief Problem Solver)<br />Mr. Denholm is a self-proclaimed tractor geek.  Growing up on a farm near Tonganoxie, Kansas (about 30 minutes west of Kansas City) Gregg took an early interest in farm machinery. Taking hay balers apart to understand how they operated and rebuilding them to work more efficiently, he developed a life-long fascination.  He attended Kansas State University to study engineering and farm machinery. He started his career at the Heston Corporation in crop testing and product reliability where he helped create some of the company's most innovative haying equipment.  From there he went on to Doan Farm Management and began transferring his efficiency and innovation skills from machines to the overall management of the farm.  This move to management eventually led to banking, but Gregg has never lost his love of farming and his encyclopedic knowledge of farm machinery.  In 1992 he launched AgGuard as the first, third-party provider of extended service contracts for the agricultural industry, because he realized, as the cost and complexity of farm equipment increased, farmers needed greater risk protection.   At AgGuard, Gregg's primary responsibilities are product innovation, problem resolution and keeping us close to our roots to protect farmers from risk</p>
 			<p><strong>Michael Jeannin, Senior Relationship Manager</strong><br />For many dealers Mike is the go-to source for information and help with pricing and service.  Mike grew-up on a farm and still lives in the country; he has spent his entire life working in various aspects of the agricultural industry, (dairy, row-crop farming, farm real estate, and ag-banking).  Since 2005 he has provided relationship management at AgGuard.  He is the opposite of the prototypical salesman.  He is a no-nonsense, straight-shooting fellow who is always the loudest advocate for our customer's needs.  He understands the perspective of our clients and provides a level of service and empathy that can't be duplicated by any call center.  His word is his bond and he is exactly the kind of face AgGuard wants on our products and services.</p>
 			<p><strong>Dane Lee, Director of Administration</strong><br />Mr. Lee is an experienced business leader with over 20 years of experience in banking and public finance.  He has a passion for innovation and efficiency.  Lee is a two-time winner of Wells Fargo's Management Excellence award and has received numerous accolades for sales and service in banking and trust administration.  He is known for his integrity and putting the client at the center of everything he does.   Lee is a graduate of the University of Kansas and attended business school at Baker University with published research concerning environmental liability for trustees.   Mr. Lee is also President of Wild Jay, Inc., the entity that guarantees AgGuard's service contracts.  At AgGuard, he is responsible for the company's administrative affairs; acting as a liaison between Wild Jay, Inc. and our different functions, (i.e., relationship management, sales, claims, service and information technology).</p>
-			<p><strong>Dexter Schaible, Claims Director and Manager of Manufacturer Relationships</strong><br />Mr. Schaible is a well-known figure in the agricultural machinery industry for both his knowledge and integrity.  He is the former President of Soo Tractor, a company that provides contract manufacturing to original equipment manufacturers where he was responsible for transforming the company and significantly growing its capacity before retiring in 2012.  Prior to joining Soo Tractor, he was a senior executive at AGCO responsible for numerous divisions in the USA and abroad.  Dexter is a graduate of Kansas State University.  Leveraging his vast industry experience, he ensures that claims are processed with a thorough understanding of the product.  He and his claims team know how the machines are manufactured, why parts fail and the most cost-effective way to make repairs.  As a result, he manages a process that is fair; geared towards paying claims quickly and efficiently.  His team adds value to the claims service by providing dealers with expert service advice and access to fairly-priced parts.  Because of his deep experience in manufacturing, he is able to empathize with the needs of our manufacturing partners and provide them with innovative solutions.</p>
+			<p><strong>Dexter Schaible, Director of Manufacturer Relationships</strong><br />Mr. Schaible is a well-known figure in the agricultural machinery industry for both his knowledge and integrity.  He is the former President of Soo Tractor, a company that provided contract manufacturing to original equipment manufacturers, where he was responsible for transforming the company and significantly growing its capacity before retiring in 2012.  Prior to joining Soo Tractor, he was a senior executive at AGCO responsible for numerous divisions in the USA and abroad.</br>Dexter is a graduate of Kansas State University.  Because of his deep experience in manufacturing, he is able to empathize with the needs of our manufacturing partners and provide them with innovative solutions.</p>
+			<p><strong>Adrian Powell, Claims Director</strong><br />Since its inception, AgGuard has relied on Adrian's advice as our go-to guy in the industry for information on product reliability and technical services.</br>During his 30+ year career with Massey Ferguson and AGCO, he wrote the book on reliability and managed many of the industry's most innovative technical developments.</br>He led the design, development and global implementation team for AGCO "Source" (a contact and knowledge management system designed to document technical issues and share resolutions globally with technical service departments and dealers) and "EDT" (a common platform for diagnostic programs with auto update features, giving dealers one tool to perform diagnostics on all AGCO Equipment globally.)</br>Mr. Powell is a graduate of Hereford College of Technologies with a B Sc, in Agricultural Mechanization & Engineering. Leveraging his vast industry experience, he ensures that claims are processed with a thorough understanding of the product.  He and his claims team know how the machines are manufactured, why parts fail and the most cost-effective way to make repairs.  As a result, he manages a process that is fair; geared towards paying claims quickly and efficiently.  His team adds value to the claims service by providing dealers with expert service advice and access to fairly-priced parts.</p>
 			<p><strong>John W. Mack, Jr., Chief Technology Officer (1964-2013)</strong><br />Mr. Mack led our programming team with the conviction that design elegance across all levels is the only thing that ultimately provides awe-inspiring functionality to a program.  John studied physics at Kansas State University, but his passion was always programming computers which he did ever since personal computing became commonplace.  He was the senior programmer for Lockton Risk Services and gave Ag Guard's in-house IT team the programming muscle that most companies outsource.  This capability allowed us to truly own our technology and gave us the capability to nimbly provide customized services and solutions to our clients.  His untimely death in 2013 leaves a big whole in our hearts, but his work lives on in our technology; his footprints will remain in our innovations for decades.  The "Dude" abides.</p>
 			<p><strong>Paul Folsom, of counsel</strong><br />Much of AgGuard's success stems from its singular focus on the Agricultural industry, so we employee individuals who are subject matter experts in various aspects of the industry.  Mr. Folsom is a great example.  He has spent his entire career in various facets of agriculture: cattle, farming, commodities and most recently pharmaceuticals.  His broad experience and success in so many different aspects of the industry helps us stay in-tune with our unique and demanding market.  His business acumen also helps us keep our pencils sharp and priorities focused on how best to model our products and services to meet the needs of our clients.</p>
 		
@@ -103,14 +104,8 @@
 			<p>Our business model gives us control of all aspects of the service we sell and provides our customers with direct access to both their sales manager and their claims manager. </p>
 			<p>Imagine how excited we are with this innovative approach and the opportunity to make such a significant and positive change in the industry.  We know we can count on you for advice and counsel along the way so that we can continue to provide you with the best possible products and services.</p>
 		
-			<p><strong>Claims process for contracts sold prior to January 1, 2012:</strong></p>
-			<ul>
-				<li>Submit claim on AgGuard's webpage</li>
-				<li>We will review your claim for accuracy and we will help you fix any deficiencies that might create delays in payment. Once your claim is in good form, we will forward it to Glynn General (and Bridge Water for contracts that are reinsured by Lloyds of London).</li>
-				<li>We will track your claim and act as your advocate to get payment on all valid aspects of the claim. </li>
-				<li>We will follow-up with you and attempt to make this process as painless as possible.</li>
-			</ul>
-			<p><strong>Claims process for contracts sold after June 1, 2012:</strong></p>
+			
+			<p><strong>Claims process:</strong></p>
 			<ul>
 				<li>Submit claim on AgGuard's webpage (Do not begin work prior to our approval of the claim) </li>
 				<li>We will review your claim and contact you directly if we need any clarifications.  We may be able to provide you with service advice and parts sourcing to help expedite the repair.  Once we approve the repair, we will immediately make payment on the claim.</li>
@@ -132,12 +127,13 @@
   <div class="footer1">
     <div class="container">
       <div class="row">
+      <!-- 
         <div class="col-md-5 panel">
           <h3 class="panel-title">Lates News</h3>
           <div class="panel-body">
             <p>Lorem ipsum dolor amet, consectetur adipiscing elit. Aenean leo lectus sollicitudin convallis eget libero. Aliquam laoreet tellus ut libero semper, egestas velit malesuada. Sed non risus eget dolor amet vestibulum ullamcorper. Integer feugiat molestie.</p>
           </div>
-        </div>
+        </div> -->
         <div class="col-md-4 panel contact">
           <h3 class="panel-title">
           Contact Info
@@ -151,12 +147,13 @@
             </ul>
           </div>
         </div>
+        <!-- 
         <div class="col-md-3 panel">
           <h3 class="panel-title">Follow Us</h3>
           <div class="panel-body">
             <p class="follow-me-icons"> <a href=""><i class="fa fa-twitter fa-2"></i></a> <a href=""><i class="fa fa-dribbble fa-2"></i></a> <a href=""><i class="fa fa-github fa-2"></i></a> <a href=""><i class="fa fa-facebook fa-2"></i></a> <a href=""><i class="fa fa-youtube fa-2"></i></a> <a href=""><i class="fa fa-pinterest fa-2"></i></a> </p>
           </div>
-        </div>
+        </div> -->
       </div>
       <!-- /row of panels --> 
     </div>
@@ -166,7 +163,7 @@
       <div class="row">
         <div class="col-md-6 panel">
           <div class="panel-body">
-            <p class="simplenav"> <a href="index.html">Home</a> | <a href="#">Who we are</a> | <a href="#">Register</a> | <a href="#">About Risk</a> | <a href="#">Mom's Pink Tractor</a> </p>
+            <p class="simplenav"> <a href="/agg/home">Home</a> | <a href="/agg/whoWeAre">Who we are</a> | <a href="/agg/register">Register</a> | <a href="/agg/aboutRisk">About Risk</a> | <a href="/agg/momsPinkTractor">Mom's Pink Tractor</a> </p>
           </div>
         </div>
         <div class="col-md-6 panel">

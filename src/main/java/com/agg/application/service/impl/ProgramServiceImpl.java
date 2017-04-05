@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -304,7 +305,10 @@ public class ProgramServiceImpl implements ProgramService {
 			quote.setMachineSerial(quoteDO.getSerialNumber());
 			quote.setMachineRetailPrice(quoteDO.getRetailPrice());
 			quote.setMachineYear(quoteDO.getModelYear());
-			//quote.setUseOfEquip(useOfEquipmentDAO.findOne(quoteDO.getUseOfEquipmentDO().getId()));
+			quote.setUseOfEquip(useOfEquipmentDAO.findOne(quoteDO.getUseOfEquipmentDO().getId()));
+			
+			logger.debug("quoteDO.getUseOfEquipmentDO().getId() "+quoteDO.getUseOfEquipmentDO().getId());
+			
 			quote.setMachineSaleDate(new Date());
 			
 			//TODO
@@ -375,6 +379,9 @@ public class ProgramServiceImpl implements ProgramService {
 				custInfo.setEmail(custDO.getEmail());
 				custInfo.setRemorse((quoteDO.isCustRemorsePeriod())?(byte)1:(byte)0);
 				custInfo.setUnderstand((quoteDO.isCustUnderstandCoverage())?(byte)1:(byte)0);
+				
+				logger.debug("quoteDO.isCustRemorsePeriod() "+quoteDO.isCustRemorsePeriod());
+				logger.debug("quoteDO.isCustUnderstandCoverage() "+quoteDO.isCustUnderstandCoverage());
 				custInfo.setLastUpdate(date);
 				custInfo = customerInfoDAO.save(custInfo);
 			}
@@ -399,6 +406,7 @@ public class ProgramServiceImpl implements ProgramService {
 			parameterMap.put("imagePath", System.getProperty("user.dir")+reportImagePath);
 			
 			List<ReportDO> reportDOList = new ArrayList<ReportDO>();
+			quoteDO.setCreateDate(quote.getCreateDate());
 			reportDOList.add(getQuoteReportDO(quoteDO));
 			JRDataSource jrDataSource = null;
 			if(!reportDOList.isEmpty()){
@@ -704,14 +712,38 @@ public class ProgramServiceImpl implements ProgramService {
 		Locale locale = new Locale("en", "US");
 		NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
 		
-		reportDO.setDealerName(quoteDO.getCustomerInfoDO().getName());
 		reportDO.setQuoteDate((quoteDO.getEstSaleDate() != null)?dateFormat.format(quoteDO.getEstSaleDate()):dateFormat.format(new Date()));
-		//TODO
-		reportDO.setAttn("");
-		//TODO
-		reportDO.setQuoteExpires("");
+		
+		//TODO with created_by field
+		Dealer dealer = dealerDAO.findOne(quoteDO.getDealerDO().getId());
+		if(dealer != null){
+			reportDO.setDealerName(dealer.getName());
+			if(dealer.getParentCode() != 0 && dealer.getParentCode() == dealer.getCode()){
+				reportDO.setAttn(dealer.getName());
+				reportDO.setDealerAddress(dealer.getAddress()+", "+dealer.getState()+" "+dealer.getZip());
+			}else{
+				Dealer parentDealer = dealerDAO.findByCode(dealer.getCode());
+				if(parentDealer != null){
+					reportDO.setAttn(parentDealer.getName());
+					reportDO.setDealerAddress(parentDealer.getAddress()+", "+parentDealer.getState()+" "+parentDealer.getZip());
+				}
+			}
+			
+		}else{
+			reportDO.setAttn("");
+			reportDO.setDealerAddress("");
+		}
+		
+		//TODO with purchase requested date
+		Date createdDate = quoteDO.getCreateDate();
+		if(createdDate != null){
+			reportDO.setQuoteExpires(dateFormat.format(getQuoteExpirationDate(createdDate)));
+		}else{
+			reportDO.setQuoteExpires("");
+		}
 		reportDO.setQuoteId(quoteDO.getQuoteId());
 		reportDO.setAddress(quoteDO.getCustomerInfoDO().getAddress()+", "+quoteDO.getCustomerInfoDO().getState()+" "+quoteDO.getCustomerInfoDO().getZip());
+		reportDO.setCustName(quoteDO.getCustomerInfoDO().getName());
 		reportDO.setOutStandingDesc(AggConstants.QUOTE_REPORT_OUT_STANDING_DESC);
 		reportDO.setManufacturerName(quoteDO.getManufacturerDO().getName());	
 		reportDO.setModelName(quoteDO.getMachineInfoDO().getModel());
@@ -754,6 +786,17 @@ public class ProgramServiceImpl implements ProgramService {
 		reportDO.setSpecialConsiderationDesc("None");
 		
 		return reportDO;
+	}
+	
+	/**
+	 * @param createdDate
+	 * @return quoteDO
+	 */
+	private Date getQuoteExpirationDate(Date createdDate){
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(createdDate);
+		cal.add(Calendar.DATE, AggConstants.QUOTE_EXPIRATION_DAYS);
+		return cal.getTime();
 	}
 }
 

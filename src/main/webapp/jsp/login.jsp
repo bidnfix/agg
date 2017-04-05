@@ -36,10 +36,10 @@
         <li class="active"><a href="/agg/home">Home</a></li>
         <li><a href="/agg/register">Register</a></li>
         <li><a href="/agg/aboutRisk">About Risk</a></li>
-        <li><a href="#">Who We Are</a></li>
+        <li><a href="/agg/whoWeAre">Who We Are</a></li>
         
         
-        <li><a href="#">Mom's Pink Tractor</a></li>
+        <li><a href="/agg/momsPinkTractor">Mom's Pink Tractor</a></li>
       </ul>
     </div>
     <!--/.nav-collapse --> 
@@ -54,17 +54,17 @@
       <div id="da-slider" class="da-slider">
         <div class="da-slide">
           <h2>WE FOCUS  </h2>
-          <p>on the consequences of riskand particularly the adverse consequences associated with the risk.</p>
+          <p>Our products protect you from risk.</p>
           <div class="da-img"></div>
         </div>
         <div class="da-slide">
-         <h2>WE FOCUS  </h2>
-          <p>on the consequences of risk and particularly the adverse consequences associated with the risk.</p>
+         <h2>WE LISTEN  </h2>
+          <p>Our customers are at the center of all that we do.</p>
           <div class="da-img"></div>
         </div>
         <div class="da-slide">
-          <h2>WE FOCUS  </h2>
-          <p>on the consequences of risk and particularly the adverse consequences associated with the risk.</p>
+          <h2>WE PAY CLAIMS FAST  </h2>
+          <p>Our customers measure claims payment in hours not weeks.</p>
           <div class="da-img"></div>
         </div> 
       </div>
@@ -80,7 +80,8 @@
                 <div class="col-md-6 col-sm-12">
                     
                     <div class="linto">
-                    <span><strong >"Navigation"</strong> Headding Comes Here</span>
+                    <span><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Our Core Values</strong></span>
                     	<ul>
                         	<li class="animated fadeInLeftBig "><a href="#">Claims Paid Quickly</a></li>
                             <li class="animated fadeInLeft"><a href="#">Ag Focused</a></li>
@@ -119,11 +120,6 @@
             <h2>About Us</h2>
             <br/>
           </div> 
-              <p>You have been selected to test drive the beta version of our new website.
-
-If you have any problems or suggestions, please do not hesitate to contact us.
-
-Thank you for helping us make our new website more powerful and user friendly.</p>
 
 <p>AgGuard products are designed for Ag users by Ag equipment experts who first determine your needs and then create products that work for you.</p>
 
@@ -156,7 +152,7 @@ Thank you for helping us make our new website more powerful and user friendly.</
             <p>Ag Guard LLC, 21295 Hollingsworth Road, Tonganoxie, KS 66086.</p>
             <ul>
               <li><i class="fa fa-phone"></i>816-223-1978</li>
-              <li><a href="#"><i class="fa fa-envelope-o"></i> contact@agguard.com</a></li>
+              <li><a href="#"><i class="fa fa-envelope-o"></i>info@agguard.com</a></li>
               
             </ul>
           </div>
@@ -176,7 +172,11 @@ Thank you for helping us make our new website more powerful and user friendly.</
       <div class="row">
         <div class="col-md-6 panel">
           <div class="panel-body">
+<<<<<<< HEAD
             <p class="simplenav"> <a href="/agg/home">Home</a> | <a href="/agg/register">Register</a> | <a href="/agg/aboutRisk">About Risk</a> | <a href="#">Mom's Pink Tractor</a> </p>
+=======
+            <p class="simplenav"> <a href="/agg/home">Home</a> | <a href="/agg/whoWeAre">Who we are</a> | <a href="/agg/register">Register</a> | <a href="/agg/aboutRisk">About Risk</a> | <a href="/agg/momsPinkTractor">Mom's Pink Tractor</a> </p>
+>>>>>>> refs/remotes/origin/maintenance
           </div>
         </div>
         <div class="col-md-6 panel">

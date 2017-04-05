@@ -34,14 +34,15 @@ routingApp.factory('machineService', function($http, $q, $window) {
 								//alert(response.data.status);
 								if (response.data.status == 'success') {
 									closePopup('machineEditPopup');
+									$window.location.reload();
 									//$window.location.href = '#/agg/dealers';
-									var objects = $scope.machineInfoList;
+									/*var objects = $scope.machineInfoList;
 							        for (var i = 0; i < objects.length; i++) {
 							            if (objects[i].id === machine.id) {
 							                objects[i] = machine;
 							                break;
 							            }
-							        }
+							        }*/
 								} else {
 									alert('Error in updating machine: '+response.data.errMessage)
 									//$('#errMsg').html(response.data.errMessage);

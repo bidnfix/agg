@@ -240,7 +240,7 @@ public class MachineServiceImpl implements MachineService {
 				machineModel = it.next();
 				//machineModelDO.setModelId(machineModel.getModel());
 				machineModelDO.setModelName(machineModel.getModel());
-				machineModelDO.setModelYear(machineModel.getModelYear());
+				machineModelDO.setModelYear((machineModel.getModelYear() != null)?machineModel.getModelYear():0);
 				machineModelDO.setePower(machineModel.getePower());
 				//machineModelDO.setePower(machineModel.getePower());
 				machineModelDO.setRetailPrice(machineModel.getRetailPrice());
@@ -320,7 +320,7 @@ public class MachineServiceImpl implements MachineService {
 	
 	@Override
 	@Transactional
-	public long editMachineInfo(MachineDO machineDO) {
+	public long editMachineInfo(MachineDO machineDO) throws Exception{
 		logger.debug("In editMachineInfo : "+machineDO.getMachineId());
 		MachineInfo machineInfo = machineInfoDAO.findOne(machineDO.getMachineId());
 		Timestamp date = new Timestamp(new Date().getTime());
@@ -339,6 +339,9 @@ public class MachineServiceImpl implements MachineService {
 		//macineInfo.setRetailPrice(machineDO.getRetailPrice());
 		//macineInfo.setBasePrice(machineDO.getBasePrice());
 		logger.debug("machineDO.getGroupId() -->"+machineDO.getGroupId());
+		
+		logger.debug("machineInfo.getModelYear -->"+machineInfo.getModelYear());
+		//machineInfo.setModelYear(machineInfo.getModelYear().getYear());
 
 		machineInfo.setGroupConstant(groupConstantDAO.findOne(Long.valueOf(machineDO.getGroupId())));
 		

@@ -26,6 +26,7 @@
 						<label>*Model Number</label> <select class="form-control"
 							name="machineModel" ng-model="quote.machineInfoDO"
 							ng-options="machineModel.model group by machineModel.machineType for machineModel in machineModelList track by machineModel.machineId"
+							ng-change="changeMachineModelStatus()"
 							required-message="'Please select valid Model Number.'"
 							required="required">
 							<option value="">Model Number</option>
@@ -38,7 +39,7 @@
 						<label><i class="fa fa-info-circle" data-toggle="tooltip"
 							tooltip-trigger tooltip-animation="false"
 							tooltip="Please use the engine-rated horsepower.  This is not the PTO power or peak power."
-							tooltip-placement="top"></i> *Horsepower (Engine)</label> <input
+							tooltip-placement="top"></i> Horsepower (Engine)</label> <input
 							type="text" id="horsePower" name="horsePower"
 							ng-model="quote.horsePower" placeholder="Horse Power"
 							class="form-control">
@@ -129,7 +130,8 @@
 								class="input-group-addon"><i
 								class="glyphicon glyphicon-calendar"></i></span> -->
 							<div class="input-group">
-								<input type="text" class="form-control" 
+								<input type="text" class="form-control"
+								   name="estSaleDate"
 				                   datepicker-popup="MM/dd/yyyy"
 				                   datepicker-options="dateOptions" 
 				                   is-open="valuationDatePickerIsOpen" 

@@ -43,12 +43,12 @@
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav pull-right">
         <li><a href="/agg/home">Home</a></li>
-        <li class="active"><a href="#">Register</a></li>
+        <li class="active"><a href="/agg/register">Register</a></li>
         <li><a href="/agg/aboutRisk">About Risk</a></li>
-        <li><a href="#">Who We Are</a></li>
+        <li><a href="/agg/whoWeAre">Who We Are</a></li>
         
         
-        <li><a href="#">Mom's Pink Tractor</a></li>
+        <li><a href="/agg/momsPinkTractor">Mom's Pink Tractor</a></li>
       </ul>
     </div>
     <!--/.nav-collapse --> 
@@ -284,7 +284,7 @@
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i aria-hidden="true" class="fa-phone fa"></i></span>
-									<input type="number" id="phone" name="phone" ng-model="dealer.phone" placeholder="Phone Number" class="form-control" required="required">
+									<input type="text" id="phone" name="phone" ng-model="dealer.phone" placeholder="Phone Number" class="form-control" required="required">
 								</div>
 							</div>
 						</div>          
@@ -346,12 +346,14 @@
             </ul>
           </div>
         </div>
+        <!-- 
         <div class="col-md-3 panel">
           <h3 class="panel-title">Follow Us</h3>
           <div class="panel-body">
             <p class="follow-me-icons"> <a href=""><i class="fa fa-twitter fa-2"></i></a> <a href=""><i class="fa fa-dribbble fa-2"></i></a> <a href=""><i class="fa fa-github fa-2"></i></a> <a href=""><i class="fa fa-facebook fa-2"></i></a> <a href=""><i class="fa fa-youtube fa-2"></i></a> <a href=""><i class="fa fa-pinterest fa-2"></i></a> </p>
           </div>
         </div>
+         -->
       </div>
       <!-- /row of panels --> 
     </div>
@@ -361,7 +363,7 @@
       <div class="row">
         <div class="col-md-6 panel">
           <div class="panel-body">
-            <p class="simplenav"> <a href="index.html">Home</a> | <a href="#">Who we are</a> | <a href="#">Register</a> | <a href="#">About Risk</a> | <a href="#">Mom's Pink Tractor</a> </p>
+            <p class="simplenav"> <a href="/agg/home">Home</a> | <a href="/agg/whoWeAre">Who we are</a> | <a href="/agg/register">Register</a> | <a href="/agg/aboutRisk">About Risk</a> | <a href="/agg/momsPinkTractor">Mom's Pink Tractor</a> </p>
           </div>
         </div>
         <div class="col-md-6 panel">

@@ -23,6 +23,7 @@ import com.agg.application.model.LoginForm;
 import com.agg.application.model.Result;
 import com.agg.application.service.DealerService;
 import com.agg.application.service.LoginService;
+import com.agg.application.utils.AggConstants;
 
 @Controller
 @RequestMapping("/agg")
@@ -46,6 +47,7 @@ public class LoginController extends BaseController {
 		
 		logger.info("UserMenu size: "+account.getUserMenuDOList().size());
 		logger.debug("Account [{}]", account);
+		request.getSession().setMaxInactiveInterval(AggConstants.SESSION_EXPIRATION_TIMEOUT);
 		request.getSession().setAttribute("user", account);
 		return new Result("success", null, account);
 	}
@@ -68,6 +70,11 @@ public class LoginController extends BaseController {
 		if (sessionExists(request))
 			return "redirect:/agg/home";
 		return "login";
+	}
+	
+	@RequestMapping(value = "/isLoggedIn", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+	public @ResponseBody Result isLoggedIn(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		return new Result("success", null, sessionExists(request));
 	}
 	
 	@RequestMapping(value = "/register", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
@@ -107,7 +114,7 @@ public class LoginController extends BaseController {
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public @ResponseBody Result register(@RequestBody DealerDO dealerDO, BindingResult result, Model model,
 			HttpServletRequest request, HttpServletResponse response) throws Exception {
-		logger.debug("Inside register method with userName: ", dealerDO.getUserName());
+		logger.debug("Inside register method with userName: "+ dealerDO.getUserName());
 		
 		StringBuffer url = request.getRequestURL();
 		String uri = request.getRequestURI();
@@ -125,6 +132,34 @@ public class LoginController extends BaseController {
 		Result opResult = new Result("success", "Dealer User Info", dealerService.isUserNameExists(userName));
 		
 		return opResult;
+	}
+	
+	@RequestMapping(value = "/claimPaidQuickly", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+	public String claimPaidQuickly(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		if (sessionExists(request))
+			return "redirect:/agg/home";
+		return "claimPaidQuickly";
+	}
+	
+	@RequestMapping(value = "/agFocused", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+	public String agFocused(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		if (sessionExists(request))
+			return "redirect:/agg/home";
+		return "agFocused";
+	}
+	
+	@RequestMapping(value = "/expWithIntegrity", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+	public String expWithIntegrity(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		if (sessionExists(request))
+			return "redirect:/agg/home";
+		return "expWithIntegrity";
+	}
+	
+	@RequestMapping(value = "/fairAndFlexTerms", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+	public String fairAndFlexTerms(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		if (sessionExists(request))
+			return "redirect:/agg/home";
+		return "fairAndFlexTerms";
 	}
 	
 }

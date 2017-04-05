@@ -24,7 +24,7 @@ public interface MachineService {
 	
 	public long saveMachineInfo(MachineDO machineDO) throws Exception;
 	
-	public long editMachineInfo(MachineDO machineDO);
+	public long editMachineInfo(MachineDO machineDO) throws Exception;
 	
 	public MachineDO getMachine(long id);
 	

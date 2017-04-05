@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="customerQuote" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c0ec05e7-1fb2-4f7a-a475-4bbe0eaa13dc">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="221"/>
+	<property name="ireport.y" value="50"/>
 	<parameter name="imagePath" class="java.lang.String"/>
 	<field name="dealerName" class="java.lang.String"/>
 	<field name="quoteDate" class="java.lang.String"/>
@@ -35,6 +35,8 @@
 	<field name="limitOfLiability" class="java.lang.String"/>
 	<field name="price" class="java.lang.String"/>
 	<field name="specialConsiderationDesc" class="java.lang.String"/>
+	<field name="custName" class="java.lang.String"/>
+	<field name="dealerAddress" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -192,7 +194,7 @@
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement positionType="Float" x="293" y="153" width="196" height="14" forecolor="#000000" backcolor="#000000" uuid="d1d72941-2576-4a99-8d54-5f2414be5338"/>
-				<textFieldExpression><![CDATA[$F{attn}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{custName}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement positionType="Float" x="293" y="181" width="54" height="14" uuid="2bd62f2b-56b9-4717-a524-e9c086682227"/>
@@ -351,7 +353,7 @@
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="25" y="70" width="196" height="14" uuid="f53ad76b-1c26-4d18-8103-02060251d28a"/>
-				<textFieldExpression><![CDATA[$F{address}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{dealerAddress}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

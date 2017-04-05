@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -389,8 +390,14 @@ public class QuoteServiceImpl implements QuoteService {
 			quote.setServicingDealer(0);
 			quote.setLastUpdate(new Date());
 			
-			CustomerInfo customerInfo = new CustomerInfo();
-			customerInfo.setQuoteId(quoteDO.getQuoteId());
+			//updating quote summary additional info.
+			quote.setOtherProv(quoteDO.getOtherProv());
+			
+			CustomerInfo customerInfo = customerInfoDAO.findOne(quoteDO.getQuoteId());
+			if(customerInfo == null){
+				customerInfo = new CustomerInfo();
+				customerInfo.setQuoteId(quoteDO.getQuoteId());
+			}
 			customerInfo.setAddress((quoteDO.getDealerAddress() != null)?quoteDO.getDealerAddress():"");
 			customerInfo.setCity(quoteDO.getDealerCity());
 			customerInfo.setEmail(quoteDO.getDealerEmail());
@@ -491,6 +498,7 @@ public class QuoteServiceImpl implements QuoteService {
 			//quote.setPrId(0);
 			quote.setServicingDealer(0);
 			quote.setLastUpdate(new Date());
+			quote.setOtherProv(quoteDO.getOtherProv());
 			
 			//purchased status to 4
 			quote.setStatus(AggConstants.B_QUOTE_STATUS_PURCHASE_REQUESTED);
@@ -537,6 +545,7 @@ public class QuoteServiceImpl implements QuoteService {
 			parameterMap.put("imagePath", System.getProperty("user.dir")+reportImagePath);
 			
 			List<ReportDO> reportDOList = new ArrayList<ReportDO>();
+			quoteDO.setCreateDate(quote.getCreateDate());
 			reportDOList.add(getQuoteReportDO(quoteDO));
 			JRDataSource jrDataSource = null;
 			if(!reportDOList.isEmpty()){
@@ -569,12 +578,36 @@ public class QuoteServiceImpl implements QuoteService {
 		
 		reportDO.setDealerName(quoteDO.getDealerDO().getName());
 		reportDO.setQuoteDate((quoteDO.getEstSaleDate() != null)?dateFormat.format(quoteDO.getEstSaleDate()):"");
-		//TODO
-		reportDO.setAttn("");
-		//TODO
-		reportDO.setQuoteExpires("");
+		
+		//TODO with created_by field
+		Dealer dealer = dealerDAO.findByCode(quoteDO.getDealerDO().getCode());
+		if(dealer != null){
+			if(dealer.getParentCode() != 0 && dealer.getParentCode() == dealer.getCode()){
+				reportDO.setAttn(dealer.getName());
+				reportDO.setDealerAddress(dealer.getAddress()+", "+dealer.getState()+" "+dealer.getZip());
+			}else{
+				Dealer parentDealer = dealerDAO.findByCode(dealer.getCode());
+				if(parentDealer != null){
+					reportDO.setAttn(parentDealer.getName());
+					reportDO.setDealerAddress(parentDealer.getAddress()+", "+parentDealer.getState()+" "+parentDealer.getZip());
+				}
+			}
+			
+		}else{
+			reportDO.setAttn("");
+			reportDO.setDealerAddress("");
+		}
+		
+		//TODO with purchase requested date
+		Date createdDate = quoteDO.getCreateDate();
+		if(createdDate != null){
+			reportDO.setQuoteExpires(dateFormat.format(getQuoteExpirationDate(createdDate)));
+		}else{
+			reportDO.setQuoteExpires("");
+		}
 		reportDO.setQuoteId(quoteDO.getQuoteId());
 		reportDO.setAddress(quoteDO.getDealerAddress()+", "+quoteDO.getDealerState()+" "+quoteDO.getDealerZip());
+		reportDO.setCustName(quoteDO.getDealerName());
 		reportDO.setOutStandingDesc(AggConstants.QUOTE_REPORT_OUT_STANDING_DESC);
 		reportDO.setManufacturerName(quoteDO.getManufacturerDO().getName());
 		reportDO.setModelName(quoteDO.getMachineInfoDO().getModel());
@@ -607,8 +640,8 @@ public class QuoteServiceImpl implements QuoteService {
 	}
 
 	@Override
-	public ReportDO getQuoteReportDetails(String quoteId) {
-		logger.info("Inside getQuoteReportDetails with quoteId: "+quoteId); 
+	public ReportDO getQuoteReportDetails(String quoteId, String reportType) {
+		logger.info("Inside getQuoteReportDetails with quoteId: "+quoteId+" and reportType: "+reportType); 
 		ReportDO reportDO = null;
 		
 		Quote quote = quoteDAO.findByIdQuoteId(quoteId);
@@ -621,18 +654,42 @@ public class QuoteServiceImpl implements QuoteService {
 			
 			reportDO.setDealerName(quote.getDealer().getName());
 			reportDO.setQuoteDate((quote.getMachineSaleDate() != null)?dateFormat.format(quote.getMachineSaleDate()):"");
-			//TODO
-			reportDO.setAttn("");
-			//TODO
-			reportDO.setQuoteExpires("");
+			
+			//TODO with created_by field
+			Dealer dealer = quote.getDealer();
+			if(dealer != null){
+				if(dealer.getParentCode() != 0 && dealer.getParentCode() == dealer.getCode()){
+					reportDO.setAttn(dealer.getName());
+					reportDO.setDealerAddress(dealer.getAddress()+", "+dealer.getState()+" "+dealer.getZip());
+				}else{
+					Dealer parentDealer = dealerDAO.findByCode(dealer.getCode());
+					if(parentDealer != null){
+						reportDO.setAttn(parentDealer.getName());
+						reportDO.setDealerAddress(parentDealer.getAddress()+", "+parentDealer.getState()+" "+parentDealer.getZip());
+					}
+				}
+				
+			}else{
+				reportDO.setAttn("");
+				reportDO.setDealerAddress("");
+			}
+			
+			Date createdDate = quote.getCreateDate();
+			if(createdDate != null){
+				reportDO.setQuoteExpires(dateFormat.format(getQuoteExpirationDate(createdDate)));
+			}else{
+				reportDO.setQuoteExpires("");
+			}
 			reportDO.setQuoteId(quoteId);
 			CustomerInfo customerInfo = customerInfoDAO.findOne(quoteId);
 			if(customerInfo != null){
 				reportDO.setAddress(customerInfo.getAddress()+", "+customerInfo.getState()+" "+customerInfo.getZip());
 				reportDO.setEmail(customerInfo.getEmail());
 				reportDO.setPhone(customerInfo.getPhone());
+				reportDO.setCustName(customerInfo.getName());
 			}
-			reportDO.setOutStandingDesc(AggConstants.QUOTE_REPORT_OUT_STANDING_DESC);
+			reportDO.setOutStandingDesc((reportType != null && reportType.equals(AggConstants.REPORT_TYPE_INVOICE))
+					? AggConstants.INVOICE_REPORT_OUT_STANDING_DESC : AggConstants.QUOTE_REPORT_OUT_STANDING_DESC);
 			reportDO.setManufacturerName(quote.getManufacturer().getManfName());
 			reportDO.setModelName(quote.getMachineInfo().getModel());
 			reportDO.setModelSerialNo(quote.getMachineSerial());
@@ -642,7 +699,7 @@ public class QuoteServiceImpl implements QuoteService {
 				reportDO.setEquipment("");
 			}
 			reportDO.setRetailPrice(currencyFormat.format(quote.getMachineRetailPrice()));
-			reportDO.setCurrentHours(quote.getMachineHours()+"");
+			reportDO.setCurrentHours(quote.getMachineMeterHours()+"");
 			if((quote.getManfExpired() == 1) || (quote.getManfEndDate() != null && (quote.getManfEndDate().compareTo(new Date()) < 0))){
 				reportDO.setMachineStatus(AggConstants.MACHINE_STATUS_USED);
 			}else{
@@ -683,6 +740,8 @@ public class QuoteServiceImpl implements QuoteService {
 				if(adminAdjustment.getBasePrice() > 0){
 					coveragePrice = adminAdjustment.getBasePrice();
 				}
+				
+				reportDO.setInvoiceDate((adminAdjustment.getInvoiceDate() != null)?dateFormat.format(adminAdjustment.getInvoiceDate()):"");
 			}
 			reportDO.setLimitOfLiability(currencyFormat.format(lol));
 			String dealerMarkupType = quote.getDealerMarkupType();
@@ -700,6 +759,8 @@ public class QuoteServiceImpl implements QuoteService {
 			reportDO.setQuotePrice(currencyFormat.format(coveragePrice));
 			reportDO.setDealerMarkup(currencyFormat.format(dealerMarkupPrice));
 			reportDO.setSpecialConsiderationDesc("None");
+			reportDO.setAmountDue(currencyFormat.format(coveragePrice));
+			//reportDO
 		}
 		
 		return reportDO;
@@ -712,11 +773,23 @@ public class QuoteServiceImpl implements QuoteService {
 		if(accountDO.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)){
 			//List<Quote> quoteList = Util.toList(quoteDAO.findAll());
 			//quoteDOList = getQuoteDetails(quoteList);
-			quoteDOList = quoteDAO.findAllQuotes();
+			quoteDOList = quoteDAO.findAllQuotes(AggConstants.B_QUOTE_STATUS_UNACRHIVE);
 		}else{
 			//List<Quote> quoteList = Util.toList(quoteDAO.findByDealerId(accountDO.getDealerId()));
 			//quoteDOList = getQuoteDetails(quoteList);
-			quoteDOList = quoteDAO.findAllQuotesByDealer(accountDO.getDealerId());
+			quoteDOList = quoteDAO.findAllQuotesByDealer(accountDO.getDealerId(), AggConstants.B_QUOTE_STATUS_UNACRHIVE);
+		}
+		
+		return quoteDOList;
+	}
+	
+	@Override
+	public List<QuoteDO> getArchivedQuotes(AccountDO accountDO) {
+		List<QuoteDO> quoteDOList = null;
+		if(accountDO.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)){
+			quoteDOList = quoteDAO.findAllQuotes(AggConstants.B_QUOTE_STATUS_ACRHIVE);
+		}else{
+			quoteDOList = quoteDAO.findAllQuotesByDealer(accountDO.getDealerId(), AggConstants.B_QUOTE_STATUS_ACRHIVE);
 		}
 		
 		return quoteDOList;
@@ -795,7 +868,7 @@ public class QuoteServiceImpl implements QuoteService {
 				machineInfoDO.setMachineId(machineInfo.getMachineId());
 				machineInfoDO.setMachineType(machineInfo.getMachineType().getMachineType());
 				machineInfoDO.setModel(machineInfo.getModel());
-				machineInfoDO.setModelYear(machineInfo.getModelYear());
+				machineInfoDO.setModelYear((machineInfo.getModelYear() != null)?machineInfo.getModelYear():0);
 				machineInfoDO.setEPower(machineInfo.getEPower());
 				machineInfoDO.setLol(machineInfo.getGroupConstant().getLol());
 				machineInfoDO.setLolToDisplay(machineInfo.getGroupConstant().getLol());
@@ -850,9 +923,10 @@ public class QuoteServiceImpl implements QuoteService {
 				quoteDO.setQuoteBasePrice(adminAdjustment.getBasePrice());
 			}
 			quoteDO.setStatus(quote.getStatus());
+			quoteDO.setIsArchive(quote.getIsArchive());
 			quoteDO.setLastUpdate(quote.getLastUpdate());
 			String statusDesc = "";
-			if(quote.getStatus() == AggConstants.B_QUOTE_STATUS_ACRHIVE){
+			if(quote.getIsArchive() == AggConstants.B_QUOTE_STATUS_ACRHIVE){
 				statusDesc = AggConstants.QUOTE_STATUS_ACRHIVE;
 			}else if(quote.getStatus() == AggConstants.B_QUOTE_STATUS_ESTIMATING_PRICE){
 				statusDesc = AggConstants.QUOTE_STATUS_ESTIMATING_PRICE;
@@ -914,12 +988,13 @@ public class QuoteServiceImpl implements QuoteService {
 			}
 			
 			if(quote.getCoverageLevelHours() > 0){
-				boolean coverageExpired = true;
+				//boolean coverageExpired = true;
+				boolean coverageExpired = false;
 				if(quoteDO.isCoverageExpired()){
 					coverageExpired = true;
-		    	}else if(quoteDO.getCoverageEndDate() != null && quoteDO.getCoverageEndDate().after(new Date())){
+		    	}/*else if(quoteDO.getCoverageEndDate() != null && quoteDO.getCoverageEndDate().after(new Date())){
 		    		coverageExpired = false;
-		    	}
+		    	}*/
 				
 				List<PricingDO> pricingDOList = getCoveragePriceDetils(coverageExpired, (quoteDO.getMachineInfoDO()!=null)?quoteDO.getMachineInfoDO().getMachineId():0, 
 						new Double(quoteDO.getDeductiblePrice()).intValue(), quoteDO.getCoverageTerm(), quote.getCoverageLevelHours());
@@ -1094,7 +1169,8 @@ public class QuoteServiceImpl implements QuoteService {
 			adminAdjustment.setLol(quoteDO.getAdjustedLol());
 			adminAdjustment.setSpecialConsideration(quoteDO.getSpecialConsiderations());
 			adminAdjustment.setCConditions(quoteDO.getCondsForCoverage());
-			adminAdjustment.setLastUpdate(new Date()); 
+			adminAdjustment.setDealHistory(quoteDO.getDealHistory());
+			adminAdjustment.setLastUpdate(new Date());
 			
 			adminAdjustmentDAO.save(adminAdjustment);
 			
@@ -1238,6 +1314,7 @@ public class QuoteServiceImpl implements QuoteService {
 			adminAdjustment.setCConditions(quoteDO.getCondsForCoverage());
 			adminAdjustment.setLastUpdate(new Date());
 			adminAdjustment.setInvoiceDate(new Date());
+			adminAdjustment.setDealHistory(quoteDO.getDealHistory());
 			
 			adminAdjustmentDAO.save(adminAdjustment);
 			
@@ -1292,6 +1369,7 @@ public class QuoteServiceImpl implements QuoteService {
 				parameterMap.put("imagePath", System.getProperty("user.dir")+reportImagePath);
 				
 				List<ReportDO> reportDOList = new ArrayList<ReportDO>();
+				quoteDO.setCreateDate(quote.getCreateDate());
 				reportDOList.add(getInvoiceReportDO(quoteDO));
 				JRDataSource jrDataSource = null;
 				if(!reportDOList.isEmpty()){
@@ -1325,12 +1403,12 @@ public class QuoteServiceImpl implements QuoteService {
 			/*List<Quote> quoteList = Util.toList(quoteDAO.findByStatus(AggConstants.B_QUOTE_STATUS_ESTIMATING_PRICE));
 			//logger.debug("quoteList for estPrice --------------> "+ quoteList.size());
 			quoteDOList = getQuoteDetails(quoteList);*/
-			quoteDOList = quoteDAO.findEstPriceQuotesByStatus(AggConstants.B_QUOTE_STATUS_ESTIMATING_PRICE);
+			quoteDOList = quoteDAO.findEstPriceQuotesByStatus(AggConstants.B_QUOTE_STATUS_ESTIMATING_PRICE, AggConstants.B_QUOTE_STATUS_UNACRHIVE);
 		}else{
 			/*List<Quote> quoteList = Util.toList(quoteDAO.findByStatusAndDealerId(AggConstants.B_QUOTE_STATUS_ESTIMATING_PRICE, accountDO.getDealerId()));
 			//logger.debug("quoteList for estPrice --------------> "+ quoteList.size());
 			quoteDOList = getQuoteDetails(quoteList);*/
-			quoteDOList = quoteDAO.findEstPriceQuotesByStatusAndDealerId(AggConstants.B_QUOTE_STATUS_ESTIMATING_PRICE, accountDO.getDealerId());
+			quoteDOList = quoteDAO.findEstPriceQuotesByStatusAndDealerId(AggConstants.B_QUOTE_STATUS_ESTIMATING_PRICE, accountDO.getDealerId(), AggConstants.B_QUOTE_STATUS_UNACRHIVE);
 		}
 		if(quoteDOList != null && !quoteDOList.isEmpty()){
 			CustomerInfo customerInfo = null;
@@ -1356,12 +1434,12 @@ public class QuoteServiceImpl implements QuoteService {
 			/*List<Quote> quoteList = Util.toList(quoteDAO.findByStatus(AggConstants.B_QUOTE_STATUS_PURCHASE_REQUESTED));
 			//logger.debug("quoteList for purchaseReq--------------> "+ quoteList.size());
 			quoteDOList = getQuoteDetails(quoteList);*/
-			quoteDOList = quoteDAO.findByQuoteStatus(AggConstants.B_QUOTE_STATUS_PURCHASE_REQUESTED);
+			quoteDOList = quoteDAO.findByQuoteStatus(AggConstants.B_QUOTE_STATUS_PURCHASE_REQUESTED, AggConstants.B_QUOTE_STATUS_UNACRHIVE);
 		}else{
 			/*List<Quote> quoteList = Util.toList(quoteDAO.findByStatusAndDealerId(AggConstants.B_QUOTE_STATUS_PURCHASE_REQUESTED, accountDO.getDealerId()));
 			//logger.debug("quoteList for purchaseReq --------------> "+ quoteList.size());
 			quoteDOList = getQuoteDetails(quoteList);*/
-			quoteDOList = quoteDAO.findByDealerStatusAndDealerId(AggConstants.B_QUOTE_STATUS_PURCHASE_REQUESTED, accountDO.getDealerId());
+			quoteDOList = quoteDAO.findByDealerStatusAndDealerId(AggConstants.B_QUOTE_STATUS_PURCHASE_REQUESTED, accountDO.getDealerId(), AggConstants.B_QUOTE_STATUS_UNACRHIVE);
 		}
 		return quoteDOList;
 	}
@@ -1373,12 +1451,12 @@ public class QuoteServiceImpl implements QuoteService {
 			/*List<Quote> quoteList = Util.toList(quoteDAO.findByStatus(AggConstants.B_QUOTE_STATUS_INVOICED));
 			//logger.debug("quoteList for getInvoicedQuotes--------------> "+ quoteList.size());
 			quoteDOList = getQuoteDetails(quoteList);*/
-			quoteDOList = quoteDAO.findByQuoteStatus(AggConstants.B_QUOTE_STATUS_INVOICED);
+			quoteDOList = quoteDAO.findByQuoteStatus(AggConstants.B_QUOTE_STATUS_INVOICED, AggConstants.B_QUOTE_STATUS_UNACRHIVE);
 		}else{
 			/*List<Quote> quoteList = Util.toList(quoteDAO.findByStatusAndDealerId(AggConstants.B_QUOTE_STATUS_INVOICED, accountDO.getDealerId()));
 			//logger.debug("quoteList for getInvoicedQuotes--------------> "+ quoteList.size());
 			quoteDOList = getQuoteDetails(quoteList);*/
-			quoteDOList = quoteDAO.findByDealerStatusAndDealerId(AggConstants.B_QUOTE_STATUS_INVOICED, accountDO.getDealerId());
+			quoteDOList = quoteDAO.findByDealerStatusAndDealerId(AggConstants.B_QUOTE_STATUS_INVOICED, accountDO.getDealerId(), AggConstants.B_QUOTE_STATUS_UNACRHIVE);
 		}
 		return quoteDOList;
 	}
@@ -1395,9 +1473,15 @@ public class QuoteServiceImpl implements QuoteService {
 		long claims = 0;
 		
 		if(accountDO.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)){
-			estPrice = quoteDAO.countByEstPrice();
+			/*estPrice = quoteDAO.countByEstPrice();
 			purchaseReq = quoteDAO.countByPurRequested();
-			invoiced = quoteDAO.countByInvoiced();
+			invoiced = quoteDAO.countByInvoiced();*/
+			
+			estPrice = quoteDAO.countByStatus(AggConstants.B_QUOTE_STATUS_ESTIMATING_PRICE, AggConstants.B_QUOTE_STATUS_UNACRHIVE);
+			purchaseReq = quoteDAO.countByStatus(AggConstants.B_QUOTE_STATUS_PURCHASE_REQUESTED, AggConstants.B_QUOTE_STATUS_UNACRHIVE);
+			invoiced = quoteDAO.countByStatus(AggConstants.B_QUOTE_STATUS_INVOICED, AggConstants.B_QUOTE_STATUS_UNACRHIVE);
+			
+			
 			
 			//activeContract = contractsDAO.countByStatus(AggConstants.B_ACTIVE_CONTRACT);
 			//inactiveContract = contractsDAO.countByStatus(AggConstants.B_INACTIVE_CONTRACT);
@@ -1408,9 +1492,15 @@ public class QuoteServiceImpl implements QuoteService {
 			claims = claimsDAO.findClaimsCountByAdmin((byte)AggConstants.CLAIM_STATUS_DRAFT);
 			
 		}else{
-			estPrice = quoteDAO.countByEstPrice(accountDO.getDealerId());
+			/*estPrice = quoteDAO.countByEstPrice(accountDO.getDealerId());
 			purchaseReq = quoteDAO.countByPurRequested(accountDO.getDealerId());
-			invoiced = quoteDAO.countByInvoiced(accountDO.getDealerId());
+			invoiced = quoteDAO.countByInvoiced(accountDO.getDealerId());*/
+			
+			estPrice = quoteDAO.countByStatus(AggConstants.B_QUOTE_STATUS_ESTIMATING_PRICE, AggConstants.B_QUOTE_STATUS_UNACRHIVE, accountDO.getDealerId());
+			purchaseReq = quoteDAO.countByStatus(AggConstants.B_QUOTE_STATUS_PURCHASE_REQUESTED, AggConstants.B_QUOTE_STATUS_UNACRHIVE, accountDO.getDealerId());
+			invoiced = quoteDAO.countByStatus(AggConstants.B_QUOTE_STATUS_INVOICED, AggConstants.B_QUOTE_STATUS_UNACRHIVE, accountDO.getDealerId());
+			
+			
 			/*activeContract = contractsDAO.countByStatus(AggConstants.B_ACTIVE_CONTRACT, accountDO.getDealerId());
 			inactiveContract = contractsDAO.countByStatus(AggConstants.B_INACTIVE_CONTRACT, accountDO.getDealerId());*/
 			activeContract = contractsDAO.countActiveContractByDealer(accountDO.getDealerId());
@@ -1439,14 +1529,36 @@ public class QuoteServiceImpl implements QuoteService {
 		
 		reportDO.setDealerName(quoteDO.getDealerDO().getName());
 		reportDO.setQuoteDate((quoteDO.getEstSaleDate() != null)?dateFormat.format(quoteDO.getEstSaleDate()):"");
-		//TODO
 		reportDO.setInvoiceDate(dateFormat.format(new Date()));
-		//TODO
-		reportDO.setAttn("");
-		//TODO
-		reportDO.setQuoteExpires("");
+		//TODO with created_by field
+		Dealer dealer = dealerDAO.findByCode(quoteDO.getDealerDO().getCode());
+		if(dealer != null){
+			if(dealer.getParentCode() != 0 && dealer.getParentCode() == dealer.getCode()){
+				reportDO.setAttn(dealer.getName());
+				reportDO.setDealerAddress(dealer.getAddress()+", "+dealer.getState()+" "+dealer.getZip());
+			}else{
+				Dealer parentDealer = dealerDAO.findByCode(dealer.getCode());
+				if(parentDealer != null){
+					reportDO.setAttn(parentDealer.getName());
+					reportDO.setDealerAddress(parentDealer.getAddress()+", "+parentDealer.getState()+" "+parentDealer.getZip());
+				}
+			}
+			
+		}else{
+			reportDO.setAttn("");
+			reportDO.setDealerAddress("");
+		};
+		
+		//TODO with purchase requested date
+		Date createdDate = quoteDO.getCreateDate();
+		if(createdDate != null){
+			reportDO.setQuoteExpires(dateFormat.format(getQuoteExpirationDate(createdDate)));
+		}else{
+			reportDO.setQuoteExpires("");
+		}
 		reportDO.setQuoteId(quoteDO.getQuoteId());
 		reportDO.setAddress(quoteDO.getDealerAddress()+", "+quoteDO.getDealerState()+" "+quoteDO.getDealerZip());
+		reportDO.setCustName(quoteDO.getDealerName());
 		reportDO.setOutStandingDesc(AggConstants.INVOICE_REPORT_OUT_STANDING_DESC);
 		reportDO.setManufacturerName(quoteDO.getManufacturerDO().getName());
 		reportDO.setModelName(quoteDO.getMachineInfoDO().getModel());
@@ -1494,14 +1606,13 @@ public class QuoteServiceImpl implements QuoteService {
 			adminAdjustment.setInceptionDate(quoteDO.getInceptionDate());
 			adminAdjustment.setExpirationDate(quoteDO.getExpirationDate());
 			adminAdjustment.setExpirationHours(quoteDO.getExpirationHours());
-			adminAdjustment.setDealHistory(quoteDO.getDealHistory());
 			
 			adminAdjustmentDAO.save(adminAdjustment);
 		}
 		
 		Contracts contracts = new Contracts();
 		contracts.setAvailabeLol(quoteDO.getMachineInfoDO().getLol());
-		contracts.setComments(quoteDO.getDealHistory());
+		contracts.setComments(quoteDO.getComments());
 		contracts.setContractId("CR-"+quoteDO.getQuoteId());
 		contracts.setCoverageLevelHours(quoteDO.getCoverageHours());
 		contracts.setCoverageTermMonths(quoteDO.getCoverageTerm());
@@ -1612,24 +1723,35 @@ public class QuoteServiceImpl implements QuoteService {
 		reportDO.setCustomerAddress1(quoteDO.getDealerAddress());
 		reportDO.setCustomerAddress2(quoteDO.getDealerCity()+" "+quoteDO.getDealerState());
 		reportDO.setCustomerAddress3(quoteDO.getDealerZip());
-		reportDO.setCustomerContact(quoteDO.getDealerAddress());
+		reportDO.setCustomerContact(quoteDO.getDealerName());
 		reportDO.setCustomerPhone(quoteDO.getDealerPhone());
 		reportDO.setCustomerEmail(quoteDO.getDealerEmail());
 		reportDO.setDealerAddress1(quoteDO.getDealerDO().getAddress1());
 		reportDO.setDealerAddress2(quoteDO.getDealerDO().getAddress2());
 		reportDO.setDealerAddress3(quoteDO.getDealerCity()+" "+quoteDO.getDealerState()+" "+quoteDO.getDealerZip());
-		reportDO.setDealerContact(quoteDO.getDealerDO().getAddress1());
+		reportDO.setDealerContact(quoteDO.getDealerDO().getName());
 		reportDO.setDealerEmail(quoteDO.getDealerDO().getInvoiceEmail());
 		reportDO.setDealerPhone(quoteDO.getDealerDO().getPhone());
 		reportDO.setServiceProviderAddr1(quoteDO.getDealerDO().getAddress1());
 		reportDO.setServiceProviderAddr2(quoteDO.getDealerDO().getAddress2());
 		reportDO.setServiceProviderAddr3(quoteDO.getDealerCity()+" "+quoteDO.getDealerState()+" "+quoteDO.getDealerZip());
-		reportDO.setServiceProviderContact(quoteDO.getDealerDO().getAddress1());
+		reportDO.setServiceProviderContact(quoteDO.getDealerDO().getName());
 		reportDO.setServiceProviderEmail(quoteDO.getDealerDO().getInvoiceEmail());
 		reportDO.setServiceProviderPhone(quoteDO.getDealerDO().getPhone());
 		reportDO.setSpecialConsiderations(quoteDO.getSpecialConsiderations());
 		
 		return reportDO;
+	}
+	
+	/**
+	 * @param createdDate
+	 * @return quoteDO
+	 */
+	private Date getQuoteExpirationDate(Date createdDate){
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(createdDate);
+		cal.add(Calendar.DATE, AggConstants.QUOTE_EXPIRATION_DAYS);
+		return cal.getTime();
 	}
 
 }

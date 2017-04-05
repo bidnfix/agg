@@ -9,7 +9,7 @@ public class MachineModelDO {
 	
 	private String modelName;
 	
-	private Date modelYear;
+	private int modelYear;
 	
 	private double basePrice;
 
@@ -43,11 +43,11 @@ public class MachineModelDO {
 		this.modelName = modelName;
 	}
 
-	public Date getModelYear() {
+	public int getModelYear() {
 		return modelYear;
 	}
 
-	public void setModelYear(Date modelYear) {
+	public void setModelYear(int modelYear) {
 		this.modelYear = modelYear;
 	}
 

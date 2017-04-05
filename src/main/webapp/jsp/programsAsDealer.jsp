@@ -1,7 +1,7 @@
 <!-- Article main content -->
 <article class="col-md-9 maincontent">
 	<form class="form-horizontal" name="quoteInfoForm" id="quoteInfoForm"
-		ng-submit="submitProgramAsDel()" novalidate angular-validator>
+		ng-submit="submitProgramAsDel(quoteInfoForm)" novalidate angular-validator>
 		<header class="page-header">
 			<div class="col-md-6 col-sm-12">
 				<div class="sec-title">
@@ -55,13 +55,13 @@
 						<label>Serial Number</label> <input type="text" id="modelYear"
 							name="serialNumber" ng-model="program.serialNumber"
 							placeholder="Serial Number" class="form-control" validate-on="dirty"
-							required="required" ng-disabled="disabled">
+							required="true" ng-disabled="disabled">
 					</div>
 					<div class="form-group">
 						<label>Hours at Enrollment</label> <input type="text"
 							id="machineMeterHours" name="machineMeterHours"
 							ng-model="program.machineMeterHours" placeholder="Hours at Enrollment"
-							class="form-control" ng-disabled="disabled">
+							validate-on="dirty" required="required" class="form-control" ng-disabled="disabled">
 					</div>
 					<div class="form-group" ng-hide="mfgCoverageDisabled">
 						<label>MFG Coverage Ends</label> 
@@ -70,14 +70,15 @@
 							placeholder="Manufacturer Coverage end date" class="form-control"
 							validate-on="dirty" required="required" ng-disabled="disabled"> -->
 						<div class="input-group">
-                           <input type="text" class="form-control" 
+                           <input type="text" class="form-control"
+                           		   name="coverageEndDate" 
 				                   datepicker-popup="MM/dd/yyyy"
 				                   datepicker-options="dateOptions" 
 				                   is-open="coverageEndDatePickerIsOpen" 
 				                   ng-click="coverageEndDatePickerOpen()"
 				                   ng-model="program.coverageEndDate"
 				                   validate-on="dirty" 
-				                   required="required"/>
+				                   ng-required="mfgCoverageRequired"/>
 							<span class="input-group-btn">
 				              <button type="button" class="btn btn-default" 
 				                      ng-click="coverageEndDatePickerOpen($event)">
@@ -96,13 +97,14 @@
 						
 						<div class="input-group">
                            <input type="text" class="form-control" 
+				                   name="estSaleDate"
 				                   datepicker-popup="MM/dd/yyyy"
 				                   datepicker-options="dateOptions" 
 				                   is-open="estSaleDatePickerIsOpen" 
 				                   ng-click="estSaleDatePickerOpen()"
 				                   ng-model="program.estSaleDate"
 				                   validate-on="dirty"
-				                   required="required"/>
+				                   ng-required="coverageStartDateRequired"/>
 							<span class="input-group-btn">
 				              <button type="button" class="btn btn-default" 
 				                      ng-click="estSaleDatePickerOpen($event)">
@@ -118,6 +120,19 @@
 							placeholder="Unusual Provisions" class="form-control"
 							ng-disabled="disabled">
 					</div>
+					
+					<div class="form-group">
+						<label>Use of Equipment</label> <select
+							name="equipment" ng-model="program.useOfEquipmentDO"
+							class="form-control"
+							ng-options="equipmentObj.equipName for equipmentObj in useOfEquipmentDOList track by equipmentObj.id"
+							required-message="'Please select use of equipment.'"
+							required="required">
+							<option value="">Use of Equipment</option>
+						</select>
+					</div>
+				
+				
 					<div class="form-group ">
 						<button class="btn btn-primary btn-lg btn-block login-button"
 							type="submit">Submit</button>
@@ -170,7 +185,7 @@
 							<label>Address</label> <input type="text" id="address" name="address"
 													ng-model="program.customerInfoDO.address"
 													placeholder="Address" class="form-control"
-								ng-disabled="disabled">
+								validate-on="dirty" required="required" ng-disabled="disabled">
 						</div>
 						<div class="form-group">
 							<label>City</label> <input type="text" id="city" name="city"
@@ -180,7 +195,7 @@
 						<div class="form-group">
 							<label>State/Province</label> <select class="form-control"
 								name="state" ng-model="program.customerInfoDO.state" id="state"
-								ng-disabled="disabled">
+								validate-on="dirty" required="required" ng-disabled="disabled">
 								<option value="">Select State/Province</option>
 								<option value="AL">Alabama</option>
 								<option value="AK">Alaska</option>
@@ -252,18 +267,28 @@
 							<label>Zip</label> <input type="text" id="Zip"
 								name="Zip" ng-model="program.customerInfoDO.zip" placeholder="Zip"
 								class="form-control" 
-								ng-disabled="disabled">
+								validate-on="dirty" required="required" ng-disabled="disabled">
 						</div>
 						<div class="form-group">
 							<label>Phone Number</label> <input type="text" id="phone" name="phone"
 													ng-model="program.customerInfoDO.phone" placeholder="Phone" class="form-control"
-								 ng-disabled="disabled">
+								 validate-on="dirty" required="required" ng-disabled="disabled">
 						</div>
 						<div class="form-group">
 							<label>Email</label> <input type="text" d="email" name="email"
 													ng-model="program.customerInfoDO.email" placeholder="Email" class="form-control"
-								ng-disabled="disabled">
+								validate-on="dirty" required="required" ng-disabled="disabled">
 						</div>
+						<div class="checkbox">
+                         <label>
+                           <input type="checkbox" id="custUnderstandCoverage" name="custUnderstandCoverage" ng-model="program.custUnderstandCoverage" ng-value="true" required="required"  validate-on="dirty" ng-disabled="disabled"> Customer understands coverage.
+                         </label>
+                       </div>
+                       <div class="checkbox">
+                         <label>
+                           <input type="checkbox" id="custRemorsePeriod" name="custRemorsePeriod" ng-model="program.custRemorsePeriod" ng-value="true" required="required"  validate-on="dirty" ng-disabled="disabled"> Customer is aware of 90-day remorse period.
+                         </label>
+                       </div>
 					</div>
 				</div>
 			</div>

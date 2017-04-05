@@ -1,7 +1,6 @@
 package com.agg.application.controller;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -116,8 +115,17 @@ public class QuoteController extends BaseController {
 			opResult = new Result("failure", "Invalid Login", null);
 		}else{
 			List<PricingDO> pricingDOList = quoteService.getCoveragePriceDetils(coverageExpired, machineId, deductiblePrice, coverageTerm, coverageHours);
+			List<Integer> coverageLevelHoursList = null;
+			if(pricingDOList != null && !pricingDOList.isEmpty()){
+				coverageLevelHoursList = new ArrayList<Integer>();
+				for(PricingDO pricingDO : pricingDOList){
+					coverageLevelHoursList.add(pricingDO.getCoverageLevelHours());
+				}
+			}
+			model.addAttribute("pricingDOList", pricingDOList);
+			model.addAttribute("coverageLevelHoursList", coverageLevelHoursList);
 			
-			opResult = new Result("success", "Quote Coverage Level Price Info", pricingDOList);
+			opResult = new Result("success", "Quote Coverage Level Price Info", model);
 		}
 		
 		return opResult;
@@ -190,6 +198,23 @@ public class QuoteController extends BaseController {
 		return opResult;
 	}
 	
+	@RequestMapping(value = "/quote/addQuote/summaryInfo", method = RequestMethod.POST)
+	public @ResponseBody Result saveQuoteSummaryInfo(@RequestBody  QuoteDO quoteDO, HttpServletRequest request, HttpServletResponse response, Model model) {
+		logger.debug("In saveQuoteSummaryInfo");
+		Result opResult = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			quoteService.saveCoverageInfo(quoteDO);
+			
+			logger.info("quoteId: "+quoteDO.getQuoteId()+" and id: "+quoteDO.getId());
+			
+			opResult = new Result("success", "Quote Info", quoteDO);
+		}
+		
+		return opResult;
+	}
+	
 	@RequestMapping(value = "/quote/addQuote/purchaseInfo", method = RequestMethod.POST)
 	public @ResponseBody Result saveQuotePurchaseInfo(@RequestBody  QuoteDO quoteDO, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{
 		logger.debug("In saveQuotePurchaseInfo");
@@ -224,7 +249,7 @@ public class QuoteController extends BaseController {
 			String appUrl = url.substring(0, url.length() - uri.length());
 			logger.info("appUrl: "+appUrl);
 			
-			ReportDO reportDO = quoteService.getQuoteReportDetails(quoteId);
+			ReportDO reportDO = quoteService.getQuoteReportDetails(quoteId, reportType);
 			JRDataSource jrDataSource = null;
 			if(reportDO != null){
 				List<ReportDO> reportDOList = new ArrayList<ReportDO>();
@@ -245,6 +270,8 @@ public class QuoteController extends BaseController {
 				modelAndView = new ModelAndView("rpt_customerQuote", modelMap);
 			}else if(reportType != null && reportType.equalsIgnoreCase("dealer")){
 				modelAndView = new ModelAndView("rpt_dealerQuote", modelMap);
+			}else if(reportType != null && reportType.equalsIgnoreCase("invoice")){
+				modelAndView = new ModelAndView("rpt_dealerInvoice", modelMap);
 			}
 			
 		}
@@ -264,6 +291,18 @@ public class QuoteController extends BaseController {
 		return opResult;
 	}
 	
+	@RequestMapping(value = "/archivedQuotesInfo", method = RequestMethod.GET)
+	public Result getArchivedQuotes(Model model, HttpServletRequest request, HttpServletResponse response) {
+		Result opResult = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			opResult = new Result("success", null, quoteService.getArchivedQuotes(getAccountDetails(request)));
+		}
+		
+		return opResult;
+	}
+	
 	@RequestMapping(value = "/quoteInfo/{id}/{quoteId}", method = RequestMethod.GET)
 	public Result getQuote(@PathVariable int id, @PathVariable String quoteId, Model model, HttpServletRequest request, HttpServletResponse response) {
 		logger.debug("Inside getQuote with id: "+id+" & quoteId: "+quoteId);
@@ -275,12 +314,13 @@ public class QuoteController extends BaseController {
 			if(quoteDO != null){
 				List<DealerDO> dealerDOList = dealerService.getActiveDealers(getAccountDetails(request));
 				List<ManufacturerDO> manufacturerDOList = machineService.getManufacturerDetails();
-				boolean coverageExpired = true;
+				//boolean coverageExpired = true;
+				boolean coverageExpired = false;
 				if(quoteDO.isCoverageExpired()){
 					coverageExpired = true;
-		    	}else if(quoteDO.getCoverageEndDate() != null && quoteDO.getCoverageEndDate().after(new Date())){
+		    	}/*else if(quoteDO.getCoverageEndDate() != null && quoteDO.getCoverageEndDate().after(new Date())){
 		    		coverageExpired = false;
-		    	}
+		    	}*/
 				Map<String, List<Integer>> deductCoverageMap = null;
 				List<PricingDO> pricingDOList = null;
 				List<MachineInfoDO> machineModels = null;

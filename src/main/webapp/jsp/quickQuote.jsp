@@ -8,15 +8,27 @@
           <div class="col-md-6 col-sm-12">
 			<div class="sec-title">
                      
-				<h3 class="wow animated bounceInLeft">Quick Quote</h3>
-				<p class="wow animated bounceInRight">Quote #: {{quote.quoteId}}</p>
+				<h3 class="wow animated bounceInLeft">Quote</h3>
+				<p class="wow animated bounceInRight">Quote #: <b>{{quote.quoteId}}</b> &nbsp;&nbsp;&nbsp; Status: <b>{{quote.statusDesc}}</b></p>
 			</div>
           </div>
           <div class="col-md-6 col-sm-12">
           	<div ng-if="quote.status != 6 && quote.isArchive == 0">
-	          	<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="editQuote()">Edit</button>
-	          	<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="quoteInfoForm.$valid && updateQuote(quoteInfoForm)">Update</button>
-	          	<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="archiveQuote()">Archive</button>
+          		<c:choose>
+          			<c:when test="${user.roleDO.accountType eq 'admin'}">
+          				<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="editQuote()">Edit</button>
+			          	<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="quoteInfoForm.$valid && updateQuote(quoteInfoForm)">Update</button>
+			          	<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="archiveQuote()">Archive</button>
+          			</c:when>
+          			<c:otherwise>
+          				<div ng-hide="estPriceFlag">
+          					<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="editQuote()">Edit</button>
+				          	<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="quoteInfoForm.$valid && updateQuote(quoteInfoForm)">Update</button>
+				          	<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="archiveQuote()">Archive</button>
+          				</div>
+          			</c:otherwise>
+          		</c:choose>
+	          	
 	          	<c:if test="${user.roleDO.accountType eq 'admin'}">
 	           	<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="quoteInfoForm.$valid && invoiceQuote(quoteInfoForm)" ng-disabled="purchaseRequested">Invoice</button>
 	           	<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="quoteInfoForm.$valid && createContract(quoteInfoForm)" ng-disabled="invoiced">Create Contract</button>
@@ -81,7 +93,7 @@
                        </div>
                        <div class="form-group">
                          <label>Serial Number</label>
-                         <input type="text" id="serialNumber" name="serialNumber" ng-model="quote.serialNumber" placeholder="Serial Number" class="form-control"  validate-on="dirty" required="required" ng-disabled="disabled">
+                         <input type="text" id="serialNumber" name="serialNumber" ng-model="quote.serialNumber" placeholder="Serial Number" class="form-control"  validate-on="dirty" ng-required="mandatoryFlag" ng-disabled="disabled">
                        </div>
                        <div class="form-group">
                          <label>Retail Price</label>
@@ -111,13 +123,14 @@
                            <!-- <input type="text" class="form-control" aria-describedby="basic-addon2"> -->
                            <!-- <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span> -->
                            <div class="input-group">
-	                           <input type="text" class="form-control" 
+	                           <input type="text" class="form-control"
+	                           		   name="coverageEndDate" 
 					                   datepicker-popup="MM/dd/yyyy"
 					                   datepicker-options="dateOptions" 
 					                   is-open="valuationDatePickerIsOpen" 
 					                   ng-click="valuationDatePickerOpen()"
 					                   ng-model="quote.coverageEndDate" 
-					                   required="required"/>
+					                   ng-required="expirationFlag"/>
 								<span class="input-group-btn">
 					              <button type="button" class="btn btn-default" 
 					                      ng-click="valuationDatePickerOpen($event)">
@@ -128,13 +141,18 @@
                        </div>
                        <div class="checkbox">
                          <label>
-                           <input type="checkbox" id="coverageExpired" name="coverageExpired" ng-model="quote.coverageExpired" ng-disabled="disabled"> Check here if the Manufacturer's Coverage has expired.
+                           <input type="checkbox" id="coverageExpired" name="coverageExpired" ng-model="quote.coverageExpired" ng-disabled="disabled" ng-change="getCoverageDetails(quote.machineInfoDO)"> Check here if the Manufacturer's Coverage has expired.
                          </label>
                        </div>
+                      <!--  <div class="checkbox">
+                         <label>
+                           <input type="checkbox" id="coverageEndDateUnknown" name="coverageEndDateUnknown" ng-model="quote.coverageEndDateUnknown" ng-disabled="disabled">Check if Manufacturer's End Date unknown.
+                         </label>
+                       </div> -->
                        <div class="form-group">
                          <label>Deductible</label>
                          <div ng-if="quote.program == null">
-						     <select name="deductiblePrice" ng-model="quote.deductiblePrice" class="form-control" ng-options="deductibleAmt for deductibleAmt in deductibleAmtList track by deductibleAmt"  validate-on="dirty" required="required" ng-disabled="disabled" ng-change="getCoveragePriceLevels()">
+						     <select name="deductiblePrice" ng-model="quote.deductiblePrice" class="form-control" ng-options="deductibleAmt for deductibleAmt in deductibleAmtList track by deductibleAmt"  validate-on="dirty" required="required" ng-disabled="disabled" ng-change="getCoveragePriceLevels('deductible')">
 	                         	<option value="">Select Deductible</option>
 							 </select>
 						 </div>
@@ -145,7 +163,7 @@
                        <div class="form-group">
                          <label>Coverage Term</label>
                          <div ng-if="quote.program == null">
-						     <select name="coverageTerm" ng-model="quote.coverageTerm" class="form-control" ng-options="coverageTermVal for coverageTermVal in coverageTermList track by coverageTermVal"  validate-on="dirty" required="required" ng-disabled="disabled" ng-change="getCoveragePriceLevels()">
+						     <select name="coverageTerm" ng-model="quote.coverageTerm" class="form-control" ng-options="coverageTermVal for coverageTermVal in coverageTermList track by coverageTermVal"  validate-on="dirty" required="required" ng-disabled="disabled" ng-change="getCoveragePriceLevels('coverageTerm')">
 	                         	<option value="">Select Coverage Term</option>
 							 </select>
 						</div>
@@ -156,7 +174,7 @@
                        <div class="form-group">
                          <label>Covered Hours</label>
                          <div ng-if="quote.program == null">
-						     <select name="coverageHours" ng-model="quote.coverageHours" class="form-control" ng-options="coverageLevelHour for coverageLevelHour in coverageLevelHoursList track by coverageLevelHour"  validate-on="dirty" required="required" ng-disabled="disabled" ng-change="getCoveragePriceLevels()">
+						     <select name="coverageHours" ng-model="quote.coverageHours" class="form-control" ng-options="coverageLevelHour for coverageLevelHour in coverageLevelHoursList track by coverageLevelHour"  validate-on="dirty" required="required" ng-disabled="disabled" ng-change="getCoveragePriceLevels('coverageHours')">
 	                         	<option value="">Select Covered Hours</option>
 							 </select>
 						</div>
@@ -191,7 +209,8 @@
                            <!-- <input type="text" class="form-control" aria-describedby="basic-addon2"> -->
                            <!-- <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span> -->
                            <div class="input-group">
-	                           <input type="text" class="form-control" 
+	                           <input type="text" class="form-control"
+	                           		   name="estSaleDate" 
 					                   datepicker-popup="MM/dd/yyyy"
 					                   datepicker-options="dateOptions" 
 					                   is-open="estSaleDatePickerIsOpen" 
@@ -294,6 +313,11 @@
 									 ng-model="quote.coverageExpired" value="true" ng-disabled="true"> Check here if the Manufacturer's Coverage has expired.
                             </label>
                           </div>
+                          <!-- <div class="checkbox">
+	                         <label>
+	                           <input type="checkbox" id="coverageEndDateUnknown" name="coverageEndDateUnknown" ng-model="quote.coverageEndDateUnknown" value="true" ng-disabled="true">Check if Manufacturer's End Date unknown.
+	                         </label>
+	                      </div> -->
                           <div class="form-group">
                             <label>Deductible</label>
                              <p>{{quote.deductiblePrice | currency:"$":0}}</p>
@@ -368,6 +392,14 @@
                             {{(quote.dealerMarkupPrice + quote.quoteBasePrice) | currency:"$":0}}
                          </div>
                        </div>
+                       <div class="col-xs-12 no-pad clearfix" ng-hide="invoiced">
+                         <div class="col-xs-6 no-pad">
+                           Dealer Invoice Summary:
+                         </div>
+                         <div class="col-xs-6 no-pad">
+                            <button class="btn btn-primary btn-xs mar-right" ng-click="printQuote('invoice')">View</button>
+                         </div>
+                       </div>
                        <div class="col-xs-12 no-pad clearfix">
                          <div class="col-xs-6 no-pad">
                            Dealer Quote Summary:
@@ -395,7 +427,7 @@
                        </div>
                        <div class="form-group">
                          <label>Address</label>
-                         <input type="text" id="dealerAddress" name="dealerAddress" ng-model="quote.dealerAddress" placeholder="Dealer Address" class="form-control" ng-disabled="disabled">
+                         <input type="text" id="dealerAddress" name="dealerAddress" ng-model="quote.dealerAddress" placeholder="Dealer Address" class="form-control" validate-on="dirty" ng-required="mandatoryFlag" ng-disabled="disabled">
                        </div>
                        <div class="form-group">
                          <label>City</label>
@@ -403,7 +435,7 @@
                        </div>
                        <div class="form-group">
                          <label>State/Province</label>
-                         <select class="form-control" name="dealerState" ng-model="quote.dealerState" id="dealerState"  ng-disabled="disabled">
+                         <select class="form-control" name="dealerState" ng-model="quote.dealerState" id="dealerState" validate-on="dirty" ng-required="mandatoryFlag"  ng-disabled="disabled">
 							<option value="">Select State/Province</option>
 							<option value="AL">Alabama</option>
 							<option value="AK">Alaska</option>
@@ -473,24 +505,24 @@
                        </div>
                        <div class="form-group">
                          <label>Zip</label>
-                         <input type="text" id="dealerZip" name="dealerZip" ng-model="quote.dealerZip" placeholder="Zip" class="form-control"  ng-disabled="disabled">
+                         <input type="text" id="dealerZip" name="dealerZip" ng-model="quote.dealerZip" placeholder="Zip" class="form-control" validate-on="dirty" ng-required="mandatoryFlag" ng-disabled="disabled">
                        </div>
                        <div class="form-group">
                          <label>Phone Number</label>
-                         <input type="text" id="dealerPhone" name="dealerPhone" ng-model="quote.dealerPhone" placeholder="Phone Number" class="form-control"  ng-disabled="disabled">
+                         <input type="text" id="dealerPhone" name="dealerPhone" ng-model="quote.dealerPhone" placeholder="Phone Number" class="form-control" validate-on="dirty" ng-required="mandatoryFlag" ng-disabled="disabled">
                        </div>
                        <div class="form-group">
                          <label>Email</label>
-                         <input type="text" id="dealerEmail" name="dealerEmail" ng-model="quote.dealerEmail" placeholder="Email" class="form-control"  ng-disabled="disabled">
+                         <input type="text" id="dealerEmail" name="dealerEmail" ng-model="quote.dealerEmail" placeholder="Email" class="form-control" validate-on="dirty" ng-required="mandatoryFlag" ng-disabled="disabled">
                        </div>
                        <div class="checkbox">
                          <label>
-                           <input type="checkbox" id="custUnderstandCoverage" name="custUnderstandCoverage" ng-model="quote.custUnderstandCoverage" ng-value="true" required="required"  validate-on="dirty" ng-disabled="disabled"> Customer understands coverage.
+                           <input type="checkbox" id="custUnderstandCoverage" name="custUnderstandCoverage" ng-model="quote.custUnderstandCoverage" ng-value="true" ng-required="mandatoryFlag"  validate-on="dirty" ng-disabled="disabled"> Customer understands coverage.
                          </label>
                        </div>
                        <div class="checkbox">
                          <label>
-                           <input type="checkbox" id="custRemorsePeriod" name="custRemorsePeriod" ng-model="quote.custRemorsePeriod" ng-value="true" required="required"  validate-on="dirty" ng-disabled="disabled"> Customer is aware of 90-day remorse period.
+                           <input type="checkbox" id="custRemorsePeriod" name="custRemorsePeriod" ng-model="quote.custRemorsePeriod" ng-value="true" ng-required="mandatoryFlag"  validate-on="dirty" ng-disabled="disabled"> Customer is aware of 90-day remorse period.
                          </label>
                        </div>
                      </div>
@@ -523,15 +555,23 @@
 								<label>Current Status</label>
 								<c:choose>
 								 	<c:when test="${user.roleDO.accountType eq 'admin'}">
-								        <select class="form-control" name="status" ng-model="quote.status" convert-to-number id="status"  validate-on="dirty" required="required" ng-disabled="disabled">
+								        <select class="form-control" name="status" ng-model="quote.status" convert-to-number id="status"  validate-on="dirty" required="required" ng-disabled="disabled" ng-change="changeMandatoryFlg(quote.status)">
 										  <option value="1">Estimating Price</option>
 										  <option value="4">Purchase Requested</option>
-										  <option value="5">Invoiced</option>
-										  <option value="6">Closed</option>
+										  <!-- <option value="5">Invoiced</option> -->
+										  <!-- <option value="6">Closed</option> -->
 										</select>
 								    </c:when>
 								    <c:otherwise>
-								        <p>{{quote.statusDesc}}</p>
+								        <div ng-hide="estPriceFlag">
+									        <select class="form-control" name="status" ng-model="quote.status" convert-to-number id="status"  validate-on="dirty" required="required" ng-disabled="disabled" ng-change="changeMandatoryFlg(quote.status)">
+											  <option value="1">Estimating Price</option>
+											  <option value="4">Purchase Requested</option>
+											</select>
+										</div>
+										<div ng-hide="!estPriceFlag">
+											<p>{{quote.statusDesc}}</p>
+										</div>
 								    </c:otherwise>
 								</c:choose>
 							  </div>
@@ -550,6 +590,10 @@
 							  <div class="form-group">
 								<label>Conditions for Coverage</label>
 								<textarea class="form-control" placeholder="" ng-model="quote.condsForCoverage" ng-disabled="disabled"></textarea>
+							  </div>
+							  <div class="form-group">
+								<label>Deal History</label>
+								<textarea class="form-control" placeholder="" ng-model="quote.dealHistory"></textarea>
 							  </div>
 						</div>
                    </div>

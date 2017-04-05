@@ -98,6 +98,27 @@ routingApp.factory('quoteService', function($http, $q, $window) {
 						return $q.reject(errResponse);
 					});
 		},
+		saveQuoteSummaryInfo : function(quote, $scope) {
+			return $http.post('/agg/quote/addQuote/summaryInfo', quote).then(
+					function(response) {
+						//alert(response.data.status);
+						if (response.data.status == 'success') {
+							//alert(response.data.data.quoteId+" "+response.data.data.id);
+							//$scope.quote = response.data.data;
+							$scope.quote.quoteId = response.data.data.quoteId;
+							$scope.quote.id = response.data.data.id;
+							$scope.quote.statusDesc = response.data.data.statusDesc;
+							//$window.location.href = '#/agg/dealers';
+						} else {
+							alert('Error in adding Quote Summary Additional Unit Info: '+response.data.errMessage)
+							//$('#errMsg').html(response.data.errMessage);
+						}
+						
+					}, function(errResponse) {
+						alert('Error while saving Quote');
+						return $q.reject(errResponse);
+					});
+		},
 		savePurchanseInfo : function(quote, $scope) {
 			showSpinner();
 			return $http.post('/agg/quote/addQuote/purchaseInfo', quote).then(
@@ -162,24 +183,41 @@ routingApp.factory('quoteService', function($http, $q, $window) {
 				        		
 				        		
 				        		$scope.quote.dealerMarkupTypee = $scope.quote.dealerMarkupType;
-				        		$scope.quote.coverageEndDate = new Date($scope.quote.coverageEndDate);
+				        		if($scope.quote.coverageEndDate != null){
+				        			$scope.quote.coverageEndDate = new Date($scope.quote.coverageEndDate);
+				        		}
 				        		$scope.quote.estSaleDate = new Date($scope.quote.estSaleDate);
 				        		$scope.quote.lastUpdate = new Date($scope.quote.lastUpdate);
 				        		
 				        		$scope.purchaseRequested = true;
 				        		$scope.invoiced = true;
+				        		$scope.estPriceFlag = true;
+				        		$scope.mandatoryFlag = true;
+				        		$scope.expirationFlag = true;
 				        		if($scope.quote.status == 4){
 				        			$scope.purchaseRequested = false;
 				        		}else if($scope.quote.status == 5){
 				        			$scope.invoiced = false;
+				        		}else if($scope.quote.status == 1){
+				        			$scope.estPriceFlag = false;
+				        			$scope.mandatoryFlag = false;
+				        			$scope.expirationFlag = false;
 				        		}
 				        		
 				                if($scope.quote.coverageExpired != null && $scope.quote.coverageExpired == true){
 				            		$scope.machineCondition = 'Used';
-				            	}else if($scope.quote.coverageEndDate != null && ($scope.quote.coverageEndDate > $scope.date)){
+				            		$scope.expirationFlag = false;
+				            	}/*else if($scope.quote.coverageEndDate != null && ($scope.quote.coverageEndDate > $scope.date)){
 				            		$scope.machineCondition = 'New';
-				            	}else{
-				            		$scope.machineCondition = 'Used';
+				            	}*/else{
+				            		//$scope.machineCondition = 'Used';
+				            		$scope.machineCondition = 'New';
+				            		if($scope.quote.status == 1){
+				            			$scope.expirationFlag = false;
+				            		}else{
+				            			$scope.expirationFlag = true;
+				            		}
+				            		
 				            	}
 					        }
 						} else {

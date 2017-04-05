@@ -18,7 +18,7 @@ public class AggConstants {
 	
 	public static final String SEQUENCE_TYPE_DEALER = "dealer";
 	
-	public static final char[] CHARSET_AZ_09 = "ABCDFGHJKLMNPQRSTUVWXYZ0123456789".toCharArray();
+	public static final char[] CHARSET_AZ_09 = "ABCDFGHJKLMNPQRSTUVWXYZ123456789".toCharArray();
 	
 	public static final int QUOTE_ID_LENGTH = 5;
 	
@@ -38,7 +38,9 @@ public class AggConstants {
 	
 	public static final byte B_QUOTE_STATUS_INVOICED = 5;
 	
-	public static final byte B_QUOTE_STATUS_ACRHIVE = 0;
+	public static final byte B_QUOTE_STATUS_ACRHIVE = 1;
+	
+	public static final byte B_QUOTE_STATUS_UNACRHIVE = 0;
 	
 	public static final byte B_QUOTE_STATUS_CLOSED = 6;
 	
@@ -117,6 +119,12 @@ public class AggConstants {
 	public static final char EXTERNAL_CLAIM_NOTE = 'E';
 	
 	public static final char INTERNAL_CLAIM_NOTE = 'I';
+	
+	public static final String REPORT_TYPE_INVOICE = "invoice";
+	
+	public static final int QUOTE_EXPIRATION_DAYS = 90;
+	
+	public static final int SESSION_EXPIRATION_TIMEOUT = 14400; //in seconds - 4 hrs
 	
 	
 	public static final String QUOTE_REPORT_OUT_STANDING_DESC = "Thank you for considering AgGuard coverage, we appreciate the opportunity to earn your trust. "

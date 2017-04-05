@@ -84,7 +84,7 @@
 				    	<a target="_blank" href="/agg/claim/report/{{claimDO.claimId}}"><img src="../assets/images/printer-icon.png" alt="Print" title="Print"/></a>
                 	</div>
                 </td>
-                <td>{{claimDO.createdDate |  date:"MM/dd/yyyy"}}</td>
+                <td>{{claimDO.lastUpdate |  date:"MM/dd/yyyy"}}</td>
             </tr>
         </tbody>
     </table>
