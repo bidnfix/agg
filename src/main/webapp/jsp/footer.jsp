@@ -36,11 +36,7 @@
       <div class="row">
         <div class="col-md-6 panel">
           <div class="panel-body">
-<<<<<<< HEAD
-            <p class="simplenav"> <a href="/agg/home">Home</a> | <a href="#">Who we are</a> | <a href="/agg/register">Register</a> | <a href="/agg/aboutRisk">About Risk</a> | <a href="#">Mom's Pink Tractor</a> </p>
-=======
             <p class="simplenav"> <a href="/agg/home">Home</a> | <a href="/agg/whoWeAre">Who we are</a> | <a href="/agg/register">Register</a> | <a href="/agg/aboutRisk">About Risk</a> | <a href="/agg/momsPinkTractor">Mom's Pink Tractor</a> </p>
->>>>>>> refs/remotes/origin/maintenance
           </div>
         </div>
         <div class="col-md-6 panel">
