@@ -1763,7 +1763,11 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
     	}*/else{
     		//$scope.machineCondition = 'Used';
     		$scope.machineCondition = 'New';
-    		$scope.expirationFlag = true;
+    		if($scope.quote.status == 1){
+    			$scope.expirationFlag = false;
+    		}else{
+    			$scope.expirationFlag = true;
+    		}
     	}
     });
 	
