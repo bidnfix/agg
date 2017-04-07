@@ -439,7 +439,7 @@ public class QuoteController extends BaseController {
 		}else{
 			logger.info("quoteId: "+quoteDO.getQuoteId()+" and id: "+quoteDO.getId());
 			
-			boolean isQuoteUpdated = quoteService.updateQuote(quoteDO);
+			boolean isQuoteUpdated = quoteService.updateQuote(quoteDO, getAccountDetails(request));
 			logger.info("isQuoteUpdated: "+isQuoteUpdated);
 			
 			if(isQuoteUpdated){

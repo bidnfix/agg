@@ -555,12 +555,17 @@
 								<label>Current Status</label>
 								<c:choose>
 								 	<c:when test="${user.roleDO.accountType eq 'admin'}">
-								        <select class="form-control" name="status" ng-model="quote.status" convert-to-number id="status"  validate-on="dirty" required="required" ng-disabled="disabled" ng-change="changeMandatoryFlg(quote.status)">
-										  <option value="1">Estimating Price</option>
-										  <option value="4">Purchase Requested</option>
-										  <!-- <option value="5">Invoiced</option> -->
-										  <!-- <option value="6">Closed</option> -->
-										</select>
+								 		<div ng-hide="quote.status===6">
+									        <select class="form-control" name="status" ng-model="quote.status" convert-to-number id="status"  validate-on="dirty" required="required" ng-disabled="disabled" ng-change="changeMandatoryFlg(quote.status)">
+											  <option value="1">Estimating Price</option>
+											  <option value="4">Purchase Requested</option>
+											  <option value="5">Invoiced</option>
+											  <!-- <option value="6">Closed</option> -->
+											</select>
+										</div>
+										<div ng-hide="quote.status<6">
+											<p>{{quote.statusDesc}}</p>
+										</div>
 								    </c:when>
 								    <c:otherwise>
 								        <div ng-hide="estPriceFlag">

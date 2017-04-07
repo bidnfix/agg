@@ -34,7 +34,7 @@ public interface QuoteService {
 
 	public boolean archiveQuote(QuoteDO quoteDO);
 
-	public boolean updateQuote(QuoteDO quoteDO);
+	public boolean updateQuote(QuoteDO quoteDO, AccountDO accountDO) throws Exception;
 
 	public boolean invoiceQuote(QuoteDO quoteDO, AccountDO accountDO, String appUrl) throws Exception;
 	

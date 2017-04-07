@@ -53,6 +53,7 @@ import com.agg.application.model.QuoteDO;
 import com.agg.application.model.ReportDO;
 import com.agg.application.model.UseOfEquipmentDO;
 import com.agg.application.model.WorklistDO;
+import com.agg.application.service.EmailService;
 import com.agg.application.service.QuoteService;
 import com.agg.application.utils.AggConstants;
 import com.agg.application.utils.EmailSender;
@@ -116,6 +117,9 @@ public class QuoteServiceImpl implements QuoteService {
 	
 	@Value("${jrxml.folder.path}")
 	private String jrxmlFolderPath;
+	
+	@Autowired
+	private EmailService emailService;
 	
 	private static final SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 
@@ -538,105 +542,12 @@ public class QuoteServiceImpl implements QuoteService {
 				}else if(quote.getStatus() == AggConstants.B_QUOTE_STATUS_CLOSED){
 					quoteDO.setStatusDesc(AggConstants.QUOTE_STATUS_CLOSED);
 				}
+				
+				quoteDO.setCreateDate(quote.getCreateDate());
+				
+				emailService.sendAsyncPurchaseRequestEmail(quoteDO, quote);
 			}
-			
-			Map<String, Object> parameterMap = new HashMap<String, Object>();
-			//parameterMap.put("imagePath", appUrl+"/assets/images/report_banner.png");
-			parameterMap.put("imagePath", System.getProperty("user.dir")+reportImagePath);
-			
-			List<ReportDO> reportDOList = new ArrayList<ReportDO>();
-			quoteDO.setCreateDate(quote.getCreateDate());
-			reportDOList.add(getQuoteReportDO(quoteDO));
-			JRDataSource jrDataSource = null;
-			if(!reportDOList.isEmpty()){
-				jrDataSource = new JRBeanCollectionDataSource(reportDOList);
-			}else{
-				jrDataSource = new JREmptyDataSource();
-			}
-			JasperReport jasperReport = JasperCompileManager.compileReport(resourceLoader.getResource("classpath:/jrxml/rpt_dealerQuote.jrxml").getInputStream());
-			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameterMap, jrDataSource);
-			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			JasperExportManager.exportReportToPdfStream(jasperPrint, baos);
-			DataSource pdfAttachment =  new ByteArrayDataSource(baos.toByteArray(), "application/pdf");
-			String subject = "Dealer Quote: "+quoteDO.getQuoteId()+" pdf";
-			String emailBody = "PFA Dealer Quote: "+quoteDO.getQuoteId()+" details.";
-			EmailStatus emailStatus = emailSender.sendMailAsAttachment(adminEmail, subject, emailBody, pdfAttachment, "dealerQuote-"+quoteDO.getQuoteId());
-			if(emailStatus != null){
-				logger.info("emailStatus: "+emailStatus.getStatus());
-				logger.info("Dealer Quote pdf Attachment emailed successfully");
-			}
-			
 		}
-	}
-
-	private ReportDO getQuoteReportDO(QuoteDO quoteDO) throws Exception{
-		ReportDO reportDO = new ReportDO();
-		
-		//SimpleDateFormat reportDateFormat = new SimpleDateFormat("MM/dd/yyyy");
-		Locale locale = new Locale("en", "US");
-		NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
-		
-		reportDO.setDealerName(quoteDO.getDealerDO().getName());
-		reportDO.setQuoteDate((quoteDO.getEstSaleDate() != null)?dateFormat.format(quoteDO.getEstSaleDate()):"");
-		
-		//TODO with created_by field
-		Dealer dealer = dealerDAO.findByCode(quoteDO.getDealerDO().getCode());
-		if(dealer != null){
-			if(dealer.getParentCode() != 0 && dealer.getParentCode() == dealer.getCode()){
-				reportDO.setAttn(dealer.getName());
-				reportDO.setDealerAddress(dealer.getAddress()+", "+dealer.getState()+" "+dealer.getZip());
-			}else{
-				Dealer parentDealer = dealerDAO.findByCode(dealer.getCode());
-				if(parentDealer != null){
-					reportDO.setAttn(parentDealer.getName());
-					reportDO.setDealerAddress(parentDealer.getAddress()+", "+parentDealer.getState()+" "+parentDealer.getZip());
-				}
-			}
-			
-		}else{
-			reportDO.setAttn("");
-			reportDO.setDealerAddress("");
-		}
-		
-		//TODO with purchase requested date
-		Date createdDate = quoteDO.getCreateDate();
-		if(createdDate != null){
-			reportDO.setQuoteExpires(dateFormat.format(getQuoteExpirationDate(createdDate)));
-		}else{
-			reportDO.setQuoteExpires("");
-		}
-		reportDO.setQuoteId(quoteDO.getQuoteId());
-		reportDO.setAddress(quoteDO.getDealerAddress()+", "+quoteDO.getDealerState()+" "+quoteDO.getDealerZip());
-		reportDO.setCustName(quoteDO.getDealerName());
-		reportDO.setOutStandingDesc(AggConstants.QUOTE_REPORT_OUT_STANDING_DESC);
-		reportDO.setManufacturerName(quoteDO.getManufacturerDO().getName());
-		reportDO.setModelName(quoteDO.getMachineInfoDO().getModel());
-		reportDO.setModelSerialNo(quoteDO.getSerialNumber());
-		reportDO.setEquipment(quoteDO.getUseOfEquipmentDO().getEquipName());
-		reportDO.setRetailPrice(currencyFormat.format(quoteDO.getRetailPrice()));
-		reportDO.setCurrentHours(quoteDO.getMeterHours()+"");
-		reportDO.setMachineStatus(quoteDO.getMachineCondition());
-		reportDO.setEmail(quoteDO.getDealerEmail());
-		reportDO.setPhone(quoteDO.getDealerPhone());
-		reportDO.setCoverageDesc(AggConstants.QUOTE_REPORT_COVERAGE_DESC);
-		reportDO.setCoverageTerm(quoteDO.getCoverageTerm());
-		reportDO.setCoverageHours(quoteDO.getCoverageHours());
-		reportDO.setDeductibleAmount(currencyFormat.format(quoteDO.getDeductiblePrice()));
-		reportDO.setCoverageType(quoteDO.getCoverageTypeDesc());
-		reportDO.setPowerTrainMonths(quoteDO.getPowerTrainMonths());
-		reportDO.setPowerTrainHours(quoteDO.getPowerTrainHours());
-		reportDO.setHydraulicMonths(quoteDO.getHydraulicsMonths());
-		reportDO.setHydraulicHours(quoteDO.getHydraulicsHours());
-		reportDO.setFullMachineHours(quoteDO.getFullMachineHours());
-		reportDO.setFullMachineMonths(quoteDO.getFullMachineMonths());
-		reportDO.setWarrantyEndDate((quoteDO.getCoverageEndDate() != null)?dateFormat.format(quoteDO.getCoverageEndDate()):"");
-		reportDO.setLimitOfLiability(currencyFormat.format(quoteDO.getMachineInfoDO().getLol()));
-		reportDO.setPrice(currencyFormat.format(quoteDO.getCustomerPrice()));
-		reportDO.setQuotePrice(currencyFormat.format(quoteDO.getQuoteBasePrice()));
-		reportDO.setDealerMarkup(currencyFormat.format(quoteDO.getDealerMarkupPrice()));
-		reportDO.setSpecialConsiderationDesc("None");
-		
-		return reportDO;
 	}
 
 	@Override
@@ -1054,7 +965,7 @@ public class QuoteServiceImpl implements QuoteService {
 
 	@Override
 	@Transactional
-	public boolean updateQuote(QuoteDO quoteDO) {
+	public boolean updateQuote(QuoteDO quoteDO, AccountDO accountDO) throws Exception{
 		boolean condition = false;
 		Quote quote = null;
 		if(quoteDO.getId() != 0 && quoteDO.getId() > 0 && quoteDO.getQuoteId() != null && !quoteDO.getQuoteId().isEmpty()){
@@ -1064,7 +975,8 @@ public class QuoteServiceImpl implements QuoteService {
 			quote = quoteDAO.findByIdQuoteId(quoteDO.getQuoteId());
 		}
 		if(quote != null){
-			quote.setDealer(dealerDAO.findOne(quoteDO.getDealerDO().getId()));
+			Dealer dealer = dealerDAO.findOne(quoteDO.getDealerDO().getId());
+			quote.setDealer(dealer);
 			quote.setManfExpired((quoteDO.isCoverageExpired())?(byte)1:(byte)0);
 			quote.setManfEndDate(quoteDO.getCoverageEndDate());
 			//quote.setManfEndKnown((quoteDO.isCoverageEndDateUnknown())?(byte)1:(byte)0);
@@ -1105,12 +1017,13 @@ public class QuoteServiceImpl implements QuoteService {
 			quote.setCoverageLevelHours(quoteDO.getCoverageHours());
 			quote.setCoverageType(quoteDO.getCoverageType());
 			
-			boolean coverageExpired = true;
+			//boolean coverageExpired = true;
+			boolean coverageExpired = false;
 			if(quoteDO.isCoverageExpired()){
 				coverageExpired = true;
-	    	}else if(quoteDO.getCoverageEndDate() != null && quoteDO.getCoverageEndDate().after(new Date())){
+	    	}/*else if(quoteDO.getCoverageEndDate() != null && quoteDO.getCoverageEndDate().after(new Date())){
 	    		coverageExpired = false;
-	    	}
+	    	}*/
 			List<PricingDO> pricingDOList = getCoveragePriceDetils(coverageExpired, quoteDO.getMachineInfoDO().getMachineId(), 
 					new Double(quoteDO.getDeductiblePrice()).intValue(), quoteDO.getCoverageTerm(), quote.getCoverageLevelHours());
 			if(pricingDOList != null && !pricingDOList.isEmpty()){
@@ -1136,9 +1049,9 @@ public class QuoteServiceImpl implements QuoteService {
 			quote.setServicingDealer(0);
 			quote.setLastUpdate(new Date());
 			
-			if(quoteDO.getStatus() > quote.getStatus()){
+			//if(quoteDO.getStatus() > quote.getStatus()){
 				quote.setStatus(quoteDO.getStatus());
-			}
+			//}
 			
 			CustomerInfo customerInfo = customerInfoDAO.findOne(quoteDO.getQuoteId());
 			if(customerInfo == null){
@@ -1171,6 +1084,9 @@ public class QuoteServiceImpl implements QuoteService {
 			adminAdjustment.setCConditions(quoteDO.getCondsForCoverage());
 			adminAdjustment.setDealHistory(quoteDO.getDealHistory());
 			adminAdjustment.setLastUpdate(new Date());
+			if(quoteDO.getStatus() == AggConstants.B_QUOTE_STATUS_INVOICED){
+				adminAdjustment.setInvoiceDate(new Date());
+			}
 			
 			adminAdjustmentDAO.save(adminAdjustment);
 			
@@ -1188,14 +1104,24 @@ public class QuoteServiceImpl implements QuoteService {
 					quoteDO.setStatusDesc(AggConstants.QUOTE_STATUS_CLOSED);
 				}
 				
+				
+				if(quoteDO.getStatus() == AggConstants.B_QUOTE_STATUS_PURCHASE_REQUESTED){
+					emailService.sendAsyncPurchaseRequestEmail(quoteDO, quote);
+				}else if(quoteDO.getStatus() == AggConstants.B_QUOTE_STATUS_INVOICED){
+					emailService.sendAsyncInvoiceEmail(quoteDO, quote, accountDO, dealer);
+				}
+				
 				condition = true;
 			}
 			
 		}
 		
+		logger.debug("Exit of updateQuote method with condition: "+condition);
+		
 		return condition;
 	}
 
+	
 	@Override
 	@Transactional
 	public boolean invoiceQuote(QuoteDO quoteDO, AccountDO accountDO, String appUrl) throws Exception{
@@ -1250,12 +1176,13 @@ public class QuoteServiceImpl implements QuoteService {
 			quote.setCoverageLevelHours(quoteDO.getCoverageHours());
 			quote.setCoverageType(quoteDO.getCoverageType());
 			
-			boolean coverageExpired = true;
+			//boolean coverageExpired = true;
+			boolean coverageExpired = false;
 			if(quoteDO.isCoverageExpired()){
 				coverageExpired = true;
-	    	}else if(quoteDO.getCoverageEndDate() != null && quoteDO.getCoverageEndDate().after(new Date())){
+	    	}/*else if(quoteDO.getCoverageEndDate() != null && quoteDO.getCoverageEndDate().after(new Date())){
 	    		coverageExpired = false;
-	    	}
+	    	}*/
 			
 			if(quote.getProgram() == null){
 				List<PricingDO> pricingDOList = getCoveragePriceDetils(coverageExpired, quoteDO.getMachineInfoDO().getMachineId(), 
@@ -1334,61 +1261,10 @@ public class QuoteServiceImpl implements QuoteService {
 					quoteDO.setStatusDesc(AggConstants.QUOTE_STATUS_CLOSED);
 				}
 				
-				String email = null;
-				if(accountDO.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)){
-					email = adminEmail;
-					if(dealer != null && dealer.getInvoiceEmail() != null){
-						if(email != null){
-							email += "," + dealer.getInvoiceEmail();
-						}else{
-							email = dealer.getInvoiceEmail();
-						}
-					}
-				}else{
-					long dealerId = accountDO.getDealerId();
-					if(dealerId > 0){
-						Dealer dealerr = dealerDAO.findOne(dealerId);
-						if(dealerr != null){
-							email = dealerr.getInvoiceEmail();
-							if(dealerr.getCode() != dealerr.getParentCode()){
-								Dealer parentDealer = dealerDAO.findByCode(dealerr.getParentCode());
-								if(parentDealer != null){
-									if(email != null){
-										email += "," + parentDealer.getInvoiceEmail();
-									}else{
-										email = parentDealer.getInvoiceEmail();
-									}
-								}
-							}
-						}
-					}
-				}
-				
-				Map<String, Object> parameterMap = new HashMap<String, Object>();
-				//parameterMap.put("imagePath", appUrl+"/assets/images/report_banner.png");
-				parameterMap.put("imagePath", System.getProperty("user.dir")+reportImagePath);
-				
-				List<ReportDO> reportDOList = new ArrayList<ReportDO>();
 				quoteDO.setCreateDate(quote.getCreateDate());
-				reportDOList.add(getInvoiceReportDO(quoteDO));
-				JRDataSource jrDataSource = null;
-				if(!reportDOList.isEmpty()){
-					jrDataSource = new JRBeanCollectionDataSource(reportDOList);
-				}else{
-					jrDataSource = new JREmptyDataSource();
-				}
-				JasperReport jasperReport = JasperCompileManager.compileReport(resourceLoader.getResource("classpath:/jrxml/rpt_dealerInvoice.jrxml").getInputStream());
-				JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameterMap, jrDataSource);
-				ByteArrayOutputStream baos = new ByteArrayOutputStream();
-				JasperExportManager.exportReportToPdfStream(jasperPrint, baos);
-				DataSource pdfAttachment =  new ByteArrayDataSource(baos.toByteArray(), "application/pdf");
-				String subject = "Dealer Invoice: "+quoteDO.getQuoteId()+" pdf";
-				String emailBody = "PFA Dealer Invoice: "+quoteDO.getQuoteId()+" details.";
-				EmailStatus emailStatus = emailSender.sendMailAsAttachment(email, subject, emailBody, pdfAttachment, "dealerInvoice-"+quoteDO.getQuoteId());
-				if(emailStatus != null){
-					logger.info("emailStatus: "+emailStatus.getStatus());
-					logger.info("Dealer Quote pdf Attachment emailed successfully to "+email);
-				}
+				
+				emailService.sendAsyncInvoiceEmail(quoteDO, quote, accountDO, dealer);
+				
 				condition = true;
 			}
 			
@@ -1518,77 +1394,6 @@ public class QuoteServiceImpl implements QuoteService {
 		logger.debug("claims -->"+claims);
 		logger.debug("estPrice -->"+estPrice);
 		return worklistDO;
-	}
-	
-	private ReportDO getInvoiceReportDO(QuoteDO quoteDO) throws Exception{
-		ReportDO reportDO = new ReportDO();
-		
-		//SimpleDateFormat reportDateFormat = new SimpleDateFormat("MM/dd/yyyy");
-		Locale locale = new Locale("en", "US");
-		NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
-		
-		reportDO.setDealerName(quoteDO.getDealerDO().getName());
-		reportDO.setQuoteDate((quoteDO.getEstSaleDate() != null)?dateFormat.format(quoteDO.getEstSaleDate()):"");
-		reportDO.setInvoiceDate(dateFormat.format(new Date()));
-		//TODO with created_by field
-		Dealer dealer = dealerDAO.findByCode(quoteDO.getDealerDO().getCode());
-		if(dealer != null){
-			if(dealer.getParentCode() != 0 && dealer.getParentCode() == dealer.getCode()){
-				reportDO.setAttn(dealer.getName());
-				reportDO.setDealerAddress(dealer.getAddress()+", "+dealer.getState()+" "+dealer.getZip());
-			}else{
-				Dealer parentDealer = dealerDAO.findByCode(dealer.getCode());
-				if(parentDealer != null){
-					reportDO.setAttn(parentDealer.getName());
-					reportDO.setDealerAddress(parentDealer.getAddress()+", "+parentDealer.getState()+" "+parentDealer.getZip());
-				}
-			}
-			
-		}else{
-			reportDO.setAttn("");
-			reportDO.setDealerAddress("");
-		};
-		
-		//TODO with purchase requested date
-		Date createdDate = quoteDO.getCreateDate();
-		if(createdDate != null){
-			reportDO.setQuoteExpires(dateFormat.format(getQuoteExpirationDate(createdDate)));
-		}else{
-			reportDO.setQuoteExpires("");
-		}
-		reportDO.setQuoteId(quoteDO.getQuoteId());
-		reportDO.setAddress(quoteDO.getDealerAddress()+", "+quoteDO.getDealerState()+" "+quoteDO.getDealerZip());
-		reportDO.setCustName(quoteDO.getDealerName());
-		reportDO.setOutStandingDesc(AggConstants.INVOICE_REPORT_OUT_STANDING_DESC);
-		reportDO.setManufacturerName(quoteDO.getManufacturerDO().getName());
-		reportDO.setModelName(quoteDO.getMachineInfoDO().getModel());
-		reportDO.setModelSerialNo(quoteDO.getSerialNumber());
-		reportDO.setEquipment(quoteDO.getUseOfEquipmentDO().getEquipName());
-		reportDO.setRetailPrice(currencyFormat.format(quoteDO.getRetailPrice()));
-		reportDO.setCurrentHours(quoteDO.getMeterHours()+"");
-		reportDO.setMachineStatus(quoteDO.getMachineCondition());
-		reportDO.setEmail(quoteDO.getDealerEmail());
-		reportDO.setPhone(quoteDO.getDealerPhone());
-		reportDO.setCoverageDesc(AggConstants.QUOTE_REPORT_COVERAGE_DESC);
-		reportDO.setCoverageTerm(quoteDO.getCoverageTerm());
-		reportDO.setCoverageHours(quoteDO.getCoverageHours());
-		reportDO.setDeductibleAmount(currencyFormat.format(quoteDO.getDeductiblePrice()));
-		reportDO.setCoverageType(quoteDO.getCoverageTypeDesc());
-		reportDO.setPowerTrainMonths(quoteDO.getPowerTrainMonths());
-		reportDO.setPowerTrainHours(quoteDO.getPowerTrainHours());
-		reportDO.setHydraulicMonths(quoteDO.getHydraulicsMonths());
-		reportDO.setHydraulicHours(quoteDO.getHydraulicsHours());
-		reportDO.setFullMachineHours(quoteDO.getFullMachineHours());
-		reportDO.setFullMachineMonths(quoteDO.getFullMachineMonths());
-		reportDO.setWarrantyEndDate((quoteDO.getCoverageEndDate() != null)?dateFormat.format(quoteDO.getCoverageEndDate()):"");
-		reportDO.setLimitOfLiability(currencyFormat.format(quoteDO.getMachineInfoDO().getLol()));
-		reportDO.setPrice(currencyFormat.format((quoteDO.getQuoteBasePrice()+quoteDO.getDealerMarkupPrice())));
-		reportDO.setQuotePrice(currencyFormat.format(quoteDO.getQuoteBasePrice()));
-		reportDO.setDealerMarkup(currencyFormat.format(quoteDO.getDealerMarkupPrice()));
-		reportDO.setAmountDue(currencyFormat.format(quoteDO.getQuoteBasePrice()));
-		reportDO.setSpecialConsiderationDesc("None");
-		
-		return reportDO;
 	}
 
 	@Override
@@ -1753,6 +1558,6 @@ public class QuoteServiceImpl implements QuoteService {
 		cal.add(Calendar.DATE, AggConstants.QUOTE_EXPIRATION_DAYS);
 		return cal.getTime();
 	}
-
+	
 }
 

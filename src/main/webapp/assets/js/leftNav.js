@@ -1730,7 +1730,10 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 		if($scope.quote.coverageEndDate != null){
 			$scope.quote.coverageEndDate = new Date($scope.quote.coverageEndDate);
 		}
-		$scope.quote.estSaleDate = new Date($scope.quote.estSaleDate);
+		if($scope.quote.estSaleDate != null){
+			$scope.quote.estSaleDate = new Date($scope.quote.estSaleDate);
+		}
+		
 		$scope.quote.lastUpdate = new Date($scope.quote.lastUpdate);
 		
 		if($scope.quote.status == 4){
@@ -1748,8 +1751,11 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 			$scope.quote.dealerMarkupTypee = "price";
 		}
 		
+		$scope.getDealerMarkupPrice();
+		
         if($scope.quote.coverageExpired != null && $scope.quote.coverageExpired == true){
     		$scope.machineCondition = 'Used';
+    		$scope.expirationFlag = false;
     	}/*else if($scope.quote.coverageEndDateUnknown != null && $scope.quote.coverageEndDateUnknown == true){
     		$scope.machineCondition = 'New';
 		}else if($scope.quote.coverageEndDate != null && ($scope.quote.coverageEndDate > $scope.date)){
@@ -1757,6 +1763,7 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
     	}*/else{
     		//$scope.machineCondition = 'Used';
     		$scope.machineCondition = 'New';
+    		$scope.expirationFlag = true;
     	}
     });
 	
