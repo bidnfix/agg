@@ -129,6 +129,7 @@
 					                   datepicker-options="dateOptions" 
 					                   is-open="valuationDatePickerIsOpen" 
 					                   ng-click="valuationDatePickerOpen()"
+					                   ng-change="changeExpirationDate()"
 					                   ng-model="quote.coverageEndDate" 
 					                   ng-required="expirationFlag"/>
 								<span class="input-group-btn">
@@ -540,6 +541,68 @@
 									<label>Admin Adjusted Price</label>
 									 <input type="text" id="adjustedBasePrice" name="adjustedBasePrice" ng-model="quote.adjustedBasePrice" class="form-control" ng-blur="updateAdjustedPrice(quote.adjustedBasePrice)" ng-disabled="disabled">
 								  </div>
+								  <div class="form-group">
+									<label>Admin Adjusted Coverage Term</label>
+									 <input type="text" id="adjustedcoverageTerm" name="adjustedcoverageTerm" ng-model="quote.adjustedcoverageTerm" class="form-control" ng-disabled="disabled" ng-blur="changeExpirationDate()">
+								  </div>
+								  <div class="form-group">
+									<label>Admin Adjusted Coverage Hours</label>
+									 <input type="text" id="adjustedCoverageHours" name="adjustedCoverageHours" ng-model="quote.adjustedCoverageHours" class="form-control" ng-disabled="disabled" ng-blur="changeExpirationDate()">
+								  </div>
+								  <div class="form-group">
+			                         <label>Admin Adjusted Coverage Type</label>
+								     <select name="adjustedCoverageType" ng-model="quote.adjustedCoverageType" class="form-control"  ng-disabled="disabled">
+			                         	<option value="">Select Coverage Type</option>
+			                         	<option value="PT">Powertrain</option>
+						                <option value="PH">Powertrain + Hydraulic</option>
+						                <option value="PL">Powertrain + Hydraulic + Platform</option>
+									 </select>
+			                      </div>
+								  <div class="form-group" ng-hide="!mandatoryFlag">
+									<label>Anticipated Inception Date</label>
+									<div class="input-group">
+										<input type="text" class="form-control" 
+						                   datepicker-popup="MM/dd/yyyy"
+						                   datepicker-options="dateOptions" 
+						                   is-open="inceptionDatePickerIsOpen" 
+						                   ng-click="inceptionDatePickerOpen()"
+						                   min-date="date"
+						                   ng-model="quote.inceptionDate"
+						                   ng-blur="updateExpirationDate()" 
+						                   ng-required="mandatoryFlag"
+						                   ng-disabled="disabled"/>
+							            <span class="input-group-btn">
+							              <button type="button" class="btn btn-default" 
+							                      ng-click="inceptionDatePickerOpen($event)" ng-disabled="disabled">
+							                <i class="glyphicon glyphicon-calendar"></i>
+							              </button>
+							            </span>
+						            </div>
+								</div>
+								<div class="form-group" ng-hide="!mandatoryFlag">
+									<label>Anticipated Expiration Date</label>
+									<div class="input-group">
+										<input type="text" class="form-control" 
+						                   datepicker-popup="MM/dd/yyyy"
+						                   datepicker-options="dateOptions" 
+						                   is-open="expirationDatePickerIsOpen" 
+						                   ng-click="expirationDatePickerOpen()"
+						                   min-date="date"
+						                   ng-model="quote.expirationDate"
+						                   ng-required="mandatoryFlag"
+						                   ng-disabled="disabled"/>
+							            <span class="input-group-btn">
+							              <button type="button" class="btn btn-default" 
+							                      ng-click="expirationDatePickerOpen($event)" ng-disabled="disabled">
+							                <i class="glyphicon glyphicon-calendar"></i>
+							              </button>
+							            </span>
+						            </div>
+								</div>
+								<div class="form-group" ng-hide="!mandatoryFlag">
+									<label>Anticipated Expiration Hours</label>
+									<input type="text" id="expirationHours" name="expirationHours" ng-model="quote.expirationHours" class="form-control" ng-required="mandatoryFlag" ng-disabled="disabled">
+								</div>
 							  </c:if>
 							  <div class="form-group">
 								<label>Limit of Liability</label>

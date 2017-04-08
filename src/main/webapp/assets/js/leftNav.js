@@ -1769,7 +1769,35 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
     			$scope.expirationFlag = true;
     		}
     	}
+        
+        if($scope.quote.status > 1){
+        	$scope.calExpirationDate();
+        }
     });
+	
+	$scope.calExpirationDate = function(){
+		$scope.quote.inceptionDate = new Date();
+		if($scope.machineCondition == "New"){
+			var manfCoverageTerm = 0;
+			if($scope.quote.coverageType == 'PT'){
+				manfCoverageTerm = $scope.quote.powerTrainMonths;
+			}else if($scope.quote.coverageType == 'PH'){
+				manfCoverageTerm = $scope.quote.hydraulicsMonths;
+			}else if($scope.quote.coverageType == 'PL'){
+				manfCoverageTerm = $scope.quote.fullMachineMonths;
+			}
+			var finalCoverageTerm = ($scope.quote.adjustedcoverageTerm - manfCoverageTerm);
+			var expDate = $scope.quote.coverageEndDate;
+			expDate = new Date(new Date(expDate).setMonth(expDate.getMonth()+finalCoverageTerm));
+			$scope.quote.expirationDate = expDate;
+			$scope.quote.expirationHours = $scope.quote.adjustedCoverageHours;
+		}else{
+			var expDate = new Date();
+			expDate = new Date(new Date(expDate).setMonth(expDate.getMonth()+$scope.quote.adjustedcoverageTerm));
+			$scope.quote.expirationDate = expDate;
+			$scope.quote.expirationHours = $scope.quote.meterHours + $scope.quote.adjustedCoverageHours;
+		}
+	}
 	
 	$scope.changeMandatoryFlg = function(status){
 		if(status == 1){
@@ -1782,6 +1810,8 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 			}else{
 				$scope.expirationFlag = true;
 			}
+			
+			$scope.calExpirationDate();
 		}
 	}
 	
@@ -1809,13 +1839,16 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 				$scope.expirationFlag = true;
 			}
 		}
+		
 		/*else if($scope.quote.coverageEndDate != null && ($scope.quote.coverageEndDate > $scope.date)){
 			coverageExpired = false;
 		}else{
 			coverageExpired = true;
 		}*/
 		
-		
+		if($scope.quote.status > 1){
+			$scope.calExpirationDate();
+		}
 		
 		$scope.quote.groupId = machineInfoDO.groupId;
 		$scope.quote.adjustedLol = machineInfoDO.lol;
@@ -1849,9 +1882,19 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 		var machineId = $scope.quote.machineInfoDO.machineId;
 		var deductiblePrice = $scope.quote.deductiblePrice;
 		var coverageTerm = $scope.quote.coverageTerm;
+		if(coverageTerm != null && coverageTerm != ""){
+			$scope.quote.adjustedcoverageTerm = coverageTerm;
+			if($scope.quote.status > 1){
+				$scope.calExpirationDate();
+			}
+		}
 		var coverageHrs = 0;
 		if(type == 'coverageHours' && $scope.quote.coverageHours != null && $scope.quote.coverageHours != ""){
 			coverageHrs = $scope.quote.coverageHours;
+			$scope.quote.adjustedCoverageHours = $scope.quote.coverageHours;
+			if($scope.quote.status > 1){
+				$scope.calExpirationDate();
+			}
 		}
 		$scope.quote.coverageTypeSet = [];
 		$scope.quote.coverageType = "";
@@ -1885,6 +1928,12 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 		});  
 	}
 	
+	$scope.changeExpirationDate = function(){
+		if($scope.quote.status > 1){
+			$scope.calExpirationDate();
+		}
+	}
+	
 	$scope.changeQuoteBasePrice = function(coverageType){
 		angular.forEach($scope.pricingDOList, function(pricingDO, key){
 			if(coverageType == "PH"){
@@ -1897,6 +1946,8 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 			$scope.quote.quoteBasePriceToDisplay = $scope.quote.quoteBasePrice;
 			$scope.quote.adjustedBasePrice = $scope.quote.quoteBasePrice;
 		});
+		
+		$scope.quote.adjustedCoverageType = coverageType;
 		
 		$scope.getDealerMarkupPrice();
 	}

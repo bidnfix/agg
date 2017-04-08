@@ -830,8 +830,32 @@ public class QuoteServiceImpl implements QuoteService {
 			quoteDO.setCoverageType(quote.getCoverageType());
 			quoteDO.setQuoteBasePrice(quote.getCoveragePrice());
 			quoteDO.setQuoteBasePriceToDisplay(quote.getCoveragePrice());
-			if(adminAdjustment != null && adminAdjustment.getBasePrice() > 0){
-				quoteDO.setQuoteBasePrice(adminAdjustment.getBasePrice());
+			if(adminAdjustment != null){
+				if(adminAdjustment.getBasePrice() > 0){
+					quoteDO.setQuoteBasePrice(adminAdjustment.getBasePrice());
+				}
+				
+				if(adminAdjustment.getCoverageTerm() > 0){
+					quoteDO.setAdjustedcoverageTerm(adminAdjustment.getCoverageTerm());
+				}else{
+					quoteDO.setAdjustedcoverageTerm(quote.getCoverageTerm());
+				}
+				
+				if(adminAdjustment.getCoverageHours() > 0){
+					quoteDO.setAdjustedCoverageHours(adminAdjustment.getCoverageHours());
+				}else{
+					quoteDO.setAdjustedCoverageHours(quote.getCoverageLevelHours());
+				}
+				
+				if(adminAdjustment.getCoverageType() != null && !adminAdjustment.getCoverageType().isEmpty()){
+					quoteDO.setAdjustedCoverageType(adminAdjustment.getCoverageType());
+				}else{
+					quoteDO.setAdjustedCoverageType(quote.getCoverageType());
+				}
+			}else{
+				quoteDO.setAdjustedcoverageTerm(quote.getCoverageTerm());
+				quoteDO.setAdjustedCoverageHours(quote.getCoverageLevelHours());
+				quoteDO.setAdjustedCoverageType(quote.getCoverageType());
 			}
 			quoteDO.setStatus(quote.getStatus());
 			quoteDO.setIsArchive(quote.getIsArchive());
@@ -1078,12 +1102,22 @@ public class QuoteServiceImpl implements QuoteService {
 			}
 			
 			adminAdjustment.setQuoteId(quoteDO.getQuoteId());
-			adminAdjustment.setBasePrice(quoteDO.getAdjustedBasePrice());
-			adminAdjustment.setLol(quoteDO.getAdjustedLol());
 			adminAdjustment.setSpecialConsideration(quoteDO.getSpecialConsiderations());
 			adminAdjustment.setCConditions(quoteDO.getCondsForCoverage());
 			adminAdjustment.setDealHistory(quoteDO.getDealHistory());
 			adminAdjustment.setLastUpdate(new Date());
+			if(accountDO.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)){
+				adminAdjustment.setBasePrice(quoteDO.getAdjustedBasePrice());
+				adminAdjustment.setLol(quoteDO.getAdjustedLol());
+				adminAdjustment.setCoverageTerm(quoteDO.getAdjustedcoverageTerm());
+				adminAdjustment.setCoverageHours(quoteDO.getAdjustedCoverageHours());
+				adminAdjustment.setCoverageType(quoteDO.getAdjustedCoverageType());
+				if(quoteDO.getStatus() > AggConstants.B_QUOTE_STATUS_ESTIMATING_PRICE){
+					adminAdjustment.setInceptionDate(quoteDO.getInceptionDate());
+					adminAdjustment.setExpirationDate(quoteDO.getExpirationDate());
+					adminAdjustment.setExpirationHours(quoteDO.getExpirationHours());
+				}
+			}
 			if(quoteDO.getStatus() == AggConstants.B_QUOTE_STATUS_INVOICED){
 				adminAdjustment.setInvoiceDate(new Date());
 			}

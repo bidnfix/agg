@@ -220,6 +220,12 @@ public class QuoteDO {
 	
 	private String comments;
 	
+	private int adjustedcoverageTerm;
+	
+	private int adjustedCoverageHours;
+	
+	private String adjustedCoverageType;
+	
 	public QuoteDO(){
 		
 	}
@@ -1478,6 +1484,30 @@ public class QuoteDO {
 
 	public void setComments(String comments) {
 		this.comments = comments;
+	}
+
+	public int getAdjustedcoverageTerm() {
+		return adjustedcoverageTerm;
+	}
+
+	public void setAdjustedcoverageTerm(int adjustedcoverageTerm) {
+		this.adjustedcoverageTerm = adjustedcoverageTerm;
+	}
+
+	public int getAdjustedCoverageHours() {
+		return adjustedCoverageHours;
+	}
+
+	public void setAdjustedCoverageHours(int adjustedCoverageHours) {
+		this.adjustedCoverageHours = adjustedCoverageHours;
+	}
+
+	public String getAdjustedCoverageType() {
+		return adjustedCoverageType;
+	}
+
+	public void setAdjustedCoverageType(String adjustedCoverageType) {
+		this.adjustedCoverageType = adjustedCoverageType;
 	}
 	
 }
