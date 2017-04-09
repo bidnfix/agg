@@ -1770,7 +1770,7 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
     		}
     	}
         
-        if($scope.quote.status > 1){
+        if($scope.quote.status > 1 && $scope.quote.admin){
         	$scope.calExpirationDate();
         }
     });
@@ -1810,8 +1810,10 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 			}else{
 				$scope.expirationFlag = true;
 			}
+			if($scope.quote.admin){
+				$scope.calExpirationDate();
+			}
 			
-			$scope.calExpirationDate();
 		}
 	}
 	
@@ -1846,7 +1848,7 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 			coverageExpired = true;
 		}*/
 		
-		if($scope.quote.status > 1){
+		if($scope.quote.status > 1 && $scope.quote.admin){
 			$scope.calExpirationDate();
 		}
 		
@@ -1884,7 +1886,7 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 		var coverageTerm = $scope.quote.coverageTerm;
 		if(coverageTerm != null && coverageTerm != ""){
 			$scope.quote.adjustedcoverageTerm = coverageTerm;
-			if($scope.quote.status > 1){
+			if($scope.quote.status > 1 && $scope.quote.admin){
 				$scope.calExpirationDate();
 			}
 		}
@@ -1892,7 +1894,7 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 		if(type == 'coverageHours' && $scope.quote.coverageHours != null && $scope.quote.coverageHours != ""){
 			coverageHrs = $scope.quote.coverageHours;
 			$scope.quote.adjustedCoverageHours = $scope.quote.coverageHours;
-			if($scope.quote.status > 1){
+			if($scope.quote.status > 1 && $scope.quote.admin){
 				$scope.calExpirationDate();
 			}
 		}
@@ -1929,7 +1931,7 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 	}
 	
 	$scope.changeExpirationDate = function(){
-		if($scope.quote.status > 1){
+		if($scope.quote.status > 1 && $scope.quote.admin){
 			$scope.calExpirationDate();
 		}
 	}

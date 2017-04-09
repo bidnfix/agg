@@ -186,7 +186,7 @@ public class ProgramServiceImpl implements ProgramService {
 						MachineInfoDO macInfDO = new MachineInfoDO();
 						macInfDO.setModel(macineInfo.getModel());
 						macInfDO.setMachineId(macineInfo.getMachineId());
-						macInfDO.setModelYear(macineInfo.getModelYear());
+						macInfDO.setModelYear((macineInfo.getModelYear() != null)?macineInfo.getModelYear():0);
 						macInfDO.setMachineId(macineInfo.getMachineId());
 						
 						machineInfoDOList.add(macInfDO);

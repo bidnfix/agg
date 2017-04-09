@@ -226,6 +226,8 @@ public class QuoteDO {
 	
 	private String adjustedCoverageType;
 	
+	private boolean admin;
+	
 	public QuoteDO(){
 		
 	}
@@ -1508,6 +1510,14 @@ public class QuoteDO {
 
 	public void setAdjustedCoverageType(String adjustedCoverageType) {
 		this.adjustedCoverageType = adjustedCoverageType;
+	}
+
+	public boolean isAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
 	}
 	
 }

@@ -710,12 +710,12 @@ public class QuoteServiceImpl implements QuoteService {
 	 * @param quoteList
 	 * @return
 	 */
-	private List<QuoteDO> getQuoteDetails(List<Quote> quoteList){
+	private List<QuoteDO> getQuoteDetails(List<Quote> quoteList, AccountDO accountDO){
 		List<QuoteDO> quoteDOList = null;
 		if(quoteList != null && !quoteList.isEmpty()){
 			quoteDOList = new ArrayList<QuoteDO>();
 			for(Quote quote : quoteList){
-				quoteDOList.add(getQuoteDetails(quote));
+				quoteDOList.add(getQuoteDetails(quote, accountDO));
 			}
 		}
 		
@@ -726,7 +726,7 @@ public class QuoteServiceImpl implements QuoteService {
 	 * @param quote
 	 * @return
 	 */
-	private QuoteDO getQuoteDetails(Quote quote) {
+	private QuoteDO getQuoteDetails(Quote quote, AccountDO accountDO) {
 		QuoteDO quoteDO = null;
 		if(quote != null){
 			quoteDO = new QuoteDO();
@@ -953,6 +953,10 @@ public class QuoteServiceImpl implements QuoteService {
 				
 			}
 			
+			if(accountDO != null && accountDO.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)){
+				quoteDO.setAdmin(true);
+			}
+			
 		}
 		
 		return quoteDO;
@@ -963,7 +967,7 @@ public class QuoteServiceImpl implements QuoteService {
 		QuoteDO quoteDO = null;
 		if(id > 0 && quoteId != null && !quoteId.isEmpty()){
 			QuotePK quotePK = new QuotePK(quoteId, id);
-			quoteDO = getQuoteDetails(quoteDAO.findOne(quotePK));
+			quoteDO = getQuoteDetails(quoteDAO.findOne(quotePK), accountDetails);
 		}
 		
 		return quoteDO;
@@ -1269,13 +1273,19 @@ public class QuoteServiceImpl implements QuoteService {
 			}
 			
 			adminAdjustment.setQuoteId(quoteDO.getQuoteId());
-			adminAdjustment.setBasePrice(quoteDO.getAdjustedBasePrice());
-			adminAdjustment.setLol(quoteDO.getAdjustedLol());
 			adminAdjustment.setSpecialConsideration(quoteDO.getSpecialConsiderations());
 			adminAdjustment.setCConditions(quoteDO.getCondsForCoverage());
 			adminAdjustment.setLastUpdate(new Date());
 			adminAdjustment.setInvoiceDate(new Date());
 			adminAdjustment.setDealHistory(quoteDO.getDealHistory());
+			adminAdjustment.setBasePrice(quoteDO.getAdjustedBasePrice());
+			adminAdjustment.setLol(quoteDO.getAdjustedLol());
+			adminAdjustment.setCoverageTerm(quoteDO.getAdjustedcoverageTerm());
+			adminAdjustment.setCoverageHours(quoteDO.getAdjustedCoverageHours());
+			adminAdjustment.setCoverageType(quoteDO.getAdjustedCoverageType());
+			adminAdjustment.setInceptionDate(quoteDO.getInceptionDate());
+			adminAdjustment.setExpirationDate(quoteDO.getExpirationDate());
+			adminAdjustment.setExpirationHours(quoteDO.getExpirationHours());
 			
 			adminAdjustmentDAO.save(adminAdjustment);
 			
