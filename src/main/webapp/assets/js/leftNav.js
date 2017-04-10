@@ -1656,10 +1656,15 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 	$scope.expirationFlag = true;
 	
 	//datepicker changes
-	
-	$scope.valuationDatePickerIsOpen = false;
+
 	$scope.opens = [];
 	
+	$scope.dateOptions = {
+		format: "MM/dd/yyyy",
+	    showWeeks: false
+	};
+	
+	$scope.valuationDatePickerIsOpen = false;
 	$scope.valuationDatePickerOpen = function ($event) {
       if ($event) {
           $event.preventDefault();
@@ -1667,11 +1672,6 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
       }
       $scope.valuationDatePickerIsOpen = true;
     };
-    
-    $scope.dateOptions = {
-		format: "MM/dd/yyyy",
-	    showWeeks: false
-	};
     
     $scope.estSaleDatePickerIsOpen = false;
     $scope.estSaleDatePickerOpen = function ($event) {
@@ -1707,6 +1707,24 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
             $event.stopPropagation(); // This is the magic
         }
         $scope.receivedDatePickerIsOpen = true;
+    };
+    
+    $scope.contractInceptionDatePickerIsOpen = false;
+    $scope.contractInceptionDatePickerOpen = function ($event) {
+        if ($event) {
+            $event.preventDefault();
+            $event.stopPropagation(); // This is the magic
+        }
+        $scope.contractInceptionDatePickerIsOpen = true;
+    };
+    
+    $scope.contractExpirationDatePickerIsOpen = false;
+    $scope.contractExpirationDatePickerOpen = function ($event) {
+        if ($event) {
+            $event.preventDefault();
+            $event.stopPropagation(); // This is the magic
+        }
+        $scope.contractExpirationDatePickerIsOpen = true;
     };
 	
 	$http.get("/agg/quoteInfo/"+$routeParams.quoteId+"/"+$routeParams.quoteCode)
@@ -1770,13 +1788,13 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
     		}
     	}
         
+        $scope.quote.inceptionDate = new Date();
         if($scope.quote.status > 1 && $scope.quote.admin){
         	$scope.calExpirationDate();
         }
     });
 	
 	$scope.calExpirationDate = function(){
-		$scope.quote.inceptionDate = new Date();
 		if($scope.machineCondition == "New"){
 			var manfCoverageTerm = 0;
 			if($scope.quote.coverageType == 'PT'){
@@ -1793,6 +1811,9 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 			$scope.quote.expirationHours = $scope.quote.adjustedCoverageHours;
 		}else{
 			var expDate = new Date();
+			if($scope.quote.inceptionDate != null){
+				expDate = $scope.quote.inceptionDate;
+			}
 			expDate = new Date(new Date(expDate).setMonth(expDate.getMonth()+$scope.quote.adjustedcoverageTerm));
 			$scope.quote.expirationDate = expDate;
 			$scope.quote.expirationHours = $scope.quote.meterHours + $scope.quote.adjustedCoverageHours;
@@ -1995,27 +2016,9 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 	
 	$scope.createContract = function(quoteForm){
 		if(quoteForm.$valid){
-			if($scope.machineCondition == "New"){
-				var manfCoverageTerm = 0;
-				if($scope.quote.coverageType == 'PT'){
-					manfCoverageTerm = $scope.quote.powerTrainMonths;
-				}else if($scope.quote.coverageType == 'PH'){
-					manfCoverageTerm = $scope.quote.hydraulicsMonths;
-				}else if($scope.quote.coverageType == 'PL'){
-					manfCoverageTerm = $scope.quote.fullMachineMonths;
-				}
-				var finalCoverageTerm = ($scope.quote.coverageTerm - manfCoverageTerm);
-				var expDate = $scope.quote.coverageEndDate;
-				expDate = new Date(new Date(expDate).setMonth(expDate.getMonth()+finalCoverageTerm));
-				$scope.quote.expirationDate = expDate;
-				$scope.quote.expirationHours = $scope.quote.coverageHours;
-			}else{
-				var expDate = new Date();
-				expDate = new Date(new Date(expDate).setMonth(expDate.getMonth()+$scope.quote.coverageTerm));
-				$scope.quote.expirationDate = expDate;
-				$scope.quote.expirationHours = $scope.quote.meterHours + $scope.quote.coverageHours;
-			}
-			$scope.quote.inceptionDate = new Date();
+			$scope.quote.contractInceptionDate = new Date($scope.quote.inceptionDate);
+			$scope.quote.contractExpirationDate = new Date($scope.quote.expirationDate);
+			$scope.quote.contractExpirationHours = $scope.quote.expirationHours;
 			
 			var x = screen.width/4;
 		    var y = screen.height/9;
@@ -2026,7 +2029,7 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 		}
 	}
 	
-	$scope.updateExpirationDate = function(){
+	$scope.updateContractExpirationDate = function(){
 		if($scope.machineCondition == "New"){
 			var manfCoverageTerm = 0;
 			if($scope.quote.coverageType == 'PT'){
@@ -2036,14 +2039,19 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 			}else if($scope.quote.coverageType == 'PL'){
 				manfCoverageTerm = $scope.quote.fullMachineMonths;
 			}
-			var finalCoverageTerm = ($scope.quote.coverageTerm - manfCoverageTerm);
-			var expDate = $scope.quote.inceptionDate;
+			var finalCoverageTerm = ($scope.quote.adjustedcoverageTerm - manfCoverageTerm);
+			var expDate = $scope.quote.coverageEndDate;
 			expDate = new Date(new Date(expDate).setMonth(expDate.getMonth()+finalCoverageTerm));
-			$scope.quote.expirationDate = expDate;
+			$scope.quote.contractExpirationDate = expDate;
+			$scope.quote.contractExpirationHours = $scope.quote.adjustedCoverageHours;
 		}else{
-			var expDate = $scope.quote.inceptionDate;
-			expDate = new Date(new Date(expDate).setMonth(expDate.getMonth()+$scope.quote.coverageTerm));
-			$scope.quote.expirationDate = expDate;
+			var expDate = new Date();
+			if($scope.quote.contractInceptionDate != null){
+				expDate = $scope.quote.contractInceptionDate;
+			}
+			expDate = new Date(new Date(expDate).setMonth(expDate.getMonth()+$scope.quote.adjustedcoverageTerm));
+			$scope.quote.contractExpirationDate = expDate;
+			$scope.quote.contractExpirationHours = $scope.quote.meterHours + $scope.quote.adjustedCoverageHours;
 		}
 	}
 	

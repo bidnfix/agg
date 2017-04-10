@@ -26,6 +26,7 @@ import com.agg.application.dao.DealerDAO;
 import com.agg.application.entity.Dealer;
 import com.agg.application.entity.Quote;
 import com.agg.application.model.AccountDO;
+import com.agg.application.model.ContractReportDO;
 import com.agg.application.model.QuoteDO;
 import com.agg.application.model.ReportDO;
 import com.agg.application.service.EmailService;
@@ -320,6 +321,120 @@ public class EmailServiceImpl implements EmailService {
 		cal.setTime(createdDate);
 		cal.add(Calendar.DATE, AggConstants.QUOTE_EXPIRATION_DAYS);
 		return cal.getTime();
+	}
+
+
+	@Override
+	@Async
+	public void sendAsyncContractEmail(QuoteDO quoteDO) throws Exception {
+		logger.debug("Inside sendAsyncContractEmail method");
+		Map<String, Object> parameterMap = new HashMap<String, Object>();
+		//parameterMap.put("imagePath", appUrl+"/assets/images/report_banner.png");
+		parameterMap.put("imagePath", System.getProperty("user.dir")+reportImagePath);
+		parameterMap.put("styleSheetPath", System.getProperty("user.dir")+jrxmlFolderPath+"aggStyles.jrtx");
+		
+		JRDataSource jrDataSource = null;
+		DataSource[] pdfAttachments = new DataSource[2];
+		List<ContractReportDO> reportDOList = null;
+		JasperReport jasperReport = null;
+		JasperPrint jasperPrint = null;
+		ByteArrayOutputStream baos = null;
+		DataSource pdfAttachment = null;
+		
+		reportDOList = new ArrayList<ContractReportDO>();
+		reportDOList.add(getContractReportDO(quoteDO));
+		if(!reportDOList.isEmpty()){
+			jrDataSource = new JRBeanCollectionDataSource(reportDOList);
+		}else{
+			jrDataSource = new JREmptyDataSource();
+		}
+		jasperReport = JasperCompileManager.compileReport(resourceLoader.getResource("classpath:/jrxml/rpt_contractDetails.jrxml").getInputStream());
+		jasperPrint = JasperFillManager.fillReport(jasperReport, parameterMap, jrDataSource);
+		baos = new ByteArrayOutputStream();
+		JasperExportManager.exportReportToPdfStream(jasperPrint, baos);
+		pdfAttachment =  new ByteArrayDataSource(baos.toByteArray(), "application/pdf");
+		pdfAttachments[0] = pdfAttachment;
+		
+		
+		if(!reportDOList.isEmpty()){
+			jrDataSource = new JRBeanCollectionDataSource(reportDOList);
+		}else{
+			jrDataSource = new JREmptyDataSource();
+		}
+		jasperReport = JasperCompileManager.compileReport(resourceLoader.getResource("classpath:/jrxml/rpt_coverageDetails.jrxml").getInputStream());
+		jasperPrint = JasperFillManager.fillReport(jasperReport, parameterMap, jrDataSource);
+		baos = new ByteArrayOutputStream();
+		JasperExportManager.exportReportToPdfStream(jasperPrint, baos);
+		pdfAttachment =  new ByteArrayDataSource(baos.toByteArray(), "application/pdf");
+		pdfAttachments[1] = pdfAttachment;
+		
+		String[] fileNames = {"ContractDetails-"+"CR-"+quoteDO.getQuoteId(),"CoverageDetails-"+"CR-"+quoteDO.getQuoteId()};
+		
+		
+		String subject = "Contract Details: "+"CR-"+quoteDO.getQuoteId()+" pdf files";
+		String emailBody = "PFA Contract Details: "+"CR-"+quoteDO.getQuoteId()+" details.";
+		String emails = "";
+		if(quoteDO.getDealerEmail() != null && !quoteDO.getDealerEmail().isEmpty()){
+			emails = quoteDO.getDealerEmail()+","+quoteDO.getDealerDO().getInvoiceEmail();
+		}else{
+			emails = quoteDO.getDealerDO().getInvoiceEmail();
+		}
+		EmailStatus emailStatus = emailSender.sendMailAsAttachment(emails, subject, emailBody, pdfAttachments, fileNames);
+		if(emailStatus != null){
+			logger.info("emailStatus: "+emailStatus.getStatus());
+			logger.info("Contract pdf Attachment files emailed successfully to "+quoteDO.getDealerEmail()+" & "+quoteDO.getDealerDO().getInvoiceEmail());
+		}
+		
+	}
+	
+	
+	/**
+	 * @param quoteDO
+	 * @return ContractReportDO
+	 * @throws Exception
+	 */
+	private ContractReportDO getContractReportDO(QuoteDO quoteDO) throws Exception{
+		ContractReportDO reportDO = new ContractReportDO();
+		
+		Locale locale = new Locale("en", "US");
+		NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
+		
+		reportDO.setContractId("CR-"+quoteDO.getQuoteId());
+		reportDO.setInceptionDate((quoteDO.getInceptionDate() != null)?dateFormat.format(quoteDO.getInceptionDate()):"");
+		reportDO.setCoverageTerm(quoteDO.getCoverageTerm());
+		reportDO.setCoverageHours(quoteDO.getCoverageHours());
+		reportDO.setExpirationDate((quoteDO.getExpirationDate() != null)?dateFormat.format(quoteDO.getExpirationDate()):"");
+		reportDO.setDeductibleAmount(currencyFormat.format(quoteDO.getDeductAmount()));
+		reportDO.setExpirationHours(quoteDO.getExpirationHours()+"");
+		reportDO.setCoverageType(quoteDO.getCoverageType());
+		reportDO.setLol(currencyFormat.format(quoteDO.getAdjustedLol()));
+		reportDO.setManufacturer(quoteDO.getManufacturerDO().getName());
+		reportDO.setSerialNo(quoteDO.getSerialNumber());
+		reportDO.setMachineModel(quoteDO.getMachineInfoDO().getModel());
+		reportDO.setManfEndDate((quoteDO.getCoverageEndDate() != null)?dateFormat.format(quoteDO.getCoverageEndDate()):"");
+		reportDO.setUseOfEquipment(quoteDO.getUseOfEquipmentDO().getEquipName());
+		reportDO.setMachineHours(quoteDO.getMeterHours());
+		reportDO.setCustomerAddress1(quoteDO.getDealerAddress());
+		reportDO.setCustomerAddress2(quoteDO.getDealerCity()+" "+quoteDO.getDealerState());
+		reportDO.setCustomerAddress3(quoteDO.getDealerZip());
+		reportDO.setCustomerContact(quoteDO.getDealerName());
+		reportDO.setCustomerPhone(quoteDO.getDealerPhone());
+		reportDO.setCustomerEmail(quoteDO.getDealerEmail());
+		reportDO.setDealerAddress1(quoteDO.getDealerDO().getAddress1());
+		reportDO.setDealerAddress2(quoteDO.getDealerDO().getAddress2());
+		reportDO.setDealerAddress3(quoteDO.getDealerCity()+" "+quoteDO.getDealerState()+" "+quoteDO.getDealerZip());
+		reportDO.setDealerContact(quoteDO.getDealerDO().getName());
+		reportDO.setDealerEmail(quoteDO.getDealerDO().getInvoiceEmail());
+		reportDO.setDealerPhone(quoteDO.getDealerDO().getPhone());
+		reportDO.setServiceProviderAddr1(quoteDO.getDealerDO().getAddress1());
+		reportDO.setServiceProviderAddr2(quoteDO.getDealerDO().getAddress2());
+		reportDO.setServiceProviderAddr3(quoteDO.getDealerCity()+" "+quoteDO.getDealerState()+" "+quoteDO.getDealerZip());
+		reportDO.setServiceProviderContact(quoteDO.getDealerDO().getName());
+		reportDO.setServiceProviderEmail(quoteDO.getDealerDO().getInvoiceEmail());
+		reportDO.setServiceProviderPhone(quoteDO.getDealerDO().getPhone());
+		reportDO.setSpecialConsiderations(quoteDO.getSpecialConsiderations());
+		
+		return reportDO;
 	}
 
 

@@ -228,6 +228,12 @@ public class QuoteDO {
 	
 	private boolean admin;
 	
+	private Date contractInceptionDate;
+	
+	private Date contractExpirationDate;
+	
+	private int contractExpirationHours;
+	
 	public QuoteDO(){
 		
 	}
@@ -1518,6 +1524,30 @@ public class QuoteDO {
 
 	public void setAdmin(boolean admin) {
 		this.admin = admin;
+	}
+
+	public Date getContractInceptionDate() {
+		return contractInceptionDate;
+	}
+
+	public void setContractInceptionDate(Date contractInceptionDate) {
+		this.contractInceptionDate = contractInceptionDate;
+	}
+
+	public Date getContractExpirationDate() {
+		return contractExpirationDate;
+	}
+
+	public void setContractExpirationDate(Date contractExpirationDate) {
+		this.contractExpirationDate = contractExpirationDate;
+	}
+
+	public int getContractExpirationHours() {
+		return contractExpirationHours;
+	}
+
+	public void setContractExpirationHours(int contractExpirationHours) {
+		this.contractExpirationHours = contractExpirationHours;
 	}
 	
 }

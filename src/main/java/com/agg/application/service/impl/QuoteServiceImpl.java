@@ -1,6 +1,5 @@
 package com.agg.application.service.impl;
 
-import java.io.ByteArrayOutputStream;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -12,9 +11,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
-
-import javax.activation.DataSource;
-import javax.mail.util.ByteArrayDataSource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,7 +40,6 @@ import com.agg.application.entity.Quote;
 import com.agg.application.entity.QuotePK;
 import com.agg.application.entity.UseOfEquip;
 import com.agg.application.model.AccountDO;
-import com.agg.application.model.ContractReportDO;
 import com.agg.application.model.DealerDO;
 import com.agg.application.model.MachineInfoDO;
 import com.agg.application.model.ManufacturerDO;
@@ -57,17 +52,7 @@ import com.agg.application.service.EmailService;
 import com.agg.application.service.QuoteService;
 import com.agg.application.utils.AggConstants;
 import com.agg.application.utils.EmailSender;
-import com.agg.application.utils.EmailStatus;
 import com.agg.application.utils.Util;
-
-import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.JREmptyDataSource;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 @Service
 public class QuoteServiceImpl implements QuoteService {
@@ -1445,7 +1430,7 @@ public class QuoteServiceImpl implements QuoteService {
 	public boolean createContract(QuoteDO quoteDO, AccountDO accountDO, String appUrl) throws Exception{
 		boolean condition = false;
 		
-		AdminAdjustment adminAdjustment = adminAdjustmentDAO.findOne(quoteDO.getQuoteId());
+		/*AdminAdjustment adminAdjustment = adminAdjustmentDAO.findOne(quoteDO.getQuoteId());
 		if(adminAdjustment != null){
 			adminAdjustment.setBasePrice(quoteDO.getAdjustedBasePrice());
 			adminAdjustment.setLol(quoteDO.getAdjustedLol());
@@ -1457,7 +1442,7 @@ public class QuoteServiceImpl implements QuoteService {
 			adminAdjustment.setExpirationHours(quoteDO.getExpirationHours());
 			
 			adminAdjustmentDAO.save(adminAdjustment);
-		}
+		}*/
 		
 		Contracts contracts = new Contracts();
 		contracts.setAvailabeLol(quoteDO.getMachineInfoDO().getLol());
@@ -1467,15 +1452,15 @@ public class QuoteServiceImpl implements QuoteService {
 		contracts.setCoverageTermMonths(quoteDO.getCoverageTerm());
 		contracts.setCoverageType(quoteDO.getCoverageType());
 		contracts.setDeductible(quoteDO.getDeductiblePrice());
-		contracts.setExpirationDate(quoteDO.getExpirationDate());
-		contracts.setExpirationUsageHours(quoteDO.getExpirationHours());
-		contracts.setInceptionDate(quoteDO.getInceptionDate());
+		contracts.setExpirationDate(quoteDO.getContractExpirationDate());
+		contracts.setExpirationUsageHours(quoteDO.getContractExpirationHours());
+		contracts.setInceptionDate(quoteDO.getContractInceptionDate());
 		contracts.setLastUpdatedDate(new Date());
 		contracts.setLol(quoteDO.getMachineInfoDO().getLol());
 		contracts.setMachineSerialNo(quoteDO.getSerialNumber());
 		Quote quote = quoteDAO.findByIdQuoteId(quoteDO.getQuoteId());
 		contracts.setQuoteId(quote.getId().getId());
-		contracts.setStatus(1);
+		contracts.setStatus(AggConstants.ACTIVE);
 		contracts.setCheqNo(quoteDO.getCheqNo());
 		contracts.setReceivedDate(quoteDO.getReceivedDate());
 		
@@ -1484,114 +1469,14 @@ public class QuoteServiceImpl implements QuoteService {
 		quote.setStatus(AggConstants.B_QUOTE_STATUS_CLOSED);
 		quoteDAO.save(quote);
 		
-		//TODO send Active Contract mail 
-		
 		condition = true;
 		
-		Map<String, Object> parameterMap = new HashMap<String, Object>();
-		//parameterMap.put("imagePath", appUrl+"/assets/images/report_banner.png");
-		parameterMap.put("imagePath", System.getProperty("user.dir")+reportImagePath);
-		parameterMap.put("styleSheetPath", System.getProperty("user.dir")+jrxmlFolderPath+"aggStyles.jrtx");
-		
-		JRDataSource jrDataSource = null;
-		DataSource[] pdfAttachments = new DataSource[2];
-		List<ContractReportDO> reportDOList = null;
-		JasperReport jasperReport = null;
-		JasperPrint jasperPrint = null;
-		ByteArrayOutputStream baos = null;
-		DataSource pdfAttachment = null;
-		
-		reportDOList = new ArrayList<ContractReportDO>();
-		reportDOList.add(getContractReportDO(quoteDO));
-		if(!reportDOList.isEmpty()){
-			jrDataSource = new JRBeanCollectionDataSource(reportDOList);
-		}else{
-			jrDataSource = new JREmptyDataSource();
-		}
-		jasperReport = JasperCompileManager.compileReport(resourceLoader.getResource("classpath:/jrxml/rpt_contractDetails.jrxml").getInputStream());
-		jasperPrint = JasperFillManager.fillReport(jasperReport, parameterMap, jrDataSource);
-		baos = new ByteArrayOutputStream();
-		JasperExportManager.exportReportToPdfStream(jasperPrint, baos);
-		pdfAttachment =  new ByteArrayDataSource(baos.toByteArray(), "application/pdf");
-		pdfAttachments[0] = pdfAttachment;
-		
-		
-		if(!reportDOList.isEmpty()){
-			jrDataSource = new JRBeanCollectionDataSource(reportDOList);
-		}else{
-			jrDataSource = new JREmptyDataSource();
-		}
-		jasperReport = JasperCompileManager.compileReport(resourceLoader.getResource("classpath:/jrxml/rpt_coverageDetails.jrxml").getInputStream());
-		jasperPrint = JasperFillManager.fillReport(jasperReport, parameterMap, jrDataSource);
-		baos = new ByteArrayOutputStream();
-		JasperExportManager.exportReportToPdfStream(jasperPrint, baos);
-		pdfAttachment =  new ByteArrayDataSource(baos.toByteArray(), "application/pdf");
-		pdfAttachments[1] = pdfAttachment;
-		
-		String[] fileNames = {"ContractDetails-"+contracts.getContractId(),"CoverageDetails-"+contracts.getContractId()};
-		
-		
-		String subject = "Contract Details: "+contracts.getContractId()+" pdf files";
-		String emailBody = "PFA Contract Details: "+contracts.getContractId()+" details.";
-		String emails = "";
-		if(quoteDO.getDealerEmail() != null && !quoteDO.getDealerEmail().isEmpty()){
-			emails = quoteDO.getDealerEmail()+","+quoteDO.getDealerDO().getInvoiceEmail();
-		}else{
-			emails = quoteDO.getDealerDO().getInvoiceEmail();
-		}
-		EmailStatus emailStatus = emailSender.sendMailAsAttachment(emails, subject, emailBody, pdfAttachments, fileNames);
-		if(emailStatus != null){
-			logger.info("emailStatus: "+emailStatus.getStatus());
-			logger.info("Contract pdf Attachment files emailed successfully to "+quoteDO.getDealerEmail()+" & "+quoteDO.getDealerDO().getInvoiceEmail());
-		}
+		//sending Active Contract mail 
+		emailService.sendAsyncContractEmail(quoteDO);
 		
 		return condition;
 	}
 
-	private ContractReportDO getContractReportDO(QuoteDO quoteDO) throws Exception{
-		ContractReportDO reportDO = new ContractReportDO();
-		
-		Locale locale = new Locale("en", "US");
-		NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
-		
-		reportDO.setContractId("CR-"+quoteDO.getQuoteId());
-		reportDO.setInceptionDate((quoteDO.getInceptionDate() != null)?dateFormat.format(quoteDO.getInceptionDate()):"");
-		reportDO.setCoverageTerm(quoteDO.getCoverageTerm());
-		reportDO.setCoverageHours(quoteDO.getCoverageHours());
-		reportDO.setExpirationDate((quoteDO.getExpirationDate() != null)?dateFormat.format(quoteDO.getExpirationDate()):"");
-		reportDO.setDeductibleAmount(currencyFormat.format(quoteDO.getDeductAmount()));
-		reportDO.setExpirationHours(quoteDO.getExpirationHours()+"");
-		reportDO.setCoverageType(quoteDO.getCoverageType());
-		reportDO.setLol(currencyFormat.format(quoteDO.getAdjustedLol()));
-		reportDO.setManufacturer(quoteDO.getManufacturerDO().getName());
-		reportDO.setSerialNo(quoteDO.getSerialNumber());
-		reportDO.setMachineModel(quoteDO.getMachineInfoDO().getModel());
-		reportDO.setManfEndDate((quoteDO.getCoverageEndDate() != null)?dateFormat.format(quoteDO.getCoverageEndDate()):"");
-		reportDO.setUseOfEquipment(quoteDO.getUseOfEquipmentDO().getEquipName());
-		reportDO.setMachineHours(quoteDO.getMeterHours());
-		reportDO.setCustomerAddress1(quoteDO.getDealerAddress());
-		reportDO.setCustomerAddress2(quoteDO.getDealerCity()+" "+quoteDO.getDealerState());
-		reportDO.setCustomerAddress3(quoteDO.getDealerZip());
-		reportDO.setCustomerContact(quoteDO.getDealerName());
-		reportDO.setCustomerPhone(quoteDO.getDealerPhone());
-		reportDO.setCustomerEmail(quoteDO.getDealerEmail());
-		reportDO.setDealerAddress1(quoteDO.getDealerDO().getAddress1());
-		reportDO.setDealerAddress2(quoteDO.getDealerDO().getAddress2());
-		reportDO.setDealerAddress3(quoteDO.getDealerCity()+" "+quoteDO.getDealerState()+" "+quoteDO.getDealerZip());
-		reportDO.setDealerContact(quoteDO.getDealerDO().getName());
-		reportDO.setDealerEmail(quoteDO.getDealerDO().getInvoiceEmail());
-		reportDO.setDealerPhone(quoteDO.getDealerDO().getPhone());
-		reportDO.setServiceProviderAddr1(quoteDO.getDealerDO().getAddress1());
-		reportDO.setServiceProviderAddr2(quoteDO.getDealerDO().getAddress2());
-		reportDO.setServiceProviderAddr3(quoteDO.getDealerCity()+" "+quoteDO.getDealerState()+" "+quoteDO.getDealerZip());
-		reportDO.setServiceProviderContact(quoteDO.getDealerDO().getName());
-		reportDO.setServiceProviderEmail(quoteDO.getDealerDO().getInvoiceEmail());
-		reportDO.setServiceProviderPhone(quoteDO.getDealerDO().getPhone());
-		reportDO.setSpecialConsiderations(quoteDO.getSpecialConsiderations());
-		
-		return reportDO;
-	}
-	
 	/**
 	 * @param createdDate
 	 * @return quoteDO

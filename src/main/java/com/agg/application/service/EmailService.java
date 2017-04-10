@@ -10,5 +10,7 @@ public interface EmailService {
 	public void sendAsyncInvoiceEmail(QuoteDO quoteDO, Quote quote, AccountDO accountDO, Dealer dealer) throws Exception;
 	
 	public void sendAsyncPurchaseRequestEmail(QuoteDO quoteDO, Quote quote) throws Exception;
+	
+	public void sendAsyncContractEmail(QuoteDO quoteDO) throws Exception;
 
 }

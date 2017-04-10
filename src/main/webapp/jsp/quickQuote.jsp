@@ -568,7 +568,7 @@
 						                   ng-click="inceptionDatePickerOpen()"
 						                   min-date="date"
 						                   ng-model="quote.inceptionDate"
-						                   ng-blur="updateExpirationDate()" 
+						                   ng-blur="calExpirationDate()" 
 						                   ng-required="mandatoryFlag"
 						                   ng-disabled="disabled"/>
 							            <span class="input-group-btn">
