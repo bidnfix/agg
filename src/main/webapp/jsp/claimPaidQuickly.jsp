@@ -75,10 +75,10 @@
                 <div class="col-md-7 col-sm-12">
                  	 <form class="form-corevalue">       
 					      <h3 class="mar-bot">Claims Paid Quickly</h3>
-		<h4 class="mar-bot">We pay claims fast and we measure our payment of claims requests in hours not months.</h4>
-			<h4 class="mar-bot">After all, what good is the coverage if it's not there when you need it?</h4>
+		<p class="mar-bot" style="color:black; font-size:16px;">We pay claims fast and we measure our payment of claims requests in hours not months.</p>
+			<p class="mar-bot" style="color:black; font-size:16px;">After all, what good is the coverage if it's not there when you need it?</p>
 			
-			<h4 class="mar-bot">The difference is in our approach.  We review claims with the intent to pay them.  We do not look for ways to deny a claim on some technicality, or to make the process so difficult and protracted that you give up.  Our approach is to be fair with you and we expect you to be fair with us.  That reflects the culture in agriculture, where a handshake still means something.</h4>   
+			<p class="mar-bot" style="color:black; font-size:16px;">The difference is in our approach.  We review claims with the intent to pay them.  We do not look for ways to deny a claim on some technicality, or to make the process so difficult and protracted that you give up.  Our approach is to be fair with you and we expect you to be fair with us.  That reflects the culture in agriculture, where a handshake still means something.</p>   
 					  </form>		
                 </div>
             </div>
