@@ -83,7 +83,7 @@
                     <span><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Our Core Values</strong></span>
                     	<ul>
-                        	<li class="animated fadeInLeftBig "><a href="#">Claims Paid Quickly</a></li>
+                        	<li class="animated fadeInLeftBig "><a href="/agg/claimPaidQuickly">Claims Paid Quickly</a></li>
                             <li class="animated fadeInLeft"><a href="#">Ag Focused</a></li>
                             <li class="animated fadeInLeftBig"><a href="#">Experience with Integrity</a></li>
                             <li class="animated fadeInLeft"><a href="#">Fair and Flexible Terms</a></li>
