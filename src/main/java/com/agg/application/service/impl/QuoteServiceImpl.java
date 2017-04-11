@@ -603,19 +603,7 @@ public class QuoteServiceImpl implements QuoteService {
 			}
 			
 			reportDO.setCoverageDesc(AggConstants.QUOTE_REPORT_COVERAGE_DESC);
-			reportDO.setCoverageTerm(quote.getCoverageTerm());
-			reportDO.setCoverageHours(quote.getCoverageLevelHours());
 			reportDO.setDeductibleAmount(currencyFormat.format(quote.getDeductAmount()));
-			String coverageType = quote.getCoverageType();
-			if(coverageType != null && !coverageType.isEmpty()){
-				if(coverageType.equalsIgnoreCase("PT")){
-					reportDO.setCoverageType("Powertrain");
-				}else if(coverageType.equalsIgnoreCase("PH")){
-					reportDO.setCoverageType("Powertrain + Hydraulic");
-				}else if(coverageType.equalsIgnoreCase("PL")){
-					reportDO.setCoverageType("Powertrain + Hydraulic + Platform");
-				}
-			}
 			reportDO.setPowerTrainMonths(quote.getPtMonths());
 			reportDO.setPowerTrainHours(quote.getPtHours());
 			reportDO.setHydraulicMonths(quote.getHMonths());
@@ -625,6 +613,9 @@ public class QuoteServiceImpl implements QuoteService {
 			reportDO.setWarrantyEndDate((quote.getManfEndDate() != null)?dateFormat.format(quote.getManfEndDate()):"");
 			double lol = quote.getMachineInfo().getGroupConstant().getLol();
 			double coveragePrice = quote.getCoveragePrice();
+			String coverageType = quote.getCoverageType();
+			int coverageTerm = quote.getCoverageTerm();
+			int coverageHours = quote.getCoverageLevelHours();
 			AdminAdjustment adminAdjustment = adminAdjustmentDAO.findOne(quote.getId().getQuoteId());
 			if(quote.getProgram() != null){
 				lol = quote.getProgram().getPrLol();
@@ -638,7 +629,34 @@ public class QuoteServiceImpl implements QuoteService {
 				}
 				
 				reportDO.setInvoiceDate((adminAdjustment.getInvoiceDate() != null)?dateFormat.format(adminAdjustment.getInvoiceDate()):"");
+				
+				if(adminAdjustment.getCoverageType() != null && !adminAdjustment.getCoverageType().isEmpty()){
+					coverageType = adminAdjustment.getCoverageType();
+				}
+				
+				if(adminAdjustment.getCoverageTerm() > 0){
+					coverageTerm = adminAdjustment.getCoverageTerm();
+				}
+				
+				if(adminAdjustment.getCoverageHours() > 0){
+					coverageHours = adminAdjustment.getCoverageHours();
+				}
+				
+				reportDO.setInceptionDate((adminAdjustment.getInceptionDate() != null)?dateFormat.format(adminAdjustment.getInceptionDate()):"");
+				reportDO.setExpirationDate((adminAdjustment.getExpirationDate() != null)?dateFormat.format(adminAdjustment.getExpirationDate()):"");
+				reportDO.setExpirationHours(adminAdjustment.getExpirationHours());
 			}
+			if(coverageType != null && !coverageType.isEmpty()){
+				if(coverageType.equalsIgnoreCase("PT")){
+					reportDO.setCoverageType("Powertrain");
+				}else if(coverageType.equalsIgnoreCase("PH")){
+					reportDO.setCoverageType("Powertrain + Hydraulic");
+				}else if(coverageType.equalsIgnoreCase("PL")){
+					reportDO.setCoverageType("Powertrain + Hydraulic + Platform");
+				}
+			}
+			reportDO.setCoverageTerm(coverageTerm);
+			reportDO.setCoverageHours(coverageHours);
 			reportDO.setLimitOfLiability(currencyFormat.format(lol));
 			String dealerMarkupType = quote.getDealerMarkupType();
 			double customerPrice = 0.0;
@@ -978,7 +996,7 @@ public class QuoteServiceImpl implements QuoteService {
 
 	@Override
 	@Transactional
-	public boolean updateQuote(QuoteDO quoteDO, AccountDO accountDO) throws Exception{
+	public boolean updateQuote(QuoteDO quoteDO, AccountDO accountDO, String appUrl) throws Exception{
 		boolean condition = false;
 		Quote quote = null;
 		if(quoteDO.getId() != 0 && quoteDO.getId() > 0 && quoteDO.getQuoteId() != null && !quoteDO.getQuoteId().isEmpty()){
@@ -1131,7 +1149,7 @@ public class QuoteServiceImpl implements QuoteService {
 				if(quoteDO.getStatus() == AggConstants.B_QUOTE_STATUS_PURCHASE_REQUESTED){
 					emailService.sendAsyncPurchaseRequestEmail(quoteDO, quote);
 				}else if(quoteDO.getStatus() == AggConstants.B_QUOTE_STATUS_INVOICED){
-					emailService.sendAsyncInvoiceEmail(quoteDO, quote, accountDO, dealer);
+					emailService.sendAsyncInvoiceEmail(quoteDO, quote, accountDO, dealer, appUrl);
 				}
 				
 				condition = true;
@@ -1292,7 +1310,7 @@ public class QuoteServiceImpl implements QuoteService {
 				
 				quoteDO.setCreateDate(quote.getCreateDate());
 				
-				emailService.sendAsyncInvoiceEmail(quoteDO, quote, accountDO, dealer);
+				emailService.sendAsyncInvoiceEmail(quoteDO, quote, accountDO, dealer, appUrl);
 				
 				condition = true;
 			}

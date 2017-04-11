@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.context.Context;
 
 import com.agg.application.dao.DealerDAO;
 import com.agg.application.entity.Dealer;
@@ -70,7 +71,7 @@ public class EmailServiceImpl implements EmailService {
 
 	@Override
 	@Async
-	public void sendAsyncInvoiceEmail(QuoteDO quoteDO, Quote quote, AccountDO accountDO, Dealer dealer) throws Exception{
+	public void sendAsyncInvoiceEmail(QuoteDO quoteDO, Quote quote, AccountDO accountDO, Dealer dealer, String appUrl) throws Exception{
 		logger.info("Inside sendAsyncInvoiceEmail method");
 		String email = null;
 		if(accountDO.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)){
@@ -102,7 +103,7 @@ public class EmailServiceImpl implements EmailService {
 			}
 		}
 		
-		Map<String, Object> parameterMap = new HashMap<String, Object>();
+		/*Map<String, Object> parameterMap = new HashMap<String, Object>();
 		//parameterMap.put("imagePath", appUrl+"/assets/images/report_banner.png");
 		parameterMap.put("imagePath", System.getProperty("user.dir")+reportImagePath);
 		
@@ -125,6 +126,24 @@ public class EmailServiceImpl implements EmailService {
 		if(emailStatus != null){
 			logger.info("emailStatus: "+emailStatus.getStatus());
 			logger.info("Dealer Quote pdf Attachment emailed successfully to "+email);
+		}*/
+		
+		Context context = new Context();
+		context.setVariable("dealerName", dealer.getName());
+		context.setVariable("quoteId", quoteDO.getQuoteId());
+		context.setVariable("custName", quoteDO.getDealerName());
+		context.setVariable("serialNo", quoteDO.getSerialNumber());
+		context.setVariable("appUrl", appUrl);
+		
+		logger.info("b4 sending invoice email to the dealer: "+dealer.getName());
+		//sending email to dealer
+		String subject = "Dealer Invoice: "+quoteDO.getQuoteId();
+		EmailStatus emailStatus = emailSender.sendMailAsHtml(email, subject, "email/dealer-invoice-template", context);
+		if(emailStatus != null){
+			logger.info("email status: "+emailStatus.isSuccess());
+			if(emailStatus.isSuccess()){
+				logger.info("Dealer Invoice Email Send succssfully to dealer: "+emailStatus.getTo());
+			}
 		}
 	}
 
