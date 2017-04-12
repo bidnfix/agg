@@ -220,6 +220,20 @@ public class QuoteDO {
 	
 	private String comments;
 	
+	private int adjustedcoverageTerm;
+	
+	private int adjustedCoverageHours;
+	
+	private String adjustedCoverageType;
+	
+	private boolean admin;
+	
+	private Date contractInceptionDate;
+	
+	private Date contractExpirationDate;
+	
+	private int contractExpirationHours;
+	
 	public QuoteDO(){
 		
 	}
@@ -1478,6 +1492,62 @@ public class QuoteDO {
 
 	public void setComments(String comments) {
 		this.comments = comments;
+	}
+
+	public int getAdjustedcoverageTerm() {
+		return adjustedcoverageTerm;
+	}
+
+	public void setAdjustedcoverageTerm(int adjustedcoverageTerm) {
+		this.adjustedcoverageTerm = adjustedcoverageTerm;
+	}
+
+	public int getAdjustedCoverageHours() {
+		return adjustedCoverageHours;
+	}
+
+	public void setAdjustedCoverageHours(int adjustedCoverageHours) {
+		this.adjustedCoverageHours = adjustedCoverageHours;
+	}
+
+	public String getAdjustedCoverageType() {
+		return adjustedCoverageType;
+	}
+
+	public void setAdjustedCoverageType(String adjustedCoverageType) {
+		this.adjustedCoverageType = adjustedCoverageType;
+	}
+
+	public boolean isAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
+	}
+
+	public Date getContractInceptionDate() {
+		return contractInceptionDate;
+	}
+
+	public void setContractInceptionDate(Date contractInceptionDate) {
+		this.contractInceptionDate = contractInceptionDate;
+	}
+
+	public Date getContractExpirationDate() {
+		return contractExpirationDate;
+	}
+
+	public void setContractExpirationDate(Date contractExpirationDate) {
+		this.contractExpirationDate = contractExpirationDate;
+	}
+
+	public int getContractExpirationHours() {
+		return contractExpirationHours;
+	}
+
+	public void setContractExpirationHours(int contractExpirationHours) {
+		this.contractExpirationHours = contractExpirationHours;
 	}
 	
 }

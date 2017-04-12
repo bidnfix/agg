@@ -71,6 +71,15 @@ public class AdminAdjustment implements Serializable {
 	@Lob
 	@Column(name="special_consideration")
 	private String specialConsideration;
+	
+	@Column(name="coverage_hours")
+	private int coverageHours;
+
+	@Column(name="coverage_term")
+	private int coverageTerm;
+	
+	@Column(name="coverage_type")
+	private String coverageType;
 
 	public AdminAdjustment() {
 	}
@@ -191,6 +200,30 @@ public class AdminAdjustment implements Serializable {
 
 	public void setSpecialConsideration(String specialConsideration) {
 		this.specialConsideration = specialConsideration;
+	}
+
+	public int getCoverageHours() {
+		return coverageHours;
+	}
+
+	public void setCoverageHours(int coverageHours) {
+		this.coverageHours = coverageHours;
+	}
+
+	public int getCoverageTerm() {
+		return coverageTerm;
+	}
+
+	public void setCoverageTerm(int coverageTerm) {
+		this.coverageTerm = coverageTerm;
+	}
+
+	public String getCoverageType() {
+		return coverageType;
+	}
+
+	public void setCoverageType(String coverageType) {
+		this.coverageType = coverageType;
 	}
 
 }
