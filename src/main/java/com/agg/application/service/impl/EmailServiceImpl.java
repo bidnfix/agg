@@ -275,12 +275,17 @@ public class EmailServiceImpl implements EmailService {
 		if(dealer != null){
 			if(dealer.getParentCode() != 0 && dealer.getParentCode() == dealer.getCode()){
 				reportDO.setAttn(dealer.getName());
-				reportDO.setDealerAddress(dealer.getAddress()+", "+dealer.getState()+" "+dealer.getZip());
+				reportDO.setDealerAddress(dealer.getAddress() + ", "
+						+ ((dealer.getCity() != null && !dealer.getCity().isEmpty()) ? dealer.getCity() + ", " : "")
+						+ dealer.getState() + " " + dealer.getZip());
 			}else{
 				Dealer parentDealer = dealerDAO.findByCode(dealer.getCode());
 				if(parentDealer != null){
 					reportDO.setAttn(parentDealer.getName());
-					reportDO.setDealerAddress(parentDealer.getAddress()+", "+parentDealer.getState()+" "+parentDealer.getZip());
+					reportDO.setDealerAddress(parentDealer.getAddress() + ", "
+							+ ((parentDealer.getCity() != null && !parentDealer.getCity().isEmpty())
+									? parentDealer.getCity() + ", " : "")
+							+ parentDealer.getState() + " " + parentDealer.getZip());
 				}
 			}
 			
@@ -297,7 +302,10 @@ public class EmailServiceImpl implements EmailService {
 			reportDO.setQuoteExpires("");
 		}
 		reportDO.setQuoteId(quoteDO.getQuoteId());
-		reportDO.setAddress(quoteDO.getDealerAddress()+", "+quoteDO.getDealerState()+" "+quoteDO.getDealerZip());
+		reportDO.setAddress(quoteDO.getDealerAddress() + ", "
+				+ ((quoteDO.getDealerCity() != null && !quoteDO.getDealerCity().isEmpty())
+						? quoteDO.getDealerCity() + ", " : "")
+				+ quoteDO.getDealerState() + " " + quoteDO.getDealerZip());
 		reportDO.setCustName(quoteDO.getDealerName());
 		reportDO.setOutStandingDesc(AggConstants.QUOTE_REPORT_OUT_STANDING_DESC);
 		reportDO.setManufacturerName(quoteDO.getManufacturerDO().getName());

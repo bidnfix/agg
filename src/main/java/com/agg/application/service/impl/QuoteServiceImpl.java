@@ -556,12 +556,17 @@ public class QuoteServiceImpl implements QuoteService {
 			if(dealer != null){
 				if(dealer.getParentCode() != 0 && dealer.getParentCode() == dealer.getCode()){
 					reportDO.setAttn(dealer.getName());
-					reportDO.setDealerAddress(dealer.getAddress()+", "+dealer.getState()+" "+dealer.getZip());
+					reportDO.setDealerAddress(dealer.getAddress() + ", "
+							+ ((dealer.getCity() != null && !dealer.getCity().isEmpty()) ? dealer.getCity() + ", " : "")
+							+ dealer.getState() + " " + dealer.getZip());
 				}else{
 					Dealer parentDealer = dealerDAO.findByCode(dealer.getCode());
 					if(parentDealer != null){
 						reportDO.setAttn(parentDealer.getName());
-						reportDO.setDealerAddress(parentDealer.getAddress()+", "+parentDealer.getState()+" "+parentDealer.getZip());
+						reportDO.setDealerAddress(parentDealer.getAddress() + ", "
+								+ ((parentDealer.getCity() != null && !parentDealer.getCity().isEmpty())
+										? parentDealer.getCity() + ", " : "")
+								+ parentDealer.getState() + " " + parentDealer.getZip());
 					}
 				}
 				
@@ -579,7 +584,10 @@ public class QuoteServiceImpl implements QuoteService {
 			reportDO.setQuoteId(quoteId);
 			CustomerInfo customerInfo = customerInfoDAO.findOne(quoteId);
 			if(customerInfo != null){
-				reportDO.setAddress(customerInfo.getAddress()+", "+customerInfo.getState()+" "+customerInfo.getZip());
+				reportDO.setAddress(customerInfo.getAddress() + ", "
+						+ ((customerInfo.getCity() != null && !customerInfo.getCity().isEmpty())
+								? customerInfo.getCity() + ", " : "")
+						+ customerInfo.getState() + " " + customerInfo.getZip());
 				reportDO.setEmail(customerInfo.getEmail());
 				reportDO.setPhone(customerInfo.getPhone());
 				reportDO.setCustName(customerInfo.getName());
