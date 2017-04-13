@@ -618,7 +618,7 @@ public class QuoteServiceImpl implements QuoteService {
 			reportDO.setHydraulicHours(quote.getHHours());
 			reportDO.setFullMachineHours(quote.getMachineHours());
 			reportDO.setFullMachineMonths(quote.getMachineMonths());
-			reportDO.setWarrantyEndDate((quote.getManfEndDate() != null)?dateFormat.format(quote.getManfEndDate()):"");
+			reportDO.setWarrantyEndDate((quote.getManfEndDate() != null)?dateFormat.format(quote.getManfEndDate()):"Unknown");
 			double lol = quote.getMachineInfo().getGroupConstant().getLol();
 			double coveragePrice = quote.getCoveragePrice();
 			String coverageType = quote.getCoverageType();
@@ -650,9 +650,57 @@ public class QuoteServiceImpl implements QuoteService {
 					coverageHours = adminAdjustment.getCoverageHours();
 				}
 				
-				reportDO.setInceptionDate((adminAdjustment.getInceptionDate() != null)?dateFormat.format(adminAdjustment.getInceptionDate()):"");
-				reportDO.setExpirationDate((adminAdjustment.getExpirationDate() != null)?dateFormat.format(adminAdjustment.getExpirationDate()):"");
-				reportDO.setExpirationHours(adminAdjustment.getExpirationHours());
+				if(adminAdjustment.getInceptionDate() != null){
+					reportDO.setInceptionDate(dateFormat.format(adminAdjustment.getInceptionDate()));
+				}else{
+					reportDO.setInceptionDate(dateFormat.format(new Date()));
+				}
+				
+				if(adminAdjustment.getExpirationDate() != null){
+					reportDO.setExpirationDate(dateFormat.format(adminAdjustment.getExpirationDate()));
+				}else{
+					if(quote.getManfExpired() == 1){
+						Calendar cal = Calendar.getInstance();
+						if(adminAdjustment.getInceptionDate() != null){
+							cal.setTime(adminAdjustment.getInceptionDate());
+						}else{
+							cal.setTime(new Date());
+						}
+						cal.add(Calendar.MONTH, coverageTerm);
+						reportDO.setExpirationDate(dateFormat.format(cal.getTime()));
+					}else{
+						int manfCoverageTerm = 0;
+						if(quote.getCoverageType() != null){
+							if(quote.getCoverageType().equalsIgnoreCase("PT")){
+								manfCoverageTerm = quote.getPtMonths();
+							}else if(quote.getCoverageType().equalsIgnoreCase("PH")){
+								manfCoverageTerm = quote.getHMonths();
+							}else if(quote.getCoverageType().equalsIgnoreCase("PL")){
+								manfCoverageTerm = quote.getMachineMonths();
+							}
+							int finalCoverageTerm = coverageTerm - manfCoverageTerm;
+							Calendar cal = Calendar.getInstance();
+							cal.setTime(quote.getManfEndDate());
+							cal.add(Calendar.MONTH, finalCoverageTerm);
+							reportDO.setExpirationDate(dateFormat.format(cal.getTime()));
+						}
+					}
+				}
+				
+				if(adminAdjustment.getExpirationHours() > 0){
+					reportDO.setExpirationHours(adminAdjustment.getExpirationHours());
+				}else{
+					if(quote.getManfExpired() == 1){
+						reportDO.setExpirationHours(coverageHours+quote.getMachineMeterHours());
+					}else{
+						reportDO.setExpirationHours(coverageHours);
+					}
+				}
+				reportDO.setSpecialConsiderationDesc((adminAdjustment.getSpecialConsideration() != null
+						&& !adminAdjustment.getSpecialConsideration().isEmpty())
+								? adminAdjustment.getSpecialConsideration() : "None");
+			}else{
+				reportDO.setSpecialConsiderationDesc("None");
 			}
 			if(coverageType != null && !coverageType.isEmpty()){
 				if(coverageType.equalsIgnoreCase("PT")){
@@ -680,7 +728,6 @@ public class QuoteServiceImpl implements QuoteService {
 			reportDO.setPrice(currencyFormat.format(customerPrice));
 			reportDO.setQuotePrice(currencyFormat.format(coveragePrice));
 			reportDO.setDealerMarkup(currencyFormat.format(dealerMarkupPrice));
-			reportDO.setSpecialConsiderationDesc("None");
 			reportDO.setAmountDue(currencyFormat.format(coveragePrice));
 			//reportDO
 		}

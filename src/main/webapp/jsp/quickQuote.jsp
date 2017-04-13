@@ -101,7 +101,7 @@
                        </div>
                        <div class="form-group">
                          <label>Meter Hours</label>
-                         <input type="text" id="meterHours" name="meterHours" ng-model="quote.meterHours" placeholder="Meter Hours" class="form-control"  validate-on="dirty" required="required" ng-disabled="disabled">
+                         <input type="text" id="meterHours" name="meterHours" ng-model="quote.meterHours" placeholder="Meter Hours" class="form-control"  validate-on="dirty" required="required" ng-blur="changeExpirationDate()" ng-disabled="disabled">
                        </div>
                        <div class="form-group">
                          <label>Model Year</label>
@@ -164,7 +164,7 @@
                        <div class="form-group">
                          <label>Coverage Term</label>
                          <div ng-if="quote.program == null">
-						     <select name="coverageTerm" ng-model="quote.coverageTerm" class="form-control" ng-options="coverageTermVal for coverageTermVal in coverageTermList track by coverageTermVal"  validate-on="dirty" required="required" ng-disabled="disabled" ng-change="getCoveragePriceLevels('coverageTerm')">
+						     <select name="coverageTerm" ng-model="quote.coverageTerm" class="form-control" ng-options="coverageTermVal for coverageTermVal in coverageTermList track by coverageTermVal"  validate-on="dirty" required="required" ng-disabled="disabled" ng-change="getCoveragePriceLevels('coverageTerm'); changeExpirationDate()">
 	                         	<option value="">Select Coverage Term</option>
 							 </select>
 						</div>
@@ -175,7 +175,7 @@
                        <div class="form-group">
                          <label>Covered Hours</label>
                          <div ng-if="quote.program == null">
-						     <select name="coverageHours" ng-model="quote.coverageHours" class="form-control" ng-options="coverageLevelHour for coverageLevelHour in coverageLevelHoursList track by coverageLevelHour"  validate-on="dirty" required="required" ng-disabled="disabled" ng-change="getCoveragePriceLevels('coverageHours')">
+						     <select name="coverageHours" ng-model="quote.coverageHours" class="form-control" ng-options="coverageLevelHour for coverageLevelHour in coverageLevelHoursList track by coverageLevelHour"  validate-on="dirty" required="required" ng-disabled="disabled" ng-change="getCoveragePriceLevels('coverageHours'); changeExpirationDate()">
 	                         	<option value="">Select Covered Hours</option>
 							 </select>
 						</div>
@@ -186,7 +186,7 @@
                        <div class="form-group">
                          <label>Coverage Type</label>
                          <div ng-if="quote.program == null">
-						     <select name="coverageType" ng-model="quote.coverageType" class="form-control"  validate-on="dirty" required="required" ng-disabled="disabled" ng-change="changeQuoteBasePrice(quote.coverageType)">
+						     <select name="coverageType" ng-model="quote.coverageType" class="form-control"  validate-on="dirty" required="required" ng-disabled="disabled" ng-change="changeQuoteBasePrice(quote.coverageType); changeExpirationDate()">
 	                         	<option value="">Select Coverage Type</option>
 	                         	<option ng-repeat="ctype in quote.coverageTypeSet" value="{{ctype}}" ng-selected="{{quote.coverageType == ctype}}">
 	                         		{{(ctype == 'PH')?"Powertrain + Hydraulic":(ctype == 'PT')?"Powertrain":(ctype == 'PL')?"Powertrain + Hydraulic + Platform":""}}
@@ -539,15 +539,15 @@
 							  <c:if test="${user.roleDO.accountType eq 'admin'}">
 								  <div class="form-group">
 									<label>Admin Adjusted Price</label>
-									 <input type="text" id="adjustedBasePrice" name="adjustedBasePrice" ng-model="quote.adjustedBasePrice" class="form-control" ng-blur="updateAdjustedPrice(quote.adjustedBasePrice)" ng-disabled="disabled">
+									 <input type="number" id="adjustedBasePrice" name="adjustedBasePrice" ng-model="quote.adjustedBasePrice" class="form-control" ng-blur="updateAdjustedPrice(quote.adjustedBasePrice)" ng-disabled="disabled">
 								  </div>
 								  <div class="form-group">
 									<label>Admin Adjusted Coverage Term</label>
-									 <input type="text" id="adjustedcoverageTerm" name="adjustedcoverageTerm" ng-model="quote.adjustedcoverageTerm" class="form-control" ng-disabled="disabled" ng-blur="changeExpirationDate()">
+									 <input type="number" id="adjustedcoverageTerm" name="adjustedcoverageTerm" ng-model="quote.adjustedcoverageTerm" class="form-control" ng-disabled="disabled" ng-blur="changeExpirationDate()">
 								  </div>
 								  <div class="form-group">
 									<label>Admin Adjusted Coverage Hours</label>
-									 <input type="text" id="adjustedCoverageHours" name="adjustedCoverageHours" ng-model="quote.adjustedCoverageHours" class="form-control" ng-disabled="disabled" ng-blur="changeExpirationDate()">
+									 <input type="number" id="adjustedCoverageHours" name="adjustedCoverageHours" ng-model="quote.adjustedCoverageHours" class="form-control" ng-disabled="disabled" ng-blur="changeExpirationDate()">
 								  </div>
 								  <div class="form-group">
 			                         <label>Admin Adjusted Coverage Type</label>
@@ -601,7 +601,7 @@
 								</div>
 								<div class="form-group" ng-hide="!mandatoryFlag">
 									<label>Anticipated Expiration Hours</label>
-									<input type="text" id="expirationHours" name="expirationHours" ng-model="quote.expirationHours" class="form-control" ng-required="mandatoryFlag" ng-disabled="disabled">
+									<input type="number" id="expirationHours" name="expirationHours" ng-model="quote.expirationHours" class="form-control" ng-required="mandatoryFlag" ng-disabled="disabled">
 								</div>
 							  </c:if>
 							  <div class="form-group">

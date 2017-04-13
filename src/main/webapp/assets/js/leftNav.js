@@ -1798,25 +1798,25 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 		if($scope.machineCondition == "New"){
 			var manfCoverageTerm = 0;
 			if($scope.quote.coverageType == 'PT'){
-				manfCoverageTerm = $scope.quote.powerTrainMonths;
+				manfCoverageTerm = parseInt($scope.quote.powerTrainMonths);
 			}else if($scope.quote.coverageType == 'PH'){
-				manfCoverageTerm = $scope.quote.hydraulicsMonths;
+				manfCoverageTerm = parseInt($scope.quote.hydraulicsMonths);
 			}else if($scope.quote.coverageType == 'PL'){
-				manfCoverageTerm = $scope.quote.fullMachineMonths;
+				manfCoverageTerm = parseInt($scope.quote.fullMachineMonths);
 			}
-			var finalCoverageTerm = ($scope.quote.adjustedcoverageTerm - manfCoverageTerm);
+			var finalCoverageTerm = (parseInt($scope.quote.adjustedcoverageTerm) - manfCoverageTerm);
 			var expDate = $scope.quote.coverageEndDate;
 			expDate = new Date(new Date(expDate).setMonth(expDate.getMonth()+finalCoverageTerm));
 			$scope.quote.expirationDate = expDate;
-			$scope.quote.expirationHours = $scope.quote.adjustedCoverageHours;
+			$scope.quote.expirationHours = parseInt($scope.quote.adjustedCoverageHours);
 		}else{
 			var expDate = new Date();
 			if($scope.quote.inceptionDate != null){
 				expDate = $scope.quote.inceptionDate;
 			}
-			expDate = new Date(new Date(expDate).setMonth(expDate.getMonth()+$scope.quote.adjustedcoverageTerm));
+			expDate = new Date(new Date(expDate).setMonth(expDate.getMonth()+parseInt($scope.quote.adjustedcoverageTerm)));
 			$scope.quote.expirationDate = expDate;
-			$scope.quote.expirationHours = $scope.quote.meterHours + $scope.quote.adjustedCoverageHours;
+			$scope.quote.expirationHours = parseInt($scope.quote.meterHours) + parseInt($scope.quote.adjustedCoverageHours);
 		}
 	}
 	
@@ -2033,25 +2033,25 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 		if($scope.machineCondition == "New"){
 			var manfCoverageTerm = 0;
 			if($scope.quote.coverageType == 'PT'){
-				manfCoverageTerm = $scope.quote.powerTrainMonths;
+				manfCoverageTerm = parseInt($scope.quote.powerTrainMonths);
 			}else if($scope.quote.coverageType == 'PH'){
-				manfCoverageTerm = $scope.quote.hydraulicsMonths;
+				manfCoverageTerm = parseInt($scope.quote.hydraulicsMonths);
 			}else if($scope.quote.coverageType == 'PL'){
-				manfCoverageTerm = $scope.quote.fullMachineMonths;
+				manfCoverageTerm = parseInt($scope.quote.fullMachineMonths);
 			}
-			var finalCoverageTerm = ($scope.quote.adjustedcoverageTerm - manfCoverageTerm);
+			var finalCoverageTerm = (parseInt($scope.quote.adjustedcoverageTerm) - manfCoverageTerm);
 			var expDate = $scope.quote.coverageEndDate;
 			expDate = new Date(new Date(expDate).setMonth(expDate.getMonth()+finalCoverageTerm));
 			$scope.quote.contractExpirationDate = expDate;
-			$scope.quote.contractExpirationHours = $scope.quote.adjustedCoverageHours;
+			$scope.quote.contractExpirationHours = parseInt($scope.quote.adjustedCoverageHours);
 		}else{
 			var expDate = new Date();
 			if($scope.quote.contractInceptionDate != null){
 				expDate = $scope.quote.contractInceptionDate;
 			}
-			expDate = new Date(new Date(expDate).setMonth(expDate.getMonth()+$scope.quote.adjustedcoverageTerm));
+			expDate = new Date(new Date(expDate).setMonth(expDate.getMonth()+parseInt($scope.quote.adjustedcoverageTerm)));
 			$scope.quote.contractExpirationDate = expDate;
-			$scope.quote.contractExpirationHours = $scope.quote.meterHours + $scope.quote.adjustedCoverageHours;
+			$scope.quote.contractExpirationHours = parseInt($scope.quote.meterHours) + parseInt($scope.quote.adjustedCoverageHours);
 		}
 	}
 	

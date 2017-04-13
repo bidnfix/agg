@@ -328,7 +328,7 @@ public class EmailServiceImpl implements EmailService {
 		reportDO.setHydraulicHours(quoteDO.getHydraulicsHours());
 		reportDO.setFullMachineHours(quoteDO.getFullMachineHours());
 		reportDO.setFullMachineMonths(quoteDO.getFullMachineMonths());
-		reportDO.setWarrantyEndDate((quoteDO.getCoverageEndDate() != null)?dateFormat.format(quoteDO.getCoverageEndDate()):"");
+		reportDO.setWarrantyEndDate((quoteDO.getCoverageEndDate() != null)?dateFormat.format(quoteDO.getCoverageEndDate()):"Unknown");
 		reportDO.setLimitOfLiability(currencyFormat.format(quoteDO.getMachineInfoDO().getLol()));
 		reportDO.setPrice(currencyFormat.format((quoteDO.getQuoteBasePrice()+quoteDO.getDealerMarkupPrice())));
 		reportDO.setQuotePrice(currencyFormat.format(quoteDO.getQuoteBasePrice()));
