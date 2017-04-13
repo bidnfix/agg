@@ -308,7 +308,7 @@
                             <label>MFG End Date</label>
                             <p>{{quote.coverageEndDate |  date:"MM/dd/yyyy"}}</p>
                           </div>
-                          <div class="checkbox">
+                          <div class="checkbox" ng-if="quote.program == null">
                             <label>
                               <input type="checkbox" id="coverageExpired" name="coverageExpired"
 									 ng-model="quote.coverageExpired" value="true" ng-disabled="true"> Check here if the Manufacturer's Coverage has expired.
