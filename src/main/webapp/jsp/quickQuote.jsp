@@ -362,7 +362,22 @@
 	                         </label>
                             </div>
                           </div>
-
+                          <div class="form-group">
+							<label>Group Assignment</label>
+							<p>{{(quote.groupId > 0)?quote.groupId:"&nbsp;"}}</p>
+						  </div>
+						  <div class="form-group">
+							<label>Special Considerations</label>
+							<textarea class="form-control" placeholder="" ng-model="quote.specialConsiderations" ng-disabled="disabled"></textarea>
+						  </div>
+						  <div class="form-group">
+							<label>Conditions for Coverage</label>
+							<textarea class="form-control" placeholder="" ng-model="quote.condsForCoverage" ng-disabled="disabled"></textarea>
+						  </div>
+						  <div class="form-group">
+							<label>Deal History</label>
+							<textarea class="form-control" placeholder="" ng-model="quote.dealHistory"></textarea>
+						  </div>
                         </div>
 
 
@@ -646,22 +661,6 @@
 							  <div class="form-group">
 								<label>Last Update</label>
 								<p>{{quote.lastUpdate | date:'MM/dd/yyyy'}}</p>
-							  </div>
-							  <div class="form-group">
-								<label>Group Assignment</label>
-								<p>{{(quote.groupId > 0)?quote.groupId:"&nbsp;"}}</p>
-							  </div>
-							  <div class="form-group">
-								<label>Special Considerations</label>
-								<textarea class="form-control" placeholder="" ng-model="quote.specialConsiderations" ng-disabled="disabled"></textarea>
-							  </div>
-							  <div class="form-group">
-								<label>Conditions for Coverage</label>
-								<textarea class="form-control" placeholder="" ng-model="quote.condsForCoverage" ng-disabled="disabled"></textarea>
-							  </div>
-							  <div class="form-group">
-								<label>Deal History</label>
-								<textarea class="form-control" placeholder="" ng-model="quote.dealHistory"></textarea>
 							  </div>
 						</div>
                    </div>
