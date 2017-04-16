@@ -62,10 +62,11 @@
                     <div class="linto">
                     <span><center><strong>Our Core Values</strong></center></span>
                     	<ul>
-                        	<li class="animated fadeInLeftBig "><a href="#">Claims Paid Quickly</a></li>
-                            <li class="animated fadeInLeft"><a href="#">Ag Focused</a></li>
-                            <li class="animated fadeInLeftBig"><a href="#">Experience with Integrity</a></li>
-                            <li class="animated fadeInLeft"><a href="#">Fair and Flexible Terms</a></li>
+                        	<li class="animated fadeInLeftBig"><a href="/agg/claimPaidQuickly">Claims Paid Quickly</a></li>
+                            <li class="animated fadeInLeft"><a href="/agg/agFocused">Ag Focused</a></li>
+                            <li class="animated fadeInLeftBig"><a href="/agg/expWithIntegrity">Experience with Integrity</a></li>
+                            <li class="animated fadeInLeft"><a href="/agg/fairAndFlexTerms">Fair and Flexible Terms</a></li>
+
 
                         </ul>
                     </div><!--sub nav-->
