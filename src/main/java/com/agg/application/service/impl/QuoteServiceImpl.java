@@ -679,10 +679,12 @@ public class QuoteServiceImpl implements QuoteService {
 								manfCoverageTerm = quote.getMachineMonths();
 							}
 							int finalCoverageTerm = coverageTerm - manfCoverageTerm;
-							Calendar cal = Calendar.getInstance();
-							cal.setTime(quote.getManfEndDate());
-							cal.add(Calendar.MONTH, finalCoverageTerm);
-							reportDO.setExpirationDate(dateFormat.format(cal.getTime()));
+							if(quote.getManfEndDate() != null){
+								Calendar cal = Calendar.getInstance();
+								cal.setTime(quote.getManfEndDate());
+								cal.add(Calendar.MONTH, finalCoverageTerm);
+								reportDO.setExpirationDate(dateFormat.format(cal.getTime()));
+							}
 						}
 					}
 				}
@@ -935,10 +937,12 @@ public class QuoteServiceImpl implements QuoteService {
 							manfCoverageTerm = quote.getMachineMonths();
 						}
 						int finalCoverageTerm = coverageTerm - manfCoverageTerm;
-						Calendar cal = Calendar.getInstance();
-						cal.setTime(quote.getManfEndDate());
-						cal.add(Calendar.MONTH, finalCoverageTerm);
-						quoteDO.setExpirationDate(cal.getTime());
+						if(quote.getManfEndDate() != null){
+							Calendar cal = Calendar.getInstance();
+							cal.setTime(quote.getManfEndDate());
+							cal.add(Calendar.MONTH, finalCoverageTerm);
+							quoteDO.setExpirationDate(cal.getTime());
+						}
 					}
 				}
 				
@@ -1046,10 +1050,12 @@ public class QuoteServiceImpl implements QuoteService {
 								manfCoverageTerm = quote.getMachineMonths();
 							}
 							int finalCoverageTerm = coverageTerm - manfCoverageTerm;
-							Calendar cal = Calendar.getInstance();
-							cal.setTime(quote.getManfEndDate());
-							cal.add(Calendar.MONTH, finalCoverageTerm);
-							quoteDO.setExpirationDate(cal.getTime());
+							if(quote.getManfEndDate() != null){
+								Calendar cal = Calendar.getInstance();
+								cal.setTime(quote.getManfEndDate());
+								cal.add(Calendar.MONTH, finalCoverageTerm);
+								quoteDO.setExpirationDate(cal.getTime());
+							}
 						}
 					}
 				}
