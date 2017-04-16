@@ -33,7 +33,7 @@
       <a class="navbar-brand animated fadeInDownBig" href="/agg/home"><img src="/assets/images/logo.png" alt="vOne HTML5 template"></a> </div>
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav pull-right">
-        <li class="active"><a href="/agg/home">Home</a></li>
+        <li><a href="/agg/home">Home</a></li>
         <li><a href="/agg/register">Register</a></li>
         <li><a href="/agg/aboutRisk">About Risk</a></li>
         <li><a href="/agg/whoWeAre">Who We Are</a></li>
@@ -62,10 +62,10 @@
                     <div class="linto">
                     <span><center><strong>Our Core Values</strong></center></span>
                     	<ul>
-                        	<li class="animated fadeInLeftBig"><a href="/agg/claimPaidQuickly">Claims Paid Quickly</a></li>
-                            <li class="animated fadeInLeft"><a href="/agg/agFocused">Ag Focused</a></li>
-                            <li class="animated fadeInLeftBig"><a href="/agg/expWithIntegrity">Experience with Integrity</a></li>
-                            <li class="animated fadeInLeft"><a href="/agg/fairAndFlexTerms">Fair and Flexible Terms</a></li>
+                        	<li class="fadeInLeftBig"><a href="/agg/claimPaidQuickly">Claims Paid Quickly</a></li>
+                            <li class="fadeInLeft"><a href="/agg/agFocused" class="core-value-selected">Ag Focused</a></li>
+                            <li class="fadeInLeftBig"><a href="/agg/expWithIntegrity">Experience with Integrity</a></li>
+                            <li class="fadeInLeft"><a href="/agg/fairAndFlexTerms">Fair and Flexible Terms</a></li>
 
 
                         </ul>

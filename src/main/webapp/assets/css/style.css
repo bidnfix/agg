@@ -1230,3 +1230,9 @@ input[type=checkbox] {
     height: 500px;
     margin-top: 56px;
 }
+
+.core-value-selected {
+    background: #b8c159 none repeat scroll 0 0 !important;
+    color: #fff !important;
+    text-decoration: none !important;
+}
