@@ -1788,10 +1788,10 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
     		}
     	}
         
-        $scope.quote.inceptionDate = new Date();
+        /*$scope.quote.inceptionDate = new Date();
         if($scope.quote.status > 1 && $scope.quote.admin){
         	$scope.calExpirationDate();
-        }
+        }*/
     });
 	
 	$scope.calExpirationDate = function(){
@@ -1806,13 +1806,16 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 			}
 			var finalCoverageTerm = (parseInt($scope.quote.adjustedcoverageTerm) - manfCoverageTerm);
 			var expDate = $scope.quote.coverageEndDate;
-			expDate = new Date(new Date(expDate).setMonth(expDate.getMonth()+finalCoverageTerm));
+			if(expDate != null){
+				expDate = new Date($scope.quote.coverageEndDate);
+				expDate = new Date(new Date(expDate).setMonth(expDate.getMonth()+finalCoverageTerm));
+			}
 			$scope.quote.expirationDate = expDate;
 			$scope.quote.expirationHours = parseInt($scope.quote.adjustedCoverageHours);
 		}else{
 			var expDate = new Date();
 			if($scope.quote.inceptionDate != null){
-				expDate = $scope.quote.inceptionDate;
+				expDate = new Date($scope.quote.inceptionDate);
 			}
 			expDate = new Date(new Date(expDate).setMonth(expDate.getMonth()+parseInt($scope.quote.adjustedcoverageTerm)));
 			$scope.quote.expirationDate = expDate;
@@ -1831,9 +1834,9 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 			}else{
 				$scope.expirationFlag = true;
 			}
-			if($scope.quote.admin){
+			/*if($scope.quote.admin){
 				$scope.calExpirationDate();
-			}
+			}*/
 			
 		}
 	}
@@ -2041,13 +2044,17 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 			}
 			var finalCoverageTerm = (parseInt($scope.quote.adjustedcoverageTerm) - manfCoverageTerm);
 			var expDate = $scope.quote.coverageEndDate;
-			expDate = new Date(new Date(expDate).setMonth(expDate.getMonth()+finalCoverageTerm));
+			if(expDate != null){
+				expDate = new Date($scope.quote.coverageEndDate);
+				expDate = new Date(new Date(expDate).setMonth(expDate.getMonth()+finalCoverageTerm));
+			}
+			
 			$scope.quote.contractExpirationDate = expDate;
 			$scope.quote.contractExpirationHours = parseInt($scope.quote.adjustedCoverageHours);
 		}else{
 			var expDate = new Date();
 			if($scope.quote.contractInceptionDate != null){
-				expDate = $scope.quote.contractInceptionDate;
+				expDate = new Date($scope.quote.contractInceptionDate);
 			}
 			expDate = new Date(new Date(expDate).setMonth(expDate.getMonth()+parseInt($scope.quote.adjustedcoverageTerm)));
 			$scope.quote.contractExpirationDate = expDate;

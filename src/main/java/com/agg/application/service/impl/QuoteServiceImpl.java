@@ -914,6 +914,39 @@ public class QuoteServiceImpl implements QuoteService {
 				quoteDO.setAdjustedcoverageTerm(quote.getCoverageTerm());
 				quoteDO.setAdjustedCoverageHours(quote.getCoverageLevelHours());
 				quoteDO.setAdjustedCoverageType(quote.getCoverageType());
+				quoteDO.setInceptionDate(new Date());
+				
+				int coverageTerm = quote.getCoverageTerm();
+				int coverageHours = quote.getCoverageLevelHours();
+				
+				if(quote.getManfExpired() == 1){
+					Calendar cal = Calendar.getInstance();
+					cal.setTime(new Date());
+					cal.add(Calendar.MONTH, coverageTerm);
+					quoteDO.setExpirationDate(cal.getTime());
+				}else{
+					int manfCoverageTerm = 0;
+					if(quote.getCoverageType() != null){
+						if(quote.getCoverageType().equalsIgnoreCase("PT")){
+							manfCoverageTerm = quote.getPtMonths();
+						}else if(quote.getCoverageType().equalsIgnoreCase("PH")){
+							manfCoverageTerm = quote.getHMonths();
+						}else if(quote.getCoverageType().equalsIgnoreCase("PL")){
+							manfCoverageTerm = quote.getMachineMonths();
+						}
+						int finalCoverageTerm = coverageTerm - manfCoverageTerm;
+						Calendar cal = Calendar.getInstance();
+						cal.setTime(quote.getManfEndDate());
+						cal.add(Calendar.MONTH, finalCoverageTerm);
+						quoteDO.setExpirationDate(cal.getTime());
+					}
+				}
+				
+				if(quote.getManfExpired() == 1){
+					quoteDO.setExpirationHours(coverageHours+quote.getMachineMeterHours());
+				}else{
+					quoteDO.setExpirationHours(coverageHours);
+				}
 			}
 			quoteDO.setStatus(quote.getStatus());
 			quoteDO.setIsArchive(quote.getIsArchive());
@@ -972,11 +1005,70 @@ public class QuoteServiceImpl implements QuoteService {
 					}
 				}
 				
+				int coverageTerm = quote.getCoverageTerm();
+				int coverageHours = quote.getCoverageLevelHours();
+				
+				
+				if(adminAdjustment.getCoverageTerm() > 0){
+					coverageTerm = adminAdjustment.getCoverageTerm();
+				}
+				
+				if(adminAdjustment.getCoverageHours() > 0){
+					coverageHours = adminAdjustment.getCoverageHours();
+				}
+				
+				if(adminAdjustment.getInceptionDate() != null){
+					quoteDO.setInceptionDate(adminAdjustment.getInceptionDate());
+				}else{
+					quoteDO.setInceptionDate(new Date());
+				}
+				
+				if(adminAdjustment.getExpirationDate() != null){
+					quoteDO.setExpirationDate(adminAdjustment.getExpirationDate());
+				}else{
+					if(quote.getManfExpired() == 1){
+						Calendar cal = Calendar.getInstance();
+						if(adminAdjustment.getInceptionDate() != null){
+							cal.setTime(adminAdjustment.getInceptionDate());
+						}else{
+							cal.setTime(new Date());
+						}
+						cal.add(Calendar.MONTH, coverageTerm);
+						quoteDO.setExpirationDate(cal.getTime());
+					}else{
+						int manfCoverageTerm = 0;
+						if(quote.getCoverageType() != null){
+							if(quote.getCoverageType().equalsIgnoreCase("PT")){
+								manfCoverageTerm = quote.getPtMonths();
+							}else if(quote.getCoverageType().equalsIgnoreCase("PH")){
+								manfCoverageTerm = quote.getHMonths();
+							}else if(quote.getCoverageType().equalsIgnoreCase("PL")){
+								manfCoverageTerm = quote.getMachineMonths();
+							}
+							int finalCoverageTerm = coverageTerm - manfCoverageTerm;
+							Calendar cal = Calendar.getInstance();
+							cal.setTime(quote.getManfEndDate());
+							cal.add(Calendar.MONTH, finalCoverageTerm);
+							quoteDO.setExpirationDate(cal.getTime());
+						}
+					}
+				}
+				
+				if(adminAdjustment.getExpirationHours() > 0){
+					quoteDO.setExpirationHours(adminAdjustment.getExpirationHours());
+				}else{
+					if(quote.getManfExpired() == 1){
+						quoteDO.setExpirationHours(coverageHours+quote.getMachineMeterHours());
+					}else{
+						quoteDO.setExpirationHours(coverageHours);
+					}
+				}
+				
 				quoteDO.setSpecialConsiderations(adminAdjustment.getSpecialConsideration());
 				quoteDO.setCondsForCoverage(adminAdjustment.getCConditions());
-				quoteDO.setInceptionDate(adminAdjustment.getInceptionDate());
+				/*quoteDO.setInceptionDate(adminAdjustment.getInceptionDate());
 				quoteDO.setExpirationDate(adminAdjustment.getExpirationDate());
-				quoteDO.setExpirationHours(adminAdjustment.getExpirationHours());
+				quoteDO.setExpirationHours(adminAdjustment.getExpirationHours());*/
 				quoteDO.setDealHistory(adminAdjustment.getDealHistory());
 			}
 			

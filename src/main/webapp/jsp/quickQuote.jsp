@@ -246,6 +246,22 @@
                          </label>
                          </div>
                        </div>
+                       <div class="form-group">
+						<label>Group Assignment</label>
+						<p>{{(quote.groupId > 0)?quote.groupId:"&nbsp;"}}</p>
+					  </div>
+					  <div class="form-group">
+						<label>Special Considerations</label>
+						<textarea class="form-control" placeholder="" ng-model="quote.specialConsiderations" ng-disabled="disabled"></textarea>
+					  </div>
+					  <div class="form-group">
+						<label>Conditions for Coverage</label>
+						<textarea class="form-control" placeholder="" ng-model="quote.condsForCoverage" ng-disabled="disabled"></textarea>
+					  </div>
+					  <div class="form-group">
+						<label>Deal History</label>
+						<textarea class="form-control" placeholder="" ng-model="quote.dealHistory" ng-disabled="disabled"></textarea>
+					  </div>
 
                      </div>
                      
@@ -368,19 +384,17 @@
 						  </div>
 						  <div class="form-group">
 							<label>Special Considerations</label>
-							<textarea class="form-control" placeholder="" ng-model="quote.specialConsiderations" ng-disabled="disabled"></textarea>
+							<p>{{quote.specialConsiderations}}</p>
 						  </div>
 						  <div class="form-group">
 							<label>Conditions for Coverage</label>
-							<textarea class="form-control" placeholder="" ng-model="quote.condsForCoverage" ng-disabled="disabled"></textarea>
+							<p>{{quote.condsForCoverage}}</p>
 						  </div>
 						  <div class="form-group">
 							<label>Deal History</label>
-							<textarea class="form-control" placeholder="" ng-model="quote.dealHistory"></textarea>
+							<p>{{quote.dealHistory}}</p>
 						  </div>
                         </div>
-
-
 
                      <div class="col-md-6 no-pad pad10-left border-left">
                      <div class="col-xs-12 border-bottom pad10">
@@ -551,7 +565,8 @@
 								<label>Base Price</label>
 								<p>{{quote.quoteBasePriceToDisplay | currency:"$":0}}</p>
 							  </div>
-							  <c:if test="${user.roleDO.accountType eq 'admin'}">
+							  <c:choose>
+							  <c:when test="${user.roleDO.accountType eq 'admin'}">
 								  <div class="form-group">
 									<label>Admin Adjusted Price</label>
 									 <input type="number" id="adjustedBasePrice" name="adjustedBasePrice" ng-model="quote.adjustedBasePrice" class="form-control" ng-blur="updateAdjustedPrice(quote.adjustedBasePrice)" ng-disabled="disabled">
@@ -618,7 +633,40 @@
 									<label>Anticipated Expiration Hours</label>
 									<input type="number" id="expirationHours" name="expirationHours" ng-model="quote.expirationHours" class="form-control" ng-required="mandatoryFlag" ng-disabled="disabled">
 								</div>
-							  </c:if>
+							  </c:when>
+							  <c:otherwise>
+							  	<div ng-if="quote.status > 4">
+							  	  <div class="form-group">
+									<label>Admin Adjusted Price</label>
+									<p>{{quote.adjustedBasePrice | currency:"$":0}}</p>
+								  </div>
+								  <div class="form-group">
+									<label>Admin Adjusted Coverage Term</label>
+									<p>{{quote.adjustedcoverageTerm}}</p>
+								  </div>
+								  <div class="form-group">
+									<label>Admin Adjusted Coverage Hours</label>
+									<p>{{quote.adjustedCoverageHours}}</p>
+								  </div>
+								  <div class="form-group">
+			                         <label>Admin Adjusted Coverage Type</label>
+			                         <p>{{(quote.adjustedCoverageType === 'PT')?"Powertrain":(quote.adjustedCoverageType === 'PH')?"Powertrain + Hydraulic":(quote.adjustedCoverageType === 'PL')?"Powertrain + Hydraulic + Platform":""}}</p>
+			                      </div>
+								  <div class="form-group" ng-hide="!mandatoryFlag">
+									<label>Anticipated Inception Date</label>
+									<p>{{quote.inceptionDate | date:'MM/dd/yyyy'}}</p>
+								  </div>
+								  <div class="form-group" ng-hide="!mandatoryFlag">
+									<label>Anticipated Expiration Date</label>
+									<p>{{quote.expirationDate | date:'MM/dd/yyyy'}}</p>
+								  </div>
+								  <div class="form-group" ng-hide="!mandatoryFlag">
+									<label>Anticipated Expiration Hours</label>
+									<p>{{quote.expirationHours}}</p>
+								  </div>
+								</div>  
+							  </c:otherwise>
+							  </c:choose>
 							  <div class="form-group">
 								<label>Limit of Liability</label>
 								<p>{{quote.machineInfoDO.lolToDisplay | currency:"$":0}}</p>
