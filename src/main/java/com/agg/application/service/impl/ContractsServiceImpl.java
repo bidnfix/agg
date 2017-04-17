@@ -282,6 +282,8 @@ public class ContractsServiceImpl implements ContractsService{
 			contracts.setCheqNo(contractDO.getCheqNo());
 			contracts.setReceivedDate(contractDO.getReceivedDate());
 			
+			LOGGER.debug("InceptionDate: "+contractDO.getInceptionDate()+" ExpirationDate: "+contractDO.getExpirationDate()+" ReceivedDate: "+contractDO.getReceivedDate());
+			
 			contractDAO.save(contracts);
 			
 			cond = true;
