@@ -2129,7 +2129,7 @@ routingApp.controller('ContractsController', function($scope, $http, $timeout, $
     });
 })
 
-routingApp.controller('ContractDetailController', function($scope, $http, $timeout, $window, $routeParams, $filter, contractService) {
+routingApp.controller('ContractDetailController', function($scope, $http, $timeout, $window, $routeParams, contractService) {
 	$scope.contract = {};
 	
 	//datepicker changes
@@ -2174,12 +2174,6 @@ routingApp.controller('ContractDetailController', function($scope, $http, $timeo
         $scope.contract.inceptionDate = new Date($scope.contract.inceptionDate);
         $scope.contract.expirationDate = new Date($scope.contract.expirationDate);
     });
-	
-	$scope.convertToDate = function(dateObj, model){
-		 //$scope.contract[model] = new Date(dateObj);
-		 $scope.contract[model] = $filter('date')(new Date(dateObj), "yyyy-MM-dd");
-		 
-	}
 	
 	$scope.updateContract = function(contractInfoForm){
 		if(contractInfoForm.$valid){

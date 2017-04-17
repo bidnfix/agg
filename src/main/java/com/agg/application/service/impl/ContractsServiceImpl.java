@@ -143,13 +143,19 @@ public class ContractsServiceImpl implements ContractsService{
 			contractDO.setDeductible(item.getDeductible());
 			contractDO.setLol(item.getLol());
 			contractDO.setAvailabeLol(item.getAvailabeLol());
-			contractDO.setInceptionDate(item.getInceptionDate());
-			contractDO.setExpirationDate(item.getExpirationDate());
+			if(item.getInceptionDate() != null){
+				contractDO.setInceptionDate(new java.sql.Timestamp(item.getInceptionDate().getTime()));
+			}
+			if(item.getExpirationDate() != null){
+				contractDO.setExpirationDate(new java.sql.Timestamp(item.getExpirationDate().getTime()));
+			}
 			contractDO.setExpirationUsageHours(item.getExpirationUsageHours());
 			contractDO.setComments(item.getComments());
 			contractDO.setLastUpdatedDate(item.getLastUpdatedDate());
 			contractDO.setCheqNo(item.getCheqNo());
-			contractDO.setReceivedDate(item.getReceivedDate());
+			if(item.getReceivedDate() != null){
+				contractDO.setReceivedDate(new java.sql.Timestamp(item.getReceivedDate().getTime()));
+			}
 			
 			Quote quote = quoteDAO.findOne((int)item.getQuoteId());
 			if(null != quote){
