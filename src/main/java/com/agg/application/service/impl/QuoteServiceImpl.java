@@ -810,7 +810,9 @@ public class QuoteServiceImpl implements QuoteService {
 				quoteDO.setDealerDO(dealerDO);
 			}
 			quoteDO.setCoverageExpired((quote.getManfExpired() == 1)?true:false);
-			quoteDO.setCoverageEndDate(quote.getManfEndDate());
+			if(quote.getManfEndDate() != null){
+				quoteDO.setCoverageEndDate(new java.sql.Timestamp(quote.getManfEndDate().getTime()));
+			}
 			if(quote.getManfEndDate() != null){
 				quoteDO.setCoverageEndDateStr(dateFormat.format(quote.getManfEndDate()));
 			}
@@ -876,8 +878,9 @@ public class QuoteServiceImpl implements QuoteService {
 				
 				quoteDO.setUseOfEquipmentDO(useOfEquipmentDO);
 			}
-			
-			quoteDO.setEstSaleDate(quote.getMachineSaleDate());
+			if(quote.getMachineSaleDate() != null){
+				quoteDO.setEstSaleDate(new java.sql.Timestamp(quote.getMachineSaleDate().getTime()));
+			}
 			if(quote.getMachineSaleDate() != null){
 				quoteDO.setEstSaleDateStr(dateFormat.format(quote.getMachineSaleDate()));
 			}
@@ -916,7 +919,7 @@ public class QuoteServiceImpl implements QuoteService {
 				quoteDO.setAdjustedcoverageTerm(quote.getCoverageTerm());
 				quoteDO.setAdjustedCoverageHours(quote.getCoverageLevelHours());
 				quoteDO.setAdjustedCoverageType(quote.getCoverageType());
-				quoteDO.setInceptionDate(new Date());
+				quoteDO.setInceptionDate(new java.sql.Timestamp(new Date().getTime()));
 				
 				int coverageTerm = quote.getCoverageTerm();
 				int coverageHours = quote.getCoverageLevelHours();
@@ -925,7 +928,7 @@ public class QuoteServiceImpl implements QuoteService {
 					Calendar cal = Calendar.getInstance();
 					cal.setTime(new Date());
 					cal.add(Calendar.MONTH, coverageTerm);
-					quoteDO.setExpirationDate(cal.getTime());
+					quoteDO.setExpirationDate(new java.sql.Timestamp(cal.getTime().getTime()));
 				}else{
 					int manfCoverageTerm = 0;
 					if(quote.getCoverageType() != null){
@@ -941,7 +944,7 @@ public class QuoteServiceImpl implements QuoteService {
 							Calendar cal = Calendar.getInstance();
 							cal.setTime(quote.getManfEndDate());
 							cal.add(Calendar.MONTH, finalCoverageTerm);
-							quoteDO.setExpirationDate(cal.getTime());
+							quoteDO.setExpirationDate(new java.sql.Timestamp(cal.getTime().getTime()));
 						}
 					}
 				}
@@ -1022,13 +1025,13 @@ public class QuoteServiceImpl implements QuoteService {
 				}
 				
 				if(adminAdjustment.getInceptionDate() != null){
-					quoteDO.setInceptionDate(adminAdjustment.getInceptionDate());
+					quoteDO.setInceptionDate(new java.sql.Timestamp(adminAdjustment.getInceptionDate().getTime()));
 				}else{
-					quoteDO.setInceptionDate(new Date());
+					quoteDO.setInceptionDate(new java.sql.Timestamp(new Date().getTime()));
 				}
 				
 				if(adminAdjustment.getExpirationDate() != null){
-					quoteDO.setExpirationDate(adminAdjustment.getExpirationDate());
+					quoteDO.setExpirationDate(new java.sql.Timestamp(adminAdjustment.getExpirationDate().getTime()));
 				}else{
 					if(quote.getManfExpired() == 1){
 						Calendar cal = Calendar.getInstance();
@@ -1038,7 +1041,7 @@ public class QuoteServiceImpl implements QuoteService {
 							cal.setTime(new Date());
 						}
 						cal.add(Calendar.MONTH, coverageTerm);
-						quoteDO.setExpirationDate(cal.getTime());
+						quoteDO.setExpirationDate(new java.sql.Timestamp(cal.getTime().getTime()));
 					}else{
 						int manfCoverageTerm = 0;
 						if(quote.getCoverageType() != null){
@@ -1054,7 +1057,7 @@ public class QuoteServiceImpl implements QuoteService {
 								Calendar cal = Calendar.getInstance();
 								cal.setTime(quote.getManfEndDate());
 								cal.add(Calendar.MONTH, finalCoverageTerm);
-								quoteDO.setExpirationDate(cal.getTime());
+								quoteDO.setExpirationDate(new java.sql.Timestamp(cal.getTime().getTime()));
 							}
 						}
 					}
