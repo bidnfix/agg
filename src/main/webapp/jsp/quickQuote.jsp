@@ -596,7 +596,6 @@
 						                   datepicker-options="dateOptions" 
 						                   is-open="inceptionDatePickerIsOpen" 
 						                   ng-click="inceptionDatePickerOpen()"
-						                   min-date="date"
 						                   ng-model="quote.inceptionDate"
 						                   ng-blur="calExpirationDate()" 
 						                   ng-required="mandatoryFlag"
