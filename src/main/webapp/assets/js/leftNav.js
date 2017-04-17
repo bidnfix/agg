@@ -1792,6 +1792,14 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
         if($scope.quote.status > 1 && $scope.quote.admin){
         	$scope.calExpirationDate();
         }*/
+        
+        if($scope.quote.inceptionDate != null){
+        	$scope.quote.inceptionDate = new Date($scope.quote.inceptionDate);
+        }
+        
+        if($scope.quote.expirationDate != null){
+        	$scope.quote.expirationDate = new Date($scope.quote.expirationDate);
+        }
     });
 	
 	$scope.calExpirationDate = function(){
