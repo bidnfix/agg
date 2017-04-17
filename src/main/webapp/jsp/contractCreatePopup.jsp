@@ -22,7 +22,6 @@
 		                   datepicker-options="dateOptions" 
 		                   is-open="contractInceptionDatePickerIsOpen" 
 		                   ng-click="contractInceptionDatePickerOpen()"
-		                   min-date="date"
 		                   ng-model="quote.contractInceptionDate"
 		                   ng-blur="updateContractExpirationDate()" 
 		                   required="required"/>
@@ -45,7 +44,6 @@
 		                   datepicker-options="dateOptions" 
 		                   is-open="contractExpirationDatePickerIsOpen" 
 		                   ng-click="contractExpirationDatePickerOpen()"
-		                   min-date="date"
 		                   ng-model="quote.contractExpirationDate"
 		                   required="required"/>
 			            <span class="input-group-btn">

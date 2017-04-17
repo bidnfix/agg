@@ -616,7 +616,6 @@
 						                   datepicker-options="dateOptions" 
 						                   is-open="expirationDatePickerIsOpen" 
 						                   ng-click="expirationDatePickerOpen()"
-						                   min-date="date"
 						                   ng-model="quote.expirationDate"
 						                   ng-required="mandatoryFlag"
 						                   ng-disabled="disabled"/>
