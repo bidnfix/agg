@@ -46,6 +46,7 @@
 			                   is-open="inceptionDatePickerIsOpen" 
 			                   ng-click="inceptionDatePickerOpen()"
 			                   ng-model="contract.inceptionDate"
+			                   ng-change="convertToDate(contract.inceptionDate, 'inceptionDate')"
 			                   validate-on="dirty"
 			                   required="required"/>
 				            <span class="input-group-btn">
@@ -69,6 +70,7 @@
 			                   is-open="expirationDatePickerIsOpen" 
 			                   ng-click="expirationDatePickerOpen()"
 			                   ng-model="contract.expirationDate"
+			                   ng-change="convertToDate(contract.expirationDate, 'expirationDate')"
 			                   validate-on="dirty"
 			                   required="required"/>
 				            <span class="input-group-btn">
@@ -96,7 +98,9 @@
 			                   datepicker-options="dateOptions" 
 			                   is-open="receivedDatePickerIsOpen" 
 			                   ng-click="receivedDatePickerOpen()"
-			                   ng-model="contract.receivedDate"/>
+			                   ng-model="contract.receivedDate"
+			                   ng-change="convertToDate(contract.receivedDate, 'receivedDate')"
+			                   />
 				            <span class="input-group-btn">
 				              <button type="button" class="btn btn-default" 
 				                      ng-click="receivedDatePickerOpen($event)">

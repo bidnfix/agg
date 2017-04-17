@@ -2175,6 +2175,10 @@ routingApp.controller('ContractDetailController', function($scope, $http, $timeo
         $scope.contract.expirationDate = new Date($scope.contract.expirationDate);
     });
 	
+	$scope.convertToDate = function(date, model){
+		 $scope.contract[model] = new Date(date);
+	}
+	
 	$scope.updateContract = function(contractInfoForm){
 		if(contractInfoForm.$valid){
 			contractService.updateContract($scope.contract);
