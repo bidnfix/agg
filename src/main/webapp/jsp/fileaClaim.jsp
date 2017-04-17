@@ -46,7 +46,7 @@
 			                <td>{{contract.machineSerialNo}}</td>
 			                <td>{{contract.manfactureName}}</td>
 			                <td>{{contract.machineModel}}</td>
-			                <td>{{contract.expirationDate}}</td>
+			                <td>{{contract.expirationDate | date:'MM/dd/yyyy'}}</td>
 			                <td>{{contract.usageHoursCovered}}</td>
 			                <td>{{contract.lol}}</td>
 			                <td>{{contract.availableLol}}</td>
