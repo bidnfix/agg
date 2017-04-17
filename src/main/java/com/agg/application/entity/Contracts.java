@@ -4,6 +4,7 @@
 package com.agg.application.entity;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -61,13 +62,13 @@ public class Contracts implements Serializable{
 	@Column(name="availabe_lol")
 	private double availabeLol;
 	
-	@Temporal(TemporalType.DATE)
+	//@Temporal(TemporalType.DATE)
 	@Column(name="inception_date")
-	private Date inceptionDate;
+	private Timestamp inceptionDate;
 	
-	@Temporal(TemporalType.DATE)
+	//@Temporal(TemporalType.DATE)
 	@Column(name="expiration_date")
-	private Date expirationDate;
+	private Timestamp expirationDate;
 	
 	@Column(name="expiration_usage_hours")
 	private int expirationUsageHours;
@@ -82,9 +83,9 @@ public class Contracts implements Serializable{
 	@Column(name="cheq_no")
 	private String cheqNo;
 	
-	@Temporal(TemporalType.DATE)
+	//@Temporal(TemporalType.DATE)
 	@Column(name="received_date")
-	private Date receivedDate;
+	private Timestamp receivedDate;
 	
 	/**
 	 * 
@@ -246,31 +247,19 @@ public class Contracts implements Serializable{
 		this.availabeLol = availabeLol;
 	}
 
-	/**
-	 * @return the inceptionDate
-	 */
-	public Date getInceptionDate() {
+	public Timestamp getInceptionDate() {
 		return inceptionDate;
 	}
 
-	/**
-	 * @param inceptionDate the inceptionDate to set
-	 */
-	public void setInceptionDate(Date inceptionDate) {
+	public void setInceptionDate(Timestamp inceptionDate) {
 		this.inceptionDate = inceptionDate;
 	}
 
-	/**
-	 * @return the expirationDate
-	 */
-	public Date getExpirationDate() {
+	public Timestamp getExpirationDate() {
 		return expirationDate;
 	}
 
-	/**
-	 * @param expirationDate the expirationDate to set
-	 */
-	public void setExpirationDate(Date expirationDate) {
+	public void setExpirationDate(Timestamp expirationDate) {
 		this.expirationDate = expirationDate;
 	}
 
@@ -330,18 +319,12 @@ public class Contracts implements Serializable{
 		this.cheqNo = cheqNo;
 	}
 
-	/**
-	 * @return the receivedDate
-	 */
-	public Date getReceivedDate() {
+	public Timestamp getReceivedDate() {
 		return receivedDate;
 	}
 
-	/**
-	 * @param receivedDate the receivedDate to set
-	 */
-	public void setReceivedDate(Date receivedDate) {
+	public void setReceivedDate(Timestamp receivedDate) {
 		this.receivedDate = receivedDate;
 	}
-	
+
 }
