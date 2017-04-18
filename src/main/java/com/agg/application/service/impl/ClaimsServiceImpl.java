@@ -581,7 +581,9 @@ public class ClaimsServiceImpl implements ClaimsService {
 					contractDO.setCoverageTermMonths(con.getCoverageTermMonths());
 					contractDO.setExpirationUsageHours(con.getExpirationUsageHours());
 					contractDO.setCoverageLevelHours(con.getCoverageLevelHours());
-					contractDO.setExpirationDate(con.getExpirationDate());
+					if(con.getExpirationDate() != null){
+						contractDO.setExpirationDate(new java.sql.Timestamp(con.getExpirationDate().getTime()));
+					}
 					contractDO.setMachineModel(quote.getMachineInfo().getModel());
 					contractDO.setMachineSerialNo(con.getMachineSerialNo());
 					contractDO.setCoverageType(con.getCoverageType());

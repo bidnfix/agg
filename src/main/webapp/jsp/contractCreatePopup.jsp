@@ -20,15 +20,14 @@
 						<input type="text" class="form-control" 
 		                   datepicker-popup="MM/dd/yyyy"
 		                   datepicker-options="dateOptions" 
-		                   is-open="inceptionDatePickerIsOpen" 
-		                   ng-click="inceptionDatePickerOpen()"
-		                   min-date="date"
-		                   ng-model="quote.inceptionDate"
-		                   ng-blur="updateExpirationDate()" 
+		                   is-open="contractInceptionDatePickerIsOpen" 
+		                   ng-click="contractInceptionDatePickerOpen()"
+		                   ng-model="quote.contractInceptionDate"
+		                   ng-blur="updateContractExpirationDate()" 
 		                   required="required"/>
 			            <span class="input-group-btn">
 			              <button type="button" class="btn btn-default" 
-			                      ng-click="inceptionDatePickerOpen($event)">
+			                      ng-click="contractInceptionDatePickerOpen($event)">
 			                <i class="glyphicon glyphicon-calendar"></i>
 			              </button>
 			            </span>
@@ -43,14 +42,13 @@
 						<input type="text" class="form-control" 
 		                   datepicker-popup="MM/dd/yyyy"
 		                   datepicker-options="dateOptions" 
-		                   is-open="expirationDatePickerIsOpen" 
-		                   ng-click="expirationDatePickerOpen()"
-		                   min-date="date"
-		                   ng-model="quote.expirationDate"
+		                   is-open="contractExpirationDatePickerIsOpen" 
+		                   ng-click="contractExpirationDatePickerOpen()"
+		                   ng-model="quote.contractExpirationDate"
 		                   required="required"/>
 			            <span class="input-group-btn">
 			              <button type="button" class="btn btn-default" 
-			                      ng-click="expirationDatePickerOpen($event)">
+			                      ng-click="contractExpirationDatePickerOpen($event)">
 			                <i class="glyphicon glyphicon-calendar"></i>
 			              </button>
 			            </span>
@@ -60,7 +58,7 @@
 			<div class="form-group">
 				<label for="address1" class="col-sm-3 control-label">Expiration Hours</label>
 				<div class="col-sm-9">
-					<input type="text" id="expirationHours" name="expirationHours" ng-model="quote.expirationHours" class="form-control" required="required">
+					<input type="text" id="contractExpirationHours" name="contractExpirationHours" ng-model="quote.contractExpirationHours" class="form-control" required="required">
 				</div>
 			</div>
 			<div class="form-group">

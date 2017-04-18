@@ -439,7 +439,12 @@ public class QuoteController extends BaseController {
 		}else{
 			logger.info("quoteId: "+quoteDO.getQuoteId()+" and id: "+quoteDO.getId());
 			
-			boolean isQuoteUpdated = quoteService.updateQuote(quoteDO);
+			StringBuffer url = request.getRequestURL();
+			String uri = request.getRequestURI();
+			String appUrl = url.substring(0, url.length() - uri.length());
+			logger.info("appUrl: "+appUrl);
+			
+			boolean isQuoteUpdated = quoteService.updateQuote(quoteDO, getAccountDetails(request), appUrl);
 			logger.info("isQuoteUpdated: "+isQuoteUpdated);
 			
 			if(isQuoteUpdated){

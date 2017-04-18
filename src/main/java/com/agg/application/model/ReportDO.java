@@ -75,6 +75,12 @@ public class ReportDO {
 	private String amountDue;
 	
 	private String dealerAddress;
+	
+	private String inceptionDate;
+	
+	private String expirationDate;
+	
+	private int expirationHours;
 
 	/**
 	 * @return the dealerName
@@ -580,6 +586,30 @@ public class ReportDO {
 
 	public void setDealerAddress(String dealerAddress) {
 		this.dealerAddress = dealerAddress;
+	}
+
+	public String getInceptionDate() {
+		return inceptionDate;
+	}
+
+	public void setInceptionDate(String inceptionDate) {
+		this.inceptionDate = inceptionDate;
+	}
+
+	public String getExpirationDate() {
+		return expirationDate;
+	}
+
+	public void setExpirationDate(String expirationDate) {
+		this.expirationDate = expirationDate;
+	}
+
+	public int getExpirationHours() {
+		return expirationHours;
+	}
+
+	public void setExpirationHours(int expirationHours) {
+		this.expirationHours = expirationHours;
 	}
 	
 }

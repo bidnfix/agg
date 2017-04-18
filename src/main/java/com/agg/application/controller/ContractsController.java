@@ -74,8 +74,8 @@ public class ContractsController extends BaseController{
 			cal.set(Calendar.DAY_OF_MONTH, cal.get(Calendar.DAY_OF_MONTH)+6);
 			Date expirationDate = cal.getTime();
 			
-			contractDO.setInceptionDate(inceptionDate);
-			contractDO.setExpirationDate(expirationDate);
+			contractDO.setInceptionDate(new java.sql.Timestamp(inceptionDate.getTime()));
+			contractDO.setExpirationDate(new java.sql.Timestamp(expirationDate.getTime()));
 			contractDO.setLastUpdatedDate(new Date());
 			
 			long contractID = contractService.saveContract(contractDO);

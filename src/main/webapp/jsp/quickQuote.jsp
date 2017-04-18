@@ -101,7 +101,7 @@
                        </div>
                        <div class="form-group">
                          <label>Meter Hours</label>
-                         <input type="text" id="meterHours" name="meterHours" ng-model="quote.meterHours" placeholder="Meter Hours" class="form-control"  validate-on="dirty" required="required" ng-disabled="disabled">
+                         <input type="text" id="meterHours" name="meterHours" ng-model="quote.meterHours" placeholder="Meter Hours" class="form-control"  validate-on="dirty" required="required" ng-blur="changeExpirationDate()" ng-disabled="disabled">
                        </div>
                        <div class="form-group">
                          <label>Model Year</label>
@@ -129,6 +129,7 @@
 					                   datepicker-options="dateOptions" 
 					                   is-open="valuationDatePickerIsOpen" 
 					                   ng-click="valuationDatePickerOpen()"
+					                   ng-change="changeExpirationDate()"
 					                   ng-model="quote.coverageEndDate" 
 					                   ng-required="expirationFlag"/>
 								<span class="input-group-btn">
@@ -139,7 +140,7 @@
 					            </span>
 					      </div>
                        </div>
-                       <div class="checkbox">
+                       <div class="checkbox" ng-if="quote.program == null">
                          <label>
                            <input type="checkbox" id="coverageExpired" name="coverageExpired" ng-model="quote.coverageExpired" ng-disabled="disabled" ng-change="getCoverageDetails(quote.machineInfoDO)"> Check here if the Manufacturer's Coverage has expired.
                          </label>
@@ -163,7 +164,7 @@
                        <div class="form-group">
                          <label>Coverage Term</label>
                          <div ng-if="quote.program == null">
-						     <select name="coverageTerm" ng-model="quote.coverageTerm" class="form-control" ng-options="coverageTermVal for coverageTermVal in coverageTermList track by coverageTermVal"  validate-on="dirty" required="required" ng-disabled="disabled" ng-change="getCoveragePriceLevels('coverageTerm')">
+						     <select name="coverageTerm" ng-model="quote.coverageTerm" class="form-control" ng-options="coverageTermVal for coverageTermVal in coverageTermList track by coverageTermVal"  validate-on="dirty" required="required" ng-disabled="disabled" ng-change="getCoveragePriceLevels('coverageTerm'); changeExpirationDate()">
 	                         	<option value="">Select Coverage Term</option>
 							 </select>
 						</div>
@@ -174,7 +175,7 @@
                        <div class="form-group">
                          <label>Covered Hours</label>
                          <div ng-if="quote.program == null">
-						     <select name="coverageHours" ng-model="quote.coverageHours" class="form-control" ng-options="coverageLevelHour for coverageLevelHour in coverageLevelHoursList track by coverageLevelHour"  validate-on="dirty" required="required" ng-disabled="disabled" ng-change="getCoveragePriceLevels('coverageHours')">
+						     <select name="coverageHours" ng-model="quote.coverageHours" class="form-control" ng-options="coverageLevelHour for coverageLevelHour in coverageLevelHoursList track by coverageLevelHour"  validate-on="dirty" required="required" ng-disabled="disabled" ng-change="getCoveragePriceLevels('coverageHours'); changeExpirationDate()">
 	                         	<option value="">Select Covered Hours</option>
 							 </select>
 						</div>
@@ -185,7 +186,7 @@
                        <div class="form-group">
                          <label>Coverage Type</label>
                          <div ng-if="quote.program == null">
-						     <select name="coverageType" ng-model="quote.coverageType" class="form-control"  validate-on="dirty" required="required" ng-disabled="disabled" ng-change="changeQuoteBasePrice(quote.coverageType)">
+						     <select name="coverageType" ng-model="quote.coverageType" class="form-control"  validate-on="dirty" required="required" ng-disabled="disabled" ng-change="changeQuoteBasePrice(quote.coverageType); changeExpirationDate()">
 	                         	<option value="">Select Coverage Type</option>
 	                         	<option ng-repeat="ctype in quote.coverageTypeSet" value="{{ctype}}" ng-selected="{{quote.coverageType == ctype}}">
 	                         		{{(ctype == 'PH')?"Powertrain + Hydraulic":(ctype == 'PT')?"Powertrain":(ctype == 'PL')?"Powertrain + Hydraulic + Platform":""}}
@@ -245,6 +246,22 @@
                          </label>
                          </div>
                        </div>
+                       <div class="form-group">
+						<label>Group Assignment</label>
+						<p>{{(quote.groupId > 0)?quote.groupId:"&nbsp;"}}</p>
+					  </div>
+					  <div class="form-group">
+						<label>Special Considerations</label>
+						<textarea class="form-control" placeholder="" ng-model="quote.specialConsiderations" ng-disabled="disabled"></textarea>
+					  </div>
+					  <div class="form-group">
+						<label>Conditions for Coverage</label>
+						<textarea class="form-control" placeholder="" ng-model="quote.condsForCoverage" ng-disabled="disabled"></textarea>
+					  </div>
+					  <div class="form-group">
+						<label>Deal History</label>
+						<textarea class="form-control" placeholder="" ng-model="quote.dealHistory" ng-disabled="disabled"></textarea>
+					  </div>
 
                      </div>
                      
@@ -307,7 +324,7 @@
                             <label>MFG End Date</label>
                             <p>{{quote.coverageEndDate |  date:"MM/dd/yyyy"}}</p>
                           </div>
-                          <div class="checkbox">
+                          <div class="checkbox" ng-if="quote.program == null">
                             <label>
                               <input type="checkbox" id="coverageExpired" name="coverageExpired"
 									 ng-model="quote.coverageExpired" value="true" ng-disabled="true"> Check here if the Manufacturer's Coverage has expired.
@@ -361,10 +378,23 @@
 	                         </label>
                             </div>
                           </div>
-
+                          <div class="form-group">
+							<label>Group Assignment</label>
+							<p>{{(quote.groupId > 0)?quote.groupId:"&nbsp;"}}</p>
+						  </div>
+						  <div class="form-group">
+							<label>Special Considerations</label>
+							<p>{{quote.specialConsiderations}}</p>
+						  </div>
+						  <div class="form-group">
+							<label>Conditions for Coverage</label>
+							<p>{{quote.condsForCoverage}}</p>
+						  </div>
+						  <div class="form-group">
+							<label>Deal History</label>
+							<p>{{quote.dealHistory}}</p>
+						  </div>
                         </div>
-
-
 
                      <div class="col-md-6 no-pad pad10-left border-left">
                      <div class="col-xs-12 border-bottom pad10">
@@ -535,12 +565,106 @@
 								<label>Base Price</label>
 								<p>{{quote.quoteBasePriceToDisplay | currency:"$":0}}</p>
 							  </div>
-							  <c:if test="${user.roleDO.accountType eq 'admin'}">
+							  <c:choose>
+							  <c:when test="${user.roleDO.accountType eq 'admin'}">
 								  <div class="form-group">
 									<label>Admin Adjusted Price</label>
-									 <input type="text" id="adjustedBasePrice" name="adjustedBasePrice" ng-model="quote.adjustedBasePrice" class="form-control" ng-blur="updateAdjustedPrice(quote.adjustedBasePrice)" ng-disabled="disabled">
+									 <input type="number" id="adjustedBasePrice" name="adjustedBasePrice" ng-model="quote.adjustedBasePrice" class="form-control" ng-blur="updateAdjustedPrice(quote.adjustedBasePrice)" ng-disabled="disabled">
 								  </div>
-							  </c:if>
+								  <div class="form-group">
+									<label>Admin Adjusted Coverage Term</label>
+									 <input type="number" id="adjustedcoverageTerm" name="adjustedcoverageTerm" ng-model="quote.adjustedcoverageTerm" class="form-control" ng-disabled="disabled" ng-blur="changeExpirationDate()">
+								  </div>
+								  <div class="form-group">
+									<label>Admin Adjusted Coverage Hours</label>
+									 <input type="number" id="adjustedCoverageHours" name="adjustedCoverageHours" ng-model="quote.adjustedCoverageHours" class="form-control" ng-disabled="disabled" ng-blur="changeExpirationDate()">
+								  </div>
+								  <div class="form-group">
+			                         <label>Admin Adjusted Coverage Type</label>
+								     <select name="adjustedCoverageType" ng-model="quote.adjustedCoverageType" class="form-control"  ng-disabled="disabled">
+			                         	<option value="">Select Coverage Type</option>
+			                         	<option value="PT">Powertrain</option>
+						                <option value="PH">Powertrain + Hydraulic</option>
+						                <option value="PL">Powertrain + Hydraulic + Platform</option>
+									 </select>
+			                      </div>
+								  <div class="form-group" ng-hide="!mandatoryFlag">
+									<label>Anticipated Inception Date</label>
+									<div class="input-group">
+										<input type="text" class="form-control" 
+						                   datepicker-popup="MM/dd/yyyy"
+						                   datepicker-options="dateOptions" 
+						                   is-open="inceptionDatePickerIsOpen" 
+						                   ng-click="inceptionDatePickerOpen()"
+						                   ng-model="quote.inceptionDate"
+						                   ng-blur="calExpirationDate()" 
+						                   ng-required="mandatoryFlag"
+						                   ng-disabled="disabled"/>
+							            <span class="input-group-btn">
+							              <button type="button" class="btn btn-default" 
+							                      ng-click="inceptionDatePickerOpen($event)" ng-disabled="disabled">
+							                <i class="glyphicon glyphicon-calendar"></i>
+							              </button>
+							            </span>
+						            </div>
+								</div>
+								<div class="form-group" ng-hide="!mandatoryFlag">
+									<label>Anticipated Expiration Date</label>
+									<div class="input-group">
+										<input type="text" class="form-control" 
+						                   datepicker-popup="MM/dd/yyyy"
+						                   datepicker-options="dateOptions" 
+						                   is-open="expirationDatePickerIsOpen" 
+						                   ng-click="expirationDatePickerOpen()"
+						                   ng-model="quote.expirationDate"
+						                   ng-required="mandatoryFlag"
+						                   ng-disabled="disabled"/>
+							            <span class="input-group-btn">
+							              <button type="button" class="btn btn-default" 
+							                      ng-click="expirationDatePickerOpen($event)" ng-disabled="disabled">
+							                <i class="glyphicon glyphicon-calendar"></i>
+							              </button>
+							            </span>
+						            </div>
+								</div>
+								<div class="form-group" ng-hide="!mandatoryFlag">
+									<label>Anticipated Expiration Hours</label>
+									<input type="number" id="expirationHours" name="expirationHours" ng-model="quote.expirationHours" class="form-control" ng-required="mandatoryFlag" ng-disabled="disabled">
+								</div>
+							  </c:when>
+							  <c:otherwise>
+							  	<div ng-if="quote.status > 4">
+							  	  <div class="form-group">
+									<label>Admin Adjusted Price</label>
+									<p>{{quote.adjustedBasePrice | currency:"$":0}}</p>
+								  </div>
+								  <div class="form-group">
+									<label>Admin Adjusted Coverage Term</label>
+									<p>{{quote.adjustedcoverageTerm}}</p>
+								  </div>
+								  <div class="form-group">
+									<label>Admin Adjusted Coverage Hours</label>
+									<p>{{quote.adjustedCoverageHours}}</p>
+								  </div>
+								  <div class="form-group">
+			                         <label>Admin Adjusted Coverage Type</label>
+			                         <p>{{(quote.adjustedCoverageType === 'PT')?"Powertrain":(quote.adjustedCoverageType === 'PH')?"Powertrain + Hydraulic":(quote.adjustedCoverageType === 'PL')?"Powertrain + Hydraulic + Platform":""}}</p>
+			                      </div>
+								  <div class="form-group" ng-hide="!mandatoryFlag">
+									<label>Anticipated Inception Date</label>
+									<p>{{quote.inceptionDate | date:'MM/dd/yyyy'}}</p>
+								  </div>
+								  <div class="form-group" ng-hide="!mandatoryFlag">
+									<label>Anticipated Expiration Date</label>
+									<p>{{quote.expirationDate | date:'MM/dd/yyyy'}}</p>
+								  </div>
+								  <div class="form-group" ng-hide="!mandatoryFlag">
+									<label>Anticipated Expiration Hours</label>
+									<p>{{quote.expirationHours}}</p>
+								  </div>
+								</div>  
+							  </c:otherwise>
+							  </c:choose>
 							  <div class="form-group">
 								<label>Limit of Liability</label>
 								<p>{{quote.machineInfoDO.lolToDisplay | currency:"$":0}}</p>
@@ -555,12 +679,17 @@
 								<label>Current Status</label>
 								<c:choose>
 								 	<c:when test="${user.roleDO.accountType eq 'admin'}">
-								        <select class="form-control" name="status" ng-model="quote.status" convert-to-number id="status"  validate-on="dirty" required="required" ng-disabled="disabled" ng-change="changeMandatoryFlg(quote.status)">
-										  <option value="1">Estimating Price</option>
-										  <option value="4">Purchase Requested</option>
-										  <!-- <option value="5">Invoiced</option> -->
-										  <!-- <option value="6">Closed</option> -->
-										</select>
+								 		<div ng-hide="quote.status===6">
+									        <select class="form-control" name="status" ng-model="quote.status" convert-to-number id="status"  validate-on="dirty" required="required" ng-disabled="disabled" ng-change="changeMandatoryFlg(quote.status)">
+											  <option value="1">Estimating Price</option>
+											  <option value="4">Purchase Requested</option>
+											  <option value="5">Invoiced</option>
+											  <!-- <option value="6">Closed</option> -->
+											</select>
+										</div>
+										<div ng-hide="quote.status<6">
+											<p>{{quote.statusDesc}}</p>
+										</div>
 								    </c:when>
 								    <c:otherwise>
 								        <div ng-hide="estPriceFlag">
@@ -578,22 +707,6 @@
 							  <div class="form-group">
 								<label>Last Update</label>
 								<p>{{quote.lastUpdate | date:'MM/dd/yyyy'}}</p>
-							  </div>
-							  <div class="form-group">
-								<label>Group Assignment</label>
-								<p>{{(quote.groupId > 0)?quote.groupId:"&nbsp;"}}</p>
-							  </div>
-							  <div class="form-group">
-								<label>Special Considerations</label>
-								<textarea class="form-control" placeholder="" ng-model="quote.specialConsiderations" ng-disabled="disabled"></textarea>
-							  </div>
-							  <div class="form-group">
-								<label>Conditions for Coverage</label>
-								<textarea class="form-control" placeholder="" ng-model="quote.condsForCoverage" ng-disabled="disabled"></textarea>
-							  </div>
-							  <div class="form-group">
-								<label>Deal History</label>
-								<textarea class="form-control" placeholder="" ng-model="quote.dealHistory"></textarea>
 							  </div>
 						</div>
                    </div>

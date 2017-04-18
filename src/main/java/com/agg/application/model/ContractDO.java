@@ -3,6 +3,7 @@
  */
 package com.agg.application.model;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -30,13 +31,13 @@ public class ContractDO {
 	private double deductible;
 	private double lol;
 	private double availabeLol;
-	private Date inceptionDate;
-	private Date expirationDate;
+	private Timestamp inceptionDate;
+	private Timestamp expirationDate;
 	private int expirationUsageHours;
 	private String comments;
 	private Date lastUpdatedDate;
 	private String cheqNo;
-	private Date receivedDate;
+	private Timestamp receivedDate;
 	
 	public ContractDO(long id, String contractId, String machineSerialNo, double lol, Date inceptionDate,
 			Date expirationDate, int expirationUsageHours, int status, Date lastUpdatedDate, String cheqNo,
@@ -45,13 +46,20 @@ public class ContractDO {
 		this.contractId = contractId;
 		this.machineSerialNo = machineSerialNo;
 		this.lol = lol;
-		this.inceptionDate = inceptionDate;
-		this.expirationDate = expirationDate;
+		if(inceptionDate != null){
+			this.inceptionDate = new java.sql.Timestamp(inceptionDate.getTime());
+		}
+		if(expirationDate != null){
+			this.expirationDate = new java.sql.Timestamp(expirationDate.getTime());
+		}
 		this.expirationUsageHours = expirationUsageHours;
 		this.status = status;
 		this.lastUpdatedDate = lastUpdatedDate;
 		this.cheqNo = cheqNo;
-		this.receivedDate = receivedDate;
+		if(receivedDate != null){
+			this.receivedDate = new java.sql.Timestamp(receivedDate.getTime());
+		}
+		
 	}
 	
 	/**
@@ -199,30 +207,22 @@ public class ContractDO {
 	public void setAvailabeLol(double availabeLol) {
 		this.availabeLol = availabeLol;
 	}
-	/**
-	 * @return the inceptionDate
-	 */
-	public Date getInceptionDate() {
+	public Timestamp getInceptionDate() {
 		return inceptionDate;
 	}
-	/**
-	 * @param inceptionDate the inceptionDate to set
-	 */
-	public void setInceptionDate(Date inceptionDate) {
+
+	public void setInceptionDate(Timestamp inceptionDate) {
 		this.inceptionDate = inceptionDate;
 	}
-	/**
-	 * @return the expirationDate
-	 */
-	public Date getExpirationDate() {
+
+	public Timestamp getExpirationDate() {
 		return expirationDate;
 	}
-	/**
-	 * @param expirationDate the expirationDate to set
-	 */
-	public void setExpirationDate(Date expirationDate) {
+
+	public void setExpirationDate(Timestamp expirationDate) {
 		this.expirationDate = expirationDate;
 	}
+
 	/**
 	 * @return the expirationUsageHours
 	 */
@@ -286,18 +286,12 @@ public class ContractDO {
 		this.cheqNo = cheqNo;
 	}
 
-	/**
-	 * @return the receivedDate
-	 */
-	public Date getReceivedDate() {
+	public Timestamp getReceivedDate() {
 		return receivedDate;
 	}
 
-	/**
-	 * @param receivedDate the receivedDate to set
-	 */
-	public void setReceivedDate(Date receivedDate) {
+	public void setReceivedDate(Timestamp receivedDate) {
 		this.receivedDate = receivedDate;
 	}
-	
+
 }

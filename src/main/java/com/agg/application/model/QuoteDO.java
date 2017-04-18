@@ -1,5 +1,6 @@
 package com.agg.application.model;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Set;
 
@@ -89,7 +90,7 @@ public class QuoteDO {
 	
 	private boolean coverageExpired;
 	
-	private Date coverageEndDate;
+	private Timestamp coverageEndDate;
 	
 	private boolean coverageEndDateUnknown;
 	
@@ -125,7 +126,7 @@ public class QuoteDO {
 	
 	private UseOfEquipmentDO useOfEquipmentDO;
 	
-	private Date estSaleDate;
+	private Timestamp estSaleDate;
 	
 	private double deductiblePrice;
 	
@@ -181,9 +182,9 @@ public class QuoteDO {
 	
 	private String condsForCoverage;
 	
-	private Date inceptionDate;
+	private Timestamp inceptionDate;
 	
-	private Date expirationDate;
+	private Timestamp expirationDate;
 	
 	private int expirationHours;
 	
@@ -216,9 +217,23 @@ public class QuoteDO {
 	
 	private String cheqNo;
 	
-	private Date receivedDate;
+	private Timestamp receivedDate;
 	
 	private String comments;
+	
+	private int adjustedcoverageTerm;
+	
+	private int adjustedCoverageHours;
+	
+	private String adjustedCoverageType;
+	
+	private boolean admin;
+	
+	private Timestamp contractInceptionDate;
+	
+	private Timestamp contractExpirationDate;
+	
+	private int contractExpirationHours;
 	
 	public QuoteDO(){
 		
@@ -726,17 +741,11 @@ public class QuoteDO {
 		this.coverageExpired = coverageExpired;
 	}
 
-	/**
-	 * @return the coverageEndDate
-	 */
-	public Date getCoverageEndDate() {
+	public Timestamp getCoverageEndDate() {
 		return coverageEndDate;
 	}
 
-	/**
-	 * @param coverageEndDate the coverageEndDate to set
-	 */
-	public void setCoverageEndDate(Date coverageEndDate) {
+	public void setCoverageEndDate(Timestamp coverageEndDate) {
 		this.coverageEndDate = coverageEndDate;
 	}
 
@@ -964,17 +973,11 @@ public class QuoteDO {
 		this.useOfEquipmentDO = useOfEquipmentDO;
 	}
 
-	/**
-	 * @return the estSaleDate
-	 */
-	public Date getEstSaleDate() {
+	public Timestamp getEstSaleDate() {
 		return estSaleDate;
 	}
 
-	/**
-	 * @param estSaleDate the estSaleDate to set
-	 */
-	public void setEstSaleDate(Date estSaleDate) {
+	public void setEstSaleDate(Timestamp estSaleDate) {
 		this.estSaleDate = estSaleDate;
 	}
 
@@ -1335,32 +1338,20 @@ public class QuoteDO {
 	public void setCondsForCoverage(String condsForCoverage) {
 		this.condsForCoverage = condsForCoverage;
 	}
-
-	/**
-	 * @return the inceptionDate
-	 */
-	public Date getInceptionDate() {
+	
+	public Timestamp getInceptionDate() {
 		return inceptionDate;
 	}
 
-	/**
-	 * @param inceptionDate the inceptionDate to set
-	 */
-	public void setInceptionDate(Date inceptionDate) {
+	public void setInceptionDate(Timestamp inceptionDate) {
 		this.inceptionDate = inceptionDate;
 	}
 
-	/**
-	 * @return the expirationDate
-	 */
-	public Date getExpirationDate() {
+	public Timestamp getExpirationDate() {
 		return expirationDate;
 	}
 
-	/**
-	 * @param expirationDate the expirationDate to set
-	 */
-	public void setExpirationDate(Date expirationDate) {
+	public void setExpirationDate(Timestamp expirationDate) {
 		this.expirationDate = expirationDate;
 	}
 
@@ -1458,17 +1449,11 @@ public class QuoteDO {
 		this.cheqNo = cheqNo;
 	}
 
-	/**
-	 * @return the receivedDate
-	 */
-	public Date getReceivedDate() {
+	public Timestamp getReceivedDate() {
 		return receivedDate;
 	}
 
-	/**
-	 * @param receivedDate the receivedDate to set
-	 */
-	public void setReceivedDate(Date receivedDate) {
+	public void setReceivedDate(Timestamp receivedDate) {
 		this.receivedDate = receivedDate;
 	}
 
@@ -1478,6 +1463,62 @@ public class QuoteDO {
 
 	public void setComments(String comments) {
 		this.comments = comments;
+	}
+
+	public int getAdjustedcoverageTerm() {
+		return adjustedcoverageTerm;
+	}
+
+	public void setAdjustedcoverageTerm(int adjustedcoverageTerm) {
+		this.adjustedcoverageTerm = adjustedcoverageTerm;
+	}
+
+	public int getAdjustedCoverageHours() {
+		return adjustedCoverageHours;
+	}
+
+	public void setAdjustedCoverageHours(int adjustedCoverageHours) {
+		this.adjustedCoverageHours = adjustedCoverageHours;
+	}
+
+	public String getAdjustedCoverageType() {
+		return adjustedCoverageType;
+	}
+
+	public void setAdjustedCoverageType(String adjustedCoverageType) {
+		this.adjustedCoverageType = adjustedCoverageType;
+	}
+
+	public boolean isAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
+	}
+
+	public Timestamp getContractInceptionDate() {
+		return contractInceptionDate;
+	}
+
+	public void setContractInceptionDate(Timestamp contractInceptionDate) {
+		this.contractInceptionDate = contractInceptionDate;
+	}
+
+	public Timestamp getContractExpirationDate() {
+		return contractExpirationDate;
+	}
+
+	public void setContractExpirationDate(Timestamp contractExpirationDate) {
+		this.contractExpirationDate = contractExpirationDate;
+	}
+
+	public int getContractExpirationHours() {
+		return contractExpirationHours;
+	}
+
+	public void setContractExpirationHours(int contractExpirationHours) {
+		this.contractExpirationHours = contractExpirationHours;
 	}
 	
 }
