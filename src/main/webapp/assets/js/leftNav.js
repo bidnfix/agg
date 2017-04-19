@@ -2031,6 +2031,9 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 			$scope.quote.contractExpirationDate = new Date($scope.quote.expirationDate);
 			$scope.quote.contractExpirationHours = $scope.quote.expirationHours;
 			
+			$scope.quote.checkDOList = [];
+			$scope.quote.checkDOList.push({});
+			
 			var x = screen.width/4;
 		    var y = screen.height/9;
 		    showMask('popup_mask');
@@ -2038,6 +2041,32 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 		    $('#contractCreatePopup').css("top", y+"px");
 		    $('#contractCreatePopup').show();
 		}
+	}
+	
+	$scope.chkDatePickerOpen = function ($event, checkDO) {
+	  checkDO.chkDatePickerIsOpen = false;
+      if ($event) {
+          $event.preventDefault();
+          $event.stopPropagation(); // This is the magic
+      }
+      checkDO.chkDatePickerIsOpen = true;
+    }
+	
+	$scope.addCheck = function(){
+		$scope.quote.checkDOList.push({});
+	}
+	
+	$scope.removeCheck = function(checkDO){
+		var index = $scope.quote.checkDOList.indexOf(checkDO);
+		$scope.quote.checkDOList.splice(index, 1);
+		$scope.calcCheckAmtTotal();
+    }
+    
+    $scope.calcCheckAmtTotal = function(){
+		$scope.quote.totalCheckAmount = 0;
+		angular.forEach($scope.quote.checkDOList, function(checkDO, index){
+			$scope.quote.totalCheckAmount += checkDO.amount;
+		});
 	}
 	
 	$scope.updateContractExpirationDate = function(){
