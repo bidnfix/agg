@@ -5,6 +5,7 @@ package com.agg.application.model;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author htamada
@@ -38,6 +39,7 @@ public class ContractDO {
 	private Date lastUpdatedDate;
 	private String cheqNo;
 	private Timestamp receivedDate;
+	private List<CheckDO> checkDOList;
 	
 	public ContractDO(long id, String contractId, String machineSerialNo, double lol, Date inceptionDate,
 			Date expirationDate, int expirationUsageHours, int status, Date lastUpdatedDate, String cheqNo,
@@ -294,4 +296,12 @@ public class ContractDO {
 		this.receivedDate = receivedDate;
 	}
 
+	public List<CheckDO> getCheckDOList() {
+		return checkDOList;
+	}
+
+	public void setCheckDOList(List<CheckDO> checkDOList) {
+		this.checkDOList = checkDOList;
+	}
+	
 }

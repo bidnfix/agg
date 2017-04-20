@@ -6,12 +6,15 @@ package com.agg.application.entity;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -86,6 +89,9 @@ public class Contracts implements Serializable{
 	//@Temporal(TemporalType.DATE)
 	@Column(name="received_date")
 	private Timestamp receivedDate;
+	
+	@OneToMany(mappedBy = "contract", cascade = CascadeType.ALL)
+	private Set<Check> checks;
 	
 	/**
 	 * 
@@ -327,4 +333,12 @@ public class Contracts implements Serializable{
 		this.receivedDate = receivedDate;
 	}
 
+	public Set<Check> getChecks() {
+		return checks;
+	}
+
+	public void setChecks(Set<Check> checks) {
+		this.checks = checks;
+	}
+	
 }

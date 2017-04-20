@@ -2,6 +2,7 @@ package com.agg.application.model;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import com.agg.application.utils.AggConstants;
@@ -234,6 +235,8 @@ public class QuoteDO {
 	private Timestamp contractExpirationDate;
 	
 	private int contractExpirationHours;
+	
+	private List<CheckDO> checkDOList;
 	
 	public QuoteDO(){
 		
@@ -1519,6 +1522,14 @@ public class QuoteDO {
 
 	public void setContractExpirationHours(int contractExpirationHours) {
 		this.contractExpirationHours = contractExpirationHours;
+	}
+
+	public List<CheckDO> getCheckDOList() {
+		return checkDOList;
+	}
+
+	public void setCheckDOList(List<CheckDO> checkDOList) {
+		this.checkDOList = checkDOList;
 	}
 	
 }

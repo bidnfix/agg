@@ -31,6 +31,7 @@ import com.agg.application.dao.PricingDAO;
 import com.agg.application.dao.QuoteDAO;
 import com.agg.application.dao.UseOfEquipmentDAO;
 import com.agg.application.entity.AdminAdjustment;
+import com.agg.application.entity.Check;
 import com.agg.application.entity.Contracts;
 import com.agg.application.entity.CustomerInfo;
 import com.agg.application.entity.Dealer;
@@ -40,6 +41,7 @@ import com.agg.application.entity.Quote;
 import com.agg.application.entity.QuotePK;
 import com.agg.application.entity.UseOfEquip;
 import com.agg.application.model.AccountDO;
+import com.agg.application.model.CheckDO;
 import com.agg.application.model.DealerDO;
 import com.agg.application.model.MachineInfoDO;
 import com.agg.application.model.ManufacturerDO;
@@ -1618,6 +1620,8 @@ public class QuoteServiceImpl implements QuoteService {
 			adminAdjustmentDAO.save(adminAdjustment);
 		}*/
 		
+		Date currDate = new Date();
+		
 		Contracts contracts = new Contracts();
 		contracts.setAvailabeLol(quoteDO.getMachineInfoDO().getLol());
 		contracts.setComments(quoteDO.getComments());
@@ -1629,7 +1633,7 @@ public class QuoteServiceImpl implements QuoteService {
 		contracts.setExpirationDate(quoteDO.getContractExpirationDate());
 		contracts.setExpirationUsageHours(quoteDO.getContractExpirationHours());
 		contracts.setInceptionDate(quoteDO.getContractInceptionDate());
-		contracts.setLastUpdatedDate(new Date());
+		contracts.setLastUpdatedDate(currDate);
 		contracts.setLol(quoteDO.getMachineInfoDO().getLol());
 		contracts.setMachineSerialNo(quoteDO.getSerialNumber());
 		Quote quote = quoteDAO.findByIdQuoteId(quoteDO.getQuoteId());
@@ -1637,6 +1641,27 @@ public class QuoteServiceImpl implements QuoteService {
 		contracts.setStatus(AggConstants.ACTIVE);
 		contracts.setCheqNo(quoteDO.getCheqNo());
 		contracts.setReceivedDate(quoteDO.getReceivedDate());
+		
+		List<CheckDO> checkDOList = quoteDO.getCheckDOList();
+		if(checkDOList != null && !checkDOList.isEmpty()){
+			Check check = null;
+			Set<Check> checks = new HashSet<Check>();
+			for(CheckDO checkDO : checkDOList){
+				check = new Check();
+				check.setCheckNo(checkDO.getCheckNo());
+				check.setReceivedDate(checkDO.getReceivedDate());
+				check.setCheckAmount(checkDO.getAmount());
+				check.setCreatedBy(accountDO.getUsername());
+				check.setCreatedDate(currDate);
+				check.setUpdatedBy(accountDO.getUsername());
+				check.setUpdatedDate(currDate);
+				check.setContract(contracts);
+				
+				checks.add(check);
+			}
+			
+			contracts.setChecks(checks);
+		}
 		
 		contracts = contractsDAO.save(contracts);
 		

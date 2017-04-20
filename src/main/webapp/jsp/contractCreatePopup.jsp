@@ -77,7 +77,7 @@
 					</thead>
 					<tbody data-ng-repeat="checkDO in quote.checkDOList">
 						<tr>
-							<td><input type="text" class="form-control" name="checkNo" ng-model="checkDO.checkNo"></td>
+							<td><input type="text" class="form-control" name="checkNo" ng-model="checkDO.checkNo" required="required"></td>
 							<td>
 								<div class="agf1 input-group">
 									<input type="text" class="form-control"
@@ -95,7 +95,7 @@
 						            </span>
 					            </div>
 							</td>
-							<td><input type="number" class="form-control" name="amount" ng-model="checkDO.amount" ng-change="calcCheckAmtTotal()"></td>
+							<td><input type="number" class="form-control" name="amount" ng-model="checkDO.amount" ng-change="calcCheckAmtTotal()" required="required"></td>
 							<td>
 								<button ng-if="quote.checkDOList.length > 1" type="button" class="btn btn-primary btn-sm" ng-click="removeCheck(checkDO);">
 									<i class="fa fa-minus"></i>
@@ -105,9 +105,12 @@
 					</tbody>
 				</table>
 				<div class="col-sm-12">
-						<div class="col-sm-8 no-pad">Total Check Amount</div>
-						<div class="col-sm-4 t-r">
-							{{quote.totalCheckAmount | currency}}
+						<div class="col-sm-6"></div>
+						<div class="col-sm-6">
+							<div class="col-sm-8 no-pad">Total Check Amount</div>
+							<div class="col-sm-4 t-r">
+								{{quote.totalCheckAmount | currency}}
+							</div>
 						</div>
 				</div>
 			</div>
