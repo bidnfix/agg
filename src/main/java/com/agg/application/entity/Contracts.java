@@ -11,9 +11,12 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -90,8 +93,12 @@ public class Contracts implements Serializable{
 	@Column(name="received_date")
 	private Timestamp receivedDate;
 	
-	@OneToMany(mappedBy = "contract", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "contract", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<Check> checks;
+	
+	@ManyToOne
+	@JoinColumn(name="servicing_dealer_id")
+	private Dealer servicingDealer;
 	
 	/**
 	 * 
@@ -339,6 +346,14 @@ public class Contracts implements Serializable{
 
 	public void setChecks(Set<Check> checks) {
 		this.checks = checks;
+	}
+
+	public Dealer getServicingDealer() {
+		return servicingDealer;
+	}
+
+	public void setServicingDealer(Dealer servicingDealer) {
+		this.servicingDealer = servicingDealer;
 	}
 	
 }

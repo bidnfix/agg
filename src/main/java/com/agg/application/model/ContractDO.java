@@ -40,6 +40,8 @@ public class ContractDO {
 	private String cheqNo;
 	private Timestamp receivedDate;
 	private List<CheckDO> checkDOList;
+	private QuoteDO quoteDO;
+	
 	
 	public ContractDO(long id, String contractId, String machineSerialNo, double lol, Date inceptionDate,
 			Date expirationDate, int expirationUsageHours, int status, Date lastUpdatedDate, String cheqNo,
@@ -302,6 +304,14 @@ public class ContractDO {
 
 	public void setCheckDOList(List<CheckDO> checkDOList) {
 		this.checkDOList = checkDOList;
+	}
+
+	public QuoteDO getQuoteDO() {
+		return quoteDO;
+	}
+
+	public void setQuoteDO(QuoteDO quoteDO) {
+		this.quoteDO = quoteDO;
 	}
 	
 }

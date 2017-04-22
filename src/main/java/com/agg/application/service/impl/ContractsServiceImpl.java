@@ -6,6 +6,7 @@ package com.agg.application.service.impl;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -27,13 +28,18 @@ import com.agg.application.entity.AdminAdjustment;
 import com.agg.application.entity.Contracts;
 import com.agg.application.entity.CustomerInfo;
 import com.agg.application.entity.Dealer;
+import com.agg.application.entity.MachineInfo;
 import com.agg.application.entity.Manufacturer;
 import com.agg.application.entity.Quote;
+import com.agg.application.entity.UseOfEquip;
 import com.agg.application.model.AccountDO;
 import com.agg.application.model.ContractDO;
 import com.agg.application.model.ContractReportDO;
 import com.agg.application.model.DealerDO;
+import com.agg.application.model.MachineInfoDO;
 import com.agg.application.model.ManufacturerDO;
+import com.agg.application.model.QuoteDO;
+import com.agg.application.model.UseOfEquipmentDO;
 import com.agg.application.service.ContractsService;
 import com.agg.application.utils.AggConstants;
 import com.agg.application.utils.Util;
@@ -165,11 +171,313 @@ public class ContractsServiceImpl implements ContractsService{
 				manufacturerDO.setName(manf.getManfName());
 				contractDO.setManufacturerDO(manufacturerDO);
 				contractDO.setMachineModel(quote.getMachineInfo().getModel());
+				
+				contractDO.setQuoteDO(getQuoteDetails(quote));
 			}
 			
 			contractsDOList.add(contractDO);
 		}
 		return contractsDOList;
+	}
+	
+	/**
+	 * @param quote
+	 * @return QuoteDO
+	 */
+	private QuoteDO getQuoteDetails(Quote quote) {
+		QuoteDO quoteDO = null;
+		if(quote != null){
+			quoteDO = new QuoteDO();
+			quoteDO.setId(quote.getId().getId());
+			quoteDO.setQuoteId(quote.getId().getQuoteId());
+			Dealer dealer = quote.getDealer();
+			if(dealer != null){
+				DealerDO dealerDO = new DealerDO();
+				dealerDO.setCode(dealer.getCode());
+				dealerDO.setId(dealer.getId());
+				dealerDO.setName(dealer.getName());
+				dealerDO.setInvoiceEmail(dealer.getInvoiceEmail());
+				dealerDO.setMarketEmail(dealer.getMarketEmail());
+				dealerDO.setCity(dealer.getCity());
+				dealerDO.setAddress1(dealer.getAddress());
+				dealerDO.setAddress2(dealer.getAddress2());
+				dealerDO.setState(dealer.getState());
+				dealerDO.setZip(dealer.getZip());
+				dealerDO.setPhone(dealer.getPhone());
+				
+				quoteDO.setDealerDO(dealerDO);
+			}
+			quoteDO.setCoverageExpired((quote.getManfExpired() == 1)?true:false);
+			if(quote.getManfEndDate() != null){
+				quoteDO.setCoverageEndDate(new java.sql.Timestamp(quote.getManfEndDate().getTime()));
+			}
+			if(quote.getManfEndDate() != null){
+				quoteDO.setCoverageEndDateStr(dateFormat.format(quote.getManfEndDate()));
+			}
+			quoteDO.setCoverageEndDateUnknown((quote.getManfEndKnown() == 1)?true:false);
+			quoteDO.setCoverageEndDateVerified((quote.getManfVerified() == 1)?true:false);
+			quoteDO.setPowerTrainMonths(quote.getPtMonths());
+			quoteDO.setPowerTrainHours(quote.getPtHours());
+			quoteDO.setHydraulicsMonths(quote.getHMonths());
+			quoteDO.setHydraulicsHours(quote.getHHours());
+			quoteDO.setFullMachineHours(quote.getMachineHours());
+			quoteDO.setFullMachineMonths(quote.getMachineMonths());
+			
+			Manufacturer manufacturer = quote.getManufacturer();
+			if(manufacturer != null){
+				ManufacturerDO manufacturerDO = new ManufacturerDO();
+				manufacturerDO.setId(manufacturer.getManfId());
+				manufacturerDO.setName(manufacturer.getManfName());
+				
+				quoteDO.setManufacturerDO(manufacturerDO);
+			}
+			
+			AdminAdjustment adminAdjustment = adminAdjustmentDAO.findOne(quote.getId().getQuoteId());
+			MachineInfo machineInfo = quote.getMachineInfo();
+			if(machineInfo != null){
+				MachineInfoDO machineInfoDO = new MachineInfoDO();
+				machineInfoDO.setMachineId(machineInfo.getMachineId());
+				machineInfoDO.setMachineType(machineInfo.getMachineType().getMachineType());
+				machineInfoDO.setModel(machineInfo.getModel());
+				machineInfoDO.setModelYear((machineInfo.getModelYear() != null)?machineInfo.getModelYear():0);
+				machineInfoDO.setEPower(machineInfo.getEPower());
+				machineInfoDO.setLol(machineInfo.getGroupConstant().getLol());
+				machineInfoDO.setLolToDisplay(machineInfo.getGroupConstant().getLol());
+				if(quote.getProgram() != null){
+					machineInfoDO.setLol(quote.getProgram().getPrLol());
+					machineInfoDO.setLolToDisplay(quote.getProgram().getPrLol());
+				}
+				if(adminAdjustment != null && adminAdjustment.getLol() > 0){
+					machineInfoDO.setLol(adminAdjustment.getLol());
+				}
+				
+				quoteDO.setMachineInfoDO(machineInfoDO);
+			}
+			
+			if(quote.getProgram() != null){
+				quoteDO.setProgram(quote.getProgram().getPrName());
+			}
+			
+			quoteDO.setGroupId(quote.getGroupId());
+			quoteDO.setHorsePower(quote.getMachinePower());
+			quoteDO.setSerialNumber(quote.getMachineSerial());
+			if(quote.getMachineSerial() == null){
+				quoteDO.setSerialNumberUnknown(true);
+			}
+			quoteDO.setRetailPrice(quote.getMachineRetailPrice());
+			quoteDO.setMeterHours(quote.getMachineMeterHours());
+			quoteDO.setModelYear((quote.getMachineYear() != null)?quote.getMachineYear():0);
+			
+			UseOfEquip useOfEquip = quote.getUseOfEquip();
+			if(useOfEquip != null){
+				UseOfEquipmentDO useOfEquipmentDO = new UseOfEquipmentDO();
+				useOfEquipmentDO.setId(useOfEquip.getId());
+				useOfEquipmentDO.setEquipName(useOfEquip.getEquipName());
+				
+				quoteDO.setUseOfEquipmentDO(useOfEquipmentDO);
+			}
+			if(quote.getMachineSaleDate() != null){
+				quoteDO.setEstSaleDate(new java.sql.Timestamp(quote.getMachineSaleDate().getTime()));
+			}
+			if(quote.getMachineSaleDate() != null){
+				quoteDO.setEstSaleDateStr(dateFormat.format(quote.getMachineSaleDate()));
+			}
+			quoteDO.setOtherProv(quote.getOtherProv());
+			quoteDO.setDealerMarkup(quote.getDealerMarkup());
+			quoteDO.setDealerMarkupType(quote.getDealerMarkupType());
+			quoteDO.setDeductiblePrice(quote.getDeductAmount());
+			quoteDO.setCoverageTerm(quote.getCoverageTerm());
+			quoteDO.setCoverageHours(quote.getCoverageLevelHours());
+			quoteDO.setCoverageType(quote.getCoverageType());
+			quoteDO.setQuoteBasePrice(quote.getCoveragePrice());
+			quoteDO.setQuoteBasePriceToDisplay(quote.getCoveragePrice());
+			if(adminAdjustment != null){
+				if(adminAdjustment.getBasePrice() > 0){
+					quoteDO.setQuoteBasePrice(adminAdjustment.getBasePrice());
+				}
+				
+				if(adminAdjustment.getCoverageTerm() > 0){
+					quoteDO.setAdjustedcoverageTerm(adminAdjustment.getCoverageTerm());
+				}else{
+					quoteDO.setAdjustedcoverageTerm(quote.getCoverageTerm());
+				}
+				
+				if(adminAdjustment.getCoverageHours() > 0){
+					quoteDO.setAdjustedCoverageHours(adminAdjustment.getCoverageHours());
+				}else{
+					quoteDO.setAdjustedCoverageHours(quote.getCoverageLevelHours());
+				}
+				
+				if(adminAdjustment.getCoverageType() != null && !adminAdjustment.getCoverageType().isEmpty()){
+					quoteDO.setAdjustedCoverageType(adminAdjustment.getCoverageType());
+				}else{
+					quoteDO.setAdjustedCoverageType(quote.getCoverageType());
+				}
+			}else{
+				quoteDO.setAdjustedcoverageTerm(quote.getCoverageTerm());
+				quoteDO.setAdjustedCoverageHours(quote.getCoverageLevelHours());
+				quoteDO.setAdjustedCoverageType(quote.getCoverageType());
+				quoteDO.setInceptionDate(new java.sql.Timestamp(new Date().getTime()));
+				
+				int coverageTerm = quote.getCoverageTerm();
+				int coverageHours = quote.getCoverageLevelHours();
+				
+				if(quote.getManfExpired() == 1){
+					Calendar cal = Calendar.getInstance();
+					cal.setTime(new Date());
+					cal.add(Calendar.MONTH, coverageTerm);
+					quoteDO.setExpirationDate(new java.sql.Timestamp(cal.getTime().getTime()));
+				}else{
+					int manfCoverageTerm = 0;
+					if(quote.getCoverageType() != null){
+						if(quote.getCoverageType().equalsIgnoreCase("PT")){
+							manfCoverageTerm = quote.getPtMonths();
+						}else if(quote.getCoverageType().equalsIgnoreCase("PH")){
+							manfCoverageTerm = quote.getHMonths();
+						}else if(quote.getCoverageType().equalsIgnoreCase("PL")){
+							manfCoverageTerm = quote.getMachineMonths();
+						}
+						int finalCoverageTerm = coverageTerm - manfCoverageTerm;
+						if(quote.getManfEndDate() != null){
+							Calendar cal = Calendar.getInstance();
+							cal.setTime(quote.getManfEndDate());
+							cal.add(Calendar.MONTH, finalCoverageTerm);
+							quoteDO.setExpirationDate(new java.sql.Timestamp(cal.getTime().getTime()));
+						}
+					}
+				}
+				
+				if(quote.getManfExpired() == 1){
+					quoteDO.setExpirationHours(coverageHours+quote.getMachineMeterHours());
+				}else{
+					quoteDO.setExpirationHours(coverageHours);
+				}
+			}
+			quoteDO.setStatus(quote.getStatus());
+			quoteDO.setIsArchive(quote.getIsArchive());
+			quoteDO.setLastUpdate(quote.getLastUpdate());
+			String statusDesc = "";
+			if(quote.getIsArchive() == AggConstants.B_QUOTE_STATUS_ACRHIVE){
+				statusDesc = AggConstants.QUOTE_STATUS_ACRHIVE;
+			}else if(quote.getStatus() == AggConstants.B_QUOTE_STATUS_ESTIMATING_PRICE){
+				statusDesc = AggConstants.QUOTE_STATUS_ESTIMATING_PRICE;
+			}else if(quote.getStatus() == AggConstants.B_QUOTE_STATUS_PURCHASE_REQUESTED){
+				statusDesc = AggConstants.QUOTE_STATUS_PURCHASE_REQUESTED;
+			}else if(quote.getStatus() == AggConstants.B_QUOTE_STATUS_INVOICED){
+				statusDesc = AggConstants.QUOTE_STATUS_INVOICED;
+			}else if(quote.getStatus() == AggConstants.B_QUOTE_STATUS_CLOSED){
+				statusDesc = AggConstants.QUOTE_STATUS_CLOSED;
+			}
+			quoteDO.setStatusDesc(statusDesc);
+			quoteDO.setStatus(quote.getStatus());
+			
+			String dealerMarkupType = quote.getDealerMarkupType();
+			double coveragePrice = quote.getCoveragePrice();
+			double dealerMarkupPrice = 0.0;
+			if(dealerMarkupType != null && !dealerMarkupType.isEmpty()){
+				if(dealerMarkupType.equalsIgnoreCase("price")){
+					dealerMarkupPrice = quote.getDealerMarkup();
+				}else{
+					dealerMarkupPrice = (coveragePrice * quote.getDealerMarkup())/100.0;
+				}
+			}
+			quoteDO.setDealerMarkupPrice(dealerMarkupPrice);
+			
+			CustomerInfo customerInfo = customerInfoDAO.findOne(quote.getId().getQuoteId());
+			if(customerInfo != null){
+				quoteDO.setDealerName(customerInfo.getName());
+				quoteDO.setDealerAddress(customerInfo.getAddress());
+				quoteDO.setDealerCity(customerInfo.getCity());
+				quoteDO.setDealerEmail(customerInfo.getEmail());
+				quoteDO.setDealerPhone(customerInfo.getPhone());
+				quoteDO.setDealerState(customerInfo.getState());
+				quoteDO.setDealerZip(customerInfo.getZip());
+				quoteDO.setCustRemorsePeriod((customerInfo.getRemorse() == 1)?true:false);
+				quoteDO.setCustUnderstandCoverage((customerInfo.getUnderstand() == 1)?true:false);
+			}
+			
+			if(adminAdjustment != null){
+				if(adminAdjustment.getBasePrice() > 0){
+					quoteDO.setAdjustedBasePrice(adminAdjustment.getBasePrice());
+				}else{
+					quoteDO.setAdjustedBasePrice(quote.getCoveragePrice());
+				}
+				if(adminAdjustment.getLol() > 0){
+					quoteDO.setAdjustedLol(adminAdjustment.getLol());
+				}else{
+					if(quoteDO.getMachineInfoDO() != null){
+						quoteDO.setAdjustedLol(quoteDO.getMachineInfoDO().getLol());
+					}
+				}
+				
+				int coverageTerm = quote.getCoverageTerm();
+				int coverageHours = quote.getCoverageLevelHours();
+				
+				
+				if(adminAdjustment.getCoverageTerm() > 0){
+					coverageTerm = adminAdjustment.getCoverageTerm();
+				}
+				
+				if(adminAdjustment.getCoverageHours() > 0){
+					coverageHours = adminAdjustment.getCoverageHours();
+				}
+				
+				if(adminAdjustment.getInceptionDate() != null){
+					quoteDO.setInceptionDate(new java.sql.Timestamp(adminAdjustment.getInceptionDate().getTime()));
+				}else{
+					quoteDO.setInceptionDate(new java.sql.Timestamp(new Date().getTime()));
+				}
+				
+				if(adminAdjustment.getExpirationDate() != null){
+					quoteDO.setExpirationDate(new java.sql.Timestamp(adminAdjustment.getExpirationDate().getTime()));
+				}else{
+					if(quote.getManfExpired() == 1){
+						Calendar cal = Calendar.getInstance();
+						if(adminAdjustment.getInceptionDate() != null){
+							cal.setTime(adminAdjustment.getInceptionDate());
+						}else{
+							cal.setTime(new Date());
+						}
+						cal.add(Calendar.MONTH, coverageTerm);
+						quoteDO.setExpirationDate(new java.sql.Timestamp(cal.getTime().getTime()));
+					}else{
+						int manfCoverageTerm = 0;
+						if(quote.getCoverageType() != null){
+							if(quote.getCoverageType().equalsIgnoreCase("PT")){
+								manfCoverageTerm = quote.getPtMonths();
+							}else if(quote.getCoverageType().equalsIgnoreCase("PH")){
+								manfCoverageTerm = quote.getHMonths();
+							}else if(quote.getCoverageType().equalsIgnoreCase("PL")){
+								manfCoverageTerm = quote.getMachineMonths();
+							}
+							int finalCoverageTerm = coverageTerm - manfCoverageTerm;
+							if(quote.getManfEndDate() != null){
+								Calendar cal = Calendar.getInstance();
+								cal.setTime(quote.getManfEndDate());
+								cal.add(Calendar.MONTH, finalCoverageTerm);
+								quoteDO.setExpirationDate(new java.sql.Timestamp(cal.getTime().getTime()));
+							}
+						}
+					}
+				}
+				
+				if(adminAdjustment.getExpirationHours() > 0){
+					quoteDO.setExpirationHours(adminAdjustment.getExpirationHours());
+				}else{
+					if(quote.getManfExpired() == 1){
+						quoteDO.setExpirationHours(coverageHours+quote.getMachineMeterHours());
+					}else{
+						quoteDO.setExpirationHours(coverageHours);
+					}
+				}
+				
+				quoteDO.setSpecialConsiderations(adminAdjustment.getSpecialConsideration());
+				quoteDO.setCondsForCoverage(adminAdjustment.getCConditions());
+				quoteDO.setDealHistory(adminAdjustment.getDealHistory());
+			}
+		}
+		
+		return quoteDO;
 	}
 
 	/* (non-Javadoc)

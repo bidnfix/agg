@@ -1641,6 +1641,7 @@ public class QuoteServiceImpl implements QuoteService {
 		contracts.setStatus(AggConstants.ACTIVE);
 		contracts.setCheqNo(quoteDO.getCheqNo());
 		contracts.setReceivedDate(quoteDO.getReceivedDate());
+		contracts.setServicingDealer(quote.getDealer());
 		
 		List<CheckDO> checkDOList = quoteDO.getCheckDOList();
 		if(checkDOList != null && !checkDOList.isEmpty()){
@@ -1662,6 +1663,8 @@ public class QuoteServiceImpl implements QuoteService {
 			
 			contracts.setChecks(checks);
 		}
+		
+		
 		
 		contracts = contractsDAO.save(contracts);
 		
