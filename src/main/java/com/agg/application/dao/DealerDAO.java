@@ -30,6 +30,12 @@ public interface DealerDAO extends CrudRepository<Dealer, Long>{
 			+ "dealer.marketEmail, dealer.invoiceEmail, dealer.phone, dealer.parentCode, account.role.rTitle, dealer.status) "
 			+ "from Dealer dealer, Account account "
 			+ "where dealer.id = account.dealer.id and account.role.rTitle = :roleTitle")
-	public List<DealerDO> findAllDealers(@Param("roleTitle")String roleTitle);
+	public List<DealerDO> findDealers(@Param("roleTitle")String roleTitle);
+	
+	@Query("select new com.agg.application.model.DealerDO(dealer.id, dealer.code, dealer.name, dealer.state, "
+			+ "dealer.marketEmail, dealer.invoiceEmail, dealer.phone, dealer.parentCode, account.role.rTitle, dealer.status) "
+			+ "from Dealer dealer, Account account "
+			+ "where dealer.id = account.dealer.id GROUP BY dealer.id")
+	public List<DealerDO> findAllDealers();
 
 }

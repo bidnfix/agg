@@ -358,6 +358,25 @@ public class DealerServiceImpl implements DealerService {
 		
 		account = accountDAO.save(account);
 		*/
+		Role role = roleDAO.findOne(dealerDO.getRoleDO().getId());
+		
+		logger.debug("dealerDO.getRoleDO().getId()    "+dealerDO.getRoleDO().getId());
+		logger.debug("dealerDO.getId()    "+dealerDO.getId());
+		List<Account> accountLst = accountDAO.findByDealerId(dealerDO.getId());
+		
+		if(accountLst != null && !accountLst.isEmpty()){
+			for(Account account : accountLst){
+				account.setRole(role);
+				account.setUpdatedDate(date);
+				account.setUpdatedBy(accountDO.getUsername());
+				
+				//account.setDealer(dealer);
+				
+				account = accountDAO.save(account);
+			}
+		}
+		
+		
 		dealer = dealerDAO.save(dealer);
 		
 		if((status == AggConstants.PENDING) && (dealerDO.getStatus() == AggConstants.ACTIVE)){
@@ -404,9 +423,13 @@ public class DealerServiceImpl implements DealerService {
 			dealerDO = new DealerDO();
 			dealerDO.setId(dealer.getId());
 			accounts = dealer.getAccounts();
+			
+			
+			
 			for(Account account : accounts){
+				logger.debug("# of accounts -- "+accounts.size());
 				role = account.getRole();
-				if(role.getRTitle().equalsIgnoreCase(AggConstants.DEALER_ADMIN)){
+				//if(role.getRTitle().equalsIgnoreCase(AggConstants.DEALER_ADMIN)){
 					dealerDO.setUserName(account.getUserName());
 					dealerDO.setFirstName(account.getFirstName());
 					dealerDO.setLastName(account.getLastName());
@@ -419,7 +442,7 @@ public class DealerServiceImpl implements DealerService {
 					dealerDO.setRoleName(role.getRTitle());
 					
 					break;
-				}
+				//}
 			}
 
 			dealerDO.setAddress1(dealer.getAddress());
@@ -480,7 +503,10 @@ public class DealerServiceImpl implements DealerService {
 	@Override
 	public List<RoleDO> getDealerAdminRoles() {
 		logger.debug("Inside getDealerAdminRoles");
-		List<Role> roleList = roleDAO.findByRTitle(AggConstants.DEALER_ADMIN);
+		//List<Role> roleList = roleDAO.findByRTitle(AggConstants.DEALER_ADMIN);
+		
+		List<Role> roleList = Util.toList(roleDAO.findAll());
+		
 		List<RoleDO> roleDOList = null;
 		if(roleList != null && !roleList.isEmpty()){
 			RoleDO roleDO = null;
@@ -490,8 +516,10 @@ public class DealerServiceImpl implements DealerService {
 				roleDO.setAccountTypeId(role.getAccountType().getId());
 				roleDO.setId(role.getRId());
 				roleDO.setName(role.getRTitle());
-				
-				roleDOList.add(roleDO);
+				if(!role.getRTitle().equalsIgnoreCase("admin"))
+				{
+					roleDOList.add(roleDO);
+				}
 			}
 			
 			logger.info("roleDOList size: "+roleDOList.size());
@@ -737,9 +765,15 @@ public class DealerServiceImpl implements DealerService {
 	}
 
 	@Override
-	public List<DealerDO> findAllDealers(String dealerType) {
+	public List<DealerDO> findDealers(String dealerType) {
 		logger.info("inside findAllDealers method with dealerType: "+dealerType);
-		return dealerDAO.findAllDealers(dealerType);
+		return dealerDAO.findDealers(dealerType);
+	}
+	
+	@Override
+	public List<DealerDO> findAllDealers() {
+		logger.info("inside findAllDealers method");
+		return dealerDAO.findAllDealers();
 	}
 
 }

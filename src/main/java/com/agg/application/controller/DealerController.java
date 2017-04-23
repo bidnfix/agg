@@ -157,7 +157,10 @@ public class DealerController extends BaseController {
 		if (!sessionExists(request)){
 			opResult = new Result("failure", "Invalid Login", null);
 		}else{
-			List<DealerDO> dealerDOList = dealerService.findAllDealers(AggConstants.DEALER_ADMIN);
+			//List<DealerDO> dealerDOList = dealerService.findDealers(AggConstants.DEALER_ADMIN);
+			List<DealerDO> dealerDOList = dealerService.findAllDealers();
+			if(dealerDOList!=null)
+				logger.debug("dealerDOList "+dealerDOList.size());
 			model.addAttribute("dealerDOList", dealerDOList);
 			opResult = new Result("success", "Dealer Info", model);
 		}
