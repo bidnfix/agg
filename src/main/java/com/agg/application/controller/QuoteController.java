@@ -11,8 +11,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -282,10 +286,83 @@ public class QuoteController extends BaseController {
 	@RequestMapping(value = "/quotesInfo", method = RequestMethod.GET)
 	public Result getQuotes(Model model, HttpServletRequest request, HttpServletResponse response) {
 		Result opResult = null;
-		if (!sessionExists(request)){
+		if (!sessionExists(request)) {
 			opResult = new Result("failure", "Invalid Login", null);
-		}else{
-			opResult = new Result("success", null, quoteService.getQuotes(getAccountDetails(request)));
+		} else {
+			//opResult = new Result("success", null, quoteService.getQuotes(getAccountDetails(request)));
+			String draw = request.getParameter("draw");
+			String start = request.getParameter("start");
+			String length = request.getParameter("length");
+			String searchText = request.getParameter("search[value]");
+			String orderColumn = request.getParameter("order[0][column]");
+			String orderDirection = request.getParameter("order[0][dir]");
+			
+			int page = Integer.parseInt(start);
+			int pageLength = Integer.parseInt(length);
+			
+			if (page > 0) {
+				 page = page / pageLength;
+			} 
+			
+			Direction direction = Direction.DESC;
+			if ("asc".equals(orderDirection)) {
+				 direction = Direction.ASC;
+			}
+			
+			String properties = "";
+			
+			switch (Integer.parseInt(orderColumn)) {
+			case 0:
+				properties = "id.quoteId";
+				break;
+			case 1:
+				properties = "dealer.name";
+				break;
+			case 2:
+				properties = "customerInfo.name";
+				break;
+			case 3:
+				properties = "machineInfo.model";
+				break;
+			case 4:
+				properties = "machineSaleDate";
+				break;
+			case 5:
+				properties = "status";
+				break;
+			case 6:
+				properties = "createDate";
+				break;
+
+			default:
+				properties = "id.quoteId";
+				break;
+			}
+			
+			Pageable pageable = new PageRequest(page, pageLength, direction, properties);
+			
+			long count = quoteService.getQuotesCount(getAccountDetails(request));
+			
+			List<QuoteDO> quoteDos; 
+			
+			if (!StringUtils.isEmpty(searchText)) {
+				long filteredCount = quoteService.getQuotesSearchCount(getAccountDetails(request), searchText);
+				
+				quoteDos = quoteService.getAllQuotesForSearch(getAccountDetails(request), searchText, pageable);
+				opResult = new Result("success", null, quoteDos);
+				
+				opResult.setDraw(Integer.parseInt(draw));
+				opResult.setRecordsTotal(count);
+				opResult.setRecordsFiltered(filteredCount);
+				
+			} else {
+				quoteDos = quoteService.getAllQuotes(getAccountDetails(request), pageable);
+				opResult = new Result("success", null, quoteDos);
+				
+				opResult.setDraw(Integer.parseInt(draw));
+				opResult.setRecordsTotal(count);
+				opResult.setRecordsFiltered(count);
+			}
 		}
 		
 		return opResult;

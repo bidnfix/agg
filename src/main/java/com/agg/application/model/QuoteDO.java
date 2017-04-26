@@ -238,6 +238,8 @@ public class QuoteDO {
 	
 	private List<CheckDO> checkDOList;
 	
+	private String viewDetails;
+	
 	public QuoteDO(){
 		
 	}
@@ -1530,6 +1532,14 @@ public class QuoteDO {
 
 	public void setCheckDOList(List<CheckDO> checkDOList) {
 		this.checkDOList = checkDOList;
+	}
+
+	public String getViewDetails() {
+		return viewDetails;
+	}
+
+	public void setViewDetails(String viewDetails) {
+		this.viewDetails = viewDetails;
 	}
 	
 }

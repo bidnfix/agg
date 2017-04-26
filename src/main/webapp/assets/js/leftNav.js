@@ -1437,7 +1437,7 @@ routingApp.controller('GetUserController', function($scope, userService, $http, 
 
 routingApp.controller('QuotesDetailController', function($scope, $http, $timeout, quoteType) {
 	if(quoteType == 'All'){
-		$http.get("/agg/quotesInfo")
+		/*$http.get("/agg/quotesInfo")
 		.then(function(response) {
 	        $scope.quoteList = response.data.data;
 	        $timeout(function () {
@@ -1448,7 +1448,60 @@ routingApp.controller('QuotesDetailController', function($scope, $http, $timeout
 	     	       "bDestroy": true
 	     	    });
 	        }, 300);
-	    });
+	    });*/
+		$(document).ready(function() {
+		    $('#quotesTbl').DataTable( {
+		        "processing": true,
+		        "serverSide": true,
+		        "ajax": {
+		            "url": "/agg/quotesInfo",
+		            "type": "GET",
+		            dataFilter: function(data) {
+		                var json = jQuery.parseJSON( data );
+		                json.recordsTotal = json.recordsTotal;
+			            json.recordsFiltered = json.recordsFiltered;
+			            json.data = json.data;
+			            for ( var i=0, len=json.data.length; i<len ; i++ ) {
+	        				json.data[i].viewDetails = '<div class="manage-sec"><a href="#/agg/viewQuote/'+json.data[i].id+'/'+json.data[i].quoteId+'"><img src="../assets/images/edit-pencil.png" alt="View" title="View"/></a></div>';	        				 
+	        			 }
+		                return JSON.stringify( json );
+		            }},
+		        columnDefs: [
+	                { width: "12%", targets: 0 }
+	            ],
+	            "columns": [
+        		    { "data": "quoteId" },
+        		    { "data": "dealerName" },
+        		    { "data": "dealerCustName" },
+        		    { "data": "machineModel"},
+        		    { "data": "machineSaleDate",
+        		    	"type": "date ",
+        		    	"render": function (data) {
+        		            if (data !== null) {
+        		                var date = new Date(data);
+        		                date = date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear();
+        		                return date;
+        		            } else {
+        		                return "";
+        		            }
+        		        }},
+        		    
+             		{ "data": "statusDesc" },
+        		    { "data": "createDate",
+             			"type": "date ",
+        		    	"render": function (data) {
+        		            if (data !== null) {
+        		                var date = new Date(data);
+        		                date = date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear();
+        		                return date;
+        		            } else {
+        		                return "";
+        		            }
+        		        } },
+        		    { "data": "viewDetails" }
+        		  ]
+		    } );
+		} );
 	}else if(quoteType == 'Archive'){
 		$http.get("/agg/archivedQuotesInfo")
 		.then(function(response) {

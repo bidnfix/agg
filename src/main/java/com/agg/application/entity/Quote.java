@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -148,6 +149,12 @@ public class Quote implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="pr_id")
 	private Sprogram program;
+	
+	@OneToOne
+	@JoinColumn(name="quote_id", insertable=false, updatable=false)
+	private CustomerInfo customerInfo;
+	
+	
 
 	public Quote() {
 	}

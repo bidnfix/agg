@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -1688,6 +1689,54 @@ public class QuoteServiceImpl implements QuoteService {
 		cal.setTime(createdDate);
 		cal.add(Calendar.DATE, AggConstants.QUOTE_EXPIRATION_DAYS);
 		return cal.getTime();
+	}
+
+	@Override
+	public long getQuotesCount(AccountDO accountDo) {
+		long count = 0;
+		if (accountDo.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)) {
+			//quoteDos = quoteDAO.findAllQuotes(AggConstants.B_QUOTE_STATUS_UNACRHIVE);
+			count = quoteDAO.findQuotesCount(AggConstants.B_QUOTE_STATUS_UNACRHIVE);
+		} else {
+			//count = quoteDAO.findAllQuotesByDealer(accountDo.getDealerId(), AggConstants.B_QUOTE_STATUS_UNACRHIVE);
+		}
+		return count;
+	}
+
+	@Override
+	public long getQuotesSearchCount(AccountDO accountDo, String searchText) {
+		long count = 0;
+		if (accountDo.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)) {
+			//quoteDos = quoteDAO.findAllQuotes(AggConstants.B_QUOTE_STATUS_UNACRHIVE);
+			count = quoteDAO.findQuotesCountForSearch(AggConstants.B_QUOTE_STATUS_UNACRHIVE, searchText);
+		} else {
+			//count = quoteDAO.findAllQuotesByDealer(accountDo.getDealerId(), AggConstants.B_QUOTE_STATUS_UNACRHIVE);
+		}
+		return count;
+	}
+
+	@Override
+	public List<QuoteDO> getAllQuotesForSearch(AccountDO accountDo, String searchText, Pageable pageable) {
+		List<QuoteDO> quoteDos = null;
+		if (accountDo.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)) {
+			//quoteDos = quoteDAO.findAllQuotes(AggConstants.B_QUOTE_STATUS_UNACRHIVE);
+			quoteDos = quoteDAO.findQuotesForSearchByStatus(AggConstants.B_QUOTE_STATUS_UNACRHIVE, searchText, pageable);
+		} else {
+			quoteDos = quoteDAO.findAllQuotesByDealer(accountDo.getDealerId(), AggConstants.B_QUOTE_STATUS_UNACRHIVE);
+		}
+		return quoteDos;
+	}
+
+	@Override
+	public List<QuoteDO> getAllQuotes(AccountDO accountDo, Pageable pageable) {
+		List<QuoteDO> quoteDos = null;
+		if (accountDo.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)) {
+			//quoteDos = quoteDAO.findAllQuotes(AggConstants.B_QUOTE_STATUS_UNACRHIVE);
+			quoteDos = quoteDAO.findQuotesByStatus(AggConstants.B_QUOTE_STATUS_UNACRHIVE, pageable);
+		} else {
+			quoteDos = quoteDAO.findAllQuotesByDealer(accountDo.getDealerId(), AggConstants.B_QUOTE_STATUS_UNACRHIVE);
+		}
+		return quoteDos;
 	}
 	
 }

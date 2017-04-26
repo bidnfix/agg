@@ -3,6 +3,8 @@ package com.agg.application.service;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.data.domain.Pageable;
+
 import com.agg.application.model.AccountDO;
 import com.agg.application.model.PricingDO;
 import com.agg.application.model.QuoteDO;
@@ -49,4 +51,12 @@ public interface QuoteService {
 	public boolean createContract(QuoteDO quoteDO, AccountDO accountDO, String appUrl) throws Exception;
 
 	public Object getArchivedQuotes(AccountDO accountDO);
+
+	public long getQuotesCount(AccountDO accountDo);
+
+	public long getQuotesSearchCount(AccountDO accountDo, String searchText);
+
+	public List<QuoteDO> getAllQuotesForSearch(AccountDO accountDo, String searchText, Pageable pageable);
+
+	public List<QuoteDO> getAllQuotes(AccountDO accountDo, Pageable pageable);
 }

@@ -2,6 +2,7 @@ package com.agg.application.dao;
 
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -121,6 +122,36 @@ public interface QuoteDAO extends CrudRepository<Quote, QuotePK> {
 			+ " and quote.status = :status"
 			+ " and quote.isArchive = :isArchive")
 	public List<QuoteDO> findEstPriceQuotesByStatusAndDealerId(@Param("status")byte status, @Param("dealerId")long dealerId, @Param("isArchive")short isArchive);
+
+	@Query("SELECT COUNT(*)"
+			+ " from Quote quote, CustomerInfo customerInfo"
+			+ " where quote.id.quoteId=customerInfo.quoteId"
+			+ " and quote.isArchive = :isArchive")
+	public long findQuotesCount(@Param("isArchive")short isArchive);
+
+	@Query("SELECT new com.agg.application.model.QuoteDO(quote.id.id, quote.id.quoteId, quote.dealer.name, customerInfo.name, "
+			+ "quote.machineInfo.model, quote.machineSaleDate, quote.status, quote.createDate, quote.isArchive)"
+			+ " from Quote quote, CustomerInfo customerInfo"
+			+ " where quote.id.quoteId=customerInfo.quoteId"
+			+ " and quote.isArchive = :isArchive")
+	public List<QuoteDO> findQuotesByStatus(@Param("isArchive")short isArchive, Pageable pageable);
+
+	@Query("SELECT COUNT(*)"
+			+ " from Quote quote, CustomerInfo customerInfo"
+			+ " where quote.id.quoteId=customerInfo.quoteId"
+			+ " and quote.isArchive = :isArchive and (quote.id.quoteId like %:searchText% or quote.dealer.name like %:searchText% or"
+			+ " customerInfo.name like %:searchText% or quote.machineInfo.model like %:searchText% or quote.machineSaleDate like %:searchText% or"
+			+ " quote.status like %:searchText% or quote.createDate like %:searchText%)")
+	public long findQuotesCountForSearch(@Param("isArchive")short isArchive, @Param("searchText")String searchText);
+	
+	@Query("SELECT new com.agg.application.model.QuoteDO(quote.id.id, quote.id.quoteId, quote.dealer.name, customerInfo.name, "
+			+ "quote.machineInfo.model, quote.machineSaleDate, quote.status, quote.createDate, quote.isArchive)"
+			+ " from Quote quote, CustomerInfo customerInfo"
+			+ " where quote.id.quoteId=customerInfo.quoteId"
+			+ " and quote.isArchive = :isArchive and (quote.id.quoteId like %:searchText% or quote.dealer.name like %:searchText% or"
+			+ " customerInfo.name like %:searchText% or quote.machineInfo.model like %:searchText% or quote.machineSaleDate like %:searchText% or"
+			+ " quote.status like %:searchText% or quote.createDate like %:searchText%)")
+	public List<QuoteDO> findQuotesForSearchByStatus(@Param("isArchive")short isArchive, @Param("searchText")String searchText, Pageable pageable);
 	
 	
 }
