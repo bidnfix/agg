@@ -1,6 +1,5 @@
 'use strict';
 
-
 var routingApp = angular.module('aggRoutingApp',['ngRoute', 'ui.bootstrap', 'angularValidator', 'angularModalService']);
 
 routingApp.config(['$httpProvider', function ($httpProvider) {
