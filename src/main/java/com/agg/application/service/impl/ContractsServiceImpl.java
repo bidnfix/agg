@@ -8,9 +8,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 
@@ -20,11 +22,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.agg.application.dao.AdminAdjustmentDAO;
+import com.agg.application.dao.CheckDAO;
 import com.agg.application.dao.ContractsDAO;
 import com.agg.application.dao.CustomerInfoDAO;
 import com.agg.application.dao.ManufacturerDAO;
 import com.agg.application.dao.QuoteDAO;
 import com.agg.application.entity.AdminAdjustment;
+import com.agg.application.entity.Check;
 import com.agg.application.entity.Contracts;
 import com.agg.application.entity.CustomerInfo;
 import com.agg.application.entity.Dealer;
@@ -33,6 +37,7 @@ import com.agg.application.entity.Manufacturer;
 import com.agg.application.entity.Quote;
 import com.agg.application.entity.UseOfEquip;
 import com.agg.application.model.AccountDO;
+import com.agg.application.model.CheckDO;
 import com.agg.application.model.ContractDO;
 import com.agg.application.model.ContractReportDO;
 import com.agg.application.model.DealerDO;
@@ -66,6 +71,9 @@ public class ContractsServiceImpl implements ContractsService{
 	
 	@Autowired
 	private ManufacturerDAO manufacturerDAO;
+	
+	@Autowired
+	private CheckDAO checkDAO;
 	
 	private static final SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 
@@ -161,6 +169,21 @@ public class ContractsServiceImpl implements ContractsService{
 			contractDO.setCheqNo(item.getCheqNo());
 			if(item.getReceivedDate() != null){
 				contractDO.setReceivedDate(new java.sql.Timestamp(item.getReceivedDate().getTime()));
+			}
+			
+			Set<Check> checks = item.getChecks();
+			if(checks != null && !checks.isEmpty()){
+				CheckDO checkDO = null;
+				List<CheckDO> checkDOList = new ArrayList<CheckDO>();
+				for(Check check : checks){
+					checkDO = new CheckDO();
+					checkDO.setAmount(check.getCheckAmount());
+					checkDO.setCheckNo(check.getCheckNo());
+					checkDO.setReceivedDate(check.getReceivedDate());
+					
+					checkDOList.add(checkDO);
+				}
+				contractDO.setCheckDOList(checkDOList);
 			}
 			
 			Quote quote = quoteDAO.findOne((int)item.getQuoteId());
@@ -582,21 +605,73 @@ public class ContractsServiceImpl implements ContractsService{
 	}
 
 	@Override
-	public boolean updateContract(ContractDO contractDO) {
+	public boolean updateContract(ContractDO contractDO, AccountDO accountDO) {
 		List<Contracts> contractsList = contractDAO.findByIdAndContractId(contractDO.getId(), contractDO.getContractId());
 		boolean cond = false;
 		if(contractsList != null && !contractsList.isEmpty()){
+			Date currDate = new Date();
 			Contracts contracts = contractsList.get(0);
 			contracts.setAvailabeLol(contractDO.getAvailabeLol());
 			contracts.setInceptionDate(contractDO.getInceptionDate());
 			contracts.setExpirationDate(contractDO.getExpirationDate());
 			contracts.setComments(contractDO.getComments());
 			contracts.setStatus(contractDO.getStatus());
-			contracts.setLastUpdatedDate(new Date());
+			contracts.setLastUpdatedDate(currDate);
 			contracts.setCheqNo(contractDO.getCheqNo());
 			contracts.setReceivedDate(contractDO.getReceivedDate());
+			contracts.setMachineSerialNo(contractDO.getMachineSerialNo());
+			contracts.setCoverageType(contractDO.getCoverageType());
+			contracts.setCoverageTermMonths(contractDO.getCoverageTermMonths());
+			contracts.setCoverageLevelHours(contractDO.getCoverageLevelHours());
+			contracts.setDeductible(contractDO.getDeductible());
 			
 			LOGGER.debug("InceptionDate: "+contractDO.getInceptionDate()+" ExpirationDate: "+contractDO.getExpirationDate()+" ReceivedDate: "+contractDO.getReceivedDate());
+			
+			List<CheckDO> checkDOList = contractDO.getCheckDOList();
+			if(checkDOList != null && !checkDOList.isEmpty()){
+				Set<Check> checks = new HashSet<Check>();
+				Check check = null;
+				for(CheckDO checkDO : checkDOList){
+					if(checkDO.getId() > 0){
+						check = checkDAO.findOne(checkDO.getId());
+					}else{
+						check = new Check();
+						check.setCreatedBy(accountDO.getUsername());
+						check.setCreatedDate(currDate);
+					}
+					
+					check.setCheckNo(checkDO.getCheckNo());
+					check.setReceivedDate(checkDO.getReceivedDate());
+					check.setCheckAmount(checkDO.getAmount());
+					check.setUpdatedBy(accountDO.getUsername());
+					check.setUpdatedDate(currDate);
+					
+					checks.add(check);
+				}
+				
+				contracts.setChecks(checks);
+			}
+			
+			CustomerInfo customerInfo = customerInfoDAO.findOne(contractDO.getQuoteDO().getQuoteId());
+			if(customerInfo != null){
+				customerInfo.setName(contractDO.getQuoteDO().getDealerName());
+				customerInfo.setAddress(contractDO.getQuoteDO().getDealerAddress());
+				customerInfo.setState(contractDO.getQuoteDO().getDealerState());
+				customerInfo.setPhone(contractDO.getQuoteDO().getDealerPhone());
+				customerInfo.setCity(contractDO.getQuoteDO().getDealerCity());
+				customerInfo.setZip(contractDO.getQuoteDO().getDealerZip());
+				customerInfo.setEmail(contractDO.getQuoteDO().getDealerEmail());
+				
+				customerInfoDAO.save(customerInfo);
+			}
+			
+			AdminAdjustment adjustment = adminAdjustmentDAO.findOne(contractDO.getQuoteDO().getQuoteId());
+			if(adjustment != null){
+				adjustment.setBasePrice(contractDO.getQuoteDO().getAdjustedBasePrice());
+				
+				adminAdjustmentDAO.save(adjustment);
+			}
+			
 			
 			contractDAO.save(contracts);
 			

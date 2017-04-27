@@ -22,7 +22,7 @@ public interface ContractsService {
 	List<ContractDO> getActiveContracts(AccountDO accountDO);
 	List<ContractDO> getInactiveContracts(AccountDO accountDO);
 	ContractDO getContract(long id, String contractId);
-	boolean updateContract(ContractDO contractDO);
+	boolean updateContract(ContractDO contractDO, AccountDO accountDO);
 	int getContractsCount(String contractId);
 	List<ContractDO> getActiveContracts();
 	ContractDO getContract(String contractId);

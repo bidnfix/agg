@@ -92,11 +92,11 @@
                     <div class="col-xs-12 no-pad">
 						<div class="form-group">
 							<label>Dealer Quote</label> 
-							<p><button class="btn btn-primary btn-xs mar-right" ng-click="printQuote('dealer')">View</button></p>
+							<p><button class="btn btn-primary btn-xs mar-right" type="button" ng-click="printQuote('dealer')">View</button></p>
 						</div>
 						<div class="form-group">
 							<label>Dealer Invoice</label> 
-							<p><button class="btn btn-primary btn-xs mar-right" ng-click="printQuote('invoice')">View</button></p>
+							<p><button class="btn btn-primary btn-xs mar-right" type="button" ng-click="printQuote('invoice')">View</button></p>
 						</div>
 						<div class="form-group">
 							<label>Machine Type</label> 
@@ -159,7 +159,7 @@
 					</div>
 					<div class="form-group">
 						<label>Quote ID</label>
-						<p>{{contract.quoteId}}</p>
+						<p>{{contract.quoteDO.quoteId}}</p>
 					</div>
 					<div class="form-group">
 						<label>Available LOL</label> 
@@ -254,29 +254,144 @@
 						  <option value="4">Archived</option>
 						</select>
 					</div>
+					<div class="form-group">
+						<label>Customer Name</label>
+						<input type="text" id="custName" name="custName" ng-model="contract.quoteDO.dealerName" class="form-control" required="required">
+					</div>
+					<div class="form-group">
+						<label>Customer Address</label>
+						<input type="text" id="custAddress" name="custAddress" ng-model="contract.quoteDO.dealerAddress" class="form-control" required="required">
+					</div>
+					 <div class="form-group">
+                         <label>Customer State/Province</label>
+                         <select class="form-control" name="custState" ng-model="contract.quoteDO.dealerState" id="custState" required="required">
+							<option value="">Select State/Province</option>
+							<option value="AL">Alabama</option>
+							<option value="AK">Alaska</option>
+							<option value="AZ">Arizona</option>
+							<option value="AR">Arkansas</option>
+							<option value="CA">California</option>
+							<option value="CO">Colorado</option>
+							<option value="CT">Connecticut</option>
+							<option value="DE">Delaware</option>
+							<option value="DC">District Of Columbia</option>
+							<option value="FL">Florida</option>
+							<option value="GA">Georgia</option>
+							<option value="HI">Hawaii</option>
+							<option value="ID">Idaho</option>
+							<option value="IL">Illinois</option>
+							<option value="IN">Indiana</option>
+							<option value="IA">Iowa</option>
+							<option value="KS">Kansas</option>
+							<option value="KY">Kentucky</option>
+							<option value="LA">Louisiana</option>
+							<option value="ME">Maine</option>
+							<option value="MD">Maryland</option>
+							<option value="MA">Massachusetts</option>
+							<option value="MI">Michigan</option>
+							<option value="MN">Minnesota</option>
+							<option value="MS">Mississippi</option>
+							<option value="MO">Missouri</option>
+							<option value="MT">Montana</option>
+							<option value="NE">Nebraska</option>
+							<option value="NV">Nevada</option>
+							<option value="NH">New Hampshire</option>
+							<option value="NJ">New Jersey</option>
+							<option value="NM">New Mexico</option>
+							<option value="NY">New York</option>
+							<option value="NC">North Carolina</option>
+							<option value="ND">North Dakota</option>
+							<option value="OH">Ohio</option>
+							<option value="OK">Oklahoma</option>
+							<option value="OR">Oregon</option>
+							<option value="PA">Pennsylvania</option>
+							<option value="RI">Rhode Island</option>
+							<option value="SC">South Carolina</option>
+							<option value="SD">South Dakota</option>
+							<option value="TN">Tennessee</option>
+							<option value="TX">Texas</option>
+							<option value="UT">Utah</option>
+							<option value="VT">Vermont</option>
+							<option value="VA">Virginia</option>
+							<option value="WA">Washington</option>
+							<option value="WV">West Virginia</option>
+							<option value="WI">Wisconsin</option>
+							<option value="WY">Wyoming</option>
+							<option value="AB">Alberta</option>
+							<option value="BC">British Columbia</option>
+							<option value="MB">Manitoba</option>
+							<option value="NB">New Brunswick</option>
+							<option value="NL">Newfoundland and Labrador</option>
+							<option value="NS">Nova Scotia</option>
+							<option value="ON">Ontario</option>
+							<option value="PE">Prince Edward Island</option>
+							<option value="QC">Quebec</option>
+							<option value="SK">Saskatchewan</option>
+							<option value="NT">Northwest Territories</option>
+							<option value="NU">Nunavut</option>
+							<option value="YT">Yukon</option>
+						</select>
+                       </div>
+                       <div class="form-group">
+                         <label>Customer Phone</label>
+                         <input type="text" id="custPhone" name="custPhone" ng-model="contract.quoteDO.dealerPhone" class="form-control" required="required">
+                       </div>
 				</div>
 
 				<div class="col-md-6 no-pad pad10-left border-left">
                     <div class="col-xs-12 no-pad">
+                    	<div class="form-group">
+							<label>Contract Details</label> 
+							<p><button class="btn btn-primary btn-xs mar-right" type="button" ng-click="printContract('contract')">View</button></p>
+						</div>
+						<div class="form-group col-xs-12 no-pad">
+							<label>Coverage Details</label> 
+							<p><button class="btn btn-primary btn-xs mar-right" type="button" ng-click="printContract('coverage')">View</button></p>
+						</div>
 						<div class="form-group">
+                         <label>Machine Serial Number</label>
+                         <input type="text" id="serialNumber" name="serialNumber" ng-model="contract.machineSerialNo" class="form-control" required="required">
+                       	</div>
+						<!-- <div class="form-group">
 							<label>Machine Serial Number</label> 
 							<p>{{contract.machineSerialNo}}</p>
-						</div>
-						<div class="form-group">
+						</div> -->
+						<!-- <div class="form-group">
 							<label>Coverage Type</label> 
 							<p>{{contract.coverageType}}</p>
-						</div>
+						</div> -->
 						<div class="form-group">
+	                         <label>Coverage Type</label>
+						     <select name="adjustedCoverageType" ng-model="contract.coverageType" class="form-control"  required="required">
+	                         	<option value="">Select Coverage Type</option>
+	                         	<option value="PT">Powertrain</option>
+				                <option value="PH">Powertrain + Hydraulic</option>
+				                <option value="PL">Powertrain + Hydraulic + Platform</option>
+							 </select>
+	                      </div>
+						<!-- <div class="form-group">
 							<label>Coverage Term</label> 
 							<p>{{(contract.coverageTermMonths != null)?contract.coverageTermMonths+"&nbsp;mos.":""}}</p>
-						</div>
+						</div> -->
 						<div class="form-group">
+							<label>Coverage Term</label>
+							<input type="number" id="coverageTermMonths" name="coverageTermMonths" ng-model="contract.coverageTermMonths" class="form-control" required="required">
+						</div>
+						<!-- <div class="form-group">
 							<label>Coverage Level Hours</label> 
 							<p>{{contract.coverageLevelHours}}</p>
-						</div>
+						</div> -->
 						<div class="form-group">
+							<label>Coverage Level Hours</label>
+							<input type="number" id="coverageLevelHours" name="coverageLevelHours" ng-model="contract.coverageLevelHours" class="form-control" required="required">
+						</div>
+						<!-- <div class="form-group">
 							<label>Deductible</label>
 							<p>{{contract.deductible | currency:"$":0}}</p>
+						</div> -->
+						<div class="form-group">
+							<label>Deductible</label>
+							<input type="number" id="deductiblePrice" name="deductiblePrice" ng-model="contract.deductible" class="form-control" required="required">
 						</div>
 						<div class="form-group">
 							<label>Limit of Liability</label> 
@@ -286,6 +401,75 @@
 							<label>Last Updated date</label>
 							<p>{{contract.lastUpdatedDate | date:'MM/dd/yyyy'}}</p>
 						</div>
+						<div class="form-group">
+							<label>Adjusted Base Price</label>
+							<input type="number" id="adjustedBasePrice" name="adjustedBasePrice" ng-model="contract.quoteDO.adjustedBasePrice" class="form-control" required="required">
+						</div>
+						<div class="form-group">
+	                         <label>Customer City</label>
+	                         <input type="text" id="custCity" name="dcustCity" ng-model="contract.quoteDO.dealerCity" class="form-control">
+	                     </div>
+	                     <div class="form-group">
+	                         <label>Customer Zip</label>
+	                         <input type="text" id="custZip" name="custZip" ng-model="contract.quoteDO.dealerZip" class="form-control" required="required">
+	                      </div>
+	                      <div class="form-group">
+	                         <label>Customer Email</label>
+	                         <input type="text" id="custEmail" name="custEmail" ng-model="contract.quoteDO.dealerEmail" class="form-control" required="required">
+	                       </div>
+					</div>
+				</div>
+				<div class="col-xs-12 no-pad table-responsive clearfix">
+					<table class="table table-bordered">
+						<thead>
+							<tr>
+								<th class="col-sm-4">Check #</th>
+								<th class="col-sm-4">Received Date</th>
+								<th class="col-sm-3">Check Amount</th>
+								<th class="col-sm-1">
+									<button type="button" class="btn btn-primary btn-sm" ng-click="addCheck()">
+									<i class="fa fa-plus"></i>
+							</button>
+								</th>
+							</tr>
+						</thead>
+						<tbody data-ng-repeat="checkDO in contract.checkDOList">
+							<tr>
+								<td><input type="text" class="form-control" name="checkNo" ng-model="checkDO.checkNo" required="required"></td>
+								<td>
+									<div class="agf1 input-group">
+										<input type="text" class="form-control"
+										   name="receivedDate" 
+						                   datepicker-popup="MM/dd/yyyy"
+						                   datepicker-options="dateOptions" 
+						                   is-open="checkDO.chkDatePickerIsOpen" 
+						                   ng-click="checkDO.chkDatePickerIsOpen=true"
+						                   ng-model="checkDO.receivedDate"/>
+							            <span class="input-group-btn">
+							              <button type="button" class="btn btn-default" 
+							                      ng-click="chkDatePickerOpen($event, checkDO)">
+							                <i class="glyphicon glyphicon-calendar"></i>
+							              </button>
+							            </span>
+						            </div>
+								</td>
+								<td><input type="number" class="form-control" name="amount" ng-model="checkDO.amount" ng-change="calcCheckAmtTotal()" required="required"></td>
+								<td>
+									<button ng-if="quote.checkDOList.length > 1" type="button" class="btn btn-primary btn-sm" ng-click="removeCheck(checkDO);">
+										<i class="fa fa-minus"></i>
+									</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="col-sm-12">
+							<div class="col-sm-6"></div>
+							<div class="col-sm-6">
+								<div class="col-sm-8 no-pad">Total Check Amount</div>
+								<div class="col-sm-4 t-r">
+									{{quote.totalCheckAmount | currency}}
+								</div>
+							</div>
 					</div>
 				</div>
 				<div class="col-sm-12 no-pad t-c marg10-bottom">

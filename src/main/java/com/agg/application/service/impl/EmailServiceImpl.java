@@ -432,7 +432,7 @@ public class EmailServiceImpl implements EmailService {
 		reportDO.setCoverageTerm(quoteDO.getCoverageTerm());
 		reportDO.setCoverageHours(quoteDO.getCoverageHours());
 		reportDO.setExpirationDate((quoteDO.getExpirationDate() != null)?dateFormat.format(quoteDO.getExpirationDate()):"");
-		reportDO.setDeductibleAmount(currencyFormat.format(quoteDO.getDeductAmount()));
+		reportDO.setDeductibleAmount(currencyFormat.format(quoteDO.getDeductiblePrice()));
 		reportDO.setExpirationHours(quoteDO.getExpirationHours()+"");
 		reportDO.setCoverageType(quoteDO.getCoverageType());
 		reportDO.setLol(currencyFormat.format(quoteDO.getAdjustedLol()));

@@ -4,12 +4,14 @@ import java.util.Date;
 
 public class CheckDO {
 
+	private long id;
+	
 	private String checkNo;
 	
 	private Date receivedDate;
 	
 	private double amount;
-
+	
 	public String getCheckNo() {
 		return checkNo;
 	}
@@ -32,6 +34,14 @@ public class CheckDO {
 
 	public void setAmount(double amount) {
 		this.amount = amount;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 	
 }

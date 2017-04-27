@@ -2262,6 +2262,52 @@ routingApp.controller('ContractDetailController', function($scope, $http, $timeo
 			contractService.updateContract($scope.contract);
 		}
 	}
+	
+	$scope.printQuote = function(quotePrintType){
+		if(quotePrintType == 'dealer'){
+			$window.open('/agg/quote/report/dealer/'+$scope.contract.quoteDO.quoteId);
+		}else if(quotePrintType == 'customer'){
+			$window.open('/agg/quote/report/customer/'+$scope.contract.quoteDO.quoteId);
+		}else if(quotePrintType == 'invoice'){
+			$window.open('/agg/quote/report/invoice/'+$scope.contract.quoteDO.quoteId);
+		}
+	}
+	
+	$scope.printContract = function(contractPrintType){
+		if(contractPrintType == 'contract'){
+			$window.open('/agg/contract/report/contract/'+$scope.contract.id+'/'+$scope.contract.contractId);
+		}else if(contractPrintType == 'coverage'){
+			$window.open('/agg/contract/report/coverage/'+$scope.contract.id+'/'+$scope.contract.contractId);
+		}
+	}
+	
+	$scope.chkDatePickerOpen = function ($event, checkDO) {
+	  checkDO.chkDatePickerIsOpen = false;
+      if ($event) {
+          $event.preventDefault();
+          $event.stopPropagation(); // This is the magic
+      }
+      checkDO.chkDatePickerIsOpen = true;
+    }
+	
+	$scope.addCheck = function(){
+		$scope.contract.checkDOList.push({});
+	}
+	
+	$scope.removeCheck = function(checkDO){
+		var index = $scope.quote.checkDOList.indexOf(checkDO);
+		$scope.contract.checkDOList.splice(index, 1);
+		$scope.calcCheckAmtTotal();
+    }
+    
+    $scope.calcCheckAmtTotal = function(){
+		$scope.contract.totalCheckAmount = 0;
+		angular.forEach($scope.contract.checkDOList, function(checkDO, index){
+			$scope.contract.totalCheckAmount += checkDO.amount;
+		});
+	}
+	
+	
 })
 .directive('convertToNumber', function() {
     return {
