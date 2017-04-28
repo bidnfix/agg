@@ -41,6 +41,7 @@ public class ContractDO {
 	private Timestamp receivedDate;
 	private List<CheckDO> checkDOList;
 	private QuoteDO quoteDO;
+	private DealerDO servicingDealerDO;
 	
 	
 	public ContractDO(long id, String contractId, String machineSerialNo, double lol, Date inceptionDate,
@@ -312,6 +313,14 @@ public class ContractDO {
 
 	public void setQuoteDO(QuoteDO quoteDO) {
 		this.quoteDO = quoteDO;
+	}
+
+	public DealerDO getServicingDealerDO() {
+		return servicingDealerDO;
+	}
+
+	public void setServicingDealerDO(DealerDO servicingDealerDO) {
+		this.servicingDealerDO = servicingDealerDO;
 	}
 	
 }

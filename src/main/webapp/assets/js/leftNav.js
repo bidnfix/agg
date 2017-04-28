@@ -2253,8 +2253,10 @@ routingApp.controller('ContractDetailController', function($scope, $http, $timeo
 	$http.get("/agg/contractInfo/"+$routeParams.contractId+"/"+$routeParams.contractCode)
 	.then(function(response) {
         $scope.contract = response.data.data.contractDO;
+        $scope.dealerDOList = response.data.data.dealerDOList;
         $scope.contract.inceptionDate = new Date($scope.contract.inceptionDate);
         $scope.contract.expirationDate = new Date($scope.contract.expirationDate);
+        $scope.calcCheckAmtTotal();
     });
 	
 	$scope.updateContract = function(contractInfoForm){
@@ -2295,7 +2297,7 @@ routingApp.controller('ContractDetailController', function($scope, $http, $timeo
 	}
 	
 	$scope.removeCheck = function(checkDO){
-		var index = $scope.quote.checkDOList.indexOf(checkDO);
+		var index = $scope.contract.checkDOList.indexOf(checkDO);
 		$scope.contract.checkDOList.splice(index, 1);
 		$scope.calcCheckAmtTotal();
     }
@@ -2306,8 +2308,7 @@ routingApp.controller('ContractDetailController', function($scope, $http, $timeo
 			$scope.contract.totalCheckAmount += checkDO.amount;
 		});
 	}
-	
-	
+    
 })
 .directive('convertToNumber', function() {
     return {
@@ -2327,6 +2328,7 @@ routingApp.controller('ContractViewDetailController', function($scope, $http, $t
 	$http.get("/agg/contractInfo/"+$routeParams.contractId+"/"+$routeParams.contractCode)
 	.then(function(response) {
         $scope.contract = response.data.data.contractDO;
+        $scope.calcCheckAmtTotal();
     });
 	
 	$scope.cancelContract = function(){
@@ -2339,6 +2341,23 @@ routingApp.controller('ContractViewDetailController', function($scope, $http, $t
 		}else if(contractPrintType == 'coverage'){
 			$window.open('/agg/contract/report/coverage/'+$scope.contract.id+'/'+$scope.contract.contractId);
 		}
+	}
+	
+	$scope.printQuote = function(quotePrintType){
+		if(quotePrintType == 'dealer'){
+			$window.open('/agg/quote/report/dealer/'+$scope.contract.quoteDO.quoteId);
+		}else if(quotePrintType == 'customer'){
+			$window.open('/agg/quote/report/customer/'+$scope.contract.quoteDO.quoteId);
+		}else if(quotePrintType == 'invoice'){
+			$window.open('/agg/quote/report/invoice/'+$scope.contract.quoteDO.quoteId);
+		}
+	}
+	
+	$scope.calcCheckAmtTotal = function(){
+		$scope.contract.totalCheckAmount = 0;
+		angular.forEach($scope.contract.checkDOList, function(checkDO, index){
+			$scope.contract.totalCheckAmount += checkDO.amount;
+		});
 	}
 	
 })
