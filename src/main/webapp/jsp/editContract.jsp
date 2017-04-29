@@ -259,7 +259,7 @@
 							</div>
 							<div class="form-group">
 								<label>Servicing Dealer</label>
-								<input type="text" ng-model="contract.servicingDealerDO" uib-typeahead="dealerDO as dealerDO.name for dealerDO in dealerDOList | filter:{name:$viewValue}" class="form-control" typeahead-show-hint="true" typeahead-min-length="0">
+								<input type="text" ng-model="contract.servicingDealerDO" placeholder="" typeahead="dealerDO as dealerDO.name for dealerDO in dealerDOList | filter:{name:$viewValue} | limitTo:8" class="form-control" >
 							</div>
 						</c:when>
 						<c:otherwise>

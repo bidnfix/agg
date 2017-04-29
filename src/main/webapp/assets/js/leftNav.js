@@ -2311,18 +2311,18 @@ routingApp.controller('ContractDetailController', function($scope, $http, $timeo
     
 })
 .directive('convertToNumber', function() {
-    return {
-        require: 'ngModel',
-        link: function(scope, element, attrs, ngModel) {
-          ngModel.$parsers.push(function(val) {
-            return parseInt(val, 10);
-          });
-          ngModel.$formatters.push(function(val) {
-            return '' + val;
-          });
-        }
-      };
-   });
+	return {
+	    require: 'ngModel',
+	    link: function(scope, element, attrs, ngModel) {
+	      ngModel.$parsers.push(function(val) {
+	        return parseInt(val, 10);
+	      });
+	      ngModel.$formatters.push(function(val) {
+	        return '' + val;
+	          });
+	        }
+	      };
+	   });
 
 routingApp.controller('ContractViewDetailController', function($scope, $http, $timeout, $window, $routeParams, contractService) {
 	$http.get("/agg/contractInfo/"+$routeParams.contractId+"/"+$routeParams.contractCode)

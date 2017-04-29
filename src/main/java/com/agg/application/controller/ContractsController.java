@@ -120,7 +120,7 @@ public class ContractsController extends BaseController{
 			opResult = new Result("failure", "Invalid Login", null);
 		}else{
 			model.addAttribute("contractDO", contractService.getContract(id, contractId));
-			model.addAttribute("dealerDOList", dealerService.getParentDealers());
+			model.addAttribute("dealerDOList", dealerService.getActiveDealers(getAccountDetails(request)));
 			opResult = new Result("success", "", model);
 		}
 		return opResult;

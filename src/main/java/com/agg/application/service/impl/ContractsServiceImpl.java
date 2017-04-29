@@ -25,6 +25,7 @@ import com.agg.application.dao.AdminAdjustmentDAO;
 import com.agg.application.dao.CheckDAO;
 import com.agg.application.dao.ContractsDAO;
 import com.agg.application.dao.CustomerInfoDAO;
+import com.agg.application.dao.DealerDAO;
 import com.agg.application.dao.ManufacturerDAO;
 import com.agg.application.dao.QuoteDAO;
 import com.agg.application.entity.AdminAdjustment;
@@ -74,6 +75,9 @@ public class ContractsServiceImpl implements ContractsService{
 	
 	@Autowired
 	private CheckDAO checkDAO;
+	
+	@Autowired
+	private DealerDAO dealerDAO;
 	
 	private static final SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 
@@ -144,6 +148,10 @@ public class ContractsServiceImpl implements ContractsService{
 		List<ContractDO> contractsDOList = new LinkedList<ContractDO>();
 		ManufacturerDO manufacturerDO = null;
 		ContractDO contractDO = null;
+		Set<Check> checks = null;
+		Dealer servicingDealer = null;
+		Quote quote = null;
+		DealerDO servicingDealerDO = null;
 		for(Contracts item : contractsList){
 			contractDO = new ContractDO();
 			contractDO.setId(item.getId());
@@ -171,7 +179,17 @@ public class ContractsServiceImpl implements ContractsService{
 				contractDO.setReceivedDate(new java.sql.Timestamp(item.getReceivedDate().getTime()));
 			}
 			
-			Set<Check> checks = item.getChecks();
+			servicingDealer = item.getServicingDealer();
+			if(servicingDealer != null){
+				servicingDealerDO = new DealerDO();
+				servicingDealerDO.setId(servicingDealer.getId());
+				servicingDealerDO.setName(servicingDealer.getName());
+				servicingDealerDO.setCode(servicingDealer.getCode());
+				
+				contractDO.setServicingDealerDO(servicingDealerDO);
+			}
+			
+			checks = item.getChecks();
 			if(checks != null && !checks.isEmpty()){
 				CheckDO checkDO = null;
 				List<CheckDO> checkDOList = new ArrayList<CheckDO>();
@@ -186,7 +204,7 @@ public class ContractsServiceImpl implements ContractsService{
 				contractDO.setCheckDOList(checkDOList);
 			}
 			
-			Quote quote = quoteDAO.findOne((int)item.getQuoteId());
+			quote = quoteDAO.findOne((int)item.getQuoteId());
 			if(null != quote){
 				manufacturerDO = new ManufacturerDO();
 				Manufacturer manf = manufacturerDAO.findOne(Long.valueOf(quote.getManufacturer().getManfId()));
@@ -624,6 +642,13 @@ public class ContractsServiceImpl implements ContractsService{
 			contracts.setCoverageTermMonths(contractDO.getCoverageTermMonths());
 			contracts.setCoverageLevelHours(contractDO.getCoverageLevelHours());
 			contracts.setDeductible(contractDO.getDeductible());
+			
+			if(contractDO.getServicingDealerDO() != null){
+				Dealer servicingDealer = dealerDAO.findOne(contractDO.getServicingDealerDO().getId());
+				if(servicingDealer != null){
+					contracts.setServicingDealer(servicingDealer);
+				}
+			}
 			
 			LOGGER.debug("InceptionDate: "+contractDO.getInceptionDate()+" ExpirationDate: "+contractDO.getExpirationDate()+" ReceivedDate: "+contractDO.getReceivedDate());
 			
