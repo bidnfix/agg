@@ -2336,6 +2336,9 @@ routingApp.controller('ContractDetailController', function($scope, $http, $timeo
         $scope.contract.inceptionDate = new Date($scope.contract.inceptionDate);
         $scope.contract.expirationDate = new Date($scope.contract.expirationDate);
         $scope.calcCheckAmtTotal();
+        if($scope.contract.checkDOList == null){
+        	$scope.contract.checkDOList = [];
+        }
     });
 	
 	$scope.updateContract = function(contractInfoForm){

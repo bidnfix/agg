@@ -94,6 +94,15 @@ public class DealerServiceImpl implements DealerService {
 	}
 	
 	@Override
+	public List<DealerDO> getServiceDealerActiveDealers() {
+		logger.debug("In getActiveDealers");
+		List<Dealer> dealerList = null;
+			dealerList = dealerDAO.findByStatusOrderByNameAsc(AggConstants.ACTIVE);
+		
+		return getDealerDOList(dealerList);
+	}
+	
+	@Override
 	public List<DealerDO> getPendingDealers() {
 		logger.debug("In getPendingDealers");
 		List<Dealer> dealerList = Util.toList(dealerDAO.findByStatusOrderByNameAsc(AggConstants.PENDING));

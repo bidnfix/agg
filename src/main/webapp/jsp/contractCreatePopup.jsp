@@ -95,7 +95,7 @@
 						            </span>
 					            </div>
 							</td>
-							<td><input type="number" class="form-control" name="amount" ng-model="checkDO.amount" ng-change="calcCheckAmtTotal()" required="required"></td>
+							<td><input type="number" step="0.01" class="form-control" name="amount" ng-model="checkDO.amount" ng-change="calcCheckAmtTotal()" required="required"></td>
 							<td>
 								<button ng-if="quote.checkDOList.length > 1" type="button" class="btn btn-primary btn-sm" ng-click="removeCheck(checkDO);">
 									<i class="fa fa-minus"></i>

@@ -186,6 +186,7 @@ public class ContractsServiceImpl implements ContractsService{
 				servicingDealerDO.setId(servicingDealer.getId());
 				servicingDealerDO.setName(servicingDealer.getName());
 				servicingDealerDO.setCode(servicingDealer.getCode());
+				servicingDealerDO.setCity(servicingDealer.getCity());
 				
 				contractDO.setServicingDealerDO(servicingDealerDO);
 			}
@@ -196,6 +197,7 @@ public class ContractsServiceImpl implements ContractsService{
 				List<CheckDO> checkDOList = new ArrayList<CheckDO>();
 				for(Check check : checks){
 					checkDO = new CheckDO();
+					checkDO.setId(check.getId());
 					checkDO.setAmount(check.getCheckAmount());
 					checkDO.setCheckNo(check.getCheckNo());
 					checkDO.setReceivedDate(check.getReceivedDate());
@@ -624,6 +626,7 @@ public class ContractsServiceImpl implements ContractsService{
 	}
 
 	@Override
+	@Transactional
 	public boolean updateContract(ContractDO contractDO, AccountDO accountDO) {
 		List<Contracts> contractsList = contractDAO.findByIdAndContractId(contractDO.getId(), contractDO.getContractId());
 		boolean cond = false;
@@ -633,6 +636,7 @@ public class ContractsServiceImpl implements ContractsService{
 			contracts.setAvailabeLol(contractDO.getAvailabeLol());
 			contracts.setInceptionDate(contractDO.getInceptionDate());
 			contracts.setExpirationDate(contractDO.getExpirationDate());
+			contracts.setExpirationUsageHours(contractDO.getExpirationUsageHours());
 			contracts.setComments(contractDO.getComments());
 			contracts.setStatus(contractDO.getStatus());
 			contracts.setLastUpdatedDate(currDate);
@@ -666,6 +670,7 @@ public class ContractsServiceImpl implements ContractsService{
 						check.setCreatedDate(currDate);
 					}
 					
+					check.setContract(contracts);
 					check.setCheckNo(checkDO.getCheckNo());
 					check.setReceivedDate(checkDO.getReceivedDate());
 					check.setCheckAmount(checkDO.getAmount());
@@ -674,6 +679,33 @@ public class ContractsServiceImpl implements ContractsService{
 					
 					checks.add(check);
 				}
+				
+				/*int deletedRows = checkDAO.deleteChecksByContractId(contractDO.getId());
+				LOGGER.debug("deleted check count: "+deletedRows);
+				checkDAO.save(checks);*/
+				
+				Set<Check> exstChecks = contracts.getChecks();
+				Set<Check> nonExstChecks = new HashSet<Check>();
+				boolean nonExists = false;
+				for(Check exstCheck : exstChecks){
+					nonExists = true;
+					for(Check checkk : checks){
+						if(exstCheck.getId() == checkk.getId()){
+							nonExists = false;
+							break;
+						}
+					}
+					
+					if(nonExists){
+						nonExstChecks.add(exstCheck);
+					}
+				}
+				
+				LOGGER.debug("nonExstChecks size: "+nonExstChecks.size());
+				if(nonExstChecks.size() > 0){
+					checkDAO.delete(nonExstChecks);
+				}
+				
 				
 				contracts.setChecks(checks);
 			}
