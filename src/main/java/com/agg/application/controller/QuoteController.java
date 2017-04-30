@@ -330,9 +330,9 @@ public class QuoteController extends BaseController {
 			case 5:
 				properties = "status";
 				break;
-			case 6:
+			/*case 6:
 				properties = "createDate";
-				break;
+				break;*/
 
 			default:
 				properties = "id.quoteId";

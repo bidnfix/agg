@@ -5,6 +5,8 @@ package com.agg.application.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
+
 import com.agg.application.model.AccountDO;
 import com.agg.application.model.ContractDO;
 import com.agg.application.model.ContractReportDO;
@@ -28,4 +30,8 @@ public interface ContractsService {
 	ContractDO getContract(String contractId);
 	ContractReportDO getContractReportDetails(long id, String contractId);
 	List<ContractDO> getActiveContractDetails(AccountDO accountDetails);
+	long getActiveContractsCount(AccountDO accountDo);
+	List<ContractDO> getActiveContracts(AccountDO accountDo, Pageable pageable);
+	long getActiveContractsSearchCount(AccountDO accountDo, String searchText);
+	List<ContractDO> getActiveContractsForSearch(AccountDO accountDo, String searchText, Pageable pageable);
 }

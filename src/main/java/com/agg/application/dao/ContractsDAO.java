@@ -5,6 +5,7 @@ package com.agg.application.dao;
 
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -92,4 +93,27 @@ public interface ContractsDAO extends CrudRepository<Contracts, Long>{
 			+ "and quote.dealer.id = :dealerId "
 			+ "and contract.status = :status")
 	public List<ContractDO> findContractsByStatusAndDelaerId(@Param("status") int status, @Param("dealerId") long dealerId);
+
+	@Query("SELECT COUNT(*) AS count   "
+			+ "from Contracts contract where contract.status = :status")
+	public long getContractsCountByStatus(@Param("status") int status);
+
+	@Query("select new com.agg.application.model.ContractDO(contract.id, contract.contractId, contract.machineSerialNo, contract.lol, contract.inceptionDate, "
+			+ "contract.expirationDate, contract.expirationUsageHours, contract.status, contract.lastUpdatedDate, contract.cheqNo, contract.receivedDate) "
+			+ "from Contracts contract "
+			+ "where contract.status = :status")
+	public List<ContractDO> findActiveContractsByStatus(@Param("status") int status, Pageable pageable);
+
+	@Query("SELECT COUNT(*) AS count   "
+			+ "from Contracts contract where contract.status = :status and (contract.contractId like %:searchText% or contract.machineSerialNo like %:searchText% or"
+			+ " contract.lol like %:searchText% or contract.inceptionDate like %:searchText% or contract.expirationDate like %:searchText% or"
+			+ " contract.expirationUsageHours like %:searchText% or contract.status like %:searchText% or contract.lastUpdatedDate like %:searchText%)")
+	public long getContractsCountByStatusForSearch(@Param("status") int status, @Param("searchText") String searchText);
+
+	@Query("select new com.agg.application.model.ContractDO(contract.id, contract.contractId, contract.machineSerialNo, contract.lol, contract.inceptionDate, "
+			+ "contract.expirationDate, contract.expirationUsageHours, contract.status, contract.lastUpdatedDate, contract.cheqNo, contract.receivedDate) "
+			+ "from Contracts contract where contract.status = :status and (contract.contractId like %:searchText% or contract.machineSerialNo like %:searchText% or"
+			+ " contract.lol like %:searchText% or contract.inceptionDate like %:searchText% or contract.expirationDate like %:searchText% or"
+			+ " contract.expirationUsageHours like %:searchText% or contract.status like %:searchText% or contract.lastUpdatedDate like %:searchText%)")
+	public List<ContractDO> findActiveContractsByStatusForSearch(@Param("status") int status, @Param("searchText") String searchText, Pageable pageable);
 }

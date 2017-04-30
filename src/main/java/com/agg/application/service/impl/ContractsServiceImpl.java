@@ -19,6 +19,7 @@ import javax.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.agg.application.dao.AdminAdjustmentDAO;
@@ -771,6 +772,51 @@ public class ContractsServiceImpl implements ContractsService{
 		}
 		
 		return contractReportDO;
+	}
+	
+	@Override
+	public long getActiveContractsCount(AccountDO accountDo) {
+		long count = 0;
+		if (accountDo.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)) {
+			count = contractDAO.getContractsCountByStatus(AggConstants.B_ACTIVE_CONTRACT);
+		} else {
+			//contractDos = contractDAO.findContractsByStatusAndDelaerId(AggConstants.B_ACTIVE_CONTRACT, accountDO.getDealerId());
+		}
+		return count;
+	}
+	
+	@Override
+	public List<ContractDO> getActiveContracts(AccountDO accountDo, Pageable pageable) {
+		List<ContractDO> contractDos = null;
+		if (accountDo.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)) {
+			contractDos = contractDAO.findActiveContractsByStatus(AggConstants.B_ACTIVE_CONTRACT, pageable);
+		} else {
+			contractDos = contractDAO.findContractsByStatusAndDelaerId(AggConstants.B_ACTIVE_CONTRACT, accountDo.getDealerId());
+		}
+		return contractDos;
+	}
+	
+	@Override
+	public long getActiveContractsSearchCount(AccountDO accountDo, String searchText) {
+		long count = 0;
+		if (accountDo.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)) {
+			count = contractDAO.getContractsCountByStatusForSearch(AggConstants.B_ACTIVE_CONTRACT, searchText);
+		} else {
+			//contractDos = contractDAO.findContractsByStatusAndDelaerId(AggConstants.B_ACTIVE_CONTRACT, accountDO.getDealerId());
+		}
+		return count;
+	}
+	
+	@Override
+	public List<ContractDO> getActiveContractsForSearch(AccountDO accountDo, String searchText, Pageable pageable) {
+		List<ContractDO> contractDos = null;
+		if (accountDo.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)) {
+			contractDos = contractDAO.findActiveContractsByStatusForSearch(AggConstants.B_ACTIVE_CONTRACT, searchText, pageable);
+		} else {
+			contractDos = contractDAO.findContractsByStatusAndDelaerId(AggConstants.B_ACTIVE_CONTRACT, accountDo.getDealerId());
+		}
+		return contractDos;
+		
 	}
 	
 }

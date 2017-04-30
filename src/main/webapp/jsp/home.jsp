@@ -133,7 +133,7 @@
             </tr>
         </tfoot>
  
-        <tbody>
+        <!-- <tbody>
             <tr ng-repeat="contract in contractList">
             	<td>{{contract.contractId}}</td>
             	<td>{{contract.machineSerialNo}}</td>
@@ -149,7 +149,7 @@
                 	</div>
                 </td>
             </tr>
-        </tbody>
+        </tbody>-->
     </table>
     
     <table id="claimsTbl" class="table table-striped table-bordered" cellspacing="0" width="100%" ng-hide="claimsFlag">

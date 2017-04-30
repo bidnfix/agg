@@ -473,7 +473,7 @@ routingApp.controller('HomeController', function($scope, $http, $timeout, $windo
 	    });
 	}
 	
-	$scope.getActiveContracts = function()
+	/*$scope.getActiveContracts = function()
 	{
 		$http.get("/agg/activeContracts")
 		.then(function(response) {
@@ -497,6 +497,85 @@ routingApp.controller('HomeController', function($scope, $http, $timeout, $windo
 	        	});
 	        }, 300);
 	    });
+	}*/
+	
+$scope.getActiveContracts = function() {
+		
+		$(document).ready(function() {
+			$('#contractsTbl').dataTable().fnClearTable();
+    		$('#contractsTbl').dataTable().fnDestroy();
+    		$scope.contractsFlag = false;
+    		$scope.quotesFlag = true;
+    		$scope.claimsFlag = true;
+			$('#contractsTbl').parents('div.dataTables_wrapper').first().show();
+    		$('#quotesTbl').parents('div.dataTables_wrapper').first().hide();
+    		$('#claimsTbl').parents('div.dataTables_wrapper').first().hide();
+    		$('#contractsTbl').DataTable( {
+		        "processing": true,
+		        "serverSide": true,
+		        ajax: {
+		            url: '/agg/activeContracts',
+		            dataFilter: function(data){
+		                var json = jQuery.parseJSON( data );
+		                json.recordsTotal = json.recordsTotal;
+			            json.recordsFiltered = json.recordsFiltered;
+			            json.data = json.data;
+			            
+			            for ( var i=0, len=json.data.length; i<len ; i++ ) {
+			            	json.data[i].status = json.data[i].status ==  '1' ? "Active" : json.data[i].status == '2' ? "Expired" : json.data[i].status == '3' ? "Cancelled" : "Archived";
+	        				json.data[i].viewDetails = '<div class="manage-sec"><a href="#/agg/viewContractDetails/'+json.data[i].id+'/'+json.data[i].contractId+'"><img src="../assets/images/edit-pencil.png" alt="View" title="View"/></a></div>';
+	        				 
+	        			 }
+		                return JSON.stringify( json );
+		            }},
+		            columnDefs: [ { targets: 7, visible: false },
+		                { width: "12%", targets: 0 }
+		            ],
+		          "columns": [
+	        		    { "data": "contractId" },
+	        		    { "data": "machineSerialNo" },
+	        		    { "data": "lol" },
+	        		    { "data": "inceptionDate",
+	        		    	"type": "date ",
+	        		    	"render": function (data) {
+	        		            if (data !== null) {
+	        		                var date = new Date(data);
+	        		                date = date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear();
+	        		                return date;
+	        		            } else {
+	        		                return "";
+	        		            }
+	        		        }},
+	        		    
+	        		    { "data": "expirationDate","type": "date ",
+	            		    	"render": function (data) {
+	            		            if (data !== null) {
+	            		                var date = new Date(data);
+	            		                date = date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear();
+	            		                return date;
+	            		            } else {
+	            		                return "";
+	            		            }
+	            		        } },
+	        		    { "data": "expirationUsageHours" },
+	        		    { "data": "status" },
+	        		    { "data": "lastUpdatedDate","type": "date ",
+	        		    	"render": function (data) {
+	        		            if (data !== null) {
+	        		                var date = new Date(data);
+	        		                date = date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear();
+	        		                return date;
+	        		            } else {
+	        		                return "";
+	        		            }
+	        		        } },
+	        		    { "data": "viewDetails" }
+	        		  ]	
+		   } );
+    		
+
+		} );
+
 	}
 	
 	$scope.getClaims = function(){
@@ -1466,7 +1545,7 @@ routingApp.controller('QuotesDetailController', function($scope, $http, $timeout
 	        			 }
 		                return JSON.stringify( json );
 		            }},
-		        columnDefs: [
+		        columnDefs: [{ targets: 6, visible: false },
 	                { width: "12%", targets: 0 }
 	            ],
 	            "columns": [
