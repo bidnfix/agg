@@ -336,6 +336,16 @@ public class DealerServiceImpl implements DealerService {
 			List<Account> accounts = dealer.getAccounts();
 			for(Account account : accounts){
 				account.setStatus(dealerDO.getStatus());
+
+				//Added to update role for pending status alone
+				if(dealer.getStatus() == 2)
+				{
+					logger.debug("Current status is pending, role is getting updated");
+					Role role = roleDAO.findOne(dealerDO.getRoleDO().getId());
+					account.setRole(role);
+					account.setUpdatedDate(date);
+					account.setUpdatedBy(accountDO.getUsername());
+				}
 			}
 		//updating only dealer account
 		}else if(dealerDO.getStatus() == 1){
@@ -367,6 +377,7 @@ public class DealerServiceImpl implements DealerService {
 		
 		account = accountDAO.save(account);
 		*/
+		/*
 		Role role = roleDAO.findOne(dealerDO.getRoleDO().getId());
 		
 		logger.debug("dealerDO.getRoleDO().getId()    "+dealerDO.getRoleDO().getId());
@@ -384,7 +395,7 @@ public class DealerServiceImpl implements DealerService {
 				account = accountDAO.save(account);
 			}
 		}
-		
+		*/
 		
 		dealer = dealerDAO.save(dealer);
 		
