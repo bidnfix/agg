@@ -812,7 +812,7 @@ public class ContractsServiceImpl implements ContractsService{
 		if (accountDo.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)) {
 			count = contractDAO.getContractsCountByStatus(AggConstants.B_ACTIVE_CONTRACT);
 		} else {
-			//contractDos = contractDAO.findContractsByStatusAndDelaerId(AggConstants.B_ACTIVE_CONTRACT, accountDO.getDealerId());
+			count = contractDAO.findContractsCountByStatusAndDelaerId(AggConstants.B_ACTIVE_CONTRACT, accountDo.getDealerId());
 		}
 		return count;
 	}
@@ -823,7 +823,7 @@ public class ContractsServiceImpl implements ContractsService{
 		if (accountDo.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)) {
 			contractDos = contractDAO.findActiveContractsByStatus(AggConstants.B_ACTIVE_CONTRACT, pageable);
 		} else {
-			contractDos = contractDAO.findContractsByStatusAndDelaerId(AggConstants.B_ACTIVE_CONTRACT, accountDo.getDealerId());
+			contractDos = contractDAO.findContractsByStatusAndDelaerId(AggConstants.B_ACTIVE_CONTRACT, accountDo.getDealerId(), pageable);
 		}
 		return contractDos;
 	}
@@ -834,7 +834,7 @@ public class ContractsServiceImpl implements ContractsService{
 		if (accountDo.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)) {
 			count = contractDAO.getContractsCountByStatusForSearch(AggConstants.B_ACTIVE_CONTRACT, searchText);
 		} else {
-			//contractDos = contractDAO.findContractsByStatusAndDelaerId(AggConstants.B_ACTIVE_CONTRACT, accountDO.getDealerId());
+			count = contractDAO.findContractsCountByStatusAndDelaerIdForSearch(AggConstants.B_ACTIVE_CONTRACT, accountDo.getDealerId(), searchText);
 		}
 		return count;
 	}
@@ -845,7 +845,7 @@ public class ContractsServiceImpl implements ContractsService{
 		if (accountDo.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)) {
 			contractDos = contractDAO.findActiveContractsByStatusForSearch(AggConstants.B_ACTIVE_CONTRACT, searchText, pageable);
 		} else {
-			contractDos = contractDAO.findContractsByStatusAndDelaerId(AggConstants.B_ACTIVE_CONTRACT, accountDo.getDealerId());
+			contractDos = contractDAO.findContractsByStatusAndDelaerIdForSearch(AggConstants.B_ACTIVE_CONTRACT, accountDo.getDealerId(), searchText, pageable);
 		}
 		return contractDos;
 		

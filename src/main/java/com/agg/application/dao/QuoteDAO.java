@@ -153,5 +153,39 @@ public interface QuoteDAO extends CrudRepository<Quote, QuotePK> {
 			+ " quote.status like %:searchText% or quote.createDate like %:searchText%)")
 	public List<QuoteDO> findQuotesForSearchByStatus(@Param("isArchive")short isArchive, @Param("searchText")String searchText, Pageable pageable);
 	
+	@Query("SELECT new com.agg.application.model.QuoteDO(quote.id.id, quote.id.quoteId, quote.dealer.name, customerInfo.name, "
+			+ "quote.machineInfo.model, quote.machineSaleDate, quote.status, quote.createDate, quote.isArchive)"
+			+ " from Quote quote, CustomerInfo customerInfo"
+			+ " where quote.id.quoteId=customerInfo.quoteId"
+			+ " and quote.dealer.id = :dealerId"
+			+ " and quote.isArchive = :isArchive")
+	public List<QuoteDO> findAllQuotesByDealer(@Param("dealerId")long dealerId, @Param("isArchive")short isArchive, Pageable pageable);
+	
+	@Query("SELECT new com.agg.application.model.QuoteDO(quote.id.id, quote.id.quoteId, quote.dealer.name, customerInfo.name, "
+			+ "quote.machineInfo.model, quote.machineSaleDate, quote.status, quote.createDate, quote.isArchive)"
+			+ " from Quote quote, CustomerInfo customerInfo"
+			+ " where quote.id.quoteId=customerInfo.quoteId"
+			+ " and quote.dealer.id = :dealerId"
+			+ " and quote.isArchive = :isArchive and (quote.id.quoteId like %:searchText% or quote.dealer.name like %:searchText% or"
+			+ " customerInfo.name like %:searchText% or quote.machineInfo.model like %:searchText% or quote.machineSaleDate like %:searchText% or"
+			+ " quote.status like %:searchText% or quote.createDate like %:searchText%)")
+	public List<QuoteDO> findAllQuotesByDealerForSearch(@Param("dealerId")long dealerId, @Param("isArchive")short isArchive, @Param("searchText")String searchText, Pageable pageable);
+	
+	@Query("SELECT COUNT(*)"
+			+ " from Quote quote, CustomerInfo customerInfo"
+			+ " where quote.id.quoteId=customerInfo.quoteId"
+			+ " and quote.dealer.id = :dealerId"
+			+ " and quote.isArchive = :isArchive and (quote.id.quoteId like %:searchText% or quote.dealer.name like %:searchText% or"
+			+ " customerInfo.name like %:searchText% or quote.machineInfo.model like %:searchText% or quote.machineSaleDate like %:searchText% or"
+			+ " quote.status like %:searchText% or quote.createDate like %:searchText%)")
+	public long findAllQuotesCountByDealerForSearch(@Param("dealerId")long dealerId, @Param("isArchive")short isArchive, @Param("searchText")String searchText);
+	
+	@Query("SELECT COUNT(*)"
+			+ " from Quote quote, CustomerInfo customerInfo"
+			+ " where quote.id.quoteId=customerInfo.quoteId"
+			+ " and quote.dealer.id = :dealerId"
+			+ " and quote.isArchive = :isArchive")
+	public long findAllQuotesCountByDealer(@Param("dealerId")long dealerId, @Param("isArchive")short isArchive);
+	
 	
 }

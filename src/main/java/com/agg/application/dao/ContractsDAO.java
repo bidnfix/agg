@@ -115,4 +115,34 @@ public interface ContractsDAO extends CrudRepository<Contracts, Long>{
 			+ " contract.lol like %:searchText% or contract.inceptionDate like %:searchText% or contract.expirationDate like %:searchText% or"
 			+ " contract.expirationUsageHours like %:searchText% or contract.status like %:searchText% or contract.lastUpdatedDate like %:searchText%)")
 	public List<ContractDO> findActiveContractsByStatusForSearch(@Param("status") int status, @Param("searchText") String searchText, Pageable pageable);
+	
+	@Query("select COUNT(*) "
+			+ "from Contracts contract "
+			+ "where contract.servicingDealer.id = :dealerId "
+			+ "and contract.status = :status")
+	public long findContractsCountByStatusAndDelaerId(@Param("status") int status, @Param("dealerId") long dealerId);
+	
+	@Query("select COUNT(*) "
+			+ "from Contracts contract "
+			+ "where contract.servicingDealer.id = :dealerId "
+			+ "and contract.status = :status and (contract.contractId like %:searchText% or contract.machineSerialNo like %:searchText% or"
+			+ " contract.lol like %:searchText% or contract.inceptionDate like %:searchText% or contract.expirationDate like %:searchText% or"
+			+ " contract.expirationUsageHours like %:searchText% or contract.status like %:searchText% or contract.lastUpdatedDate like %:searchText%)")
+	public long findContractsCountByStatusAndDelaerIdForSearch(@Param("status") int status, @Param("dealerId") long dealerId, @Param("searchText") String searchText);
+	
+	@Query("select new com.agg.application.model.ContractDO(contract.id, contract.contractId, contract.machineSerialNo, contract.lol, contract.inceptionDate, "
+			+ "contract.expirationDate, contract.expirationUsageHours, contract.status, contract.lastUpdatedDate, contract.cheqNo, contract.receivedDate) "
+			+ "from Contracts contract "
+			+ "where contract.servicingDealer.id = :dealerId "
+			+ "and contract.status = :status and (contract.contractId like %:searchText% or contract.machineSerialNo like %:searchText% or"
+			+ " contract.lol like %:searchText% or contract.inceptionDate like %:searchText% or contract.expirationDate like %:searchText% or"
+			+ " contract.expirationUsageHours like %:searchText% or contract.status like %:searchText% or contract.lastUpdatedDate like %:searchText%)")
+	public List<ContractDO> findContractsByStatusAndDelaerIdForSearch(@Param("status") int status, @Param("dealerId") long dealerId, @Param("searchText") String searchText, Pageable pageable);
+	
+	@Query("select new com.agg.application.model.ContractDO(contract.id, contract.contractId, contract.machineSerialNo, contract.lol, contract.inceptionDate, "
+			+ "contract.expirationDate, contract.expirationUsageHours, contract.status, contract.lastUpdatedDate, contract.cheqNo, contract.receivedDate) "
+			+ "from Contracts contract "
+			+ "where contract.servicingDealer.id = :dealerId "
+			+ "and contract.status = :status")
+	public List<ContractDO> findContractsByStatusAndDelaerId(@Param("status") int status, @Param("dealerId") long dealerId, Pageable pageable);
 }

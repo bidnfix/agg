@@ -1698,7 +1698,7 @@ public class QuoteServiceImpl implements QuoteService {
 			//quoteDos = quoteDAO.findAllQuotes(AggConstants.B_QUOTE_STATUS_UNACRHIVE);
 			count = quoteDAO.findQuotesCount(AggConstants.B_QUOTE_STATUS_UNACRHIVE);
 		} else {
-			//count = quoteDAO.findAllQuotesByDealer(accountDo.getDealerId(), AggConstants.B_QUOTE_STATUS_UNACRHIVE);
+			count = quoteDAO.findAllQuotesCountByDealer(accountDo.getDealerId(), AggConstants.B_QUOTE_STATUS_UNACRHIVE);
 		}
 		return count;
 	}
@@ -1710,7 +1710,7 @@ public class QuoteServiceImpl implements QuoteService {
 			//quoteDos = quoteDAO.findAllQuotes(AggConstants.B_QUOTE_STATUS_UNACRHIVE);
 			count = quoteDAO.findQuotesCountForSearch(AggConstants.B_QUOTE_STATUS_UNACRHIVE, searchText);
 		} else {
-			//count = quoteDAO.findAllQuotesByDealer(accountDo.getDealerId(), AggConstants.B_QUOTE_STATUS_UNACRHIVE);
+			count = quoteDAO.findAllQuotesCountByDealerForSearch(accountDo.getDealerId(), AggConstants.B_QUOTE_STATUS_UNACRHIVE, searchText);
 		}
 		return count;
 	}
@@ -1722,7 +1722,7 @@ public class QuoteServiceImpl implements QuoteService {
 			//quoteDos = quoteDAO.findAllQuotes(AggConstants.B_QUOTE_STATUS_UNACRHIVE);
 			quoteDos = quoteDAO.findQuotesForSearchByStatus(AggConstants.B_QUOTE_STATUS_UNACRHIVE, searchText, pageable);
 		} else {
-			quoteDos = quoteDAO.findAllQuotesByDealer(accountDo.getDealerId(), AggConstants.B_QUOTE_STATUS_UNACRHIVE);
+			quoteDos = quoteDAO.findAllQuotesByDealerForSearch(accountDo.getDealerId(), AggConstants.B_QUOTE_STATUS_UNACRHIVE, searchText, pageable);
 		}
 		return quoteDos;
 	}
@@ -1734,7 +1734,7 @@ public class QuoteServiceImpl implements QuoteService {
 			//quoteDos = quoteDAO.findAllQuotes(AggConstants.B_QUOTE_STATUS_UNACRHIVE);
 			quoteDos = quoteDAO.findQuotesByStatus(AggConstants.B_QUOTE_STATUS_UNACRHIVE, pageable);
 		} else {
-			quoteDos = quoteDAO.findAllQuotesByDealer(accountDo.getDealerId(), AggConstants.B_QUOTE_STATUS_UNACRHIVE);
+			quoteDos = quoteDAO.findAllQuotesByDealer(accountDo.getDealerId(), AggConstants.B_QUOTE_STATUS_UNACRHIVE, pageable);
 		}
 		return quoteDos;
 	}

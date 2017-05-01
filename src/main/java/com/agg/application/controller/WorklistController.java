@@ -156,7 +156,7 @@ public class WorklistController extends BaseController{
 				break;
 			}
 			
-			Pageable pageable = new PageRequest(page, pageLength, direction, properties);
+			Pageable pageable;// = new PageRequest(page, pageLength, direction, properties);
 			
 			long totalRecords = contractsService.getActiveContractsCount(getAccountDetails(request));
 			
@@ -164,6 +164,13 @@ public class WorklistController extends BaseController{
 			
 			if (!StringUtils.isEmpty(searchText)) {
 				long filteredCount = contractsService.getActiveContractsSearchCount(getAccountDetails(request), searchText);
+				
+				if (pageLength == -1) {
+					pageLength = (int) filteredCount;
+					pageable = new PageRequest(page, pageLength, direction, properties);
+				} else {
+					pageable = new PageRequest(page, pageLength, direction, properties);
+				}
 				
 				contractDos= contractsService.getActiveContractsForSearch(getAccountDetails(request), searchText, pageable);
 				
@@ -174,6 +181,13 @@ public class WorklistController extends BaseController{
 				opResult.setRecordsFiltered(filteredCount);
 				
 			} else {
+				if (pageLength == -1) {
+					pageLength = (int) totalRecords;
+					pageable = new PageRequest(page, pageLength, direction, properties);
+				} else {
+					pageable = new PageRequest(page, pageLength, direction, properties);
+				}
+				
 				contractDos= contractsService.getActiveContracts(getAccountDetails(request), pageable);
 				opResult = new Result("success", null, contractDos);
 				

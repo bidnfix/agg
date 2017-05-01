@@ -339,29 +339,43 @@ public class QuoteController extends BaseController {
 				break;
 			}
 			
-			Pageable pageable = new PageRequest(page, pageLength, direction, properties);
+			Pageable pageable;// = new PageRequest(page, pageLength, direction, properties);
 			
-			long count = quoteService.getQuotesCount(getAccountDetails(request));
+			long totalRecords = quoteService.getQuotesCount(getAccountDetails(request));
 			
 			List<QuoteDO> quoteDos; 
 			
 			if (!StringUtils.isEmpty(searchText)) {
+				
 				long filteredCount = quoteService.getQuotesSearchCount(getAccountDetails(request), searchText);
+				
+				if (pageLength == -1) {
+					pageLength = (int) filteredCount;
+					pageable = new PageRequest(page, pageLength, direction, properties);
+				} else {
+					pageable = new PageRequest(page, pageLength, direction, properties);
+				}
 				
 				quoteDos = quoteService.getAllQuotesForSearch(getAccountDetails(request), searchText, pageable);
 				opResult = new Result("success", null, quoteDos);
 				
 				opResult.setDraw(Integer.parseInt(draw));
-				opResult.setRecordsTotal(count);
+				opResult.setRecordsTotal(totalRecords);
 				opResult.setRecordsFiltered(filteredCount);
 				
 			} else {
+				if (pageLength == -1) {
+					pageLength = (int) totalRecords;
+					pageable = new PageRequest(page, pageLength, direction, properties);
+				} else {
+					pageable = new PageRequest(page, pageLength, direction, properties);
+				}
 				quoteDos = quoteService.getAllQuotes(getAccountDetails(request), pageable);
 				opResult = new Result("success", null, quoteDos);
 				
 				opResult.setDraw(Integer.parseInt(draw));
-				opResult.setRecordsTotal(count);
-				opResult.setRecordsFiltered(count);
+				opResult.setRecordsTotal(totalRecords);
+				opResult.setRecordsFiltered(totalRecords);
 			}
 		}
 		
