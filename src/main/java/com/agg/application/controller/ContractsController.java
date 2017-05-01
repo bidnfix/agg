@@ -175,7 +175,9 @@ public class ContractsController extends BaseController{
 		if (!sessionExists(request)){
 			opResult = new Result("failure", "Invalid Login", null);
 		}else{
-			opResult = new Result("success", "", contractService.updateContract(contractDO, getAccountDetails(request)));
+			boolean updateFlag = contractService.updateContract(contractDO, getAccountDetails(request));
+			logger.debug("contract updated: "+updateFlag);
+			opResult = new Result("success", "", contractDO);
 		}
 		return opResult;
 	}

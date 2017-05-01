@@ -6,6 +6,7 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
@@ -150,8 +151,8 @@ public class Quote implements Serializable {
 	@JoinColumn(name="pr_id")
 	private Sprogram program;
 	
-	@OneToOne
-	@JoinColumn(name="quote_id", insertable=false, updatable=false)
+	@OneToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="quote_id", insertable=false, updatable=false, nullable=true)
 	private CustomerInfo customerInfo;
 	
 	

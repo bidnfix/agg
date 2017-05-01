@@ -17,6 +17,7 @@
 
 		<div class="inner-main">
 			<div class="col-xs-12 agf1 main-login pad10-top">
+				<div id="contractSuccessMsg" class="alert alert-info text-center hidden"></div>
 				<h4>Contract Details</h4>
 				<div class="col-md-6 no-pad pad10-right">
 					<div class="form-group">
@@ -89,13 +90,13 @@
 									id="expirationUsageHours" name="expirationUsageHours" class="form-control"
 									validate-on="dirty" required="required">
 							</div>
-							<div class="form-group">
+							<!-- <div class="form-group">
 								<label for="cheqNo">Check Number</label>
 								<input type="text" id="cheqNo" name="cheqNo" ng-model="contract.cheqNo" class="form-control">
 							</div>
 							<div class="form-group">
 								<label for="receivedDate">Received Date</label>
-								<!-- <input type="date" id="receivedDate" name="receivedDate" ng-model="contract.receivedDate" class="form-control"> -->
+								<input type="date" id="receivedDate" name="receivedDate" ng-model="contract.receivedDate" class="form-control">
 								<div class="input-group">
 									<input type="text" class="form-control" 
 					                   datepicker-popup="MM/dd/yyyy"
@@ -110,7 +111,7 @@
 						              </button>
 						            </span>
 					            </div>
-							</div>
+							</div> -->
 							<div class="form-group">
 								<label>Comments</label>
 								<textarea id="comments" name="comments" ng-model="contract.comments"
@@ -428,7 +429,7 @@
 				<div class="col-sm-12 no-pad t-c marg10-bottom">
 					<div class="col-md-6 col-centered">
 							<button class="btn btn-primary btn-lg btn-block login-button"
-								type="submit">Submit</button>
+								type="submit">Update Contract</button>
 					</div>
 				</div>
 			</div>
