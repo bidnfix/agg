@@ -330,9 +330,9 @@ public class QuoteController extends BaseController {
 			case 5:
 				properties = "status";
 				break;
-			/*case 6:
+			case 6:
 				properties = "createDate";
-				break;*/
+				break;
 
 			default:
 				properties = "id.quoteId";
@@ -346,6 +346,12 @@ public class QuoteController extends BaseController {
 			List<QuoteDO> quoteDos; 
 			
 			if (!StringUtils.isEmpty(searchText)) {
+				
+				String[] splitText = searchText.split(" ");
+				
+				if(splitText.length > 1) {
+					searchText = searchText.replaceAll(" ", "|");
+				}
 				
 				long filteredCount = quoteService.getQuotesSearchCount(getAccountDetails(request), searchText);
 				

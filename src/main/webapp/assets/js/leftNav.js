@@ -528,6 +528,7 @@ $scope.getActiveContracts = function() {
 	        			 }
 		                return JSON.stringify( json );
 		            }},
+		            "order": [[ 7, "desc" ]],
 		            "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
 		            columnDefs: [ { targets: 7, visible: false },
 		                { width: "12%", targets: 0 }
@@ -1546,6 +1547,7 @@ routingApp.controller('QuotesDetailController', function($scope, $http, $timeout
 	        			 }
 		                return JSON.stringify( json );
 		            }},
+		            "order": [[ 6, "desc" ]],
 		            "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
 		        columnDefs: [{ targets: 6, visible: false },
 	                { width: "12%", targets: 0 }

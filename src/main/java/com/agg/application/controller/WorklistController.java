@@ -150,6 +150,9 @@ public class WorklistController extends BaseController{
 			case 6:
 				properties = "status";
 				break;
+			case 7:
+				properties = "lastUpdatedDate";
+				break;
 
 			default:
 				properties = "id.quoteId";
