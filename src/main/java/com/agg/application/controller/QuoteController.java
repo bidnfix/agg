@@ -347,12 +347,6 @@ public class QuoteController extends BaseController {
 			
 			if (!StringUtils.isEmpty(searchText)) {
 				
-				String[] splitText = searchText.split(" ");
-				
-				if(splitText.length > 1) {
-					searchText = searchText.replaceAll(" ", "|");
-				}
-				
 				long filteredCount = quoteService.getQuotesSearchCount(getAccountDetails(request), searchText);
 				
 				if (pageLength == -1) {
