@@ -211,7 +211,7 @@
 						<option value="">Select Status</option>
 						<option value="1">Active</option>
 						<option value="0">Terminated</option>
-						<option value="2">Pending</option>
+						<option ng-if="dealer.status == 2" value="2">Pending</option>
 					</select>
 				</div>
 			</div>

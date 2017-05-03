@@ -523,7 +523,7 @@ $scope.getActiveContracts = function() {
 			            
 			            for ( var i=0, len=json.data.length; i<len ; i++ ) {
 			            	json.data[i].status = json.data[i].status ==  '1' ? "Active" : json.data[i].status == '2' ? "Expired" : json.data[i].status == '3' ? "Cancelled" : "Archived";
-	        				json.data[i].viewDetails = '<div class="manage-sec"><a href="#/agg/viewContractDetails/'+json.data[i].id+'/'+json.data[i].contractId+'"><img src="../assets/images/edit-pencil.png" alt="View" title="View"/></a></div>';
+	        				json.data[i].viewDetails = '<div class="manage-sec"><a href="#/agg/viewContract/'+json.data[i].id+'/'+json.data[i].contractId+'"><img src="../assets/images/edit-pencil.png" alt="View" title="View"/></a></div>';
 	        				 
 	        			 }
 		                return JSON.stringify( json );
