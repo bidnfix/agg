@@ -63,6 +63,18 @@ public class DealerDO {
 		this.status = status;
 	}
 	
+	public DealerDO(long id, long code, String name, String state, String marketEmail, String invoiceEmail, String phone, long parentCode, int status){
+		this.id = id;
+		this.code = code;
+		this.name = name;
+		this.state = state;
+		this.marketEmail = marketEmail;
+		this.invoiceEmail = invoiceEmail;
+		this.phone = phone;
+		this.parentCode = parentCode;
+		this.status = status;
+	}
+	
 	/**
 	 * @return the id
 	 */
