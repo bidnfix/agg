@@ -133,7 +133,7 @@
             </tr>
         </tfoot>
  
-        <!-- <tbody>
+        <tbody>
             <tr ng-repeat="contract in contractList">
             	<td>{{contract.contractId}}</td>
             	<td>{{contract.machineSerialNo}}</td>
@@ -145,11 +145,11 @@
                 <td>{{contract.lastUpdatedDate |  date:"MM/dd/yyyy"}}</td>
                 <td>
                 	<div class="manage-sec">
-                		<a href="#/agg/viewContractDetails/{{contract.id}}/{{contract.contractId}}"><img src="../assets/images/edit-pencil.png" alt="View" title="View"/></a>
+                		<a href="#/agg/viewContract/{{contract.id}}/{{contract.contractId}}"><img src="../assets/images/edit-pencil.png" alt="View" title="View"/></a>
                 	</div>
                 </td>
             </tr>
-        </tbody>-->
+        </tbody>
     </table>
     
     <table id="claimsTbl" class="table table-striped table-bordered" cellspacing="0" width="100%" ng-hide="claimsFlag">

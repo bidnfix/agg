@@ -473,7 +473,7 @@ routingApp.controller('HomeController', function($scope, $http, $timeout, $windo
 	    });
 	}
 	
-	/*$scope.getActiveContracts = function()
+	$scope.getActiveContracts = function()
 	{
 		$http.get("/agg/activeContracts")
 		.then(function(response) {
@@ -497,9 +497,9 @@ routingApp.controller('HomeController', function($scope, $http, $timeout, $windo
 	        	});
 	        }, 300);
 	    });
-	}*/
+	}
 	
-$scope.getActiveContracts = function() {
+/*$scope.getActiveContracts = function() {
 		
 		$(document).ready(function() {
 			$('#contractsTbl').dataTable().fnClearTable();
@@ -578,7 +578,7 @@ $scope.getActiveContracts = function() {
 
 		} );
 
-	}
+	}*/
 	
 	$scope.getClaims = function(){
 		$http.get("/agg/getClaimsInfo")

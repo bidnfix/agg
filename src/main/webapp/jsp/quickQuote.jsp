@@ -89,7 +89,7 @@
                        </div>
                        <div class="form-group">
                          <label>Horsepower</label>
-                         <input type="text" id="horsePower" name="horsePower" ng-model="quote.horsePower" placeholder="Horse Power" class="form-control" ng-disabled="disabled">
+                         <input type="number" id="horsePower" name="horsePower" ng-model="quote.horsePower" placeholder="Horse Power" class="form-control" ng-disabled="disabled">
                        </div>
                        <div class="form-group">
                          <label>Serial Number</label>
@@ -97,15 +97,15 @@
                        </div>
                        <div class="form-group">
                          <label>Retail Price</label>
-                         <input type="text" id="retailPrice" name="retailPrice" ng-model="quote.retailPrice" class="form-control" placeholder="Retail Price" ng-disabled="disabled">
+                         <input type="number" id="retailPrice" name="retailPrice" ng-model="quote.retailPrice" class="form-control" placeholder="Retail Price" ng-disabled="disabled">
                        </div>
                        <div class="form-group">
                          <label>Meter Hours</label>
-                         <input type="text" id="meterHours" name="meterHours" ng-model="quote.meterHours" placeholder="Meter Hours" class="form-control"  validate-on="dirty" required="required" ng-blur="changeExpirationDate()" ng-disabled="disabled">
+                         <input type="number" id="meterHours" name="meterHours" ng-model="quote.meterHours" placeholder="Meter Hours" class="form-control"  validate-on="dirty" required="required" ng-blur="changeExpirationDate()" ng-disabled="disabled">
                        </div>
                        <div class="form-group">
                          <label>Model Year</label>
-                         <input type="text" id="modelYear" name="modelYear" ng-model="quote.modelYear" placeholder="Model Year" class="form-control" ng-disabled="disabled">
+                         <input type="number" id="modelYear" name="modelYear" ng-model="quote.modelYear" placeholder="Model Year" class="form-control" ng-disabled="disabled">
                        </div>
                        <div class="form-group">
                          <label>Condition</label>
@@ -233,7 +233,7 @@
                        </div>
                        <div class="form-group">
                          <label>Dealer Markup</label>
-                         <input type="text" id="dealerMarkup" name="dealerMarkup" ng-model="quote.dealerMarkup" placeholder="Dealer Markup" class="form-control"  validate-on="dirty" required="required" ng-disabled="disabled" ng-blur="getDealerMarkupPrice()">
+                         <input type="number" id="dealerMarkup" name="dealerMarkup" ng-model="quote.dealerMarkup" placeholder="Dealer Markup" class="form-control"  validate-on="dirty" required="required" ng-disabled="disabled" ng-blur="getDealerMarkupPrice()">
                        </div>
                        <div class="form-group">
                          <label>Markup Type</label>

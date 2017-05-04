@@ -40,7 +40,7 @@
 							tooltip-trigger tooltip-animation="false"
 							tooltip="Please use the engine-rated horsepower.  This is not the PTO power or peak power."
 							tooltip-placement="top"></i> Horsepower (Engine)</label> <input
-							type="text" id="horsePower" name="horsePower"
+							type="number" id="horsePower" name="horsePower"
 							ng-model="quote.horsePower" placeholder="Horse Power"
 							class="form-control">
 					</div>
@@ -71,7 +71,7 @@
 							tooltip-trigger tooltip-animation="false"
 							tooltip="For our purposes, the 'Retail Price' is the advertised price of the machine not including any special deals or terms.  This is not necessarily the sales price.   We do not use the 'Retail Price'  to determine the price of coverage; however, we do use this information to compare coverage on certain machines and within certain price bands when we analyze our risk-so, it is important to report this accurately in order to help us keep our prices as low as possible."
 							tooltip-placement="top"></i> Retail Price (Aprox)</label> <input
-							type="text" id="retailPrice" name="retailPrice"
+							type="number" id="retailPrice" name="retailPrice"
 							ng-model="quote.retailPrice" class="form-control"
 							placeholder="Retail Price">
 					</div>
@@ -82,7 +82,7 @@
 						<label><i class="fa fa-info-circle" data-toggle="tooltip"
 							tooltip-trigger tooltip-animation="false"
 							tooltip="This should be the exact hours shown on the Machine's tachometer or hours gauge. It is important that this information is recorded accurately to prevent lapses or denial of coverage."
-							tooltip-placement="top"></i> *Meter Hours</label> <input type="text"
+							tooltip-placement="top"></i> *Meter Hours</label> <input type="number"
 							id="meterHours" name="meterHours" ng-model="quote.meterHours"
 							placeholder="Meter Hours" class="form-control"
 							required-message="'Please enter meter hours of machine.'"
@@ -95,7 +95,7 @@
 						<label><i class="fa fa-info-circle" data-toggle="tooltip"
 							tooltip-trigger tooltip-animation="false"
 							tooltip="The 'model year' may not correlate with age of the machine, but it may effect the price.  Sometimes components change by model year and the change is not reflected in the model number.  These changes can effect our risk  (and our pricing) significantly.  Therefore, it is important to record the actual model year.  If you do not know the model year, leave blank and explain why in the 'unusual provisions' section in step one."
-							tooltip-placement="top"></i> Model Year</label> <input type="text"
+							tooltip-placement="top"></i> Model Year</label> <input type="number"
 							id="modelYear" name="modelYear" ng-model="quote.modelYear"
 							placeholder="Model Year" class="form-control">
 					</div>

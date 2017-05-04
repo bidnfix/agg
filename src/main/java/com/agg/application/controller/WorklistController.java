@@ -109,8 +109,8 @@ public class WorklistController extends BaseController{
 		if (!sessionExists(request)){
 			opResult = new Result("failure", "Invalid Login", null);
 		}else{
-			//opResult = new Result("success", "", model.addAttribute(contractsService.getActiveContracts(getAccountDetails(request))));
-			String draw = request.getParameter("draw");
+			opResult = new Result("success", "", model.addAttribute(contractsService.getActiveContracts(getAccountDetails(request))));
+			/*String draw = request.getParameter("draw");
 			String start = request.getParameter("start");
 			String length = request.getParameter("length");
 			String searchText = request.getParameter("search[value]");
@@ -197,7 +197,7 @@ public class WorklistController extends BaseController{
 				opResult.setDraw(Integer.parseInt(draw));
 				opResult.setRecordsTotal(totalRecords);
 				opResult.setRecordsFiltered(totalRecords);
-			}
+			}*/
 		}
 		return opResult;
 	}
