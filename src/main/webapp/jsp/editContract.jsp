@@ -144,14 +144,14 @@
 								<label>Expiration Usage Hours</label>
 								<p>{{contract.expirationUsageHours}}</p>
 							</div>
-							<div class="form-group col-xs-12 no-pad">
+							<!-- <div class="form-group col-xs-12 no-pad">
 								<label>Check Number</label>
 								<p>{{contract.cheqNo}}</p>
 							</div>
 							<div class="form-group col-xs-12 no-pad">
 								<label for="receivedDate">Received Date</label>
 								<p>{{contract.receivedDate | date:'MM/dd/yyyy'}}</p>
-							</div>
+							</div> -->
 							<div class="form-group col-xs-12 no-pad">
 								<label>Comments</label>
 								<p>{{contract.comments}}</p>
@@ -277,11 +277,11 @@
 			                     </div>
 								<div class="form-group">
 									<label>Coverage Term</label>
-									<input type="number" id="coverageTermMonths" name="coverageTermMonths" ng-model="contract.coverageTermMonths" class="form-control" required="required">
+									<input type="number" id="coverageTermMonths" name="coverageTermMonths" ng-model="contract.coverageTermMonths" class="form-control" ng-blur="calExpirationDate()" required="required">
 								</div>
 								<div class="form-group">
 									<label>Coverage Level Hours</label>
-									<input type="number" id="coverageLevelHours" name="coverageLevelHours" ng-model="contract.coverageLevelHours" class="form-control" required="required">
+									<input type="number" id="coverageLevelHours" name="coverageLevelHours" ng-model="contract.coverageLevelHours" class="form-control" ng-blur="calExpirationDate()" required="required">
 								</div>
 								<div class="form-group">
 									<label>Deductible</label>
@@ -329,10 +329,10 @@
 									<label>Last Updated date</label>
 									<p>{{contract.lastUpdatedDate | date:'MM/dd/yyyy'}}</p>
 								</div>
-								<div class="form-group col-xs-12 no-pad">
+								<!-- <div class="form-group col-xs-12 no-pad">
 									<label>Adjusted Base Price</label>
 									<p>{{contract.quoteDO.adjustedBasePrice | currency:"$":0}}</p>
-								</div>
+								</div> -->
 							</c:otherwise>
 						</c:choose>
 						<div class="form-group">
@@ -396,7 +396,7 @@
 							</table>
 						</c:when>
 						<c:otherwise>
-							<table class="table table-bordered">
+							<!-- <table class="table table-bordered">
 							   <thead>
 									<tr>
 										<th class="col-sm-4">Check #</th>
@@ -413,18 +413,20 @@
 										<td>{{checkDO.amount | currency}}</td>
 									</tr>
 								</tbody>
-							</table>
+							</table> -->
 						</c:otherwise>
 					</c:choose>
-					<div class="col-sm-12">
-						<div class="col-sm-6"></div>
-						<div class="col-sm-6">
-							<div class="col-sm-6 no-pad">Total Check Amount</div>
+					<c:if test="${user.roleDO.accountType eq 'admin'}">
+						<div class="col-sm-12">
+							<div class="col-sm-6"></div>
 							<div class="col-sm-6">
-								{{contract.totalCheckAmount | currency}}
+								<div class="col-sm-6 no-pad">Total Check Amount</div>
+								<div class="col-sm-6">
+									{{contract.totalCheckAmount | currency}}
+								</div>
 							</div>
 						</div>
-					</div>
+					</c:if>
 				</div>
 				<div class="col-sm-12 no-pad t-c marg10-bottom">
 					<div class="col-md-6 col-centered">
@@ -464,14 +466,16 @@
 						<label>MFG End Date</label>
 						<p>{{contract.quoteDO.coverageEndDate | date:'MM/dd/yyyy'}}</p>
 					</div>
-					<div class="form-group">
-						<label>Dealer Markup</label>
-						<p>{{contract.quoteDO.dealerMarkup | currency:"$":0}}</p>
-					</div>
-					<div class="form-group">
-						<label>Quote Price</label>
-						<p>{{contract.quoteDO.quoteBasePrice | currency:"$":0}}</p>
-					</div>
+					<c:if test="${user.roleDO.accountType eq 'admin'}">
+						<div class="form-group">
+							<label>Dealer Markup</label>
+							<p>{{contract.quoteDO.dealerMarkup | currency:"$":0}}</p>
+						</div>
+						<div class="form-group">
+							<label>Quote Price</label>
+							<p>{{contract.quoteDO.quoteBasePrice | currency:"$":0}}</p>
+						</div>
+					</c:if>
 					<div class="form-group">
 						<label>Program</label>
 				        <p>{{contract.quoteDO.program}}</p>
@@ -480,10 +484,12 @@
 						<label>Special Considerations</label>
 				        <p>{{contract.quoteDO.specialConsiderations}}</p>
 					</div>
-					<div class="form-group">
-						<label>Deal History</label>
-				        <p>{{contract.quoteDO.dealHistory}}</p>
-					</div>
+					<c:if test="${user.roleDO.accountType eq 'admin'}">
+						<div class="form-group">
+							<label>Deal History</label>
+					        <p>{{contract.quoteDO.dealHistory}}</p>
+						</div>
+					</c:if>
 					<div class="form-group">
 						<label>Customer Name</label>
 				        <p>{{contract.quoteDO.dealerName}}</p>
@@ -508,14 +514,16 @@
 
 				<div class="col-md-6 no-pad pad10-left border-left">
                     <div class="col-xs-12 no-pad">
-						<div class="form-group">
-							<label>Dealer Quote</label> 
-							<p><button class="btn btn-primary btn-xs mar-right" type="button" ng-click="printQuote('dealer')">View</button></p>
-						</div>
-						<div class="form-group">
-							<label>Dealer Invoice</label> 
-							<p><button class="btn btn-primary btn-xs mar-right" type="button" ng-click="printQuote('invoice')">View</button></p>
-						</div>
+                    	<c:if test="${user.roleDO.accountType eq 'admin'}">
+							<div class="form-group">
+								<label>Dealer Quote</label> 
+								<p><button class="btn btn-primary btn-xs mar-right" type="button" ng-click="printQuote('dealer')">View</button></p>
+							</div>
+							<div class="form-group">
+								<label>Dealer Invoice</label> 
+								<p><button class="btn btn-primary btn-xs mar-right" type="button" ng-click="printQuote('invoice')">View</button></p>
+							</div>
+						</c:if>
 						<div class="form-group">
 							<label>Machine Type</label> 
 							<p>{{contract.quoteDO.machineInfoDO.machineType}}</p>
@@ -532,22 +540,20 @@
 							<label>Additional Unit Information</label> 
 							<p>{{contract.quoteDO.otherProv}}</p>
 						</div>
-						<div class="form-group">
-							<label>Markup Type</label>
-							<p>{{contract.quoteDO.dealerMarkupType}}</p>
-						</div>
-						<div class="form-group">
-							<label>Customer Price</label>
-							<p>{{(contract.quoteDO.quoteBasePrice + contract.quoteDO.dealerMarkupPrice) | currency:"$":0}}</p>
-						</div>
-						<div class="form-group">
-							<label>Markup Type</label>
-							<p>{{contract.quoteDO.dealerMarkupType}}</p>
-						</div>
-						<div class="form-group">
-							<label>Adjusted Base Price</label>
-							<p>{{contract.quoteDO.quoteBasePrice}}</p>
-						</div>
+						<c:if test="${user.roleDO.accountType eq 'admin'}">
+							<div class="form-group">
+								<label>Markup Type</label>
+								<p>{{contract.quoteDO.dealerMarkupType}}</p>
+							</div>
+							<div class="form-group">
+								<label>Customer Price</label>
+								<p>{{(contract.quoteDO.quoteBasePrice + contract.quoteDO.dealerMarkupPrice) | currency:"$":0}}</p>
+							</div>
+							<div class="form-group">
+								<label>Adjusted Base Price</label>
+								<p>{{contract.quoteDO.quoteBasePrice}}</p>
+							</div>
+						</c:if>
 						<div class="form-group">
 							<label>Adjusted LOL</label>
 							<p>{{contract.quoteDO.machineInfoDO.lol | currency:"$":0}}</p>

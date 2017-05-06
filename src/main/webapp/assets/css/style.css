@@ -1236,3 +1236,7 @@ input[type=checkbox] {
     color: #fff !important;
     text-decoration: none !important;
 }
+
+.worklist-menu-selected {
+    background: #5192d4 none repeat scroll 0 0 !important;
+}

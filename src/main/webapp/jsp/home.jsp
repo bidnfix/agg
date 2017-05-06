@@ -28,7 +28,7 @@
 					<a class="worksheet-no-marg" ng-click="getInvoicedQuotes()">Invoiced&nbsp;<span class="badge">{{invoiced}}</span></a>
 				</li>
 				
-				 <li>
+				 <li class="worklist-menu-selected">
 					<a class="worksheet-no-marg" ng-click="getReqQuotes()">Purchase Requested&nbsp;<span class="badge">{{purchaseReq}}</span></a>
 				</li>
 				

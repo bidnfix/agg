@@ -366,6 +366,13 @@ routingApp.controller('HomeController', function($scope, $http, $timeout, $windo
 	$scope.contractsFlag = true;
 	$scope.quotesFlag = true;
 	$scope.claimsFlag = true;
+	
+	$('#navbar > ul.nav li a').click(function(e) {
+	    var $this = $(this);
+	    $this.parent().siblings().removeClass('worklist-menu-selected').end().addClass('worklist-menu-selected');
+	    e.preventDefault();
+	});
+	
 	$http.get("/agg/worklist")
     .then(function(response) {
     	$scope.worklistDO = $scope.worklistDO || {};
@@ -2393,6 +2400,35 @@ routingApp.controller('ContractDetailController', function($scope, $http, $timeo
 		angular.forEach($scope.contract.checkDOList, function(checkDO, index){
 			$scope.contract.totalCheckAmount += checkDO.amount;
 		});
+	}
+    
+    $scope.calExpirationDate = function(){
+		if($scope.contract.quoteDO.coverageExpired === false){
+			var manfCoverageTerm = 0;
+			if($scope.contract.coverageType == 'PT'){
+				manfCoverageTerm = parseInt($scope.contract.quoteDO.powerTrainMonths);
+			}else if($scope.contract.coverageType == 'PH'){
+				manfCoverageTerm = parseInt($scope.contract.quoteDO.hydraulicsMonths);
+			}else if($scope.contract.coverageType == 'PL'){
+				manfCoverageTerm = parseInt($scope.contract.quoteDO.fullMachineMonths);
+			}
+			var finalCoverageTerm = (parseInt($scope.contract.coverageTermMonths) - manfCoverageTerm);
+			var expDate = $scope.quote.coverageEndDate;
+			if(expDate != null){
+				expDate = new Date($scope.quote.coverageEndDate);
+				expDate = new Date(new Date(expDate).setMonth(expDate.getMonth()+finalCoverageTerm));
+			}
+			$scope.contract.expirationDate = expDate;
+			$scope.contract.expirationUsageHours = parseInt($scope.contract.coverageLevelHours);
+		}else{
+			var expDate = new Date();
+			if($scope.contract.inceptionDate != null){
+				expDate = new Date($scope.contract.inceptionDate);
+			}
+			expDate = new Date(new Date(expDate).setMonth(expDate.getMonth()+parseInt($scope.contract.coverageTermMonths)));
+			$scope.contract.expirationDate = expDate;
+			$scope.contract.expirationUsageHours = parseInt($scope.contract.quoteDO.meterHours) + parseInt($scope.contract.coverageLevelHours);
+		}
 	}
     
 })
