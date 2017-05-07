@@ -22,5 +22,35 @@ routingApp.controller('programController', function($scope, programService, $loc
 		    });
 	 }
     
+    $scope.getModelByCode = function ()
+	 {
+    	var code = $scope.program.code;
+    	
+    	code = code.replace(/\s/g, "");
+    	alert(code);
+    	
+    	if(code != null && /^[\d,]+$/.test(code))
+    	{
+		 $http.get("/agg/modelByCode/"+code)
+		    .then(function(response) {
+		    	if(response.data.data == null)
+		    		{
+		    			alert("No Model found or Model IDs does not belong to same Manufacturer");
+		    		}
+		    	
+		    	 //alert(response.data.data.machineModelList[0].manufacturerDO.name);
+		    	
+		    	 $scope.program.manufacturerDO=response.data.data.machineModelList[0].manufacturerDO;
+		         $scope.machineModelList = response.data.data.machineModelList;
+		        
+		       
+		    });
+    	}
+    	else
+    		{
+    			alert("Please enter only comma seperated numeric value");
+    		}
+	 }
+    
 });
 

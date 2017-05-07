@@ -3,6 +3,7 @@ package com.agg.application.service;
 import java.util.List;
 
 import com.agg.application.model.AccountDO;
+import com.agg.application.model.MachineInfoDO;
 import com.agg.application.model.ProgramDO;
 import com.agg.application.model.QuoteDO;
 
@@ -19,5 +20,7 @@ public interface ProgramService {
 	void deleteProgram(Long id);
 	
 	long editProgram(ProgramDO programDO);
+	
+	public List<MachineInfoDO> getModelByCodes(List<Long> modelLst);
 
 }
