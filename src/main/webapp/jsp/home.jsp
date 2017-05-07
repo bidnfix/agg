@@ -102,6 +102,55 @@
     </table>
 	<!--inner main-->
 	
+	<table id="quotesInvoiceTbl" class="table table-striped table-bordered" cellspacing="0" width="100%" ng-hide="quotesInvoiceFlag">
+        <thead>
+            <tr>
+            	<th>ID</th>
+                <th>Dealership</th>
+                <th>Customer Contact</th>
+                <th>Price</th>
+                <th>Model</th>
+                <th>Serial Number</th>
+                <th>Invoice Date</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+ 
+        <tfoot>
+           <tr>
+            	<th>ID</th>
+                <th>Dealership</th>
+                <th>Customer Contact</th>
+                <th>Price</th>
+                <th>Model</th>
+                <th>Serial Number</th>
+                <th>Invoice Date</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </tfoot>
+ 
+        <tbody>
+            <tr ng-repeat="quote in quoteList">
+            	<td>{{quote.quoteId}}</td>
+            	<td>{{quote.dealerName}}</td>
+                <td>{{quote.dealerCustName}}</td>
+                <td>{{quote.quoteBasePrice | currency}}</td>
+                <td>{{quote.machineModel}}</td>
+                <td>{{quote.serialNumber}}</td>
+                <td>{{quote.invoiceDate |  date:"MM/dd/yyyy"}}</td>
+                <td>{{quote.lastUpdate |  date:"MM/dd/yyyy"}}</td>
+                <td>
+                	<div class="manage-sec"><!-- <a href="#"><img src="../assets/images/delete-icon.png" alt="Delete" title="Delete"/></a> -->
+                		<!-- <a ng-click="viewQuote(quote.id, quote.quoteId)"><img src="../assets/images/edit-icon.png" alt="Edit" title="Edit"/></a> -->
+                		<a href="#/agg/viewQuote/{{quote.id}}/{{quote.quoteId}}"><img src="../assets/images/edit-pencil.png" alt="View" title="View"/></a>
+                	</div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+	
 	
 	
 	<table id="contractsTbl" class="table table-striped table-bordered" cellspacing="0" width="100%" ng-hide="contractsFlag">

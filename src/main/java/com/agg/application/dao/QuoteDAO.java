@@ -187,5 +187,24 @@ public interface QuoteDAO extends CrudRepository<Quote, QuotePK> {
 			+ " and quote.isArchive = :isArchive")
 	public long findAllQuotesCountByDealer(@Param("dealerId")long dealerId, @Param("isArchive")short isArchive);
 	
+	@Query("SELECT new com.agg.application.model.QuoteDO(quote.id.id, quote.id.quoteId, quote.dealer.name, customerInfo.name, "
+			+ "quote.machineInfo.model, adjustment.basePrice, adjustment.invoiceDate, quote.machineSerial, quote.status, quote.lastUpdate, quote.isArchive)"
+			+ " from Quote quote, CustomerInfo customerInfo, AdminAdjustment adjustment"
+			+ " where quote.id.quoteId = customerInfo.quoteId"
+			+ " and quote.id.quoteId = adjustment.quoteId"
+			+ " and quote.status = :status"
+			+ " and quote.isArchive = :isArchive")
+	public List<QuoteDO> findInvoiceQuotes(@Param("status")byte status, @Param("isArchive")short isArchive);
+	
+	@Query("SELECT new com.agg.application.model.QuoteDO(quote.id.id, quote.id.quoteId, quote.dealer.name, customerInfo.name, "
+			+ "quote.machineInfo.model, adjustment.basePrice, adjustment.invoiceDate, quote.machineSerial, quote.status, quote.lastUpdate, quote.isArchive)"
+			+ " from Quote quote, CustomerInfo customerInfo, AdminAdjustment adjustment"
+			+ " where quote.id.quoteId = customerInfo.quoteId"
+			+ " and quote.id.quoteId = adjustment.quoteId"
+			+ " and quote.status = :status"
+			+ " and quote.isArchive = :isArchive"
+			+ " and quote.dealer.id = :dealerId")
+	public List<QuoteDO> findInvoiceQuotesByDealer(@Param("status")byte status, @Param("isArchive")short isArchive, @Param("dealerId")long dealerId);
+	
 	
 }

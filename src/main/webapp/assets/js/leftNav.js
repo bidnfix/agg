@@ -366,6 +366,7 @@ routingApp.controller('HomeController', function($scope, $http, $timeout, $windo
 	$scope.contractsFlag = true;
 	$scope.quotesFlag = true;
 	$scope.claimsFlag = true;
+	$scope.quotesInvoiceFlag = true;
 	
 	$('#navbar > ul.nav li a').click(function(e) {
 	    var $this = $(this);
@@ -390,9 +391,11 @@ routingApp.controller('HomeController', function($scope, $http, $timeout, $windo
     		$('#quotesTbl').parents('div.dataTables_wrapper').first().show();
     		$('#contractsTbl').parents('div.dataTables_wrapper').first().hide();
     		$('#claimsTbl').parents('div.dataTables_wrapper').first().hide();
+    		$('#quotesInvoiceTbl').parents('div.dataTables_wrapper').first().hide();
     		$scope.contractsFlag = true;
     		$scope.quotesFlag = false;
     		$scope.claimsFlag = true;
+    		$scope.quotesInvoiceFlag = true;
     	//}
     	
     	$timeout(function () {
@@ -415,9 +418,11 @@ routingApp.controller('HomeController', function($scope, $http, $timeout, $windo
 	    		$scope.contractsFlag = true;
 	    		$scope.quotesFlag = false;
 	    		$scope.claimsFlag = true;
+	    		$scope.quotesInvoiceFlag = true;
 				$('#quotesTbl').parents('div.dataTables_wrapper').first().show();
 	    		$('#contractsTbl').parents('div.dataTables_wrapper').first().hide();
 	    		$('#claimsTbl').parents('div.dataTables_wrapper').first().hide();
+	    		$('#quotesInvoiceTbl').parents('div.dataTables_wrapper').first().hide();
 	    	//}
 	        $timeout(function () {
 	        	$('#quotesTbl').DataTable({
@@ -435,19 +440,21 @@ routingApp.controller('HomeController', function($scope, $http, $timeout, $windo
 		.then(function(response) {
 	        $scope.quoteList = response.data.data;
 	        //if($scope.quoteList != null){
-	        	$('#quotesTbl').dataTable().fnClearTable();
-	        	$('#quotesTbl').dataTable().fnDestroy();
+	        	$('#quotesInvoiceTbl').dataTable().fnClearTable();
+	        	$('#quotesInvoiceTbl').dataTable().fnDestroy();
 	    		$scope.contractsFlag = true;
-	    		$scope.quotesFlag = false;
+	    		$scope.quotesFlag = true;
 	    		$scope.claimsFlag = true;
-				$('#quotesTbl').parents('div.dataTables_wrapper').first().show();
+	    		$scope.quotesInvoiceFlag = false;
+				$('#quotesTbl').parents('div.dataTables_wrapper').first().hide();
 	    		$('#contractsTbl').parents('div.dataTables_wrapper').first().hide();
 	    		$('#claimsTbl').parents('div.dataTables_wrapper').first().hide();
+	    		$('#quotesInvoiceTbl').parents('div.dataTables_wrapper').first().show();
 	    	//}
 	        $timeout(function () {
-	        	$('#quotesTbl').DataTable({
-	        		"aaSorting": [[ 6, "desc" ]],
-	        		columnDefs: [{ targets: 6, visible: false }, { width: "12%", targets: 0 }],
+	        	$('#quotesInvoiceTbl').DataTable({
+	        		"aaSorting": [[ 7, "desc" ]],
+	        		columnDefs: [{ targets: 7, visible: false }, { width: "12%", targets: 0 }],
 	        		"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]], 
 	        		"bDestroy": true
 	        	});
@@ -465,9 +472,11 @@ routingApp.controller('HomeController', function($scope, $http, $timeout, $windo
 	    		$scope.contractsFlag = true;
 	    		$scope.quotesFlag = false;
 	    		$scope.claimsFlag = true;
+	    		$scope.quotesInvoiceFlag = true;
 				$('#quotesTbl').parents('div.dataTables_wrapper').first().show();
 	    		$('#contractsTbl').parents('div.dataTables_wrapper').first().hide();
 	    		$('#claimsTbl').parents('div.dataTables_wrapper').first().hide();
+	    		$('#quotesInvoiceTbl').parents('div.dataTables_wrapper').first().hide();
 	    	//}
 	        $timeout(function () {
 	        	$('#quotesTbl').DataTable({
@@ -491,9 +500,11 @@ routingApp.controller('HomeController', function($scope, $http, $timeout, $windo
 	    		$scope.contractsFlag = false;
 	    		$scope.quotesFlag = true;
 	    		$scope.claimsFlag = true;
+	    		$scope.quotesInvoiceFlag = true;
 				$('#contractsTbl').parents('div.dataTables_wrapper').first().show();
 	    		$('#quotesTbl').parents('div.dataTables_wrapper').first().hide();
 	    		$('#claimsTbl').parents('div.dataTables_wrapper').first().hide();
+	    		$('#quotesInvoiceTbl').parents('div.dataTables_wrapper').first().hide();
 	    	//}
 	        $timeout(function () {
 	        	$('#contractsTbl').DataTable({
@@ -597,9 +608,11 @@ routingApp.controller('HomeController', function($scope, $http, $timeout, $windo
 	    		$scope.contractsFlag = true;
 	    		$scope.quotesFlag = true;
 	    		$scope.claimsFlag = false;
+	    		$scope.quotesInvoiceFlag = true;
 				$('#claimsTbl').parents('div.dataTables_wrapper').first().show();
 	    		$('#contractsTbl').parents('div.dataTables_wrapper').first().hide();
 	    		$('#quotesTbl').parents('div.dataTables_wrapper').first().hide();
+	    		$('#quotesInvoiceTbl').parents('div.dataTables_wrapper').first().hide();
 	    	//}
 	        $timeout(function () {
 	        	$('#claimsTbl').DataTable({
@@ -623,9 +636,11 @@ routingApp.controller('HomeController', function($scope, $http, $timeout, $windo
 	    		$scope.contractsFlag = false;
 	    		$scope.quotesFlag = true;
 	    		$scope.claimsFlag = true;
+	    		$scope.quotesInvoiceFlag = true;
 				$('#contractsTbl').parents('div.dataTables_wrapper').first().show();
 	    		$('#quotesTbl').parents('div.dataTables_wrapper').first().hide();
 	    		$('#claimsTbl').parents('div.dataTables_wrapper').first().hide();
+	    		$('#quotesInvoiceTbl').parents('div.dataTables_wrapper').first().hide();
 	    	//}
 	        $timeout(function () {
 	        	$('#contractsTbl').DataTable({
