@@ -85,14 +85,14 @@
 				<text><![CDATA[COVERAGE:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" x="16" y="105" width="135" height="20" uuid="e92e8c9c-4e1d-482f-862a-40c7f415d285"/>
+				<reportElement positionType="Float" x="16" y="105" width="136" height="20" uuid="e92e8c9c-4e1d-482f-862a-40c7f415d285"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Contract Inception Date:]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement positionType="Float" x="151" y="105" width="120" height="20" uuid="d747ebb2-88c3-40d3-8eb9-7b7edc696154"/>
+				<reportElement positionType="Float" x="152" y="105" width="120" height="20" uuid="d747ebb2-88c3-40d3-8eb9-7b7edc696154"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
