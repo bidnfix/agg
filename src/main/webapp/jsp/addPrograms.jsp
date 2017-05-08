@@ -29,6 +29,28 @@
      				</select> 
 				</div>
 			</div>
+			
+			<div class="form-group">
+				<label for="name" class="col-sm-3 control-label">Model ID</label>
+				<div class="col-sm-9">
+					<input type="text" ng-model="program.code" id="name" name="name" placeholder="Model code" class="form-control" required="required">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-9 col-sm-offset-3">
+					<button type="button" ng-click="getModelByCode()">Show Model</button>
+				</div>
+			</div>
+			
+			
+			<div class="form-group">
+				<label for="name" class="col-sm-3 control-label">Manufacturer</label>
+				<div class="col-sm-9">
+					<input type="text" ng-model="program.manufacturerDO.name" id="manfName" name="manfName" class="form-control" required="required" readonly="readonly">
+				</div>
+			</div>
+			
+			<!-- 
 			<div class="form-group">
 				<label for="name" class="col-sm-3 control-label">Manufacturer</label>
 				<div class="col-sm-9">
@@ -37,7 +59,7 @@
      				</select> 
 				</div>
 			</div>
-			
+			 -->
 			<div class="form-group">
 				<label for="name" class="col-sm-3 control-label">Model</label>
 				<div class="col-sm-9">

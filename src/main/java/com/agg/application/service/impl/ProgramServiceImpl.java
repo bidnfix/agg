@@ -43,6 +43,7 @@ import com.agg.application.entity.Sprogram;
 import com.agg.application.model.AccountDO;
 import com.agg.application.model.CustomerInfoDO;
 import com.agg.application.model.DealerDO;
+import com.agg.application.model.GroupDO;
 import com.agg.application.model.MachineInfoDO;
 import com.agg.application.model.ManufacturerDO;
 import com.agg.application.model.ProgramDO;
@@ -703,6 +704,51 @@ public class ProgramServiceImpl implements ProgramService {
 			return progEnt.getPrId();
 		}
 		return 0;
+	}
+	
+	@Override
+	public List<MachineInfoDO> getModelByCodes(List<Long> modelLst) {
+		logger.debug("Inside getModelByCodes()");
+		List<MachineInfo>  machineInfoList =  machineInfoDAO.findMachineInfoById(modelLst);
+		List<MachineInfoDO> machineInfoDOList = null;
+		if(machineInfoList != null && !machineInfoList.isEmpty()){
+			machineInfoDOList = new ArrayList<MachineInfoDO>();
+			MachineInfoDO machineInfoDO = null;
+			MachineInfo machineModel = null;
+			int manfId = 0;
+			ManufacturerDO manfDO = null;
+			Iterator<MachineInfo> it = machineInfoList.iterator();
+			while(it.hasNext()){
+				machineInfoDO = new MachineInfoDO();
+				machineModel = it.next();
+				//machineModelDO.setModelId(machineModel.getModel());
+				
+				if(manfId != 0 && manfId!=machineModel.getManufacturer().getManfId())
+				{
+					logger.debug("Model selected from different Manufacturer");
+					machineInfoDOList = null;
+					break;
+				}
+				
+				machineInfoDO.setModel(machineModel.getModel());
+				machineInfoDO.setMachineId(machineModel.getMachineId());
+				machineInfoDO.setMachineType(machineModel.getMachineType().getMachineType());
+				machineInfoDO.setLol(machineModel.getGroupConstant().getLol());
+				machineInfoDO.setGroupId(Integer.valueOf(String.valueOf(machineModel.getGroupConstant().getGroupId())));
+				
+				Manufacturer manf = manufacturerDAO.findOne(machineModel.getManufacturer().getManfId());
+				if(manf!=null)
+				{
+					manfDO = new ManufacturerDO();
+					manfDO.setName(manf.getManfName());
+					manfDO.setId(manf.getManfId());
+				}
+				machineInfoDO.setManufacturerDO(manfDO);
+				
+				machineInfoDOList.add(machineInfoDO);
+			}
+		}
+		return machineInfoDOList;
 	}
 	
 	private ReportDO getQuoteReportDO(QuoteDO quoteDO) throws Exception{

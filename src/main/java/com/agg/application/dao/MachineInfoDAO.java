@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Component;
 
 import com.agg.application.entity.MachineInfo;
@@ -19,4 +20,7 @@ public interface MachineInfoDAO extends CrudRepository<MachineInfo, Long> {
 	@Query("select new com.agg.application.model.MachineDO(machineInfo.machineId, machineInfo.manufacturer.manfName, machineInfo.machineType.machineType, "
 			+ "machineInfo.model, machineInfo.ePower, machineInfo.groupConstant.groupId) from MachineInfo machineInfo")
 	List<MachineDO> findAllMachineInfos();
+	
+	@Query("SELECT machineInfo FROM MachineInfo machineInfo WHERE machineInfo.machineId IN :machineID")
+	List<MachineInfo> findMachineInfoById(@Param("machineID") List<Long> machineID);
 }
