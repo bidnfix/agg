@@ -34,21 +34,34 @@ routingApp.controller('programController', function($scope, programService, $loc
 		 $http.get("/agg/modelByCode/"+code)
 		    .then(function(response) {
 		    	if(response.data.data == null)
-		    		{
-		    			alert("No Model found or Model IDs does not belong to same Manufacturer");
-		    		}
+	    		{
+					$('#programErrorMsg').html("No Model found or Model IDs does not belong to same Manufacturer");
+	            	$('#programErrorMsg').removeClass('hidden');
+	            	window.setTimeout(function() {
+	        			 $('#programErrorMsg').addClass('hidden');
+	        		}, 3000);
+	    			//alert("No Model found or Model IDs does not belong to same Manufacturer");
+	    		}
 		    	
 		    	 //alert(response.data.data.machineModelList[0].manufacturerDO.name);
 		    	
 		    	 $scope.program.manufacturerDO=response.data.data.machineModelList[0].manufacturerDO;
 		         $scope.machineModelList = response.data.data.machineModelList;
+		         angular.forEach(response.data.data.machineModelList, function(val){
+		            $scope.program.machineInfoDOList.push(val);
+		        });
 		        
 		       
 		    });
     	}
     	else
     		{
-    			alert("Please enter only comma seperated numeric value");
+	    		$('#programErrorMsg').html("Please enter only comma seperated numeric value");
+	        	$('#programErrorMsg').removeClass('hidden');
+	        	window.setTimeout(function() {
+	    			 $('#programErrorMsg').addClass('hidden');
+	    		}, 3000);
+    			//alert("Please enter only comma seperated numeric value");
     		}
 	 }
     

@@ -20,6 +20,7 @@
 
 	<div class="inner-main" ng-controller="programController">
 		<form class="form-horizontal" role="form" ng-submit="submitProgram()">
+			<div id="programErrorMsg" class="alert alert-danger text-center hidden"></div>
 			<h3 align="center">Add Program</h3>
 			<div class="form-group">
 				<label for="name" class="col-sm-3 control-label">Assign a Dealer</label>
