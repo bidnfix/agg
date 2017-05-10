@@ -11,6 +11,7 @@
 	
 		<div class="modal-body">
 		<form class="form-horizontal" role="form" ng-submit="editProgramDetails()">
+		<div id="programErrorMsg" class="alert alert-danger text-center hidden"></div>
 			<!-- <h3>Edit Program</h3> -->
 			<div class="form-group">
 				<label for="name" class="col-sm-3 control-label">Assign a Dealer</label>
@@ -24,13 +25,14 @@
 				<label for="name" class="col-sm-3 control-label">Model ID</label>
 				<div class="col-sm-9">
 					<input type="text" ng-model="program.code" id="name" name="name" placeholder="Model code" class="form-control" required="required">
+					<button class="btn btn-primary btn-xs mar-right" ng-click="getModelByCode()">Show Model</button>
 				</div>
 			</div>
-			<div class="form-group">
+			<!-- <div class="form-group">
 				<div class="col-sm-9 col-sm-offset-3">
 					<button type="button" ng-click="getModelByCode()">Show Model</button>
 				</div>
-			</div>
+			</div> -->
 			
 			
 			<div class="form-group">
