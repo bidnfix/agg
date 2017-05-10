@@ -226,7 +226,9 @@ public class ProgramServiceImpl implements ProgramService {
 		progEnt.setPrIsArchive((byte)0);
 		progEnt.setManufacturer(manufacturerDAO.findOne(Long.valueOf(program.getManufacturerDO().getId())));
 		
-		List<MachineInfoDO> machineInfoDOs =  program.getMachineInfoDOList();
+		//List<MachineInfoDO> machineInfoDOs =  program.getMachineInfoDOList();
+		
+		List<MachineInfoDO> machineInfoDOs =  program.getMachineModelList();
 		
 		
 		
@@ -613,7 +615,7 @@ public class ProgramServiceImpl implements ProgramService {
 					MachineInfoDO macInfDO = new MachineInfoDO();
 					macInfDO.setModel(macineInfo.getModel());
 					macInfDO.setMachineId(macineInfo.getMachineId());
-					macInfDO.setModelYear(macineInfo.getModelYear());
+					macInfDO.setModelYear((macineInfo.getModelYear()!=null)?macineInfo.getModelYear():0);
 					macInfDO.setMachineId(macineInfo.getMachineId());
 					
 					machineInfoDOList.add(macInfDO);

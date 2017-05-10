@@ -42,6 +42,16 @@ public class ProgramDO {
 	
 	private List<MachineInfoDO> machineInfoDOList;
 	
+	private List<MachineInfoDO> machineModelList;
+	
+	public List<MachineInfoDO> getMachineModelList() {
+		return machineModelList;
+	}
+
+	public void setMachineModelList(List<MachineInfoDO> machineModelList) {
+		this.machineModelList = machineModelList;
+	}
+
 	public List<MachineInfoDO> getMachineInfoDOList() {
 		return machineInfoDOList;
 	}

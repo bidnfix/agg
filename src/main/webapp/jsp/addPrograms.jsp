@@ -67,7 +67,7 @@
 					<!--  <select name="machine" ng-model="program.modelDO" ng-options="machine.name for machine in modelList">
      				</select> -->
      				<select size="5" id="myselection" multiple ng-multiple="true"
-			        ng-model="program.machineInfoDOList" ng-options="machine.model for machine in machineModelList | orderBy:'model'" class="form-control">
+			        ng-model="program.machineInfoDOList" ng-options="machine.model for machine in program.machineModelList | orderBy:'model'" multiple="multiple" class="form-control" disabled="true" >
 			      </select> 
 				</div>
 			</div>

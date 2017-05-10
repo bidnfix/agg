@@ -46,10 +46,13 @@ routingApp.controller('programController', function($scope, programService, $loc
 		    	 //alert(response.data.data.machineModelList[0].manufacturerDO.name);
 		    	
 		    	 $scope.program.manufacturerDO=response.data.data.machineModelList[0].manufacturerDO;
-		         $scope.machineModelList = response.data.data.machineModelList;
-		         angular.forEach(response.data.data.machineModelList, function(val){
+		         //$scope.machineModelList = response.data.data.machineModelList;
+		    	 $scope.program.machineModelList = response.data.data.machineModelList;
+		         
+		         
+		         /*angular.forEach(response.data.data.machineModelList, function(val){
 		            $scope.program.machineInfoDOList.push(val);
-		        });
+		        });*/
 		        
 		       
 		    });

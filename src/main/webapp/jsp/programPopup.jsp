@@ -21,22 +21,42 @@
 				</div>
 			</div>
 			<div class="form-group">
+				<label for="name" class="col-sm-3 control-label">Model ID</label>
+				<div class="col-sm-9">
+					<input type="text" ng-model="program.code" id="name" name="name" placeholder="Model code" class="form-control" required="required">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-9 col-sm-offset-3">
+					<button type="button" ng-click="getModelByCode()">Show Model</button>
+				</div>
+			</div>
+			
+			
+			<div class="form-group">
 				<label for="name" class="col-sm-3 control-label">Manufacturer</label>
 				<div class="col-sm-9">
-					<select name="machine" ng-model="program.manufacturerDO" ng-options="machine.name for machine in manufacturerList | 
-					orderBy:'name' track by machine.id"
+					<input type="text" ng-model="program.manufacturerDO.name" id="manfName" name="manfName" class="form-control" required="required" readonly="readonly">
+				</div>
+			</div>
+			
+			<!-- 
+			<div class="form-group">
+				<label for="name" class="col-sm-3 control-label">Manufacturer</label>
+				<div class="col-sm-9">
+					<select name="machine" ng-model="program.manufacturerDO" ng-options="machine.name for machine in manufacturerList | orderBy:'name'" 
 					ng-change="getManfModel()" class="form-control">
      				</select> 
 				</div>
 			</div>
-			
+			 -->
 			<div class="form-group">
 				<label for="name" class="col-sm-3 control-label">Model</label>
 				<div class="col-sm-9">
 					<!--  <select name="machine" ng-model="program.modelDO" ng-options="machine.name for machine in modelList">
      				</select> -->
      				<select size="5" id="myselection" multiple ng-multiple="true"
-			        ng-model="program.machineInfoDOList" ng-options="machine.model for machine in machineModelList | orderBy:'model' track by machine.machineId" class="form-control">
+			        ng-model="program.machineInfoDOList" ng-options="machine.model for machine in machineModelList | orderBy:'model'" class="form-control">
 			      </select> 
 				</div>
 			</div>
