@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="contractDetails" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c0ec05e7-1fb2-4f7a-a475-4bbe0eaa13dc">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="256"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="imagePath" class="java.lang.String"/>
 	<field name="contractId" class="java.lang.String"/>
 	<field name="inceptionDate" class="java.lang.String"/>
@@ -57,7 +57,7 @@
 		</band>
 	</title>
 	<detail>
-		<band height="661" splitType="Stretch">
+		<band height="657" splitType="Stretch">
 			<staticText>
 				<reportElement x="16" y="9" width="97" height="20" forecolor="#333333" uuid="075e45f4-9b62-47be-a2c9-b9880ca4758f"/>
 				<textElement>
@@ -73,448 +73,448 @@
 				<textFieldExpression><![CDATA[$F{contractId}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="16" y="56" width="123" height="20" uuid="805ff810-4f29-43cd-91fb-8d7a4972e8ee"/>
+				<reportElement positionType="Float" x="16" y="56" width="123" height="20" uuid="805ff810-4f29-43cd-91fb-8d7a4972e8ee"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[COVERAGE:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="16" y="77" width="136" height="20" uuid="e92e8c9c-4e1d-482f-862a-40c7f415d285"/>
+				<reportElement positionType="Float" x="16" y="77" width="136" height="20" uuid="e92e8c9c-4e1d-482f-862a-40c7f415d285"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Contract Inception Date:]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
-				<reportElement x="152" y="77" width="100" height="20" uuid="d747ebb2-88c3-40d3-8eb9-7b7edc696154"/>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="152" y="77" width="100" height="20" uuid="d747ebb2-88c3-40d3-8eb9-7b7edc696154"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{inceptionDate}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="16" y="98" width="38" height="20" uuid="93b6674b-4fbb-462d-8d85-c2cad5df4d5d"/>
+				<reportElement positionType="Float" x="16" y="98" width="38" height="20" uuid="93b6674b-4fbb-462d-8d85-c2cad5df4d5d"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Term:]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
-				<reportElement x="54" y="98" width="31" height="20" uuid="0f22d6f3-f8b5-4fcc-974b-4f1c0f022d3f"/>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="54" y="98" width="31" height="20" uuid="0f22d6f3-f8b5-4fcc-974b-4f1c0f022d3f"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{coverageTerm}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="85" y="98" width="60" height="20" uuid="f118f370-ed47-4ec6-92a9-815139522151"/>
+				<reportElement positionType="Float" x="85" y="98" width="60" height="20" uuid="f118f370-ed47-4ec6-92a9-815139522151"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[months or]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
-				<reportElement x="146" y="98" width="33" height="20" uuid="e676a622-9766-4679-a64c-b84d3629fa6b"/>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="146" y="98" width="33" height="20" uuid="e676a622-9766-4679-a64c-b84d3629fa6b"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{coverageHours}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="179" y="98" width="55" height="20" uuid="2a216f93-6d0e-4570-a1a6-b10208ae1d25"/>
+				<reportElement positionType="Float" x="179" y="98" width="55" height="20" uuid="2a216f93-6d0e-4570-a1a6-b10208ae1d25"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[hours]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="16" y="119" width="92" height="20" uuid="7eed72c1-1932-4259-9d4f-1419c5cd2e8c"/>
+				<reportElement positionType="Float" x="16" y="119" width="92" height="20" uuid="7eed72c1-1932-4259-9d4f-1419c5cd2e8c"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Expiration Date:]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
-				<reportElement x="108" y="119" width="70" height="20" uuid="29e2272a-4225-4786-836e-f0e1e1151d91"/>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="108" y="119" width="70" height="20" uuid="29e2272a-4225-4786-836e-f0e1e1151d91"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{expirationDate}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="178" y="119" width="127" height="20" uuid="70a4c29d-bac8-49f1-a01f-109516ad1afa"/>
+				<reportElement positionType="Float" x="178" y="119" width="127" height="20" uuid="70a4c29d-bac8-49f1-a01f-109516ad1afa"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[(See Contract Period)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="307" y="99" width="110" height="20" uuid="f54661dc-bb2d-493d-940b-9e71b784ceeb"/>
+				<reportElement positionType="Float" x="307" y="99" width="110" height="20" uuid="f54661dc-bb2d-493d-940b-9e71b784ceeb"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Deductible:]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
-				<reportElement x="417" y="99" width="138" height="20" uuid="57eaf307-8229-420f-aa3a-83fbff283aa1"/>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="417" y="99" width="138" height="20" uuid="57eaf307-8229-420f-aa3a-83fbff283aa1"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{deductibleAmount}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="417" y="120" width="138" height="20" uuid="9d6a2e02-79eb-4e5b-be36-82000cd3ed20"/>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="417" y="120" width="138" height="20" uuid="9d6a2e02-79eb-4e5b-be36-82000cd3ed20"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{expirationHours}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="307" y="120" width="110" height="20" uuid="0b8d1b76-ceb8-4de5-8b95-11c370b2973d"/>
+				<reportElement positionType="Float" x="307" y="120" width="110" height="20" uuid="0b8d1b76-ceb8-4de5-8b95-11c370b2973d"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Expiration Hours :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="16" y="140" width="61" height="20" uuid="b37e2891-54d9-434e-8700-3ebb3fd4d570"/>
+				<reportElement positionType="Float" x="16" y="140" width="61" height="20" uuid="b37e2891-54d9-434e-8700-3ebb3fd4d570"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Coverage:]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
-				<reportElement x="77" y="140" width="228" height="20" uuid="2770fd7e-7c94-451e-988a-4686a7263169"/>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="77" y="140" width="228" height="20" uuid="2770fd7e-7c94-451e-988a-4686a7263169"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{coverageType}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="417" y="141" width="138" height="20" uuid="45d4b8ba-00e0-423e-a8e0-0c04d81c3d2f"/>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="417" y="141" width="138" height="20" uuid="45d4b8ba-00e0-423e-a8e0-0c04d81c3d2f"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{lol}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="307" y="141" width="110" height="20" uuid="2d5361c4-f81f-408f-ba9f-ca797e32c1f2"/>
+				<reportElement positionType="Float" x="307" y="141" width="110" height="20" uuid="2d5361c4-f81f-408f-ba9f-ca797e32c1f2"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Limit of Liability:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="16" y="185" width="230" height="20" uuid="8560c7c0-1417-484a-8647-6943aa8e79ea"/>
+				<reportElement positionType="Float" x="16" y="185" width="230" height="20" uuid="8560c7c0-1417-484a-8647-6943aa8e79ea"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[EQUIPMENT DESCRIPTION:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="16" y="206" width="80" height="20" uuid="0c9ef4b6-f6df-420b-ad22-d3ce4c1e3563"/>
+				<reportElement positionType="Float" x="16" y="206" width="80" height="20" uuid="0c9ef4b6-f6df-420b-ad22-d3ce4c1e3563"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Manufacturer:]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
-				<reportElement x="96" y="206" width="153" height="20" uuid="2dcc3210-8b69-4d96-a911-8132c2eb82b9"/>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="96" y="206" width="153" height="20" uuid="2dcc3210-8b69-4d96-a911-8132c2eb82b9"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{manufacturer}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="326" y="206" width="229" height="20" uuid="97c66fed-92f6-47a7-bfee-1b77ab381beb"/>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="326" y="206" width="229" height="20" uuid="97c66fed-92f6-47a7-bfee-1b77ab381beb"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{serialNo}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="276" y="206" width="50" height="20" uuid="6989cb50-9dd0-49fe-bf01-5e8af1cec5d8"/>
+				<reportElement positionType="Float" x="276" y="206" width="50" height="20" uuid="6989cb50-9dd0-49fe-bf01-5e8af1cec5d8"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Serial #:]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
-				<reportElement x="96" y="227" width="153" height="20" uuid="6d65a7de-6b4e-4a9d-8b4a-ab6c68498b4b"/>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="96" y="227" width="153" height="20" uuid="6d65a7de-6b4e-4a9d-8b4a-ab6c68498b4b"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{machineModel}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="16" y="227" width="80" height="20" uuid="439fcb16-e7b5-4705-8ed3-92c3e4f9de6a"/>
+				<reportElement positionType="Float" x="16" y="227" width="80" height="20" uuid="439fcb16-e7b5-4705-8ed3-92c3e4f9de6a"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Model#:]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
-				<reportElement x="414" y="227" width="141" height="20" uuid="bff45c0d-d2a6-4e9a-8418-d2d7936cc682"/>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="414" y="227" width="141" height="20" uuid="bff45c0d-d2a6-4e9a-8418-d2d7936cc682"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{manfEndDate}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="276" y="227" width="138" height="20" uuid="8387d20b-e871-4b0f-85f2-7f062c9aaaa3"/>
+				<reportElement positionType="Float" x="276" y="227" width="138" height="20" uuid="8387d20b-e871-4b0f-85f2-7f062c9aaaa3"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Mfg. Warranty End Date:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="276" y="248" width="82" height="20" uuid="dabb7c61-39a0-46a0-a352-b550a8a9ead1"/>
+				<reportElement positionType="Float" x="276" y="248" width="82" height="20" uuid="dabb7c61-39a0-46a0-a352-b550a8a9ead1"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Machine Use:]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
-				<reportElement x="358" y="248" width="197" height="20" uuid="27d69c73-971e-4186-ae9e-7e5a75833e50"/>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="358" y="248" width="197" height="20" uuid="27d69c73-971e-4186-ae9e-7e5a75833e50"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{useOfEquipment}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="124" y="248" width="125" height="20" uuid="b8229087-5d8e-4ac5-bc1f-f0ff303f8d70"/>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="124" y="248" width="125" height="20" uuid="b8229087-5d8e-4ac5-bc1f-f0ff303f8d70"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{machineHours}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="16" y="248" width="108" height="20" uuid="739f49c8-0fa2-4f01-9e26-411a76ec9dff"/>
+				<reportElement positionType="Float" x="16" y="248" width="108" height="20" uuid="739f49c8-0fa2-4f01-9e26-411a76ec9dff"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Hours on Machine:]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
-				<reportElement x="16" y="313" width="230" height="20" uuid="2b87afdc-41ac-427b-9340-017264ecb1d1"/>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="16" y="313" width="230" height="20" uuid="2b87afdc-41ac-427b-9340-017264ecb1d1"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{customerAddress1}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="276" y="334" width="50" height="20" uuid="fc8a8dee-ff9c-413a-b6f6-c16c2aa852e6"/>
+				<reportElement positionType="Float" x="276" y="334" width="50" height="20" uuid="fc8a8dee-ff9c-413a-b6f6-c16c2aa852e6"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Email:]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
-				<reportElement x="16" y="334" width="230" height="20" uuid="57666359-4fd4-4829-9596-739bc40ec5c5"/>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="16" y="334" width="230" height="20" uuid="57666359-4fd4-4829-9596-739bc40ec5c5"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{customerAddress2}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="16" y="292" width="230" height="20" uuid="b32000b5-fb33-48ec-99e4-fae6442b93f5"/>
+				<reportElement positionType="Float" x="16" y="292" width="230" height="20" uuid="b32000b5-fb33-48ec-99e4-fae6442b93f5"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[CONTRACT HOLDER:]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
-				<reportElement x="326" y="313" width="229" height="20" uuid="aa31fe81-eb99-45cd-ad96-93aef9886f01"/>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="326" y="313" width="229" height="20" uuid="aa31fe81-eb99-45cd-ad96-93aef9886f01"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{customerContact}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="16" y="355" width="230" height="20" uuid="ad57a2d3-4e4e-4f41-8a14-8a751ffd1cd8"/>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="16" y="355" width="230" height="20" uuid="ad57a2d3-4e4e-4f41-8a14-8a751ffd1cd8"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{customerAddress3}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="276" y="313" width="50" height="20" uuid="dfbc13ab-9f2b-4291-9fb0-8b411856f26a"/>
+				<reportElement positionType="Float" x="276" y="313" width="50" height="20" uuid="dfbc13ab-9f2b-4291-9fb0-8b411856f26a"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Contact:]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
-				<reportElement x="326" y="355" width="229" height="20" uuid="f1366a93-7979-45d1-beb0-99ee8474dc1b"/>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="326" y="355" width="229" height="20" uuid="f1366a93-7979-45d1-beb0-99ee8474dc1b"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{customerPhone}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="326" y="334" width="229" height="20" uuid="3eebdc4b-da61-476b-a554-7fba05c979ab"/>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="326" y="334" width="229" height="20" uuid="3eebdc4b-da61-476b-a554-7fba05c979ab"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{customerEmail}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="276" y="355" width="50" height="20" uuid="c6950de7-6875-4735-be9c-b90a09746367"/>
+				<reportElement positionType="Float" x="276" y="355" width="50" height="20" uuid="c6950de7-6875-4735-be9c-b90a09746367"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Phone:]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
-				<reportElement x="326" y="442" width="229" height="20" uuid="788be792-c63a-4ffd-abb6-f02df935e78b"/>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="326" y="442" width="229" height="20" uuid="788be792-c63a-4ffd-abb6-f02df935e78b"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{dealerEmail}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="276" y="421" width="50" height="20" uuid="828304d4-720f-4fdf-a506-78c19ecaf7bf"/>
+				<reportElement positionType="Float" x="276" y="421" width="50" height="20" uuid="828304d4-720f-4fdf-a506-78c19ecaf7bf"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Contact:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="276" y="442" width="50" height="20" uuid="b0aea9c3-2ce4-4761-ba32-f2d2b80b1f4b"/>
+				<reportElement positionType="Float" x="276" y="442" width="50" height="20" uuid="b0aea9c3-2ce4-4761-ba32-f2d2b80b1f4b"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Email:]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
-				<reportElement x="16" y="463" width="230" height="20" uuid="b56fcfd6-0b1e-4e38-a2c1-67b1566523fc"/>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="16" y="463" width="230" height="20" uuid="b56fcfd6-0b1e-4e38-a2c1-67b1566523fc"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{dealerAddress3}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="16" y="442" width="230" height="20" uuid="cd9490e7-0806-4905-b24b-221a14f56aed"/>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="16" y="442" width="230" height="20" uuid="cd9490e7-0806-4905-b24b-221a14f56aed"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{dealerAddress2}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="326" y="421" width="229" height="20" uuid="7f26e565-11ef-4740-abc7-5f875882fe83"/>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="326" y="421" width="229" height="20" uuid="7f26e565-11ef-4740-abc7-5f875882fe83"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{dealerContact}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="16" y="421" width="230" height="20" uuid="f7624c5e-4aa3-4c61-ae24-27210a8cc08e"/>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="16" y="421" width="230" height="20" uuid="f7624c5e-4aa3-4c61-ae24-27210a8cc08e"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{dealerAddress1}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="276" y="463" width="50" height="20" uuid="badffea1-1f49-4dae-93d7-5702fac361a4"/>
+				<reportElement positionType="Float" x="276" y="463" width="50" height="20" uuid="badffea1-1f49-4dae-93d7-5702fac361a4"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Phone:]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
-				<reportElement x="326" y="463" width="229" height="20" uuid="d5a840a8-993c-4f27-9eb7-d5900fd1db9e"/>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="326" y="463" width="229" height="20" uuid="d5a840a8-993c-4f27-9eb7-d5900fd1db9e"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{dealerPhone}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="16" y="400" width="230" height="20" uuid="a0317393-ee39-4f69-b194-4cff70aac2fa"/>
+				<reportElement positionType="Float" x="16" y="400" width="230" height="20" uuid="a0317393-ee39-4f69-b194-4cff70aac2fa"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[DEALER INFORMATION:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="276" y="550" width="50" height="20" uuid="c496a54a-19a9-4b69-81b1-9f9d6b2c8e29"/>
+				<reportElement positionType="Float" x="276" y="550" width="50" height="20" uuid="c496a54a-19a9-4b69-81b1-9f9d6b2c8e29"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Email:]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
-				<reportElement x="326" y="529" width="229" height="20" uuid="904641af-9d42-4c5e-a365-300c5e901300"/>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="326" y="529" width="229" height="20" uuid="904641af-9d42-4c5e-a365-300c5e901300"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{serviceProviderContact}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="16" y="508" width="230" height="20" uuid="f1585f62-cdd6-4df1-bbb8-fa1cafd5cba9"/>
+				<reportElement positionType="Float" x="16" y="508" width="230" height="20" uuid="f1585f62-cdd6-4df1-bbb8-fa1cafd5cba9"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[SERVICE PROVIDER:]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
-				<reportElement x="326" y="571" width="229" height="20" uuid="1324e99e-c6a0-40c2-b41e-90666613f868"/>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="326" y="571" width="229" height="20" uuid="1324e99e-c6a0-40c2-b41e-90666613f868"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{serviceProviderPhone}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="276" y="529" width="50" height="20" uuid="05bbca61-ee20-4280-b08d-5c9215b780f8"/>
+				<reportElement positionType="Float" x="276" y="529" width="50" height="20" uuid="05bbca61-ee20-4280-b08d-5c9215b780f8"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Contact:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="276" y="571" width="50" height="20" uuid="e97d30e9-68aa-401e-a200-64f28b05e1a8"/>
+				<reportElement positionType="Float" x="276" y="571" width="50" height="20" uuid="e97d30e9-68aa-401e-a200-64f28b05e1a8"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Phone:]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
-				<reportElement x="326" y="550" width="229" height="20" uuid="295ad457-1ed3-4adb-af56-a8b6735f7fd5"/>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="326" y="550" width="229" height="20" uuid="295ad457-1ed3-4adb-af56-a8b6735f7fd5"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{serviceProviderEmail}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="16" y="529" width="230" height="20" uuid="cf81b9f8-c79d-4630-bb6e-4b2e131f46aa"/>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="16" y="529" width="230" height="20" uuid="cf81b9f8-c79d-4630-bb6e-4b2e131f46aa"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{serviceProviderAddr1}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="16" y="571" width="230" height="20" uuid="2a2fcc48-0863-4bb1-b30b-5b136f5557f2"/>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="16" y="571" width="230" height="20" uuid="2a2fcc48-0863-4bb1-b30b-5b136f5557f2"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{serviceProviderAddr3}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="16" y="550" width="230" height="20" uuid="52009f49-0eed-472b-8327-37925a10380b"/>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="16" y="550" width="230" height="20" uuid="52009f49-0eed-472b-8327-37925a10380b"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{serviceProviderAddr2}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="16" y="616" width="530" height="20" uuid="c89ad41b-2f0a-4584-9f7d-780383ebc35a"/>
+				<reportElement positionType="Float" x="16" y="616" width="530" height="20" uuid="c89ad41b-2f0a-4584-9f7d-780383ebc35a"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[SPECIAL CONSIDERATIONS UNIQUE TO THIS CONTRACT (IF ANY):]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="16" y="637" width="530" height="20" uuid="d8f0586b-adbd-4217-945d-28c36e1b47d0"/>
+				<reportElement positionType="Float" x="16" y="637" width="530" height="20" uuid="d8f0586b-adbd-4217-945d-28c36e1b47d0"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
