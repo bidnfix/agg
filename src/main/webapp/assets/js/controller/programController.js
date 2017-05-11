@@ -27,7 +27,7 @@ routingApp.controller('programController', function($scope, programService, $loc
     	var code = $scope.program.code;
     	
     	code = code.replace(/\s/g, "");
-    	alert(code);
+    	//alert(code);
     	
     	if(code != null && /^[\d,]+$/.test(code))
     	{
@@ -35,6 +35,8 @@ routingApp.controller('programController', function($scope, programService, $loc
 		    .then(function(response) {
 		    	if(response.data.data == null)
 	    		{
+		    		$scope.program.manufacturerDO.name=null;
+	    			$scope.program.machineModelList=null;
 					$('#programErrorMsg').html("No Model found or Model IDs does not belong to same Manufacturer");
 	            	$('#programErrorMsg').removeClass('hidden');
 	            	window.setTimeout(function() {
@@ -59,6 +61,8 @@ routingApp.controller('programController', function($scope, programService, $loc
     	}
     	else
     		{
+    			$scope.program.manufacturerDO.name=null;
+    			$scope.program.machineModelList=null;
 	    		$('#programErrorMsg').html("Please enter only comma seperated numeric value");
 	        	$('#programErrorMsg').removeClass('hidden');
 	        	window.setTimeout(function() {

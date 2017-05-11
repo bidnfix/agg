@@ -709,7 +709,7 @@ routingApp.controller('GetProgramsController', function($scope, programService, 
 	        $scope.program = response.data.data.program;
 	        $scope.manufacturerList = response.data.data.manufacturerList;
 	        $scope.dealerList = response.data.data.dealerList;
-	        $scope.machineModelList = response.data.data.machineInfoList;
+	        $scope.program.machineModelList = response.data.data.machineInfoList;
 	        //alert($scope.program.prId);
 	       /* $scope.dealer = {
 	        	userName: $scope.dealerr.userName,	
@@ -734,7 +734,7 @@ routingApp.controller('GetProgramsController', function($scope, programService, 
    	var code = $scope.program.code;
    	
    	code = code.replace(/\s/g, "");
-   	alert(code);
+   	//alert(code);
    	
    	if(code != null && /^[\d,]+$/.test(code))
    	{
@@ -742,6 +742,8 @@ routingApp.controller('GetProgramsController', function($scope, programService, 
 		    .then(function(response) {
 		    	if(response.data.data == null)
 	    		{
+		    		$scope.program.manufacturerDO.name=null;
+	    			$scope.program.machineModelList=null;
 					$('#programErrorMsg').html("No Model found or Model IDs does not belong to same Manufacturer");
 	            	$('#programErrorMsg').removeClass('hidden');
 	            	window.setTimeout(function() {
@@ -753,16 +755,16 @@ routingApp.controller('GetProgramsController', function($scope, programService, 
 		    	 //alert(response.data.data.machineModelList[0].manufacturerDO.name);
 		    	
 		    	 $scope.program.manufacturerDO=response.data.data.machineModelList[0].manufacturerDO;
-		         $scope.machineModelList = response.data.data.machineModelList;
-		         angular.forEach(response.data.data.machineModelList, function(val){
-		            $scope.program.machineInfoDOList.push(val);
-		        });
-		        
+		         //$scope.machineModelList = response.data.data.machineModelList;
+		    	 $scope.program.machineModelList = response.data.data.machineModelList;
+		         
 		       
 		    });
    	}
    	else
    		{
+		   		$scope.program.manufacturerDO.name=null;
+				$scope.program.machineModelList=null;
 	    		$('#programErrorMsg').html("Please enter only comma seperated numeric value");
 	        	$('#programErrorMsg').removeClass('hidden');
 	        	window.setTimeout(function() {

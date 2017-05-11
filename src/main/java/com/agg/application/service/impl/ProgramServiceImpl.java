@@ -640,7 +640,7 @@ public class ProgramServiceImpl implements ProgramService {
 	@Override
 	@Transactional
 	public long editProgram(ProgramDO program) {
-		//logger.debug("In editProgram : "+program.getPrId());
+		logger.debug("In editProgram : ");
 		if(program != null)
 		{
 			Sprogram progEnt = programDAO.findOne(program.getPrId());
@@ -680,13 +680,20 @@ public class ProgramServiceImpl implements ProgramService {
 			//TODO To be implemented after dealer services
 			//progEnt.setDealer(dealer);
 			
-			List<MachineInfoDO> machineInfoDOs =  program.getMachineInfoDOList();
+			//List<MachineInfoDO> machineInfoDOs =  program.getMachineInfoDOList();
+			
+			List<MachineInfoDO> machineInfoDOs =  program.getMachineModelList();
+			
+			if(machineInfoDOs!=null)
+			{
+				logger.debug("machineInfoDOs size "+machineInfoDOs.size());
+			}
 			
 			MachineInfo machineInfo = null;
 			List<MachineInfo> machineInfoList = new ArrayList<MachineInfo>();
 			for(MachineInfoDO machineInfoDO : machineInfoDOs)
 			{
-				//logger.debug("--machineInfoDO--"+machineInfoDO.getMachineId());
+				logger.debug("--machineInfoDO--"+machineInfoDO.getMachineId());
 				machineInfo = machineInfoDAO.findOne(machineInfoDO.getMachineId());
 				if(machineInfo!=null)
 				{
@@ -698,8 +705,6 @@ public class ProgramServiceImpl implements ProgramService {
 			progEnt.setMachineInfos(machineInfoList);
 			
 			progEnt.setPrLastUpdate(date);
-			
-			
 			
 			progEnt = programDAO.save(progEnt);
 			
@@ -717,13 +722,17 @@ public class ProgramServiceImpl implements ProgramService {
 			machineInfoDOList = new ArrayList<MachineInfoDO>();
 			MachineInfoDO machineInfoDO = null;
 			MachineInfo machineModel = null;
-			int manfId = 0;
+			long manfId = 0;
 			ManufacturerDO manfDO = null;
 			Iterator<MachineInfo> it = machineInfoList.iterator();
 			while(it.hasNext()){
 				machineInfoDO = new MachineInfoDO();
 				machineModel = it.next();
 				//machineModelDO.setModelId(machineModel.getModel());
+				if(manfId == 0)
+				{
+					manfId= machineModel.getManufacturer().getManfId();
+				}
 				
 				if(manfId != 0 && manfId!=machineModel.getManufacturer().getManfId())
 				{
