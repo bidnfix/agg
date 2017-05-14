@@ -1,9 +1,11 @@
 package com.agg.application.service.impl;
 
+import java.math.BigInteger;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -17,6 +19,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -56,6 +59,7 @@ import com.agg.application.service.QuoteService;
 import com.agg.application.utils.AggConstants;
 import com.agg.application.utils.EmailSender;
 import com.agg.application.utils.Util;
+import com.google.common.collect.Lists;
 
 @Service
 public class QuoteServiceImpl implements QuoteService {
@@ -1706,13 +1710,13 @@ public class QuoteServiceImpl implements QuoteService {
 	}
 
 	@Override
-	public long getQuotesSearchCount(AccountDO accountDo, String searchText) {
+	public long getQuotesSearchCount(AccountDO accountDo, String searchText, byte statusSearch) {
 		long count = 0;
 		if (accountDo.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)) {
 			//quoteDos = quoteDAO.findAllQuotes(AggConstants.B_QUOTE_STATUS_UNACRHIVE);
-			count = quoteDAO.findQuotesCountForSearch(AggConstants.B_QUOTE_STATUS_UNACRHIVE, searchText);
+			count = quoteDAO.findQuotesCountForSearch(AggConstants.B_QUOTE_STATUS_UNACRHIVE, searchText, statusSearch);
 		} else {
-			count = quoteDAO.findAllQuotesCountByDealerForSearch(accountDo.getDealerId(), AggConstants.B_QUOTE_STATUS_UNACRHIVE, searchText);
+			count = quoteDAO.findAllQuotesCountByDealerForSearch(accountDo.getDealerId(), AggConstants.B_QUOTE_STATUS_UNACRHIVE, searchText, statusSearch);
 		}
 		return count;
 	}
@@ -1740,6 +1744,40 @@ public class QuoteServiceImpl implements QuoteService {
 		}
 		return quoteDos;
 	}
+	
+	@Override
+	public List<QuoteDO> getAllQuotesForSearch(AccountDO accountDo, String searchText, int noOfRows,
+			int pageLength, String properties, String orderDirection, byte statusSearch) {
+		List<QuoteDO> quoteDos = null;
+		if (accountDo.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)) {
+			//quoteDos = quoteDAO.findAllQuotes(AggConstants.B_QUOTE_STATUS_UNACRHIVE);
+			List<Object[]>	quoteResult = quoteDAO.findQuotesForSearchByStatus(AggConstants.B_QUOTE_STATUS_UNACRHIVE, searchText, noOfRows, pageLength,
+					properties, orderDirection, statusSearch);
+			quoteDos = prepareQuoteDos(quoteResult);
+		} else {
+			//quoteDos = quoteDAO.findAllQuotesByDealerForSearch1(accountDo.getDealerId(), AggConstants.B_QUOTE_STATUS_UNACRHIVE, searchText, new PageRequest(0, 10));
+			List<Object[]>	quoteResult = quoteDAO.findAllQuotesByDealerForSearch(accountDo.getDealerId(), AggConstants.B_QUOTE_STATUS_UNACRHIVE, searchText, noOfRows, pageLength,
+					properties, orderDirection, statusSearch);
+			quoteDos = prepareQuoteDos(quoteResult);
+		}
+		return quoteDos;
+	}
+
+	private List<QuoteDO> prepareQuoteDos(List<Object[]> quoteResult) {
+		List<QuoteDO> quoteDos = Lists.newArrayList();
+		if (!quoteResult.isEmpty()) {
+			for (Object[] objects : quoteResult) {
+				BigInteger status = (BigInteger) objects[6];
+				QuoteDO quoteDo = new QuoteDO((int) objects[0], (String) objects[1], (String) objects[2], (String) objects[3], (String) objects[4],
+						(Date) objects[5], (byte) status.intValue(), (Date) objects[7], (short) objects[8]);
+				quoteDos.add(quoteDo);
+			}
+		}
+		Collections.sort(quoteDos, (q1, q2) -> q2.getCreateDate().compareTo(q1.getCreateDate()));
+		return quoteDos;
+	}
+
+
 	
 }
 

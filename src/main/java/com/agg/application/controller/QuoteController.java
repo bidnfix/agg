@@ -35,6 +35,7 @@ import com.agg.application.model.Result;
 import com.agg.application.service.DealerService;
 import com.agg.application.service.MachineService;
 import com.agg.application.service.QuoteService;
+import com.agg.application.utils.AggConstants;
 
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JREmptyDataSource;
@@ -311,34 +312,6 @@ public class QuoteController extends BaseController {
 			
 			String properties = "";
 			
-			switch (Integer.parseInt(orderColumn)) {
-			case 0:
-				properties = "id.quoteId";
-				break;
-			case 1:
-				properties = "dealer.name";
-				break;
-			case 2:
-				properties = "customerInfo.name";
-				break;
-			case 3:
-				properties = "machineInfo.model";
-				break;
-			case 4:
-				properties = "machineSaleDate";
-				break;
-			case 5:
-				properties = "status";
-				break;
-			case 6:
-				properties = "createDate";
-				break;
-
-			default:
-				properties = "id.quoteId";
-				break;
-			}
-			
 			Pageable pageable;// = new PageRequest(page, pageLength, direction, properties);
 			
 			long totalRecords = quoteService.getQuotesCount(getAccountDetails(request));
@@ -347,7 +320,39 @@ public class QuoteController extends BaseController {
 			
 			if (!StringUtils.isEmpty(searchText)) {
 				
-				long filteredCount = quoteService.getQuotesSearchCount(getAccountDetails(request), searchText);
+				searchText = searchText.replaceAll("\\s+", "|");
+				
+				byte statusSearch = getSearchTextForStatus(searchText);
+				
+				long filteredCount = quoteService.getQuotesSearchCount(getAccountDetails(request), searchText, statusSearch);
+				
+				switch (Integer.parseInt(orderColumn)) {
+				case 0:
+					properties = "quote.quote_id";
+					break;
+				case 1:
+					properties = "dealer.name";
+					break;
+				case 2:
+					properties = "customerInfo.name";
+					break;
+				case 3:
+					properties = "quote.machine_model";
+					break;
+				case 4:
+					properties = "quote.machine_sale_date";
+					break;
+				case 5:
+					properties = "quote.status";
+					break;
+				case 6:
+					properties = "quote.create_date";
+					break;
+
+				default:
+					properties = "quote.create_date";
+					break;
+				}
 				
 				if (pageLength == -1) {
 					pageLength = (int) filteredCount;
@@ -356,7 +361,8 @@ public class QuoteController extends BaseController {
 					pageable = new PageRequest(page, pageLength, direction, properties);
 				}
 				
-				quoteDos = quoteService.getAllQuotesForSearch(getAccountDetails(request), searchText, pageable);
+				//quoteDos = quoteService.getAllQuotesForSearch(getAccountDetails(request), searchText, pageable);
+				quoteDos = quoteService.getAllQuotesForSearch(getAccountDetails(request), searchText, Integer.parseInt(start), pageLength, properties, orderDirection, statusSearch);
 				opResult = new Result("success", null, quoteDos);
 				
 				opResult.setDraw(Integer.parseInt(draw));
@@ -364,6 +370,35 @@ public class QuoteController extends BaseController {
 				opResult.setRecordsFiltered(filteredCount);
 				
 			} else {
+				
+				switch (Integer.parseInt(orderColumn)) {
+				case 0:
+					properties = "id.quoteId";
+					break;
+				case 1:
+					properties = "dealer.name";
+					break;
+				case 2:
+					properties = "customerInfo.name";
+					break;
+				case 3:
+					properties = "machineInfo.model";
+					break;
+				case 4:
+					properties = "machineSaleDate";
+					break;
+				case 5:
+					properties = "status";
+					break;
+				case 6:
+					properties = "createDate";
+					break;
+
+				default:
+					properties = "id.quoteId";
+					break;
+				}
+				
 				if (pageLength == -1) {
 					pageLength = (int) totalRecords;
 					pageable = new PageRequest(page, pageLength, direction, properties);
@@ -382,6 +417,24 @@ public class QuoteController extends BaseController {
 		return opResult;
 	}
 	
+	private byte getSearchTextForStatus(String searchText) {
+		
+		byte status = 99;
+		if (AggConstants.QUOTE_STATUS_ACRHIVE.toLowerCase().contains(searchText.toLowerCase())) {
+			status = AggConstants.B_QUOTE_STATUS_ACRHIVE;
+		} else if (AggConstants.QUOTE_STATUS_ESTIMATING_PRICE.toLowerCase().contains(searchText.toLowerCase())) {
+			status = AggConstants.B_QUOTE_STATUS_ESTIMATING_PRICE;
+		} else if (AggConstants.QUOTE_STATUS_PURCHASE_REQUESTED.toLowerCase().contains(searchText.toLowerCase())) {
+			status = AggConstants.B_QUOTE_STATUS_PURCHASE_REQUESTED;
+		} else if (AggConstants.QUOTE_STATUS_INVOICED.toLowerCase().contains(searchText.toLowerCase())) {
+			status = AggConstants.B_QUOTE_STATUS_INVOICED;
+		} else if (AggConstants.QUOTE_STATUS_CLOSED.toLowerCase().contains(searchText.toLowerCase())) {
+			status = AggConstants.B_QUOTE_STATUS_CLOSED;
+		}
+		// TODO Auto-generated method stub
+		return status;
+	}
+
 	@RequestMapping(value = "/archivedQuotesInfo", method = RequestMethod.GET)
 	public Result getArchivedQuotes(Model model, HttpServletRequest request, HttpServletResponse response) {
 		Result opResult = null;
