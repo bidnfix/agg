@@ -152,7 +152,7 @@ public interface QuoteDAO extends CrudRepository<Quote, QuotePK> {
 			+ " quote.is_archive = :isArchive and (quote.quote_id regexp :searchText or dealer.name regexp :searchText or"
 			+ " customerInfo.name regexp :searchText or quote.machine_model regexp :searchText or quote.machine_sale_date regexp :searchText or"
 			+ " quote.status regexp :statusSearch or quote.create_date regexp :searchText)", nativeQuery = true)
-	public long findQuotesCountForSearch(@Param("isArchive")short isArchive, @Param("searchText")String searchText, @Param("statusSearch")byte statusSearch);
+	public long findQuotesCountForSearch(@Param("isArchive")short isArchive, @Param("searchText")String searchText, @Param("statusSearch")String statusSearch);
 	
 	@Query("SELECT new com.agg.application.model.QuoteDO(quote.id.id, quote.id.quoteId, quote.dealer.name, customerInfo.name, "
 			+ "quote.machineInfo.model, quote.machineSaleDate, quote.status, quote.createDate, quote.isArchive)"
@@ -189,16 +189,23 @@ public interface QuoteDAO extends CrudRepository<Quote, QuotePK> {
 			+ " and quote.isArchive = :isArchive and (quote.id.quoteId like %:searchText% or quote.dealer.name like %:searchText% or"
 			+ " customerInfo.name like %:searchText% or quote.machineInfo.model like %:searchText% or quote.machineSaleDate like %:searchText% or"
 			+ " quote.status like %:searchText% or quote.createDate like %:searchText%)")*/
+	/*@Query(value = "SELECT quote.id as id, quote.quote_id as quoteId, dealer.name as dealerName, customerInfo.name as customerName, quote.machine_model as model,"
+			+ " quote.machine_sale_date as saleDate, cast(quote.status as  unsigned) as status, quote.create_date as createDate, quote.is_archive as archive"
+			+ " from quotes quote LEFT JOIN customer_info customerInfo ON quote.quote_id=customerInfo.quote_id LEFT JOIN dealers dealer ON quote.dealer_id=dealer.id"
+			+ " where quote.dealer_id = :dealerId"
+			+ " and quote.is_archive = :isArchive and (quote.quote_id regexp :searchText or dealer.name regexp :searchText or"
+			+ " customerInfo.name regexp :searchText or quote.machine_model regexp :searchText or quote.machine_sale_date regexp :searchText or"
+			+ " quote.status regexp :statusSearch or quote.create_date regexp :searchText) ORDER BY :orderBy :orderDirection LIMIT :noOfRows, :pageLength", nativeQuery=true)*/
 	@Query(value = "SELECT quote.id as id, quote.quote_id as quoteId, dealer.name as dealerName, customerInfo.name as customerName, quote.machine_model as model,"
 			+ " quote.machine_sale_date as saleDate, cast(quote.status as  unsigned) as status, quote.create_date as createDate, quote.is_archive as archive"
 			+ " from quotes quote LEFT JOIN customer_info customerInfo ON quote.quote_id=customerInfo.quote_id LEFT JOIN dealers dealer ON quote.dealer_id=dealer.id"
 			+ " where quote.dealer_id = :dealerId"
 			+ " and quote.is_archive = :isArchive and (quote.quote_id regexp :searchText or dealer.name regexp :searchText or"
 			+ " customerInfo.name regexp :searchText or quote.machine_model regexp :searchText or quote.machine_sale_date regexp :searchText or"
-			+ " quote.status regexp :statusSearch or quote.create_date regexp :searchText) ORDER BY :orderBy :orderDirection LIMIT :noOfRows, :pageLength", nativeQuery=true)
+			+ " quote.status regexp :statusSearch or quote.create_date regexp :searchText) \n-- #pageable\n", nativeQuery=true)
 	public List<Object[]> findAllQuotesByDealerForSearch(@Param("dealerId")long dealerId, @Param("isArchive")short isArchive, @Param("searchText")String searchText, 
-			@Param("noOfRows")int noOfRows, @Param("pageLength")int pageLength, @Param("orderBy")String orderBy, @Param("orderDirection")String orderDirection,
-			@Param("statusSearch")byte statusSearch);
+			/*@Param("noOfRows")int noOfRows, @Param("pageLength")int pageLength, @Param("orderBy")String orderBy, @Param("orderDirection")String orderDirection,*/
+			@Param("statusSearch")String statusSearch, Pageable pageable);
 	
 	/*@Query("SELECT COUNT(*)"
 			+ " from Quote quote, CustomerInfo customerInfo"
@@ -213,7 +220,7 @@ public interface QuoteDAO extends CrudRepository<Quote, QuotePK> {
 			+ " and quote.is_archive = :isArchive and (quote.quote_id regexp :searchText or dealer.name regexp :searchText or"
 			+ " customerInfo.name regexp :searchText or quote.machine_model regexp :searchText or quote.machine_sale_date regexp :searchText or"
 			+ " quote.status regexp :statusSearch or quote.create_date regexp :searchText)", nativeQuery = true)
-	public long findAllQuotesCountByDealerForSearch(@Param("dealerId")long dealerId, @Param("isArchive")short isArchive, @Param("searchText")String searchText, @Param("statusSearch")byte statusSearch);
+	public long findAllQuotesCountByDealerForSearch(@Param("dealerId")long dealerId, @Param("isArchive")short isArchive, @Param("searchText")String searchText, @Param("statusSearch")String statusSearch);
 	
 	@Query("SELECT COUNT(*)"
 			+ " from Quote quote, CustomerInfo customerInfo"
@@ -265,10 +272,21 @@ public interface QuoteDAO extends CrudRepository<Quote, QuotePK> {
 			+ " where"
 			+ " quote.is_archive = :isArchive and (quote.quote_id regexp :searchText or dealer.name regexp :searchText or"
 			+ " customerInfo.name regexp :searchText or quote.machine_model regexp :searchText or quote.machine_sale_date regexp :searchText or"
-			+ " quote.status regexp :statusSearch or quote.create_date regexp :searchText) ORDER BY :orderBy :orderDirection LIMIT :noOfRows, :pageLength", nativeQuery=true)
+			+ " quote.status regexp :statusSearch or quote.create_date regexp :searchText) ORDER BY :orderBy  :orderDirection LIMIT :noOfRows, :pageLength", nativeQuery=true)
 	public List<Object[]> findQuotesForSearchByStatus(@Param("isArchive")short isArchive, @Param("searchText")String searchText, 
 			@Param("noOfRows")int noOfRows, @Param("pageLength")int pageLength, @Param("orderBy")String orderBy, @Param("orderDirection")String orderDirection,
 			@Param("statusSearch")byte statusSearch);
+
+	@Query(value = "SELECT quote.id as id, quote.quote_id as quoteId, dealer.name as dealerName, customerInfo.name as customerName, quote.machine_model as model,"
+			+ " quote.machine_sale_date as saleDate, cast(quote.status as  unsigned) as status, quote.create_date as createDate, quote.is_archive as archive"
+			+ " from quotes quote LEFT JOIN customer_info customerInfo ON quote.quote_id=customerInfo.quote_id LEFT JOIN dealers dealer ON quote.dealer_id=dealer.id"
+			+ " where"
+			+ " quote.is_archive = :isArchive and (quote.quote_id regexp :searchText or dealer.name regexp :searchText or"
+			+ " customerInfo.name regexp :searchText or quote.machine_model regexp :searchText or quote.machine_sale_date regexp :searchText or"
+			+ " quote.status regexp :statusSearch or quote.create_date regexp :searchText) \n-- #pageable\n", nativeQuery=true)
+	public List<Object[]> findQuotesForSearchByStatus(@Param("isArchive")short isArchive, @Param("searchText")String searchText, 
+			/*@Param("noOfRows")int noOfRows, @Param("pageLength")int pageLength, @Param("orderCluase")String orderCluase,*/
+			@Param("statusSearch")String statusSearch, Pageable pageable);
 			
 	//public List<QuoteDO> findQuotsForSearch(Specification<T> spec, Pageable pageable);
 }

@@ -320,15 +320,15 @@ public class QuoteController extends BaseController {
 			
 			if (!StringUtils.isEmpty(searchText)) {
 				
-				searchText = searchText.replaceAll("\\s+", "|");
+				String statusSearch = getSearchTextForStatus(searchText);
 				
-				byte statusSearch = getSearchTextForStatus(searchText);
+				searchText = searchText.replaceAll("\\s+", "|");
 				
 				long filteredCount = quoteService.getQuotesSearchCount(getAccountDetails(request), searchText, statusSearch);
 				
 				switch (Integer.parseInt(orderColumn)) {
 				case 0:
-					properties = "quote.quote_id";
+					properties = "quote_id";
 					break;
 				case 1:
 					properties = "dealer.name";
@@ -337,20 +337,20 @@ public class QuoteController extends BaseController {
 					properties = "customerInfo.name";
 					break;
 				case 3:
-					properties = "quote.machine_model";
+					properties = "machine_model";
 					break;
 				case 4:
-					properties = "quote.machine_sale_date";
+					properties = "machine_sale_date";
 					break;
 				case 5:
-					properties = "quote.status";
+					properties = "status";
 					break;
 				case 6:
-					properties = "quote.create_date";
+					properties = "create_date";
 					break;
 
 				default:
-					properties = "quote.create_date";
+					properties = "create_date";
 					break;
 				}
 				
@@ -362,7 +362,7 @@ public class QuoteController extends BaseController {
 				}
 				
 				//quoteDos = quoteService.getAllQuotesForSearch(getAccountDetails(request), searchText, pageable);
-				quoteDos = quoteService.getAllQuotesForSearch(getAccountDetails(request), searchText, Integer.parseInt(start), pageLength, properties, orderDirection, statusSearch);
+				quoteDos = quoteService.getAllQuotesForSearch(getAccountDetails(request), searchText, Integer.parseInt(start), pageLength, properties, orderDirection, statusSearch, pageable);
 				opResult = new Result("success", null, quoteDos);
 				
 				opResult.setDraw(Integer.parseInt(draw));
@@ -417,21 +417,24 @@ public class QuoteController extends BaseController {
 		return opResult;
 	}
 	
-	private byte getSearchTextForStatus(String searchText) {
+	private String getSearchTextForStatus(String searchText) {
 		
-		byte status = 99;
-		if (AggConstants.QUOTE_STATUS_ACRHIVE.toLowerCase().contains(searchText.toLowerCase())) {
-			status = AggConstants.B_QUOTE_STATUS_ACRHIVE;
-		} else if (AggConstants.QUOTE_STATUS_ESTIMATING_PRICE.toLowerCase().contains(searchText.toLowerCase())) {
-			status = AggConstants.B_QUOTE_STATUS_ESTIMATING_PRICE;
-		} else if (AggConstants.QUOTE_STATUS_PURCHASE_REQUESTED.toLowerCase().contains(searchText.toLowerCase())) {
-			status = AggConstants.B_QUOTE_STATUS_PURCHASE_REQUESTED;
-		} else if (AggConstants.QUOTE_STATUS_INVOICED.toLowerCase().contains(searchText.toLowerCase())) {
-			status = AggConstants.B_QUOTE_STATUS_INVOICED;
-		} else if (AggConstants.QUOTE_STATUS_CLOSED.toLowerCase().contains(searchText.toLowerCase())) {
-			status = AggConstants.B_QUOTE_STATUS_CLOSED;
+		String[] search = searchText.split("\\s+");
+		
+		String status = "99";
+		for (String string :search) {
+			if (AggConstants.QUOTE_STATUS_ACRHIVE.toLowerCase().contains(string.toLowerCase())) {
+				status = status+"|"+AggConstants.B_QUOTE_STATUS_ACRHIVE;
+			} else if (AggConstants.QUOTE_STATUS_ESTIMATING_PRICE.toLowerCase().contains(string.toLowerCase())) {
+				status = status+"|"+AggConstants.B_QUOTE_STATUS_ESTIMATING_PRICE;
+			} else if (AggConstants.QUOTE_STATUS_PURCHASE_REQUESTED.toLowerCase().contains(string.toLowerCase())) {
+				status = status+"|"+AggConstants.B_QUOTE_STATUS_PURCHASE_REQUESTED;
+			} else if (AggConstants.QUOTE_STATUS_INVOICED.toLowerCase().contains(string.toLowerCase())) {
+				status = status+"|"+AggConstants.B_QUOTE_STATUS_INVOICED;
+			} else if (AggConstants.QUOTE_STATUS_CLOSED.toLowerCase().contains(string.toLowerCase())) {
+				status = status+"|"+AggConstants.B_QUOTE_STATUS_CLOSED;
+			}
 		}
-		// TODO Auto-generated method stub
 		return status;
 	}
 

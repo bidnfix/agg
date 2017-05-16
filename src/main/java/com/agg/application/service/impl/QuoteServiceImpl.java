@@ -1710,7 +1710,7 @@ public class QuoteServiceImpl implements QuoteService {
 	}
 
 	@Override
-	public long getQuotesSearchCount(AccountDO accountDo, String searchText, byte statusSearch) {
+	public long getQuotesSearchCount(AccountDO accountDo, String searchText, String statusSearch) {
 		long count = 0;
 		if (accountDo.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)) {
 			//quoteDos = quoteDAO.findAllQuotes(AggConstants.B_QUOTE_STATUS_UNACRHIVE);
@@ -1747,17 +1747,19 @@ public class QuoteServiceImpl implements QuoteService {
 	
 	@Override
 	public List<QuoteDO> getAllQuotesForSearch(AccountDO accountDo, String searchText, int noOfRows,
-			int pageLength, String properties, String orderDirection, byte statusSearch) {
+			int pageLength, String properties, String orderDirection, String statusSearch, Pageable pageable) {
 		List<QuoteDO> quoteDos = null;
 		if (accountDo.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)) {
 			//quoteDos = quoteDAO.findAllQuotes(AggConstants.B_QUOTE_STATUS_UNACRHIVE);
-			List<Object[]>	quoteResult = quoteDAO.findQuotesForSearchByStatus(AggConstants.B_QUOTE_STATUS_UNACRHIVE, searchText, noOfRows, pageLength,
-					properties, orderDirection, statusSearch);
+			/*List<Object[]>	quoteResult = quoteDAO.findQuotesForSearchByStatus(AggConstants.B_QUOTE_STATUS_UNACRHIVE, searchText, noOfRows, pageLength,
+					properties, orderDirection, statusSearch);*/
+			List<Object[]>	quoteResult = quoteDAO.findQuotesForSearchByStatus(AggConstants.B_QUOTE_STATUS_UNACRHIVE, searchText, /*noOfRows, pageLength,
+					properties+" "+orderDirection,*/ statusSearch, pageable);
 			quoteDos = prepareQuoteDos(quoteResult);
 		} else {
 			//quoteDos = quoteDAO.findAllQuotesByDealerForSearch1(accountDo.getDealerId(), AggConstants.B_QUOTE_STATUS_UNACRHIVE, searchText, new PageRequest(0, 10));
-			List<Object[]>	quoteResult = quoteDAO.findAllQuotesByDealerForSearch(accountDo.getDealerId(), AggConstants.B_QUOTE_STATUS_UNACRHIVE, searchText, noOfRows, pageLength,
-					properties, orderDirection, statusSearch);
+			List<Object[]>	quoteResult = quoteDAO.findAllQuotesByDealerForSearch(accountDo.getDealerId(), AggConstants.B_QUOTE_STATUS_UNACRHIVE, searchText, /*noOfRows, pageLength,
+					properties, orderDirection,*/ statusSearch, pageable);
 			quoteDos = prepareQuoteDos(quoteResult);
 		}
 		return quoteDos;
@@ -1773,7 +1775,7 @@ public class QuoteServiceImpl implements QuoteService {
 				quoteDos.add(quoteDo);
 			}
 		}
-		Collections.sort(quoteDos, (q1, q2) -> q2.getCreateDate().compareTo(q1.getCreateDate()));
+		//Collections.sort(quoteDos, (q1, q2) -> q2.getCreateDate().compareTo(q1.getCreateDate()));
 		return quoteDos;
 	}
 
