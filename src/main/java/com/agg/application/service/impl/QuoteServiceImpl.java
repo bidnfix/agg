@@ -1289,7 +1289,9 @@ public class QuoteServiceImpl implements QuoteService {
 				}
 			}
 			if(quoteDO.getStatus() == AggConstants.B_QUOTE_STATUS_INVOICED){
-				adminAdjustment.setInvoiceDate(new Date());
+				if(adminAdjustment.getInvoiceDate() == null){
+					adminAdjustment.setInvoiceDate(new Date());
+				}
 			}
 			
 			adminAdjustmentDAO.save(adminAdjustment);
