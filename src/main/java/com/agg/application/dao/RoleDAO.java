@@ -12,6 +12,9 @@ public interface RoleDAO extends CrudRepository<Role, Long>{
 	
 	public List<Role> findByRTitle(String title);
 	
+	/*@Query("SELECT r FROM Role r WHERE r.r_title IN : Title")
+	public List<Role> findByRTitles(@Param("Title") List<String> titles);*/
+	
 	public List<Role> findByAccountTypeAccountType(String accountType);
 	
 }

@@ -11,7 +11,7 @@
 			<div class="col-xs-12 no-pad">
 				<div class="col-sm-5 no-pad">
 					<div class="form-group">
-						<input type="text" id="dealerMarkup" name="dealerMarkup" ng-model="quote.dealerMarkup" placeholder="Dealer Markup" class="form-control" required="required">
+						<input type="number" id="dealerMarkup" name="dealerMarkup" ng-model="quote.dealerMarkup" placeholder="Dealer Markup" class="form-control" required="required">
 					</div>
 					<input type="radio" id="dealerMarkupVlaue" name="dealerMarkupVlaue" ng-model="quote.dealerMarkupType" value="price" class=""> Price 
 					<input type="radio" id="dealerMarkupVlaue" name="dealerMarkupVlaue" ng-model="quote.dealerMarkupType" value="percent" class=""> Percentage

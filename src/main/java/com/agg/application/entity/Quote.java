@@ -148,6 +148,12 @@ public class Quote implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="pr_id")
 	private Sprogram program;
+	
+	/*@OneToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="quote_id", insertable=false, updatable=false, nullable=true)
+	private CustomerInfo customerInfo;*/
+	
+	
 
 	public Quote() {
 	}

@@ -61,7 +61,60 @@
 					<input type="text" id="contractExpirationHours" name="contractExpirationHours" ng-model="quote.contractExpirationHours" class="form-control" required="required">
 				</div>
 			</div>
-			<div class="form-group">
+			<div class="col-xs-12 no-pad table-responsive clearfix">
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+							<th class="col-sm-4">Check #</th>
+							<th class="col-sm-4">Received Date</th>
+							<th class="col-sm-3">Check Amount</th>
+							<th class="col-sm-1">
+								<button type="button" class="btn btn-primary btn-sm" ng-click="addCheck()">
+								<i class="fa fa-plus"></i>
+						</button>
+							</th>
+						</tr>
+					</thead>
+					<tbody data-ng-repeat="checkDO in quote.checkDOList">
+						<tr>
+							<td><input type="text" class="form-control" name="checkNo" ng-model="checkDO.checkNo" required="required"></td>
+							<td>
+								<div class="agf1 input-group">
+									<input type="text" class="form-control"
+									   name="receivedDate" 
+					                   datepicker-popup="MM/dd/yyyy"
+					                   datepicker-options="dateOptions" 
+					                   is-open="checkDO.chkDatePickerIsOpen" 
+					                   ng-click="checkDO.chkDatePickerIsOpen=true"
+					                   ng-model="checkDO.receivedDate"/>
+						            <span class="input-group-btn">
+						              <button type="button" class="btn btn-default" 
+						                      ng-click="chkDatePickerOpen($event, checkDO)">
+						                <i class="glyphicon glyphicon-calendar"></i>
+						              </button>
+						            </span>
+					            </div>
+							</td>
+							<td><input type="number" step="0.01" class="form-control" name="amount" ng-model="checkDO.amount" ng-change="calcCheckAmtTotal()" required="required"></td>
+							<td>
+								<button ng-if="quote.checkDOList.length > 1" type="button" class="btn btn-primary btn-sm" ng-click="removeCheck(checkDO);">
+									<i class="fa fa-minus"></i>
+								</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="col-sm-12">
+						<div class="col-sm-6"></div>
+						<div class="col-sm-6">
+							<div class="col-sm-8 no-pad">Total Check Amount</div>
+							<div class="col-sm-4 t-r">
+								{{quote.totalCheckAmount | currency}}
+							</div>
+						</div>
+				</div>
+			</div>
+			<!-- <div class="form-group">
 				<label for="cheqNo" class="col-sm-3 control-label">Check Number</label>
 				<div class="col-sm-9">
 					<input type="text" id="cheqNo" name="cheqNo" ng-model="quote.cheqNo" class="form-control">
@@ -70,7 +123,7 @@
 			<div class="agf1 form-group">
 				<label for="receivedDate" class="col-sm-3 control-label">Received Date</label>
 				<div class="col-sm-9">
-					<!-- <input type="date" id="receivedDate" name="receivedDate" ng-model="quote.receivedDate" class="form-control"> -->
+					<input type="date" id="receivedDate" name="receivedDate" ng-model="quote.receivedDate" class="form-control">
 					<div class="input-group">
 						<input type="text" class="form-control" 
 		                   datepicker-popup="MM/dd/yyyy"
@@ -86,7 +139,7 @@
 			            </span>
 		            </div>
 				</div>
-			</div>
+			</div> -->
 			<div class="form-group">
 				<label for="address2" class="col-sm-3 control-label">Deal History</label>
 				<div class="col-sm-9">

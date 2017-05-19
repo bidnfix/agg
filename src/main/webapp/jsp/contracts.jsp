@@ -68,14 +68,14 @@
                 <%-- <c:if test="${user.roleDO.accountType eq 'admin'}"> --%>
 	                <td>
 	                	<div class="manage-sec">
-	                		<c:choose>
-	                			<c:when test="${user.roleDO.accountType eq 'admin'}">
+	                		<%-- <c:choose>
+	                			<c:when test="${user.roleDO.accountType eq 'admin'}"> --%>
 	                				<a href="#/agg/viewContract/{{contract.id}}/{{contract.contractId}}"><img src="../assets/images/edit-pencil.png" alt="View" title="View"/></a>
-	                			</c:when>
+	                			<%-- </c:when>
 	                			<c:otherwise>
 	                				<a href="#/agg/viewContractDetails/{{contract.id}}/{{contract.contractId}}"><img src="../assets/images/edit-pencil.png" alt="View" title="View"/></a>
 	                			</c:otherwise>
-	                		</c:choose>
+	                		</c:choose> --%>
 	                	</div>
 	                </td>
                 <%-- </c:if> --%>

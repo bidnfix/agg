@@ -1,9 +1,11 @@
 package com.agg.application.service.impl;
 
+import java.math.BigInteger;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -17,6 +19,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,6 +35,7 @@ import com.agg.application.dao.PricingDAO;
 import com.agg.application.dao.QuoteDAO;
 import com.agg.application.dao.UseOfEquipmentDAO;
 import com.agg.application.entity.AdminAdjustment;
+import com.agg.application.entity.Check;
 import com.agg.application.entity.Contracts;
 import com.agg.application.entity.CustomerInfo;
 import com.agg.application.entity.Dealer;
@@ -40,6 +45,7 @@ import com.agg.application.entity.Quote;
 import com.agg.application.entity.QuotePK;
 import com.agg.application.entity.UseOfEquip;
 import com.agg.application.model.AccountDO;
+import com.agg.application.model.CheckDO;
 import com.agg.application.model.DealerDO;
 import com.agg.application.model.MachineInfoDO;
 import com.agg.application.model.ManufacturerDO;
@@ -53,6 +59,7 @@ import com.agg.application.service.QuoteService;
 import com.agg.application.utils.AggConstants;
 import com.agg.application.utils.EmailSender;
 import com.agg.application.utils.Util;
+import com.google.common.collect.Lists;
 
 @Service
 public class QuoteServiceImpl implements QuoteService {
@@ -1282,7 +1289,9 @@ public class QuoteServiceImpl implements QuoteService {
 				}
 			}
 			if(quoteDO.getStatus() == AggConstants.B_QUOTE_STATUS_INVOICED){
-				adminAdjustment.setInvoiceDate(new Date());
+				if(adminAdjustment.getInvoiceDate() == null){
+					adminAdjustment.setInvoiceDate(new Date());
+				}
 			}
 			
 			adminAdjustmentDAO.save(adminAdjustment);
@@ -1530,12 +1539,14 @@ public class QuoteServiceImpl implements QuoteService {
 			/*List<Quote> quoteList = Util.toList(quoteDAO.findByStatus(AggConstants.B_QUOTE_STATUS_INVOICED));
 			//logger.debug("quoteList for getInvoicedQuotes--------------> "+ quoteList.size());
 			quoteDOList = getQuoteDetails(quoteList);*/
-			quoteDOList = quoteDAO.findByQuoteStatus(AggConstants.B_QUOTE_STATUS_INVOICED, AggConstants.B_QUOTE_STATUS_UNACRHIVE);
+			//quoteDOList = quoteDAO.findByQuoteStatus(AggConstants.B_QUOTE_STATUS_INVOICED, AggConstants.B_QUOTE_STATUS_UNACRHIVE);
+			quoteDOList = quoteDAO.findInvoiceQuotes(AggConstants.B_QUOTE_STATUS_INVOICED, AggConstants.B_QUOTE_STATUS_UNACRHIVE);
 		}else{
 			/*List<Quote> quoteList = Util.toList(quoteDAO.findByStatusAndDealerId(AggConstants.B_QUOTE_STATUS_INVOICED, accountDO.getDealerId()));
 			//logger.debug("quoteList for getInvoicedQuotes--------------> "+ quoteList.size());
 			quoteDOList = getQuoteDetails(quoteList);*/
-			quoteDOList = quoteDAO.findByDealerStatusAndDealerId(AggConstants.B_QUOTE_STATUS_INVOICED, accountDO.getDealerId(), AggConstants.B_QUOTE_STATUS_UNACRHIVE);
+			//quoteDOList = quoteDAO.findByDealerStatusAndDealerId(AggConstants.B_QUOTE_STATUS_INVOICED, accountDO.getDealerId(), AggConstants.B_QUOTE_STATUS_UNACRHIVE);
+			quoteDOList = quoteDAO.findInvoiceQuotesByDealer(AggConstants.B_QUOTE_STATUS_INVOICED, AggConstants.B_QUOTE_STATUS_UNACRHIVE, accountDO.getDealerId());
 		}
 		return quoteDOList;
 	}
@@ -1618,6 +1629,8 @@ public class QuoteServiceImpl implements QuoteService {
 			adminAdjustmentDAO.save(adminAdjustment);
 		}*/
 		
+		Date currDate = new Date();
+		
 		Contracts contracts = new Contracts();
 		contracts.setAvailabeLol(quoteDO.getMachineInfoDO().getLol());
 		contracts.setComments(quoteDO.getComments());
@@ -1629,7 +1642,7 @@ public class QuoteServiceImpl implements QuoteService {
 		contracts.setExpirationDate(quoteDO.getContractExpirationDate());
 		contracts.setExpirationUsageHours(quoteDO.getContractExpirationHours());
 		contracts.setInceptionDate(quoteDO.getContractInceptionDate());
-		contracts.setLastUpdatedDate(new Date());
+		contracts.setLastUpdatedDate(currDate);
 		contracts.setLol(quoteDO.getMachineInfoDO().getLol());
 		contracts.setMachineSerialNo(quoteDO.getSerialNumber());
 		Quote quote = quoteDAO.findByIdQuoteId(quoteDO.getQuoteId());
@@ -1637,6 +1650,30 @@ public class QuoteServiceImpl implements QuoteService {
 		contracts.setStatus(AggConstants.ACTIVE);
 		contracts.setCheqNo(quoteDO.getCheqNo());
 		contracts.setReceivedDate(quoteDO.getReceivedDate());
+		contracts.setServicingDealer(quote.getDealer());
+		
+		List<CheckDO> checkDOList = quoteDO.getCheckDOList();
+		if(checkDOList != null && !checkDOList.isEmpty()){
+			Check check = null;
+			Set<Check> checks = new HashSet<Check>();
+			for(CheckDO checkDO : checkDOList){
+				check = new Check();
+				check.setCheckNo(checkDO.getCheckNo());
+				check.setReceivedDate(checkDO.getReceivedDate());
+				check.setCheckAmount(checkDO.getAmount());
+				check.setCreatedBy(accountDO.getUsername());
+				check.setCreatedDate(currDate);
+				check.setUpdatedBy(accountDO.getUsername());
+				check.setUpdatedDate(currDate);
+				check.setContract(contracts);
+				
+				checks.add(check);
+			}
+			
+			contracts.setChecks(checks);
+		}
+		
+		
 		
 		contracts = contractsDAO.save(contracts);
 		
@@ -1661,6 +1698,90 @@ public class QuoteServiceImpl implements QuoteService {
 		cal.add(Calendar.DATE, AggConstants.QUOTE_EXPIRATION_DAYS);
 		return cal.getTime();
 	}
+
+	@Override
+	public long getQuotesCount(AccountDO accountDo) {
+		long count = 0;
+		if (accountDo.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)) {
+			//quoteDos = quoteDAO.findAllQuotes(AggConstants.B_QUOTE_STATUS_UNACRHIVE);
+			count = quoteDAO.findQuotesCount(AggConstants.B_QUOTE_STATUS_UNACRHIVE);
+		} else {
+			count = quoteDAO.findAllQuotesCountByDealer(accountDo.getDealerId(), AggConstants.B_QUOTE_STATUS_UNACRHIVE);
+		}
+		return count;
+	}
+
+	@Override
+	public long getQuotesSearchCount(AccountDO accountDo, String searchText, String statusSearch) {
+		long count = 0;
+		if (accountDo.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)) {
+			//quoteDos = quoteDAO.findAllQuotes(AggConstants.B_QUOTE_STATUS_UNACRHIVE);
+			count = quoteDAO.findQuotesCountForSearch(AggConstants.B_QUOTE_STATUS_UNACRHIVE, searchText, statusSearch);
+		} else {
+			count = quoteDAO.findAllQuotesCountByDealerForSearch(accountDo.getDealerId(), AggConstants.B_QUOTE_STATUS_UNACRHIVE, searchText, statusSearch);
+		}
+		return count;
+	}
+
+	@Override
+	public List<QuoteDO> getAllQuotesForSearch(AccountDO accountDo, String searchText, Pageable pageable) {
+		List<QuoteDO> quoteDos = null;
+		if (accountDo.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)) {
+			//quoteDos = quoteDAO.findAllQuotes(AggConstants.B_QUOTE_STATUS_UNACRHIVE);
+			quoteDos = quoteDAO.findQuotesForSearchByStatus(AggConstants.B_QUOTE_STATUS_UNACRHIVE, searchText, pageable);
+		} else {
+			quoteDos = quoteDAO.findAllQuotesByDealerForSearch(accountDo.getDealerId(), AggConstants.B_QUOTE_STATUS_UNACRHIVE, searchText, pageable);
+		}
+		return quoteDos;
+	}
+
+	@Override
+	public List<QuoteDO> getAllQuotes(AccountDO accountDo, Pageable pageable) {
+		List<QuoteDO> quoteDos = null;
+		if (accountDo.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)) {
+			//quoteDos = quoteDAO.findAllQuotes(AggConstants.B_QUOTE_STATUS_UNACRHIVE);
+			quoteDos = quoteDAO.findQuotesByStatus(AggConstants.B_QUOTE_STATUS_UNACRHIVE, pageable);
+		} else {
+			quoteDos = quoteDAO.findAllQuotesByDealer(accountDo.getDealerId(), AggConstants.B_QUOTE_STATUS_UNACRHIVE, pageable);
+		}
+		return quoteDos;
+	}
+	
+	@Override
+	public List<QuoteDO> getAllQuotesForSearch(AccountDO accountDo, String searchText, int noOfRows,
+			int pageLength, String properties, String orderDirection, String statusSearch, Pageable pageable) {
+		List<QuoteDO> quoteDos = null;
+		if (accountDo.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)) {
+			//quoteDos = quoteDAO.findAllQuotes(AggConstants.B_QUOTE_STATUS_UNACRHIVE);
+			/*List<Object[]>	quoteResult = quoteDAO.findQuotesForSearchByStatus(AggConstants.B_QUOTE_STATUS_UNACRHIVE, searchText, noOfRows, pageLength,
+					properties, orderDirection, statusSearch);*/
+			List<Object[]>	quoteResult = quoteDAO.findQuotesForSearchByStatus(AggConstants.B_QUOTE_STATUS_UNACRHIVE, searchText, /*noOfRows, pageLength,
+					properties+" "+orderDirection,*/ statusSearch, pageable);
+			quoteDos = prepareQuoteDos(quoteResult);
+		} else {
+			//quoteDos = quoteDAO.findAllQuotesByDealerForSearch1(accountDo.getDealerId(), AggConstants.B_QUOTE_STATUS_UNACRHIVE, searchText, new PageRequest(0, 10));
+			List<Object[]>	quoteResult = quoteDAO.findAllQuotesByDealerForSearch(accountDo.getDealerId(), AggConstants.B_QUOTE_STATUS_UNACRHIVE, searchText, /*noOfRows, pageLength,
+					properties, orderDirection,*/ statusSearch, pageable);
+			quoteDos = prepareQuoteDos(quoteResult);
+		}
+		return quoteDos;
+	}
+
+	private List<QuoteDO> prepareQuoteDos(List<Object[]> quoteResult) {
+		List<QuoteDO> quoteDos = Lists.newArrayList();
+		if (!quoteResult.isEmpty()) {
+			for (Object[] objects : quoteResult) {
+				BigInteger status = (BigInteger) objects[6];
+				QuoteDO quoteDo = new QuoteDO((int) objects[0], (String) objects[1], (String) objects[2], (String) objects[3], (String) objects[4],
+						(Date) objects[5], (byte) status.intValue(), (Date) objects[7], (short) objects[8]);
+				quoteDos.add(quoteDo);
+			}
+		}
+		//Collections.sort(quoteDos, (q1, q2) -> q2.getCreateDate().compareTo(q1.getCreateDate()));
+		return quoteDos;
+	}
+
+
 	
 }
 

@@ -53,7 +53,7 @@
 	<script src="/assets/js/jquery.min.js"></script>
 	<script src="/assets/js/bootstrap.min.js"></script>
      <!--side nav js-->
-  <script src="/assets/js/jquery.min.js"></script>
+  	<script src="/assets/js/jquery.min.js"></script>
      <!--data table js-->
     
 	<script src="/assets/js/jquery.dataTables.min.js"></script>

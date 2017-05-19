@@ -20,6 +20,7 @@
 
 	<div class="inner-main" ng-controller="programController">
 		<form class="form-horizontal" role="form" ng-submit="submitProgram()">
+			<div id="programErrorMsg" class="alert alert-danger text-center hidden"></div>
 			<h3 align="center">Add Program</h3>
 			<div class="form-group">
 				<label for="name" class="col-sm-3 control-label">Assign a Dealer</label>
@@ -29,6 +30,32 @@
      				</select> 
 				</div>
 			</div>
+			
+			<div class="form-group">
+				<label for="name" class="col-sm-3 control-label">Model ID</label>
+				<div class="col-sm-8">
+					<input type="text" ng-model="program.code" id="name" name="name" placeholder="Model code" class="form-control" required="required">
+					
+				</div>
+				<div>
+						<button type="button" class="btn btn-primary btn-sm mar-right" ng-click="getModelByCode()">Add</button>
+					</div>
+			</div>
+			<!-- <div class="form-group">
+				<div class="col-sm-9 col-sm-offset-3">
+					<button type="button" ng-click="getModelByCode()">Show Model</button>
+				</div>
+			</div> -->
+			
+			
+			<div class="form-group">
+				<label for="name" class="col-sm-3 control-label">Manufacturer</label>
+				<div class="col-sm-9">
+					<input type="text" ng-model="program.manufacturerDO.name" id="manfName" name="manfName" class="form-control" required="required" disabled="true">
+				</div>
+			</div>
+			
+			<!-- 
 			<div class="form-group">
 				<label for="name" class="col-sm-3 control-label">Manufacturer</label>
 				<div class="col-sm-9">
@@ -37,14 +64,14 @@
      				</select> 
 				</div>
 			</div>
-			
+			 -->
 			<div class="form-group">
 				<label for="name" class="col-sm-3 control-label">Model</label>
 				<div class="col-sm-9">
 					<!--  <select name="machine" ng-model="program.modelDO" ng-options="machine.name for machine in modelList">
      				</select> -->
      				<select size="5" id="myselection" multiple ng-multiple="true"
-			        ng-model="program.machineInfoDOList" ng-options="machine.model for machine in machineModelList | orderBy:'model'" class="form-control">
+			        ng-model="program.machineInfoDOList" ng-options="machine.model for machine in program.machineModelList | orderBy:'model'" multiple="multiple" class="form-control" disabled="true" >
 			      </select> 
 				</div>
 			</div>

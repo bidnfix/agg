@@ -11,8 +11,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,6 +35,7 @@ import com.agg.application.model.Result;
 import com.agg.application.service.DealerService;
 import com.agg.application.service.MachineService;
 import com.agg.application.service.QuoteService;
+import com.agg.application.utils.AggConstants;
 
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JREmptyDataSource;
@@ -282,15 +287,157 @@ public class QuoteController extends BaseController {
 	@RequestMapping(value = "/quotesInfo", method = RequestMethod.GET)
 	public Result getQuotes(Model model, HttpServletRequest request, HttpServletResponse response) {
 		Result opResult = null;
-		if (!sessionExists(request)){
+		if (!sessionExists(request)) {
 			opResult = new Result("failure", "Invalid Login", null);
-		}else{
-			opResult = new Result("success", null, quoteService.getQuotes(getAccountDetails(request)));
+		} else {
+			//opResult = new Result("success", null, quoteService.getQuotes(getAccountDetails(request)));
+			String draw = request.getParameter("draw");
+			String start = request.getParameter("start");
+			String length = request.getParameter("length");
+			String searchText = request.getParameter("search[value]");
+			String orderColumn = request.getParameter("order[0][column]");
+			String orderDirection = request.getParameter("order[0][dir]");
+			
+			int page = Integer.parseInt(start);
+			int pageLength = Integer.parseInt(length);
+			
+			if (page > 0) {
+				 page = page / pageLength;
+			} 
+			
+			Direction direction = Direction.DESC;
+			if ("asc".equals(orderDirection)) {
+				 direction = Direction.ASC;
+			}
+			
+			String properties = "";
+			
+			Pageable pageable;// = new PageRequest(page, pageLength, direction, properties);
+			
+			long totalRecords = quoteService.getQuotesCount(getAccountDetails(request));
+			
+			List<QuoteDO> quoteDos; 
+			
+			if (!StringUtils.isEmpty(searchText)) {
+				
+				String statusSearch = getSearchTextForStatus(searchText);
+				
+				searchText = searchText.replaceAll("\\s+", "|");
+				
+				long filteredCount = quoteService.getQuotesSearchCount(getAccountDetails(request), searchText, statusSearch);
+				
+				switch (Integer.parseInt(orderColumn)) {
+				case 0:
+					properties = "quote_id";
+					break;
+				case 1:
+					properties = "dealer.name";
+					break;
+				case 2:
+					properties = "customerInfo.name";
+					break;
+				case 3:
+					properties = "machine_model";
+					break;
+				case 4:
+					properties = "machine_sale_date";
+					break;
+				case 5:
+					properties = "status";
+					break;
+				case 6:
+					properties = "create_date";
+					break;
+
+				default:
+					properties = "create_date";
+					break;
+				}
+				
+				if (pageLength == -1) {
+					pageLength = (int) filteredCount;
+					pageable = new PageRequest(page, pageLength, direction, properties);
+				} else {
+					pageable = new PageRequest(page, pageLength, direction, properties);
+				}
+				
+				//quoteDos = quoteService.getAllQuotesForSearch(getAccountDetails(request), searchText, pageable);
+				quoteDos = quoteService.getAllQuotesForSearch(getAccountDetails(request), searchText, Integer.parseInt(start), pageLength, properties, orderDirection, statusSearch, pageable);
+				opResult = new Result("success", null, quoteDos);
+				
+				opResult.setDraw(Integer.parseInt(draw));
+				opResult.setRecordsTotal(totalRecords);
+				opResult.setRecordsFiltered(filteredCount);
+				
+			} else {
+				
+				switch (Integer.parseInt(orderColumn)) {
+				case 0:
+					properties = "id.quoteId";
+					break;
+				case 1:
+					properties = "dealer.name";
+					break;
+				case 2:
+					properties = "customerInfo.name";
+					break;
+				case 3:
+					properties = "machineInfo.model";
+					break;
+				case 4:
+					properties = "machineSaleDate";
+					break;
+				case 5:
+					properties = "status";
+					break;
+				case 6:
+					properties = "createDate";
+					break;
+
+				default:
+					properties = "id.quoteId";
+					break;
+				}
+				
+				if (pageLength == -1) {
+					pageLength = (int) totalRecords;
+					pageable = new PageRequest(page, pageLength, direction, properties);
+				} else {
+					pageable = new PageRequest(page, pageLength, direction, properties);
+				}
+				quoteDos = quoteService.getAllQuotes(getAccountDetails(request), pageable);
+				opResult = new Result("success", null, quoteDos);
+				
+				opResult.setDraw(Integer.parseInt(draw));
+				opResult.setRecordsTotal(totalRecords);
+				opResult.setRecordsFiltered(totalRecords);
+			}
 		}
 		
 		return opResult;
 	}
 	
+	private String getSearchTextForStatus(String searchText) {
+		
+		String[] search = searchText.split("\\s+");
+		
+		String status = "99";
+		for (String string :search) {
+			if (AggConstants.QUOTE_STATUS_ACRHIVE.toLowerCase().contains(string.toLowerCase())) {
+				status = status+"|"+AggConstants.B_QUOTE_STATUS_ACRHIVE;
+			} else if (AggConstants.QUOTE_STATUS_ESTIMATING_PRICE.toLowerCase().contains(string.toLowerCase())) {
+				status = status+"|"+AggConstants.B_QUOTE_STATUS_ESTIMATING_PRICE;
+			} else if (AggConstants.QUOTE_STATUS_PURCHASE_REQUESTED.toLowerCase().contains(string.toLowerCase())) {
+				status = status+"|"+AggConstants.B_QUOTE_STATUS_PURCHASE_REQUESTED;
+			} else if (AggConstants.QUOTE_STATUS_INVOICED.toLowerCase().contains(string.toLowerCase())) {
+				status = status+"|"+AggConstants.B_QUOTE_STATUS_INVOICED;
+			} else if (AggConstants.QUOTE_STATUS_CLOSED.toLowerCase().contains(string.toLowerCase())) {
+				status = status+"|"+AggConstants.B_QUOTE_STATUS_CLOSED;
+			}
+		}
+		return status;
+	}
+
 	@RequestMapping(value = "/archivedQuotesInfo", method = RequestMethod.GET)
 	public Result getArchivedQuotes(Model model, HttpServletRequest request, HttpServletResponse response) {
 		Result opResult = null;

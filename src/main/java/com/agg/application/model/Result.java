@@ -7,6 +7,14 @@ public class Result {
 	private String errMessage;
 
 	private Object data;
+	
+	private int draw;
+	
+	private long recordsTotal;
+	
+	private long recordsFiltered;
+	
+	
 
 	public Result(String status, String errMessage, Object data) {
 		this.status = status;
@@ -36,6 +44,32 @@ public class Result {
 
 	public void setData(Object data) {
 		this.data = data;
+	}
+	
+	
+
+	public int getDraw() {
+		return draw;
+	}
+
+	public void setDraw(int draw) {
+		this.draw = draw;
+	}
+
+	public long getRecordsTotal() {
+		return recordsTotal;
+	}
+
+	public void setRecordsTotal(long recordsTotal) {
+		this.recordsTotal = recordsTotal;
+	}
+
+	public long getRecordsFiltered() {
+		return recordsFiltered;
+	}
+
+	public void setRecordsFiltered(long recordsFiltered) {
+		this.recordsFiltered = recordsFiltered;
 	}
 
 	@Override

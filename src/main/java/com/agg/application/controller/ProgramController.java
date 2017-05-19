@@ -1,5 +1,8 @@
 package com.agg.application.controller;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.agg.application.model.MachineInfoDO;
 import com.agg.application.model.ProgramDO;
 import com.agg.application.model.QuoteDO;
 import com.agg.application.model.Result;
@@ -189,5 +193,56 @@ public class ProgramController extends BaseController {
 		}
 		
 		return opResult;
+	}
+	
+	@RequestMapping(value = "/modelByCode/{modelId}", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+	public @ResponseBody Result getModelByCode(ModelMap model, HttpServletRequest request, HttpServletResponse response, @PathVariable String modelId) {
+		logger.info("Inside getModelByCode()");
+		
+		List<String> machineIdLst = null;
+		List<Long> machineIdLstLng = null;
+		Result opResult = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			
+			if(modelId != null && !modelId.isEmpty() && modelId.matches("[0-9, /,]+")){
+				
+				machineIdLst = Arrays.asList(modelId.split(","));
+				
+				logger.debug("Model Ids "+machineIdLst);
+				
+				if(machineIdLst !=null)
+				{
+					machineIdLstLng = new ArrayList<Long>();
+					for(String modelcode:machineIdLst)
+					{
+						machineIdLstLng.add(Long.parseLong(modelcode));
+					}
+								
+					List<MachineInfoDO> machineModels = programService.getModelByCodes(machineIdLstLng);
+					
+					if(machineModels == null)
+					{
+						opResult = new Result("failure", "Model code does not belong to same Manufacturer", null);
+					}
+					else
+					{
+						model.put("machineModelList", machineModels);
+						opResult = new Result("success", null, model);
+					}
+				}
+				
+				else
+				{
+					opResult = new Result("failure", "Model code empty", null);
+				}
+			}
+			else{
+				opResult = new Result("failure", "Enter only number", null);
+			}
+			
+		}
+		return opResult;	
 	}
 }

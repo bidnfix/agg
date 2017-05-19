@@ -33,6 +33,7 @@ import com.agg.application.model.ContractDO;
 import com.agg.application.model.ContractReportDO;
 import com.agg.application.model.Result;
 import com.agg.application.service.ContractsService;
+import com.agg.application.service.DealerService;
 import com.agg.application.utils.Util;
 
 import net.sf.jasperreports.engine.JRDataSource;
@@ -50,7 +51,10 @@ public class ContractsController extends BaseController{
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@Autowired
-	private ContractsService contractService ;
+	private ContractsService contractService;
+	
+	@Autowired
+	private DealerService dealerService;
 	
 	@Value("${file.banner.image.path}")
 	private String reportImagePath;
@@ -115,7 +119,9 @@ public class ContractsController extends BaseController{
 		if (!sessionExists(request)){
 			opResult = new Result("failure", "Invalid Login", null);
 		}else{
-			opResult = new Result("success", "", model.addAttribute(contractService.getContract(id, contractId)));
+			model.addAttribute("contractDO", contractService.getContract(id, contractId));
+			model.addAttribute("dealerDOList", dealerService.getServiceDealerActiveDealers());
+			opResult = new Result("success", "", model);
 		}
 		return opResult;
 	}
@@ -169,7 +175,9 @@ public class ContractsController extends BaseController{
 		if (!sessionExists(request)){
 			opResult = new Result("failure", "Invalid Login", null);
 		}else{
-			opResult = new Result("success", "", contractService.updateContract(contractDO));
+			boolean updateFlag = contractService.updateContract(contractDO, getAccountDetails(request));
+			logger.debug("contract updated: "+updateFlag);
+			opResult = new Result("success", "", contractDO);
 		}
 		return opResult;
 	}

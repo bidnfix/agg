@@ -366,6 +366,14 @@ routingApp.controller('HomeController', function($scope, $http, $timeout, $windo
 	$scope.contractsFlag = true;
 	$scope.quotesFlag = true;
 	$scope.claimsFlag = true;
+	$scope.quotesInvoiceFlag = true;
+	
+	$('#navbar > ul.nav li a').click(function(e) {
+	    var $this = $(this);
+	    $this.parent().siblings().removeClass('worklist-menu-selected').end().addClass('worklist-menu-selected');
+	    e.preventDefault();
+	});
+	
 	$http.get("/agg/worklist")
     .then(function(response) {
     	$scope.worklistDO = $scope.worklistDO || {};
@@ -383,9 +391,11 @@ routingApp.controller('HomeController', function($scope, $http, $timeout, $windo
     		$('#quotesTbl').parents('div.dataTables_wrapper').first().show();
     		$('#contractsTbl').parents('div.dataTables_wrapper').first().hide();
     		$('#claimsTbl').parents('div.dataTables_wrapper').first().hide();
+    		$('#quotesInvoiceTbl').parents('div.dataTables_wrapper').first().hide();
     		$scope.contractsFlag = true;
     		$scope.quotesFlag = false;
     		$scope.claimsFlag = true;
+    		$scope.quotesInvoiceFlag = true;
     	//}
     	
     	$timeout(function () {
@@ -408,9 +418,11 @@ routingApp.controller('HomeController', function($scope, $http, $timeout, $windo
 	    		$scope.contractsFlag = true;
 	    		$scope.quotesFlag = false;
 	    		$scope.claimsFlag = true;
+	    		$scope.quotesInvoiceFlag = true;
 				$('#quotesTbl').parents('div.dataTables_wrapper').first().show();
 	    		$('#contractsTbl').parents('div.dataTables_wrapper').first().hide();
 	    		$('#claimsTbl').parents('div.dataTables_wrapper').first().hide();
+	    		$('#quotesInvoiceTbl').parents('div.dataTables_wrapper').first().hide();
 	    	//}
 	        $timeout(function () {
 	        	$('#quotesTbl').DataTable({
@@ -428,19 +440,21 @@ routingApp.controller('HomeController', function($scope, $http, $timeout, $windo
 		.then(function(response) {
 	        $scope.quoteList = response.data.data;
 	        //if($scope.quoteList != null){
-	        	$('#quotesTbl').dataTable().fnClearTable();
-	        	$('#quotesTbl').dataTable().fnDestroy();
+	        	$('#quotesInvoiceTbl').dataTable().fnClearTable();
+	        	$('#quotesInvoiceTbl').dataTable().fnDestroy();
 	    		$scope.contractsFlag = true;
-	    		$scope.quotesFlag = false;
+	    		$scope.quotesFlag = true;
 	    		$scope.claimsFlag = true;
-				$('#quotesTbl').parents('div.dataTables_wrapper').first().show();
+	    		$scope.quotesInvoiceFlag = false;
+				$('#quotesTbl').parents('div.dataTables_wrapper').first().hide();
 	    		$('#contractsTbl').parents('div.dataTables_wrapper').first().hide();
 	    		$('#claimsTbl').parents('div.dataTables_wrapper').first().hide();
+	    		$('#quotesInvoiceTbl').parents('div.dataTables_wrapper').first().show();
 	    	//}
 	        $timeout(function () {
-	        	$('#quotesTbl').DataTable({
-	        		"aaSorting": [[ 6, "desc" ]],
-	        		columnDefs: [{ targets: 6, visible: false }, { width: "12%", targets: 0 }],
+	        	$('#quotesInvoiceTbl').DataTable({
+	        		"aaSorting": [[ 7, "desc" ]],
+	        		columnDefs: [{ targets: 7, visible: false }, { width: "12%", targets: 0 }],
 	        		"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]], 
 	        		"bDestroy": true
 	        	});
@@ -458,9 +472,11 @@ routingApp.controller('HomeController', function($scope, $http, $timeout, $windo
 	    		$scope.contractsFlag = true;
 	    		$scope.quotesFlag = false;
 	    		$scope.claimsFlag = true;
+	    		$scope.quotesInvoiceFlag = true;
 				$('#quotesTbl').parents('div.dataTables_wrapper').first().show();
 	    		$('#contractsTbl').parents('div.dataTables_wrapper').first().hide();
 	    		$('#claimsTbl').parents('div.dataTables_wrapper').first().hide();
+	    		$('#quotesInvoiceTbl').parents('div.dataTables_wrapper').first().hide();
 	    	//}
 	        $timeout(function () {
 	        	$('#quotesTbl').DataTable({
@@ -484,9 +500,11 @@ routingApp.controller('HomeController', function($scope, $http, $timeout, $windo
 	    		$scope.contractsFlag = false;
 	    		$scope.quotesFlag = true;
 	    		$scope.claimsFlag = true;
+	    		$scope.quotesInvoiceFlag = true;
 				$('#contractsTbl').parents('div.dataTables_wrapper').first().show();
 	    		$('#quotesTbl').parents('div.dataTables_wrapper').first().hide();
 	    		$('#claimsTbl').parents('div.dataTables_wrapper').first().hide();
+	    		$('#quotesInvoiceTbl').parents('div.dataTables_wrapper').first().hide();
 	    	//}
 	        $timeout(function () {
 	        	$('#contractsTbl').DataTable({
@@ -499,6 +517,87 @@ routingApp.controller('HomeController', function($scope, $http, $timeout, $windo
 	    });
 	}
 	
+/*$scope.getActiveContracts = function() {
+		
+		$(document).ready(function() {
+			$('#contractsTbl').dataTable().fnClearTable();
+    		$('#contractsTbl').dataTable().fnDestroy();
+    		$scope.contractsFlag = false;
+    		$scope.quotesFlag = true;
+    		$scope.claimsFlag = true;
+			$('#contractsTbl').parents('div.dataTables_wrapper').first().show();
+    		$('#quotesTbl').parents('div.dataTables_wrapper').first().hide();
+    		$('#claimsTbl').parents('div.dataTables_wrapper').first().hide();
+    		$('#contractsTbl').DataTable( {
+		        "processing": true,
+		        "serverSide": true,
+		        ajax: {
+		            url: '/agg/activeContracts',
+		            dataFilter: function(data){
+		                var json = jQuery.parseJSON( data );
+		                json.recordsTotal = json.recordsTotal;
+			            json.recordsFiltered = json.recordsFiltered;
+			            json.data = json.data;
+			            
+			            for ( var i=0, len=json.data.length; i<len ; i++ ) {
+			            	json.data[i].status = json.data[i].status ==  '1' ? "Active" : json.data[i].status == '2' ? "Expired" : json.data[i].status == '3' ? "Cancelled" : "Archived";
+	        				json.data[i].viewDetails = '<div class="manage-sec"><a href="#/agg/viewContract/'+json.data[i].id+'/'+json.data[i].contractId+'"><img src="../assets/images/edit-pencil.png" alt="View" title="View"/></a></div>';
+	        				 
+	        			 }
+		                return JSON.stringify( json );
+		            }},
+		            "order": [[ 7, "desc" ]],
+		            "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+		            columnDefs: [ { targets: 7, visible: false },
+		                { width: "12%", targets: 0 }
+		            ],
+		          "columns": [
+	        		    { "data": "contractId" },
+	        		    { "data": "machineSerialNo" },
+	        		    { "data": "lol" },
+	        		    { "data": "inceptionDate",
+	        		    	"type": "date ",
+	        		    	"render": function (data) {
+	        		            if (data !== null) {
+	        		                var date = new Date(data);
+	        		                date = date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear();
+	        		                return date;
+	        		            } else {
+	        		                return "";
+	        		            }
+	        		        }},
+	        		    
+	        		    { "data": "expirationDate","type": "date ",
+	            		    	"render": function (data) {
+	            		            if (data !== null) {
+	            		                var date = new Date(data);
+	            		                date = date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear();
+	            		                return date;
+	            		            } else {
+	            		                return "";
+	            		            }
+	            		        } },
+	        		    { "data": "expirationUsageHours" },
+	        		    { "data": "status" },
+	        		    { "data": "lastUpdatedDate","type": "date ",
+	        		    	"render": function (data) {
+	        		            if (data !== null) {
+	        		                var date = new Date(data);
+	        		                date = date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear();
+	        		                return date;
+	        		            } else {
+	        		                return "";
+	        		            }
+	        		        } },
+	        		    { "data": "viewDetails" }
+	        		  ]	
+		   } );
+    		
+
+		} );
+
+	}*/
+	
 	$scope.getClaims = function(){
 		$http.get("/agg/getClaimsInfo")
 		.then(function(response) {
@@ -509,9 +608,11 @@ routingApp.controller('HomeController', function($scope, $http, $timeout, $windo
 	    		$scope.contractsFlag = true;
 	    		$scope.quotesFlag = true;
 	    		$scope.claimsFlag = false;
+	    		$scope.quotesInvoiceFlag = true;
 				$('#claimsTbl').parents('div.dataTables_wrapper').first().show();
 	    		$('#contractsTbl').parents('div.dataTables_wrapper').first().hide();
 	    		$('#quotesTbl').parents('div.dataTables_wrapper').first().hide();
+	    		$('#quotesInvoiceTbl').parents('div.dataTables_wrapper').first().hide();
 	    	//}
 	        $timeout(function () {
 	        	$('#claimsTbl').DataTable({
@@ -535,9 +636,11 @@ routingApp.controller('HomeController', function($scope, $http, $timeout, $windo
 	    		$scope.contractsFlag = false;
 	    		$scope.quotesFlag = true;
 	    		$scope.claimsFlag = true;
+	    		$scope.quotesInvoiceFlag = true;
 				$('#contractsTbl').parents('div.dataTables_wrapper').first().show();
 	    		$('#quotesTbl').parents('div.dataTables_wrapper').first().hide();
 	    		$('#claimsTbl').parents('div.dataTables_wrapper').first().hide();
+	    		$('#quotesInvoiceTbl').parents('div.dataTables_wrapper').first().hide();
 	    	//}
 	        $timeout(function () {
 	        	$('#contractsTbl').DataTable({
@@ -606,7 +709,7 @@ routingApp.controller('GetProgramsController', function($scope, programService, 
 	        $scope.program = response.data.data.program;
 	        $scope.manufacturerList = response.data.data.manufacturerList;
 	        $scope.dealerList = response.data.data.dealerList;
-	        $scope.machineModelList = response.data.data.machineInfoList;
+	        $scope.program.machineModelList = response.data.data.machineInfoList;
 	        //alert($scope.program.prId);
 	       /* $scope.dealer = {
 	        	userName: $scope.dealerr.userName,	
@@ -626,6 +729,50 @@ routingApp.controller('GetProgramsController', function($scope, programService, 
 		//alert("In editProgram");
 		programService.editProgram($scope.program, $scope);
     };
+    $scope.getModelByCode = function ()
+	 {
+   	var code = $scope.program.code;
+   	
+   	code = code.replace(/\s/g, "");
+   	//alert(code);
+   	
+   	if(code != null && /^[\d,]+$/.test(code))
+   	{
+		 $http.get("/agg/modelByCode/"+code)
+		    .then(function(response) {
+		    	if(response.data.data == null)
+	    		{
+		    		$scope.program.manufacturerDO.name=null;
+	    			$scope.program.machineModelList=null;
+					$('#programErrorMsg').html("No Model found or Model IDs does not belong to same Manufacturer");
+	            	$('#programErrorMsg').removeClass('hidden');
+	            	window.setTimeout(function() {
+	        			 $('#programErrorMsg').addClass('hidden');
+	        		}, 3000);
+	    			//alert("No Model found or Model IDs does not belong to same Manufacturer");
+	    		}
+		    	
+		    	 //alert(response.data.data.machineModelList[0].manufacturerDO.name);
+		    	
+		    	 $scope.program.manufacturerDO=response.data.data.machineModelList[0].manufacturerDO;
+		         //$scope.machineModelList = response.data.data.machineModelList;
+		    	 $scope.program.machineModelList = response.data.data.machineModelList;
+		         
+		       
+		    });
+   	}
+   	else
+   		{
+		   		$scope.program.manufacturerDO.name=null;
+				$scope.program.machineModelList=null;
+	    		$('#programErrorMsg').html("Please enter only comma seperated numeric value");
+	        	$('#programErrorMsg').removeClass('hidden');
+	        	window.setTimeout(function() {
+	    			 $('#programErrorMsg').addClass('hidden');
+	    		}, 3000);
+   			//alert("Please enter only comma seperated numeric value");
+   		}
+	 }
     
 	$scope.deleteProgram = function(programId) {
 		//alert(dealerId);
@@ -1437,7 +1584,7 @@ routingApp.controller('GetUserController', function($scope, userService, $http, 
 
 routingApp.controller('QuotesDetailController', function($scope, $http, $timeout, quoteType) {
 	if(quoteType == 'All'){
-		$http.get("/agg/quotesInfo")
+		/*$http.get("/agg/quotesInfo")
 		.then(function(response) {
 	        $scope.quoteList = response.data.data;
 	        $timeout(function () {
@@ -1448,7 +1595,62 @@ routingApp.controller('QuotesDetailController', function($scope, $http, $timeout
 	     	       "bDestroy": true
 	     	    });
 	        }, 300);
-	    });
+	    });*/
+		$(document).ready(function() {
+		    $('#quotesTbl').DataTable( {
+		        "processing": true,
+		        "serverSide": true,
+		        "ajax": {
+		            "url": "/agg/quotesInfo",
+		            "type": "GET",
+		            dataFilter: function(data) {
+		                var json = jQuery.parseJSON( data );
+		                json.recordsTotal = json.recordsTotal;
+			            json.recordsFiltered = json.recordsFiltered;
+			            json.data = json.data;
+			            for ( var i=0, len=json.data.length; i<len ; i++ ) {
+	        				json.data[i].viewDetails = '<div class="manage-sec"><a href="#/agg/viewQuote/'+json.data[i].id+'/'+json.data[i].quoteId+'"><img src="../assets/images/edit-pencil.png" alt="View" title="View"/></a></div>';	        				 
+	        			 }
+		                return JSON.stringify( json );
+		            }},
+		            "order": [[ 6, "desc" ]],
+		            "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+		        columnDefs: [{ targets: 6, visible: false },
+	                { width: "12%", targets: 0 }
+	            ],
+	            "columns": [
+        		    { "data": "quoteId" },
+        		    { "data": "dealerName" },
+        		    { "data": "dealerCustName" },
+        		    { "data": "machineModel"},
+        		    { "data": "machineSaleDate",
+        		    	"type": "date ",
+        		    	"render": function (data) {
+        		            if (data !== null) {
+        		                var date = new Date(data);
+        		                date = date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear();
+        		                return date;
+        		            } else {
+        		                return "";
+        		            }
+        		        }},
+        		    
+             		{ "data": "statusDesc" },
+        		    { "data": "createDate",
+             			"type": "date ",
+        		    	"render": function (data) {
+        		            if (data !== null) {
+        		                var date = new Date(data);
+        		                date = date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear();
+        		                return date;
+        		            } else {
+        		                return "";
+        		            }
+        		        } },
+        		    { "data": "viewDetails" }
+        		  ]
+		    } );
+		} );
 	}else if(quoteType == 'Archive'){
 		$http.get("/agg/archivedQuotesInfo")
 		.then(function(response) {
@@ -2031,6 +2233,9 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 			$scope.quote.contractExpirationDate = new Date($scope.quote.expirationDate);
 			$scope.quote.contractExpirationHours = $scope.quote.expirationHours;
 			
+			$scope.quote.checkDOList = [];
+			$scope.quote.checkDOList.push({});
+			
 			var x = screen.width/4;
 		    var y = screen.height/9;
 		    showMask('popup_mask');
@@ -2038,6 +2243,32 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 		    $('#contractCreatePopup').css("top", y+"px");
 		    $('#contractCreatePopup').show();
 		}
+	}
+	
+	$scope.chkDatePickerOpen = function ($event, checkDO) {
+	  checkDO.chkDatePickerIsOpen = false;
+      if ($event) {
+          $event.preventDefault();
+          $event.stopPropagation(); // This is the magic
+      }
+      checkDO.chkDatePickerIsOpen = true;
+    }
+	
+	$scope.addCheck = function(){
+		$scope.quote.checkDOList.push({});
+	}
+	
+	$scope.removeCheck = function(checkDO){
+		var index = $scope.quote.checkDOList.indexOf(checkDO);
+		$scope.quote.checkDOList.splice(index, 1);
+		$scope.calcCheckAmtTotal();
+    }
+    
+    $scope.calcCheckAmtTotal = function(){
+		$scope.quote.totalCheckAmount = 0;
+		angular.forEach($scope.quote.checkDOList, function(checkDO, index){
+			$scope.quote.totalCheckAmount += checkDO.amount;
+		});
 	}
 	
 	$scope.updateContractExpirationDate = function(){
@@ -2171,8 +2402,13 @@ routingApp.controller('ContractDetailController', function($scope, $http, $timeo
 	$http.get("/agg/contractInfo/"+$routeParams.contractId+"/"+$routeParams.contractCode)
 	.then(function(response) {
         $scope.contract = response.data.data.contractDO;
+        $scope.dealerDOList = response.data.data.dealerDOList;
         $scope.contract.inceptionDate = new Date($scope.contract.inceptionDate);
         $scope.contract.expirationDate = new Date($scope.contract.expirationDate);
+        $scope.calcCheckAmtTotal();
+        if($scope.contract.checkDOList == null){
+        	$scope.contract.checkDOList = [];
+        }
     });
 	
 	$scope.updateContract = function(contractInfoForm){
@@ -2180,25 +2416,100 @@ routingApp.controller('ContractDetailController', function($scope, $http, $timeo
 			contractService.updateContract($scope.contract);
 		}
 	}
+	
+	$scope.printQuote = function(quotePrintType){
+		if(quotePrintType == 'dealer'){
+			$window.open('/agg/quote/report/dealer/'+$scope.contract.quoteDO.quoteId);
+		}else if(quotePrintType == 'customer'){
+			$window.open('/agg/quote/report/customer/'+$scope.contract.quoteDO.quoteId);
+		}else if(quotePrintType == 'invoice'){
+			$window.open('/agg/quote/report/invoice/'+$scope.contract.quoteDO.quoteId);
+		}
+	}
+	
+	$scope.printContract = function(contractPrintType){
+		if(contractPrintType == 'contract'){
+			$window.open('/agg/contract/report/contract/'+$scope.contract.id+'/'+$scope.contract.contractId);
+		}else if(contractPrintType == 'coverage'){
+			$window.open('/agg/contract/report/coverage/'+$scope.contract.id+'/'+$scope.contract.contractId);
+		}
+	}
+	
+	$scope.chkDatePickerOpen = function ($event, checkDO) {
+	  checkDO.chkDatePickerIsOpen = false;
+      if ($event) {
+          $event.preventDefault();
+          $event.stopPropagation(); // This is the magic
+      }
+      checkDO.chkDatePickerIsOpen = true;
+    }
+	
+	$scope.addCheck = function(){
+		$scope.contract.checkDOList.push({});
+	}
+	
+	$scope.removeCheck = function(checkDO){
+		var index = $scope.contract.checkDOList.indexOf(checkDO);
+		$scope.contract.checkDOList.splice(index, 1);
+		$scope.calcCheckAmtTotal();
+    }
+    
+    $scope.calcCheckAmtTotal = function(){
+		$scope.contract.totalCheckAmount = 0;
+		angular.forEach($scope.contract.checkDOList, function(checkDO, index){
+			$scope.contract.totalCheckAmount += checkDO.amount;
+		});
+	}
+    
+    $scope.calExpirationDate = function(){
+		if($scope.contract.quoteDO.coverageExpired === false){
+			var manfCoverageTerm = 0;
+			if($scope.contract.coverageType == 'PT'){
+				manfCoverageTerm = parseInt($scope.contract.quoteDO.powerTrainMonths);
+			}else if($scope.contract.coverageType == 'PH'){
+				manfCoverageTerm = parseInt($scope.contract.quoteDO.hydraulicsMonths);
+			}else if($scope.contract.coverageType == 'PL'){
+				manfCoverageTerm = parseInt($scope.contract.quoteDO.fullMachineMonths);
+			}
+			var finalCoverageTerm = (parseInt($scope.contract.coverageTermMonths) - manfCoverageTerm);
+			var expDate = $scope.quote.coverageEndDate;
+			if(expDate != null){
+				expDate = new Date($scope.quote.coverageEndDate);
+				expDate = new Date(new Date(expDate).setMonth(expDate.getMonth()+finalCoverageTerm));
+			}
+			$scope.contract.expirationDate = expDate;
+			$scope.contract.expirationUsageHours = parseInt($scope.contract.coverageLevelHours);
+		}else{
+			var expDate = new Date();
+			if($scope.contract.inceptionDate != null){
+				expDate = new Date($scope.contract.inceptionDate);
+			}
+			expDate = new Date(new Date(expDate).setMonth(expDate.getMonth()+parseInt($scope.contract.coverageTermMonths)));
+			$scope.contract.expirationDate = expDate;
+			$scope.contract.expirationUsageHours = parseInt($scope.contract.quoteDO.meterHours) + parseInt($scope.contract.coverageLevelHours);
+		}
+	}
+    
 })
 .directive('convertToNumber', function() {
-    return {
-        require: 'ngModel',
-        link: function(scope, element, attrs, ngModel) {
-          ngModel.$parsers.push(function(val) {
-            return parseInt(val, 10);
-          });
-          ngModel.$formatters.push(function(val) {
-            return '' + val;
-          });
-        }
-      };
-   });
+	return {
+	    require: 'ngModel',
+	    link: function(scope, element, attrs, ngModel) {
+	      ngModel.$parsers.push(function(val) {
+	        return parseInt(val, 10);
+	      });
+	      ngModel.$formatters.push(function(val) {
+	        return '' + val;
+	          });
+	        }
+	      };
+	   });
 
 routingApp.controller('ContractViewDetailController', function($scope, $http, $timeout, $window, $routeParams, contractService) {
 	$http.get("/agg/contractInfo/"+$routeParams.contractId+"/"+$routeParams.contractCode)
 	.then(function(response) {
         $scope.contract = response.data.data.contractDO;
+        $scope.calcCheckAmtTotal();
     });
 	
 	$scope.cancelContract = function(){
@@ -2211,6 +2522,23 @@ routingApp.controller('ContractViewDetailController', function($scope, $http, $t
 		}else if(contractPrintType == 'coverage'){
 			$window.open('/agg/contract/report/coverage/'+$scope.contract.id+'/'+$scope.contract.contractId);
 		}
+	}
+	
+	$scope.printQuote = function(quotePrintType){
+		if(quotePrintType == 'dealer'){
+			$window.open('/agg/quote/report/dealer/'+$scope.contract.quoteDO.quoteId);
+		}else if(quotePrintType == 'customer'){
+			$window.open('/agg/quote/report/customer/'+$scope.contract.quoteDO.quoteId);
+		}else if(quotePrintType == 'invoice'){
+			$window.open('/agg/quote/report/invoice/'+$scope.contract.quoteDO.quoteId);
+		}
+	}
+	
+	$scope.calcCheckAmtTotal = function(){
+		$scope.contract.totalCheckAmount = 0;
+		angular.forEach($scope.contract.checkDOList, function(checkDO, index){
+			$scope.contract.totalCheckAmount += checkDO.amount;
+		});
 	}
 	
 })

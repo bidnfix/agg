@@ -50,6 +50,10 @@ public interface DealerService {
 
 	public boolean isUserNameExists(String userName);
 
-	public List<DealerDO> findAllDealers(String dealerType);
+	public List<DealerDO> findDealers(String dealerType);
+	
+	public List<DealerDO> findAllDealers();
+	
+	public List<DealerDO> getServiceDealerActiveDealers();
 
 }

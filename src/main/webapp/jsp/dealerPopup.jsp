@@ -169,7 +169,8 @@
 					<input type="text" id="dealerUrl" name="dealerUrl" ng-model="dealer.dealerUrl" class="form-control" required="required">
 				</div>
 			</div>
-			<div class="form-group">
+			 
+			<div ng-if="dealer.status == 2" class="form-group">
 				<label for="role" class="col-sm-3 control-label">Role</label>
 				<div class="col-sm-9">
 					<select class="form-control" name="role" id="role" ng-options="role.name for role in roleList track by role.id" ng-model="dealer.roleDO" required="required">
@@ -177,6 +178,24 @@
 					</select>
 				</div>
 			</div>
+			
+			<div ng-if="dealer.status == 0 || dealer.status == 1" class="form-group">
+				<label for="role" class="col-sm-3 control-label">Role</label>
+				<div class="col-sm-9">
+				<input type="text" id="role" name="role" ng-model="dealer.roleDO.name" class="form-control" required="required" readonly="readonly">
+					
+				</div>
+			</div>
+			
+			<!--
+			<div class="form-group">
+				<label for="role" class="col-sm-3 control-label">Role</label>
+				<div class="col-sm-9">
+				<input type="text" id="role" name="role" ng-model="dealer.roleDO.name" class="form-control" required="required" readonly="readonly">
+					
+				</div>
+			</div>
+			-->
 			<div class="form-group">
 				<label for="parentDealer" class="col-sm-3 control-label">Parent Dealer</label>
 				<div class="col-sm-9">
@@ -192,7 +211,7 @@
 						<option value="">Select Status</option>
 						<option value="1">Active</option>
 						<option value="0">Terminated</option>
-						<option value="2">Pending</option>
+						<option ng-if="dealer.status == 2" value="2">Pending</option>
 					</select>
 				</div>
 			</div>

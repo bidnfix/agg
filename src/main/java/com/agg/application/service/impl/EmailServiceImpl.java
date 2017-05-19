@@ -401,15 +401,16 @@ public class EmailServiceImpl implements EmailService {
 		String subject = "Contract Details: "+"CR-"+quoteDO.getQuoteId()+" pdf files";
 		String emailBody = "PFA Contract Details: "+"CR-"+quoteDO.getQuoteId()+" details.";
 		String emails = "";
-		if(quoteDO.getDealerEmail() != null && !quoteDO.getDealerEmail().isEmpty()){
+		/*if(quoteDO.getDealerEmail() != null && !quoteDO.getDealerEmail().isEmpty()){
 			emails = quoteDO.getDealerEmail()+","+quoteDO.getDealerDO().getInvoiceEmail();
-		}else{
+		}else{*/
 			emails = quoteDO.getDealerDO().getInvoiceEmail();
-		}
+		//}
 		EmailStatus emailStatus = emailSender.sendMailAsAttachment(emails, subject, emailBody, pdfAttachments, fileNames);
 		if(emailStatus != null){
 			logger.info("emailStatus: "+emailStatus.getStatus());
-			logger.info("Contract pdf Attachment files emailed successfully to "+quoteDO.getDealerEmail()+" & "+quoteDO.getDealerDO().getInvoiceEmail());
+			//logger.info("Contract pdf Attachment files emailed successfully to "+quoteDO.getDealerEmail()+" & "+quoteDO.getDealerDO().getInvoiceEmail());
+			logger.info("Contract pdf Attachment files emailed successfully to "+quoteDO.getDealerDO().getInvoiceEmail());
 		}
 		
 	}
@@ -431,7 +432,7 @@ public class EmailServiceImpl implements EmailService {
 		reportDO.setCoverageTerm(quoteDO.getCoverageTerm());
 		reportDO.setCoverageHours(quoteDO.getCoverageHours());
 		reportDO.setExpirationDate((quoteDO.getExpirationDate() != null)?dateFormat.format(quoteDO.getExpirationDate()):"");
-		reportDO.setDeductibleAmount(currencyFormat.format(quoteDO.getDeductAmount()));
+		reportDO.setDeductibleAmount(currencyFormat.format(quoteDO.getDeductiblePrice()));
 		reportDO.setExpirationHours(quoteDO.getExpirationHours()+"");
 		reportDO.setCoverageType(quoteDO.getCoverageType());
 		reportDO.setLol(currencyFormat.format(quoteDO.getAdjustedLol()));
