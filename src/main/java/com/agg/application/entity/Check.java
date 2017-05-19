@@ -50,6 +50,10 @@ public class Check {
     @JoinColumn(name = "contract_id")
 	private Contracts contract;
 	
+	@ManyToOne
+    @JoinColumn(name = "claim_id")
+	private Claims claim;
+	
 	
 	public Check() {
 		
@@ -143,6 +147,16 @@ public class Check {
 
 	public void setContract(Contracts contract) {
 		this.contract = contract;
+	}
+
+
+	public Claims getClaim() {
+		return claim;
+	}
+
+
+	public void setClaim(Claims claim) {
+		this.claim = claim;
 	}
 	
 }

@@ -493,6 +493,21 @@ public class ClaimsController extends BaseController {
 		}
 	}
 	
+	@RequestMapping(value = "/getApprovedForPaymentClaims", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+	public @ResponseBody Result getApprovedForPaymentClaimsInfo(Map<String, Object> model, HttpServletRequest request, HttpServletResponse response) {
+		logger.info("Inside getApprovedForPaymentClaimsInfo()");
+		if(!sessionExists(request)){
+			return new Result("failure", "Session Expired", null);
+		}else{
+			List<ClaimsDO> claimsInfoList = claimsService.getClaimsByStatus(getAccountDetails(request), (byte)AggConstants.CLAIM_STATUS_APPROVED_FOR_PAYMENT);
+			if(claimsInfoList != null){
+				logger.info("claimsInfoList size: "+claimsInfoList.size());
+			}
+			model.put("claimDOList", claimsInfoList);
+			return new Result("success", null, model);
+		}
+	}
+	
 	@RequestMapping(value = "/approvedClaims", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
 	public @ResponseBody Result getApprovedClaims(Map<String, Object> model, HttpServletRequest request, HttpServletResponse response) {
 		logger.info("Inside getApprovedClaims()");
@@ -560,8 +575,23 @@ public class ClaimsController extends BaseController {
 		}
 	}
 	
+	@RequestMapping(value = "/approvedForPaymentClaims", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+	public @ResponseBody Result getApprovedForPaymentClaims(Map<String, Object> model, HttpServletRequest request, HttpServletResponse response) {
+		logger.info("Inside getApprovedForPaymentClaims()");
+		if(!sessionExists(request)){
+			return new Result("failure", "Session Expired", null);
+		}else{
+			Map<String, Object> map = new HashMap<>();
+			List<ClaimsDO> cliamsList = getClaimByStatus(Util.getClaimStatusCode("approved_for_payment"), request, true);
+			
+			logger.info("preAuthClaims size: "+cliamsList.size());
+			map.put("preAuthClaimList", cliamsList);
+			return new Result("success", null, map);
+		}
+	}
+	
 	@RequestMapping(value = "/adjudicateClaim", method = RequestMethod.POST)
-	public @ResponseBody Result adjudicateClaim(@ModelAttribute("data") Object data,  @RequestParam("files") List<MultipartFile> fileList, BindingResult result,
+	public @ResponseBody Result adjudicateClaim(@ModelAttribute("data") Object data,  @RequestParam("files") List<MultipartFile> fileList, @RequestParam("condVal") String condVal, BindingResult result,
 			HttpServletRequest request, HttpServletResponse response) {
 		//uploadingdir = request.getServletContext().getRealPath("/uploads/");
 		
@@ -573,6 +603,7 @@ public class ClaimsController extends BaseController {
 		if(!sessionExists(request)){
 			return new Result("failure", "Session Expired", null);
 		}else{
+			logger.debug("condVal: "+condVal);
 			ClaimsDO claimsDO = new ClaimsDO();
 			claimsDO.setId(vo.getId());
 			claimsDO.setTotalAdjustedPartsCost(vo.getTotalAdjustmentPartsCost());
@@ -585,6 +616,7 @@ public class ClaimsController extends BaseController {
 			claimsDO.setCheqNo(vo.getCheqNo());
 			claimsDO.setPaidDate(vo.getPaidDate());
 			claimsDO.setComments(vo.getExtComment());
+			claimsDO.setCondValue(condVal);
 			logger.debug("vo.getExtComment() "+vo.getExtComment());
 			
 			List<ClaimFileDO> claimFileDO = new ArrayList<>();
@@ -606,7 +638,7 @@ public class ClaimsController extends BaseController {
 			}
 			id = claimsService.updateClaimAdjudicate(claimsDO, getAccountDetails(request));
 			
-			if(id != -1){
+			if(id != -1 && (condVal == null || (condVal != null && !condVal.trim().equalsIgnoreCase(AggConstants.CLAIM_STATUS_APPROVED_FOR_PAYMENT_DESC)))){
 				StringBuffer url = request.getRequestURL();
 				String uri = request.getRequestURI();
 				String appUrl = url.substring(0, url.length() - uri.length());

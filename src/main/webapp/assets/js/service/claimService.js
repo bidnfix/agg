@@ -599,7 +599,8 @@ routingApp.factory('claimPreAuthReqService', ['$http', '$q', '$window', '$timeou
 }]);
 
 routingApp.factory('claimsAdjudicateService', ['$http', '$q', '$window', '$timeout', function($http, $q, $window, $timeout){
-	var init = function($scope){
+	var init = function($scope, claimType){
+		$scope.showAdjudicateClaimList = true;
 		$http.get("/agg/currentUserRole")
 	    .then(function(response) {
 	    	//$scope.adjudicateClaimList = response.data.data.preAuthClaimList;
@@ -609,19 +610,49 @@ routingApp.factory('claimsAdjudicateService', ['$http', '$q', '$window', '$timeo
 	    	$scope.commentFlag = true;
 	    	$scope.cheqFlag = true;
 	    });
-		$http.get("/agg/adjudicateClaim")
+		$scope.claimTypeDesc = claimType;
+		if(claimType === 'pending'){
+			$http.get("/agg/adjudicateClaim")
+		    .then(function(response) {
+		    	dataTableRender($scope, response);
+		    });
+		} else if(claimType === 'approvedForPayment'){
+			$http.get("/agg/approvedForPaymentClaims")
+		    .then(function(response) {
+		    	dataTableRender($scope, response);
+		    });
+		}
+		
+	},
+	dataTableRender = function($scope, response){
+		$scope.adjudicateClaimList = response.data.data.preAuthClaimList;
+		$timeout(function () {
+        	$('#preauthClaimsListTable').DataTable({
+        		"aaSorting": [[ 5, "desc" ]],
+        		"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+        	       columnDefs: [
+        	           { targets: 5, visible: false }    
+        	       ]
+        	    });
+        }, 300);
+	},
+	getClaim = function($scope, claimId){
+		$scope.showAdjudicateClaimList = false;
+		$http.get("/agg/currentUserRole")
 	    .then(function(response) {
-	    	$scope.adjudicateClaimList = response.data.data.preAuthClaimList;
-	    	$timeout(function () {
-	        	$('#preauthClaimsListTable').DataTable({
-	        		"aaSorting": [[ 5, "desc" ]],
-	        		"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
-	        	       columnDefs: [
-	        	           { targets: 5, visible: false }    
-	        	       ]
-	        	    });
-	        }, 300);
+	    	$scope.editFlag = (response.data.data.roleList.accountType === 'admin') ? false : true;
+	    	$scope.commentFlag = true;
+	    	$scope.cheqFlag = true;
 	    });
+		
+		$http.get("/agg/claims/" + claimId)
+		.then(function(response) {
+			if(response.data.status === 'success'){
+				if(response.data.data.claim){
+					selectClaim($scope, response.data.data.claim)
+				}
+			}
+		});
 	},
 	calcCost = function(adjudicateClaim){
 		if(adjudicateClaim){
@@ -652,13 +683,22 @@ routingApp.factory('claimsAdjudicateService', ['$http', '$q', '$window', '$timeo
 				}
 				
 				adjustment.totalAdjustmentPartsCost = parseFloat(adjustment.totalAdjustmentPartsCost).toFixed(2);
+			} else if(adjustment.parts && adjustment.totalAdjustmentPartsCost > 0){
+				for(var i in adjustment.parts){
+					adjustment.parts[i].partsTotal = adjustment.parts[i].qty * adjustment.parts[i].unitPrice;
+				}
 			}
+			
 			if(adjustment.labors && adjustment.totalAdjustmentLaborsCost === 0){
 				for(var i in adjustment.labors){
 					adjustment.labors[i].laborsTotal = adjustment.labors[i].laborHrs * adjustment.labors[i].rate;
 					adjustment.totalAdjustmentLaborsCost += adjustment.labors[i].laborsTotal;
 				}
 				adjustment.totalAdjustmentLaborsCost = parseFloat(adjustment.totalAdjustmentLaborsCost).toFixed(2);
+			} else if(adjustment.labors && adjustment.totalAdjustmentLaborsCost > 0){
+				for(var i in adjustment.labors){
+					adjustment.labors[i].laborsTotal = adjustment.labors[i].laborHrs * adjustment.labors[i].rate;
+				}
 			}
 			adjustment.totalAdjustedClaimCost = parseFloat(adjustment.totalAdjustmentPartsCost)  + parseFloat(adjustment.totalAdjustmentLaborsCost)
 				+ parseFloat(adjustment.approvedOtherCharges1) + parseFloat(adjustment.approvedOtherCharges2);
@@ -696,6 +736,10 @@ routingApp.factory('claimsAdjudicateService', ['$http', '$q', '$window', '$timeo
 		$scope.adjustments.parts = JSON.parse(JSON.stringify($scope.adjudicateClaim.claimPartDO));
     	$scope.adjustments.labors = JSON.parse(JSON.stringify($scope.adjudicateClaim.claimLaborDO));
     	$scope.adjustments.claimsNoteList = $scope.adjudicateClaim.claimsNoteList;
+    	$scope.adjustments.checkDOList = $scope.adjudicateClaim.checkDOList;
+    	if($scope.adjustments.checkDOList === null){
+    		$scope.adjustments.checkDOList = [];
+    	}
     	
     	$scope.adjustments.paidDate = new Date();
     	if($scope.adjustments.approvedOtherCharges1 === 0){
@@ -758,10 +802,13 @@ routingApp.factory('claimsAdjudicateService', ['$http', '$q', '$window', '$timeo
 				$scope.adjustments.id = $scope.adjudicateClaim.id;
 				var fd = new FormData();
 				fd.append('data', angular.toJson($scope.adjustments));
-				 angular.forEach($scope.attachments, function (value, key) {
+				angular.forEach($scope.attachments, function (value, key) {
 					 fd.append('files', value);
-			        });
-				 return $http({
+			    });
+				if($scope.click === 5){
+					fd.append('condVal', 'Approved for Payment');
+				}
+				return $http({
 				        method: 'POST',
 				        url: '/agg/adjudicateClaim',
 				        headers: {'Content-Type': undefined},
@@ -806,7 +853,8 @@ routingApp.factory('claimsAdjudicateService', ['$http', '$q', '$window', '$timeo
 		submit : submit,
 		backToList : backToList,
 		calcAdjustmentsOnChange : calcAdjustmentsOnChange,
-		collectAttachments : collectAttachments
+		collectAttachments : collectAttachments,
+		getClaim : getClaim
 	}
 }]);
 

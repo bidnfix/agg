@@ -1,10 +1,10 @@
-	<div ng-init="showAdjudicateClaimList=true">
+	<div>
 		<!-- Article main content -->
 		<article class="col-md-9 maincontent" ng-if='showAdjudicateClaimList'>
 			<header class="page-header">
 	              	<div class="col-md-6 col-sm-12">
 						<div class="sec-title">
-							<h3 class="wow animated bounceInLeft">Pending Claims</h3>
+							<h3 class="wow animated bounceInLeft">{{(claimTypeDesc === 'approvedForPayment')?"Approved for Payment Claims":"Pending Claims"}}</h3>
 						</div>
                     </div>
 			</header>
@@ -64,7 +64,7 @@
 									{{(adjudicateClaim.cStatus > 0)?((adjudicateClaim.cStatus === 1)?"Open":(adjudicateClaim.cStatus === 2)?"Pre-Auth Requested":(adjudicateClaim.cStatus === 3)?"Submitted":
 					                (adjudicateClaim.cStatus === 4)?"Approved":(adjudicateClaim.cStatus === 5)?"Pre-Auth Approved":(adjudicateClaim.cStatus === 6)?"Pre-Auth Rejected":
 					                (adjudicateClaim.cStatus === 7)?"Approved with adjustment":(adjudicateClaim.cStatus === 8)?"Pending":(adjudicateClaim.cStatus === 9)?"Draft":
-					                (adjudicateClaim.cStatus === 10)?"Rejected":""):""}}
+					                (adjudicateClaim.cStatus === 10)?"Rejected":(adjudicateClaim.cStatus === 11)?"Approved for Payment":""):""}}
 					                </b>
 								</div>
 							</div>
@@ -354,7 +354,58 @@
                            <span class="ag-tab-title col-xs-12 no-pad marg10-bottom">Payment Details</span>
                            <br clear="all">
                            <br>
-                           <div class="form-group clearfix col-xs-12 no-pad">
+                           <table class="table table-bordered">
+								<thead>
+									<tr>
+										<th class="col-sm-4">Check #</th>
+										<th class="col-sm-4">Received Date</th>
+										<th class="col-sm-3">Check Amount</th>
+										<th class="col-sm-1">
+											<button type="button" class="btn btn-primary btn-sm" ng-click="addCheck()">
+											<i class="fa fa-plus"></i>
+									</button>
+										</th>
+									</tr>
+								</thead>
+								<tbody data-ng-repeat="checkDO in adjustments.checkDOList">
+									<tr>
+										<td><input type="text" class="form-control" name="checkNo" ng-model="checkDO.checkNo" required="required"></td>
+										<td>
+											<div class="agf1 input-group">
+												<input type="text" class="form-control"
+												   name="receivedDate" 
+								                   datepicker-popup="MM/dd/yyyy"
+								                   datepicker-options="dateOptions" 
+								                   is-open="checkDO.chkDatePickerIsOpen" 
+								                   ng-click="checkDO.chkDatePickerIsOpen=true"
+								                   ng-model="checkDO.receivedDate"/>
+									            <span class="input-group-btn">
+									              <button type="button" class="btn btn-default" 
+									                      ng-click="chkDatePickerOpen($event, checkDO)">
+									                <i class="glyphicon glyphicon-calendar"></i>
+									              </button>
+									            </span>
+								            </div>
+										</td>
+										<td><input type="number" step="0.01" class="form-control" name="amount" ng-model="checkDO.amount" ng-change="calcCheckAmtTotal()" required="required"></td>
+										<td>
+											<button ng-if="adjustments.checkDOList.length > 1" type="button" class="btn btn-primary btn-sm" ng-click="removeCheck(checkDO);">
+												<i class="fa fa-minus"></i>
+											</button>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<div class="col-sm-12">
+								<div class="col-sm-6"></div>
+								<div class="col-sm-6">
+									<div class="col-sm-6 no-pad">Total Check Amount</div>
+									<div class="col-sm-6">
+										{{adjustments.totalCheckAmount | currency}}
+									</div>
+								</div>
+							</div>
+                           <!-- <div class="form-group clearfix col-xs-12 no-pad">
                               <span class="col-sm-3 no-pad">Check#  :</span> 
                                 <div class="col-sm-6 no-pad">
                                		<input type="text" class="form-control" ng-model="adjustments.cheqNo" ng-required="cheqFlag" ng-readonly= "{{editFlag}}">
@@ -377,7 +428,7 @@
 							              </button>
 							            </span>
                                 </div>
-                            </div>
+                            </div> -->
                           </div>
                           <div class="col-xs-12 no-pad pad10-top" ng-if="!editFlag">
 	                         <span class="ag-tab-title col-xs-12 no-pad marg10-bottom">File Attachments</span>
@@ -466,6 +517,7 @@
 					<button type="submit" class="btn btn-primary" ng-click="onClickCancel()" ng-if="editFlag">Cancel Claim</button>
 		        	<button type="submit" class="btn btn-primary" ng-click="onClickClose()">Approve</button>
 		        	<button type="submit" class="btn btn-primary" ng-click="onClickReject()">Reject</button>
+		        	<button type="submit" class="btn btn-primary" ng-click="onClickApprovedForPayment()">Approved for Payment</button>
 	            </div>
 	            </form>
 				</div>

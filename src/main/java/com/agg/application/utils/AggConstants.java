@@ -72,6 +72,8 @@ public class AggConstants {
 	
 	public static final int CLAIM_STATUS_CANCEL = 10;
 	
+	public static final int CLAIM_STATUS_APPROVED_FOR_PAYMENT = 11;
+	
 	public static final String CLAIM_STATUS_PRE_AUTHORIZED_APPROVED_DESC = "Pre-authorization Approved";
 	
 	public static final String CLAIM_STATUS_PRE_AUTHORIZED_REJECTED_DESC = "Pre-authorization Rejected";
@@ -91,6 +93,8 @@ public class AggConstants {
 	public static final String CLAIM_STATUS_DRAFT_DESC = "Draft";
 	
 	public static final String CLAIM_STATUS_CANCEL_DESC = "Rejected";
+	
+	public static final String CLAIM_STATUS_APPROVED_FOR_PAYMENT_DESC = "Approved for Payment";
 	
 	public static final String COVERAGE_TYPE_PT = "PT";
 	

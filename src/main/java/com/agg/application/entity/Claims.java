@@ -3,14 +3,18 @@ package com.agg.application.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -115,6 +119,9 @@ public class Claims implements Serializable {
 	
 	@Column(name="updated_by")
 	private long updatedBy;
+	
+	@OneToMany(mappedBy = "contract", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private Set<Check> checks;
 	
 	
 	public Claims() {
@@ -466,6 +473,14 @@ public class Claims implements Serializable {
 
 	public void setUpdatedBy(long updatedBy) {
 		this.updatedBy = updatedBy;
+	}
+
+	public Set<Check> getChecks() {
+		return checks;
+	}
+
+	public void setChecks(Set<Check> checks) {
+		this.checks = checks;
 	}
 	
 }

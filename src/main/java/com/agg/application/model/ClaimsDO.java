@@ -59,6 +59,8 @@ public class ClaimsDO {
 	private String createdUser;
 	private String updatedUser;
 	private List<ClaimNoteDO> claimsNoteList;
+	private String condValue;
+	private List<CheckDO> checkDOList;
 	
 	public List<ClaimFileDO> getClaimFileDO() {
 		return claimFileDO;
@@ -477,6 +479,18 @@ public class ClaimsDO {
 	}
 	public void setClaimsNoteList(List<ClaimNoteDO> claimsNoteList) {
 		this.claimsNoteList = claimsNoteList;
+	}
+	public String getCondValue() {
+		return condValue;
+	}
+	public void setCondValue(String condValue) {
+		this.condValue = condValue;
+	}
+	public List<CheckDO> getCheckDOList() {
+		return checkDOList;
+	}
+	public void setCheckDOList(List<CheckDO> checkDOList) {
+		this.checkDOList = checkDOList;
 	}
 	
 }

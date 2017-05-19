@@ -131,13 +131,36 @@ routingApp.config(['$routeProvider',
                     	  templateUrl: '../../jsp/fileaClaim.jsp',
                     	  controller: 'ClaimsController'
                       }).
+                      when('/agg/adjudicateClaim/:claimId', {
+                    	  templateUrl: '../../jsp/adjudicateClaim.jsp',
+                    	  controller: 'ClaimsAdjudicateController',
+                    	  resolve: {
+	        		         claimType: function () {
+	        		           return 'claimDetails';
+	        		         }
+	        		      }
+                      }).
                       when('/agg/preauthClaim', {
                     	  templateUrl: '../../jsp/preAuthReqClaim.jsp',
                     	  controller: 'ClaimsPreAuthController'
                       }).
                       when('/agg/adjudicateClaim', {
                     	  templateUrl: '../../jsp/adjudicateClaim.jsp',
-                    	  controller: 'ClaimsAdjudicateController'
+                    	  controller: 'ClaimsAdjudicateController',
+                		  resolve: {
+   	        		         claimType: function () {
+   	        		           return 'pending';
+   	        		         }
+   	        		      }
+                      }).
+                      when('/agg/approvedForPaymentClaims', {
+                    	  templateUrl: '../../jsp/adjudicateClaim.jsp',
+                    	  controller: 'ClaimsAdjudicateController',
+                    	  resolve: {
+  	        		         claimType: function () {
+  	        		           return 'approvedForPayment';
+  	        		         }
+  	        		      }
                       }).
                       when('/agg/editClaim', {
                     	  templateUrl: '../../jsp/fileaClaim.jsp',
@@ -367,6 +390,7 @@ routingApp.controller('HomeController', function($scope, $http, $timeout, $windo
 	$scope.quotesFlag = true;
 	$scope.claimsFlag = true;
 	$scope.quotesInvoiceFlag = true;
+	$scope.approvedForPaymentClaimsFlag = true;
 	
 	$('#navbar > ul.nav li a').click(function(e) {
 	    var $this = $(this);
@@ -383,6 +407,7 @@ routingApp.controller('HomeController', function($scope, $http, $timeout, $windo
     	$scope.invoiced = response.data.data.worklistDO.invoiced;
     	$scope.purchaseReq = response.data.data.worklistDO.purchaseReq;
     	$scope.claims = response.data.data.worklistDO.claims;
+    	$scope.approvedForPaymentClaims = response.data.data.worklistDO.approvedForPaymentClaims;
     	$scope.quoteList = response.data.data.quoteList;
     	
     	//if($scope.quoteList != null){
@@ -392,10 +417,12 @@ routingApp.controller('HomeController', function($scope, $http, $timeout, $windo
     		$('#contractsTbl').parents('div.dataTables_wrapper').first().hide();
     		$('#claimsTbl').parents('div.dataTables_wrapper').first().hide();
     		$('#quotesInvoiceTbl').parents('div.dataTables_wrapper').first().hide();
+    		$('#approvedForPaymentClaimsTbl').parents('div.dataTables_wrapper').first().hide();
     		$scope.contractsFlag = true;
     		$scope.quotesFlag = false;
     		$scope.claimsFlag = true;
     		$scope.quotesInvoiceFlag = true;
+    		$scope.approvedForPaymentClaimsFlag = true;
     	//}
     	
     	$timeout(function () {
@@ -419,10 +446,12 @@ routingApp.controller('HomeController', function($scope, $http, $timeout, $windo
 	    		$scope.quotesFlag = false;
 	    		$scope.claimsFlag = true;
 	    		$scope.quotesInvoiceFlag = true;
+	    		$scope.approvedForPaymentClaimsFlag = true;
 				$('#quotesTbl').parents('div.dataTables_wrapper').first().show();
 	    		$('#contractsTbl').parents('div.dataTables_wrapper').first().hide();
 	    		$('#claimsTbl').parents('div.dataTables_wrapper').first().hide();
 	    		$('#quotesInvoiceTbl').parents('div.dataTables_wrapper').first().hide();
+	    		$('#approvedForPaymentClaimsTbl').parents('div.dataTables_wrapper').first().hide();
 	    	//}
 	        $timeout(function () {
 	        	$('#quotesTbl').DataTable({
@@ -445,10 +474,12 @@ routingApp.controller('HomeController', function($scope, $http, $timeout, $windo
 	    		$scope.contractsFlag = true;
 	    		$scope.quotesFlag = true;
 	    		$scope.claimsFlag = true;
+	    		$scope.approvedForPaymentClaimsFlag = true;
 	    		$scope.quotesInvoiceFlag = false;
 				$('#quotesTbl').parents('div.dataTables_wrapper').first().hide();
 	    		$('#contractsTbl').parents('div.dataTables_wrapper').first().hide();
 	    		$('#claimsTbl').parents('div.dataTables_wrapper').first().hide();
+	    		$('#approvedForPaymentClaimsTbl').parents('div.dataTables_wrapper').first().hide();
 	    		$('#quotesInvoiceTbl').parents('div.dataTables_wrapper').first().show();
 	    	//}
 	        $timeout(function () {
@@ -473,10 +504,12 @@ routingApp.controller('HomeController', function($scope, $http, $timeout, $windo
 	    		$scope.quotesFlag = false;
 	    		$scope.claimsFlag = true;
 	    		$scope.quotesInvoiceFlag = true;
+	    		$scope.approvedForPaymentClaimsFlag = true;
 				$('#quotesTbl').parents('div.dataTables_wrapper').first().show();
 	    		$('#contractsTbl').parents('div.dataTables_wrapper').first().hide();
 	    		$('#claimsTbl').parents('div.dataTables_wrapper').first().hide();
 	    		$('#quotesInvoiceTbl').parents('div.dataTables_wrapper').first().hide();
+	    		$('#approvedForPaymentClaimsTbl').parents('div.dataTables_wrapper').first().hide();
 	    	//}
 	        $timeout(function () {
 	        	$('#quotesTbl').DataTable({
@@ -501,10 +534,12 @@ routingApp.controller('HomeController', function($scope, $http, $timeout, $windo
 	    		$scope.quotesFlag = true;
 	    		$scope.claimsFlag = true;
 	    		$scope.quotesInvoiceFlag = true;
+	    		$scope.approvedForPaymentClaimsFlag = true;
 				$('#contractsTbl').parents('div.dataTables_wrapper').first().show();
 	    		$('#quotesTbl').parents('div.dataTables_wrapper').first().hide();
 	    		$('#claimsTbl').parents('div.dataTables_wrapper').first().hide();
 	    		$('#quotesInvoiceTbl').parents('div.dataTables_wrapper').first().hide();
+	    		$('#approvedForPaymentClaimsTbl').parents('div.dataTables_wrapper').first().hide();
 	    	//}
 	        $timeout(function () {
 	        	$('#contractsTbl').DataTable({
@@ -609,10 +644,12 @@ routingApp.controller('HomeController', function($scope, $http, $timeout, $windo
 	    		$scope.quotesFlag = true;
 	    		$scope.claimsFlag = false;
 	    		$scope.quotesInvoiceFlag = true;
+	    		$scope.approvedForPaymentClaimsFlag = true;
 				$('#claimsTbl').parents('div.dataTables_wrapper').first().show();
 	    		$('#contractsTbl').parents('div.dataTables_wrapper').first().hide();
 	    		$('#quotesTbl').parents('div.dataTables_wrapper').first().hide();
 	    		$('#quotesInvoiceTbl').parents('div.dataTables_wrapper').first().hide();
+	    		$('#approvedForPaymentClaimsTbl').parents('div.dataTables_wrapper').first().hide();
 	    	//}
 	        $timeout(function () {
 	        	$('#claimsTbl').DataTable({
@@ -637,10 +674,12 @@ routingApp.controller('HomeController', function($scope, $http, $timeout, $windo
 	    		$scope.quotesFlag = true;
 	    		$scope.claimsFlag = true;
 	    		$scope.quotesInvoiceFlag = true;
+	    		$scope.approvedForPaymentClaimsFlag = true;
 				$('#contractsTbl').parents('div.dataTables_wrapper').first().show();
 	    		$('#quotesTbl').parents('div.dataTables_wrapper').first().hide();
 	    		$('#claimsTbl').parents('div.dataTables_wrapper').first().hide();
 	    		$('#quotesInvoiceTbl').parents('div.dataTables_wrapper').first().hide();
+	    		$('#approvedForPaymentClaimsTbl').parents('div.dataTables_wrapper').first().hide();
 	    	//}
 	        $timeout(function () {
 	        	$('#contractsTbl').DataTable({
@@ -653,9 +692,42 @@ routingApp.controller('HomeController', function($scope, $http, $timeout, $windo
 	    });
 	}
 	
+	$scope.getApprovedForPaymentClaims = function(){
+		$http.get("/agg/getApprovedForPaymentClaims")
+		.then(function(response) {
+			$scope.claimDOList = response.data.data.claimDOList;
+	        //if($scope.quoteList != null){
+				$('#approvedForPaymentClaimsTbl').dataTable().fnClearTable();
+				$('#approvedForPaymentClaimsTbl').dataTable().fnDestroy();
+	    		$scope.contractsFlag = true;
+	    		$scope.quotesFlag = true;
+	    		$scope.claimsFlag = true;
+	    		$scope.quotesInvoiceFlag = true;
+	    		$scope.approvedForPaymentClaimsFlag = false;
+	    		$('#approvedForPaymentClaimsTbl').parents('div.dataTables_wrapper').first().show();
+				$('#claimsTbl').parents('div.dataTables_wrapper').first().hide();
+	    		$('#contractsTbl').parents('div.dataTables_wrapper').first().hide();
+	    		$('#quotesTbl').parents('div.dataTables_wrapper').first().hide();
+	    		$('#quotesInvoiceTbl').parents('div.dataTables_wrapper').first().hide();
+	    	//}
+	        $timeout(function () {
+	        	$('#approvedForPaymentClaimsTbl').DataTable({
+	        		"aaSorting": [[ 8, "desc" ]],
+	        		columnDefs: [{ targets: 8, visible: false }, { width: "12%", targets: 0 }],
+	        		"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]], 
+	        		"bDestroy": true
+	        	});
+	        }, 300);
+	    });
+	}
+	
 	$scope.editClaimByDealer = function(claimId, status){
 		$window.location = '#/agg/fileClaim/' + claimId;
 		
+	};
+	
+	$scope.adjudicateClaim = function(claimId, status){
+		$window.location = '#/agg/adjudicateClaim/' + claimId;
 	};
 	
 });

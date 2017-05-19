@@ -13,6 +13,8 @@ public class WorklistDO {
 	private long purchaseReq;
 	
 	private long claims;
+	
+	private long approvedForPaymentClaims;
 
 	public long getExpContracts() {
 		return expContracts;
@@ -62,4 +64,12 @@ public class WorklistDO {
 		this.claims = claims;
 	}
 
+	public long getApprovedForPaymentClaims() {
+		return approvedForPaymentClaims;
+	}
+
+	public void setApprovedForPaymentClaims(long approvedForPaymentClaims) {
+		this.approvedForPaymentClaims = approvedForPaymentClaims;
+	}
+	
 }

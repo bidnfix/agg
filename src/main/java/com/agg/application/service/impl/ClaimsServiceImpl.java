@@ -29,6 +29,7 @@ import com.agg.application.dao.MachineInfoDAO;
 import com.agg.application.dao.ManufacturerDAO;
 import com.agg.application.dao.QuoteDAO;
 import com.agg.application.entity.Account;
+import com.agg.application.entity.Check;
 import com.agg.application.entity.ClaimFile;
 import com.agg.application.entity.ClaimLabor;
 import com.agg.application.entity.ClaimNote;
@@ -39,6 +40,7 @@ import com.agg.application.entity.Dealer;
 import com.agg.application.entity.Manufacturer;
 import com.agg.application.entity.Quote;
 import com.agg.application.model.AccountDO;
+import com.agg.application.model.CheckDO;
 import com.agg.application.model.ClaimFileDO;
 import com.agg.application.model.ClaimLaborDO;
 import com.agg.application.model.ClaimNoteDO;
@@ -625,6 +627,21 @@ public class ClaimsServiceImpl implements ClaimsService {
 					}
 				}
 				
+				if(claim.getChecks() != null && !claim.getChecks().isEmpty()){
+					CheckDO checkDO = null;
+					List<CheckDO> checkDOList = new ArrayList<CheckDO>();
+					for(Check check : claim.getChecks()){
+						checkDO = new CheckDO();
+						checkDO.setId(check.getId());
+						checkDO.setAmount(check.getCheckAmount());
+						checkDO.setCheckNo(check.getCheckNo());
+						checkDO.setReceivedDate(check.getReceivedDate());
+						
+						checkDOList.add(checkDO);
+					}
+					claimDO.setCheckDOList(checkDOList);
+				}
+				
 				claimsDOList.add(claimDO);
 			}
 		}
@@ -667,7 +684,12 @@ public class ClaimsServiceImpl implements ClaimsService {
 			claim.setPaidDate(claimDO.getPaidDate());
 			claim.setUpdatedBy(accountDO.getId());
 			claim.setLastUpdate(new Date());
-			claim.setcStatus((byte)AggConstants.CLAIM_STATUS_CLOSED);
+			if(claimDO.getCondValue() != null && claimDO.getCondValue().trim().equalsIgnoreCase(AggConstants.CLAIM_STATUS_APPROVED_FOR_PAYMENT_DESC)){
+				claim.setcStatus((byte)AggConstants.CLAIM_STATUS_APPROVED_FOR_PAYMENT);
+			}else{
+				claim.setcStatus((byte)AggConstants.CLAIM_STATUS_CLOSED);
+			}
+			
 			res = claimsDAO.save(claim);
 			
 			if(null != claimDO.getClaimFileDO() && !claimDO.getClaimFileDO().isEmpty() && null != res ){
@@ -950,6 +972,15 @@ public class ClaimsServiceImpl implements ClaimsService {
 		}
 		
 		return claimNoteDOLst;
+	}
+
+	@Override
+	public List<ClaimsDO> getClaimsByStatus(AccountDO accountDO, byte claimStatusApprovedForPayment) {
+		List<ClaimsDO> claimsDOList = null;
+		if(accountDO.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)){
+			claimsDOList = claimsDAO.findApprovedClaims(claimStatusApprovedForPayment);
+		}
+		return claimsDOList;
 	}
 	
 	

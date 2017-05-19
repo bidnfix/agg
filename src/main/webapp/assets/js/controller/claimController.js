@@ -220,8 +220,13 @@ routingApp.controller('ClaimsPreAuthController', function($scope, $http, claimPr
 	};
 });
 
-routingApp.controller('ClaimsAdjudicateController', ['$scope', '$http', 'claimsAdjudicateService', 'ModalService', '$window', '$route', '$filter', function($scope, $http, claimsAdjudicateService, ModalService, $window, $route, $filter){
-	claimsAdjudicateService.init($scope);
+routingApp.controller('ClaimsAdjudicateController', ['$scope', '$http', 'claimsAdjudicateService', 'ModalService', '$window', '$route', '$filter', 'claimType', '$routeParams', function($scope, $http, claimsAdjudicateService, ModalService, $window, $route, $filter, claimType, $routeParams){
+	if($routeParams.claimId){
+		claimsAdjudicateService.getClaim($scope, $routeParams.claimId);
+	}else{
+		claimsAdjudicateService.init($scope, claimType);
+	}
+	
 	
 	//datepicker changes
 	$scope.paidDatePickerIsOpen = false;
@@ -238,6 +243,32 @@ routingApp.controller('ClaimsAdjudicateController', ['$scope', '$http', 'claimsA
       }
       $scope.paidDatePickerIsOpen = true;
     };
+    
+    $scope.chkDatePickerOpen = function ($event, checkDO) {
+	  checkDO.chkDatePickerIsOpen = false;
+	    if ($event) {
+	        $event.preventDefault();
+	        $event.stopPropagation(); // This is the magic
+	    }
+	    checkDO.chkDatePickerIsOpen = true;
+	};
+  	
+  	$scope.addCheck = function(){
+  		$scope.adjustments.checkDOList.push({});
+  	};
+  	
+  	$scope.removeCheck = function(checkDO){
+  		var index = $scope.adjustments.checkDOList.indexOf(checkDO);
+  		$scope.adjustments.checkDOList.splice(index, 1);
+  		$scope.calcCheckAmtTotal();
+    };
+      
+    $scope.calcCheckAmtTotal = function(){
+		$scope.adjustments.totalCheckAmount = 0;
+		angular.forEach($scope.adjustments.checkDOList, function(checkDO, index){
+			$scope.adjustments.totalCheckAmount += checkDO.amount;
+		});
+  	};
 	
 	$scope.onClickSelectClaim = function(claim){
 		claim.attachments=[];
@@ -264,6 +295,12 @@ routingApp.controller('ClaimsAdjudicateController', ['$scope', '$http', 'claimsA
     	$scope.commentFlag = false;
     	$scope.cheqFlag = true;
     	$scope.click = 3;
+    };
+    
+    $scope.onClickApprovedForPayment = function(){
+    	$scope.commentFlag = false;
+    	$scope.cheqFlag = true;
+    	$scope.click = 5;
     };
     
     $scope.onClickReject = function(){

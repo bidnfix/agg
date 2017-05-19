@@ -103,6 +103,9 @@ public class Util {
 			case "cancel":
 				cStatusValue = AggConstants.CLAIM_STATUS_CANCEL;
 				break;
+			case "approved_for_payment":
+				cStatusValue = AggConstants.CLAIM_STATUS_APPROVED_FOR_PAYMENT;
+				break;
 			default:
 				cStatusValue = 0;
 		}

@@ -5,7 +5,6 @@ import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -19,7 +18,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ResourceLoader;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -1561,6 +1559,7 @@ public class QuoteServiceImpl implements QuoteService {
 		long activeContract = 0;
 		long inactiveContract = 0;
 		long claims = 0;
+		long approvedForPaymentClaims = 0;
 		
 		if(accountDO.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)){
 			/*estPrice = quoteDAO.countByEstPrice();
@@ -1580,6 +1579,8 @@ public class QuoteServiceImpl implements QuoteService {
 			inactiveContract = contractsDAO.countByInactive();
 			//claims = claimsDAO.count();
 			claims = claimsDAO.findClaimsCountByAdmin((byte)AggConstants.CLAIM_STATUS_DRAFT);
+			
+			approvedForPaymentClaims = claimsDAO.findClaimsCountByStatus((byte)AggConstants.CLAIM_STATUS_APPROVED_FOR_PAYMENT);
 			
 		}else{
 			/*estPrice = quoteDAO.countByEstPrice(accountDO.getDealerId());
@@ -1604,6 +1605,7 @@ public class QuoteServiceImpl implements QuoteService {
 		worklistDO.setActContracts(activeContract);
 		worklistDO.setExpContracts(inactiveContract);
 		worklistDO.setClaims(claims);
+		worklistDO.setApprovedForPaymentClaims(approvedForPaymentClaims);
 		
 		logger.debug("claims -->"+claims);
 		logger.debug("estPrice -->"+estPrice);
