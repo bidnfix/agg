@@ -254,7 +254,12 @@ routingApp.controller('ClaimsAdjudicateController', ['$scope', '$http', 'claimsA
 	};
   	
   	$scope.addCheck = function(){
-  		$scope.adjustments.checkDOList.push({});
+  		$scope.calcCheckAmtTotal();
+  		var totalAmount = $scope.adjustments.tra - $scope.adjustments.totalCheckAmount;
+  		if(totalAmount > 0){
+  			$scope.adjustments.checkDOList.push({receivedDate:new Date(), amount:totalAmount});
+  		}
+  		$scope.calcCheckAmtTotal();
   	};
   	
   	$scope.removeCheck = function(checkDO){

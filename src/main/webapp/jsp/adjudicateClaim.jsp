@@ -358,7 +358,7 @@
 								<thead>
 									<tr>
 										<th class="col-sm-4">Check #</th>
-										<th class="col-sm-4">Received Date</th>
+										<th class="col-sm-4">Paid Date</th>
 										<th class="col-sm-3">Check Amount</th>
 										<th class="col-sm-1">
 											<button type="button" class="btn btn-primary btn-sm" ng-click="addCheck()">

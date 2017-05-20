@@ -120,7 +120,7 @@ public class Claims implements Serializable {
 	@Column(name="updated_by")
 	private long updatedBy;
 	
-	@OneToMany(mappedBy = "contract", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "claim", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<Check> checks;
 	
 	

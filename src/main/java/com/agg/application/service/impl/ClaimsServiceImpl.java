@@ -6,9 +6,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.agg.application.dao.AccountDAO;
+import com.agg.application.dao.CheckDAO;
 import com.agg.application.dao.ClaimFileDAO;
 import com.agg.application.dao.ClaimLaborDAO;
 import com.agg.application.dao.ClaimNotesDAO;
@@ -96,6 +99,9 @@ public class ClaimsServiceImpl implements ClaimsService {
 	
 	@Autowired
 	private CustomerInfoDAO customerInfoDAO;
+	
+	@Autowired
+	private CheckDAO checkDAO;
 	
 	
 	public List<ClaimsDO> getClaimsInfo(AccountDO accountDO){
@@ -627,10 +633,11 @@ public class ClaimsServiceImpl implements ClaimsService {
 					}
 				}
 				
-				if(claim.getChecks() != null && !claim.getChecks().isEmpty()){
+				List<Check> checks = checkDAO.findByClaimId(claim.getId());
+				if(checks != null && !checks.isEmpty()){
 					CheckDO checkDO = null;
 					List<CheckDO> checkDOList = new ArrayList<CheckDO>();
-					for(Check check : claim.getChecks()){
+					for(Check check : checks){
 						checkDO = new CheckDO();
 						checkDO.setId(check.getId());
 						checkDO.setAmount(check.getCheckAmount());
@@ -676,6 +683,7 @@ public class ClaimsServiceImpl implements ClaimsService {
 		Claims res = null;
 		Claims claim = claimsDAO.findOne(claimDO.getId());
 		if(null != claim){
+			Date currDate = new Date();
 			claim.setTotalAdjustedLaborCost(claimDO.getTotalAdjustedLaborCost());
 			claim.setTotalAdjustedPartsCost(claimDO.getTotalAdjustedPartsCost());
 			claim.setApprovedOtherCharges1(claimDO.getApprovedOtherCharges1());
@@ -683,11 +691,59 @@ public class ClaimsServiceImpl implements ClaimsService {
 			claim.setCheqNo(claimDO.getCheqNo());
 			claim.setPaidDate(claimDO.getPaidDate());
 			claim.setUpdatedBy(accountDO.getId());
-			claim.setLastUpdate(new Date());
+			claim.setLastUpdate(currDate);
 			if(claimDO.getCondValue() != null && claimDO.getCondValue().trim().equalsIgnoreCase(AggConstants.CLAIM_STATUS_APPROVED_FOR_PAYMENT_DESC)){
 				claim.setcStatus((byte)AggConstants.CLAIM_STATUS_APPROVED_FOR_PAYMENT);
 			}else{
 				claim.setcStatus((byte)AggConstants.CLAIM_STATUS_CLOSED);
+			}
+			
+			List<CheckDO> checkDOList = claimDO.getCheckDOList();
+			if(checkDOList != null && !checkDOList.isEmpty()){
+				Set<Check> checks = new HashSet<Check>();
+				Check check = null;
+				for(CheckDO checkDO : checkDOList){
+					if(checkDO.getId() > 0){
+						check = checkDAO.findOne(checkDO.getId());
+					}else{
+						check = new Check();
+						check.setCreatedBy(accountDO.getUsername());
+						check.setCreatedDate(currDate);
+					}
+					
+					check.setClaim(claim);
+					check.setCheckNo(checkDO.getCheckNo());
+					check.setReceivedDate(checkDO.getReceivedDate());
+					check.setCheckAmount(checkDO.getAmount());
+					check.setUpdatedBy(accountDO.getUsername());
+					check.setUpdatedDate(currDate);
+					
+					checks.add(check);
+				}
+				
+				Set<Check> exstChecks = claim.getChecks();
+				Set<Check> nonExstChecks = new HashSet<Check>();
+				boolean nonExists = false;
+				for(Check exstCheck : exstChecks){
+					nonExists = true;
+					for(Check checkk : checks){
+						if(exstCheck.getId() == checkk.getId()){
+							nonExists = false;
+							break;
+						}
+					}
+					
+					if(nonExists){
+						nonExstChecks.add(exstCheck);
+					}
+				}
+				
+				logger.debug("nonExstChecks size: "+nonExstChecks.size());
+				if(nonExstChecks.size() > 0){
+					checkDAO.delete(nonExstChecks);
+				}
+				
+				claim.setChecks(checks);
 			}
 			
 			res = claimsDAO.save(claim);

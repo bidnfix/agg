@@ -1,6 +1,9 @@
 package com.agg.application.vo;
 
 import java.util.Date;
+import java.util.List;
+
+import com.agg.application.model.CheckDO;
 
 public class AdjudicateClaimFormVO {
 	private int id;
@@ -15,6 +18,7 @@ public class AdjudicateClaimFormVO {
 	private double approvedOtherCharges2;
 	private String cheqNo;
 	private Date paidDate;
+	private List<CheckDO> checkDOList = null;
 	
 	
 	public AdjudicateClaimFormVO() {
@@ -145,6 +149,14 @@ public class AdjudicateClaimFormVO {
 
 	public void setPaidDate(Date paidDate) {
 		this.paidDate = paidDate;
+	}
+
+	public List<CheckDO> getCheckDOList() {
+		return checkDOList;
+	}
+
+	public void setCheckDOList(List<CheckDO> checkDOList) {
+		this.checkDOList = checkDOList;
 	}
 	
 }

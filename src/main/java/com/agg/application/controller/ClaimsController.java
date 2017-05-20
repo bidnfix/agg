@@ -591,8 +591,9 @@ public class ClaimsController extends BaseController {
 	}
 	
 	@RequestMapping(value = "/adjudicateClaim", method = RequestMethod.POST)
-	public @ResponseBody Result adjudicateClaim(@ModelAttribute("data") Object data,  @RequestParam("files") List<MultipartFile> fileList, @RequestParam("condVal") String condVal, BindingResult result,
-			HttpServletRequest request, HttpServletResponse response) {
+	public @ResponseBody Result adjudicateClaim(@ModelAttribute("data") Object data,
+			@RequestParam("files") List<MultipartFile> fileList, @RequestParam("condVal") String condVal,
+			BindingResult result, HttpServletRequest request, HttpServletResponse response) {
 		//uploadingdir = request.getServletContext().getRealPath("/uploads/");
 		
 		//uploadingdir = System.getProperty("user.dir")+ UPLOAD_FOLDER_PATH;
@@ -617,6 +618,7 @@ public class ClaimsController extends BaseController {
 			claimsDO.setPaidDate(vo.getPaidDate());
 			claimsDO.setComments(vo.getExtComment());
 			claimsDO.setCondValue(condVal);
+			claimsDO.setCheckDOList(vo.getCheckDOList());
 			logger.debug("vo.getExtComment() "+vo.getExtComment());
 			
 			List<ClaimFileDO> claimFileDO = new ArrayList<>();

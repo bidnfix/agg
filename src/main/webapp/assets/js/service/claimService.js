@@ -739,6 +739,12 @@ routingApp.factory('claimsAdjudicateService', ['$http', '$q', '$window', '$timeo
     	$scope.adjustments.checkDOList = $scope.adjudicateClaim.checkDOList;
     	if($scope.adjustments.checkDOList === null){
     		$scope.adjustments.checkDOList = [];
+    	}else{
+    		for(var i in $scope.adjustments.checkDOList){
+    			if($scope.adjustments.checkDOList[i].receivedDate != null && $scope.adjustments.checkDOList[i].receivedDate != ""){
+    				$scope.adjustments.checkDOList[i].receivedDate = new Date($scope.adjustments.checkDOList[i].receivedDate);
+    			}
+			}
     	}
     	
     	$scope.adjustments.paidDate = new Date();
