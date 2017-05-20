@@ -828,7 +828,28 @@ routingApp.controller('GetProgramsController', function($scope, programService, 
 		    	
 		    	 $scope.program.manufacturerDO=response.data.data.machineModelList[0].manufacturerDO;
 		         //$scope.machineModelList = response.data.data.machineModelList;
-		    	 $scope.program.machineModelList = response.data.data.machineModelList;
+		    	 
+		    	 var objects = response.data.data.machineModelList;
+			        for (var i = 0; i < objects.length; i++) {
+			        	
+			        	//alert($scope.program.machineModelList.indexOf(objects[i]));
+			        	
+			        	var objects2 = $scope.program.machineModelList;
+			        	for (var j = 0; j < objects2.length; j++) {
+			        		
+			        		//alert(objects[i].machineId);
+			        		//alert(objects2[j].machineId);
+			        		if(objects[i].machineId === objects2[j].machineId)
+			        		{
+			        			return;
+			        		}
+			        	
+			        	}
+			        	$scope.program.machineModelList.push(objects[i]) ;
+			        	
+			        }
+		    	 
+		    	 //$scope.program.machineModelList = response.data.data.machineModelList;
 		         
 		       
 		    });
@@ -856,7 +877,6 @@ routingApp.controller('GetProgramsController', function($scope, programService, 
 	    });
     };
     
-
     
 })
 

@@ -610,6 +610,8 @@ public class ProgramServiceImpl implements ProgramService {
 			List<MachineInfo> machineInfoLst = program.getMachineInfos();
 			if(machineInfoLst!=null)
 			{
+				
+				logger.debug("machineInfoLst size "+machineInfoLst.size());
 				for(MachineInfo macineInfo : machineInfoLst)
 				{
 					MachineInfoDO macInfDO = new MachineInfoDO();
