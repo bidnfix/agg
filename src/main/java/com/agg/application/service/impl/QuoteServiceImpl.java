@@ -1154,6 +1154,24 @@ public class QuoteServiceImpl implements QuoteService {
 		
 		return condition;
 	}
+	
+	@Override
+	public boolean unArchiveQuote(QuoteDO quoteDO) {
+		boolean condition = false;
+		if(quoteDO.getId() != 0 && quoteDO.getId() > 0 && quoteDO.getQuoteId() != null && !quoteDO.getQuoteId().isEmpty()){
+			QuotePK quotePK = new QuotePK(quoteDO.getQuoteId(), quoteDO.getId());
+			Quote quote = quoteDAO.findOne(quotePK);
+			if(quote != null){
+				quote.setIsArchive((short)0);;
+				quoteDAO.save(quote);
+				
+				quoteDO.setIsArchive((short)0);
+				condition = true;
+			}
+		}
+		
+		return condition;
+	}
 
 	@Override
 	@Transactional

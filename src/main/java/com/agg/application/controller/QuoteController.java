@@ -577,6 +577,25 @@ public class QuoteController extends BaseController {
 		return opResult;
 	}
 	
+	@RequestMapping(value = "/quote/unArchiveQuote", method = RequestMethod.POST)
+	public @ResponseBody Result unArchiveQuote(@RequestBody  QuoteDO quoteDO, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{
+		logger.debug("In unArchiveQuote");
+		Result opResult = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			logger.info("quoteId: "+quoteDO.getQuoteId()+" and id: "+quoteDO.getId());
+			
+			boolean isArchivedQuote = quoteService.unArchiveQuote(quoteDO);
+			
+			logger.info("isArchivedQuote: "+isArchivedQuote);
+			
+			opResult = new Result("success", "Quote Info", quoteDO);
+		}
+		
+		return opResult;
+	}
+	
 	@RequestMapping(value = "/quote/updateQuote", method = RequestMethod.POST)
 	public @ResponseBody Result updateQuote(@RequestBody  QuoteDO quoteDO, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{
 		logger.debug("In updateQuote");

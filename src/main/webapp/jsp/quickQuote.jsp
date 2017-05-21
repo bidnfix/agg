@@ -34,6 +34,9 @@
 	           	<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="quoteInfoForm.$valid && createContract(quoteInfoForm)" ng-disabled="invoiced">Create Contract</button>
 	          	</c:if>
           	</div>
+          	<div ng-if="quote.status != 6 && quote.isArchive == 1">
+          		<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="unArchiveQuote()">Un-Archive</button>
+          	</div>
           	<div>
           		<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="cancelQuote()">Cancel</button>
           	</div>

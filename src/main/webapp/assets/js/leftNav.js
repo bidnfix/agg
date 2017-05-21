@@ -211,7 +211,7 @@ routingApp.config(['$routeProvider',
    	        		      }
                       }).
                       when('/agg/archivedQuotes', {
-                    	  templateUrl: '../../jsp/quotes.jsp',
+                    	  templateUrl: '../../jsp/archivedQuotes.jsp',
                     	  controller: 'QuotesDetailController',
                     	  resolve: {
 	        		         quoteType: function () {
@@ -2309,6 +2309,14 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 		if($window.confirm('Are you sure you want to archive this record?')) {
 			if($scope.quote != null){
 				quoteService.archiveQuote($scope.quote, $scope);
+			}
+		}
+	}
+	
+	$scope.unArchiveQuote = function(){
+		if($window.confirm('Are you sure you want to un-archive this record?')) {
+			if($scope.quote != null){
+				quoteService.unArchiveQuote($scope.quote, $scope);
 			}
 		}
 	}
