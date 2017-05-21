@@ -35,7 +35,9 @@
 	          	</c:if>
           	</div>
           	<div ng-if="quote.status != 6 && quote.isArchive == 1">
-          		<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="unArchiveQuote()">Un-Archive</button>
+          		<c:if test="${user.roleDO.accountType eq 'admin'}">
+          			<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="unArchiveQuote()">Un-Archive</button>
+          		</c:if>
           	</div>
           	<div>
           		<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="cancelQuote()">Cancel</button>
