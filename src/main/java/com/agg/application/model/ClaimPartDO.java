@@ -15,6 +15,8 @@ public class ClaimPartDO {
 	private double qty;
 	private double unitPrice;
 	private String partTotal;
+	private double adjQty;
+	private double adjUnitPrice;
 	/**
 	 * 
 	 */
@@ -100,6 +102,18 @@ public class ClaimPartDO {
 	}
 	public void setPartTotal(String partTotal) {
 		this.partTotal = partTotal;
+	}
+	public double getAdjQty() {
+		return adjQty;
+	}
+	public void setAdjQty(double adjQty) {
+		this.adjQty = adjQty;
+	}
+	public double getAdjUnitPrice() {
+		return adjUnitPrice;
+	}
+	public void setAdjUnitPrice(double adjUnitPrice) {
+		this.adjUnitPrice = adjUnitPrice;
 	}
 	
 }

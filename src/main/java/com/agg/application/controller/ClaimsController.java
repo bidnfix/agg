@@ -619,6 +619,9 @@ public class ClaimsController extends BaseController {
 			claimsDO.setComments(vo.getExtComment());
 			claimsDO.setCondValue(condVal);
 			claimsDO.setCheckDOList(vo.getCheckDOList());
+			claimsDO.setClaimLaborDO(vo.getLabors());
+			claimsDO.setClaimPartDO(vo.getParts());
+			
 			logger.debug("vo.getExtComment() "+vo.getExtComment());
 			
 			List<ClaimFileDO> claimFileDO = new ArrayList<>();

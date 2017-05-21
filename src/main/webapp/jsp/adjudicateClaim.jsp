@@ -262,6 +262,13 @@
                                   <td>{{claimPartVO.unitPrice | number : 2}}<!-- <input type="number" class="form-control" name="" ng-model="claimPartVO.unitPrice" required="required" ng-readonly= "true" ng-change="calcOnChange()"> --></td>
                                   <td class="t-r">{{claimPartVO.partsTotal | currency}}</td>
                                 </tr>
+                                <tr>
+                                  <td>{{claimPartVO.partNo}}</td>
+                                  <td>{{claimPartVO.partDescr}}</td>
+                                  <td><input type="number" step="0.01" class="form-control" name="" ng-model="claimPartVO.adjQty" required="required" ng-change="calcOnChange()"></td>
+                                  <td><input type="number" step="0.01" class="form-control" name="" ng-model="claimPartVO.adjUnitPrice" required="required" ng-change="calcOnChange()"></td>
+                                  <td class="t-r">{{claimPartVO.partsAdjTotal | currency}}</td>
+                                </tr>
                               </tbody>
                             </table>
                             <div class="col-sm-12">
@@ -303,6 +310,13 @@
                                   <td>{{claimLabourVO.laborHrs}}<!-- <input type="number" class="form-control" name="" ng-model="claimLabourVO.laborHrs" required="required" ng-readonly= "true" ng-change="calcOnChange()"> --></td>
                                   <td>{{claimLabourVO.rate | number : 2}}<!-- <input type="number" class="form-control" name="" ng-model="claimLabourVO.rate" required="required" ng-readonly= "true" ng-change="calcOnChange()"> --></td>
                                   <td class="t-r">{{claimLabourVO.laborsTotal | currency}}</td>
+                                </tr>
+                                <tr>
+                                  <td>{{claimLabourVO.laborNo}}</td>
+                                  <td>{{claimLabourVO.laborDescr}}</td>
+                                  <td><input type="number" step="0.01" class="form-control" name="" ng-model="claimLabourVO.adjLaborHrs" required="required" ng-change="calcOnChange()"></td>
+                                  <td><input type="number" step="0.01" class="form-control" name="" ng-model="claimLabourVO.adjRate" required="required" ng-change="calcOnChange()"></td>
+                                  <td class="t-r">{{claimLabourVO.laborsAdjTotal | currency}}</td>
                                 </tr>
                               </tbody>
                             </table>

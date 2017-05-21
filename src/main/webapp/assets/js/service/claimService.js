@@ -679,27 +679,57 @@ routingApp.factory('claimsAdjudicateService', ['$http', '$q', '$window', '$timeo
 			if(adjustment.parts && adjustment.totalAdjustmentPartsCost === 0){
 				for(var i in adjustment.parts){
 					adjustment.parts[i].partsTotal = adjustment.parts[i].qty * adjustment.parts[i].unitPrice;
-					adjustment.totalAdjustmentPartsCost += adjustment.parts[i].partsTotal;
+					adjustment.parts[i].partsAdjTotal = adjustment.parts[i].adjQty * adjustment.parts[i].adjUnitPrice;
+					//adjustment.totalAdjustmentPartsCost += adjustment.parts[i].partsTotal;
+					adjustment.totalAdjustmentPartsCost += adjustment.parts[i].partsAdjTotal;
 				}
 				
 				adjustment.totalAdjustmentPartsCost = parseFloat(adjustment.totalAdjustmentPartsCost).toFixed(2);
 			} else if(adjustment.parts && adjustment.totalAdjustmentPartsCost > 0){
 				for(var i in adjustment.parts){
 					adjustment.parts[i].partsTotal = adjustment.parts[i].qty * adjustment.parts[i].unitPrice;
+					adjustment.parts[i].partsAdjTotal = adjustment.parts[i].adjQty * adjustment.parts[i].adjUnitPrice;
 				}
 			}
 			
 			if(adjustment.labors && adjustment.totalAdjustmentLaborsCost === 0){
 				for(var i in adjustment.labors){
 					adjustment.labors[i].laborsTotal = adjustment.labors[i].laborHrs * adjustment.labors[i].rate;
-					adjustment.totalAdjustmentLaborsCost += adjustment.labors[i].laborsTotal;
+					adjustment.labors[i].laborsAdjTotal = adjustment.labors[i].adjLaborHrs * adjustment.labors[i].adjRate;
+					//adjustment.totalAdjustmentLaborsCost += adjustment.labors[i].laborsTotal;
+					adjustment.totalAdjustmentLaborsCost += adjustment.labors[i].laborsAdjTotal;
 				}
 				adjustment.totalAdjustmentLaborsCost = parseFloat(adjustment.totalAdjustmentLaborsCost).toFixed(2);
 			} else if(adjustment.labors && adjustment.totalAdjustmentLaborsCost > 0){
 				for(var i in adjustment.labors){
 					adjustment.labors[i].laborsTotal = adjustment.labors[i].laborHrs * adjustment.labors[i].rate;
+					adjustment.labors[i].laborsAdjTotal = adjustment.labors[i].adjLaborHrs * adjustment.labors[i].adjRate;
 				}
 			}
+			adjustment.totalAdjustedClaimCost = parseFloat(adjustment.totalAdjustmentPartsCost)  + parseFloat(adjustment.totalAdjustmentLaborsCost)
+				+ parseFloat(adjustment.approvedOtherCharges1) + parseFloat(adjustment.approvedOtherCharges2);
+		}
+	},
+	calcOnChgAdjusmentCost = function(adjustment){
+		if(adjustment){
+			if(adjustment.parts){
+				adjustment.totalAdjustmentPartsCost = 0;
+				for(var i in adjustment.parts){
+					adjustment.parts[i].partsAdjTotal = adjustment.parts[i].adjQty * adjustment.parts[i].adjUnitPrice;
+					adjustment.totalAdjustmentPartsCost += adjustment.parts[i].partsAdjTotal;
+				}
+				adjustment.totalAdjustmentPartsCost = parseFloat(adjustment.totalAdjustmentPartsCost).toFixed(2);
+			}
+			
+			if(adjustment.labors){
+				adjustment.totalAdjustmentLaborsCost = 0;
+				for(var i in adjustment.labors){
+					adjustment.labors[i].laborsAdjTotal = adjustment.labors[i].adjLaborHrs * adjustment.labors[i].adjRate;
+					adjustment.totalAdjustmentLaborsCost += adjustment.labors[i].laborsAdjTotal;
+				}
+				adjustment.totalAdjustmentLaborsCost = parseFloat(adjustment.totalAdjustmentLaborsCost).toFixed(2);
+			}
+			
 			adjustment.totalAdjustedClaimCost = parseFloat(adjustment.totalAdjustmentPartsCost)  + parseFloat(adjustment.totalAdjustmentLaborsCost)
 				+ parseFloat(adjustment.approvedOtherCharges1) + parseFloat(adjustment.approvedOtherCharges2);
 		}
@@ -846,7 +876,8 @@ routingApp.factory('claimsAdjudicateService', ['$http', '$q', '$window', '$timeo
 		$scope.adjudicateClaim = {};
 	},
 	calcAdjustmentsOnChange = function($scope){
-		calcAdjusmentCost($scope.adjustments);
+		//calcAdjusmentCost($scope.adjustments);
+		calcOnChgAdjusmentCost($scope.adjustments);
 		calReimburshedCost($scope);
 	},
 	collectAttachments = function ($scope, $files) {

@@ -277,6 +277,8 @@ public class ClaimsServiceImpl implements ClaimsService {
 				claimPart.setPartDescr(claimPartDO.getPartDescr());
 				claimPart.setQty(claimPartDO.getQty());
 				claimPart.setUnitPrice(claimPartDO.getUnitPrice());
+				claimPart.setAdjQty(claimPartDO.getQty());
+				claimPart.setAdjUnitPrice(claimPartDO.getUnitPrice());
 				claimPartList.add(claimPart);
 			}
 			int records = claimPartDAO.deleteClaimPartsByClaimId(newClaim.getId());
@@ -294,6 +296,8 @@ public class ClaimsServiceImpl implements ClaimsService {
 				claimLabor.setLaborHrs(laborDO.getLaborHrs());
 				claimLabor.setRate(laborDO.getRate());
 				claimLabor.setClaimId(newClaim.getId());
+				claimLabor.setAdjLaborHrs(laborDO.getLaborHrs());
+				claimLabor.setAdjRate(laborDO.getRate());
 				claimLaborList.add(claimLabor);
 			}
 			int records = claimLaborDAO.deleteClaimLaborsByClaimId(newClaim.getId());
@@ -547,6 +551,9 @@ public class ClaimsServiceImpl implements ClaimsService {
 						laborDO.setLaborNo(cp.getLaborNo());
 						laborDO.setLaborHrs(cp.getLaborHrs());
 						laborDO.setRate(cp.getRate());
+						laborDO.setAdjLaborHrs(cp.getAdjLaborHrs());
+						laborDO.setAdjRate(cp.getAdjRate());
+						
 						cpl.add(laborDO);
 					}
 					claimDO.setClaimLaborDO(cpl);
@@ -562,6 +569,9 @@ public class ClaimsServiceImpl implements ClaimsService {
 						partDO.setPartNo(cp.getPartNo());
 						partDO.setQty(cp.getQty());
 						partDO.setUnitPrice(cp.getUnitPrice());
+						partDO.setAdjQty(cp.getAdjQty());
+						partDO.setAdjUnitPrice(cp.getAdjUnitPrice());
+						
 						cpl.add(partDO);
 					}
 					claimDO.setClaimPartDO(cpl);
@@ -699,6 +709,7 @@ public class ClaimsServiceImpl implements ClaimsService {
 			}
 			
 			List<CheckDO> checkDOList = claimDO.getCheckDOList();
+			double totalCheckAmount = 0.0;
 			if(checkDOList != null && !checkDOList.isEmpty()){
 				Set<Check> checks = new HashSet<Check>();
 				Check check = null;
@@ -710,7 +721,7 @@ public class ClaimsServiceImpl implements ClaimsService {
 						check.setCreatedBy(accountDO.getUsername());
 						check.setCreatedDate(currDate);
 					}
-					
+					totalCheckAmount += checkDO.getAmount();
 					check.setClaim(claim);
 					check.setCheckNo(checkDO.getCheckNo());
 					check.setReceivedDate(checkDO.getReceivedDate());
@@ -762,7 +773,8 @@ public class ClaimsServiceImpl implements ClaimsService {
 			
 			Contracts contracts = contractsDAO.findByContractId(claim.getContractId());
 			if(contracts != null){
-				contracts.setAvailabeLol(contracts.getAvailabeLol()-claimDO.getTra());
+				//contracts.setAvailabeLol(contracts.getAvailabeLol()-claimDO.getTra());
+				contracts.setAvailabeLol(contracts.getAvailabeLol()-totalCheckAmount);
 				contracts.setLastUpdatedDate(new Date());
 				contractsDAO.save(contracts);
 			}
@@ -789,6 +801,48 @@ public class ClaimsServiceImpl implements ClaimsService {
 				claimNote.setNoteType(AggConstants.EXTERNAL_CLAIM_NOTE);
 				claimNote.setLastUpdate(new Timestamp(new Date().getTime()));
 				claimNotesDAO.save(claimNote);
+			}
+			
+			if(null != claimDO.getClaimPartDO() && !claimDO.getClaimPartDO().isEmpty()){
+				List<ClaimPart> claimPartList = new ArrayList<>();
+				ClaimPart claimPart = null;
+				for(ClaimPartDO claimPartDO : claimDO.getClaimPartDO()){
+					claimPart = new ClaimPart();
+					claimPart.setId(claimPartDO.getId());
+					claimPart.setClaimId(claim.getId());
+					claimPart.setPartNo(claimPartDO.getPartNo());
+					claimPart.setPartDescr(claimPartDO.getPartDescr());
+					claimPart.setQty(claimPartDO.getQty());
+					claimPart.setUnitPrice(claimPartDO.getUnitPrice());
+					claimPart.setAdjQty(claimPartDO.getAdjQty());
+					claimPart.setAdjUnitPrice(claimPartDO.getAdjUnitPrice());
+					
+					claimPartList.add(claimPart);
+				}
+				int records = claimPartDAO.deleteClaimPartsByClaimId(claim.getId());
+				logger.info("b4 insert ClaimParts, "+records+" records deleted for claim: "+claim.getClaimId());
+				claimPartDAO.save(claimPartList);
+			}
+			
+			if(null != claimDO.getClaimLaborDO() && !claimDO.getClaimLaborDO().isEmpty()){
+				List<ClaimLabor> claimLaborList = new ArrayList<>();
+				ClaimLabor claimLabor = null;
+				for(ClaimLaborDO laborDO : claimDO.getClaimLaborDO()){
+					claimLabor = new ClaimLabor();
+					claimLabor.setId(laborDO.getId());
+					claimLabor.setLaborNo(laborDO.getLaborNo());
+					claimLabor.setLaborDescr(laborDO.getLaborDescr());
+					claimLabor.setLaborHrs(laborDO.getLaborHrs());
+					claimLabor.setRate(laborDO.getRate());
+					claimLabor.setClaimId(claim.getId());
+					claimLabor.setAdjLaborHrs(laborDO.getAdjLaborHrs());
+					claimLabor.setAdjRate(laborDO.getAdjRate());
+					
+					claimLaborList.add(claimLabor);
+				}
+				int records = claimLaborDAO.deleteClaimLaborsByClaimId(claim.getId());
+				logger.info("b4 insert ClaimLabors, "+records+" records deleted for claim: "+claim.getClaimId());
+				claimLaborDAO.save(claimLaborList);
 			}
 			
 			
@@ -900,10 +954,10 @@ public class ClaimsServiceImpl implements ClaimsService {
 					laborDO.setClaimId(claimLabor.getClaimId());
 					laborDO.setLaborDescr(claimLabor.getLaborDescr());
 					laborDO.setLaborNo(claimLabor.getLaborNo());
-					laborDO.setLaborHrs(claimLabor.getLaborHrs());
-					laborDO.setRate(claimLabor.getRate());
-					laborDO.setLaborTotal(currencyFormat.format(claimLabor.getLaborHrs() * claimLabor.getRate()));
-					totalLaborCost += (claimLabor.getLaborHrs() * claimLabor.getRate());
+					laborDO.setLaborHrs(claimLabor.getAdjLaborHrs());
+					laborDO.setRate(claimLabor.getAdjRate());
+					laborDO.setLaborTotal(currencyFormat.format(claimLabor.getAdjLaborHrs() * claimLabor.getAdjRate()));
+					totalLaborCost += (claimLabor.getAdjLaborHrs() * claimLabor.getAdjRate());
 					claimLaborDOList.add(laborDO);
 				}
 				claimReportDO.setClaimLaborDOList(claimLaborDOList);
@@ -920,10 +974,10 @@ public class ClaimsServiceImpl implements ClaimsService {
 					partDO.setClaimId(claimPart.getClaimId());
 					partDO.setPartDescr(claimPart.getPartDescr());
 					partDO.setPartNo(claimPart.getPartNo());
-					partDO.setQty(claimPart.getQty());
-					partDO.setUnitPrice(claimPart.getUnitPrice());
-					partDO.setPartTotal(currencyFormat.format((claimPart.getQty() * claimPart.getUnitPrice())));
-					totalPartCost += (claimPart.getQty() * claimPart.getUnitPrice());
+					partDO.setQty(claimPart.getAdjQty());
+					partDO.setUnitPrice(claimPart.getAdjUnitPrice());
+					partDO.setPartTotal(currencyFormat.format((claimPart.getAdjQty() * claimPart.getAdjUnitPrice())));
+					totalPartCost += (claimPart.getAdjQty() * claimPart.getAdjUnitPrice());
 					claimPartDOList.add(partDO);
 				}
 				claimReportDO.setClaimPartDOList(claimPartDOList);
