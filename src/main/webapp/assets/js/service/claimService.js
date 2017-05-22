@@ -192,6 +192,10 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
 				$scope.claim.totalClaimCost = 0;
 				$scope.claim.totalLaborCost = 0;
 				$scope.claim.partsTotalCost = 0;
+				
+				$scope.claim.totalAdjClaimCost = 0;
+				$scope.claim.totalAdjLaborCost = 0;
+				$scope.claim.partsAdjTotalCost = 0;
 				angular.forEach($scope.claim.claimPartVOList, function(claimPartVO, index){
 					calcTotalPartLine($scope.claim, index);
 				});
@@ -202,6 +206,7 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
 				calcTotalPartCost($scope.claim);
 				calcTotalLabourCost($scope.claim);
 				$scope.claim.totalClaimCost = $scope.claim.totalLaborCost + $scope.claim.partsTotalCost + $scope.claim.requestedOtherCharges1 + $scope.claim.requestedOtherCharges2;
+				$scope.claim.totalAdjClaimCost = $scope.claim.totalAdjLaborCost + $scope.claim.partsAdjTotalCost + $scope.claim.approvedOtherCharges1 + $scope.claim.approvedOtherCharges2;
 				calReimburshedCost($scope);
 				hideContractList($scope);
 			}
@@ -230,28 +235,34 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
 		calcTotalPartLine = function(claim, index){
 			//if((claim.claimPartVOList[index].qty >= 0) && (claim.claimPartVOList[index].unitPrice >= 0)){
 				claim.claimPartVOList[index].partsTotal = claim.claimPartVOList[index].qty * claim.claimPartVOList[index].unitPrice;
+				claim.claimPartVOList[index].partsAdjTotal = claim.claimPartVOList[index].adjQty * claim.claimPartVOList[index].adjUnitPrice;
 				calcTotalPartCost(claim);
 			//}
 		},
 		calcTotalPartCost = function(claim){
 			claim.partsTotalCost = 0;
+			claim.PartsAdjTotalCost = 0;
 			angular.forEach(claim.claimPartVOList, function(claimPartVO, index){
 				//if(claimPartVO.partsTotal >= 0){
 					claim.partsTotalCost += claimPartVO.partsTotal;
+					claim.PartsAdjTotalCost += claimPartVO.partsAdjTotal;
 				//}
 			});
 		},
 		calcTotalLabourLine = function(claim, index){
 			//if((claim.claimLabourVOList[index].laborHrs >= 0) && (claim.claimLabourVOList[index].laborHourlyRate >= 0)){
 				claim.claimLabourVOList[index].labourTotal = claim.claimLabourVOList[index].laborHrs * claim.claimLabourVOList[index].laborHourlyRate;
+				claim.claimLabourVOList[index].labourAdjTotal = claim.claimLabourVOList[index].adjLaborHrs * claim.claimLabourVOList[index].adjRate;
 				calcTotalLabourCost(claim);
 			//}
 		},
 		calcTotalLabourCost = function(claim){
 			claim.totalLaborCost = 0;
+			claim.totalAdjLaborCost = 0;
 			angular.forEach(claim.claimLabourVOList, function(claimLabourVO, index){
 				//if(claimLabourVO.labourTotal >= 0){
 					claim.totalLaborCost += claimLabourVO.labourTotal;
+					claim.totalAdjLaborCost += claimLabourVO.labourAdjTotal;
 				//}
 			});
 		},

@@ -248,10 +248,13 @@
                               <thead>
                                 <tr>
                                   <th class="col-sm-2">Part #</th>
-                                  <th class="col-sm-4">Description</th>
+                                  <th class="col-sm-2">Description</th>
                                   <th class="col-sm-1">Quantity</th>
-                                  <th class="col-sm-2">Unit Price</th>
-                                  <th class="t-r col-sm-2">Part Total</th>
+                                  <th class="col-sm-2">Adj Quantity</th>
+                                  <th class="col-sm-1">Unit Price</th>
+                                  <th class="col-sm-2">Adj Unit Price</th>
+                                  <th class="t-r col-sm-1">Part Total</th>
+                                  <th class="t-r col-sm-1">Adj Part Total</th>
                                 </tr>
                               </thead>
                                <tbody data-ng-repeat="claimPartVO in adjustments.parts">
@@ -259,14 +262,10 @@
                                   <td>{{claimPartVO.partNo}}<!-- <input type="text" class="form-control" name="" ng-model="claimPartVO.partNo" ng-readonly=true> --></td>
                                   <td>{{claimPartVO.partDescr}}<!-- <input type="text" class="form-control" name="" ng-model="claimPartVO.partDescr" ng-readonly=true> --></td>
                                   <td>{{claimPartVO.qty}}<!-- <input type="number" class="form-control" name="" ng-model="claimPartVO.qty" required="required" ng-readonly= "true" ng-change="calcOnChange()"> --></td>
-                                  <td>{{claimPartVO.unitPrice | number : 2}}<!-- <input type="number" class="form-control" name="" ng-model="claimPartVO.unitPrice" required="required" ng-readonly= "true" ng-change="calcOnChange()"> --></td>
-                                  <td class="t-r">{{claimPartVO.partsTotal | currency}}</td>
-                                </tr>
-                                <tr>
-                                  <td>{{claimPartVO.partNo}}</td>
-                                  <td>{{claimPartVO.partDescr}}</td>
                                   <td><input type="number" step="0.01" class="form-control" name="" ng-model="claimPartVO.adjQty" required="required" ng-change="calcOnChange()"></td>
+                                  <td>{{claimPartVO.unitPrice | number : 2}}<!-- <input type="number" class="form-control" name="" ng-model="claimPartVO.unitPrice" required="required" ng-readonly= "true" ng-change="calcOnChange()"> --></td>
                                   <td><input type="number" step="0.01" class="form-control" name="" ng-model="claimPartVO.adjUnitPrice" required="required" ng-change="calcOnChange()"></td>
+                                  <td class="t-r">{{claimPartVO.partsTotal | currency}}</td>
                                   <td class="t-r">{{claimPartVO.partsAdjTotal | currency}}</td>
                                 </tr>
                               </tbody>
@@ -297,10 +296,13 @@
                               <thead>
                                 <tr>
                                   <th class="col-sm-2">Labor #</th>
-                                  <th class="col-sm-4">Description</th>
+                                  <th class="col-sm-2">Description</th>
                                   <th class="col-sm-1">Hours</th>
-                                  <th class="col-sm-2">Hourly Rate</th>
-                                  <th class="t-r col-sm-2">Total</th>
+                                  <th class="col-sm-2">Adj Hours</th>
+                                  <th class="col-sm-1">Hourly Rate</th>
+                                  <th class="col-sm-2">Adj Hourly Rate</th>
+                                  <th class="t-r col-sm-1">Total</th>
+                                  <th class="t-r col-sm-1">Adj Total</th>
                                 </tr>
                               </thead>
                               <tbody data-ng-repeat="claimLabourVO in adjustments.labors">
@@ -308,14 +310,10 @@
                                   <td>{{claimLabourVO.laborNo}}<!-- <input type="text" class="form-control" name="" ng-model="claimLabourVO.laborNo" ng-readonly=true> --></td>
                                   <td>{{claimLabourVO.laborDescr}}<!-- <input type="text" class="form-control" name="" ng-model="claimLabourVO.laborDescr" ng-readonly=true> --></td>
                                   <td>{{claimLabourVO.laborHrs}}<!-- <input type="number" class="form-control" name="" ng-model="claimLabourVO.laborHrs" required="required" ng-readonly= "true" ng-change="calcOnChange()"> --></td>
-                                  <td>{{claimLabourVO.rate | number : 2}}<!-- <input type="number" class="form-control" name="" ng-model="claimLabourVO.rate" required="required" ng-readonly= "true" ng-change="calcOnChange()"> --></td>
-                                  <td class="t-r">{{claimLabourVO.laborsTotal | currency}}</td>
-                                </tr>
-                                <tr>
-                                  <td>{{claimLabourVO.laborNo}}</td>
-                                  <td>{{claimLabourVO.laborDescr}}</td>
                                   <td><input type="number" step="0.01" class="form-control" name="" ng-model="claimLabourVO.adjLaborHrs" required="required" ng-change="calcOnChange()"></td>
+                                  <td>{{claimLabourVO.rate | number : 2}}<!-- <input type="number" class="form-control" name="" ng-model="claimLabourVO.rate" required="required" ng-readonly= "true" ng-change="calcOnChange()"> --></td>
                                   <td><input type="number" step="0.01" class="form-control" name="" ng-model="claimLabourVO.adjRate" required="required" ng-change="calcOnChange()"></td>
+                                  <td class="t-r">{{claimLabourVO.laborsTotal | currency}}</td>
                                   <td class="t-r">{{claimLabourVO.laborsAdjTotal | currency}}</td>
                                 </tr>
                               </tbody>

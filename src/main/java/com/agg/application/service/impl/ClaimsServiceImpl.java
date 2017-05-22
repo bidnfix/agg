@@ -773,10 +773,12 @@ public class ClaimsServiceImpl implements ClaimsService {
 			
 			Contracts contracts = contractsDAO.findByContractId(claim.getContractId());
 			if(contracts != null){
-				//contracts.setAvailabeLol(contracts.getAvailabeLol()-claimDO.getTra());
-				contracts.setAvailabeLol(contracts.getAvailabeLol()-totalCheckAmount);
-				contracts.setLastUpdatedDate(new Date());
-				contractsDAO.save(contracts);
+				if(claimDO.getCondValue() == null){
+					//contracts.setAvailabeLol(contracts.getAvailabeLol()-claimDO.getTra());
+					contracts.setAvailabeLol(contracts.getAvailabeLol()-totalCheckAmount);
+					contracts.setLastUpdatedDate(new Date());
+					contractsDAO.save(contracts);
+				}
 			}
 			ClaimNote claimNote = null;
 			logger.debug("claimDO.getComments() "+claimDO.getComments());

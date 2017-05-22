@@ -169,10 +169,13 @@
 						<thead>
 							<tr>
 								<th class="col-sm-2">Part #</th>
-								<th class="col-sm-4">Description</th>
+								<th class="col-sm-2">Description</th>
 								<th class="col-sm-1">Quantity</th>
-								<th class="col-sm-2">Unit Price</th>
+								<th class="col-sm-1">Adj Quantity</th>
+								<th class="col-sm-1">Unit Price</th>
+								<th class="col-sm-1">Adj Unit Price</th>
 								<th class="t-r col-sm-2">Part Total</th>
+								<th class="t-r col-sm-2">Adj Part Total</th>
 							</tr>
 						</thead>
 						<tbody data-ng-repeat="claimPartVO in claim.claimPartVOList">
@@ -180,8 +183,11 @@
 								<td>{{claimPartVO.partNo}}</td>
 								<td>{{claimPartVO.partDescr}}</td>
 								<td>{{claimPartVO.qty}}</td>
+								<td>{{claimPartVO.adjQty}}</td>
 								<td>{{claimPartVO.unitPrice | number : 2}}</td>
+								<td>{{claimPartVO.adjUnitPrice | number : 2}}</td>
 								<td class="t-r">{{claimPartVO.partsTotal | currency}}</td>
+								<td class="t-r">{{claimPartVO.partsAdjTotal | currency}}</td>
 							</tr>
 						</tbody>
 					</table>
@@ -208,10 +214,13 @@
 						<thead>
 							<tr>
 								<th class="col-sm-2">Labor #</th>
-								<th class="col-sm-4">Description</th>
+								<th class="col-sm-2">Description</th>
 								<th class="col-sm-1">Hours</th>
-								<th class="col-sm-2">Hourly Rate</th>
+								<th class="col-sm-1">Adj Hours</th>
+								<th class="col-sm-1">Hourly Rate</th>
+								<th class="col-sm-1">Adj Hourly Rate</th>
 								<th class="t-r col-sm-2">Total</th>
+								<th class="t-r col-sm-2">Adj Total</th>
 							</tr>
 						</thead>
 						<tbody data-ng-repeat="claimLabourVO in claim.claimLabourVOList">
@@ -219,8 +228,11 @@
 								<td>{{claimLabourVO.laborNo}}</td>
 								<td>{{claimLabourVO.laborDescr}}</td>
 								<td>{{claimLabourVO.laborHrs}}</td>
+								<td>{{claimLabourVO.adjLaborHrs}}</td>
 								<td>{{claimLabourVO.laborHourlyRate | number : 2}}</td>
+								<td>{{claimLabourVO.adjRate | number : 2}}</td>
 								<td class="t-r">{{claimLabourVO.labourTotal | currency}}</td>
+								<td class="t-r">{{claimLabourVO.labourAdjTotal | currency}}</td>
 							</tr>
 						</tbody>
 					</table>
