@@ -326,7 +326,7 @@ routingApp.controller('ClaimsAdjudicateController', ['$scope', '$http', 'claimsA
     
     $scope.onClickSubmitClaim = function(){
     	if($scope.click === 3){
-    		if($window.confirm('You are about to pay the dealer claim '+$scope.adjudicateClaim.claimId+', an amount of '+$filter('currency')($scope.adjustments.tra, "$", 0)+'. This action cannot be reversed. Are you sure you want to continue?')) {
+    		if($window.confirm('You are about to pay the dealer claim '+$scope.adjudicateClaim.claimId+', an amount of '+$filter('currency')($scope.adjustments.tra, "$")+'. This action cannot be reversed. Are you sure you want to continue?')) {
     			claimsAdjudicateService.submit($scope);
     		}
     	}else{
