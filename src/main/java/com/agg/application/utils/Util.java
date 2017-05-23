@@ -145,6 +145,9 @@ public class Util {
 			case AggConstants.CLAIM_STATUS_CANCEL:
 				cStatusValue = AggConstants.CLAIM_STATUS_CANCEL_DESC;
 				break;
+			case AggConstants.CLAIM_STATUS_APPROVED_FOR_PAYMENT:
+				cStatusValue = AggConstants.CLAIM_STATUS_APPROVED_FOR_PAYMENT_DESC;
+				break;
 			default:
 				cStatusValue = null;
 		}

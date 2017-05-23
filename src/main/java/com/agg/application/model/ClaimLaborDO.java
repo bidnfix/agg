@@ -17,6 +17,7 @@ public class ClaimLaborDO {
 	private String laborTotal;
 	private double adjLaborHrs;
 	private double adjRate;
+	private String laborAdjTotal;
 	/**
 	 * 
 	 */
@@ -114,5 +115,12 @@ public class ClaimLaborDO {
 	public void setAdjRate(double adjRate) {
 		this.adjRate = adjRate;
 	}
+	public String getLaborAdjTotal() {
+		return laborAdjTotal;
+	}
+	public void setLaborAdjTotal(String laborAdjTotal) {
+		this.laborAdjTotal = laborAdjTotal;
+	}
+	
 	
 }

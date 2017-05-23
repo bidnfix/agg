@@ -956,10 +956,14 @@ public class ClaimsServiceImpl implements ClaimsService {
 					laborDO.setClaimId(claimLabor.getClaimId());
 					laborDO.setLaborDescr(claimLabor.getLaborDescr());
 					laborDO.setLaborNo(claimLabor.getLaborNo());
-					laborDO.setLaborHrs(claimLabor.getAdjLaborHrs());
-					laborDO.setRate(claimLabor.getAdjRate());
-					laborDO.setLaborTotal(currencyFormat.format(claimLabor.getAdjLaborHrs() * claimLabor.getAdjRate()));
-					totalLaborCost += (claimLabor.getAdjLaborHrs() * claimLabor.getAdjRate());
+					laborDO.setLaborHrs(claimLabor.getLaborHrs());
+					laborDO.setRate(claimLabor.getRate());
+					laborDO.setLaborTotal(currencyFormat.format(claimLabor.getLaborHrs() * claimLabor.getRate()));
+					totalLaborCost += (claimLabor.getLaborHrs() * claimLabor.getRate());
+					laborDO.setAdjLaborHrs(claimLabor.getAdjLaborHrs());
+					laborDO.setAdjRate(claimLabor.getAdjRate());
+					laborDO.setLaborAdjTotal(currencyFormat.format(claimLabor.getAdjLaborHrs() * claimLabor.getAdjRate()));
+					
 					claimLaborDOList.add(laborDO);
 				}
 				claimReportDO.setClaimLaborDOList(claimLaborDOList);
@@ -976,10 +980,14 @@ public class ClaimsServiceImpl implements ClaimsService {
 					partDO.setClaimId(claimPart.getClaimId());
 					partDO.setPartDescr(claimPart.getPartDescr());
 					partDO.setPartNo(claimPart.getPartNo());
-					partDO.setQty(claimPart.getAdjQty());
-					partDO.setUnitPrice(claimPart.getAdjUnitPrice());
-					partDO.setPartTotal(currencyFormat.format((claimPart.getAdjQty() * claimPart.getAdjUnitPrice())));
-					totalPartCost += (claimPart.getAdjQty() * claimPart.getAdjUnitPrice());
+					partDO.setQty(claimPart.getQty());
+					partDO.setUnitPrice(claimPart.getUnitPrice());
+					partDO.setPartTotal(currencyFormat.format((claimPart.getQty() * claimPart.getUnitPrice())));
+					totalPartCost += (claimPart.getQty() * claimPart.getUnitPrice());
+					partDO.setAdjQty(claimPart.getAdjQty());
+					partDO.setAdjUnitPrice(claimPart.getAdjUnitPrice());
+					partDO.setPartAdjTotal(currencyFormat.format((claimPart.getAdjQty() * claimPart.getAdjUnitPrice())));
+					
 					claimPartDOList.add(partDO);
 				}
 				claimReportDO.setClaimPartDOList(claimPartDOList);
