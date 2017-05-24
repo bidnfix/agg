@@ -61,6 +61,14 @@ public class ClaimsDO {
 	private List<ClaimNoteDO> claimsNoteList;
 	private String condValue;
 	private List<CheckDO> checkDOList;
+	private String dealersName;
+	private String dealerAddress;
+	private String dealerCity;
+	private String dealerState;
+	private String dealerZip;
+	private String dealerPhone;
+	private String dealerEmail;
+
 	
 	public List<ClaimFileDO> getClaimFileDO() {
 		return claimFileDO;
@@ -491,6 +499,48 @@ public class ClaimsDO {
 	}
 	public void setCheckDOList(List<CheckDO> checkDOList) {
 		this.checkDOList = checkDOList;
+	}
+	public String getDealersName() {
+		return dealersName;
+	}
+	public void setDealersName(String dealersName) {
+		this.dealersName = dealersName;
+	}
+	public String getDealerAddress() {
+		return dealerAddress;
+	}
+	public void setDealerAddress(String dealerAddress) {
+		this.dealerAddress = dealerAddress;
+	}
+	public String getDealerCity() {
+		return dealerCity;
+	}
+	public void setDealerCity(String dealerCity) {
+		this.dealerCity = dealerCity;
+	}
+	public String getDealerState() {
+		return dealerState;
+	}
+	public void setDealerState(String dealerState) {
+		this.dealerState = dealerState;
+	}
+	public String getDealerZip() {
+		return dealerZip;
+	}
+	public void setDealerZip(String dealerZip) {
+		this.dealerZip = dealerZip;
+	}
+	public String getDealerPhone() {
+		return dealerPhone;
+	}
+	public void setDealerPhone(String dealerPhone) {
+		this.dealerPhone = dealerPhone;
+	}
+	public String getDealerEmail() {
+		return dealerEmail;
+	}
+	public void setDealerEmail(String dealerEmail) {
+		this.dealerEmail = dealerEmail;
 	}
 	
 }

@@ -263,6 +263,15 @@ public class ClaimsServiceImpl implements ClaimsService {
 		}
 		claim.setUpdatedBy(accountDO.getId());
 		
+		claim.setDealerName(claimsDO.getDealersName());
+		claim.setDealerAddress(claimsDO.getDealerAddress());
+		claim.setDealerCity(claimsDO.getDealerCity());
+		claim.setDealerState(claimsDO.getDealerState());
+		claim.setDealerZip(claimsDO.getDealerZip());
+		claim.setDealerPhone(claimsDO.getDealerPhone());
+		claim.setDealerEmail(claimsDO.getDealerEmail());
+
+		
 		double totalAdjustedPartsCost = 0.0;
 		double totalAdjustedLaborCost = 0.0;
 		if(null != claimsDO.getClaimPartDO() && !claimsDO.getClaimPartDO().isEmpty()){
@@ -573,6 +582,14 @@ public class ClaimsServiceImpl implements ClaimsService {
 				claimDO.setCreatedDate(claim.getCreatedDate());
 				claimDO.setCheqNo(claim.getCheqNo());
 				claimDO.setPaidDate(claim.getPaidDate());
+				
+				claimDO.setDealersName(claim.getDealerName());
+				claimDO.setDealerAddress(claim.getDealerAddress());
+				claimDO.setDealerCity(claim.getDealerCity());
+				claimDO.setDealerState(claim.getDealerState());
+				claimDO.setDealerZip(claim.getDealerZip());
+				claimDO.setDealerPhone(claim.getDealerPhone());
+				claimDO.setDealerEmail(claim.getDealerEmail());
 				
 				Contracts contract = contractsDAO.findByContractId(claim.getContractId());
 				Quote quote = quoteDAO.findOne((int)contract.getQuoteId());

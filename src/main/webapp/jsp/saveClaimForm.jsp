@@ -58,6 +58,60 @@
 		</div>
 		
 		<div class="col-xs-12 no-pad clearfix">
+ 			<div class="col-md-6 no-pad pad10-right">
+				<span class="ag-tab-title col-xs-12 no-pad marg10-bottom">Dealer
+					Information</span> <br clear="all"> <br>
+				<div class="form-group no-pad col-xs-12">
+					<label>Dealer Name</label> <input type="text"
+						class="form-control" ng-model="claim.dealerName"
+						required="required" ng-readonly="commentUpdateBtnFlag">
+				</div>
+				<div class="form-group col-xs-12 no-pad">
+					<label>City</label> <input type="text" class="form-control"
+						ng-model="claim.dealerCity" required="required" ng-readonly="commentUpdateBtnFlag">
+				</div>
+				<div class="form-group col-xs-12 no-pad">
+					<label>Zip</label> <input type="text" class="form-control"
+						ng-model="claim.dealerZip" required="required" ng-readonly="commentUpdateBtnFlag">
+				</div>
+				<div class="form-group col-xs-12 no-pad">
+					<label>E-mail</label> <input type="text"
+						class="form-control" ng-model="claim.dealerEmail"
+						required="required" ng-readonly="commentUpdateBtnFlag">
+				</div>		
+			</div>
+
+			<div class="col-md-6 no-pad">
+				<span
+					class="ag-tab-title col-xs-12 no-pad marg10-bottom  pad20-left"
+					style="margin-left: -10px !important;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+				<div class="col-xs-12 no-pad pad10-left border-left">
+					<br clear="all">
+
+					<div class="col-xs-12 no-pad">
+						<div class="form-group col-xs-12 no-pad">
+							<label>Address</label>
+							<textarea class="form-control" rows="2"
+								ng-model="claim.dealerAddress" required="required" ng-readonly="commentUpdateBtnFlag"></textarea>
+						</div>
+						<div class="form-group col-xs-12 no-pad">
+							<label>State</label>
+							<input type="text"
+						class="form-control" ng-model="claim.dealerState"
+						required="required" ng-readonly="commentUpdateBtnFlag">
+						</div>
+						<div class="form-group col-xs-12 no-pad">
+							<label>Phone</label>
+							<input type="text"
+						class="form-control" ng-model="claim.dealerPhone"
+						required="required" ng-readonly="commentUpdateBtnFlag">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="col-xs-12 no-pad clearfix">
 			<div class="col-md-6 no-pad pad10-right">
 				<span class="ag-tab-title col-xs-12 no-pad marg10-bottom">Claim
 					Information</span> <br clear="all"> <br>

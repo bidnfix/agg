@@ -195,6 +195,15 @@ public class ClaimsController extends BaseController {
 			logger.debug("claimsVO.getExtComments() "+claimsVO.getExtComments());
 			claimsDO.setComments(claimsVO.getExtComments());
 			
+			claimsDO.setDealersName(claimsVO.getDealerName());
+			claimsDO.setDealerAddress(claimsVO.getDealerAddress());
+			claimsDO.setDealerCity(claimsVO.getDealerCity());
+			claimsDO.setDealerState(claimsVO.getDealerState());
+			claimsDO.setDealerZip(claimsVO.getDealerZip());
+			claimsDO.setDealerPhone(claimsVO.getDealerPhone());
+			claimsDO.setDealerEmail(claimsVO.getDealerEmail());
+
+			
 			if(null != claimsVO.getClaimPartVOList() && !claimsVO.getClaimPartVOList().isEmpty()){
 				List<ClaimPartDO> partDO = new ArrayList<>();
 				for(ClaimPartVO partVO : claimsVO.getClaimPartVOList()){

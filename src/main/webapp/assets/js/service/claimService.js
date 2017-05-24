@@ -110,6 +110,14 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
 						$scope.claim.cheqNo = claim.cheqNo;
 						$scope.claim.paidDate = claim.paidDate;
 						
+						$scope.claim.dealerName = claim.dealersName;
+						$scope.claim.dealerAddress = claim.dealerAddress;
+						$scope.claim.dealerCity = claim.dealerCity;
+						$scope.claim.dealerState = claim.dealerState;
+						$scope.claim.dealerZip = claim.dealerZip;
+						$scope.claim.dealerPhone = claim.dealerPhone;
+						$scope.claim.dealerEmail = claim.dealerEmail;
+						
 						claim.claimLaborDO = (claim.claimLaborDO === null) ? [] : claim.claimLaborDO;
 						commons.renameJsonPropertyNameArray(claim.claimLaborDO, "rate", "laborHourlyRate");
 						$scope.claim.claimLabourVOList = claim.claimLaborDO;
@@ -134,8 +142,24 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
 		},
 		selectContract = function($scope, data){
 			$scope.contractInfoList = data;
+			getDealerAddressDetails($scope, $scope.contractInfoList.contractID);
 			hideContractList($scope);
 			getContractCount($scope, initClaimAddForm);
+		},
+		getDealerAddressDetails = function($scope, contractid){
+			$http.get("/agg/contracts/" + contractid)
+			.then(function(response) {
+				if(response.data.status === 'success'){
+					$scope.contract = response.data.data.contractDO;
+					$scope.claim.dealerName = $scope.contract.quoteDO.dealerDO.name;
+					$scope.claim.dealerAddress = $scope.contract.quoteDO.dealerDO.address1;
+					$scope.claim.dealerCity = $scope.contract.quoteDO.dealerDO.city;
+					$scope.claim.dealerState = $scope.contract.quoteDO.dealerDO.state;
+					$scope.claim.dealerZip = $scope.contract.quoteDO.dealerDO.zip;
+					$scope.claim.dealerPhone = $scope.contract.quoteDO.dealerDO.phone;
+					$scope.claim.dealerEmail = $scope.contract.quoteDO.dealerDO.invoiceEmail;
+				}
+			});	
 		},
 		getContractCount = function($scope, initFunc){
 			$http.get("/agg/claims/count/" + $scope.contractInfoList.contractID)
@@ -950,6 +974,14 @@ routingApp.factory('claimDraftService', ['$http', '$q', '$window', '$timeout', '
 			
 			$scope.claim.cheqNo = claim.cheqNo;
 			$scope.claim.paidDate = claim.paidDate;
+			
+			$scope.claim.dealerName = claim.dealersName;
+			$scope.claim.dealerAddress = claim.dealerAddress;
+			$scope.claim.dealerCity = claim.dealerCity;
+			$scope.claim.dealerState = claim.dealerState;
+			$scope.claim.dealerZip = claim.dealerZip;
+			$scope.claim.dealerPhone = claim.dealerPhone;
+			$scope.claim.dealerEmail = claim.dealerEmail;
 			
 			if(!$scope.claim.claimPartVOList){
 				$scope.claim.claimPartVOList = [];
