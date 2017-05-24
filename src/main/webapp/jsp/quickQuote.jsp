@@ -458,15 +458,15 @@
                      <div class="col-xs-12 border-bottom no-pad">
                        <div class="form-group">
                          <label>Name/Nickname</label>
-                         <input type="text" id="dealerName" name="dealerName" ng-model="quote.dealerName" placeholder="Dealer Name" class="form-control"  validate-on="dirty" required="required" ng-disabled="disabled">
+                         <input type="text" id="dealerName" name="dealerName" ng-model="quote.dealerName" placeholder="Customer Name" class="form-control"  validate-on="dirty" required="required" ng-disabled="disabled">
                        </div>
                        <div class="form-group">
                          <label>Address</label>
-                         <input type="text" id="dealerAddress" name="dealerAddress" ng-model="quote.dealerAddress" placeholder="Dealer Address" class="form-control" validate-on="dirty" ng-required="mandatoryFlag" ng-disabled="disabled">
+                         <input type="text" id="dealerAddress" name="dealerAddress" ng-model="quote.dealerAddress" placeholder="Customer Address" class="form-control" validate-on="dirty" ng-required="mandatoryFlag" ng-disabled="disabled">
                        </div>
                        <div class="form-group">
                          <label>City</label>
-                         <input type="text" id="dealerCity" name="dealerCity" ng-model="quote.dealerCity" placeholder="Dealer City" class="form-control" ng-disabled="disabled">
+                         <input type="text" id="dealerCity" name="dealerCity" ng-model="quote.dealerCity" placeholder="Customer City" class="form-control" ng-disabled="disabled">
                        </div>
                        <div class="form-group">
                          <label>State/Province</label>

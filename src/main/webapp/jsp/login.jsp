@@ -95,7 +95,7 @@
                  	 <form class="form-signin" ng-submit="ctrl.submit()">       
 					      <h3 class="form-signin-heading">Please login</h3>
 					      <p class="err-msg" id="errMsg"></p>
-					      <input type="text" class="form-control" name="username" ng-model="ctrl.user.username" placeholder="Email Address" required="" autofocus="" />
+					      <input type="text" class="form-control" name="username" ng-model="ctrl.user.username" placeholder="User Name" required="" autofocus="" />
 					      <input type="password" class="form-control" name="password" ng-model="ctrl.user.password" placeholder="Password" required=""/>      
 					      <label class="checkbox">
 					        <input type="checkbox" value="remember-me" id="rememberMe" name="rememberMe"> Remember me

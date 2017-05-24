@@ -284,7 +284,8 @@
                               Total Adjusted Parts Cost
                             </div>
                             <div class="col-sm-4 t-r">
-                              <input type="text" class="form-control" style="text-align: right;" ng-model="adjustments.totalAdjustmentPartsCost" required="required" ng-readonly= "{{editFlag}}" ng-change="calcOnChange()">
+                              {{adjustments.totalAdjustmentPartsCost | currency}}
+                              <!-- <input type="text" class="form-control" style="text-align: right;" ng-model="adjustments.totalAdjustmentPartsCost" required="required" ng-readonly= "{{editFlag}}" ng-change="calcOnChange()"> -->
                             </div>  
                             </div>
                               
@@ -332,7 +333,8 @@
                               Total Adjusted Labor Cost
                             </div>
                             <div class="col-sm-4 t-r">
-                            	<input type="text" style="text-align: right;" class="form-control" ng-model="adjustments.totalAdjustmentLaborsCost" required="required" ng-readonly= "{{editFlag}}" ng-change="calcOnChange()">
+                            	{{adjustments.totalAdjustmentLaborsCost | currency}}
+                            	<!-- <input type="text" style="text-align: right;" class="form-control" ng-model="adjustments.totalAdjustmentLaborsCost" required="required" ng-readonly= "{{editFlag}}" ng-change="calcOnChange()"> -->
                             </div>
                             <div class="col-sm-8 no-pad">
                               Total Requested Claim Cost
