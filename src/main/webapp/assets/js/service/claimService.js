@@ -117,6 +117,13 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
 						$scope.claim.dealerZip = claim.dealerZip;
 						$scope.claim.dealerPhone = claim.dealerPhone;
 						$scope.claim.dealerEmail = claim.dealerEmail;
+						$scope.claim.checkDOList = claim.checkDOList;
+						$scope.claim.totalCheckAmount = 0;
+						if($scope.claim.checkDOList != null){
+							angular.forEach($scope.claim.checkDOList, function(checkDO, index){
+								$scope.claim.totalCheckAmount += checkDO.amount;
+							});
+						}
 						
 						claim.claimLaborDO = (claim.claimLaborDO === null) ? [] : claim.claimLaborDO;
 						commons.renameJsonPropertyNameArray(claim.claimLaborDO, "rate", "laborHourlyRate");
@@ -206,14 +213,6 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
 				
 				$scope.claim.cheqNo = $scope.claim.cheqNo;
 				$scope.claim.paidDate = $scope.claim.paidDate;
-				
-				$scope.claim.checkDOList = $scope.claim.checkDOList;
-				$scope.claim.totalCheckAmount = 0;
-				if($scope.claim.checkDOList != null){
-					angular.forEach($scope.claim.checkDOList, function(checkDO, index){
-						$scope.claim.totalCheckAmount += checkDO.amount;
-					});
-				}
 				
 			}else{
 				if($scope.statusFlag === 9){

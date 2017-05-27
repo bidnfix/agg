@@ -186,14 +186,14 @@
 							<label>Corrective Action</label>
 							{{claim.correctiveAction}}
 						</div>
-						<div class="form-group col-xs-12 no-pad">
+						<!-- <div class="form-group col-xs-12 no-pad">
 							<label>Check#</label>
 							{{claim.cheqNo}}
 						</div>
 						<div class="form-group col-xs-12 no-pad">
 							<label>Paid Date</label>
 							{{claim.paidDate |  date:"MM/dd/yyyy"}}
-						</div>
+						</div> -->
 						<div class="form-group col-xs-12 no-pad">
 							<label>Adjusted Other Charge 1 ($) </label>
 							{{claim.approvedOtherCharges1 | number : 2}}
@@ -342,7 +342,7 @@
 					<th class="col-sm-3">Check Amount</th>
 				</tr>
 			</thead>
-			<tbody data-ng-repeat="checkDO in adjustments.checkDOList">
+			<tbody data-ng-repeat="checkDO in claim.checkDOList">
 				<tr>
 					<td>{{checkDO.checkNo}}</td>
 					<td>{{checkDO.receivedDate |  date:"MM/dd/yyyy"}}</td>
@@ -355,7 +355,7 @@
 			<div class="col-sm-6">
 				<div class="col-sm-6 no-pad">Total Check Amount</div>
 				<div class="col-sm-6">
-					{{adjustments.totalCheckAmount | currency}}
+					{{claim.totalCheckAmount | currency}}
 				</div>
 			</div>
 		 </div>
