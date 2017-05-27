@@ -281,7 +281,7 @@ public class ClaimsServiceImpl implements ClaimsService {
 				adjQty = (claimPartDO.getAdjQty() > 0)?claimPartDO.getAdjQty():claimPartDO.getQty();
 				adjUnitPrice = (claimPartDO.getAdjUnitPrice() > 0)?claimPartDO.getAdjUnitPrice():claimPartDO.getUnitPrice();
 				
-				totalAdjustedLaborCost += (adjQty * adjUnitPrice);
+				totalAdjustedPartsCost += (adjQty * adjUnitPrice);
 			}
 		}
 		

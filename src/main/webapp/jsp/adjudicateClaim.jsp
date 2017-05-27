@@ -140,19 +140,19 @@
 									Information</span> <br clear="all"> <br>
 								<div class="form-group no-pad col-xs-12">
 									<label>Dealer Name</label> 
-									<p>{{claim.dealerName}}</p>
+									<p>{{adjudicateClaim.dealerName}}</p>
 								</div>
 								<div class="form-group col-xs-12 no-pad">
 									<label>City</label> 
-									<p>{{claim.dealerCity}}</p>
+									<p>{{adjudicateClaim.dealerCity}}</p>
 								</div>
 								<div class="form-group col-xs-12 no-pad">
 									<label>Zip</label> 
-									<p>{{claim.dealerZip}}</p>
+									<p>{{adjudicateClaim.dealerZip}}</p>
 								</div>
 								<div class="form-group col-xs-12 no-pad">
 									<label>E-mail</label> 
-									<p>{{claim.dealerEmail}}</p>
+									<p>{{adjudicateClaim.dealerEmail}}</p>
 								</div>		
 							</div>
 				
@@ -166,15 +166,15 @@
 									<div class="col-xs-12 no-pad">
 										<div class="form-group col-xs-12 no-pad">
 											<label>Address</label>
-											<p>{{claim.dealerAddress}}</p>
+											<p>{{adjudicateClaim.dealerAddress}}</p>
 										</div>
 										<div class="form-group col-xs-12 no-pad">
 											<label>State</label>
-										<p>{{claim.dealerState}}</p>
+										<p>{{adjudicateClaim.dealerState}}</p>
 										</div>
 										<div class="form-group col-xs-12 no-pad">
 											<label>Phone</label>
-										<p>{{claim.dealerPhone}}</p>
+										<p>{{adjudicateClaim.dealerPhone}}</p>
 										</div>
 									</div>
 								</div>
