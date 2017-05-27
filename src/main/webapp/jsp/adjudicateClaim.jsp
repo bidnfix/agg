@@ -140,7 +140,7 @@
 									Information</span> <br clear="all"> <br>
 								<div class="form-group no-pad col-xs-12">
 									<label>Dealer Name</label> 
-									<p>{{adjudicateClaim.dealerName}}</p>
+									<p>{{adjudicateClaim.dealersName}}</p>
 								</div>
 								<div class="form-group col-xs-12 no-pad">
 									<label>City</label> 
