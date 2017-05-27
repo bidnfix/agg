@@ -149,6 +149,13 @@ routingApp.controller('ClaimsController', ['$scope', 'claimService', '$http', '$
 	$scope.getTheFiles = function ($files) {
     	claimService.collectAttachments($scope, $files);
     };
+    
+    $scope.changeStatus = function(status){
+    	if(status === 4 || status === 5 || status === 6 || status === 10){
+    		claimService.changeStatus($scope, status, $route);
+    	}
+	};
+    
 }]);
 
 routingApp.controller('ClaimsDraftsController', function($scope, $http, claimDraftService, $window){

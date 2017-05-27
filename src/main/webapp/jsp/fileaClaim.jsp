@@ -1,3 +1,5 @@
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div ng-controller="ClaimsController">
 	<!-- Article main content -->
 		<article class="col-md-9 maincontent" ng-show="showSearchClaim">
@@ -80,7 +82,13 @@
 							
 						</div>
                         </div>
-                        <div class="col-md-6 col-sm-12"><a class="btn btn-primary pull-right btn-sm mar-right" ng-click="onClickBackToList()">Back</a></div>
+                        <div class="col-md-6 col-sm-12">
+                        	<a class="btn btn-primary pull-right btn-sm mar-right" ng-click="onClickBackToList()">Back</a>
+                        	<c:if test="${user.roleDO.accountType eq 'admin'}">
+                        		<a ng-if="claim.currStatus === 10 || claim.currStatus === 4" class="btn btn-primary pull-right btn-sm mar-right" ng-click="changeStatus(claim.currStatus)">Change Status to Pending</a>
+                        		<a ng-if="claim.currStatus === 5 || claim.currStatus === 6" class="btn btn-primary pull-right btn-sm mar-right" ng-click="changeStatus(claim.currStatus)">Change Status to Pre-Auth Requested</a>
+                        	</c:if>
+                        </div>
 				</header>
                 
                 

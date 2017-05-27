@@ -207,6 +207,14 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
 				$scope.claim.cheqNo = $scope.claim.cheqNo;
 				$scope.claim.paidDate = $scope.claim.paidDate;
 				
+				$scope.claim.checkDOList = $scope.claim.checkDOList;
+				$scope.claim.totalCheckAmount = 0;
+				if($scope.claim.checkDOList != null){
+					angular.forEach($scope.claim.checkDOList, function(checkDO, index){
+						$scope.claim.totalCheckAmount += checkDO.amount;
+					});
+				}
+				
 			}else{
 				if($scope.statusFlag === 9){
 					$scope.saveClaimShow = true;
@@ -341,7 +349,33 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
 		},
 		collectAttachments = function ($scope, $files) {
 			$scope.attachments = $files || [];
-	    };
+	    },
+	    changeStatus = function($scope, status, $route){
+	    	if(status === 4){
+	    		var amount = ($scope.claim.totalCheckAmount > 0)?$scope.claim.totalCheckAmount:$scope.claim.tra;
+	    		if($window.confirm('You are about to add amount of '+$filter('currency')(amount, "$")+' to Available LOL. This action cannot be reversed. Are you sure you want to continue?')) {
+	    			revertStatus($scope, status, $route);
+	    		}
+	    	}else if(status === 5 || status === 6 || status === 10){
+	    		if($window.confirm('This action cannot be reversed. Are you sure you want to continue?')) {
+	    			revertStatus($scope, status, $route);
+	    		}
+	    	}
+	    },
+	    revertStatus = function($scope, status, $route){
+			showSpinner();
+			$http.get("/agg/changeStatus/"+ $scope.claim.claimId+"/" + status)
+    		.then(function(response) {
+    			if(response.data.status === 'success'){
+    				 //$window.location = '#/agg/fileClaim/' + $scope.claim.claimId;
+    				$route.reload();
+    				hideSpinner();
+    			}else{
+    				alert("Error occured while changing the status");
+    				hideSpinner();
+    			}
+    		});
+		};
 		
 	return {
 		getSerialNumberInfo : function($scope){
@@ -530,7 +564,8 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
 		getPreAuthRequest : getPreAuthRequest,
 		showContractList : showContractList,
 		collectAttachments : collectAttachments,
-		draft : draft
+		draft : draft,
+		changeStatus: changeStatus
 	}
 }]);
 
@@ -878,6 +913,8 @@ routingApp.factory('claimsAdjudicateService', ['$http', '$q', '$window', '$timeo
 			    });
 				if($scope.click === 5){
 					fd.append('condVal', 'Approved for Payment');
+				}else{
+					fd.append('condVal', null);
 				}
 				return $http({
 				        method: 'POST',

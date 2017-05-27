@@ -132,6 +132,18 @@ public class ClaimsController extends BaseController {
 			return new Result("success", null, model);
 		}
 	}
+	
+	@RequestMapping(value = "/changeStatus/{claimId}/{status}", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+	public @ResponseBody Result changeStatus(@PathVariable String claimId, @PathVariable byte status, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		logger.info("Inside changeStatus() with claimId: "+claimId+" and status: "+status);
+		if(!sessionExists(request)){
+			return new Result("failure", "Session Expired", null);
+		}else{
+			boolean updatedStatus = claimsService.changeClaimStatus(claimId, status, getAccountDetails(request));
+			logger.info("updatedStatus: "+updatedStatus);
+			return new Result("success", null, updatedStatus);
+		}
+	}
 
 	@RequestMapping(value = "/saveClaim", method = RequestMethod.POST)
 	public @ResponseBody Result saveClaim(@ModelAttribute("data") Object data,  @RequestParam("files") List<MultipartFile> fileList, BindingResult result,

@@ -1157,6 +1157,74 @@ public class ClaimsServiceImpl implements ClaimsService {
 		}
 		return claimsDOList;
 	}
+
+	@Override
+	@Transactional
+	public boolean changeClaimStatus(String claimId, byte status, AccountDO accountDO) {
+		boolean cond = false;
+		if(accountDO.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)){
+			Claims claim = claimsDAO.findClaimsByClaimId(claimId);
+			if(claim != null){
+				if(status == AggConstants.CLAIM_STATUS_CLOSED){
+					Set<Check> checks = claim.getChecks();
+					Contracts contract = contractsDAO.findByContractId(claim.getContractId());
+					if(checks != null && !checks.isEmpty()){
+						//adding totalChkAmt to availableLOL.
+						double totalChkAmt = 0.0;
+						for(Check check : checks){
+							totalChkAmt += check.getCheckAmount();
+						}
+						if(contract != null){
+							contract.setAvailabeLol(contract.getAvailabeLol()+totalChkAmt);
+							contract.setLastUpdatedDate(new Date());
+							contractsDAO.save(contract);
+						}
+					}else{
+						//adding TRA amount to availableLOL.
+						double totalAdjClaimCost = (claim.getApprovedOtherCharges1() + claim.getApprovedOtherCharges2()
+								+ claim.getTotalAdjustedPartsCost() + claim.getTotalAdjustedLaborCost());
+						double deductible = 0.0;
+						if(contract != null){
+							deductible = contract.getDeductible();
+						}
+						double contractDeductible = totalAdjClaimCost - deductible;
+						if(contractDeductible < 0){
+							contractDeductible = 0;
+						}
+						double deductibleTRA = contract.getAvailabeLol() - contractDeductible;
+						//total Re-imbursed amount
+						double tra = 0;
+						if(deductibleTRA < 0){
+							tra = contract.getAvailabeLol();
+						}else{
+							tra = contractDeductible;
+						}
+						if(contract != null){
+							contract.setAvailabeLol(contract.getAvailabeLol()+tra);
+							contract.setLastUpdatedDate(new Date());
+							contractsDAO.save(contract);
+						}
+					}
+					claim.setcStatus((byte)AggConstants.CLAIM_STATUS_PENDING);
+					claim.setUpdatedBy(accountDO.getId());
+					claim.setLastUpdate(new Date());
+					claimsDAO.save(claim);
+				}else if(status == AggConstants.CLAIM_STATUS_PRE_AUTHORIZED_APPROVED 
+						|| status == AggConstants.CLAIM_STATUS_PRE_AUTHORIZED_REJECTED 
+						|| status == AggConstants.CLAIM_STATUS_CANCEL){
+					if(status == AggConstants.CLAIM_STATUS_PRE_AUTHORIZED_APPROVED || status == AggConstants.CLAIM_STATUS_PRE_AUTHORIZED_REJECTED){
+						claim.setcStatus((byte)AggConstants.CLAIM_STATUS_PRE_AUTHORIZED_REQUESTED);
+					}else if(status == AggConstants.CLAIM_STATUS_CANCEL){
+						claim.setcStatus((byte)AggConstants.CLAIM_STATUS_PENDING);
+					}
+					claim.setUpdatedBy(accountDO.getId());
+					claim.setLastUpdate(new Date());
+					claimsDAO.save(claim);
+				}
+			}
+		}
+		return cond;
+	}
 	
 	
 }

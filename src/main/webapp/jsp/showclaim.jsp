@@ -330,7 +330,38 @@
 			</div>
 		</div>
 		
-		<div class="col-xs-12 no-pad pad10-top" ng-if="claim.claimFileDO">
+		<div class="col-sm-12">
+          <span class="ag-tab-title col-xs-12 no-pad marg10-bottom">Payment Details</span>
+          <br clear="all">
+          <br>
+          <table class="table table-bordered">
+			<thead>
+				<tr>
+					<th class="col-sm-4">Check #</th>
+					<th class="col-sm-4">Paid Date</th>
+					<th class="col-sm-3">Check Amount</th>
+				</tr>
+			</thead>
+			<tbody data-ng-repeat="checkDO in adjustments.checkDOList">
+				<tr>
+					<td>{{checkDO.checkNo}}</td>
+					<td>{{checkDO.receivedDate |  date:"MM/dd/yyyy"}}</td>
+					<td>{{checkDO.amount | currency}}</td>
+				</tr>
+			</tbody>
+		 </table>
+		 <div class="col-sm-12">
+			<div class="col-sm-6"></div>
+			<div class="col-sm-6">
+				<div class="col-sm-6 no-pad">Total Check Amount</div>
+				<div class="col-sm-6">
+					{{adjustments.totalCheckAmount | currency}}
+				</div>
+			</div>
+		 </div>
+       </div>
+		
+	   <div class="col-xs-12 no-pad pad10-top" ng-if="claim.claimFileDO">
 			<span class="ag-tab-title col-xs-12 no-pad marg10-bottom">Uploaded Documents</span>
                    <div class="col-sm-12">
 					<table>
