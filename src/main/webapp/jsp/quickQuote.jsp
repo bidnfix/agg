@@ -544,11 +544,11 @@
                        </div>
                        <div class="form-group">
                          <label>Phone Number</label>
-                         <input type="text" id="dealerPhone" name="dealerPhone" ng-model="quote.dealerPhone" placeholder="Phone Number" class="form-control" validate-on="dirty" ng-required="mandatoryFlag" ng-disabled="disabled">
+                         <input type="text" id="dealerPhone" name="dealerPhone" ng-model="quote.dealerPhone" placeholder="Phone Number" class="form-control" validate-on="dirty" ng-disabled="disabled">
                        </div>
                        <div class="form-group">
                          <label>Email</label>
-                         <input type="text" id="dealerEmail" name="dealerEmail" ng-model="quote.dealerEmail" placeholder="Email" class="form-control" validate-on="dirty" ng-required="mandatoryFlag" ng-disabled="disabled">
+                         <input type="text" id="dealerEmail" name="dealerEmail" ng-model="quote.dealerEmail" placeholder="Email" class="form-control" validate-on="dirty" ng-disabled="disabled">
                        </div>
                        <div class="checkbox">
                          <label>
