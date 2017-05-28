@@ -428,7 +428,7 @@ routingApp.controller('HomeController', function($scope, $http, $timeout, $windo
     	$timeout(function () {
         	$('#quotesTbl').DataTable({
         		"aaSorting": [[ 6, "desc" ]],
-        		"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+        		"lengthMenu": [[-1, 10, 25, 50, 100], ["All", 10, 25, 50, 100]],
         		"bDestroy": true,
         		columnDefs: [{ targets: 6, visible: false },{ width: "12%", targets: 0 }]
         	});
@@ -486,7 +486,7 @@ routingApp.controller('HomeController', function($scope, $http, $timeout, $windo
 	        	$('#quotesInvoiceTbl').DataTable({
 	        		"aaSorting": [[ 7, "desc" ]],
 	        		columnDefs: [{ targets: 7, visible: false }, { width: "12%", targets: 0 }],
-	        		"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]], 
+	        		"lengthMenu": [[-1, 10, 25, 50, 100], ["All", 10, 25, 50, 100]], 
 	        		"bDestroy": true
 	        	});
 	        }, 300);
@@ -515,7 +515,7 @@ routingApp.controller('HomeController', function($scope, $http, $timeout, $windo
 	        	$('#quotesTbl').DataTable({
 	        		"aaSorting": [[ 6, "desc" ]],
 	        		columnDefs: [{ targets: 6, visible: false }, { width: "12%", targets: 0 }],
-	        		"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]], 
+	        		"lengthMenu": [[-1, 10, 25, 50, 100], ["All", 10, 25, 50, 100]], 
 	        		"bDestroy": true
 	        	});
 	        }, 300);
