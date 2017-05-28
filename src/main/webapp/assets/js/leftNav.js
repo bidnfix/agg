@@ -1325,7 +1325,7 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService, $
 				errorMsg += "Please select a customer zip \n";
 			}
 		}
-		if($scope.quote.dealerPhone == null || $scope.quote.dealerPhone == ""){
+		/*if($scope.quote.dealerPhone == null || $scope.quote.dealerPhone == ""){
 			customerInfoFlag = true;
 			if(errorMsg == ""){
 				errorMsg = "Please select a customer phone \n";
@@ -1340,7 +1340,7 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService, $
 			}else{
 				errorMsg += "Please select a customer email \n";
 			}
-		}
+		}*/
 		if(!$scope.coverageInfoForm.custUnderstandCoverage.$valid){
 			if(errorMsg == ""){
 				errorMsg = "Please select a Customer understands coverage \n";
