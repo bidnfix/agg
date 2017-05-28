@@ -2301,6 +2301,20 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 		}
 	}
 	
+	$scope.changePurchaseMandatoryFlg = function(){
+		//changing purchase request mandatory flag
+		$scope.changeMandatoryFlg(4);
+		
+		return $scope.quoteInfoForm.$valid;
+	}
+	
+	$scope.purchaseQuote = function(quoteForm){
+		if(quoteForm.$valid){
+			$scope.quote.status=4;
+			quoteService.updateQuote($scope.quote, $scope);
+		}
+	}
+	
 	$scope.cancelQuote = function(){
 		$window.location.href = '#/agg/quotes';
 	}

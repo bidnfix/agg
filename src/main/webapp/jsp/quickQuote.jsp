@@ -28,17 +28,19 @@
           				</div>
           			</c:otherwise>
           		</c:choose>
-	          	
+          		<div ng-if="!estPriceFlag">
+   					<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="changePurchaseMandatoryFlg() && quoteInfoForm.$valid && purchaseQuote(quoteInfoForm)">Purchase Request</button>
+   				</div>
 	          	<c:if test="${user.roleDO.accountType eq 'admin'}">
-	           	<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="quoteInfoForm.$valid && invoiceQuote(quoteInfoForm)" ng-disabled="purchaseRequested">Invoice</button>
-	           	<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="quoteInfoForm.$valid && createContract(quoteInfoForm)" ng-disabled="invoiced">Create Contract</button>
+		           	<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="quoteInfoForm.$valid && invoiceQuote(quoteInfoForm)" ng-hide="purchaseRequested">Invoice</button>
+		           	<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="quoteInfoForm.$valid && createContract(quoteInfoForm)" ng-hide="invoiced">Create Contract</button>
 	          	</c:if>
           	</div>
-          	<div ng-if="quote.status != 6 && quote.isArchive == 1">
-          		<c:if test="${user.roleDO.accountType eq 'admin'}">
-          			<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="unArchiveQuote()">Un-Archive</button>
-          		</c:if>
-          	</div>
+          	<c:if test="${user.roleDO.accountType eq 'admin'}">
+	          	<div ng-if="quote.status != 6 && quote.isArchive == 1">
+	          		<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="unArchiveQuote()">Un-Archive</button>
+	          	</div>
+          	</c:if>
           	<div>
           		<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="cancelQuote()">Cancel</button>
           	</div>
