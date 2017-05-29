@@ -29,7 +29,7 @@
           			</c:otherwise>
           		</c:choose>
           		<div ng-if="!estPriceFlag">
-   					<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="changePurchaseMandatoryFlg() && quoteInfoForm.$valid && purchaseQuote(quoteInfoForm)">Purchase Request</button>
+   					<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="changePurchaseMandatoryFlg() && quoteInfoForm.$valid && purchaseQuote(quoteInfoForm)">Purchase Now</button>
    				</div>
 	          	<c:if test="${user.roleDO.accountType eq 'admin'}">
 		           	<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="quoteInfoForm.$valid && invoiceQuote(quoteInfoForm)" ng-hide="purchaseRequested">Invoice</button>
