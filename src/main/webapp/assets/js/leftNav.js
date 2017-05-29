@@ -2296,9 +2296,11 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 	
 	$scope.updateQuote = function(quoteForm){
 		//alert(quoteForm.$valid);
-		if(quoteForm.$valid){
-			quoteService.updateQuote($scope.quote, $scope);
-		}
+		$timeout(function () {
+			if(quoteForm.$valid){
+				quoteService.updateQuote($scope.quote, $scope);
+			}
+		}, 10);
 	}
 	
 	$scope.changePurchaseMandatoryFlg = function(){
@@ -2308,11 +2310,20 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 		return $scope.quoteInfoForm.$valid;
 	}
 	
+	$scope.changeEstMandatoryFlg = function(){
+		//changing mandatory flag
+		$scope.changeMandatoryFlg($scope.quote.status);
+		
+		return $scope.quoteInfoForm.$valid;
+	}
+	
 	$scope.purchaseQuote = function(quoteForm){
-		if(quoteForm.$valid){
-			$scope.quote.status=4;
-			quoteService.updateQuote($scope.quote, $scope);
-		}
+		$timeout(function () {
+			if(quoteForm.$valid){
+				$scope.quote.status=4;
+				quoteService.updateQuote($scope.quote, $scope);
+			}
+		}, 10);
 	}
 	
 	$scope.cancelQuote = function(){

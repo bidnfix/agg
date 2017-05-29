@@ -43,7 +43,6 @@ import com.agg.application.entity.Sprogram;
 import com.agg.application.model.AccountDO;
 import com.agg.application.model.CustomerInfoDO;
 import com.agg.application.model.DealerDO;
-import com.agg.application.model.GroupDO;
 import com.agg.application.model.MachineInfoDO;
 import com.agg.application.model.ManufacturerDO;
 import com.agg.application.model.ProgramDO;
@@ -279,10 +278,7 @@ public class ProgramServiceImpl implements ProgramService {
 			
 			//logger.debug("quoteDO.getCondition()  "+quoteDO.getCondition());
 			
-			if(quoteDO.getCondition()==0)
-			{
-				quote.setManfExpired((byte)1);
-			}
+			quote.setManfExpired((quoteDO.getCondition()==0)?(byte)1:(byte)0);
 			quote.setManfEndDate(quoteDO.getCoverageEndDate());
 			//quote.setManfEndKnown((quoteDO.isCoverageEndDateUnknown())?(byte)1:(byte)0);
 			quote.setManfEndKnown((byte)1);

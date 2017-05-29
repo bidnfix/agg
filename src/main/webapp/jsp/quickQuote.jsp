@@ -17,13 +17,13 @@
           		<c:choose>
           			<c:when test="${user.roleDO.accountType eq 'admin'}">
           				<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="editQuote()">Edit</button>
-			          	<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="quoteInfoForm.$valid && updateQuote(quoteInfoForm)">Update</button>
+			          	<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="changeEstMandatoryFlg() && quoteInfoForm.$valid && updateQuote(quoteInfoForm)">Update</button>
 			          	<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="archiveQuote()">Archive</button>
           			</c:when>
           			<c:otherwise>
           				<div ng-hide="estPriceFlag">
           					<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="editQuote()">Edit</button>
-				          	<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="quoteInfoForm.$valid && updateQuote(quoteInfoForm)">Update</button>
+				          	<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="changeEstMandatoryFlg() && quoteInfoForm.$valid && updateQuote(quoteInfoForm)">Update</button>
 				          	<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="archiveQuote()">Archive</button>
           				</div>
           			</c:otherwise>
