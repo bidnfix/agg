@@ -759,7 +759,7 @@ public class ClaimsServiceImpl implements ClaimsService {
 			claim.setLastUpdate(currDate);
 			if(claimDO.getCondValue() != null && claimDO.getCondValue().trim().equalsIgnoreCase(AggConstants.CLAIM_STATUS_APPROVED_FOR_PAYMENT_DESC)){
 				claim.setcStatus((byte)AggConstants.CLAIM_STATUS_APPROVED_FOR_PAYMENT);
-			}else{
+			}else if(claimDO.getCondValue() != null && claimDO.getCondValue().trim().equalsIgnoreCase(AggConstants.CLAIM_STATUS_CLOSED_DESC)){
 				claim.setcStatus((byte)AggConstants.CLAIM_STATUS_CLOSED);
 			}
 			
@@ -828,7 +828,8 @@ public class ClaimsServiceImpl implements ClaimsService {
 			
 			Contracts contracts = contractsDAO.findByContractId(claim.getContractId());
 			if(contracts != null){
-				if(claimDO.getCondValue() == null){
+				if(claimDO.getCondValue() != null && claimDO.getCondValue().trim().equalsIgnoreCase(AggConstants.CLAIM_STATUS_CLOSED_DESC)){
+					logger.debug("totalCheckAmount: "+totalCheckAmount);
 					//contracts.setAvailabeLol(contracts.getAvailabeLol()-claimDO.getTra());
 					contracts.setAvailabeLol(contracts.getAvailabeLol()-totalCheckAmount);
 					contracts.setLastUpdatedDate(new Date());

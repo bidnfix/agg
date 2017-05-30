@@ -913,7 +913,7 @@ routingApp.factory('claimsAdjudicateService', ['$http', '$q', '$window', '$timeo
 				if($scope.click === 5){
 					fd.append('condVal', 'Approved for Payment');
 				}else{
-					fd.append('condVal', null);
+					fd.append('condVal', 'Closed');
 				}
 				return $http({
 				        method: 'POST',
