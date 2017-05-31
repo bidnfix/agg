@@ -74,7 +74,7 @@
 									<b>
 									{{(claim.currStatus > 0)?((claim.currStatus === 1)?"Open":(claim.currStatus === 2)?"Pre-Auth Requested":(claim.currStatus === 3)?"Submitted":
 					                (claim.currStatus === 4)?"Approved":(claim.currStatus === 5)?"Pre-Auth Approved":(claim.currStatus === 6)?"Pre-Auth Rejected":
-					                (claim.currStatus === 7)?"Approved with adjustment":(claim.currStatus === 8)?"Pending":(claim.currStatus === 9)?"Draft":
+					                (claim.currStatus === 7)?"Pre-Auth Approved with Adjustments":(claim.currStatus === 8)?"Pending":(claim.currStatus === 9)?"Draft":
 					                (claim.currStatus === 10)?"Rejected":(claim.currStatus === 11)?"Approved for Payment":""):""}}
 					                </b>
 								</div>

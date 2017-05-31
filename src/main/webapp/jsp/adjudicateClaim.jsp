@@ -63,7 +63,7 @@
 									<b>
 									{{(adjudicateClaim.cStatus > 0)?((adjudicateClaim.cStatus === 1)?"Open":(adjudicateClaim.cStatus === 2)?"Pre-Auth Requested":(adjudicateClaim.cStatus === 3)?"Submitted":
 					                (adjudicateClaim.cStatus === 4)?"Approved":(adjudicateClaim.cStatus === 5)?"Pre-Auth Approved":(adjudicateClaim.cStatus === 6)?"Pre-Auth Rejected":
-					                (adjudicateClaim.cStatus === 7)?"Approved with adjustment":(adjudicateClaim.cStatus === 8)?"Pending":(adjudicateClaim.cStatus === 9)?"Draft":
+					                (adjudicateClaim.cStatus === 7)?"Pre-Auth Approved with Adjustments":(adjudicateClaim.cStatus === 8)?"Pending":(adjudicateClaim.cStatus === 9)?"Draft":
 					                (adjudicateClaim.cStatus === 10)?"Rejected":(adjudicateClaim.cStatus === 11)?"Approved for Payment":""):""}}
 					                </b>
 								</div>

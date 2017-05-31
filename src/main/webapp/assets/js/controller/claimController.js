@@ -262,8 +262,9 @@ routingApp.controller('ClaimsAdjudicateController', ['$scope', '$http', 'claimsA
   	
   	$scope.addCheck = function(){
   		$scope.calcCheckAmtTotal();
-  		var totalAmount = $scope.adjustments.tra - $scope.adjustments.totalCheckAmount;
+  		var totalAmount =  parseFloat(parseFloat($scope.adjustments.tra).toFixed(2)) - parseFloat(parseFloat($scope.adjustments.totalCheckAmount).toFixed(2));
   		if(totalAmount > 0){
+  			totalAmount = parseFloat(parseFloat(totalAmount).toFixed(2));
   			$scope.adjustments.checkDOList.push({receivedDate:new Date(), amount:totalAmount});
   		}
   		$scope.calcCheckAmtTotal();
@@ -333,7 +334,13 @@ routingApp.controller('ClaimsAdjudicateController', ['$scope', '$http', 'claimsA
     
     $scope.onClickSubmitClaim = function(){
     	if($scope.click === 3){
-    		if($window.confirm('You are about to pay the dealer claim '+$scope.adjudicateClaim.claimId+', an amount of '+$filter('currency')($scope.adjustments.tra, "$")+'. This action cannot be reversed. Are you sure you want to continue?')) {
+    		var chkCond = true;
+    		if($scope.adjustments.tra > 0 && $scope.adjustments.checkDOList.length == 0){
+    			chkCond = false;
+    			alert("Please enter check details before approving the claim.");
+    		}
+    		
+    		if(chkCond && $window.confirm('You are about to pay the dealer claim '+$scope.adjudicateClaim.claimId+', an amount of '+$filter('currency')($scope.adjustments.tra, "$")+'. This action cannot be reversed. Are you sure you want to continue?')) {
     			claimsAdjudicateService.submit($scope);
     		}
     	}else{

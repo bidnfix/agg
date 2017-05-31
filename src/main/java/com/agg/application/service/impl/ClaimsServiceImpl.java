@@ -254,8 +254,11 @@ public class ClaimsServiceImpl implements ClaimsService {
 		claim.setcStatus(claimsDO.getcStatus());
 		claim.setRequestedOtherCharges1(claimsDO.getRequestedOtherCharges1());
 		claim.setRequestedOtherCharges2(claimsDO.getRequestedOtherCharges2());
-		claim.setApprovedOtherCharges1((claimsDO.getApprovedOtherCharges1() > 0)?claimsDO.getApprovedOtherCharges1():claimsDO.getRequestedOtherCharges1());
-		claim.setApprovedOtherCharges2((claimsDO.getApprovedOtherCharges2() > 0)?claimsDO.getApprovedOtherCharges2():claimsDO.getRequestedOtherCharges2());
+		//claim.setApprovedOtherCharges1((claimsDO.getApprovedOtherCharges1() > 0)?claimsDO.getApprovedOtherCharges1():claimsDO.getRequestedOtherCharges1());
+		//claim.setApprovedOtherCharges2((claimsDO.getApprovedOtherCharges2() > 0)?claimsDO.getApprovedOtherCharges2():claimsDO.getRequestedOtherCharges2());
+		claim.setApprovedOtherCharges1(claimsDO.getRequestedOtherCharges1());
+		claim.setApprovedOtherCharges2(claimsDO.getRequestedOtherCharges2());
+		
 		claim.setLastUpdate(new Date());
 		if(claimsDO.getId() == 0){
 			claim.setCrtaedBy(accountDO.getId());
@@ -278,27 +281,37 @@ public class ClaimsServiceImpl implements ClaimsService {
 			double adjQty = 0.0;
 			double adjUnitPrice = 0.0;
 			for(ClaimPartDO claimPartDO : claimsDO.getClaimPartDO()){
-				adjQty = (claimPartDO.getAdjQty() > 0)?claimPartDO.getAdjQty():claimPartDO.getQty();
-				adjUnitPrice = (claimPartDO.getAdjUnitPrice() > 0)?claimPartDO.getAdjUnitPrice():claimPartDO.getUnitPrice();
+				//adjQty = (claimPartDO.getAdjQty() > 0)?claimPartDO.getAdjQty():claimPartDO.getQty();
+				//adjUnitPrice = (claimPartDO.getAdjUnitPrice() > 0)?claimPartDO.getAdjUnitPrice():claimPartDO.getUnitPrice();
+				
+				adjQty = claimPartDO.getQty();
+				adjUnitPrice = claimPartDO.getUnitPrice();
 				
 				totalAdjustedPartsCost += (adjQty * adjUnitPrice);
 			}
 		}
 		
-		claim.setTotalAdjustedPartsCost((claimsDO.getTotalAdjustedPartsCost() > 0)?claimsDO.getTotalAdjustedPartsCost():totalAdjustedPartsCost);
+		//claim.setTotalAdjustedPartsCost((claimsDO.getTotalAdjustedPartsCost() > 0)?claimsDO.getTotalAdjustedPartsCost():totalAdjustedPartsCost);
+		
+		claim.setTotalAdjustedPartsCost(totalAdjustedPartsCost);
 		
 		if(null != claimsDO.getClaimLaborDO() && !claimsDO.getClaimLaborDO().isEmpty()){
 			double adjLaborHrs = 0.0;
 			double adjRate = 0.0;
 			for(ClaimLaborDO laborDO : claimsDO.getClaimLaborDO()){
-				adjLaborHrs = (laborDO.getAdjLaborHrs() > 0)?laborDO.getAdjLaborHrs():laborDO.getLaborHrs();
-				adjRate = (laborDO.getAdjRate() > 0)?laborDO.getAdjRate():laborDO.getRate();
+				//adjLaborHrs = (laborDO.getAdjLaborHrs() > 0)?laborDO.getAdjLaborHrs():laborDO.getLaborHrs();
+				//adjRate = (laborDO.getAdjRate() > 0)?laborDO.getAdjRate():laborDO.getRate();
+				
+				adjLaborHrs = laborDO.getLaborHrs();
+				adjRate = laborDO.getRate();
 				
 				totalAdjustedLaborCost += (adjLaborHrs * adjRate);
 			}
 		}
 		
-		claim.setTotalAdjustedLaborCost((claimsDO.getTotalAdjustedLaborCost() > 0)?claimsDO.getTotalAdjustedLaborCost():totalAdjustedLaborCost);
+		//claim.setTotalAdjustedLaborCost((claimsDO.getTotalAdjustedLaborCost() > 0)?claimsDO.getTotalAdjustedLaborCost():totalAdjustedLaborCost);
+		
+		claim.setTotalAdjustedLaborCost(totalAdjustedLaborCost);
 		
 		Claims newClaim = claimsDAO.save(claim);
 		
@@ -315,8 +328,10 @@ public class ClaimsServiceImpl implements ClaimsService {
 				claimPart.setPartDescr(claimPartDO.getPartDescr());
 				claimPart.setQty(claimPartDO.getQty());
 				claimPart.setUnitPrice(claimPartDO.getUnitPrice());
-				adjQty = (claimPartDO.getAdjQty() > 0)?claimPartDO.getAdjQty():claimPartDO.getQty();
-				adjUnitPrice = (claimPartDO.getAdjUnitPrice() > 0)?claimPartDO.getAdjUnitPrice():claimPartDO.getUnitPrice();
+				//adjQty = (claimPartDO.getAdjQty() > 0)?claimPartDO.getAdjQty():claimPartDO.getQty();
+				//adjUnitPrice = (claimPartDO.getAdjUnitPrice() > 0)?claimPartDO.getAdjUnitPrice():claimPartDO.getUnitPrice();
+				adjQty = claimPartDO.getQty();
+				adjUnitPrice = claimPartDO.getUnitPrice();
 				claimPart.setAdjQty(adjQty);
 				claimPart.setAdjUnitPrice(adjUnitPrice);
 				
@@ -340,8 +355,10 @@ public class ClaimsServiceImpl implements ClaimsService {
 				claimLabor.setLaborHrs(laborDO.getLaborHrs());
 				claimLabor.setRate(laborDO.getRate());
 				claimLabor.setClaimId(newClaim.getId());
-				adjLaborHrs = (laborDO.getAdjLaborHrs() > 0)?laborDO.getAdjLaborHrs():laborDO.getLaborHrs();
-				adjRate = (laborDO.getAdjRate() > 0)?laborDO.getAdjRate():laborDO.getRate();
+				//adjLaborHrs = (laborDO.getAdjLaborHrs() > 0)?laborDO.getAdjLaborHrs():laborDO.getLaborHrs();
+				//adjRate = (laborDO.getAdjRate() > 0)?laborDO.getAdjRate():laborDO.getRate();
+				adjLaborHrs = laborDO.getLaborHrs();
+				adjRate = laborDO.getRate();
 				claimLabor.setAdjLaborHrs(adjLaborHrs);
 				claimLabor.setAdjRate(adjRate);
 				
