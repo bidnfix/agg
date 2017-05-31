@@ -109,7 +109,29 @@ public class ClaimReportDO {
 	private String adjOtherCharges1;
 	
 	private String adjOtherCharges2;
-
+	
+	private String dealersName;
+	
+	private String dealerAddress;
+	
+	private String dealerCity;
+	
+	private String dealerState;
+	
+	private String dealerZip;
+	
+	private String dealerPhone;
+	
+	private String dealerEmail;
+	
+	private String receivedDate;
+	
+	private String checkAmount;
+	
+	private List<CheckDO> checkDos;
+	
+	private String totalChequeAmount;
+	
 	public String getDealerName() {
 		return dealerName;
 	}
@@ -532,6 +554,94 @@ public class ClaimReportDO {
 
 	public void setAdjOtherCharges2(String adjOtherCharges2) {
 		this.adjOtherCharges2 = adjOtherCharges2;
+	}
+
+	public String getDealersName() {
+		return dealersName;
+	}
+
+	public void setDealersName(String dealersName) {
+		this.dealersName = dealersName;
+	}
+
+	public String getDealerAddress() {
+		return dealerAddress;
+	}
+
+	public void setDealerAddress(String dealerAddress) {
+		this.dealerAddress = dealerAddress;
+	}
+
+	public String getDealerCity() {
+		return dealerCity;
+	}
+
+	public void setDealerCity(String dealerCity) {
+		this.dealerCity = dealerCity;
+	}
+
+	public String getDealerState() {
+		return dealerState;
+	}
+
+	public void setDealerState(String dealerState) {
+		this.dealerState = dealerState;
+	}
+
+	public String getDealerZip() {
+		return dealerZip;
+	}
+
+	public void setDealerZip(String dealerZip) {
+		this.dealerZip = dealerZip;
+	}
+
+	public String getDealerPhone() {
+		return dealerPhone;
+	}
+
+	public void setDealerPhone(String dealerPhone) {
+		this.dealerPhone = dealerPhone;
+	}
+
+	public String getDealerEmail() {
+		return dealerEmail;
+	}
+
+	public void setDealerEmail(String dealerEmail) {
+		this.dealerEmail = dealerEmail;
+	}
+
+	public String getReceivedDate() {
+		return receivedDate;
+	}
+
+	public void setReceivedDate(String receivedDate) {
+		this.receivedDate = receivedDate;
+	}
+
+	public String getCheckAmount() {
+		return checkAmount;
+	}
+
+	public void setCheckAmount(String checkAmount) {
+		this.checkAmount = checkAmount;
+	}
+
+	public List<CheckDO> getCheckDos() {
+		return checkDos;
+	}
+
+	public void setCheckDos(List<CheckDO> checkDos) {
+		this.checkDos = checkDos;
+	}
+
+	public String getTotalChequeAmount() {
+		return totalChequeAmount;
+	}
+
+	public void setTotalChequeAmount(String totalChequeAmount) {
+		this.totalChequeAmount = totalChequeAmount;
 	}
 	
 }

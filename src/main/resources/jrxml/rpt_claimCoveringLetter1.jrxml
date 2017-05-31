@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rpt_claimCoveringLetter1" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="714f8de9-6928-4b5f-b5e9-6f5794a272df">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="140"/>
+	<parameter name="imagePath" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="claimCheckDos" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<parameter name="totalChequeAmount" class="java.lang.String"/>
+	<field name="claimId" class="java.lang.String"/>
+	<field name="dealerName" class="java.lang.String"/>
+	<field name="dealerAddress" class="java.lang.String"/>
+	<field name="dealerCity" class="java.lang.String"/>
+	<field name="dealerState" class="java.lang.String"/>
+	<field name="dealerZip" class="java.lang.String"/>
+	<field name="dealerPhone" class="java.lang.String"/>
+	<field name="dealerEmail" class="java.lang.String"/>
+	<field name="receivedDate" class="java.lang.String"/>
+	<field name="checkAmount" class="java.lang.String"/>
+	<field name="chequeNo" class="java.lang.String"/>
+	<field name="totalReqPartsCost" class="java.lang.String"/>
+	<field name="totalReqLaborCost" class="java.lang.String"/>
+	<field name="totalAdjPartsCost" class="java.lang.String"/>
+	<field name="totalAdjLaborCost" class="java.lang.String"/>
+	<field name="reqOtherCharges1" class="java.lang.String"/>
+	<field name="reqOtherCharges2" class="java.lang.String"/>
+	<field name="adjOtherCharges1" class="java.lang.String"/>
+	<field name="adjOtherCharges2" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="65" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="382" y="43" width="144" height="20" uuid="8c714366-16f8-48ec-b511-5473802e541c"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{claimId}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="320" y="20" width="157" height="20" uuid="5b7f03a8-010d-40fd-9d88-befa3826eb6b"/>
+				<textElement>
+					<font size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Payment notification ]]></text>
+			</staticText>
+			<image scaleImage="FillFrame">
+				<reportElement x="10" y="0" width="199" height="39" uuid="ecb5375c-24f1-4ea6-b3a4-809f4bff7588"/>
+				<imageExpression><![CDATA[$P{imagePath}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="320" y="43" width="61" height="20" uuid="79a5c8ee-34b5-4d03-8106-15220629d9e8"/>
+				<textElement>
+					<font size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Claim #]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="39" width="131" height="15" uuid="270d2737-4470-4e02-905c-1dd46b85648f"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[21295 Hollingsworth Road]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="50" width="131" height="15" uuid="37b43b00-2a8b-4a4f-990b-fa6ba77e24f9"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Tonganoxie, KS 66086]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="210" splitType="Stretch">
+			<rectangle>
+				<reportElement x="271" y="76" width="255" height="127" uuid="65f27dca-77c6-4a74-9e13-05d10539371b"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="10" y="16" width="234" height="20" uuid="fd90edde-e694-49b0-9f70-10631ac914f5"/>
+				<textElement>
+					<font size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Thank you for your business.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="38" width="234" height="54" uuid="958a2136-a54a-4d8a-8f29-6fceb94ed925"/>
+				<textElement>
+					<font size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Our claims process is designed to be fast and fair.  We hope that we met your expectations.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="93" width="234" height="54" uuid="7a1e1de5-825a-471b-b2c4-cf47c5e45ca7"/>
+				<textElement>
+					<font size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[The details about this claims payment can be found in your claims portal on our website; a summary appears below.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="149" width="234" height="54" uuid="374f32ca-6480-40e1-9dff-ed616ffb8552"/>
+				<textElement>
+					<font size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[The details about this claims payment can be found in your claims portal on our website; a summary appears below.]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="280" y="111" width="220" height="20" uuid="dc2f7547-dbac-4fc1-bf44-f8b2c2a4b12d"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dealerAddress}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="280" y="131" width="54" height="20" uuid="c36b9236-7ff1-4007-949e-8ac3a61bcae5"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dealerCity}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="333" y="131" width="32" height="20" uuid="00a6dc2f-c1de-45b9-8672-9f3adbc48212"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dealerState}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="364" y="131" width="70" height="20" uuid="898f32ea-8ee0-4091-bcab-c89c1693e001"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dealerZip}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="280" y="151" width="68" height="20" uuid="9395179f-c5d3-4427-907e-bd1caeca150d"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dealerPhone}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="348" y="151" width="119" height="20" uuid="1d94c0c4-4d58-4f7b-bebd-0413d7ce82b1"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dealerEmail}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="280" y="91" width="157" height="20" uuid="07ea12ab-4c5b-4981-af78-793b9ae00fb7"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dealerName}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="25" splitType="Stretch">
+			<line>
+				<reportElement x="10" y="17" width="516" height="1" forecolor="#0066FF" backcolor="#FFFFFF" uuid="7e3b81c1-3870-47aa-b25b-a2bff59cb381"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="250" splitType="Stretch">
+			<staticText>
+				<reportElement x="10" y="0" width="148" height="20" uuid="8b33c343-d42a-4938-858e-4054b6112129"/>
+				<textElement>
+					<font isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Summary Of Claim Payment]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="27" width="199" height="21" uuid="00293f50-3fff-4263-b8d9-2cae9615ea45"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Enclosed please find the check Details:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="204" width="135" height="21" uuid="47ab77c4-8d8b-40e6-a7a7-2d05bf302ca0"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Requested Other Charges1:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="155" y="204" width="128" height="21" uuid="8ba9ca63-92c2-48b5-9e83-ca74cfd012e2"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{reqOtherCharges1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="20" y="182" width="135" height="21" uuid="6898e8dc-b3c7-4733-9a50-01c4e5bba2d9"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Requested Labor Total:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="297" y="204" width="125" height="21" uuid="4720fbc3-9e0f-408c-9fad-884cc26735b4"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Adjusted Other Charges1:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="155" y="226" width="128" height="21" uuid="8cd28f80-89d3-4011-b7da-e2422a6e1f66"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{reqOtherCharges2}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="20" y="226" width="135" height="21" uuid="13d2cb0c-7632-46ad-8e5d-9af2cad713ef"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Requested Other Charges2:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="424" y="160" width="148" height="21" uuid="4db8decb-63ef-4f1d-ac8b-581d05988bd1"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalAdjPartsCost}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="20" y="160" width="135" height="21" uuid="e7e310aa-f8e2-4bb2-a31b-e0619483aca9"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Requested Parts Total:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="297" y="226" width="125" height="21" uuid="383adf22-35dc-4f5d-8adc-c5d01633bcac"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Adjusted Other Charges1:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="155" y="182" width="128" height="21" uuid="720074db-bdd1-4e5b-87fa-b9f46f63c4a4"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalReqLaborCost}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="155" y="160" width="128" height="21" uuid="3e0b09ac-4bc0-493c-824b-ed688c1a75d2"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalReqPartsCost}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="424" y="226" width="148" height="21" uuid="9f67fd71-c8e0-4175-9752-08ca0aab6d40"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{adjOtherCharges2}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="424" y="182" width="148" height="21" uuid="c3d5d711-06b7-4438-9d80-c167265507f0"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalAdjLaborCost}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="297" y="160" width="125" height="21" uuid="4c7a831d-1bbb-4952-b75a-c78348aa690d"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Adjusted Parts Total:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="424" y="204" width="148" height="21" uuid="fcc8059f-89d6-4646-86f2-252e785fd544"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{adjOtherCharges1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="297" y="182" width="125" height="21" uuid="33cb5365-03d3-455b-a9f3-495c420d5884"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Adjusted Labor Total:]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="20" y="51" width="550" height="18" uuid="cf9ae029-10bd-44b5-8ba4-f0e9273e70d2"/>
+				<subreportParameter name="totalChequeAmount">
+					<subreportParameterExpression><![CDATA[$P{totalChequeAmount}]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[$P{claimCheckDos}]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "claimCheckDetails.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="85" splitType="Stretch">
+			<staticText>
+				<reportElement x="10" y="1" width="66" height="21" uuid="cbbc6fa9-b610-4e71-b6e9-5a4bfaeb7078"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Comments:      ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="49" y="28" width="521" height="55" uuid="a8046d0a-a22e-42d3-8399-3e2b1a106abb"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[We are adding a new field “Claims Payment Comments” to the Adjudicate a Claim form that will go here instead of the contents of “External Comments”.]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -102,6 +103,9 @@ public class ClaimsController extends BaseController {
 	
 	@Value("${jrxml.folder.path}")
 	private String jrxmlFolderPath;
+	
+	@Value("${file.banner.image.logo.path}")
+	private String reportImageLogoPath;
 
 	@RequestMapping(value = "/editClaim", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
 	public @ResponseBody Result machineModel(ModelMap model, HttpServletRequest request, HttpServletResponse response/*, @PathVariable String claimId*/) {
@@ -862,6 +866,59 @@ public class ClaimsController extends BaseController {
 			modelMap.put("totalAmtOwnedByCustomer", reportDO.getTotalAmtOwnedByCustomer());
 			
 			modelAndView = new ModelAndView("rpt_claimDetails", modelMap);
+		}
+		
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/claim/printClaim/{claimId}", method = RequestMethod.GET, produces="application/pdf;charset=UTF-8")
+	public ModelAndView printClaimDetailsReport(@PathVariable String claimId, ModelAndView modelAndView, HttpServletRequest request, 
+			HttpServletResponse response, ModelMap modelMap) throws Exception{
+		logger.debug("In printClaimDetailsReport with claimId: "+claimId);
+		if (!sessionExists(request)){
+			modelAndView = new ModelAndView("login");
+		}else{
+			StringBuffer url = request.getRequestURL();
+			String uri = request.getRequestURI();
+			String appUrl = url.substring(0, url.length() - uri.length());
+			logger.info("appUrl: "+appUrl);
+			
+			AccountDO account = getAccountDetails(request);
+			ClaimReportDO reportDO = claimsService.getClaimReportDetails(claimId, account);
+			JRDataSource jrDataSource = null;
+			JRDataSource claimChequeSubReportDataSource = null;
+			if(reportDO != null){
+				List<ClaimReportDO> reportDOList = new ArrayList<ClaimReportDO>();
+				reportDOList.add(reportDO);
+				jrDataSource = new JRBeanCollectionDataSource(reportDOList);
+				
+				if (CollectionUtils.isNotEmpty(reportDO.getCheckDos())) {
+					claimChequeSubReportDataSource = new JRBeanCollectionDataSource(reportDO.getCheckDos());
+				} else {
+					claimChequeSubReportDataSource = new JREmptyDataSource();
+				}
+				
+			}else{
+				jrDataSource = new JREmptyDataSource();
+				claimChequeSubReportDataSource = new JREmptyDataSource();
+			}
+			
+			modelMap.put("datasource", jrDataSource);
+			modelMap.put("claimCheckDos", claimChequeSubReportDataSource);
+			modelMap.put("format", "pdf");
+			modelMap.put("SUBREPORT_DIR", System.getProperty("user.dir")+jrxmlFolderPath);
+			modelMap.put("imagePath", System.getProperty("user.dir")+reportImageLogoPath);
+			modelMap.put("totalReqPartsCost", reportDO.getTotalReqPartsCost());
+			modelMap.put("totalAdjPartsCost", reportDO.getTotalAdjPartsCost());
+			modelMap.put("totalReqLaborCost", reportDO.getTotalReqLaborCost());
+			modelMap.put("totalAdjLaborCost", reportDO.getTotalAdjLaborCost());
+			modelMap.put("totalReqClaimCost", reportDO.getTotalReqClaimCost());
+			modelMap.put("totalAdjClaimCost", reportDO.getTotalAdjClaimCost());
+			modelMap.put("totalReimbursedAmount", reportDO.getTotalReimbursedAmount());
+			modelMap.put("totalAmtOwnedByCustomer", reportDO.getTotalAmtOwnedByCustomer());
+			modelMap.put("totalChequeAmount", reportDO.getTotalChequeAmount());
+			
+			modelAndView = new ModelAndView("rpt_claimCoveringLetter1", modelMap);
 		}
 		
 		return modelAndView;

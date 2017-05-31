@@ -83,7 +83,8 @@
 						</div>
                         </div>
                         <div class="col-md-6 col-sm-12">
-                        	<a class="btn btn-primary pull-right btn-sm mar-right" ng-click="onClickBackToList()">Back</a>
+                        	<a class="btn btn-primary pull-right btn-sm mar-right" ng-click="onClickBackToList()">Back</a>                       
+	                       	<a ng-if="claim.currStatus === 4"  target="_blank" class="btn btn-primary pull-right btn-sm mar-right" href="/agg/claim/printClaim/{{claim.claimId}}">PrintPaymentLetter</a>
                         	<c:if test="${user.roleDO.accountType eq 'admin'}">
                         		<a ng-if="claim.currStatus === 10 || claim.currStatus === 4" class="btn btn-primary pull-right btn-sm mar-right" ng-click="changeStatus(claim.currStatus)">Change Status to Pending</a>
                         		<a ng-if="claim.currStatus === 5 || claim.currStatus === 6" class="btn btn-primary pull-right btn-sm mar-right" ng-click="changeStatus(claim.currStatus)">Change Status to Pre-Auth Requested</a>

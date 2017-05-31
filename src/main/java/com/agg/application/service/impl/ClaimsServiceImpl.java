@@ -12,11 +12,13 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import com.agg.application.dao.AccountDAO;
 import com.agg.application.dao.CheckDAO;
@@ -954,7 +956,46 @@ public class ClaimsServiceImpl implements ClaimsService {
 				claimReportDO.setPhone(dealer.getPhone());
 				claimReportDO.setState(dealer.getState());
 				claimReportDO.setZip(dealer.getZip());
+				
+				claimReportDO.setDealersName(dealer.getName());
+				claimReportDO.setDealerAddress(dealer.getAddress());
+				claimReportDO.setDealerCity(dealer.getCity());
+				claimReportDO.setDealerState(dealer.getState());
+				claimReportDO.setDealerZip(dealer.getZip());
+				claimReportDO.setDealerPhone(dealer.getPhone());
+				claimReportDO.setDealerEmail(dealer.getInvoiceEmail());
 			}
+			
+			if (!StringUtils.isEmpty(claim.getDealerName()) && !StringUtils.isEmpty(claim.getDealerAddress()) && 
+										!StringUtils.isEmpty(claim.getDealerCity()) && !StringUtils.isEmpty(claim.getDealerState()) && 
+										!StringUtils.isEmpty(claim.getDealerZip())) {
+				claimReportDO.setDealersName(claim.getDealerName());
+				claimReportDO.setDealerAddress(claim.getDealerAddress());
+				claimReportDO.setDealerCity(claim.getDealerCity());
+				claimReportDO.setDealerState(claim.getDealerState());
+				claimReportDO.setDealerZip(claim.getDealerZip());
+				claimReportDO.setDealerPhone(claim.getDealerPhone());
+				claimReportDO.setDealerEmail(claim.getDealerEmail());
+			}
+			
+			Set<Check> checks = claim.getChecks();
+			CheckDO checkDo = null;
+			double totalChequeAmount = 0;
+			List<CheckDO> checkDos = Lists.newArrayList(); 
+			if (CollectionUtils.isNotEmpty(checks)) {
+				for (Check check : checks) {
+					checkDo = new CheckDO();
+					checkDo.setId(check.getId());
+					checkDo.setCheckNo(check.getCheckNo());
+					checkDo.setAmount(check.getCheckAmount());
+					totalChequeAmount += check.getCheckAmount();
+					checkDo.setReceivedDate(check.getReceivedDate());
+					checkDos.add(checkDo);
+				}
+			}
+			
+			claimReportDO.setCheckDos(checkDos);
+			claimReportDO.setTotalChequeAmount(currencyFormat.format(totalChequeAmount));
 			
 			Account account = accountDAO.findOne(claim.getCrtaedBy());
 			if(account != null){
