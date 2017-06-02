@@ -980,6 +980,9 @@ public class QuoteServiceImpl implements QuoteService {
 			
 			String dealerMarkupType = quote.getDealerMarkupType();
 			double coveragePrice = quote.getCoveragePrice();
+			if(adminAdjustment != null && adminAdjustment.getBasePrice() > 0){
+				coveragePrice = adminAdjustment.getBasePrice();
+			}
 			double dealerMarkupPrice = 0.0;
 			if(dealerMarkupType != null && !dealerMarkupType.isEmpty()){
 				if(dealerMarkupType.equalsIgnoreCase("price")){
