@@ -90,11 +90,11 @@
 							<p>{{claim.dealerAddress}}</p>
 						</div>
 						<div class="form-group col-xs-12 no-pad">
-							<label>State</label>
+							<label>State/Province</label>
 						<p>{{claim.dealerState}}</p>
 						</div>
 						<div class="form-group col-xs-12 no-pad">
-							<label>Phone</label>
+							<label>Phone Number</label>
 						<p>{{claim.dealerPhone}}</p>
 						</div>
 					</div>

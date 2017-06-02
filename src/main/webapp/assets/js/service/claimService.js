@@ -149,24 +149,35 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
 		},
 		selectContract = function($scope, data){
 			$scope.contractInfoList = data;
-			getDealerAddressDetails($scope, $scope.contractInfoList.contractID);
+			if ($scope.contractInfoList.dealerDo != null) {
+				$scope.claim.dealerName = $scope.contractInfoList.dealerDo.name;
+				$scope.claim.dealerAddress = $scope.contractInfoList.dealerDo.address1 +", " + $scope.contractInfoList.dealerDo.address2;
+				$scope.claim.dealerCity = $scope.contractInfoList.dealerDo.city;
+				$scope.claim.dealerState = $scope.contractInfoList.dealerDo.state;
+				$scope.claim.dealerZip = $scope.contractInfoList.dealerDo.zip;
+				$scope.claim.dealerPhone = $scope.contractInfoList.dealerDo.phone;
+				$scope.claim.dealerEmail = $scope.contractInfoList.dealerDo.invoiceEmail;
+			} else {
+				getDealerAddressDetails($scope, $scope.contractInfoList.contractID);
+			}
+			
 			hideContractList($scope);
 			getContractCount($scope, initClaimAddForm);
 		},
-		getDealerAddressDetails = function($scope, contractid){
-			$http.get("/agg/contracts/" + contractid)
-			.then(function(response) {
-				if(response.data.status === 'success'){
-					$scope.contract = response.data.data.contractDO;
-					$scope.claim.dealerName = $scope.contract.quoteDO.dealerDO.name;
-					$scope.claim.dealerAddress = $scope.contract.quoteDO.dealerDO.address1;
-					$scope.claim.dealerCity = $scope.contract.quoteDO.dealerDO.city;
-					$scope.claim.dealerState = $scope.contract.quoteDO.dealerDO.state;
-					$scope.claim.dealerZip = $scope.contract.quoteDO.dealerDO.zip;
-					$scope.claim.dealerPhone = $scope.contract.quoteDO.dealerDO.phone;
-					$scope.claim.dealerEmail = $scope.contract.quoteDO.dealerDO.invoiceEmail;
-				}
-			});	
+		getDealerAddressDetails = function($scope, contractId){
+				$http.get("/agg/contracts/" + contractId)
+				.then(function(response) {
+					if (response.data.status === 'success') {
+						$scope.contract = response.data.data.contractDO;
+						$scope.claim.dealerName = $scope.contract.quoteDO.dealerDO.name;
+						$scope.claim.dealerAddress = $scope.contract.quoteDO.dealerDO.address1;
+						$scope.claim.dealerCity = $scope.contract.quoteDO.dealerDO.city;
+						$scope.claim.dealerState = $scope.contract.quoteDO.dealerDO.state;
+						$scope.claim.dealerZip = $scope.contract.quoteDO.dealerDO.zip;
+						$scope.claim.dealerPhone = $scope.contract.quoteDO.dealerDO.phone;
+						$scope.claim.dealerEmail = $scope.contract.quoteDO.dealerDO.invoiceEmail;
+					}
+				});	
 		},
 		getContractCount = function($scope, initFunc){
 			$http.get("/agg/claims/count/" + $scope.contractInfoList.contractID)
@@ -213,6 +224,16 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
 				
 				$scope.claim.cheqNo = $scope.claim.cheqNo;
 				$scope.claim.paidDate = $scope.claim.paidDate;
+				
+				if ($scope.contractInfoList.dealerDo != null) {
+					$scope.claim.dealerName = $scope.contractInfoList.dealerDo.name;
+					$scope.claim.dealerAddress = $scope.contractInfoList.dealerDo.address1 +", " + $scope.contractInfoList.dealerDo.address2;
+					$scope.claim.dealerCity = $scope.contractInfoList.dealerDo.city;
+					$scope.claim.dealerState = $scope.contractInfoList.dealerDo.state;
+					$scope.claim.dealerZip = $scope.contractInfoList.dealerDo.zip;
+					$scope.claim.dealerPhone = $scope.contractInfoList.dealerDo.phone;
+					$scope.claim.dealerEmail = $scope.contractInfoList.dealerDo.invoiceEmail;
+				}
 				
 			}else{
 				if($scope.statusFlag === 9){

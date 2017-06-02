@@ -29,8 +29,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.agg.application.model.AccountDO;
 import com.agg.application.model.ContractDO;
 import com.agg.application.model.ContractReportDO;
+import com.agg.application.model.DealerDO;
 import com.agg.application.model.Result;
 import com.agg.application.service.ContractsService;
 import com.agg.application.service.DealerService;
@@ -145,8 +147,11 @@ public class ContractsController extends BaseController{
 			result = new Result("failure", "Invalid Login", null);
 		}else{
 			if(Util.isNotEmptyString(term)){
+				AccountDO accountDo = getAccountDetails(request);
+				long dealerId = accountDo.getDealerId();
+				DealerDO dealerDo = dealerService.getDealer(dealerId); 
 				List<ContractDO> responseDO = contractService.getAllContractsByMachineSerialNo(term);
-				List<Map<String, Object>> contractDOList = formatGetContracts(responseDO);
+				List<Map<String, Object>> contractDOList = formatGetContracts(responseDO, dealerDo);
 				result = new Result("success", "", model.addAttribute("contractDOList",contractDOList));
 			}else{
 				result = new Result("failure", "invalid search term", null);
@@ -161,8 +166,11 @@ public class ContractsController extends BaseController{
 		if (!sessionExists(request)){
 			result = new Result("failure", "Invalid Login", null);
 		}else{
-			List<ContractDO> responseDO = contractService.getActiveContractDetails(getAccountDetails(request));
-			List<Map<String, Object>> contractDOList = formatGetContracts(responseDO);
+			AccountDO accountDo = getAccountDetails(request);
+			long dealerId = accountDo.getDealerId();
+			DealerDO dealerDo = dealerService.getDealer(dealerId);  
+			List<ContractDO> responseDO = contractService.getActiveContractDetails(accountDo);
+			List<Map<String, Object>> contractDOList = formatGetContracts(responseDO, dealerDo);
 			result = new Result("success", "", model.addAttribute("contractDOList",contractDOList));
 		}
 		return result;
@@ -220,7 +228,7 @@ public class ContractsController extends BaseController{
 		return modelAndView;
 	}
 	
-	private List<Map<String, Object>> formatGetContracts(final List<ContractDO> contractsList){
+	private List<Map<String, Object>> formatGetContracts(final List<ContractDO> contractsList, DealerDO dealerDo){
 		List<Map<String, Object>> responseList = new ArrayList<>();
 		for(ContractDO item : contractsList){
 			Map<String, Object> itemMap = new HashMap<>();
@@ -235,6 +243,8 @@ public class ContractsController extends BaseController{
 			itemMap.put("availableLol", item.getAvailabeLol());
 			itemMap.put("deductible", item.getDeductible());
 			itemMap.put("lastUpdatedDate", item.getLastUpdatedDate());
+			itemMap.put("dealerDo", dealerDo);
+			
 			responseList.add(itemMap);
 		}
 		return responseList;
