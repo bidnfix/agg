@@ -12,6 +12,10 @@ public class CheckDO {
 	
 	private double amount;
 	
+	private String checkAmount;
+	
+	private String checkRecievedDate;
+	
 	public String getCheckNo() {
 		return checkNo;
 	}
@@ -42,6 +46,22 @@ public class CheckDO {
 
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	public String getCheckAmount() {
+		return checkAmount;
+	}
+
+	public void setCheckAmount(String checkAmount) {
+		this.checkAmount = checkAmount;
+	}
+
+	public String getCheckRecievedDate() {
+		return checkRecievedDate;
+	}
+
+	public void setCheckRecievedDate(String checkRecievedDate) {
+		this.checkRecievedDate = checkRecievedDate;
 	}
 	
 }

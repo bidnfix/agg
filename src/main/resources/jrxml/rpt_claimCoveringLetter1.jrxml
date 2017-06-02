@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rpt_claimCoveringLetter1" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="714f8de9-6928-4b5f-b5e9-6f5794a272df">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="140"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="imagePath" class="java.lang.String"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
@@ -48,7 +48,7 @@
 				<text><![CDATA[Payment notification ]]></text>
 			</staticText>
 			<image scaleImage="FillFrame">
-				<reportElement x="10" y="0" width="199" height="39" uuid="ecb5375c-24f1-4ea6-b3a4-809f4bff7588"/>
+				<reportElement x="10" y="0" width="150" height="36" uuid="ecb5375c-24f1-4ea6-b3a4-809f4bff7588"/>
 				<imageExpression><![CDATA[$P{imagePath}]]></imageExpression>
 			</image>
 			<staticText>
@@ -59,7 +59,7 @@
 				<text><![CDATA[Claim #]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="10" y="39" width="131" height="15" uuid="270d2737-4470-4e02-905c-1dd46b85648f"/>
+				<reportElement x="10" y="36" width="131" height="15" uuid="270d2737-4470-4e02-905c-1dd46b85648f"/>
 				<textElement>
 					<font size="10" isBold="false"/>
 				</textElement>
@@ -122,14 +122,14 @@
 				<textFieldExpression><![CDATA[$F{dealerCity}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="333" y="131" width="32" height="20" uuid="00a6dc2f-c1de-45b9-8672-9f3adbc48212"/>
+				<reportElement x="340" y="131" width="32" height="20" uuid="00a6dc2f-c1de-45b9-8672-9f3adbc48212"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{dealerState}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="364" y="131" width="70" height="20" uuid="898f32ea-8ee0-4091-bcab-c89c1693e001"/>
+				<reportElement x="371" y="131" width="70" height="20" uuid="898f32ea-8ee0-4091-bcab-c89c1693e001"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
@@ -156,6 +156,13 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{dealerName}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="334" y="131" width="7" height="20" uuid="0064decb-c2e4-47fb-b889-498b905c36cc"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[,]]></text>
+			</staticText>
 		</band>
 	</pageHeader>
 	<columnHeader>
@@ -294,7 +301,7 @@
 				<text><![CDATA[Adjusted Labor Total:]]></text>
 			</staticText>
 			<subreport>
-				<reportElement x="20" y="51" width="550" height="18" uuid="cf9ae029-10bd-44b5-8ba4-f0e9273e70d2"/>
+				<reportElement x="10" y="51" width="560" height="18" uuid="cf9ae029-10bd-44b5-8ba4-f0e9273e70d2"/>
 				<subreportParameter name="totalChequeAmount">
 					<subreportParameterExpression><![CDATA[$P{totalChequeAmount}]]></subreportParameterExpression>
 				</subreportParameter>

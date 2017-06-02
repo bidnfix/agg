@@ -988,8 +988,10 @@ public class ClaimsServiceImpl implements ClaimsService {
 					checkDo.setId(check.getId());
 					checkDo.setCheckNo(check.getCheckNo());
 					checkDo.setAmount(check.getCheckAmount());
+					checkDo.setCheckAmount(currencyFormat.format(check.getCheckAmount()));
 					totalChequeAmount += check.getCheckAmount();
 					checkDo.setReceivedDate(check.getReceivedDate());
+					checkDo.setCheckRecievedDate(check.getReceivedDate() != null ? reportDateFormat.format(check.getReceivedDate()) : "");
 					checkDos.add(checkDo);
 				}
 			}

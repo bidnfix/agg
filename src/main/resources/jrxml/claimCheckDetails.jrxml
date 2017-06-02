@@ -7,6 +7,8 @@
 	<field name="checkNo" class="java.lang.String"/>
 	<field name="receivedDate" class="java.lang.String"/>
 	<field name="amount" class="java.lang.String"/>
+	<field name="checkAmount" class="java.lang.String"/>
+	<field name="checkRecievedDate" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -19,7 +21,7 @@
 	<columnHeader>
 		<band height="22" splitType="Stretch">
 			<staticText>
-				<reportElement x="17" y="1" width="100" height="20" uuid="6b3c688d-1fcd-47aa-b7a4-109b9f4332f6"/>
+				<reportElement x="2" y="1" width="100" height="20" uuid="6b3c688d-1fcd-47aa-b7a4-109b9f4332f6"/>
 				<text><![CDATA[Cheque No]]></text>
 			</staticText>
 			<staticText>
@@ -27,7 +29,7 @@
 				<text><![CDATA[Recieved Date]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="438" y="1" width="132" height="20" uuid="803fb1d9-42e8-4476-8f3a-2d8f621c32ac"/>
+				<reportElement x="432" y="1" width="134" height="20" uuid="803fb1d9-42e8-4476-8f3a-2d8f621c32ac"/>
 				<textElement textAlignment="Right"/>
 				<text><![CDATA[Cheque Amount]]></text>
 			</staticText>
@@ -36,25 +38,25 @@
 	<detail>
 		<band height="21" splitType="Stretch">
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="17" y="0" width="125" height="21" uuid="736b4bd3-f8d9-4e67-8f22-f5de5d1cbac6"/>
+				<reportElement x="2" y="0" width="125" height="21" uuid="736b4bd3-f8d9-4e67-8f22-f5de5d1cbac6"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{checkNo}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="227" y="0" width="113" height="21" uuid="d1b52580-77b5-4ec6-90d1-93a13a507f41"/>
+				<reportElement x="227" y="0" width="122" height="21" uuid="d1b52580-77b5-4ec6-90d1-93a13a507f41"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{receivedDate}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{checkRecievedDate}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="438" y="0" width="132" height="21" uuid="62eef3e7-1dfd-4534-b76c-53b387c8db2f"/>
+				<reportElement x="432" y="0" width="134" height="21" uuid="62eef3e7-1dfd-4534-b76c-53b387c8db2f"/>
 				<textElement textAlignment="Right">
 					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{amount}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{checkAmount}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -67,14 +69,14 @@
 	<summary>
 		<band height="21" splitType="Stretch">
 			<staticText>
-				<reportElement x="260" y="0" width="178" height="20" uuid="cc6f7ce9-83b9-4a3f-8e89-74be903144f6"/>
+				<reportElement x="254" y="0" width="178" height="20" uuid="cc6f7ce9-83b9-4a3f-8e89-74be903144f6"/>
 				<textElement textAlignment="Right">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Total Cheque Amount:	]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="438" y="0" width="132" height="20" uuid="077aa6f5-fa4e-4422-b870-705fd62f4a3b"/>
+				<reportElement x="432" y="0" width="134" height="20" uuid="077aa6f5-fa4e-4422-b870-705fd62f4a3b"/>
 				<textElement textAlignment="Right">
 					<font isBold="true"/>
 				</textElement>
