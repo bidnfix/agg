@@ -281,6 +281,46 @@ public class QuoteDO {
 		this.statusDesc = statusDesc;
 		this.status = status;
 		this.createDate = createDate;
+		
+	}
+	
+	/**
+	 * @param id
+	 * @param quoteId
+	 * @param dealerName
+	 * @param custName
+	 * @param machineModel
+	 * @param machineSaleDate
+	 * @param status
+	 * @param createDate
+	 * @param lastUpdate
+	 * @param isArchive
+	 */
+	public QuoteDO(int id, String quoteId, String dealerName, String custName, String machineModel, Date machineSaleDate, byte status, Date createDate, Date lastUpdate, short isArchive){
+		this.id = id;
+		this.quoteId = quoteId;
+		this.dealerName = dealerName;
+		this.dealerCustName = custName;
+		this.machineModel = machineModel;
+		this.machineSaleDate = machineSaleDate;
+		
+		String statusDesc = "";
+		if(isArchive == AggConstants.B_QUOTE_STATUS_ACRHIVE){
+			statusDesc = AggConstants.QUOTE_STATUS_ACRHIVE;
+		}else if(status == AggConstants.B_QUOTE_STATUS_ESTIMATING_PRICE){
+			statusDesc = AggConstants.QUOTE_STATUS_ESTIMATING_PRICE;
+		}else if(status == AggConstants.B_QUOTE_STATUS_PURCHASE_REQUESTED){
+			statusDesc = AggConstants.QUOTE_STATUS_PURCHASE_REQUESTED;
+		}else if(status == AggConstants.B_QUOTE_STATUS_INVOICED){
+			statusDesc = AggConstants.QUOTE_STATUS_INVOICED;
+		}else if(status == AggConstants.B_QUOTE_STATUS_CLOSED){
+			statusDesc = AggConstants.QUOTE_STATUS_CLOSED;
+		}
+		
+		this.statusDesc = statusDesc;
+		this.status = status;
+		this.createDate = createDate;
+		this.lastUpdate = lastUpdate;
 	}
 	
 	/**
