@@ -18,7 +18,7 @@ routingApp.controller('ClaimsController', ['$scope', 'claimService', '$http', '$
 		}else{
 			claimService.draft($scope, $routeParams.claimId, $rootScope.userType === 'admin' ? true : false);
 		}*/
-		console.log($rootScope.draftClaimsFlag);
+		//console.log($rootScope.draftClaimsFlag);
 		claimService.draft($scope, $routeParams.claimId, $rootScope.draftClaimsFlag);
 		
 	}else{

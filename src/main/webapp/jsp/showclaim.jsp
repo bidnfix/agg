@@ -119,8 +119,8 @@
 					{{contractInfoList.machineModel}}
 				</div>
 				<div class="form-group col-xs-12 no-pad">
-					<label>Coverage Type</label> 
-					{{contractInfoList.coverageType}}
+					<label>Coverage Type</label>
+					{{(contractInfoList.coverageType === 'PT')?"Powertrain":(contractInfoList.coverageType === 'PH')?"Powertrain + Hydraulic":(contractInfoList.coverageType === 'PL')?"Powertrain + Hydraulic + Platform":""}} 
 				</div>
 				<div class="form-group col-xs-12 no-pad">
 					<label>Failure Date</label>

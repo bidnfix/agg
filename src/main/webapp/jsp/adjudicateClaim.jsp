@@ -196,11 +196,11 @@
                           <div class="form-group">
                             <label>Model Number</label>
                             <input type="text" class="form-control" ng-model="contractInfoList.machineModel" ng-readonly=true>
-                          </div>
+                          </div>-->
                           <div class="form-group">
                             <label>Coverage Type</label>
-                            <input type="text" class="form-control" ng-model="contractInfoList.coverageType" ng-readonly=true>
-                          </div> -->
+                            {{(adjudicateClaim.coverageType === 'PT')?"Powertrain":(adjudicateClaim.coverageType === 'PH')?"Powertrain + Hydraulic":(adjudicateClaim.coverageType === 'PL')?"Powertrain + Hydraulic + Platform":""}}
+                          </div> 
                           <div class="form-group col-xs-12 no-pad">
                             <label>Failure Date</label>
                             <div class="input-group">

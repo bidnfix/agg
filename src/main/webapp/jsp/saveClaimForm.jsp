@@ -196,9 +196,11 @@
 						ng-model="contractInfoList.machineModel" ng-readonly=true>
 				</div>
 				<div class="form-group col-xs-12 no-pad">
-					<label>Coverage Type</label> <input type="text"
+					<label>Coverage Type</label> 
+					<!-- <input type="text"
 						class="form-control" ng-model="contractInfoList.coverageType"
-						ng-readonly=true>
+						ng-readonly=true> -->
+					{{(contractInfoList.coverageType === 'PT')?"Powertrain":(contractInfoList.coverageType === 'PH')?"Powertrain + Hydraulic":(contractInfoList.coverageType === 'PL')?"Powertrain + Hydraulic + Platform":""}}
 				</div>
 				<div class="form-group col-xs-12 no-pad">
 					<label>Failure Date</label>
@@ -484,7 +486,7 @@
 		<button type="submit" class="btn btn-primary" ng-click="reqAuth()"
 			ng-show="isSubmitDisabled">Request Preauthorization</button>
 		<button type="submit" class="btn btn-primary"
-			ng-disabled="isSubmitDisabled" ng-click="reqSubmit()">
+			ng-hide="isSubmitDisabled" ng-click="reqSubmit()">
 			Submit Claim</button>
 	</div>
 	<div class="col-sm-12 no-pad t-c marg10-top marg10-bottom" ng-show="updateBtnFlag">

@@ -7,14 +7,9 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.thymeleaf.context.Context;
 
 import com.agg.application.model.AccountDO;
-import com.agg.application.model.ClaimMailDO;
-import com.agg.application.model.RoleDO;
-import com.agg.application.model.UserDO;
 import com.agg.application.service.UserService;
 
 /**

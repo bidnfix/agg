@@ -34,6 +34,10 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
 					if(response.data.data.claim){
 						//console.log(JSON.stringify(response.data.data.claim));
 						var cStatus = response.data.data.claim.cStatus;
+						//added on Jun 3 2017, for draft claims.
+						if(cStatus == 9){
+							adminFlag = true;
+						}
 						//commented on Jan 3, 2017
 						//$scope.adminFlag = adminFlag;
 						$scope.adminFlag = !adminFlag; //new added line on Jan 3, 2017

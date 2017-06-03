@@ -3,21 +3,17 @@
  */
 package com.agg.application.utils;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.thymeleaf.context.Context;
 
 import com.agg.application.controller.ClaimsController;
-import com.agg.application.entity.Claims;
-import com.agg.application.model.AccountDO;
-import com.agg.application.model.ClaimMailDO;
 import com.agg.application.model.ClaimsDO;
-import com.agg.application.model.RoleDO;
-import com.agg.application.model.UserDO;
 import com.agg.application.service.ClaimsService;
 import com.agg.application.service.UserService;
 
@@ -102,15 +98,18 @@ public class PreAuthMail implements Runnable{
 			toEmailList.add(claimsDO.getDealerDO().getInvoiceEmail());
 		}
 		
+		Locale locale = new Locale("en", "US");
+		NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
+		
 		context.setVariable("claimNo", claimsDO.getClaimId());
 		context.setVariable("contractNo", claimsDO.getContractId());
-		context.setVariable("totalLaborCost", laborsCost);
-		context.setVariable("totalPartsCost", partsCost);
-		context.setVariable("totalOtherCost", otherCost);
-		context.setVariable("totalClaimCost", (partsCost + laborsCost + otherCost));
-		context.setVariable("deductible", claimsDO.getContractDO().getDeductible());
-		context.setVariable("lol", claimsDO.getContractDO().getLol());
-		context.setVariable("availableLol", claimsDO.getContractDO().getAvailabeLol());
+		context.setVariable("totalLaborCost", currencyFormat.format(laborsCost));
+		context.setVariable("totalPartsCost", currencyFormat.format(partsCost));
+		context.setVariable("totalOtherCost", currencyFormat.format(otherCost));
+		context.setVariable("totalClaimCost", currencyFormat.format((partsCost + laborsCost + otherCost)));
+		context.setVariable("deductible", currencyFormat.format(claimsDO.getContractDO().getDeductible()));
+		context.setVariable("lol", currencyFormat.format(claimsDO.getContractDO().getLol()));
+		context.setVariable("availableLol", currencyFormat.format(claimsDO.getContractDO().getAvailabeLol()));
 		context.setVariable("externalComments", claimsDO.getClaimsNoteList());
 		
 		String statusDesc = "";

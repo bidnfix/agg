@@ -2,9 +2,11 @@ package com.agg.application.controller;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -286,18 +288,20 @@ public class ClaimsController extends BaseController {
 				logger.info("appUrl: "+appUrl);
 				
 				List<ClaimNoteDO> claimNoteDOList = claimsService.getClaimNotes(claim.getId());
+				Locale locale = new Locale("en", "US");
+				NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
 				
 				Context context = new Context();
 				context.setVariable("claimNo", claimsDO.getClaimId());
 				context.setVariable("dealerName", dealerFirstName);
 				context.setVariable("contractNo", claimsDO.getContractId());
-				context.setVariable("totalLaborCost", laborsCost);
-				context.setVariable("totalPartsCost", partsCost);
-				context.setVariable("totalOtherCost", otherCost);
-				context.setVariable("totalClaimCost", (partsCost + laborsCost + otherCost));
-				context.setVariable("deductible", claimsVO.getDeductible());
-				context.setVariable("lol", claimsVO.getLol());
-				context.setVariable("availableLol", claimsVO.getAvailabeLol());
+				context.setVariable("totalLaborCost", currencyFormat.format(laborsCost));
+				context.setVariable("totalPartsCost", currencyFormat.format(partsCost));
+				context.setVariable("totalOtherCost", currencyFormat.format(otherCost));
+				context.setVariable("totalClaimCost", currencyFormat.format((partsCost + laborsCost + otherCost)));
+				context.setVariable("deductible", currencyFormat.format(claimsVO.getDeductible()));
+				context.setVariable("lol", currencyFormat.format(claimsVO.getLol()));
+				context.setVariable("availableLol", currencyFormat.format(claimsVO.getAvailabeLol()));
 				context.setVariable("externalComments", claimNoteDOList);
 				context.setVariable("appUrl", appUrl);
 				mail.setContext(context);
