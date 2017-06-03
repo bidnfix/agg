@@ -45,6 +45,10 @@
 							<p>{{contractInfoList.machineModel}}</p>
 						</div>
 						<div class="form-group col-xs-12 no-pad">
+							<label>Coverage Type</label>
+							<p>{{(contractInfoList.coverageType === 'PT')?"Powertrain":(contractInfoList.coverageType === 'PH')?"Powertrain + Hydraulic":(contractInfoList.coverageType === 'PL')?"Powertrain + Hydraulic + Platform":""}}</p>
+						</div>
+						<div class="form-group col-xs-12 no-pad">
 							<label>Usage Hours covered</label>
 							<p>{{contractInfoList.usageHoursCovered}}</p>
 						</div>
@@ -195,13 +199,10 @@
 					<label>Model Number</label> <input type="text" class="form-control"
 						ng-model="contractInfoList.machineModel" ng-readonly=true>
 				</div>
-				<div class="form-group col-xs-12 no-pad">
+				<!-- <div class="form-group col-xs-12 no-pad">
 					<label>Coverage Type</label> 
-					<!-- <input type="text"
-						class="form-control" ng-model="contractInfoList.coverageType"
-						ng-readonly=true> -->
 					{{(contractInfoList.coverageType === 'PT')?"Powertrain":(contractInfoList.coverageType === 'PH')?"Powertrain + Hydraulic":(contractInfoList.coverageType === 'PL')?"Powertrain + Hydraulic + Platform":""}}
-				</div>
+				</div> -->
 				<div class="form-group col-xs-12 no-pad">
 					<label>Failure Date</label>
 					<div class="input-group">

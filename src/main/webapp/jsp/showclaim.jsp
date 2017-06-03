@@ -43,6 +43,10 @@
 							<p>{{contractInfoList.machineModel}}</p>
 						</div>
 						<div class="form-group col-xs-12 no-pad">
+							<label>Coverage Type</label>
+							<p>{{(contractInfoList.coverageType === 'PT')?"Powertrain":(contractInfoList.coverageType === 'PH')?"Powertrain + Hydraulic":(contractInfoList.coverageType === 'PL')?"Powertrain + Hydraulic + Platform":""}}</p> 
+						</div>
+						<div class="form-group col-xs-12 no-pad">
 							<label>Usage Hours covered</label>
 							<p>{{contractInfoList.usageHoursCovered}}</p>
 						</div>
@@ -118,10 +122,10 @@
 					<label>Model Number</label> 
 					{{contractInfoList.machineModel}}
 				</div>
-				<div class="form-group col-xs-12 no-pad">
+				<!-- <div class="form-group col-xs-12 no-pad">
 					<label>Coverage Type</label>
 					{{(contractInfoList.coverageType === 'PT')?"Powertrain":(contractInfoList.coverageType === 'PH')?"Powertrain + Hydraulic":(contractInfoList.coverageType === 'PL')?"Powertrain + Hydraulic + Platform":""}} 
-				</div>
+				</div> -->
 				<div class="form-group col-xs-12 no-pad">
 					<label>Failure Date</label>
 					{{claim.failDate | date:'yyyy-MM-dd'}}
