@@ -121,6 +121,6 @@ public interface ClaimsDAO extends CrudRepository<Claims, Integer> {
 	@Query("SELECT COUNT(*) FROM Claims c WHERE c.cStatus = :cStatus and c.dealerId > 0")
 	long findClaimsCountByStatus(@Param("cStatus") byte cStatus);
 	
-	@Query(value="select work_order from Claim_Report_v", nativeQuery=true)
+	@Query(value="select * from Claim_Report_v", nativeQuery=true)
 	List<Object[]> findAllClaimsForReport();
 }
