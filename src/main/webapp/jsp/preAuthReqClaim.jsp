@@ -63,8 +63,8 @@
 									<b>
 									{{(preAuthClaim.cStatus > 0)?((preAuthClaim.cStatus === 1)?"Open":(preAuthClaim.cStatus === 2)?"Pre-Auth Requested":(preAuthClaim.cStatus === 3)?"Submitted":
 					                (preAuthClaim.cStatus === 4)?"Approved":(preAuthClaim.cStatus === 5)?"Pre-Auth Approved":(preAuthClaim.cStatus === 6)?"Pre-Auth Rejected":
-					                (preAuthClaim.cStatus === 7)?"Approved with adjustment":(preAuthClaim.cStatus === 8)?"Pending":(preAuthClaim.cStatus === 9)?"Draft":
-					                (preAuthClaim.cStatus === 10)?"Rejected":""):""}}
+					                (preAuthClaim.cStatus === 7)?"Pre-Auth Approved with Adjustments":(preAuthClaim.cStatus === 8)?"Pending":(preAuthClaim.cStatus === 9)?"Draft":
+					                (preAuthClaim.cStatus === 10)?"Rejected":(preAuthClaim.cStatus === 11)?"Approved for Payment":""):""}}
 					                </b>
 								</div>
 							</div>
@@ -75,9 +75,8 @@
                 
                 
 				 <!-- data table section -->
-                
+                <form name="newClaimForm" ng-submit="onClickSubmitClaim()">
                 <div class="inner-main">
-                     <form name="newClaimForm" ng-submit="onClickSubmitClaim()">   
                       <div class="col-xs-12 agf1 main-login pad10-top">
                       	<div id="claimErrMsg" class="alert alert-danger text-center hidden"></div>
                       	<div class="col-xs-12 no-pad clearfix">
@@ -100,6 +99,10 @@
 									<label>Deductible</label>
 									<p>{{preAuthClaim.contractDO.deductible | currency:"$":0}}</p>
 								</div>
+								<div class="form-group col-xs-12 no-pad">
+		                            <label>Coverage Type</label>
+		                            <p>{{(preAuthClaim.coverageType === 'PT')?"Powertrain":(preAuthClaim.coverageType === 'PH')?"Powertrain + Hydraulic":(preAuthClaim.coverageType === 'PL')?"Powertrain + Hydraulic + Platform":""}}</p>
+		                        </div>
 							</div>
 					
 							<div class="col-md-6 no-pad">
@@ -134,6 +137,52 @@
 								</div>
 							</div>
 						</div>
+						<div class="col-xs-12 no-pad clearfix">
+				 			<div class="col-md-6 no-pad pad10-right">
+								<span class="ag-tab-title col-xs-12 no-pad marg10-bottom">Dealer
+									Information</span> <br clear="all"> <br>
+								<div class="form-group no-pad col-xs-12">
+									<label>Dealer Name</label> 
+									<p>{{preAuthClaim.dealersName}}</p>
+								</div>
+								<div class="form-group col-xs-12 no-pad">
+									<label>City</label> 
+									<p>{{preAuthClaim.dealerCity}}</p>
+								</div>
+								<div class="form-group col-xs-12 no-pad">
+									<label>Zip</label> 
+									<p>{{preAuthClaim.dealerZip}}</p>
+								</div>
+								<div class="form-group col-xs-12 no-pad">
+									<label>E-mail</label> 
+									<p>{{preAuthClaim.dealerEmail}}</p>
+								</div>		
+							</div>
+				
+							<div class="col-md-6 no-pad">
+								<span
+									class="ag-tab-title col-xs-12 no-pad marg10-bottom  pad20-left"
+									style="margin-left: -10px !important;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+								<div class="col-xs-12 no-pad pad10-left border-left">
+									<br clear="all">
+				
+									<div class="col-xs-12 no-pad">
+										<div class="form-group col-xs-12 no-pad">
+											<label>Address</label>
+											<p>{{preAuthClaim.dealerAddress}}</p>
+										</div>
+										<div class="form-group col-xs-12 no-pad">
+											<label>State</label>
+										<p>{{preAuthClaim.dealerState}}</p>
+										</div>
+										<div class="form-group col-xs-12 no-pad">
+											<label>Phone</label>
+										<p>{{preAuthClaim.dealerPhone}}</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
                         <div class="col-xs-12 no-pad clearfix">
                         <div class="col-md-6 no-pad pad10-right">
                          <span class="ag-tab-title col-xs-12 no-pad marg10-bottom">Claim Information</span>
@@ -154,11 +203,11 @@
                             <!-- <input type="text" class="form-control" ng-model="preAuthClaim.machineModel" ng-readonly=true> -->
                             {{preAuthClaim.machineModel}}
                           </div>
-                          <div class="form-group col-xs-12 no-pad">
+                          <!-- <div class="form-group col-xs-12 no-pad">
                             <label>Coverage Type</label>
-                            <!-- <input type="text" class="form-control" ng-model="preAuthClaim.coverageType" ng-readonly=true> -->
+                            <input type="text" class="form-control" ng-model="preAuthClaim.coverageType" ng-readonly=true>
                             {{preAuthClaim.coverageType}}
-                          </div>
+                          </div> -->
                           <div class="form-group col-xs-12 no-pad">
                             <label>Failure Date</label>
                             <!-- <div class="input-group">

@@ -94,7 +94,10 @@ public class PreAuthMail implements Runnable{
 		if(toEmailList == null){
 			toEmailList = new ArrayList<String>();
 		}
-		if(claimsDO.getDealerDO() != null && claimsDO.getDealerDO().getInvoiceEmail() != null && !claimsDO.getDealerDO().getInvoiceEmail().isEmpty()){
+			
+		if(claimsDO.getDealerEmail() != null && !claimsDO.getDealerEmail().isEmpty()){
+			toEmailList.add(claimsDO.getDealerEmail());
+		}else if(claimsDO.getDealerDO() != null && claimsDO.getDealerDO().getInvoiceEmail() != null && !claimsDO.getDealerDO().getInvoiceEmail().isEmpty()){
 			toEmailList.add(claimsDO.getDealerDO().getInvoiceEmail());
 		}
 		
