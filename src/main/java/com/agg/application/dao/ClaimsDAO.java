@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.agg.application.entity.ClaimReport;
 import com.agg.application.entity.Claims;
 import com.agg.application.model.ClaimsDO;
 
@@ -119,4 +120,7 @@ public interface ClaimsDAO extends CrudRepository<Claims, Integer> {
 	
 	@Query("SELECT COUNT(*) FROM Claims c WHERE c.cStatus = :cStatus and c.dealerId > 0")
 	long findClaimsCountByStatus(@Param("cStatus") byte cStatus);
+	
+	@Query(value="select work_order from Claim_Report_v", nativeQuery=true)
+	List<Object[]> findAllClaimsForReport();
 }

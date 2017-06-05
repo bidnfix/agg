@@ -11,9 +11,12 @@ import java.sql.Timestamp;
  * 
  */
 @Entity
-@NamedQuery(name="Claim_Report_v.findAll", query="SELECT c FROM Claim_Report_v c")
+//@NamedQuery(name="Claim_Report_v.findAll", query="SELECT c FROM Claim_Report_v c")
 public class ClaimReport implements Serializable {
 	private static final long serialVersionUID = 1L;
+	
+	@Id
+	private Integer id;
 
 	@Column(name="approved_other_charges1")
 	private double approvedOtherCharges1;

@@ -235,6 +235,10 @@ routingApp.config(['$routeProvider',
                     	  templateUrl: '../../jsp/viewContract.jsp',
                     	  controller: 'ContractViewDetailController'
                       }).
+                      when('/agg/claimReport', {
+                    	  templateUrl: '../../jsp/home.jsp',
+                    	  controller: 'GenerateClaimReportController'
+                      }).
                       otherwise({
                     	  redirectTo: '/agg/home'
                       });
@@ -975,6 +979,13 @@ routingApp.controller('ProgramAsDealerController', function($scope, programServi
 
 routingApp.controller('AddDealerController', function($scope, $http) {
 	 $http.get("/agg/dealerRoleInfo")
+	    .then(function(response) {
+	        $scope.roleList = response.data.data;
+	    });
+});
+
+routingApp.controller('GenerateClaimReportController', function($scope, $http) {
+	 $http.get("/agg/generateClaimReport")
 	    .then(function(response) {
 	        $scope.roleList = response.data.data;
 	    });
@@ -1933,6 +1944,8 @@ routingApp.controller('RejectedClaimsController', function($scope, $http, $timeo
        hideSpinner();
     });
 })*/
+	
+	
 
 
 routingApp.controller('QuoteDetailController', function($scope, $http, $timeout, $routeParams, $route, $window, quoteService) {
@@ -2629,6 +2642,8 @@ routingApp.controller('ContractDetailController', function($scope, $http, $timeo
 	        }
 	      };
 	   });
+
+
 
 routingApp.controller('ContractViewDetailController', function($scope, $http, $timeout, $window, $routeParams, contractService) {
 	$http.get("/agg/contractInfo/"+$routeParams.contractId+"/"+$routeParams.contractCode)

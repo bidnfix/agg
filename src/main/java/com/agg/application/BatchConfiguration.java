@@ -18,8 +18,9 @@ import com.agg.application.utils.StringHeaderWriter;
 @Configuration
 @EnableBatchProcessing
 public class BatchConfiguration {
+	
 	@Bean	
-    ItemWriter<ClaimReportExcelDO> databaseCsvItemWriter() {
+    public ItemWriter<ClaimReportExcelDO> databaseCsvItemWriter() {
         FlatFileItemWriter<ClaimReportExcelDO> csvFileWriter = new FlatFileItemWriter<>();
  
         String exportFileHeader = "Claim_Number;contract_id;Dealer_Name";
@@ -35,7 +36,7 @@ public class BatchConfiguration {
         return csvFileWriter;
     }
  
-    private LineAggregator<ClaimReportExcelDO> createStudentLineAggregator() {
+    public LineAggregator<ClaimReportExcelDO> createStudentLineAggregator() {
         DelimitedLineAggregator<ClaimReportExcelDO> lineAggregator = new DelimitedLineAggregator<>();
         lineAggregator.setDelimiter(";");
  
@@ -45,7 +46,7 @@ public class BatchConfiguration {
         return lineAggregator;
     }
  
-    private FieldExtractor<ClaimReportExcelDO> createStudentFieldExtractor() {
+    public FieldExtractor<ClaimReportExcelDO> createStudentFieldExtractor() {
         BeanWrapperFieldExtractor<ClaimReportExcelDO> extractor = new BeanWrapperFieldExtractor<>();
         extractor.setNames(new String[] {"claimNumber", "contractId", "dealerName"});
         return extractor;
