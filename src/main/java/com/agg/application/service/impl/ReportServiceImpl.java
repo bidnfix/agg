@@ -1,8 +1,12 @@
 package com.agg.application.service.impl;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
-import java.util.Set;
 
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
@@ -27,6 +31,7 @@ public class ReportServiceImpl implements ReportService {
 		
 		XSSFWorkbook workbook = null;
 		XSSFSheet sheet = null;
+		int rowNum = 0;
 		
 		List<Object[]> claimReport = claimsDAO.findAllClaimsForReport();
 		logger.debug(" claimReport "+claimReport.size());
@@ -36,7 +41,39 @@ public class ReportServiceImpl implements ReportService {
 			workbook = new XSSFWorkbook();
 			sheet = workbook.createSheet("Claim Report");
 			
+			for(Object[] datatype : claimReport)
+			{
+				Row row = sheet.createRow(rowNum++);
+				int colNum = 0;
+				
+				for(Object field : datatype)
+				{
+					Cell cell = row.createCell(colNum++);
+					if(field instanceof String)
+					{
+						cell.setCellValue((String) field);
+					}
+					if(field instanceof Integer)
+					{
+						cell.setCellValue((Integer) field);
+					}
+				}
+				
+			}
 			
+			
+		}
+		
+		try{
+			FileOutputStream outputStream = new FileOutputStream("D:/Myfile.xlsx");
+			workbook.write(outputStream);
+			workbook.close();
+		}catch(FileNotFoundException e)
+		{
+			e.printStackTrace();
+		}catch(IOException e)
+		{
+			e.printStackTrace();
 		}
 		
 		
