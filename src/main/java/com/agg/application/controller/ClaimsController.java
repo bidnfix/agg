@@ -255,7 +255,7 @@ public class ClaimsController extends BaseController {
 			}
 			List<ClaimFileDO> claimFileDO = new ArrayList<>();
 			for(MultipartFile uploadedFile : fileList) {
-				String fName = String.format("%s_%s", System.currentTimeMillis(), uploadedFile.getOriginalFilename());
+				String fName = String.format("%s_%s", System.currentTimeMillis(), uploadedFile.getOriginalFilename().replaceAll("#", ""));
 				ClaimFileDO fileDO = new ClaimFileDO();
 	            File file = new File(String.format("%s%s%s", uploadingdir, File.separator, fName));
 	            try {
@@ -396,7 +396,7 @@ public class ClaimsController extends BaseController {
 			}
 			List<ClaimFileDO> claimFileDO = new ArrayList<>();
 			for(MultipartFile uploadedFile : fileList) {
-				String fName = String.format("%s_%s", System.currentTimeMillis(), uploadedFile.getOriginalFilename());
+				String fName = String.format("%s_%s", System.currentTimeMillis(), uploadedFile.getOriginalFilename().replaceAll("#", ""));
 				ClaimFileDO fileDO = new ClaimFileDO();
 	            File file = new File(String.format("%s%s%s", uploadingdir, File.separator, fName));
 	            try {
@@ -655,7 +655,7 @@ public class ClaimsController extends BaseController {
 			
 			List<ClaimFileDO> claimFileDO = new ArrayList<>();
 			for(MultipartFile uploadedFile : fileList) {
-				String fName = String.format("%s_%s", System.currentTimeMillis(), uploadedFile.getOriginalFilename());
+				String fName = String.format("%s_%s", System.currentTimeMillis(), uploadedFile.getOriginalFilename().replaceAll("#", ""));
 				ClaimFileDO fileDO = new ClaimFileDO();
 	            File file = new File(String.format("%s%s%s", uploadingdir, File.separator, fName));
 	            try {
