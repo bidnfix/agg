@@ -139,7 +139,7 @@
 						</div>
 						<div class="col-xs-12 no-pad clearfix">
 				 			<div class="col-md-6 no-pad pad10-right">
-								<span class="ag-tab-title col-xs-12 no-pad marg10-bottom">Dealer
+								<span class="ag-tab-title col-xs-12 no-pad marg10-bottom">Servicing Dealer
 									Information</span> <br clear="all"> <br>
 								<div class="form-group no-pad col-xs-12">
 									<label>Dealer Name</label> 
