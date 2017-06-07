@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rpt_claimCoveringLetter1" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="714f8de9-6928-4b5f-b5e9-6f5794a272df">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="55"/>
 	<parameter name="imagePath" class="java.lang.String"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
@@ -105,7 +105,7 @@
 				<textElement>
 					<font size="12" isBold="false"/>
 				</textElement>
-				<text><![CDATA[The details about this claims payment can be found in your claims portal on our website; a summary appears below.]]></text>
+				<text><![CDATA[If you have any questions about this claim, please contact Claims Administration at adrian@agguard.com]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement x="280" y="111" width="220" height="20" uuid="dc2f7547-dbac-4fc1-bf44-f8b2c2a4b12d"/>
@@ -182,28 +182,28 @@
 				<text><![CDATA[Summary Of Claim Payment]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="10" y="27" width="199" height="21" uuid="00293f50-3fff-4263-b8d9-2cae9615ea45"/>
+				<reportElement x="10" y="27" width="210" height="21" uuid="00293f50-3fff-4263-b8d9-2cae9615ea45"/>
 				<textElement>
 					<font size="10" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Enclosed please find the check Details:]]></text>
+				<text><![CDATA[Enclosed please find the cheque Details:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="20" y="204" width="135" height="21" uuid="47ab77c4-8d8b-40e6-a7a7-2d05bf302ca0"/>
+				<reportElement x="30" y="204" width="135" height="21" uuid="47ab77c4-8d8b-40e6-a7a7-2d05bf302ca0"/>
 				<textElement>
 					<font size="10" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Requested Other Charges1:]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="155" y="204" width="128" height="21" uuid="8ba9ca63-92c2-48b5-9e83-ca74cfd012e2"/>
+				<reportElement x="165" y="204" width="128" height="21" uuid="8ba9ca63-92c2-48b5-9e83-ca74cfd012e2"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{reqOtherCharges1}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="20" y="182" width="135" height="21" uuid="6898e8dc-b3c7-4733-9a50-01c4e5bba2d9"/>
+				<reportElement x="30" y="182" width="135" height="21" uuid="6898e8dc-b3c7-4733-9a50-01c4e5bba2d9"/>
 				<textElement>
 					<font size="10" isBold="false"/>
 				</textElement>
@@ -217,14 +217,14 @@
 				<text><![CDATA[Adjusted Other Charges1:]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="155" y="226" width="128" height="21" uuid="8cd28f80-89d3-4011-b7da-e2422a6e1f66"/>
+				<reportElement x="165" y="226" width="128" height="21" uuid="8cd28f80-89d3-4011-b7da-e2422a6e1f66"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{reqOtherCharges2}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="20" y="226" width="135" height="21" uuid="13d2cb0c-7632-46ad-8e5d-9af2cad713ef"/>
+				<reportElement x="30" y="226" width="135" height="21" uuid="13d2cb0c-7632-46ad-8e5d-9af2cad713ef"/>
 				<textElement>
 					<font size="10" isBold="false"/>
 				</textElement>
@@ -238,8 +238,8 @@
 				<textFieldExpression><![CDATA[$F{totalAdjPartsCost}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="20" y="160" width="135" height="21" uuid="e7e310aa-f8e2-4bb2-a31b-e0619483aca9"/>
-				<textElement>
+				<reportElement x="30" y="160" width="135" height="21" uuid="e7e310aa-f8e2-4bb2-a31b-e0619483aca9"/>
+				<textElement textAlignment="Left">
 					<font size="10" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Requested Parts Total:]]></text>
@@ -252,14 +252,14 @@
 				<text><![CDATA[Adjusted Other Charges1:]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="155" y="182" width="128" height="21" uuid="720074db-bdd1-4e5b-87fa-b9f46f63c4a4"/>
+				<reportElement x="165" y="182" width="128" height="21" uuid="720074db-bdd1-4e5b-87fa-b9f46f63c4a4"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{totalReqLaborCost}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="155" y="160" width="128" height="21" uuid="3e0b09ac-4bc0-493c-824b-ed688c1a75d2"/>
+				<reportElement x="165" y="160" width="128" height="21" uuid="3e0b09ac-4bc0-493c-824b-ed688c1a75d2"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
@@ -301,7 +301,7 @@
 				<text><![CDATA[Adjusted Labor Total:]]></text>
 			</staticText>
 			<subreport>
-				<reportElement x="10" y="51" width="560" height="18" uuid="cf9ae029-10bd-44b5-8ba4-f0e9273e70d2"/>
+				<reportElement x="30" y="51" width="400" height="18" uuid="cf9ae029-10bd-44b5-8ba4-f0e9273e70d2"/>
 				<subreportParameter name="totalChequeAmount">
 					<subreportParameterExpression><![CDATA[$P{totalChequeAmount}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -311,22 +311,7 @@
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="85" splitType="Stretch">
-			<staticText>
-				<reportElement x="10" y="1" width="66" height="21" uuid="cbbc6fa9-b610-4e71-b6e9-5a4bfaeb7078"/>
-				<textElement>
-					<font size="10" isBold="false"/>
-				</textElement>
-				<text><![CDATA[Comments:      ]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="49" y="28" width="521" height="55" uuid="a8046d0a-a22e-42d3-8399-3e2b1a106abb"/>
-				<textElement>
-					<font size="10" isBold="false"/>
-				</textElement>
-				<text><![CDATA[We are adding a new field “Claims Payment Comments” to the Adjudicate a Claim form that will go here instead of the contents of “External Comments”.]]></text>
-			</staticText>
-		</band>
+		<band splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
 		<band splitType="Stretch"/>
