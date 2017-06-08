@@ -68,6 +68,7 @@ public class ClaimsDO {
 	private String dealerZip;
 	private String dealerPhone;
 	private String dealerEmail;
+	private double cheqAmount;
 
 	
 	public List<ClaimFileDO> getClaimFileDO() {
@@ -102,6 +103,22 @@ public class ClaimsDO {
 		this.paidDate = paidDate;
 		this.lastUpdate = lastUpdate;
 	}
+	
+	public ClaimsDO(String claimId, String custName, String dealerName, String serialNo, String manfName,
+			String machineModel, byte status, String cheqNo, Date paidDate, Date lastUpdate, int id) {
+		this.claimId = claimId;
+		this.custName = custName;
+		this.dealerName = dealerName;
+		this.serial = serialNo;
+		this.manufacturer = manfName;
+		this.machineModel = machineModel;
+		this.cStatus = status;
+		this.cheqNo = cheqNo;
+		this.paidDate = paidDate;
+		this.lastUpdate = lastUpdate;
+		this.id = id;
+	}
+	
 	/**
 	 * 
 	 */
@@ -541,6 +558,12 @@ public class ClaimsDO {
 	}
 	public void setDealerEmail(String dealerEmail) {
 		this.dealerEmail = dealerEmail;
+	}
+	public double getCheqAmount() {
+		return cheqAmount;
+	}
+	public void setCheqAmount(double cheqAmount) {
+		this.cheqAmount = cheqAmount;
 	}
 	
 }

@@ -132,6 +132,33 @@ public class ClaimsServiceImpl implements ClaimsService {
 		}
 		if(claimsDOList != null){
 			logger.debug("claimsDOList size: "+claimsDOList.size());
+			List<Check> checkList = null;
+			for(ClaimsDO claimsDO : claimsDOList){
+				checkList = checkDAO.findByClaimId(claimsDO.getId());
+				if(checkList != null){
+					double chqAmount = 0;
+					String chqNo = "";
+					Date chqDate = null;
+					int i = 0;
+					for(Check check : checkList){
+						if(i == 0){
+							chqNo = check.getCheckNo();
+							chqDate = check.getReceivedDate();
+						}else{
+							if(chqDate.before(check.getReceivedDate())){
+								chqNo = check.getCheckNo();
+								chqDate = check.getReceivedDate();
+							}
+						}
+						chqAmount += check.getCheckAmount();
+						
+						i++;
+					}
+					
+					claimsDO.setCheqNo(chqNo);
+					claimsDO.setCheqAmount(chqAmount);
+				}
+			}
 		}
 		return claimsDOList;
 	}
