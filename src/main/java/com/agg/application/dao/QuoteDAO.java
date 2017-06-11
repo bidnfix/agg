@@ -291,4 +291,8 @@ public interface QuoteDAO extends CrudRepository<Quote, QuotePK> {
 			@Param("statusSearch")String statusSearch, Pageable pageable);
 			
 	//public List<QuoteDO> findQuotsForSearch(Specification<T> spec, Pageable pageable);
+	
+	@Query(value="select * from Invoice_Quotes", nativeQuery=true)
+	List<Object[]> findAllQuotesForReport();
+	
 }

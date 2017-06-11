@@ -2,6 +2,8 @@ package com.agg.application.service;
 
 public interface ReportService {
 
-	boolean generateClaimReport();
+	Object generateClaimReport();
+	
+	Object generateQuoteReport();
 
 }

@@ -23,6 +23,7 @@
 <link rel="stylesheet" href="/assets/css/tab-style.css" >
 <link rel="stylesheet" href="/assets/css/spinner.css" >
 
+
 <!--data table css-->
 <link href="/assets/css/dataTables.bootstrap.min.css" rel="stylesheet">
 
@@ -37,6 +38,8 @@
 <script src="/assets/js/angular.min.js"></script>
 <script src="/assets/js/angular-route.min.js"></script>
 <script src="/assets/js/angular-modal-service.min.js"></script>
+	<script src="/assets/js/FileSaver.js"></script>
+	<script src="/assets/js/FileSaver.min.js"></script>
 </head>
 <body ng-app="aggRoutingApp">
 	<div class="mask" id="popup_mask" style="z-index: 10001; display: none;"> </div>

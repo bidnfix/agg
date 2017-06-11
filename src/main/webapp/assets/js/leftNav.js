@@ -239,6 +239,10 @@ routingApp.config(['$routeProvider',
                     	  templateUrl: '../../jsp/home.jsp',
                     	  controller: 'GenerateClaimReportController'
                       }).
+                      when('/agg/quoteReport', {
+                    	  templateUrl: '../../jsp/home.jsp',
+                    	  controller: 'GenerateQuoteReportController'
+                      }).
                       otherwise({
                     	  redirectTo: '/agg/home'
                       });
@@ -985,11 +989,74 @@ routingApp.controller('AddDealerController', function($scope, $http) {
 });
 
 routingApp.controller('GenerateClaimReportController', function($scope, $http) {
-	 $http.get("/agg/generateClaimReport")
+	 $http.post("/agg/generateClaimReport")
 	    .then(function(response) {
-	        $scope.roleList = response.data.data;
+	       //$scope.roleList = response.data.data;
+	        //var reportData = response.data.data;
+	       // var b = new Blob([reportData], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+	        //saveAs(b,"ReportFile.xls");
+	    	
+	    	var result = response.data;
+	    	  if(result !== undefined || result !== '') {
+	    		    var blob = new Blob([result], {
+	    		      type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+	    		    });
+	    		    var objectUrl = URL.createObjectURL(blob);
+	    		    saveAs(blob, 'Trek-Results.xlsx');
+	    		  }
+	    	
 	    });
 });
+
+routingApp.controller('GenerateQuoteReportController', function($scope, $http) {
+	 $http.post("/agg/generateQuoteReport")
+	    .then(function(response) {
+	       //$scope.roleList = response.data.data;
+	        //var reportData = response.data.data;
+	       // var b = new Blob([reportData], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+	        //saveAs(b,"ReportFile.xls");
+	    	
+	    	var result = response.data.data;
+	    	  if(result !== undefined || result !== '') {
+	    		    var blob = new Blob([result], {
+	    		      type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+	    		    });
+	    		    var objectUrl = URL.createObjectURL(blob);
+	    		    saveAs(blob, 'QuoteReport.xlsx');
+	    		  }
+	    	
+	    });
+});
+
+/*routingApp.controller('GenerateClaimReportController', function($scope, $http) {
+	 $http({
+		    url: '/agg/generateClaimReport',
+		    method: 'POST',
+		    responseType: 'arraybuffer',
+		    data: json, //this is your json data string
+		    headers: {
+		        'Content-type': 'application/json',
+		        'Accept': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+		    }
+		})
+	    .then(function(response) {
+	       //$scope.roleList = response.data.data;
+	        //var reportData = response.data.data;
+	       // var b = new Blob([reportData], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+	        //saveAs(b,"ReportFile.xls");
+	    	
+	    	var result = response.data.data;
+	    	  if(result !== undefined || result !== '') {
+	    		    var blob = new Blob([result], {
+	    		      type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+	    		    });
+	    		    var objectUrl = URL.createObjectURL(blob);
+	    		    saveAs(blob, 'Trek-Results.xlsx');
+	    		  }
+	    	
+	    });
+});*/
+
 
 routingApp.controller("activateTabCtrl", function($scope, $timeout) {
 	
