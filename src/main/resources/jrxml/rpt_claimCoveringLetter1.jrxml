@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rpt_claimCoveringLetter1" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="714f8de9-6928-4b5f-b5e9-6f5794a272df">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="55"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="imagePath" class="java.lang.String"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
@@ -77,7 +77,7 @@
 	<pageHeader>
 		<band height="210" splitType="Stretch">
 			<rectangle>
-				<reportElement x="271" y="76" width="255" height="127" uuid="65f27dca-77c6-4a74-9e13-05d10539371b"/>
+				<reportElement x="271" y="76" width="255" height="127" forecolor="#FFFFFF" uuid="65f27dca-77c6-4a74-9e13-05d10539371b"/>
 			</rectangle>
 			<staticText>
 				<reportElement x="10" y="16" width="234" height="20" uuid="fd90edde-e694-49b0-9f70-10631ac914f5"/>
@@ -115,39 +115,25 @@
 				<textFieldExpression><![CDATA[$F{dealerAddress}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="289" y="131" width="54" height="20" uuid="c36b9236-7ff1-4007-949e-8ac3a61bcae5"/>
+				<reportElement x="289" y="131" width="110" height="20" isRemoveLineWhenBlank="true" uuid="c36b9236-7ff1-4007-949e-8ac3a61bcae5"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{dealerCity}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="349" y="131" width="32" height="20" uuid="00a6dc2f-c1de-45b9-8672-9f3adbc48212"/>
+				<reportElement x="289" y="151" width="40" height="20" uuid="00a6dc2f-c1de-45b9-8672-9f3adbc48212"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{dealerState}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="380" y="131" width="70" height="20" uuid="898f32ea-8ee0-4091-bcab-c89c1693e001"/>
+				<reportElement x="329" y="151" width="99" height="20" uuid="898f32ea-8ee0-4091-bcab-c89c1693e001"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{dealerZip}]]></textFieldExpression>
-			</textField>
-			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="289" y="151" width="68" height="20" uuid="9395179f-c5d3-4427-907e-bd1caeca150d"/>
-				<textElement>
-					<font isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{dealerPhone}]]></textFieldExpression>
-			</textField>
-			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="357" y="151" width="119" height="20" uuid="1d94c0c4-4d58-4f7b-bebd-0413d7ce82b1"/>
-				<textElement>
-					<font isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{dealerEmail}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement x="289" y="91" width="157" height="20" uuid="07ea12ab-4c5b-4981-af78-793b9ae00fb7"/>
@@ -157,7 +143,7 @@
 				<textFieldExpression><![CDATA[$F{dealerName}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="343" y="131" width="7" height="20" uuid="0064decb-c2e4-47fb-b889-498b905c36cc"/>
+				<reportElement x="399" y="131" width="7" height="20" uuid="0064decb-c2e4-47fb-b889-498b905c36cc"/>
 				<textElement>
 					<font size="10" isBold="true"/>
 				</textElement>
