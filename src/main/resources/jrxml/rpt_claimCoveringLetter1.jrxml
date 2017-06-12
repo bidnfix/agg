@@ -115,21 +115,21 @@
 				<textFieldExpression><![CDATA[$F{dealerAddress}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="289" y="131" width="110" height="20" isRemoveLineWhenBlank="true" uuid="c36b9236-7ff1-4007-949e-8ac3a61bcae5"/>
+				<reportElement x="289" y="131" width="139" height="20" isRemoveLineWhenBlank="true" uuid="c36b9236-7ff1-4007-949e-8ac3a61bcae5"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{dealerCity}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{dealerCity}+","]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="289" y="151" width="40" height="20" uuid="00a6dc2f-c1de-45b9-8672-9f3adbc48212"/>
+				<reportElement x="289" y="151" width="31" height="20" uuid="00a6dc2f-c1de-45b9-8672-9f3adbc48212"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{dealerState}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="329" y="151" width="99" height="20" uuid="898f32ea-8ee0-4091-bcab-c89c1693e001"/>
+				<reportElement x="320" y="151" width="108" height="20" uuid="898f32ea-8ee0-4091-bcab-c89c1693e001"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
@@ -142,13 +142,6 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{dealerName}]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="399" y="131" width="7" height="20" uuid="0064decb-c2e4-47fb-b889-498b905c36cc"/>
-				<textElement>
-					<font size="10" isBold="true"/>
-				</textElement>
-				<text><![CDATA[,]]></text>
-			</staticText>
 		</band>
 	</pageHeader>
 	<columnHeader>
