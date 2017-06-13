@@ -30,7 +30,7 @@
  
         <tbody>
             <tr>
-            	<td>Quote Report</td>
+            	<td>Invoice Quote Report</td>
                 <td><div class="manage-sec">
                 		<a href="/agg/generateQuoteReport" target="_blank"><img src="../assets/images/report-icon.PNG" alt="Download" title="Download"/></a>
                 	</div>

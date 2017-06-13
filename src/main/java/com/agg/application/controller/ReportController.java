@@ -57,7 +57,7 @@ public class ReportController extends BaseController {
 			
 			model.put("workbook", reportService.generateQuoteReport());
 			response.setContentType( "application/ms-excel" );
-	        response.setHeader( "Content-disposition", "attachment; filename=QuoteReport.xls" );         
+	        response.setHeader( "Content-disposition", "attachment; filename=InvoiceQuoteReport.xls" );         
 	        return new ModelAndView(new QuoteExcelView(), model);
 			
 			//model.put("claimWorkbook", workbook);

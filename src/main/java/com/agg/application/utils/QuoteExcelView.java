@@ -35,7 +35,7 @@ protected void buildExcelDocument(Map<String, Object> model,
 	{
 		logger.debug(" quoteReport "+quoteReport.size());
 		workbook = new HSSFWorkbook();
-		sheet = workbook.createSheet("Quote Report");
+		sheet = workbook.createSheet("Invoice Quote Report");
 		
 		//Creating header
 		Row header = sheet.createRow(rowNum++);
