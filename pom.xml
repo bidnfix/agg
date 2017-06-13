@@ -129,13 +129,8 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.springframework.batch</groupId>
-			<artifactId>spring-batch-core</artifactId>
-			<!--<version>${springbatch.version}</version>-->
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.batch</groupId>
-			<artifactId>spring-batch-infrastructure</artifactId>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-webmvc</artifactId>
 			<!--<version>${springbatch.version}</version>-->
 		</dependency>
 		

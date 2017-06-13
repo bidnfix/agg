@@ -1,9 +1,11 @@
 package com.agg.application.service;
 
+import java.util.List;
+
 public interface ReportService {
 
-	Object generateClaimReport();
+	List<Object[]> generateClaimReport();
 	
-	Object generateQuoteReport();
-
+	List<Object[]> generateQuoteReport();
+	
 }

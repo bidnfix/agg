@@ -7,12 +7,12 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CreationHelper;
 import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,20 +35,20 @@ public class ReportServiceImpl implements ReportService {
 	
 	
 	@Override
-	public Object generateClaimReport() {
+	public List<Object[]> generateClaimReport() {
 		logger.info("Inside generateClaimReport()");
 		
-		XSSFWorkbook workbook = null;
-		XSSFSheet sheet = null;
-		int rowNum = 0;
+/*		HSSFWorkbook workbook = null;
+		HSSFSheet sheet = null;
+		int rowNum = 0;*/
 		
-		List<Object[]> claimReport = claimsDAO.findAllClaimsForReport();
+		return claimsDAO.findAllClaimsForReport();
 		
 		
-		if(claimReport != null || claimReport.size() != 0)
+		/*if(claimReport != null || claimReport.size() != 0)
 		{
 			logger.debug(" claimReport "+claimReport.size());
-			workbook = new XSSFWorkbook();
+			workbook = new HSSFWorkbook();
 			sheet = workbook.createSheet("Claim Report");
 			
 			//Creating header
@@ -143,8 +143,8 @@ public class ReportServiceImpl implements ReportService {
 			
 		}
 		
-		/*try{
-			FileOutputStream outputStream = new FileOutputStream("D:/ClaimReport.xlsx");
+		try{
+			FileOutputStream outputStream = new FileOutputStream("D:/ClaimReport.xls");
 			workbook.write(outputStream);
 			workbook.close();
 		}catch(FileNotFoundException e)
@@ -155,26 +155,27 @@ public class ReportServiceImpl implements ReportService {
 			e.printStackTrace();
 		}*/
 		
-		return workbook;
+		//return claimReport;
 	}
 	
 	
 	@Override
-	public Object generateQuoteReport() {
+	public List<Object[]> generateQuoteReport() {
 		
 		logger.info("Inside generateQuoteReport()");
-		XSSFWorkbook workbook = null;
-		XSSFSheet sheet = null;
+		HSSFWorkbook workbook = null;
+		HSSFSheet sheet = null;
 		int rowNum = 0;
 		
-		List<Object[]> quoteReport = quoteDAO.findAllQuotesForReport();
+		//return quoteDAO.findAllQuotesForReport();
 		
+		List<Object[]> quoteReport = quoteDAO.findAllQuotesForReport();
 		
 		if(quoteReport != null || quoteReport.size() != 0)
 		{
 			logger.debug(" quoteReport "+quoteReport.size());
-			workbook = new XSSFWorkbook();
-			sheet = workbook.createSheet("Claim Report");
+			workbook = new HSSFWorkbook();
+			sheet = workbook.createSheet("Quote Report");
 			
 			//Creating header
 			Row header = sheet.createRow(rowNum++);
@@ -260,6 +261,10 @@ public class ReportServiceImpl implements ReportService {
 					{
 						cell.setCellValue((Float) field);
 					}
+					if(field instanceof Short)
+					{
+						cell.setCellValue((Short) field);
+					}
 					if(field instanceof Date)
 					{
 						CellStyle cellStyle = workbook.createCellStyle();
@@ -292,7 +297,7 @@ public class ReportServiceImpl implements ReportService {
 		}
 		
 		try{
-			FileOutputStream outputStream = new FileOutputStream("D:/QuoteReport.xlsx");
+			FileOutputStream outputStream = new FileOutputStream("D:/QuoteReport.xls");
 			workbook.write(outputStream);
 			workbook.close();
 		}catch(FileNotFoundException e)
@@ -303,7 +308,8 @@ public class ReportServiceImpl implements ReportService {
 			e.printStackTrace();
 		}
 		
-		return workbook;
+		return quoteDAO.findAllQuotesForReport();
+		
 	}
 	
 }

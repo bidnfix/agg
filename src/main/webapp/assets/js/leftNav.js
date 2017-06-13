@@ -235,13 +235,9 @@ routingApp.config(['$routeProvider',
                     	  templateUrl: '../../jsp/viewContract.jsp',
                     	  controller: 'ContractViewDetailController'
                       }).
-                      when('/agg/claimReport', {
-                    	  templateUrl: '../../jsp/home.jsp',
+                      when('/agg/reports', {
+                    	  templateUrl: '../../jsp/excelReports.jsp',
                     	  controller: 'GenerateClaimReportController'
-                      }).
-                      when('/agg/quoteReport', {
-                    	  templateUrl: '../../jsp/home.jsp',
-                    	  controller: 'GenerateQuoteReportController'
                       }).
                       otherwise({
                     	  redirectTo: '/agg/home'
@@ -988,15 +984,15 @@ routingApp.controller('AddDealerController', function($scope, $http) {
 	    });
 });
 
-routingApp.controller('GenerateClaimReportController', function($scope, $http) {
-	 $http.post("/agg/generateClaimReport")
+/*routingApp.controller('GenerateClaimReportController', function($scope, $http) {
+	 $http.get("/agg/generateClaimReport")
 	    .then(function(response) {
 	       //$scope.roleList = response.data.data;
 	        //var reportData = response.data.data;
 	       // var b = new Blob([reportData], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
 	        //saveAs(b,"ReportFile.xls");
 	    	
-	    	var result = response.data;
+	    	var result = response.data.data;
 	    	  if(result !== undefined || result !== '') {
 	    		    var blob = new Blob([result], {
 	    		      type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
@@ -1027,7 +1023,7 @@ routingApp.controller('GenerateQuoteReportController', function($scope, $http) {
 	    	
 	    });
 });
-
+*/
 /*routingApp.controller('GenerateClaimReportController', function($scope, $http) {
 	 $http({
 		    url: '/agg/generateClaimReport',
