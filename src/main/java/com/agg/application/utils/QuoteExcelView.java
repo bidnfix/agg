@@ -30,11 +30,9 @@ protected void buildExcelDocument(Map<String, Object> model,
 	HSSFSheet sheet = null;
 	int rowNum = 0;
 	
-	
-	if(quoteReport != null || quoteReport.size() != 0)
+	if(quoteReport != null && !quoteReport.isEmpty())
 	{
 		logger.debug(" quoteReport "+quoteReport.size());
-		workbook = new HSSFWorkbook();
 		sheet = workbook.createSheet("Invoice Quote Report");
 		
 		//Creating header
@@ -85,7 +83,6 @@ protected void buildExcelDocument(Map<String, Object> model,
 		header.createCell(43).setCellValue("expiration_date");
 		header.createCell(44).setCellValue("expiration_hours");
 		header.createCell(45).setCellValue("deal_history");
-		
 		
 		
 		for(Object[] datatype : quoteReport)
