@@ -23,8 +23,8 @@
  
         <tfoot>
             <tr>
-            	<th></th>
-                <th></th>
+            	<th>Report Name</th>
+                <th>Report Link</th>
             </tr>
         </tfoot>
  
