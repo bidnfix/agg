@@ -132,9 +132,26 @@ public class ClaimsServiceImpl implements ClaimsService {
 		}
 		if(claimsDOList != null){
 			logger.debug("claimsDOList size: "+claimsDOList.size());
-			List<Check> checkList = null;
+			//List<Check> checkList = null;
+			List<Object> chkList = null;
+			int i = 0;
 			for(ClaimsDO claimsDO : claimsDOList){
-				checkList = checkDAO.findByClaimId(claimsDO.getId());
+				chkList = checkDAO.findCheckAmtAndChkNo(claimsDO.getId());
+				if(chkList != null && !chkList.isEmpty()){
+					i = 0;
+					for(Object obj : chkList){
+						//logger.debug("i: & val: "+i+" & "+(String)obj);
+						if(obj != null){
+							if(i == 0){
+								claimsDO.setCheqAmount(Double.valueOf((String)obj));
+							}else if (i == 1){
+								claimsDO.setCheqNo((String)obj);
+							}
+						}
+						i++;
+					}
+				}
+				/*checkList = checkDAO.findByClaimId(claimsDO.getId());
 				if(checkList != null){
 					double chqAmount = 0;
 					String chqNo = "";
@@ -157,7 +174,7 @@ public class ClaimsServiceImpl implements ClaimsService {
 					
 					claimsDO.setCheqNo(chqNo);
 					claimsDO.setCheqAmount(chqAmount);
-				}
+				}*/
 			}
 		}
 		return claimsDOList;
