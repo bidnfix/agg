@@ -145,4 +145,7 @@ public interface ContractsDAO extends CrudRepository<Contracts, Long>{
 			+ "where contract.servicingDealer.id = :dealerId "
 			+ "and contract.status = :status")
 	public List<ContractDO> findContractsByStatusAndDelaerId(@Param("status") int status, @Param("dealerId") long dealerId, Pageable pageable);
+	
+	@Query(value="select * from Active_Contract", nativeQuery=true)
+	List<Object[]> findAllActiveContractrReport();
 }

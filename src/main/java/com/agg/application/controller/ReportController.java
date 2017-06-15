@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.agg.application.model.Result;
 import com.agg.application.service.ReportService;
+import com.agg.application.utils.ActiveContractExcelView;
 import com.agg.application.utils.ClaimExcelView;
 import com.agg.application.utils.QuoteExcelView;
 
@@ -66,6 +67,24 @@ public class ReportController extends BaseController {
 		return null;	
 	}
 	
-	
+	@RequestMapping(value = "/generateContractReport", method = RequestMethod.GET)
+	public ModelAndView generateContractReport(ModelMap model, HttpServletRequest request, HttpServletResponse response) {
+		logger.info("Inside generateClaimReport()");
+		Result opResult = null;
+		//List workbook = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			
+			model.put("workbook", reportService.generateActiveContractsReport());
+			response.setContentType( "application/ms-excel" );
+	        response.setHeader( "Content-disposition", "attachment; filename=ContractReport.xls" );         
+	        return new ModelAndView(new ActiveContractExcelView(), model);
+			
+			//model.put("claimWorkbook", workbook);
+			//opResult = new Result("success", null, model);
+		}
+		return null;	
+	}
 	
 }

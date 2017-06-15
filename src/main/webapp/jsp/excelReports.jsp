@@ -37,7 +37,14 @@
                 </td>
             </tr>
             <tr>
-            	<td>Claims Report</td>
+            	<td>Active Contract Report</td>
+                <td><div class="manage-sec">
+                		<a href="/agg/generateContractReport" target="_blank"><img src="../assets/images/report-icon.PNG" alt="Download" title="Download"/></a>
+                	</div>
+                </td>
+            </tr>
+            <tr>
+            <td>Claim Report</td>
                 <td><div class="manage-sec">
                 		<a href="/agg/generateClaimReport" target="_blank"><img src="../assets/images/report-icon.PNG" alt="Download" title="Download"/></a>
                 	</div>

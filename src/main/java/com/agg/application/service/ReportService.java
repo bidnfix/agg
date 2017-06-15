@@ -8,4 +8,6 @@ public interface ReportService {
 	
 	List<Object[]> generateQuoteReport();
 	
+	List<Object[]> generateActiveContractsReport();
+	
 }

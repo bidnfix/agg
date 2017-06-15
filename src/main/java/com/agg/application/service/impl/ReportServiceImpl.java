@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.agg.application.dao.ClaimsDAO;
+import com.agg.application.dao.ContractsDAO;
 import com.agg.application.dao.QuoteDAO;
 import com.agg.application.service.ReportService;
 
@@ -31,7 +32,10 @@ public class ReportServiceImpl implements ReportService {
 	private ClaimsDAO claimsDAO;
 	
 	@Autowired
-	private QuoteDAO quoteDAO;	
+	private QuoteDAO quoteDAO;
+	
+	@Autowired
+	private ContractsDAO contractDAO;
 	
 	
 	@Override
@@ -312,4 +316,15 @@ public class ReportServiceImpl implements ReportService {
 		
 	}
 	
+	
+	@Override
+	public List<Object[]> generateActiveContractsReport() {
+		logger.info("Inside generateClaimReport()");
+		
+/*		HSSFWorkbook workbook = null;
+		HSSFSheet sheet = null;
+		int rowNum = 0;*/
+		
+		return contractDAO.findAllActiveContractrReport();
+	}
 }
