@@ -82,28 +82,28 @@
 			<staticText>
 				<reportElement x="10" y="16" width="234" height="20" uuid="fd90edde-e694-49b0-9f70-10631ac914f5"/>
 				<textElement>
-					<font size="12" isBold="false"/>
+					<font size="10" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Thank you for your business.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="10" y="38" width="234" height="54" uuid="958a2136-a54a-4d8a-8f29-6fceb94ed925"/>
 				<textElement>
-					<font size="12" isBold="false"/>
+					<font size="10" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Our claims process is designed to be fast and fair.  We hope that we met your expectations.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="10" y="93" width="234" height="54" uuid="7a1e1de5-825a-471b-b2c4-cf47c5e45ca7"/>
 				<textElement>
-					<font size="12" isBold="false"/>
+					<font size="10" isBold="false"/>
 				</textElement>
 				<text><![CDATA[The details about this claims payment can be found in your claims portal on our website; a summary appears below.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="10" y="149" width="234" height="54" uuid="374f32ca-6480-40e1-9dff-ed616ffb8552"/>
 				<textElement>
-					<font size="12" isBold="false"/>
+					<font size="10" isBold="false"/>
 				</textElement>
 				<text><![CDATA[If you have any questions about this claim, please contact Claims Administration at adrian@agguard.com]]></text>
 			</staticText>

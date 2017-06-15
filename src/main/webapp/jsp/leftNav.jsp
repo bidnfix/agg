@@ -15,7 +15,7 @@
 					       <a id="${fn:replace(fn:toLowerCase(userMenus.name), ' ', '')}" href="#${userMenus.url}" ng-click="activateTab($event);">${userMenus.name}</a>
 					       <ul>
 						       <c:forEach items="${userMenus.userSubMenuDOList}" var="userSubMenus">
-						       		<li><a id="${fn:replace(fn:toLowerCase(userSubMenus.name), ' ', '')}" href="#${userSubMenus.url}" ng-click="activateTab($event);">${userSubMenus.name}</a></li>
+						       		<li><a id="${fn:replace(fn:replace(fn:toLowerCase(userSubMenus.name), ' ', ''), '&','')}" href="#${userSubMenus.url}" ng-click="activateTab($event);">${userSubMenus.name}</a></li>
 						       </c:forEach>
 					       </ul>
 				       </li>

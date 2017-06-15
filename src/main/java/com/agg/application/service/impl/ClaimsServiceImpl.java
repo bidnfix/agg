@@ -117,6 +117,24 @@ public class ClaimsServiceImpl implements ClaimsService {
 		}
 		if(claimsDOList != null){
 			logger.debug("claimsDOList size: "+claimsDOList.size());
+			List<Object> chkList = null;
+			int i = 0;
+			for(ClaimsDO claimsDO : claimsDOList){
+				chkList = checkDAO.findCheckAmtAndChkNo(claimsDO.getId());
+				if(chkList != null && !chkList.isEmpty()){
+					i = 0;
+					for(Object obj : chkList){
+						if(obj != null){
+							if(i == 0){
+								claimsDO.setCheqAmount(Double.valueOf((String)obj));
+							}else if (i == 1){
+								claimsDO.setCheqNo((String)obj);
+							}
+						}
+						i++;
+					}
+				}
+			}
 		}
 		return claimsDOList;
 	}
@@ -192,6 +210,24 @@ public class ClaimsServiceImpl implements ClaimsService {
 		}
 		if(claimsDOList != null){
 			logger.debug("claimsDOList size: "+claimsDOList.size());
+			List<Object> chkList = null;
+			int i = 0;
+			for(ClaimsDO claimsDO : claimsDOList){
+				chkList = checkDAO.findCheckAmtAndChkNo(claimsDO.getId());
+				if(chkList != null && !chkList.isEmpty()){
+					i = 0;
+					for(Object obj : chkList){
+						if(obj != null){
+							if(i == 0){
+								claimsDO.setCheqAmount(Double.valueOf((String)obj));
+							}else if (i == 1){
+								claimsDO.setCheqNo((String)obj);
+							}
+						}
+						i++;
+					}
+				}
+			}
 		}
 		return claimsDOList;
 	}

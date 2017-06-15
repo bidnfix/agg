@@ -747,7 +747,9 @@ public class ClaimsController extends BaseController {
 		}else{
 			AccountDO account = getAccountDetails(request);
 			ClaimsDO claimDO = claimsService.getClaim(claimId, (int)account.getDealerId());
-			opResult = new Result("success", "", model.addAttribute("claim", claimDO));
+			model.addAttribute("claim", claimDO);
+			model.addAttribute("accType", account.getRoleDO().getAccountType());
+			opResult = new Result("success", "", model);
 		}
 		return opResult;
 	}

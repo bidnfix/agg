@@ -269,7 +269,11 @@ public class ProgramServiceImpl implements ProgramService {
 			quotePK.setQuoteId(quoteId);
 			quote.setId(quotePK);
 			
-			quote.setDealer(dealerDAO.findOne(accountDO.getDealerId()));
+			if(accountDO.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)){
+				quote.setDealer(dealerDAO.findOne(quoteDO.getDealerDO().getId()));
+			}else{
+				quote.setDealer(dealerDAO.findOne(accountDO.getDealerId()));
+			}
 			
 			logger.debug("quoteDO.getDealerDO().getId() "+quoteDO.getDealerDO().getId());
 			logger.debug("accountDO.getDealerId() "+accountDO.getDealerId());

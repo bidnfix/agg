@@ -34,9 +34,12 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
 					if(response.data.data.claim){
 						//console.log(JSON.stringify(response.data.data.claim));
 						var cStatus = response.data.data.claim.cStatus;
-						//added on Jun 3 2017, for draft claims.
-						if(cStatus == 9){
-							adminFlag = true;
+						//added on Jun 3 2017 for draft claims and on Jun 15 2017 for preauth-approved/preauthapproved-with-adjustments claims.
+						if(cStatus === 9 || cStatus === 5 || cStatus === 7){
+							var accType = response.data.data.accType;
+							if(accType != null && accType === 'dealer'){
+								adminFlag = true;
+							}
 						}
 						//commented on Jan 3, 2017
 						//$scope.adminFlag = adminFlag;
