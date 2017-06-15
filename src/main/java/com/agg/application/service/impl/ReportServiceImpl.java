@@ -1,18 +1,7 @@
 package com.agg.application.service.impl;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
 
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.CreationHelper;
-import org.apache.poi.ss.usermodel.Row;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -167,7 +156,7 @@ public class ReportServiceImpl implements ReportService {
 	public List<Object[]> generateQuoteReport() {
 		
 		logger.info("Inside generateQuoteReport()");
-		HSSFWorkbook workbook = null;
+		/*HSSFWorkbook workbook = null;
 		HSSFSheet sheet = null;
 		int rowNum = 0;
 		
@@ -310,7 +299,7 @@ public class ReportServiceImpl implements ReportService {
 		}catch(IOException e)
 		{
 			e.printStackTrace();
-		}
+		}*/
 		
 		return quoteDAO.findAllQuotesForReport();
 		

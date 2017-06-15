@@ -81,18 +81,30 @@ protected void buildExcelDocument(Map<String, Object> model,
 		header.createCell(44).setCellValue("expiration_hours");
 		header.createCell(45).setCellValue("deal_history");
 		
+		CellStyle cellDateStyle = workbook.createCellStyle();
+		CreationHelper createDateHelper = workbook.getCreationHelper();
+		cellDateStyle.setDataFormat(createDateHelper.createDataFormat().getFormat("m/d/yy"));
+		
+		CellStyle cellTimestampStyle = workbook.createCellStyle();
+		CreationHelper createTimestampHelper = workbook.getCreationHelper();
+		cellTimestampStyle.setDataFormat(createTimestampHelper.createDataFormat().getFormat("m/d/yy h:mm"));
+		
+		Row row = null;
+		Cell cell = null;
+		int colNum = 0;
 		for(Object[] datatype : contractReport)
 		{
-			Row row = sheet.createRow(rowNum++);
-			int colNum = 0;
+			row = sheet.createRow(rowNum++);
+			colNum = 0;
 			
+			cell = null;
 			for(Object field : datatype)
 			{
 				//if(field !=null)
 				//logger.debug("Field type "+field +"  "+field.getClass().getSimpleName());
 				//logger.debug("Field type "+field +"  "+(field instanceof java.util.Date));
 				
-				Cell cell = row.createCell(colNum++);
+				cell = row.createCell(colNum++);
 				
 				if(field instanceof String)
 				{
@@ -116,29 +128,13 @@ protected void buildExcelDocument(Map<String, Object> model,
 				}
 				if(field instanceof Date)
 				{
-					CellStyle cellStyle = workbook.createCellStyle();
-					CreationHelper createHelper = workbook.getCreationHelper();
-					cellStyle.setDataFormat(
-					    createHelper.createDataFormat().getFormat("m/d/yy"));
-					//cell = row.createCell(1);
-					cell.setCellValue(new Date());
-					
-					
-					
 					cell.setCellValue((Date) field);
-					cell.setCellStyle(cellStyle);
+					cell.setCellStyle(cellDateStyle);
 				}
 				if(field instanceof Timestamp)
 				{
-					CellStyle cellStyle = workbook.createCellStyle();
-					CreationHelper createHelper = workbook.getCreationHelper();
-					cellStyle.setDataFormat(
-					    createHelper.createDataFormat().getFormat("m/d/yy h:mm"));
-					//cell = row.createCell(1);
-					cell.setCellValue(new Date());
-					
 					cell.setCellValue((Timestamp) field);
-					cell.setCellStyle(cellStyle);
+					cell.setCellStyle(cellTimestampStyle);
 				}
 			}
 		}
