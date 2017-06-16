@@ -347,6 +347,12 @@ routingApp.controller('ClaimsAdjudicateController', ['$scope', '$http', 'claimsA
     		claimsAdjudicateService.submit($scope);
     	}
 	};
+	
+	$scope.changeStatus = function(status){
+    	if(status === 11){
+    		claimsAdjudicateService.changeStatus($scope, status, $route);
+    	}
+	};
     
 }]);
 

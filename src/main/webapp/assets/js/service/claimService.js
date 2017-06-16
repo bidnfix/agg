@@ -887,6 +887,24 @@ routingApp.factory('claimsAdjudicateService', ['$http', '$q', '$window', '$timeo
 		calcAdjusmentCost($scope.adjustments);
 		calReimburshedCost($scope);
 	},
+	changeStatus = function($scope, status, $route){
+    	if(status === 11){
+    		if($window.confirm('This action cannot be reversed. Are you sure you want to continue?')) {
+    			showSpinner();
+    			$http.get("/agg/changeStatus/"+ $scope.adjudicateClaim.claimId+"/" + status)
+    			.then(function(response) {
+    				if(response.data.status === 'success'){
+    					$window.location = '#/agg/fileClaim/' + $scope.adjudicateClaim.claimId;
+    					//$route.reload();
+    					hideSpinner();
+    				}else{
+    					alert("Error occured while changing the status");
+    					hideSpinner();
+    				}
+    			});
+    		}
+    	}
+    },
 	updateClaimStatus = function(data){
 		$http.put('/agg/preAuthClaimReq', data).then(
 				function(response) {
@@ -990,7 +1008,8 @@ routingApp.factory('claimsAdjudicateService', ['$http', '$q', '$window', '$timeo
 		backToList : backToList,
 		calcAdjustmentsOnChange : calcAdjustmentsOnChange,
 		collectAttachments : collectAttachments,
-		getClaim : getClaim
+		getClaim : getClaim,
+		changeStatus : changeStatus
 	}
 }]);
 

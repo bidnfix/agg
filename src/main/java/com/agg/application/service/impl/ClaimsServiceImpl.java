@@ -1352,10 +1352,11 @@ public class ClaimsServiceImpl implements ClaimsService {
 					claimsDAO.save(claim);
 				}else if(status == AggConstants.CLAIM_STATUS_PRE_AUTHORIZED_APPROVED 
 						|| status == AggConstants.CLAIM_STATUS_PRE_AUTHORIZED_REJECTED 
-						|| status == AggConstants.CLAIM_STATUS_CANCEL){
+						|| status == AggConstants.CLAIM_STATUS_CANCEL
+						|| status == AggConstants.CLAIM_STATUS_APPROVED_FOR_PAYMENT){
 					if(status == AggConstants.CLAIM_STATUS_PRE_AUTHORIZED_APPROVED || status == AggConstants.CLAIM_STATUS_PRE_AUTHORIZED_REJECTED){
 						claim.setcStatus((byte)AggConstants.CLAIM_STATUS_PRE_AUTHORIZED_REQUESTED);
-					}else if(status == AggConstants.CLAIM_STATUS_CANCEL){
+					}else if(status == AggConstants.CLAIM_STATUS_CANCEL || status == AggConstants.CLAIM_STATUS_APPROVED_FOR_PAYMENT){
 						claim.setcStatus((byte)AggConstants.CLAIM_STATUS_PENDING);
 					}
 					claim.setUpdatedBy(accountDO.getId());

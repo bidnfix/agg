@@ -70,7 +70,10 @@
 							</div>
 						</div>
                         </div>
-                        <div class="col-md-6 col-sm-12"><a class="btn btn-primary pull-right btn-sm mar-right" ng-click="onClickBackToList()">Back</a></div>
+                        <div class="col-md-6 col-sm-12">
+	                        <a class="btn btn-primary pull-right btn-sm mar-right" ng-click="onClickBackToList()">Back</a>
+	                        <a ng-if="adjudicateClaim.cStatus === 11" class="btn btn-primary pull-right btn-sm mar-right" ng-click="changeStatus(adjudicateClaim.cStatus)">Change Status to Pending</a>
+                        </div>
 				</header>
                 
                 
@@ -581,7 +584,7 @@
 					<button type="submit" class="btn btn-primary" ng-click="onClickCancel()" ng-if="editFlag">Cancel Claim</button>
 		        	<button type="submit" class="btn btn-primary" ng-click="onClickClose()">Approve</button>
 		        	<button type="submit" class="btn btn-primary" ng-click="onClickReject()">Reject</button>
-		        	<button type="submit" class="btn btn-primary" ng-click="onClickApprovedForPayment()">Approved for Payment</button>
+		        	<button type="submit" class="btn btn-primary" ng-click="onClickApprovedForPayment()" ng-hide="adjudicateClaim.cStatus === 11">Approved for Payment</button>
 	            </div>
 	            </form>
 				</div>
