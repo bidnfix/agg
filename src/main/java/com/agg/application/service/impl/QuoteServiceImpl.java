@@ -1665,6 +1665,7 @@ public class QuoteServiceImpl implements QuoteService {
 		contracts.setExpirationDate(quoteDO.getContractExpirationDate());
 		contracts.setExpirationUsageHours(quoteDO.getContractExpirationHours());
 		contracts.setInceptionDate(quoteDO.getContractInceptionDate());
+		contracts.setCreatedDate(currDate);
 		contracts.setLastUpdatedDate(currDate);
 		contracts.setLol(quoteDO.getMachineInfoDO().getLol());
 		contracts.setMachineSerialNo(quoteDO.getSerialNumber());

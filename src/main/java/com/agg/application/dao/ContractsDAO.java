@@ -148,4 +148,11 @@ public interface ContractsDAO extends CrudRepository<Contracts, Long>{
 	
 	@Query(value="select * from Active_Contract", nativeQuery=true)
 	List<Object[]> findAllActiveContractrReport();
+	
+	@Query("select year(contract.createdDate) as year, month(contract.createdDate) as month, count(contract.id) as total "
+			+ "from Contracts contract "
+			+ "where contract.status = :status "
+			+ "group by  month(contract.createdDate), year(contract.createdDate) "
+			+ "order by year asc, month asc")
+	public List<Object[]> findContractDetails(@Param("status") int status);
 }

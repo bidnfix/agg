@@ -86,6 +86,10 @@ public class Contracts implements Serializable{
 	@Column(name="last_updated_date")
 	private Date lastUpdatedDate;
 	
+	@Temporal(TemporalType.DATE)
+	@Column(name="created_date")
+	private Date createdDate;
+	
 	@Column(name="cheq_no")
 	private String cheqNo;
 	
@@ -316,6 +320,20 @@ public class Contracts implements Serializable{
 	 */
 	public void setLastUpdatedDate(Date lastUpdatedDate) {
 		this.lastUpdatedDate = lastUpdatedDate;
+	}
+	
+	/**
+	 * @return the createdDate
+	 */
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+
+	/**
+	 * @param createdDate the createdDate to set
+	 */
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
 	}
 
 	/**

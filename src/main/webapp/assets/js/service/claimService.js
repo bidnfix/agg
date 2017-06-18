@@ -894,8 +894,8 @@ routingApp.factory('claimsAdjudicateService', ['$http', '$q', '$window', '$timeo
     			$http.get("/agg/changeStatus/"+ $scope.adjudicateClaim.claimId+"/" + status)
     			.then(function(response) {
     				if(response.data.status === 'success'){
-    					$window.location = '#/agg/fileClaim/' + $scope.adjudicateClaim.claimId;
-    					//$route.reload();
+    					//$window.location = '#/agg/fileClaim/' + $scope.adjudicateClaim.claimId;
+    					$route.reload();
     					hideSpinner();
     				}else{
     					alert("Error occured while changing the status");

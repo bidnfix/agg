@@ -1,6 +1,7 @@
 package com.agg.application.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +12,7 @@ import com.agg.application.dao.ClaimsDAO;
 import com.agg.application.dao.ContractsDAO;
 import com.agg.application.dao.QuoteDAO;
 import com.agg.application.service.ReportService;
+import com.agg.application.utils.AggConstants;
 
 @Service
 public class ReportServiceImpl implements ReportService {
@@ -315,5 +317,18 @@ public class ReportServiceImpl implements ReportService {
 		int rowNum = 0;*/
 		
 		return contractDAO.findAllActiveContractrReport();
+	}
+
+
+	@Override
+	public Map<String, List<Object>> getContractReportDetails() {
+		List<Object[]> contractDataList = contractDAO.findContractDetails(AggConstants.ACTIVE);
+		if(contractDataList != null){
+			logger.debug("contractDataList size: "+contractDataList.size());
+			for(Object[] intArr : contractDataList){
+				logger.debug("year: "+intArr[0].toString()+", month: "+intArr[1].toString()+" & total: "+intArr[2].toString());
+			}
+		}
+		return null;
 	}
 }

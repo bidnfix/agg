@@ -239,6 +239,10 @@ routingApp.config(['$routeProvider',
                     	  templateUrl: '../../jsp/excelReports.jsp',
                     	  controller: 'GenerateClaimReportController'
                       }).
+                      when('/agg/reports/contracts', {
+                    	  templateUrl: '../../jsp/contractsReport.jsp',
+                    	  controller: 'ReportsController'
+                      }).
                       otherwise({
                     	  redirectTo: '/agg/home'
                       });

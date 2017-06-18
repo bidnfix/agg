@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -85,6 +86,22 @@ public class ReportController extends BaseController {
 			//opResult = new Result("success", null, model);
 		}
 		return null;	
+	}
+	
+	@RequestMapping(value = "/report/contracts", method = RequestMethod.GET)
+	public @ResponseBody Result getContractsReportDetails(ModelMap model, HttpServletRequest request, HttpServletResponse response) {
+		logger.info("Inside getContractsReportDetails()");
+		Result opResult = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			
+			model.put("reportData", reportService.getContractReportDetails());
+			opResult = new Result("success", "Contracts Report Info", model);
+			
+			
+		}
+		return opResult;	
 	}
 	
 }
