@@ -1,5 +1,7 @@
 package com.agg.application.service.impl;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.agg.application.dao.ClaimsDAO;
 import com.agg.application.dao.ContractsDAO;
 import com.agg.application.dao.QuoteDAO;
+import com.agg.application.model.GraphReportDO;
 import com.agg.application.service.ReportService;
 import com.agg.application.utils.AggConstants;
 
@@ -321,13 +324,31 @@ public class ReportServiceImpl implements ReportService {
 
 
 	@Override
-	public Map<String, List<Object>> getContractReportDetails() {
+	public Map<Integer, List<GraphReportDO>> getContractReportDetails() {
 		List<Object[]> contractDataList = contractDAO.findContractDetails(AggConstants.ACTIVE);
-		if(contractDataList != null){
+		Map<Integer, List<GraphReportDO>> contracCountMap = null;
+		if(contractDataList != null && !contractDataList.isEmpty()){
 			logger.debug("contractDataList size: "+contractDataList.size());
+			contracCountMap = new HashMap<Integer, List<GraphReportDO>>(); 
+			List<GraphReportDO> graphReportDOList = null;
+			GraphReportDO graphReportDO = null;
 			for(Object[] intArr : contractDataList){
+				graphReportDOList = contracCountMap.get(Integer.valueOf(intArr[0].toString()));
+				if(graphReportDOList == null){
+					graphReportDOList = new ArrayList<GraphReportDO>();
+					contracCountMap.put(Integer.valueOf(intArr[0].toString()), graphReportDOList);
+				}
+				
+				graphReportDO = new GraphReportDO();
+				graphReportDO.setMonth(Integer.valueOf(intArr[1].toString()));
+				graphReportDO.setTotal(Integer.valueOf(intArr[2].toString()));
+				
+				graphReportDOList.add(graphReportDO);
+				
 				logger.debug("year: "+intArr[0].toString()+", month: "+intArr[1].toString()+" & total: "+intArr[2].toString());
 			}
+			
+			logger.debug("contracCountMap size: "+contracCountMap.size());
 		}
 		return null;
 	}
