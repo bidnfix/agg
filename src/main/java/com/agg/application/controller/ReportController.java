@@ -96,7 +96,8 @@ public class ReportController extends BaseController {
 			opResult = new Result("failure", "Invalid Login", null);
 		}else{
 			
-			model.put("reportData", reportService.getContractReportDetails());
+			model.put("contractData", reportService.getContractReportDetails());
+			model.put("checkData", reportService.getContractReportChkAmtDetails());
 			opResult = new Result("success", "Contracts Report Info", model);
 			
 			

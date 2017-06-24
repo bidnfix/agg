@@ -15,4 +15,6 @@ public interface ReportService {
 	
 	Map<Integer, List<GraphReportDO>> getContractReportDetails();
 	
+	Map<Integer, List<GraphReportDO>> getContractReportChkAmtDetails();
+	
 }

@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.agg.application.dao.CheckDAO;
 import com.agg.application.dao.ClaimsDAO;
 import com.agg.application.dao.ContractsDAO;
 import com.agg.application.dao.QuoteDAO;
@@ -30,6 +31,9 @@ public class ReportServiceImpl implements ReportService {
 	
 	@Autowired
 	private ContractsDAO contractDAO;
+	
+	@Autowired
+	private CheckDAO checkDAO;
 	
 	
 	@Override
@@ -350,6 +354,37 @@ public class ReportServiceImpl implements ReportService {
 			
 			logger.debug("contracCountMap size: "+contracCountMap.size());
 		}
-		return null;
+		return contracCountMap;
 	}
+	
+	@Override
+	public Map<Integer, List<GraphReportDO>> getContractReportChkAmtDetails() {
+		List<Object[]> checkDataList = checkDAO.findCheckAmountDetails();
+		Map<Integer, List<GraphReportDO>> checkAmountMap = null;
+		if(checkDataList != null && !checkDataList.isEmpty()){
+			logger.debug("checkDataList size: "+checkDataList.size());
+			checkAmountMap = new HashMap<Integer, List<GraphReportDO>>(); 
+			List<GraphReportDO> graphReportDOList = null;
+			GraphReportDO graphReportDO = null;
+			for(Object[] objArr : checkDataList){
+				graphReportDOList = checkAmountMap.get(Integer.valueOf(objArr[0].toString()));
+				if(graphReportDOList == null){
+					graphReportDOList = new ArrayList<GraphReportDO>();
+					checkAmountMap.put(Integer.valueOf(objArr[0].toString()), graphReportDOList);
+				}
+				
+				graphReportDO = new GraphReportDO();
+				graphReportDO.setMonth(Integer.valueOf(objArr[1].toString()));
+				graphReportDO.setCheckAmount(Double.valueOf(objArr[2].toString()));
+				
+				graphReportDOList.add(graphReportDO);
+				
+				logger.debug("year: "+objArr[0].toString()+", month: "+objArr[1].toString()+" & total: "+objArr[2].toString());
+			}
+			
+			logger.debug("checkAmountMap size: "+checkAmountMap.size());
+		}
+		return checkAmountMap;
+	}
+	
 }

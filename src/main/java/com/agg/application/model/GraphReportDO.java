@@ -7,6 +7,8 @@ public class GraphReportDO {
 	private int total;
 	
 	private int year;
+	
+	private double checkAmount;
 
 	public int getMonth() {
 		return month;
@@ -30,6 +32,14 @@ public class GraphReportDO {
 
 	public void setYear(int year) {
 		this.year = year;
+	}
+
+	public double getCheckAmount() {
+		return checkAmount;
+	}
+
+	public void setCheckAmount(double checkAmount) {
+		this.checkAmount = checkAmount;
 	}
 	
 }

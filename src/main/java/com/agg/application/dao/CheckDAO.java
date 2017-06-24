@@ -24,4 +24,11 @@ public interface CheckDAO extends CrudRepository<Check, Long> {
 			+ "select check_no as check_no from check_info where claim_id = :claimId and received_date in "
 			+ "(select max(received_date) from check_info where claim_id = :claimId) ", nativeQuery = true)
 	List<Object> findCheckAmtAndChkNo(@Param("claimId") int claimId);
+	
+	@Query("select year(check.receivedDate) as year, month(check.receivedDate) as month, sum(check.checkAmount) as totalAmount "
+			+ "from Check check "
+			+ "where check.contract is not null "
+			+ "group by  month(check.receivedDate), year(check.receivedDate) "
+			+ "order by year asc, month asc")
+	public List<Object[]> findCheckAmountDetails();
 }
