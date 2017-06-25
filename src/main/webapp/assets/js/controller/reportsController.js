@@ -70,9 +70,9 @@ routingApp.controller('ReportsController', function($scope, $location, $http) {
 				yAxisID: 'y-axis-2'
             })
         }
-        var k = 0;
+        var k = -1;
         for(var i = 0; i < chkYearData.length; i++){
-        	k = 0;
+        	k = -1;
         	for(var j = 0; j < yearData.length; j++){
         		if(chkYearData[i] == yearData[j]){
         			k = j;
@@ -80,7 +80,7 @@ routingApp.controller('ReportsController', function($scope, $location, $http) {
         		}
         	}
         	//to change the color of line graph.
-        	if(k == 0){
+        	if(k == -1){
         		k = colorArr.length - i;
         		if(k < 0){
         			k = i;
