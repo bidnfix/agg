@@ -79,8 +79,12 @@ routingApp.controller('ReportsController', function($scope, $location, $http) {
         			break;
         		}
         	}
+        	//to change the color of line graph.
         	if(k == 0){
-        		k = i;
+        		k = colorArr.length - i;
+        		if(k < 0){
+        			k = i;
+        		}
         	}
         	datasetData.push({
 				type: 'line',
