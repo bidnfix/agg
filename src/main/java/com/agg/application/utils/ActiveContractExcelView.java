@@ -80,6 +80,9 @@ protected void buildExcelDocument(Map<String, Object> model,
 		header.createCell(43).setCellValue("expiration_date");
 		header.createCell(44).setCellValue("expiration_hours");
 		header.createCell(45).setCellValue("deal_history");
+		header.createCell(46).setCellValue("check_no");
+		header.createCell(47).setCellValue("check_amount");
+		header.createCell(48).setCellValue("received_date");
 		
 		CellStyle cellDateStyle = workbook.createCellStyle();
 		CreationHelper createDateHelper = workbook.getCreationHelper();
