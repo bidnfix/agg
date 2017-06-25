@@ -73,12 +73,14 @@ routingApp.controller('ReportsController', function($scope, $location, $http) {
         var k = -1;
         for(var i = 0; i < chkYearData.length; i++){
         	k = -1;
+        	
         	for(var j = 0; j < yearData.length; j++){
         		if(chkYearData[i] == yearData[j]){
         			k = j;
         			break;
         		}
         	}
+        	
         	//to change the color of line graph.
         	if(k == -1){
         		k = colorArr.length - i;
@@ -86,6 +88,7 @@ routingApp.controller('ReportsController', function($scope, $location, $http) {
         			k = i;
         		}
         	}
+        	
         	datasetData.push({
 				type: 'line',
                 label: chkYearData[i]+' (Total Chk Amount)',
