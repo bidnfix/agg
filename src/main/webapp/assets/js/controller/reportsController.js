@@ -11,9 +11,11 @@ routingApp.controller('ReportsController', function($scope, $location, $http) {
         var yearData = [];
         var monthData = null;
         var monthArr = [];
-        //alert($scope.contractData.length);
+        
+        var chkYearData = [];
+        var chkMonthArr = [];
+        
         angular.forEach($scope.contractData, function(contract, key){
-        	//alert(key+" - "+contract.length);
         	yearData.push(key);
         	monthData = new Array(12);
         	for(var i=0; i<12; i++){
@@ -23,6 +25,18 @@ routingApp.controller('ReportsController', function($scope, $location, $http) {
         		monthData[contractInfo.month - 1] = contractInfo.total;
         	});
         	monthArr.push(monthData);
+        });
+        
+        angular.forEach($scope.checkData, function(chk, key){
+        	chkYearData.push(key);
+        	monthData = new Array(12);
+        	/*for(var i=0; i<12; i++){
+        		monthData[i] = 0;
+        	}*/
+        	angular.forEach(chk, function(chkInfo, childKey){
+        		monthData[chkInfo.month - 1] = chkInfo.checkAmount;
+        	});
+        	chkMonthArr.push(monthData);
         });
         
         window.chartColors = {
@@ -52,8 +66,31 @@ routingApp.controller('ReportsController', function($scope, $location, $http) {
                 backgroundColor: color(colorArr[i]).alpha(0.5).rgbString(),
                 borderColor: colorArr[i],
                 borderWidth: 1,
-                data: monthArr[i]/*,
-				yAxisID: 'y-axis-2'*/
+                data: monthArr[i],
+				yAxisID: 'y-axis-2'
+            })
+        }
+        var k = 0;
+        for(var i = 0; i < chkYearData.length; i++){
+        	k = 0;
+        	for(var j = 0; j < yearData.length; j++){
+        		if(chkYearData[i] == yearData[j]){
+        			k = j;
+        			break;
+        		}
+        	}
+        	if(k == 0){
+        		k = i;
+        	}
+        	datasetData.push({
+				type: 'line',
+                label: chkYearData[i]+' (Total Chk Amount)',
+                backgroundColor: color(colorArr[k]).alpha(0.5).rgbString(),
+                borderColor: colorArr[k],
+                borderWidth: 1,
+                fill: false,
+                data: chkMonthArr[i],
+				yAxisID: 'y-axis-1'
             })
         }
         
@@ -62,88 +99,85 @@ routingApp.controller('ReportsController', function($scope, $location, $http) {
             datasets: datasetData
         };
         
-        //window.onload = function() {
-            var ctx = document.getElementById("contractReport").getContext("2d");
-            window.myBar = new Chart(ctx, {
-                type: 'bar',
-                data: barChartData,
-                options: {
-                    responsive: true,
-                    legend: {
-                        position: 'top',
-                    },
-                    title: {
-                        display: true,
-                        text: '# of Active Contracts'
-                    },
-					tooltips: {
-						//enabled: false,
-                        mode: 'index',
-                        intersect: true
-                    }, 
-					scales: {
-						xAxes: [{
-							display: true,
-							gridLines: {
-								display: false
-							},
-							labels: {
-								show: true,
-							}
-						}]/*,
-						yAxes: [{
-							type: "linear",
-							display: true,
-							position: "left",
-							id: "y-axis-1",
-							gridLines:{
-								display: false
-							},
-							labels: {
-								show:true,
-								
-							}
-						}, {
-							type: "linear",
-							display: true,
-							position: "right",
-							id: "y-axis-2",
-							gridLines:{
-								display: false
-							},
-							labels: {
-								show:true,
-								
-							}
-						}]*/
-					},
-					animation: {
-						
-						/*onComplete: function () {
-							var chartInstance = this.chart;
-							var ctx = this.chart.ctx;
-							ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
-							ctx.fillStyle = '#000';
-							ctx.textAlign = 'center';
-							ctx.textBaseline = 'bottom';
+        var ctx = document.getElementById("contractReport").getContext("2d");
+        window.myBar = new Chart(ctx, {
+            type: 'bar',
+            data: barChartData,
+            options: {
+                responsive: true,
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: '# of Active Contracts'
+                },
+				tooltips: {
+					//enabled: false,
+                    mode: 'index',
+                    intersect: true
+                }, 
+				scales: {
+					xAxes: [{
+						display: true,
+						gridLines: {
+							display: false
+						},
+						labels: {
+							show: true,
+						}
+					}],
+					yAxes: [{
+						type: "linear",
+						display: true,
+						position: "left",
+						id: "y-axis-1",
+						gridLines:{
+							display: false
+						},
+						labels: {
+							show:true,
+							
+						}
+					}, {
+						type: "linear",
+						display: true,
+						position: "right",
+						id: "y-axis-2",
+						gridLines:{
+							display: false
+						},
+						labels: {
+							show:true,
+							
+						}
+					}]
+				},
+				animation: {
+					
+					/*onComplete: function () {
+						var chartInstance = this.chart;
+						var ctx = this.chart.ctx;
+						ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
+						ctx.fillStyle = '#000';
+						ctx.textAlign = 'center';
+						ctx.textBaseline = 'bottom';
 
-							this.data.datasets.forEach(function(dataset, i) {
-								var meta = chartInstance.controller.getDatasetMeta(i);
-								meta.data.forEach(function(bar, index) {
-									var data = dataset.data[index];
-									ctx.fillText(data, bar._model.x, bar._model.y - 5);
-								});
+						this.data.datasets.forEach(function(dataset, i) {
+							var meta = chartInstance.controller.getDatasetMeta(i);
+							meta.data.forEach(function(bar, index) {
+								var data = dataset.data[index];
+								ctx.fillText(data, bar._model.x, bar._model.y - 5);
 							});
-						} */
-					},
-					hover: {
-					  animationDuration: 0
-					}
-                }
-				
-            });
-
-       // };
+						});
+					} */
+				},
+				hover: {
+				  animationDuration: 0
+				}
+            }
+			
+        });
         
     });
 });
