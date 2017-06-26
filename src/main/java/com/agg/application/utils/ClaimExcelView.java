@@ -88,6 +88,10 @@ protected void buildExcelDocument(Map<String, Object> model,
 				{
 					cell.setCellValue((String) field);
 				}
+				if(field instanceof Boolean)
+				{
+					cell.setCellValue((Boolean) field);
+				}
 				if(field instanceof Integer)
 				{
 					cell.setCellValue((Integer) field);
@@ -95,6 +99,10 @@ protected void buildExcelDocument(Map<String, Object> model,
 				if(field instanceof Byte)
 				{
 					cell.setCellValue((Byte) field);
+				}
+				if(field instanceof Short)
+				{
+					cell.setCellValue((Short) field);
 				}
 				if(field instanceof Double)
 				{

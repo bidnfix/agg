@@ -103,8 +103,8 @@ protected void buildExcelDocument(Map<String, Object> model,
 			cell = null;
 			for(Object field : datatype)
 			{
-				//if(field !=null)
-				//logger.debug("Field type "+field +"  "+field.getClass().getSimpleName());
+				if(field !=null)
+				logger.debug("Field type "+field +"  "+field.getClass().getSimpleName());
 				//logger.debug("Field type "+field +"  "+(field instanceof java.util.Date));
 				
 				cell = row.createCell(colNum++);
@@ -120,6 +120,14 @@ protected void buildExcelDocument(Map<String, Object> model,
 				if(field instanceof Byte)
 				{
 					cell.setCellValue((Byte) field);
+				}
+				if(field instanceof Boolean)
+				{
+					cell.setCellValue((Boolean) field);
+				}
+				if(field instanceof Short)
+				{
+					cell.setCellValue((Short) field);
 				}
 				if(field instanceof Double)
 				{

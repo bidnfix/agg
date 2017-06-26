@@ -117,6 +117,10 @@ protected void buildExcelDocument(Map<String, Object> model,
 				{
 					cell.setCellValue((Integer) field);
 				}
+				if(field instanceof Boolean)
+				{
+					cell.setCellValue((Boolean) field);
+				}
 				if(field instanceof Byte)
 				{
 					cell.setCellValue((Byte) field);
