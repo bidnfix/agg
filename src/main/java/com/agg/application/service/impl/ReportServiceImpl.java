@@ -386,5 +386,12 @@ public class ReportServiceImpl implements ReportService {
 		}
 		return checkAmountMap;
 	}
+
+
+	@Override
+	public List<Object[]> getContractClaimsReportDetails(int topClaimsCount) {
+		
+		return contractDAO.findActiveContractClaimsReporDetails(topClaimsCount, AggConstants.ACTIVE);
+	}
 	
 }

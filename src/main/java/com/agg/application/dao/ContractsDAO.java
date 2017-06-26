@@ -155,4 +155,19 @@ public interface ContractsDAO extends CrudRepository<Contracts, Long>{
 			+ "group by  month(contract.createdDate), year(contract.createdDate) "
 			+ "order by year asc, month asc")
 	public List<Object[]> findContractDetails(@Param("status") int status);
+	
+	
+	@Query(value="select claim.contract_id, count(claim.contract_id) as claimCount, machine.model, contract.machine_serial_no, contract.lol, contract.availabe_lol, "
+			+ "(contract.lol - contract.availabe_lol) as claimAmount, quote.quote_id, quote.id, quote.machine_model_id "
+			+ "from claims claim, contracts contract, quotes quote, machine_info machine "
+			+ "where contract.status = :status "
+			+ "and claim.contract_id = contract.contract_id "
+			+ "and contract.quote_id = quote.id "
+			+ "and quote.machine_model_id = machine.machine_id "
+			+ "group by claim.contract_id "
+			+ "having count(claim.contract_id) > 0 "
+			+ "order by claimCount desc limit :claimCountLimit", nativeQuery=true)
+	List<Object[]> findActiveContractClaimsReporDetails(@Param("status") int status, @Param("claimCountLimit") int claimLimit);
+	
+	
 }
