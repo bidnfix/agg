@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.agg.application.model.Result;
 import com.agg.application.service.ReportService;
 import com.agg.application.utils.ActiveContractExcelView;
+import com.agg.application.utils.AggConstants;
 import com.agg.application.utils.ClaimExcelView;
 import com.agg.application.utils.QuoteExcelView;
 
@@ -101,6 +102,18 @@ public class ReportController extends BaseController {
 			opResult = new Result("success", "Contracts Report Info", model);
 			
 			
+		}
+		return opResult;	
+	}
+	
+	@RequestMapping(value = "/report/claims/topClaims", method = RequestMethod.GET)
+	public @ResponseBody Result getTopClaimDetails(ModelMap model, HttpServletRequest request, HttpServletResponse response) {
+		logger.info("Inside getTopClaimDetails()");
+		Result opResult = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			opResult = new Result("success", "Claims Report Info", reportService.getContractClaimsReportDetails(AggConstants.TOP_CLAIMS_LIMIT));
 		}
 		return opResult;	
 	}

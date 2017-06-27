@@ -240,8 +240,12 @@ routingApp.config(['$routeProvider',
                     	  controller: 'GenerateClaimReportController'
                       }).
                       when('/agg/reports/contracts', {
-                    	  templateUrl: '../../jsp/contractsReport.jsp',
+                    	  templateUrl: '../../jsp/graphsReport.jsp',
                     	  controller: 'ReportsController'
+                      }).
+                      when('/agg/reports/topClaims', {
+                    	  templateUrl: '../../jsp/graphsReport.jsp',
+                    	  controller: 'TopClaimsReportController'
                       }).
                       otherwise({
                     	  redirectTo: '/agg/home'

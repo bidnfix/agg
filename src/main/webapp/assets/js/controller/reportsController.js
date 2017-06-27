@@ -1,6 +1,7 @@
 'use strict';
 
 routingApp.controller('ReportsController', function($scope, $location, $http) {
+	$scope.reportName = "Contracts Report";
 	$http.get("/agg/report/contracts")
     .then(function(response) {
         $scope.contractData = response.data.data.contractData;
@@ -106,7 +107,7 @@ routingApp.controller('ReportsController', function($scope, $location, $http) {
             datasets: datasetData
         };
         
-        var ctx = document.getElementById("contractReport").getContext("2d");
+        var ctx = document.getElementById("graphReport").getContext("2d");
         window.myBar = new Chart(ctx, {
             type: 'bar',
             data: barChartData,
@@ -186,5 +187,13 @@ routingApp.controller('ReportsController', function($scope, $location, $http) {
 			
         });
         
+    });
+});
+
+routingApp.controller('TopClaimsReportController', function($scope, $location, $http) {
+	$scope.reportName = "Top Claims Report";
+	$http.get("/agg/report/claims/topClaims")
+    .then(function(response) {
+        $scope.claimsData = response.data.data;
     });
 });

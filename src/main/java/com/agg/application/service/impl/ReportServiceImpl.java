@@ -391,7 +391,12 @@ public class ReportServiceImpl implements ReportService {
 	@Override
 	public List<Object[]> getContractClaimsReportDetails(int topClaimsCount) {
 		
-		return contractDAO.findActiveContractClaimsReporDetails(topClaimsCount, AggConstants.ACTIVE);
+		List<Object[]> topClaimsList = contractDAO.findActiveContractClaimsReporDetails( AggConstants.ACTIVE, topClaimsCount);
+		if(topClaimsList != null && !topClaimsList.isEmpty()){
+			logger.info("topClaimsList size: "+topClaimsList.size());
+		}
+		
+		return topClaimsList;
 	}
 	
 }
