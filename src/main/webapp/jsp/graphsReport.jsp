@@ -13,7 +13,7 @@
                      <!-- <div class="col-md-4 col-sm-12"><a class="btn btn-primary pull-right  hvr-pulse" href="#">Add New</a></div> -->
 	</header>
              
-    <div id="container">
+    <div id="container" style="{{widthStyle}}">
         <canvas id="graphReport"></canvas>
     </div>         
 	

@@ -2,6 +2,7 @@
 
 routingApp.controller('ReportsController', function($scope, $location, $http) {
 	$scope.reportName = "Contracts Report";
+	$scope.widthStyle = "width:95%";
 	$http.get("/agg/report/contracts")
     .then(function(response) {
         $scope.contractData = response.data.data.contractData;
@@ -192,8 +193,69 @@ routingApp.controller('ReportsController', function($scope, $location, $http) {
 
 routingApp.controller('TopClaimsReportController', function($scope, $location, $http) {
 	$scope.reportName = "Top Claims Report";
+	$scope.widthStyle = "width:50%";
 	$http.get("/agg/report/claims/topClaims")
     .then(function(response) {
         $scope.claimsData = response.data.data;
+        
+        window.chartColors = {
+    		red: 'rgb(255, 99, 132)',
+    		orange: 'rgb(255, 159, 64)',
+    		yellow: 'rgb(255, 205, 86)',
+    		green: 'rgb(75, 192, 192)',
+    		blue: 'rgb(54, 162, 235)',
+    		purple: 'rgb(153, 102, 255)',
+    		grey: 'rgb(201, 203, 207)',
+    		brown: 'rgb(204, 102, 0)',
+    		greenShade: 'rgb(204, 255, 204)',
+    		redShade: 'rgb(255, 102, 102)'
+    	};
+        
+        var dataArr = [];
+        var labelArr = [];
+        angular.forEach($scope.claimsData, function(claim, key){
+        	labelArr.push(claim[0]);
+        	dataArr.push(claim[1]);
+        });
+        
+        var config = {
+                type: 'pie',
+                data: {
+                    datasets: [{
+                        data: dataArr,
+                        backgroundColor: [
+                            window.chartColors.red,
+                            window.chartColors.orange,
+                            window.chartColors.yellow,
+                            window.chartColors.green,
+                            window.chartColors.blue,
+        					window.chartColors.purple,
+        					window.chartColors.grey,
+        					window.chartColors.brown,
+        					window.chartColors.greenShade,
+        					window.chartColors.redShade
+                        ]
+                    }],
+                    labels: labelArr
+                },
+                options: {
+                    responsive: true,
+        			tooltips: {
+        				mode: 'single',
+        				callbacks: {
+        					afterLabel: function(tooltipItem, data) {
+        						var multistringText = ["Model: "+$scope.claimsData[tooltipItem['index']][2]];
+        						// do some stuff
+        						multistringText.push("Claim Amount: $"+$scope.claimsData[tooltipItem['index']][6]);
+
+        						return multistringText;
+        					}
+        				}
+        			}
+                }
+            };
+
+            var ctx = document.getElementById("graphReport").getContext("2d");
+            window.myPie = new Chart(ctx, config);
     });
 });
