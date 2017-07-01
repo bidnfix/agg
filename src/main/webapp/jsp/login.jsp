@@ -188,13 +188,13 @@
 <!-- JavaScript libs are placed at the end of the document so the pages load faster --> 
 <script src="/assets/js/modernizr-latest.js"></script> 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> 
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script> 
 <script src="/assets/js/jquery.cslider.js"></script> 
 <script src="/assets/js/headroom.min.js"></script> 
 <script src="/assets/js/jQuery.headroom.min.js"></script> 
 <script src="/assets/js/custom.js"></script>
 <script src="/assets/js/slider.js"></script>
 <script src="/assets/js/angular.min.js"></script>
+<script src="/assets/js/ui-bootstrap-tpls.min-0.13.0.js"></script> 
 <script src="/assets/js/app.js"></script>
 <script src="/assets/js/service/loginService.js"></script>
 <script src="/assets/js/controller/loginController.js"></script>
