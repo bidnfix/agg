@@ -1263,7 +1263,7 @@ input[type=checkbox] {
  }
 .modal-dialog, .modal-content {
     /* 80% of window height */
-    height:74%;
+    height:68%;
 }
 
 .modal-body {
