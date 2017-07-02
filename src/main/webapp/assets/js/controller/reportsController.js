@@ -362,7 +362,10 @@ routingApp.controller('TopClaimsReportController', function($scope, $location, $
 						},
 						labels: {
 							show: true,
-						}
+						},
+						ticks: {
+				            autoSkip: false
+				        }
 					}],
 					yAxes: [{
 						type: "linear",
