@@ -1,6 +1,7 @@
 package com.agg.application.service.impl;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -329,7 +330,12 @@ public class ReportServiceImpl implements ReportService {
 
 	@Override
 	public Map<Integer, List<GraphReportDO>> getContractReportDetails() {
-		List<Object[]> contractDataList = contractDAO.findContractDetails(AggConstants.ACTIVE);
+		Calendar cal = Calendar.getInstance();
+		int year = cal.get(Calendar.YEAR);
+		logger.debug("b4 year: "+year);
+		year = year - AggConstants.REPORT_PREVIOUS_YEARS_COUNT;
+		logger.debug("after year: "+year);
+		List<Object[]> contractDataList = contractDAO.findContractDetails(AggConstants.ACTIVE, year);
 		Map<Integer, List<GraphReportDO>> contracCountMap = null;
 		if(contractDataList != null && !contractDataList.isEmpty()){
 			logger.debug("contractDataList size: "+contractDataList.size());
@@ -379,7 +385,7 @@ public class ReportServiceImpl implements ReportService {
 				
 				graphReportDOList.add(graphReportDO);
 				
-				logger.debug("year: "+objArr[0].toString()+", month: "+objArr[1].toString()+" & total: "+objArr[2].toString());
+				//logger.debug("year: "+objArr[0].toString()+", month: "+objArr[1].toString()+" & total: "+objArr[2].toString());
 			}
 			
 			logger.debug("checkAmountMap size: "+checkAmountMap.size());

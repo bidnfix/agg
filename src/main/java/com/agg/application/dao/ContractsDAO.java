@@ -151,10 +151,10 @@ public interface ContractsDAO extends CrudRepository<Contracts, Long>{
 	
 	@Query("select year(contract.createdDate) as year, month(contract.createdDate) as month, count(contract.id) as total "
 			+ "from Contracts contract "
-			+ "where contract.status = :status "
+			+ "where contract.status = :status and (year(contract.createdDate) > :contractYear)"
 			+ "group by  month(contract.createdDate), year(contract.createdDate) "
 			+ "order by year asc, month asc")
-	public List<Object[]> findContractDetails(@Param("status") int status);
+	public List<Object[]> findContractDetails(@Param("status") int status, @Param("contractYear") int year);
 	
 	
 	@Query(value="select claim.contract_id, count(claim.contract_id) as claimCount, machine.model, contract.machine_serial_no, contract.lol, contract.availabe_lol, "
