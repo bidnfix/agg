@@ -180,4 +180,8 @@ public interface ContractsDAO extends CrudRepository<Contracts, Long>{
 	List<Object[]> findActiveContractClaimsReporDetails(@Param("status") int status, @Param("claimCountLimit") int claimLimit);
 	
 	
+	@Query(value="select * from v_top10_contract_claim_report", nativeQuery=true)
+	List<Object[]> findActiveContractClaimsReporDetails();
+	
+	
 }

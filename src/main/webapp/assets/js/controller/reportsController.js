@@ -93,7 +93,7 @@ routingApp.controller('ReportsController', function($scope, $location, $http) {
         	
         	datasetData.push({
 				type: 'line',
-                label: chkYearData[i]+' (Total Chk Amount)',
+                label: chkYearData[i]+' (Total Contract Amount)',
                 backgroundColor: color(colorArr[k]).alpha(0.5).rgbString(),
                 borderColor: colorArr[k],
                 borderWidth: 1,
@@ -193,12 +193,12 @@ routingApp.controller('ReportsController', function($scope, $location, $http) {
 
 routingApp.controller('TopClaimsReportController', function($scope, $location, $http) {
 	$scope.reportName = "Top Claims Report";
-	$scope.widthStyle = "width:50%";
+	$scope.widthStyle = "width:95%";
 	$http.get("/agg/report/claims/topClaims")
     .then(function(response) {
         $scope.claimsData = response.data.data;
         
-        window.chartColors = {
+        /*window.chartColors = {
     		red: 'rgb(255, 99, 132)',
     		orange: 'rgb(255, 159, 64)',
     		yellow: 'rgb(255, 205, 86)',
@@ -254,8 +254,158 @@ routingApp.controller('TopClaimsReportController', function($scope, $location, $
         			}
                 }
             };
-
+            
             var ctx = document.getElementById("graphReport").getContext("2d");
             window.myPie = new Chart(ctx, config);
+            */
+        
+        var models = [];
+        var contractCounts = [];
+        var claimCounts = [];
+        var contractCosts = [];
+        var claimCosts = [];
+        var color = Chart.helpers.color;
+        angular.forEach($scope.claimsData, function(claim, key){
+        	models.push(claim[1]);
+        	contractCounts.push(claim[2]);
+        	claimCounts.push(claim[4]);
+        	contractCosts.push(claim[3]);
+        	claimCosts.push((claim[5] != null)?claim[5]:0);
+    	});
+        
+        window.chartColors = {
+    		red: 'rgb(255, 99, 132)',
+    		orange: 'rgb(255, 159, 64)',
+    		yellow: 'rgb(255, 205, 86)',
+    		green: 'rgb(75, 192, 192)',
+    		blue: 'rgb(54, 162, 235)',
+    		purple: 'rgb(153, 102, 255)',
+    		grey: 'rgb(201, 203, 207)'
+    	};
+        
+        var datasetData = [];
+    	datasetData.push({
+			type: 'bar',
+            label: '# Contracts',
+            backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
+            borderColor: window.chartColors.red,
+            borderWidth: 1,
+            data: contractCounts,
+			yAxisID: 'y-axis-2'
+        });
+        datasetData.push({
+			type: 'bar',
+            label: '# Claims',
+            backgroundColor: color(window.chartColors.blue).alpha(0.5).rgbString(),
+            borderColor: window.chartColors.blue,
+            borderWidth: 1,
+            data: claimCounts,
+			yAxisID: 'y-axis-2'
+        });
+    	datasetData.push({
+			type: 'line',
+            label: 'Total Contract Amount',
+            backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
+            borderColor: window.chartColors.red,
+            borderWidth: 1,
+            fill: false,
+            data: contractCosts,
+			yAxisID: 'y-axis-1'
+        });
+    	datasetData.push({
+			type: 'line',
+            label: 'Total Claim Amount',
+            backgroundColor: color(window.chartColors.blue).alpha(0.5).rgbString(),
+            borderColor: window.chartColors.blue,
+            borderWidth: 1,
+            fill: false,
+            data: claimCosts,
+			yAxisID: 'y-axis-1'
+        });
+        
+        var barChartData = {
+			labels: models,
+            datasets: datasetData
+        };
+        
+        var ctx = document.getElementById("graphReport").getContext("2d");
+        window.myBar = new Chart(ctx, {
+            type: 'bar',
+            data: barChartData,
+            options: {
+                responsive: true,
+                legend: {
+                    position: 'top',
+                }/*,
+                title: {
+                    display: true,
+                    text: 'Top Claims Report'
+                }*/,
+				tooltips: {
+					//enabled: false,
+                    mode: 'index',
+                    intersect: true
+                }, 
+				scales: {
+					xAxes: [{
+						display: true,
+						gridLines: {
+							display: false
+						},
+						labels: {
+							show: true,
+						}
+					}],
+					yAxes: [{
+						type: "linear",
+						display: true,
+						position: "left",
+						id: "y-axis-1",
+						gridLines:{
+							display: false
+						},
+						labels: {
+							show:true,
+							
+						}
+					}, {
+						type: "linear",
+						display: true,
+						position: "right",
+						id: "y-axis-2",
+						gridLines:{
+							display: false
+						},
+						labels: {
+							show:true,
+							
+						}
+					}]
+				},
+				animation: {
+					
+					/*onComplete: function () {
+						var chartInstance = this.chart;
+						var ctx = this.chart.ctx;
+						ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
+						ctx.fillStyle = '#000';
+						ctx.textAlign = 'center';
+						ctx.textBaseline = 'bottom';
+
+						this.data.datasets.forEach(function(dataset, i) {
+							var meta = chartInstance.controller.getDatasetMeta(i);
+							meta.data.forEach(function(bar, index) {
+								var data = dataset.data[index];
+								ctx.fillText(data, bar._model.x, bar._model.y - 5);
+							});
+						});
+					} */
+				},
+				hover: {
+				  animationDuration: 0
+				}
+            }
+			
+        });
     });
 });

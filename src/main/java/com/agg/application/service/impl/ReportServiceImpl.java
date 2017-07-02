@@ -359,7 +359,7 @@ public class ReportServiceImpl implements ReportService {
 	
 	@Override
 	public Map<Integer, List<GraphReportDO>> getContractReportChkAmtDetails() {
-		List<Object[]> checkDataList = checkDAO.findCheckAmountDetails();
+		List<Object[]> checkDataList = quoteDAO.findContractAmountDetails(AggConstants.B_QUOTE_STATUS_CLOSED, AggConstants.REPORT_PREVIOUS_YEARS_COUNT);
 		Map<Integer, List<GraphReportDO>> checkAmountMap = null;
 		if(checkDataList != null && !checkDataList.isEmpty()){
 			logger.debug("checkDataList size: "+checkDataList.size());
@@ -391,7 +391,7 @@ public class ReportServiceImpl implements ReportService {
 	@Override
 	public List<Object[]> getContractClaimsReportDetails(int topClaimsCount) {
 		
-		List<Object[]> topClaimsList = contractDAO.findActiveContractClaimsReporDetails( AggConstants.ACTIVE, topClaimsCount);
+		List<Object[]> topClaimsList = contractDAO.findActiveContractClaimsReporDetails();
 		if(topClaimsList != null && !topClaimsList.isEmpty()){
 			logger.info("topClaimsList size: "+topClaimsList.size());
 		}

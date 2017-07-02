@@ -295,4 +295,12 @@ public interface QuoteDAO extends CrudRepository<Quote, QuotePK> {
 	@Query(value="select * from Invoice_Quotes", nativeQuery=true)
 	List<Object[]> findAllQuotesForReport();
 	
+	
+	@Query(value="SELECT DATE_FORMAT(t3.created_date,'%Y') AS 'year', DATE_FORMAT(t3.created_date, '%m') AS 'month', "
+			+ "ROUND(SUM(t2.base_price), 0) AS contract_total FROM quotes t1, admin_adjustments t2, contracts t3 "
+			+ "WHERE t1.id = t3.quote_id AND t1.quote_id = t2.quote_id AND t1.status = :status "
+			+ "AND (DATE_FORMAT(t3.created_date,'%Y') > (DATE_FORMAT(NOW(),'%Y') - :yearCount)) "
+			+ "GROUP BY DATE_FORMAT(t3.created_date,'%Y'), DATE_FORMAT(t3.created_date, '%m')", nativeQuery=true)
+	public List<Object[]> findContractAmountDetails(@Param("status")byte status, @Param("yearCount") int yearCount);
+	
 }
