@@ -193,7 +193,7 @@ routingApp.controller('ReportsController', function($scope, $location, $http) {
 
 routingApp.controller('TopClaimsReportController', function($scope, $location, $http) {
 	$scope.reportName = "Top Claims Report";
-	$scope.widthStyle = "width:95%";
+	$scope.widthStyle = "width:100%";
 	$http.get("/agg/report/claims/topClaims")
     .then(function(response) {
         $scope.claimsData = response.data.data;
@@ -344,7 +344,15 @@ routingApp.controller('TopClaimsReportController', function($scope, $location, $
 				tooltips: {
 					//enabled: false,
                     mode: 'index',
-                    intersect: true
+                    intersect: true,
+                    callbacks: {
+                    	footer: function(tooltipItem, data) {
+    						var multistringText = ["Model: "+$scope.claimsData[tooltipItem[0]['index']][1]];
+    						multistringText.push("Manf_name: "+$scope.claimsData[tooltipItem[0]['index']][0]);
+
+    						return multistringText;
+    					}
+    				}
                 }, 
 				scales: {
 					xAxes: [{
