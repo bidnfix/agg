@@ -1691,6 +1691,9 @@ routingApp.controller('BugInfoController', function($scope, $http, reportaBugSer
 		    $('#bugEditPopup').css("left", x+"px");
 		    $('#bugEditPopup').css("top", y+"px");
 		    $('#bugEditPopup').show();
+
+		    
+		    
 		};
 		
 		$scope.editSubmitBug = function() {

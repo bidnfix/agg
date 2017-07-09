@@ -104,7 +104,7 @@ protected void buildExcelDocument(Map<String, Object> model,
 			for(Object field : datatype)
 			{
 				if(field !=null)
-				logger.debug("Field type "+field +"  "+field.getClass().getSimpleName());
+				//logger.debug("Field type "+field +"  "+field.getClass().getSimpleName());
 				//logger.debug("Field type "+field +"  "+(field instanceof java.util.Date));
 				
 				cell = row.createCell(colNum++);

@@ -8,7 +8,7 @@ routingApp.factory('reportaBugService', function($http, $q, $window) {
 							function(response) {
 								//alert(response.data.status);
 								if (response.data.status == 'success') {
-									$window.location = '#/agg/reportaBug';
+									$window.location = '#/agg/bugInfo';
 								} else {
 									alert('Error in adding program: '+response.data.errMessage)
 									//$('#errMsg').html(response.data.errMessage);
