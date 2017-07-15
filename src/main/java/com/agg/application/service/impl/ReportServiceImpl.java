@@ -335,7 +335,8 @@ public class ReportServiceImpl implements ReportService {
 		logger.debug("b4 year: "+year);
 		year = year - AggConstants.REPORT_PREVIOUS_YEARS_COUNT;
 		logger.debug("after year: "+year);
-		List<Object[]> contractDataList = contractDAO.findContractDetails(AggConstants.ACTIVE, year);
+		//List<Object[]> contractDataList = contractDAO.findContractDetails(AggConstants.ACTIVE, year);
+		List<Object[]> contractDataList = contractDAO.findContractDetails(year);
 		Map<Integer, List<GraphReportDO>> contracCountMap = null;
 		if(contractDataList != null && !contractDataList.isEmpty()){
 			logger.debug("contractDataList size: "+contractDataList.size());
@@ -355,7 +356,7 @@ public class ReportServiceImpl implements ReportService {
 				
 				graphReportDOList.add(graphReportDO);
 				
-				logger.debug("year: "+intArr[0].toString()+", month: "+intArr[1].toString()+" & total: "+intArr[2].toString());
+				//logger.debug("year: "+intArr[0].toString()+", month: "+intArr[1].toString()+" & total: "+intArr[2].toString());
 			}
 			
 			logger.debug("contracCountMap size: "+contracCountMap.size());

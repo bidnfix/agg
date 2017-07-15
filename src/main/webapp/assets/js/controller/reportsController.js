@@ -118,8 +118,8 @@ routingApp.controller('ReportsController', function($scope, $location, $http) {
                     position: 'top',
                 },
                 title: {
-                    display: true,
-                    text: '# of Active Contracts'
+                    display: false,
+                    text: '# of Contracts'
                 },
 				tooltips: {
 					//enabled: false,
