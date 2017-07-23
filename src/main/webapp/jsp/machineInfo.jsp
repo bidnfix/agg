@@ -32,6 +32,7 @@
             	<th>Manufacturer</th>
                 <th>Machine Type</th>
                 <th>Model</th>
+                 <th>Adjustment Factor</th>
                 <th>Engine Power</th>
                 <th>Group ID</th>
                 <th></th>
@@ -43,6 +44,7 @@
             	<td>{{machine.manfName}}</td>
                 <td>{{machine.machineType}}</td>
                 <td>{{machine.model}}</td>
+                 <th>{{machine.adjFactor}}</th>
                 <td>{{machine.enginePower}}</td>
                 <td>{{machine.groupId}}</td>
                 <td><div class="manage-sec"><!-- <a href="#"><img src="../assets/images/delete-icon.png" alt="Delete" title="Delete"/></a> -->
