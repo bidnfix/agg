@@ -76,7 +76,7 @@ public class ReportBugServiceImpl implements ReportBugService {
 				bugDO = new BugDO();
 				bugReport = it.next();
 				
-				logger.debug("bugReport.getId() " + bugReport.getId());
+				//logger.debug("bugReport.getId() " + bugReport.getId());
 						    	
 				bugDO.setId(bugReport.getId());
 				bugDO.setDescription(bugReport.getDescription());

@@ -1,3 +1,5 @@
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div ng-controller="ClaimsController">
 	<!-- Article main content -->
 		<article class="col-md-9 maincontent" ng-show="showSearchClaim">
@@ -72,15 +74,22 @@
 									<b>
 									{{(claim.currStatus > 0)?((claim.currStatus === 1)?"Open":(claim.currStatus === 2)?"Pre-Auth Requested":(claim.currStatus === 3)?"Submitted":
 					                (claim.currStatus === 4)?"Approved":(claim.currStatus === 5)?"Pre-Auth Approved":(claim.currStatus === 6)?"Pre-Auth Rejected":
-					                (claim.currStatus === 7)?"Approved with adjustment":(claim.currStatus === 8)?"Pending":(claim.currStatus === 9)?"Draft":
-					                (claim.currStatus === 10)?"Rejected":""):""}}
+					                (claim.currStatus === 7)?"Pre-Auth Approved with Adjustments":(claim.currStatus === 8)?"Pending":(claim.currStatus === 9)?"Draft":
+					                (claim.currStatus === 10)?"Rejected":(claim.currStatus === 11)?"Approved for Payment":""):""}}
 					                </b>
 								</div>
 							</div>
 							
 						</div>
                         </div>
-                        <div class="col-md-6 col-sm-12"><a class="btn btn-primary pull-right btn-sm mar-right" ng-click="onClickBackToList()">Back</a></div>
+                        <div class="col-md-6 col-sm-12">
+                        	<a class="btn btn-primary pull-right btn-sm mar-right" ng-click="onClickBackToList()">Back</a>                       
+                        	<c:if test="${user.roleDO.accountType eq 'admin'}">
+                        		<a ng-if="claim.currStatus === 4"  target="_blank" class="btn btn-primary pull-right btn-sm mar-right" href="/agg/claim/printClaim/{{claim.claimId}}">Print Payment Letter</a>
+                        		<a ng-if="claim.currStatus === 10 || claim.currStatus === 4" class="btn btn-primary pull-right btn-sm mar-right" ng-click="changeStatus(claim.currStatus)">Change Status to Pending</a>
+                        		<a ng-if="claim.currStatus === 5 || claim.currStatus === 6" class="btn btn-primary pull-right btn-sm mar-right" ng-click="changeStatus(claim.currStatus)">Change Status to Pre-Auth Requested</a>
+                        	</c:if>
+                        </div>
 				</header>
                 
                 

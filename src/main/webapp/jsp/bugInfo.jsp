@@ -45,6 +45,8 @@
                 <td>{{bug.fixBy}}</td>
                 <td>{{bug.description}}</td>
                 <td>{{bug.status}}</td>
+                
+                <td>{{(bug.status === 1)?"New":(bug.status === 2)?"Problem":"Fixed"}}</td>
                 <td><div class="manage-sec"><!-- <a href="#"><img src="../assets/images/delete-icon.png" alt="Delete" title="Delete"/></a> -->
                 		<a ng-click="editBug(bug.id)"><img src="../assets/images/edit-pencil.png" alt="Edit" title="Edit"/></a>
                 	</div>

@@ -43,12 +43,63 @@
 							<p>{{contractInfoList.machineModel}}</p>
 						</div>
 						<div class="form-group col-xs-12 no-pad">
+							<label>Coverage Type</label>
+							<p>{{(contractInfoList.coverageType === 'PT')?"Powertrain":(contractInfoList.coverageType === 'PH')?"Powertrain + Hydraulic":(contractInfoList.coverageType === 'PL')?"Powertrain + Hydraulic + Platform":""}}</p> 
+						</div>
+						<div class="form-group col-xs-12 no-pad">
 							<label>Usage Hours covered</label>
 							<p>{{contractInfoList.usageHoursCovered}}</p>
 						</div>
 						<div class="form-group col-xs-12 no-pad">
 							<label>Available LOL</label>
 							<p>{{contractInfoList.availableLol | currency}}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="col-xs-12 no-pad clearfix">
+ 			<div class="col-md-6 no-pad pad10-right">
+				<span class="ag-tab-title col-xs-12 no-pad marg10-bottom">Servicing Dealer
+					Information</span> <br clear="all"> <br>
+				<div class="form-group no-pad col-xs-12">
+					<label>Dealer Name</label> 
+					<p>{{claim.dealerName}}</p>
+				</div>
+				<div class="form-group col-xs-12 no-pad">
+					<label>City</label> 
+					<p>{{claim.dealerCity}}</p>
+				</div>
+				<div class="form-group col-xs-12 no-pad">
+					<label>Zip</label> 
+					<p>{{claim.dealerZip}}</p>
+				</div>
+				<div class="form-group col-xs-12 no-pad">
+					<label>E-mail</label> 
+					<p>{{claim.dealerEmail}}</p>
+				</div>		
+			</div>
+
+			<div class="col-md-6 no-pad">
+				<span
+					class="ag-tab-title col-xs-12 no-pad marg10-bottom  pad20-left"
+					style="margin-left: -10px !important;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+				<div class="col-xs-12 no-pad pad10-left border-left">
+					<br clear="all">
+
+					<div class="col-xs-12 no-pad">
+						<div class="form-group col-xs-12 no-pad">
+							<label>Address</label>
+							<p>{{claim.dealerAddress}}</p>
+						</div>
+						<div class="form-group col-xs-12 no-pad">
+							<label>State/Province</label>
+						<p>{{claim.dealerState}}</p>
+						</div>
+						<div class="form-group col-xs-12 no-pad">
+							<label>Phone Number</label>
+						<p>{{claim.dealerPhone}}</p>
 						</div>
 					</div>
 				</div>
@@ -71,10 +122,10 @@
 					<label>Model Number</label> 
 					{{contractInfoList.machineModel}}
 				</div>
-				<div class="form-group col-xs-12 no-pad">
-					<label>Coverage Type</label> 
-					{{contractInfoList.coverageType}}
-				</div>
+				<!-- <div class="form-group col-xs-12 no-pad">
+					<label>Coverage Type</label>
+					{{(contractInfoList.coverageType === 'PT')?"Powertrain":(contractInfoList.coverageType === 'PH')?"Powertrain + Hydraulic":(contractInfoList.coverageType === 'PL')?"Powertrain + Hydraulic + Platform":""}} 
+				</div> -->
 				<div class="form-group col-xs-12 no-pad">
 					<label>Failure Date</label>
 					{{claim.failDate | date:'yyyy-MM-dd'}}
@@ -139,14 +190,14 @@
 							<label>Corrective Action</label>
 							{{claim.correctiveAction}}
 						</div>
-						<div class="form-group col-xs-12 no-pad">
+						<!-- <div class="form-group col-xs-12 no-pad">
 							<label>Check#</label>
 							{{claim.cheqNo}}
 						</div>
 						<div class="form-group col-xs-12 no-pad">
 							<label>Paid Date</label>
 							{{claim.paidDate |  date:"MM/dd/yyyy"}}
-						</div>
+						</div> -->
 						<div class="form-group col-xs-12 no-pad">
 							<label>Adjusted Other Charge 1 ($) </label>
 							{{claim.approvedOtherCharges1 | number : 2}}
@@ -169,10 +220,13 @@
 						<thead>
 							<tr>
 								<th class="col-sm-2">Part #</th>
-								<th class="col-sm-4">Description</th>
+								<th class="col-sm-2">Description</th>
 								<th class="col-sm-1">Quantity</th>
-								<th class="col-sm-2">Unit Price</th>
+								<th class="col-sm-1">Adj Quantity</th>
+								<th class="col-sm-1">Unit Price</th>
+								<th class="col-sm-1">Adj Unit Price</th>
 								<th class="t-r col-sm-2">Part Total</th>
+								<th class="t-r col-sm-2">Adj Part Total</th>
 							</tr>
 						</thead>
 						<tbody data-ng-repeat="claimPartVO in claim.claimPartVOList">
@@ -180,8 +234,11 @@
 								<td>{{claimPartVO.partNo}}</td>
 								<td>{{claimPartVO.partDescr}}</td>
 								<td>{{claimPartVO.qty}}</td>
+								<td>{{claimPartVO.adjQty}}</td>
 								<td>{{claimPartVO.unitPrice | number : 2}}</td>
+								<td>{{claimPartVO.adjUnitPrice | number : 2}}</td>
 								<td class="t-r">{{claimPartVO.partsTotal | currency}}</td>
+								<td class="t-r">{{claimPartVO.partsAdjTotal | currency}}</td>
 							</tr>
 						</tbody>
 					</table>
@@ -208,10 +265,13 @@
 						<thead>
 							<tr>
 								<th class="col-sm-2">Labor #</th>
-								<th class="col-sm-4">Description</th>
+								<th class="col-sm-2">Description</th>
 								<th class="col-sm-1">Hours</th>
-								<th class="col-sm-2">Hourly Rate</th>
+								<th class="col-sm-1">Adj Hours</th>
+								<th class="col-sm-1">Hourly Rate</th>
+								<th class="col-sm-1">Adj Hourly Rate</th>
 								<th class="t-r col-sm-2">Total</th>
+								<th class="t-r col-sm-2">Adj Total</th>
 							</tr>
 						</thead>
 						<tbody data-ng-repeat="claimLabourVO in claim.claimLabourVOList">
@@ -219,8 +279,11 @@
 								<td>{{claimLabourVO.laborNo}}</td>
 								<td>{{claimLabourVO.laborDescr}}</td>
 								<td>{{claimLabourVO.laborHrs}}</td>
+								<td>{{claimLabourVO.adjLaborHrs}}</td>
 								<td>{{claimLabourVO.laborHourlyRate | number : 2}}</td>
+								<td>{{claimLabourVO.adjRate | number : 2}}</td>
 								<td class="t-r">{{claimLabourVO.labourTotal | currency}}</td>
+								<td class="t-r">{{claimLabourVO.labourAdjTotal | currency}}</td>
 							</tr>
 						</tbody>
 					</table>
@@ -271,7 +334,38 @@
 			</div>
 		</div>
 		
-		<div class="col-xs-12 no-pad pad10-top" ng-if="claim.claimFileDO">
+		<div class="col-sm-12">
+          <span class="ag-tab-title col-xs-12 no-pad marg10-bottom">Payment Details</span>
+          <br clear="all">
+          <br>
+          <table class="table table-bordered">
+			<thead>
+				<tr>
+					<th class="col-sm-4">Check #</th>
+					<th class="col-sm-4">Paid Date</th>
+					<th class="col-sm-3">Check Amount</th>
+				</tr>
+			</thead>
+			<tbody data-ng-repeat="checkDO in claim.checkDOList">
+				<tr>
+					<td>{{checkDO.checkNo}}</td>
+					<td>{{checkDO.receivedDate |  date:"MM/dd/yyyy"}}</td>
+					<td>{{checkDO.amount | currency}}</td>
+				</tr>
+			</tbody>
+		 </table>
+		 <div class="col-sm-12">
+			<div class="col-sm-6"></div>
+			<div class="col-sm-6">
+				<div class="col-sm-6 no-pad">Total Check Amount</div>
+				<div class="col-sm-6">
+					{{claim.totalCheckAmount | currency}}
+				</div>
+			</div>
+		 </div>
+       </div>
+		
+	   <div class="col-xs-12 no-pad pad10-top" ng-if="claim.claimFileDO">
 			<span class="ag-tab-title col-xs-12 no-pad marg10-bottom">Uploaded Documents</span>
                    <div class="col-sm-12">
 					<table>

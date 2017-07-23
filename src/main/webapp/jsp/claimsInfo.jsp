@@ -25,7 +25,7 @@
                 <th>Manufacturer</th>
                 <th>Model</th>
                 <th>Check#</th>
-                <th>Paid Date</th>
+                <th>Check Amount</th>
                 <th>Status</th>
                 <th></th>
                 <th></th>
@@ -41,7 +41,7 @@
                 <th>Manufacturer</th>
                 <th>Model</th>
                 <th>Check#</th>
-                <th>Paid Date</th>
+                <th>Check Amount</th>
                 <th>Status</th>
                 <th></th>
                 <th></th>
@@ -57,11 +57,11 @@
                 <td>{{claimDO.manufacturer}}</td>
                 <td>{{claimDO.machineModel}}</td>
                 <td>{{claimDO.cheqNo}}</td>
-                <td>{{claimDO.paidDate |  date:"MM/dd/yyyy"}}</td>
+                <td>{{claimDO.cheqAmount | currency}}</td>
                 <td>{{(claimDO.cStatus === 1)?"Open":(claimDO.cStatus === 2)?"Pre-Auth Requested":(claimDO.cStatus === 3)?"Submitted":
                 (claimDO.cStatus === 4)?"Approved":(claimDO.cStatus === 5)?"Pre-Auth Approved":(claimDO.cStatus === 6)?"Pre-Auth Rejected":
-                (claimDO.cStatus === 7)?"Approved with adjustment":(claimDO.cStatus === 8)?"Pending":(claimDO.cStatus === 9)?"Draft":
-                (claimDO.cStatus === 10)?"Rejected":""}}</td>
+                (claimDO.cStatus === 7)?"Pre-Auth Approved with Adjustments":(claimDO.cStatus === 8)?"Pending":(claimDO.cStatus === 9)?"Draft":
+                (claimDO.cStatus === 10)?"Rejected":(claimDO.cStatus === 11)?"Approved for Payment":""}}</td>
                 <td>
                 	<div class="manage-sec" ng-hide="printClaim"><!-- <a href="#"><img src="../assets/images/delete-icon.png" alt="Delete" title="Delete"/></a> -->
                 		<!-- commented on Jan 3, 2017 -->

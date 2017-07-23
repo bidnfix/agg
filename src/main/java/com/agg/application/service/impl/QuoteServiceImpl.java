@@ -5,7 +5,6 @@ import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -19,7 +18,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ResourceLoader;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -982,6 +980,9 @@ public class QuoteServiceImpl implements QuoteService {
 			
 			String dealerMarkupType = quote.getDealerMarkupType();
 			double coveragePrice = quote.getCoveragePrice();
+			if(adminAdjustment != null && adminAdjustment.getBasePrice() > 0){
+				coveragePrice = adminAdjustment.getBasePrice();
+			}
 			double dealerMarkupPrice = 0.0;
 			if(dealerMarkupType != null && !dealerMarkupType.isEmpty()){
 				if(dealerMarkupType.equalsIgnoreCase("price")){
@@ -1150,6 +1151,24 @@ public class QuoteServiceImpl implements QuoteService {
 				quoteDAO.save(quote);
 				
 				quoteDO.setIsArchive((short)1);
+				condition = true;
+			}
+		}
+		
+		return condition;
+	}
+	
+	@Override
+	public boolean unArchiveQuote(QuoteDO quoteDO) {
+		boolean condition = false;
+		if(quoteDO.getId() != 0 && quoteDO.getId() > 0 && quoteDO.getQuoteId() != null && !quoteDO.getQuoteId().isEmpty()){
+			QuotePK quotePK = new QuotePK(quoteDO.getQuoteId(), quoteDO.getId());
+			Quote quote = quoteDAO.findOne(quotePK);
+			if(quote != null){
+				quote.setIsArchive((short)0);;
+				quoteDAO.save(quote);
+				
+				quoteDO.setIsArchive((short)0);
 				condition = true;
 			}
 		}
@@ -1561,6 +1580,7 @@ public class QuoteServiceImpl implements QuoteService {
 		long activeContract = 0;
 		long inactiveContract = 0;
 		long claims = 0;
+		long approvedForPaymentClaims = 0;
 		
 		if(accountDO.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)){
 			/*estPrice = quoteDAO.countByEstPrice();
@@ -1580,6 +1600,8 @@ public class QuoteServiceImpl implements QuoteService {
 			inactiveContract = contractsDAO.countByInactive();
 			//claims = claimsDAO.count();
 			claims = claimsDAO.findClaimsCountByAdmin((byte)AggConstants.CLAIM_STATUS_DRAFT);
+			
+			approvedForPaymentClaims = claimsDAO.findClaimsCountByStatus((byte)AggConstants.CLAIM_STATUS_APPROVED_FOR_PAYMENT);
 			
 		}else{
 			/*estPrice = quoteDAO.countByEstPrice(accountDO.getDealerId());
@@ -1604,6 +1626,7 @@ public class QuoteServiceImpl implements QuoteService {
 		worklistDO.setActContracts(activeContract);
 		worklistDO.setExpContracts(inactiveContract);
 		worklistDO.setClaims(claims);
+		worklistDO.setApprovedForPaymentClaims(approvedForPaymentClaims);
 		
 		logger.debug("claims -->"+claims);
 		logger.debug("estPrice -->"+estPrice);
@@ -1642,6 +1665,7 @@ public class QuoteServiceImpl implements QuoteService {
 		contracts.setExpirationDate(quoteDO.getContractExpirationDate());
 		contracts.setExpirationUsageHours(quoteDO.getContractExpirationHours());
 		contracts.setInceptionDate(quoteDO.getContractInceptionDate());
+		contracts.setCreatedDate(currDate);
 		contracts.setLastUpdatedDate(currDate);
 		contracts.setLol(quoteDO.getMachineInfoDO().getLol());
 		contracts.setMachineSerialNo(quoteDO.getSerialNumber());

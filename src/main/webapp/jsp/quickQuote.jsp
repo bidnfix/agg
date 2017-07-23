@@ -17,23 +17,30 @@
           		<c:choose>
           			<c:when test="${user.roleDO.accountType eq 'admin'}">
           				<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="editQuote()">Edit</button>
-			          	<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="quoteInfoForm.$valid && updateQuote(quoteInfoForm)">Update</button>
+			          	<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="changeEstMandatoryFlg() && quoteInfoForm.$valid && updateQuote(quoteInfoForm)">Update</button>
 			          	<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="archiveQuote()">Archive</button>
           			</c:when>
           			<c:otherwise>
           				<div ng-hide="estPriceFlag">
           					<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="editQuote()">Edit</button>
-				          	<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="quoteInfoForm.$valid && updateQuote(quoteInfoForm)">Update</button>
+				          	<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="changeEstMandatoryFlg() && quoteInfoForm.$valid && updateQuote(quoteInfoForm)">Update</button>
 				          	<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="archiveQuote()">Archive</button>
           				</div>
           			</c:otherwise>
           		</c:choose>
-	          	
+          		<div ng-if="!estPriceFlag">
+   					<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="changePurchaseMandatoryFlg() && quoteInfoForm.$valid && purchaseQuote(quoteInfoForm)">Purchase Now</button>
+   				</div>
 	          	<c:if test="${user.roleDO.accountType eq 'admin'}">
-	           	<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="quoteInfoForm.$valid && invoiceQuote(quoteInfoForm)" ng-disabled="purchaseRequested">Invoice</button>
-	           	<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="quoteInfoForm.$valid && createContract(quoteInfoForm)" ng-disabled="invoiced">Create Contract</button>
+		           	<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="quoteInfoForm.$valid && invoiceQuote(quoteInfoForm)" ng-hide="purchaseRequested">Invoice</button>
+		           	<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="quoteInfoForm.$valid && createContract(quoteInfoForm)" ng-hide="invoiced">Create Contract</button>
 	          	</c:if>
           	</div>
+          	<c:if test="${user.roleDO.accountType eq 'admin'}">
+	          	<div ng-if="quote.status != 6 && quote.isArchive == 1">
+	          		<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="unArchiveQuote()">Un-Archive</button>
+	          	</div>
+          	</c:if>
           	<div>
           		<button class="btn btn-primary pull-right mar-right btn-sm" ng-click="cancelQuote()">Cancel</button>
           	</div>
@@ -453,15 +460,15 @@
                      <div class="col-xs-12 border-bottom no-pad">
                        <div class="form-group">
                          <label>Name/Nickname</label>
-                         <input type="text" id="dealerName" name="dealerName" ng-model="quote.dealerName" placeholder="Dealer Name" class="form-control"  validate-on="dirty" required="required" ng-disabled="disabled">
+                         <input type="text" id="dealerName" name="dealerName" ng-model="quote.dealerName" placeholder="Customer Name" class="form-control"  validate-on="dirty" required="required" ng-disabled="disabled">
                        </div>
                        <div class="form-group">
                          <label>Address</label>
-                         <input type="text" id="dealerAddress" name="dealerAddress" ng-model="quote.dealerAddress" placeholder="Dealer Address" class="form-control" validate-on="dirty" ng-required="mandatoryFlag" ng-disabled="disabled">
+                         <input type="text" id="dealerAddress" name="dealerAddress" ng-model="quote.dealerAddress" placeholder="Customer Address" class="form-control" validate-on="dirty" ng-required="mandatoryFlag" ng-disabled="disabled">
                        </div>
                        <div class="form-group">
                          <label>City</label>
-                         <input type="text" id="dealerCity" name="dealerCity" ng-model="quote.dealerCity" placeholder="Dealer City" class="form-control" ng-disabled="disabled">
+                         <input type="text" id="dealerCity" name="dealerCity" ng-model="quote.dealerCity" placeholder="Customer City" class="form-control" ng-disabled="disabled">
                        </div>
                        <div class="form-group">
                          <label>State/Province</label>
@@ -539,11 +546,11 @@
                        </div>
                        <div class="form-group">
                          <label>Phone Number</label>
-                         <input type="text" id="dealerPhone" name="dealerPhone" ng-model="quote.dealerPhone" placeholder="Phone Number" class="form-control" validate-on="dirty" ng-required="mandatoryFlag" ng-disabled="disabled">
+                         <input type="text" id="dealerPhone" name="dealerPhone" ng-model="quote.dealerPhone" placeholder="Phone Number" class="form-control" validate-on="dirty" ng-disabled="disabled">
                        </div>
                        <div class="form-group">
                          <label>Email</label>
-                         <input type="text" id="dealerEmail" name="dealerEmail" ng-model="quote.dealerEmail" placeholder="Email" class="form-control" validate-on="dirty" ng-required="mandatoryFlag" ng-disabled="disabled">
+                         <input type="text" id="dealerEmail" name="dealerEmail" ng-model="quote.dealerEmail" placeholder="Email" class="form-control" validate-on="dirty" ng-disabled="disabled">
                        </div>
                        <div class="checkbox">
                          <label>

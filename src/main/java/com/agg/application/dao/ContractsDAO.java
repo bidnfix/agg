@@ -145,4 +145,51 @@ public interface ContractsDAO extends CrudRepository<Contracts, Long>{
 			+ "where contract.servicingDealer.id = :dealerId "
 			+ "and contract.status = :status")
 	public List<ContractDO> findContractsByStatusAndDelaerId(@Param("status") int status, @Param("dealerId") long dealerId, Pageable pageable);
+	
+	@Query(value="select * from Active_Contract", nativeQuery=true)
+	List<Object[]> findAllActiveContractrReport();
+	
+	@Query("select year(contract.createdDate) as year, month(contract.createdDate) as month, count(contract.id) as total "
+			+ "from Contracts contract "
+			+ "where contract.status = :status and (year(contract.createdDate) > :contractYear) "
+			+ "group by  month(contract.createdDate), year(contract.createdDate) "
+			+ "order by year asc, month asc")
+	public List<Object[]> findContractDetails(@Param("status") int status, @Param("contractYear") int year);
+	
+	
+	@Query("select year(contract.createdDate) as year, month(contract.createdDate) as month, count(contract.id) as total "
+			+ "from Contracts contract "
+			+ "where (year(contract.createdDate) > :contractYear) "
+			+ "group by  month(contract.createdDate), year(contract.createdDate) "
+			+ "order by year asc, month asc")
+	public List<Object[]> findContractDetails(@Param("contractYear") int year);
+	
+	
+	@Query(value="select claim.contract_id, count(claim.contract_id) as claimCount, machine.model, contract.machine_serial_no, contract.lol, contract.availabe_lol, "
+			+ "(contract.lol - contract.availabe_lol) as claimAmount, quote.quote_id, quote.id, quote.machine_model_id "
+			+ "from claims claim, contracts contract, quotes quote, machine_info machine "
+			+ "where contract.status = :status "
+			+ "and claim.contract_id = contract.contract_id "
+			+ "and contract.quote_id = quote.id "
+			+ "and quote.machine_model_id = machine.machine_id "
+			+ "group by claim.contract_id "
+			+ "having count(claim.contract_id) > 0 "
+			+ "order by claimCount desc limit :claimCountLimit", nativeQuery=true)
+	/*@Query("select claim.contractId, count(claim.contractId) as claimCount, machine.model, contract.machineSerialNo, contract.lol, contract.availabeLol, "
+			+ "(contract.lol - contract.availabeLol) as claimAmount, quote.id.quoteId, quote.id.id, quote.machineInfo.machineId "
+			+ "from Claims claim, Contracts contract, Quote quote, MachineInfo machine "
+			+ "where contract.status = :status "
+			+ "and claim.contractId = contract.contractId "
+			+ "and contract.quoteId = quote.id.id "
+			+ "and quote.machineInfo.machineId = machine.machineId "
+			+ "group by claim.contractId "
+			+ "having count(claim.contractId) > 0 "
+			+ "order by claimCount desc limit :claimCountLimit")*/
+	List<Object[]> findActiveContractClaimsReporDetails(@Param("status") int status, @Param("claimCountLimit") int claimLimit);
+	
+	
+	@Query(value="select * from v_top10_contract_claim_report", nativeQuery=true)
+	List<Object[]> findActiveContractClaimsReporDetails();
+	
+	
 }

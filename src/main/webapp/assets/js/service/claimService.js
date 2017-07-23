@@ -34,6 +34,13 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
 					if(response.data.data.claim){
 						//console.log(JSON.stringify(response.data.data.claim));
 						var cStatus = response.data.data.claim.cStatus;
+						//added on Jun 3 2017 for draft claims and on Jun 15 2017 for preauth-approved/preauthapproved-with-adjustments claims.
+						if(cStatus === 9 || cStatus === 5 || cStatus === 7){
+							var accType = response.data.data.accType;
+							if(accType != null && accType === 'dealer'){
+								adminFlag = true;
+							}
+						}
 						//commented on Jan 3, 2017
 						//$scope.adminFlag = adminFlag;
 						$scope.adminFlag = !adminFlag; //new added line on Jan 3, 2017
@@ -110,6 +117,21 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
 						$scope.claim.cheqNo = claim.cheqNo;
 						$scope.claim.paidDate = claim.paidDate;
 						
+						$scope.claim.dealerName = claim.dealersName;
+						$scope.claim.dealerAddress = claim.dealerAddress;
+						$scope.claim.dealerCity = claim.dealerCity;
+						$scope.claim.dealerState = claim.dealerState;
+						$scope.claim.dealerZip = claim.dealerZip;
+						$scope.claim.dealerPhone = claim.dealerPhone;
+						$scope.claim.dealerEmail = claim.dealerEmail;
+						$scope.claim.checkDOList = claim.checkDOList;
+						$scope.claim.totalCheckAmount = 0;
+						if($scope.claim.checkDOList != null){
+							angular.forEach($scope.claim.checkDOList, function(checkDO, index){
+								$scope.claim.totalCheckAmount += checkDO.amount;
+							});
+						}
+						
 						claim.claimLaborDO = (claim.claimLaborDO === null) ? [] : claim.claimLaborDO;
 						commons.renameJsonPropertyNameArray(claim.claimLaborDO, "rate", "laborHourlyRate");
 						$scope.claim.claimLabourVOList = claim.claimLaborDO;
@@ -134,8 +156,35 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
 		},
 		selectContract = function($scope, data){
 			$scope.contractInfoList = data;
+			if ($scope.contractInfoList.dealerDo != null) {
+				$scope.claim.dealerName = $scope.contractInfoList.dealerDo.name;
+				$scope.claim.dealerAddress = $scope.contractInfoList.dealerDo.address1 +", " + $scope.contractInfoList.dealerDo.address2;
+				$scope.claim.dealerCity = $scope.contractInfoList.dealerDo.city;
+				$scope.claim.dealerState = $scope.contractInfoList.dealerDo.state;
+				$scope.claim.dealerZip = $scope.contractInfoList.dealerDo.zip;
+				$scope.claim.dealerPhone = $scope.contractInfoList.dealerDo.phone;
+				$scope.claim.dealerEmail = $scope.contractInfoList.dealerDo.invoiceEmail;
+			} else {
+				getDealerAddressDetails($scope, $scope.contractInfoList.contractID);
+			}
+			
 			hideContractList($scope);
 			getContractCount($scope, initClaimAddForm);
+		},
+		getDealerAddressDetails = function($scope, contractId){
+				$http.get("/agg/contracts/" + contractId)
+				.then(function(response) {
+					if (response.data.status === 'success') {
+						$scope.contract = response.data.data.contractDO;
+						$scope.claim.dealerName = $scope.contract.quoteDO.dealerDO.name;
+						$scope.claim.dealerAddress = $scope.contract.quoteDO.dealerDO.address1;
+						$scope.claim.dealerCity = $scope.contract.quoteDO.dealerDO.city;
+						$scope.claim.dealerState = $scope.contract.quoteDO.dealerDO.state;
+						$scope.claim.dealerZip = $scope.contract.quoteDO.dealerDO.zip;
+						$scope.claim.dealerPhone = $scope.contract.quoteDO.dealerDO.phone;
+						$scope.claim.dealerEmail = $scope.contract.quoteDO.dealerDO.invoiceEmail;
+					}
+				});	
 		},
 		getContractCount = function($scope, initFunc){
 			$http.get("/agg/claims/count/" + $scope.contractInfoList.contractID)
@@ -183,6 +232,16 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
 				$scope.claim.cheqNo = $scope.claim.cheqNo;
 				$scope.claim.paidDate = $scope.claim.paidDate;
 				
+				if ($scope.contractInfoList.dealerDo != null) {
+					$scope.claim.dealerName = $scope.contractInfoList.dealerDo.name;
+					$scope.claim.dealerAddress = $scope.contractInfoList.dealerDo.address1 +", " + $scope.contractInfoList.dealerDo.address2;
+					$scope.claim.dealerCity = $scope.contractInfoList.dealerDo.city;
+					$scope.claim.dealerState = $scope.contractInfoList.dealerDo.state;
+					$scope.claim.dealerZip = $scope.contractInfoList.dealerDo.zip;
+					$scope.claim.dealerPhone = $scope.contractInfoList.dealerDo.phone;
+					$scope.claim.dealerEmail = $scope.contractInfoList.dealerDo.invoiceEmail;
+				}
+				
 			}else{
 				if($scope.statusFlag === 9){
 					$scope.saveClaimShow = true;
@@ -192,6 +251,10 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
 				$scope.claim.totalClaimCost = 0;
 				$scope.claim.totalLaborCost = 0;
 				$scope.claim.partsTotalCost = 0;
+				
+				$scope.claim.totalAdjClaimCost = 0;
+				$scope.claim.totalAdjLaborCost = 0;
+				$scope.claim.partsAdjTotalCost = 0;
 				angular.forEach($scope.claim.claimPartVOList, function(claimPartVO, index){
 					calcTotalPartLine($scope.claim, index);
 				});
@@ -202,6 +265,7 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
 				calcTotalPartCost($scope.claim);
 				calcTotalLabourCost($scope.claim);
 				$scope.claim.totalClaimCost = $scope.claim.totalLaborCost + $scope.claim.partsTotalCost + $scope.claim.requestedOtherCharges1 + $scope.claim.requestedOtherCharges2;
+				$scope.claim.totalAdjClaimCost = $scope.claim.totalAdjLaborCost + $scope.claim.partsAdjTotalCost + $scope.claim.approvedOtherCharges1 + $scope.claim.approvedOtherCharges2;
 				calReimburshedCost($scope);
 				hideContractList($scope);
 			}
@@ -230,28 +294,34 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
 		calcTotalPartLine = function(claim, index){
 			//if((claim.claimPartVOList[index].qty >= 0) && (claim.claimPartVOList[index].unitPrice >= 0)){
 				claim.claimPartVOList[index].partsTotal = claim.claimPartVOList[index].qty * claim.claimPartVOList[index].unitPrice;
+				claim.claimPartVOList[index].partsAdjTotal = claim.claimPartVOList[index].adjQty * claim.claimPartVOList[index].adjUnitPrice;
 				calcTotalPartCost(claim);
 			//}
 		},
 		calcTotalPartCost = function(claim){
 			claim.partsTotalCost = 0;
+			claim.PartsAdjTotalCost = 0;
 			angular.forEach(claim.claimPartVOList, function(claimPartVO, index){
 				//if(claimPartVO.partsTotal >= 0){
 					claim.partsTotalCost += claimPartVO.partsTotal;
+					claim.PartsAdjTotalCost += claimPartVO.partsAdjTotal;
 				//}
 			});
 		},
 		calcTotalLabourLine = function(claim, index){
 			//if((claim.claimLabourVOList[index].laborHrs >= 0) && (claim.claimLabourVOList[index].laborHourlyRate >= 0)){
 				claim.claimLabourVOList[index].labourTotal = claim.claimLabourVOList[index].laborHrs * claim.claimLabourVOList[index].laborHourlyRate;
+				claim.claimLabourVOList[index].labourAdjTotal = claim.claimLabourVOList[index].adjLaborHrs * claim.claimLabourVOList[index].adjRate;
 				calcTotalLabourCost(claim);
 			//}
 		},
 		calcTotalLabourCost = function(claim){
 			claim.totalLaborCost = 0;
+			claim.totalAdjLaborCost = 0;
 			angular.forEach(claim.claimLabourVOList, function(claimLabourVO, index){
 				//if(claimLabourVO.labourTotal >= 0){
 					claim.totalLaborCost += claimLabourVO.labourTotal;
+					claim.totalAdjLaborCost += claimLabourVO.labourAdjTotal;
 				//}
 			});
 		},
@@ -306,7 +376,33 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
 		},
 		collectAttachments = function ($scope, $files) {
 			$scope.attachments = $files || [];
-	    };
+	    },
+	    changeStatus = function($scope, status, $route){
+	    	if(status === 4){
+	    		var amount = ($scope.claim.totalCheckAmount > 0)?$scope.claim.totalCheckAmount:$scope.claim.tra;
+	    		if($window.confirm('You are about to add amount of '+$filter('currency')(amount, "$")+' to Available LOL. This action cannot be reversed. Are you sure you want to continue?')) {
+	    			revertStatus($scope, status, $route);
+	    		}
+	    	}else if(status === 5 || status === 6 || status === 10){
+	    		if($window.confirm('This action cannot be reversed. Are you sure you want to continue?')) {
+	    			revertStatus($scope, status, $route);
+	    		}
+	    	}
+	    },
+	    revertStatus = function($scope, status, $route){
+			showSpinner();
+			$http.get("/agg/changeStatus/"+ $scope.claim.claimId+"/" + status)
+    		.then(function(response) {
+    			if(response.data.status === 'success'){
+    				 //$window.location = '#/agg/fileClaim/' + $scope.claim.claimId;
+    				$route.reload();
+    				hideSpinner();
+    			}else{
+    				alert("Error occured while changing the status");
+    				hideSpinner();
+    			}
+    		});
+		};
 		
 	return {
 		getSerialNumberInfo : function($scope){
@@ -495,7 +591,8 @@ routingApp.factory('claimService', ['$http', '$q', '$window', '$timeout', '$filt
 		getPreAuthRequest : getPreAuthRequest,
 		showContractList : showContractList,
 		collectAttachments : collectAttachments,
-		draft : draft
+		draft : draft,
+		changeStatus: changeStatus
 	}
 }]);
 
@@ -599,7 +696,8 @@ routingApp.factory('claimPreAuthReqService', ['$http', '$q', '$window', '$timeou
 }]);
 
 routingApp.factory('claimsAdjudicateService', ['$http', '$q', '$window', '$timeout', function($http, $q, $window, $timeout){
-	var init = function($scope){
+	var init = function($scope, claimType){
+		$scope.showAdjudicateClaimList = true;
 		$http.get("/agg/currentUserRole")
 	    .then(function(response) {
 	    	//$scope.adjudicateClaimList = response.data.data.preAuthClaimList;
@@ -609,19 +707,49 @@ routingApp.factory('claimsAdjudicateService', ['$http', '$q', '$window', '$timeo
 	    	$scope.commentFlag = true;
 	    	$scope.cheqFlag = true;
 	    });
-		$http.get("/agg/adjudicateClaim")
+		$scope.claimTypeDesc = claimType;
+		if(claimType === 'pending'){
+			$http.get("/agg/adjudicateClaim")
+		    .then(function(response) {
+		    	dataTableRender($scope, response);
+		    });
+		} else if(claimType === 'approvedForPayment'){
+			$http.get("/agg/approvedForPaymentClaims")
+		    .then(function(response) {
+		    	dataTableRender($scope, response);
+		    });
+		}
+		
+	},
+	dataTableRender = function($scope, response){
+		$scope.adjudicateClaimList = response.data.data.preAuthClaimList;
+		$timeout(function () {
+        	$('#preauthClaimsListTable').DataTable({
+        		"aaSorting": [[ 5, "desc" ]],
+        		"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+        	       columnDefs: [
+        	           { targets: 5, visible: false }    
+        	       ]
+        	    });
+        }, 300);
+	},
+	getClaim = function($scope, claimId){
+		$scope.showAdjudicateClaimList = false;
+		$http.get("/agg/currentUserRole")
 	    .then(function(response) {
-	    	$scope.adjudicateClaimList = response.data.data.preAuthClaimList;
-	    	$timeout(function () {
-	        	$('#preauthClaimsListTable').DataTable({
-	        		"aaSorting": [[ 5, "desc" ]],
-	        		"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
-	        	       columnDefs: [
-	        	           { targets: 5, visible: false }    
-	        	       ]
-	        	    });
-	        }, 300);
+	    	$scope.editFlag = (response.data.data.roleList.accountType === 'admin') ? false : true;
+	    	$scope.commentFlag = true;
+	    	$scope.cheqFlag = true;
 	    });
+		
+		$http.get("/agg/claims/" + claimId)
+		.then(function(response) {
+			if(response.data.status === 'success'){
+				if(response.data.data.claim){
+					selectClaim($scope, response.data.data.claim)
+				}
+			}
+		});
 	},
 	calcCost = function(adjudicateClaim){
 		if(adjudicateClaim){
@@ -648,18 +776,57 @@ routingApp.factory('claimsAdjudicateService', ['$http', '$q', '$window', '$timeo
 			if(adjustment.parts && adjustment.totalAdjustmentPartsCost === 0){
 				for(var i in adjustment.parts){
 					adjustment.parts[i].partsTotal = adjustment.parts[i].qty * adjustment.parts[i].unitPrice;
-					adjustment.totalAdjustmentPartsCost += adjustment.parts[i].partsTotal;
+					adjustment.parts[i].partsAdjTotal = adjustment.parts[i].adjQty * adjustment.parts[i].adjUnitPrice;
+					//adjustment.totalAdjustmentPartsCost += adjustment.parts[i].partsTotal;
+					adjustment.totalAdjustmentPartsCost += adjustment.parts[i].partsAdjTotal;
 				}
 				
 				adjustment.totalAdjustmentPartsCost = parseFloat(adjustment.totalAdjustmentPartsCost).toFixed(2);
+			} else if(adjustment.parts && adjustment.totalAdjustmentPartsCost > 0){
+				for(var i in adjustment.parts){
+					adjustment.parts[i].partsTotal = adjustment.parts[i].qty * adjustment.parts[i].unitPrice;
+					adjustment.parts[i].partsAdjTotal = adjustment.parts[i].adjQty * adjustment.parts[i].adjUnitPrice;
+				}
 			}
+			
 			if(adjustment.labors && adjustment.totalAdjustmentLaborsCost === 0){
 				for(var i in adjustment.labors){
 					adjustment.labors[i].laborsTotal = adjustment.labors[i].laborHrs * adjustment.labors[i].rate;
-					adjustment.totalAdjustmentLaborsCost += adjustment.labors[i].laborsTotal;
+					adjustment.labors[i].laborsAdjTotal = adjustment.labors[i].adjLaborHrs * adjustment.labors[i].adjRate;
+					//adjustment.totalAdjustmentLaborsCost += adjustment.labors[i].laborsTotal;
+					adjustment.totalAdjustmentLaborsCost += adjustment.labors[i].laborsAdjTotal;
+				}
+				adjustment.totalAdjustmentLaborsCost = parseFloat(adjustment.totalAdjustmentLaborsCost).toFixed(2);
+			} else if(adjustment.labors && adjustment.totalAdjustmentLaborsCost > 0){
+				for(var i in adjustment.labors){
+					adjustment.labors[i].laborsTotal = adjustment.labors[i].laborHrs * adjustment.labors[i].rate;
+					adjustment.labors[i].laborsAdjTotal = adjustment.labors[i].adjLaborHrs * adjustment.labors[i].adjRate;
+				}
+			}
+			adjustment.totalAdjustedClaimCost = parseFloat(adjustment.totalAdjustmentPartsCost)  + parseFloat(adjustment.totalAdjustmentLaborsCost)
+				+ parseFloat(adjustment.approvedOtherCharges1) + parseFloat(adjustment.approvedOtherCharges2);
+		}
+	},
+	calcOnChgAdjusmentCost = function(adjustment){
+		if(adjustment){
+			if(adjustment.parts){
+				adjustment.totalAdjustmentPartsCost = 0;
+				for(var i in adjustment.parts){
+					adjustment.parts[i].partsAdjTotal = adjustment.parts[i].adjQty * adjustment.parts[i].adjUnitPrice;
+					adjustment.totalAdjustmentPartsCost += adjustment.parts[i].partsAdjTotal;
+				}
+				adjustment.totalAdjustmentPartsCost = parseFloat(adjustment.totalAdjustmentPartsCost).toFixed(2);
+			}
+			
+			if(adjustment.labors){
+				adjustment.totalAdjustmentLaborsCost = 0;
+				for(var i in adjustment.labors){
+					adjustment.labors[i].laborsAdjTotal = adjustment.labors[i].adjLaborHrs * adjustment.labors[i].adjRate;
+					adjustment.totalAdjustmentLaborsCost += adjustment.labors[i].laborsAdjTotal;
 				}
 				adjustment.totalAdjustmentLaborsCost = parseFloat(adjustment.totalAdjustmentLaborsCost).toFixed(2);
 			}
+			
 			adjustment.totalAdjustedClaimCost = parseFloat(adjustment.totalAdjustmentPartsCost)  + parseFloat(adjustment.totalAdjustmentLaborsCost)
 				+ parseFloat(adjustment.approvedOtherCharges1) + parseFloat(adjustment.approvedOtherCharges2);
 		}
@@ -696,6 +863,16 @@ routingApp.factory('claimsAdjudicateService', ['$http', '$q', '$window', '$timeo
 		$scope.adjustments.parts = JSON.parse(JSON.stringify($scope.adjudicateClaim.claimPartDO));
     	$scope.adjustments.labors = JSON.parse(JSON.stringify($scope.adjudicateClaim.claimLaborDO));
     	$scope.adjustments.claimsNoteList = $scope.adjudicateClaim.claimsNoteList;
+    	$scope.adjustments.checkDOList = $scope.adjudicateClaim.checkDOList;
+    	if($scope.adjustments.checkDOList === null){
+    		$scope.adjustments.checkDOList = [];
+    	}else{
+    		for(var i in $scope.adjustments.checkDOList){
+    			if($scope.adjustments.checkDOList[i].receivedDate != null && $scope.adjustments.checkDOList[i].receivedDate != ""){
+    				$scope.adjustments.checkDOList[i].receivedDate = new Date($scope.adjustments.checkDOList[i].receivedDate);
+    			}
+			}
+    	}
     	
     	$scope.adjustments.paidDate = new Date();
     	if($scope.adjustments.approvedOtherCharges1 === 0){
@@ -710,6 +887,24 @@ routingApp.factory('claimsAdjudicateService', ['$http', '$q', '$window', '$timeo
 		calcAdjusmentCost($scope.adjustments);
 		calReimburshedCost($scope);
 	},
+	changeStatus = function($scope, status, $route){
+    	if(status === 11){
+    		if($window.confirm('This action cannot be reversed. Are you sure you want to continue?')) {
+    			showSpinner();
+    			$http.get("/agg/changeStatus/"+ $scope.adjudicateClaim.claimId+"/" + status)
+    			.then(function(response) {
+    				if(response.data.status === 'success'){
+    					//$window.location = '#/agg/fileClaim/' + $scope.adjudicateClaim.claimId;
+    					$route.reload();
+    					hideSpinner();
+    				}else{
+    					alert("Error occured while changing the status");
+    					hideSpinner();
+    				}
+    			});
+    		}
+    	}
+    },
 	updateClaimStatus = function(data){
 		$http.put('/agg/preAuthClaimReq', data).then(
 				function(response) {
@@ -758,10 +953,15 @@ routingApp.factory('claimsAdjudicateService', ['$http', '$q', '$window', '$timeo
 				$scope.adjustments.id = $scope.adjudicateClaim.id;
 				var fd = new FormData();
 				fd.append('data', angular.toJson($scope.adjustments));
-				 angular.forEach($scope.attachments, function (value, key) {
+				angular.forEach($scope.attachments, function (value, key) {
 					 fd.append('files', value);
-			        });
-				 return $http({
+			    });
+				if($scope.click === 5){
+					fd.append('condVal', 'Approved for Payment');
+				}else{
+					fd.append('condVal', 'Closed');
+				}
+				return $http({
 				        method: 'POST',
 				        url: '/agg/adjudicateClaim',
 				        headers: {'Content-Type': undefined},
@@ -793,7 +993,8 @@ routingApp.factory('claimsAdjudicateService', ['$http', '$q', '$window', '$timeo
 		$scope.adjudicateClaim = {};
 	},
 	calcAdjustmentsOnChange = function($scope){
-		calcAdjusmentCost($scope.adjustments);
+		//calcAdjusmentCost($scope.adjustments);
+		calcOnChgAdjusmentCost($scope.adjustments);
 		calReimburshedCost($scope);
 	},
 	collectAttachments = function ($scope, $files) {
@@ -806,7 +1007,9 @@ routingApp.factory('claimsAdjudicateService', ['$http', '$q', '$window', '$timeo
 		submit : submit,
 		backToList : backToList,
 		calcAdjustmentsOnChange : calcAdjustmentsOnChange,
-		collectAttachments : collectAttachments
+		collectAttachments : collectAttachments,
+		getClaim : getClaim,
+		changeStatus : changeStatus
 	}
 }]);
 
@@ -854,6 +1057,14 @@ routingApp.factory('claimDraftService', ['$http', '$q', '$window', '$timeout', '
 			
 			$scope.claim.cheqNo = claim.cheqNo;
 			$scope.claim.paidDate = claim.paidDate;
+			
+			$scope.claim.dealerName = claim.dealersName;
+			$scope.claim.dealerAddress = claim.dealerAddress;
+			$scope.claim.dealerCity = claim.dealerCity;
+			$scope.claim.dealerState = claim.dealerState;
+			$scope.claim.dealerZip = claim.dealerZip;
+			$scope.claim.dealerPhone = claim.dealerPhone;
+			$scope.claim.dealerEmail = claim.dealerEmail;
 			
 			if(!$scope.claim.claimPartVOList){
 				$scope.claim.claimPartVOList = [];

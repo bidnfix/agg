@@ -96,19 +96,21 @@ public interface QuoteDAO extends CrudRepository<Quote, QuotePK> {
 	public List<Quote> findByInvoiced(@Param("status")byte status, @Param("dealerId")long dealerId);*/
 	
 	@Query("SELECT new com.agg.application.model.QuoteDO(quote.id.id, quote.id.quoteId, quote.dealer.name, customerInfo.name, "
-			+ "quote.machineInfo.model, quote.machineSaleDate, quote.status, quote.createDate, quote.isArchive)"
+			+ "quote.machineInfo.model, quote.machineSaleDate, quote.status, quote.createDate, quote.lastUpdate, quote.isArchive)"
 			+ " from Quote quote, CustomerInfo customerInfo"
 			+ " where quote.id.quoteId=customerInfo.quoteId"
-			+ " and quote.isArchive = :isArchive")
+			+ " and quote.isArchive = :isArchive"
+			+ " ORDER BY quote.lastUpdate DESC")
 	public List<QuoteDO> findAllQuotes(@Param("isArchive")short isArchive);
 	
 	
 	@Query("SELECT new com.agg.application.model.QuoteDO(quote.id.id, quote.id.quoteId, quote.dealer.name, customerInfo.name, "
-			+ "quote.machineInfo.model, quote.machineSaleDate, quote.status, quote.createDate, quote.isArchive)"
+			+ "quote.machineInfo.model, quote.machineSaleDate, quote.status, quote.createDate, quote.lastUpdate, quote.isArchive)"
 			+ " from Quote quote, CustomerInfo customerInfo"
 			+ " where quote.id.quoteId=customerInfo.quoteId"
 			+ " and quote.dealer.id = :dealerId"
-			+ " and quote.isArchive = :isArchive")
+			+ " and quote.isArchive = :isArchive"
+			+ " ORDER BY quote.lastUpdate DESC")
 	public List<QuoteDO> findAllQuotesByDealer(@Param("dealerId")long dealerId, @Param("isArchive")short isArchive);
 	
 	
@@ -289,4 +291,16 @@ public interface QuoteDAO extends CrudRepository<Quote, QuotePK> {
 			@Param("statusSearch")String statusSearch, Pageable pageable);
 			
 	//public List<QuoteDO> findQuotsForSearch(Specification<T> spec, Pageable pageable);
+	
+	@Query(value="select * from Invoice_Quotes", nativeQuery=true)
+	List<Object[]> findAllQuotesForReport();
+	
+	
+	@Query(value="SELECT DATE_FORMAT(t3.created_date,'%Y') AS 'year', DATE_FORMAT(t3.created_date, '%m') AS 'month', "
+			+ "ROUND(SUM(t2.base_price), 0) AS contract_total FROM quotes t1, admin_adjustments t2, contracts t3 "
+			+ "WHERE t1.id = t3.quote_id AND t1.quote_id = t2.quote_id AND t1.status = :status "
+			+ "AND (DATE_FORMAT(t3.created_date,'%Y') > (DATE_FORMAT(NOW(),'%Y') - :yearCount)) "
+			+ "GROUP BY DATE_FORMAT(t3.created_date,'%Y'), DATE_FORMAT(t3.created_date, '%m')", nativeQuery=true)
+	public List<Object[]> findContractAmountDetails(@Param("status")byte status, @Param("yearCount") int yearCount);
+	
 }

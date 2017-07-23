@@ -35,6 +35,8 @@ public interface QuoteService {
 	public QuoteDO getQuote(AccountDO accountDetails, int id, String quoteId);
 
 	public boolean archiveQuote(QuoteDO quoteDO);
+	
+	public boolean unArchiveQuote(QuoteDO quoteDO);
 
 	public boolean updateQuote(QuoteDO quoteDO, AccountDO accountDO, String appUrl) throws Exception;
 

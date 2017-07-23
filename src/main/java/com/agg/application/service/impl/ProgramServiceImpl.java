@@ -43,7 +43,6 @@ import com.agg.application.entity.Sprogram;
 import com.agg.application.model.AccountDO;
 import com.agg.application.model.CustomerInfoDO;
 import com.agg.application.model.DealerDO;
-import com.agg.application.model.GroupDO;
 import com.agg.application.model.MachineInfoDO;
 import com.agg.application.model.ManufacturerDO;
 import com.agg.application.model.ProgramDO;
@@ -270,12 +269,20 @@ public class ProgramServiceImpl implements ProgramService {
 			quotePK.setQuoteId(quoteId);
 			quote.setId(quotePK);
 			
-			quote.setDealer(dealerDAO.findOne(accountDO.getDealerId()));
+			if(accountDO.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)){
+				quote.setDealer(dealerDAO.findOne(quoteDO.getDealerDO().getId()));
+			}else{
+				quote.setDealer(dealerDAO.findOne(accountDO.getDealerId()));
+			}
 			
 			logger.debug("quoteDO.getDealerDO().getId() "+quoteDO.getDealerDO().getId());
 			logger.debug("accountDO.getDealerId() "+accountDO.getDealerId());
 			
-			quote.setManfExpired((quoteDO.isCoverageExpired())?(byte)1:(byte)0);
+			//quote.setManfExpired((quoteDO.isCoverageExpired())?(byte)1:(byte)0);
+			
+			//logger.debug("quoteDO.getCondition()  "+quoteDO.getCondition());
+			
+			quote.setManfExpired((quoteDO.getCondition()==0)?(byte)1:(byte)0);
 			quote.setManfEndDate(quoteDO.getCoverageEndDate());
 			//quote.setManfEndKnown((quoteDO.isCoverageEndDateUnknown())?(byte)1:(byte)0);
 			quote.setManfEndKnown((byte)1);
@@ -336,22 +343,6 @@ public class ProgramServiceImpl implements ProgramService {
 			
 			//purchased status to 4
 			quote.setStatus((byte)4);
-			
-			/*CustomerInfo customerInfo = new CustomerInfo();
-			customerInfo.setQuoteId(quoteId);
-			customerInfo.setAddress(quoteDO.getDealerAddress());
-			customerInfo.setCity(quoteDO.getDealerCity());
-			customerInfo.setEmail(quoteDO.getDealerEmail());
-			customerInfo.setName(quoteDO.getDealerName());
-			customerInfo.setPhone(quoteDO.getDealerPhone());
-			customerInfo.setRemorse((quoteDO.isCustRemorsePeriod())?(byte)1:(byte)0);
-			customerInfo.setState(quoteDO.getDealerState());
-			customerInfo.setUnderstand((quoteDO.isCustUnderstandCoverage())?(byte)1:(byte)0);
-			customerInfo.setZip(quoteDO.getDealerZip());
-			customerInfo.setLastUpdate(new Date());
-			
-			//TODO
-			customerInfoDAO.save(customerInfo);*/
 			
 			quote = quoteDAO.save(quote);
 			
@@ -610,6 +601,8 @@ public class ProgramServiceImpl implements ProgramService {
 			List<MachineInfo> machineInfoLst = program.getMachineInfos();
 			if(machineInfoLst!=null)
 			{
+				
+				logger.debug("machineInfoLst size "+machineInfoLst.size());
 				for(MachineInfo macineInfo : machineInfoLst)
 				{
 					MachineInfoDO macInfDO = new MachineInfoDO();

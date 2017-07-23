@@ -36,6 +36,12 @@ public class ClaimPart {
 	
 	@Column(name="unit_price")
 	private double unitPrice;
+	
+	@Column(name="adj_qty")
+	private double adjQty;
+	
+	@Column(name="adj_unit_price")
+	private double adjUnitPrice;
 
 	/**
 	 * 
@@ -128,4 +134,32 @@ public class ClaimPart {
 		this.unitPrice = unitPrice;
 	}
 
+	/**
+	 * @return the adjQty
+	 */
+	public double getAdjQty() {
+		return adjQty;
+	}
+
+	/**
+	 * @param adjQty the adjQty to set
+	 */
+	public void setAdjQty(double adjQty) {
+		this.adjQty = adjQty;
+	}
+
+	/**
+	 * @return the adjUnitPrice
+	 */
+	public double getAdjUnitPrice() {
+		return adjUnitPrice;
+	}
+
+	/**
+	 * @param adjUnitPrice the adjUnitPrice to set
+	 */
+	public void setAdjUnitPrice(double adjUnitPrice) {
+		this.adjUnitPrice = adjUnitPrice;
+	}
+	
 }

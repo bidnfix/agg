@@ -26,4 +26,6 @@ public interface ClaimsService {
 	ClaimsDO getClaim(String claimId, int dealerId);
 	ClaimReportDO getClaimReportDetails(String claimId, AccountDO accountDO);
 	List<ClaimNoteDO> getClaimNotes(int claimId);
+	List<ClaimsDO> getClaimsByStatus(AccountDO accountDetails, byte claimStatusApprovedForPayment);
+	boolean changeClaimStatus(String claimId, byte status, AccountDO accountDO);
 }

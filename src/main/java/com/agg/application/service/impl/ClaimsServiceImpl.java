@@ -6,17 +6,22 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import com.agg.application.dao.AccountDAO;
+import com.agg.application.dao.CheckDAO;
 import com.agg.application.dao.ClaimFileDAO;
 import com.agg.application.dao.ClaimLaborDAO;
 import com.agg.application.dao.ClaimNotesDAO;
@@ -29,6 +34,7 @@ import com.agg.application.dao.MachineInfoDAO;
 import com.agg.application.dao.ManufacturerDAO;
 import com.agg.application.dao.QuoteDAO;
 import com.agg.application.entity.Account;
+import com.agg.application.entity.Check;
 import com.agg.application.entity.ClaimFile;
 import com.agg.application.entity.ClaimLabor;
 import com.agg.application.entity.ClaimNote;
@@ -39,6 +45,7 @@ import com.agg.application.entity.Dealer;
 import com.agg.application.entity.Manufacturer;
 import com.agg.application.entity.Quote;
 import com.agg.application.model.AccountDO;
+import com.agg.application.model.CheckDO;
 import com.agg.application.model.ClaimFileDO;
 import com.agg.application.model.ClaimLaborDO;
 import com.agg.application.model.ClaimNoteDO;
@@ -95,6 +102,9 @@ public class ClaimsServiceImpl implements ClaimsService {
 	@Autowired
 	private CustomerInfoDAO customerInfoDAO;
 	
+	@Autowired
+	private CheckDAO checkDAO;
+	
 	
 	public List<ClaimsDO> getClaimsInfo(AccountDO accountDO){
 		logger.debug("Inside getApprovedClaims()");
@@ -107,6 +117,24 @@ public class ClaimsServiceImpl implements ClaimsService {
 		}
 		if(claimsDOList != null){
 			logger.debug("claimsDOList size: "+claimsDOList.size());
+			List<Object> chkList = null;
+			int i = 0;
+			for(ClaimsDO claimsDO : claimsDOList){
+				chkList = checkDAO.findCheckAmtAndChkNo(claimsDO.getId());
+				if(chkList != null && !chkList.isEmpty()){
+					i = 0;
+					for(Object obj : chkList){
+						if(obj != null){
+							if(i == 0){
+								claimsDO.setCheqAmount(Double.valueOf((String)obj));
+							}else if (i == 1){
+								claimsDO.setCheqNo((String)obj);
+							}
+						}
+						i++;
+					}
+				}
+			}
 		}
 		return claimsDOList;
 	}
@@ -122,6 +150,50 @@ public class ClaimsServiceImpl implements ClaimsService {
 		}
 		if(claimsDOList != null){
 			logger.debug("claimsDOList size: "+claimsDOList.size());
+			//List<Check> checkList = null;
+			List<Object> chkList = null;
+			int i = 0;
+			for(ClaimsDO claimsDO : claimsDOList){
+				chkList = checkDAO.findCheckAmtAndChkNo(claimsDO.getId());
+				if(chkList != null && !chkList.isEmpty()){
+					i = 0;
+					for(Object obj : chkList){
+						//logger.debug("i: & val: "+i+" & "+(String)obj);
+						if(obj != null){
+							if(i == 0){
+								claimsDO.setCheqAmount(Double.valueOf((String)obj));
+							}else if (i == 1){
+								claimsDO.setCheqNo((String)obj);
+							}
+						}
+						i++;
+					}
+				}
+				/*checkList = checkDAO.findByClaimId(claimsDO.getId());
+				if(checkList != null){
+					double chqAmount = 0;
+					String chqNo = "";
+					Date chqDate = null;
+					int i = 0;
+					for(Check check : checkList){
+						if(i == 0){
+							chqNo = check.getCheckNo();
+							chqDate = check.getReceivedDate();
+						}else{
+							if(chqDate.before(check.getReceivedDate())){
+								chqNo = check.getCheckNo();
+								chqDate = check.getReceivedDate();
+							}
+						}
+						chqAmount += check.getCheckAmount();
+						
+						i++;
+					}
+					
+					claimsDO.setCheqNo(chqNo);
+					claimsDO.setCheqAmount(chqAmount);
+				}*/
+			}
 		}
 		return claimsDOList;
 	}
@@ -138,6 +210,24 @@ public class ClaimsServiceImpl implements ClaimsService {
 		}
 		if(claimsDOList != null){
 			logger.debug("claimsDOList size: "+claimsDOList.size());
+			List<Object> chkList = null;
+			int i = 0;
+			for(ClaimsDO claimsDO : claimsDOList){
+				chkList = checkDAO.findCheckAmtAndChkNo(claimsDO.getId());
+				if(chkList != null && !chkList.isEmpty()){
+					i = 0;
+					for(Object obj : chkList){
+						if(obj != null){
+							if(i == 0){
+								claimsDO.setCheqAmount(Double.valueOf((String)obj));
+							}else if (i == 1){
+								claimsDO.setCheqNo((String)obj);
+							}
+						}
+						i++;
+					}
+				}
+			}
 		}
 		return claimsDOList;
 	}
@@ -246,10 +336,11 @@ public class ClaimsServiceImpl implements ClaimsService {
 		claim.setcStatus(claimsDO.getcStatus());
 		claim.setRequestedOtherCharges1(claimsDO.getRequestedOtherCharges1());
 		claim.setRequestedOtherCharges2(claimsDO.getRequestedOtherCharges2());
-		claim.setTotalAdjustedPartsCost(claimsDO.getTotalAdjustedPartsCost());
-		claim.setTotalAdjustedLaborCost(claimsDO.getTotalAdjustedLaborCost());
-		claim.setApprovedOtherCharges1(claimsDO.getApprovedOtherCharges1());
-		claim.setApprovedOtherCharges2(claimsDO.getApprovedOtherCharges2());
+		//claim.setApprovedOtherCharges1((claimsDO.getApprovedOtherCharges1() > 0)?claimsDO.getApprovedOtherCharges1():claimsDO.getRequestedOtherCharges1());
+		//claim.setApprovedOtherCharges2((claimsDO.getApprovedOtherCharges2() > 0)?claimsDO.getApprovedOtherCharges2():claimsDO.getRequestedOtherCharges2());
+		claim.setApprovedOtherCharges1(claimsDO.getRequestedOtherCharges1());
+		claim.setApprovedOtherCharges2(claimsDO.getRequestedOtherCharges2());
+		
 		claim.setLastUpdate(new Date());
 		if(claimsDO.getId() == 0){
 			claim.setCrtaedBy(accountDO.getId());
@@ -257,18 +348,75 @@ public class ClaimsServiceImpl implements ClaimsService {
 		}
 		claim.setUpdatedBy(accountDO.getId());
 		
+		claim.setDealerName(claimsDO.getDealersName());
+		claim.setDealerAddress(claimsDO.getDealerAddress());
+		claim.setDealerCity(claimsDO.getDealerCity());
+		claim.setDealerState(claimsDO.getDealerState());
+		claim.setDealerZip(claimsDO.getDealerZip());
+		claim.setDealerPhone(claimsDO.getDealerPhone());
+		claim.setDealerEmail(claimsDO.getDealerEmail());
+
+		
+		double totalAdjustedPartsCost = 0.0;
+		double totalAdjustedLaborCost = 0.0;
+		if(null != claimsDO.getClaimPartDO() && !claimsDO.getClaimPartDO().isEmpty()){
+			double adjQty = 0.0;
+			double adjUnitPrice = 0.0;
+			for(ClaimPartDO claimPartDO : claimsDO.getClaimPartDO()){
+				//adjQty = (claimPartDO.getAdjQty() > 0)?claimPartDO.getAdjQty():claimPartDO.getQty();
+				//adjUnitPrice = (claimPartDO.getAdjUnitPrice() > 0)?claimPartDO.getAdjUnitPrice():claimPartDO.getUnitPrice();
+				
+				adjQty = claimPartDO.getQty();
+				adjUnitPrice = claimPartDO.getUnitPrice();
+				
+				totalAdjustedPartsCost += (adjQty * adjUnitPrice);
+			}
+		}
+		
+		//claim.setTotalAdjustedPartsCost((claimsDO.getTotalAdjustedPartsCost() > 0)?claimsDO.getTotalAdjustedPartsCost():totalAdjustedPartsCost);
+		
+		claim.setTotalAdjustedPartsCost(totalAdjustedPartsCost);
+		
+		if(null != claimsDO.getClaimLaborDO() && !claimsDO.getClaimLaborDO().isEmpty()){
+			double adjLaborHrs = 0.0;
+			double adjRate = 0.0;
+			for(ClaimLaborDO laborDO : claimsDO.getClaimLaborDO()){
+				//adjLaborHrs = (laborDO.getAdjLaborHrs() > 0)?laborDO.getAdjLaborHrs():laborDO.getLaborHrs();
+				//adjRate = (laborDO.getAdjRate() > 0)?laborDO.getAdjRate():laborDO.getRate();
+				
+				adjLaborHrs = laborDO.getLaborHrs();
+				adjRate = laborDO.getRate();
+				
+				totalAdjustedLaborCost += (adjLaborHrs * adjRate);
+			}
+		}
+		
+		//claim.setTotalAdjustedLaborCost((claimsDO.getTotalAdjustedLaborCost() > 0)?claimsDO.getTotalAdjustedLaborCost():totalAdjustedLaborCost);
+		
+		claim.setTotalAdjustedLaborCost(totalAdjustedLaborCost);
+		
 		Claims newClaim = claimsDAO.save(claim);
 		
 		if(null != claimsDO.getClaimPartDO() && !claimsDO.getClaimPartDO().isEmpty()){
 			List<ClaimPart> claimPartList = new ArrayList<>();
+			ClaimPart claimPart = null;
+			double adjQty = 0.0;
+			double adjUnitPrice = 0.0;
 			for(ClaimPartDO claimPartDO : claimsDO.getClaimPartDO()){
-				ClaimPart claimPart = new ClaimPart();
+				claimPart = new ClaimPart();
 				claimPart.setId(claimPartDO.getId());
 				claimPart.setClaimId(newClaim.getId());
 				claimPart.setPartNo(claimPartDO.getPartNo());
 				claimPart.setPartDescr(claimPartDO.getPartDescr());
 				claimPart.setQty(claimPartDO.getQty());
 				claimPart.setUnitPrice(claimPartDO.getUnitPrice());
+				//adjQty = (claimPartDO.getAdjQty() > 0)?claimPartDO.getAdjQty():claimPartDO.getQty();
+				//adjUnitPrice = (claimPartDO.getAdjUnitPrice() > 0)?claimPartDO.getAdjUnitPrice():claimPartDO.getUnitPrice();
+				adjQty = claimPartDO.getQty();
+				adjUnitPrice = claimPartDO.getUnitPrice();
+				claimPart.setAdjQty(adjQty);
+				claimPart.setAdjUnitPrice(adjUnitPrice);
+				
 				claimPartList.add(claimPart);
 			}
 			int records = claimPartDAO.deleteClaimPartsByClaimId(newClaim.getId());
@@ -278,14 +426,24 @@ public class ClaimsServiceImpl implements ClaimsService {
 		
 		if(null != claimsDO.getClaimLaborDO() && !claimsDO.getClaimLaborDO().isEmpty()){
 			List<ClaimLabor> claimLaborList = new ArrayList<>();
+			double adjLaborHrs = 0.0;
+			double adjRate = 0.0;
+			ClaimLabor claimLabor = null;
 			for(ClaimLaborDO laborDO : claimsDO.getClaimLaborDO()){
-				ClaimLabor claimLabor = new ClaimLabor();
+				claimLabor = new ClaimLabor();
 				claimLabor.setId(laborDO.getId());
 				claimLabor.setLaborNo(laborDO.getLaborNo());
 				claimLabor.setLaborDescr(laborDO.getLaborDescr());
 				claimLabor.setLaborHrs(laborDO.getLaborHrs());
 				claimLabor.setRate(laborDO.getRate());
 				claimLabor.setClaimId(newClaim.getId());
+				//adjLaborHrs = (laborDO.getAdjLaborHrs() > 0)?laborDO.getAdjLaborHrs():laborDO.getLaborHrs();
+				//adjRate = (laborDO.getAdjRate() > 0)?laborDO.getAdjRate():laborDO.getRate();
+				adjLaborHrs = laborDO.getLaborHrs();
+				adjRate = laborDO.getRate();
+				claimLabor.setAdjLaborHrs(adjLaborHrs);
+				claimLabor.setAdjRate(adjRate);
+				
 				claimLaborList.add(claimLabor);
 			}
 			int records = claimLaborDAO.deleteClaimLaborsByClaimId(newClaim.getId());
@@ -524,6 +682,14 @@ public class ClaimsServiceImpl implements ClaimsService {
 				claimDO.setCheqNo(claim.getCheqNo());
 				claimDO.setPaidDate(claim.getPaidDate());
 				
+				claimDO.setDealersName(claim.getDealerName());
+				claimDO.setDealerAddress(claim.getDealerAddress());
+				claimDO.setDealerCity(claim.getDealerCity());
+				claimDO.setDealerState(claim.getDealerState());
+				claimDO.setDealerZip(claim.getDealerZip());
+				claimDO.setDealerPhone(claim.getDealerPhone());
+				claimDO.setDealerEmail(claim.getDealerEmail());
+				
 				Contracts contract = contractsDAO.findByContractId(claim.getContractId());
 				Quote quote = quoteDAO.findOne((int)contract.getQuoteId());
 				claimDO.setManufacturer(quote.getManufacturer().getManfName());
@@ -539,6 +705,9 @@ public class ClaimsServiceImpl implements ClaimsService {
 						laborDO.setLaborNo(cp.getLaborNo());
 						laborDO.setLaborHrs(cp.getLaborHrs());
 						laborDO.setRate(cp.getRate());
+						laborDO.setAdjLaborHrs(cp.getAdjLaborHrs());
+						laborDO.setAdjRate(cp.getAdjRate());
+						
 						cpl.add(laborDO);
 					}
 					claimDO.setClaimLaborDO(cpl);
@@ -554,6 +723,9 @@ public class ClaimsServiceImpl implements ClaimsService {
 						partDO.setPartNo(cp.getPartNo());
 						partDO.setQty(cp.getQty());
 						partDO.setUnitPrice(cp.getUnitPrice());
+						partDO.setAdjQty(cp.getAdjQty());
+						partDO.setAdjUnitPrice(cp.getAdjUnitPrice());
+						
 						cpl.add(partDO);
 					}
 					claimDO.setClaimPartDO(cpl);
@@ -625,6 +797,22 @@ public class ClaimsServiceImpl implements ClaimsService {
 					}
 				}
 				
+				List<Check> checks = checkDAO.findByClaimId(claim.getId());
+				if(checks != null && !checks.isEmpty()){
+					CheckDO checkDO = null;
+					List<CheckDO> checkDOList = new ArrayList<CheckDO>();
+					for(Check check : checks){
+						checkDO = new CheckDO();
+						checkDO.setId(check.getId());
+						checkDO.setAmount(check.getCheckAmount());
+						checkDO.setCheckNo(check.getCheckNo());
+						checkDO.setReceivedDate(check.getReceivedDate());
+						
+						checkDOList.add(checkDO);
+					}
+					claimDO.setCheckDOList(checkDOList);
+				}
+				
 				claimsDOList.add(claimDO);
 			}
 		}
@@ -659,6 +847,7 @@ public class ClaimsServiceImpl implements ClaimsService {
 		Claims res = null;
 		Claims claim = claimsDAO.findOne(claimDO.getId());
 		if(null != claim){
+			Date currDate = new Date();
 			claim.setTotalAdjustedLaborCost(claimDO.getTotalAdjustedLaborCost());
 			claim.setTotalAdjustedPartsCost(claimDO.getTotalAdjustedPartsCost());
 			claim.setApprovedOtherCharges1(claimDO.getApprovedOtherCharges1());
@@ -666,8 +855,62 @@ public class ClaimsServiceImpl implements ClaimsService {
 			claim.setCheqNo(claimDO.getCheqNo());
 			claim.setPaidDate(claimDO.getPaidDate());
 			claim.setUpdatedBy(accountDO.getId());
-			claim.setLastUpdate(new Date());
-			claim.setcStatus((byte)AggConstants.CLAIM_STATUS_CLOSED);
+			claim.setLastUpdate(currDate);
+			if(claimDO.getCondValue() != null && claimDO.getCondValue().trim().equalsIgnoreCase(AggConstants.CLAIM_STATUS_APPROVED_FOR_PAYMENT_DESC)){
+				claim.setcStatus((byte)AggConstants.CLAIM_STATUS_APPROVED_FOR_PAYMENT);
+			}else if(claimDO.getCondValue() != null && claimDO.getCondValue().trim().equalsIgnoreCase(AggConstants.CLAIM_STATUS_CLOSED_DESC)){
+				claim.setcStatus((byte)AggConstants.CLAIM_STATUS_CLOSED);
+			}
+			
+			List<CheckDO> checkDOList = claimDO.getCheckDOList();
+			double totalCheckAmount = 0.0;
+			if(checkDOList != null && !checkDOList.isEmpty()){
+				Set<Check> checks = new HashSet<Check>();
+				Check check = null;
+				for(CheckDO checkDO : checkDOList){
+					if(checkDO.getId() > 0){
+						check = checkDAO.findOne(checkDO.getId());
+					}else{
+						check = new Check();
+						check.setCreatedBy(accountDO.getUsername());
+						check.setCreatedDate(currDate);
+					}
+					totalCheckAmount += checkDO.getAmount();
+					check.setClaim(claim);
+					check.setCheckNo(checkDO.getCheckNo());
+					check.setReceivedDate(checkDO.getReceivedDate());
+					check.setCheckAmount(checkDO.getAmount());
+					check.setUpdatedBy(accountDO.getUsername());
+					check.setUpdatedDate(currDate);
+					
+					checks.add(check);
+				}
+				
+				Set<Check> exstChecks = claim.getChecks();
+				Set<Check> nonExstChecks = new HashSet<Check>();
+				boolean nonExists = false;
+				for(Check exstCheck : exstChecks){
+					nonExists = true;
+					for(Check checkk : checks){
+						if(exstCheck.getId() == checkk.getId()){
+							nonExists = false;
+							break;
+						}
+					}
+					
+					if(nonExists){
+						nonExstChecks.add(exstCheck);
+					}
+				}
+				
+				logger.debug("nonExstChecks size: "+nonExstChecks.size());
+				if(nonExstChecks.size() > 0){
+					checkDAO.delete(nonExstChecks);
+				}
+				
+				claim.setChecks(checks);
+			}
+			
 			res = claimsDAO.save(claim);
 			
 			if(null != claimDO.getClaimFileDO() && !claimDO.getClaimFileDO().isEmpty() && null != res ){
@@ -684,9 +927,13 @@ public class ClaimsServiceImpl implements ClaimsService {
 			
 			Contracts contracts = contractsDAO.findByContractId(claim.getContractId());
 			if(contracts != null){
-				contracts.setAvailabeLol(contracts.getAvailabeLol()-claimDO.getTra());
-				contracts.setLastUpdatedDate(new Date());
-				contractsDAO.save(contracts);
+				if(claimDO.getCondValue() != null && claimDO.getCondValue().trim().equalsIgnoreCase(AggConstants.CLAIM_STATUS_CLOSED_DESC)){
+					logger.debug("totalCheckAmount: "+totalCheckAmount);
+					//contracts.setAvailabeLol(contracts.getAvailabeLol()-claimDO.getTra());
+					contracts.setAvailabeLol(contracts.getAvailabeLol()-totalCheckAmount);
+					contracts.setLastUpdatedDate(new Date());
+					contractsDAO.save(contracts);
+				}
 			}
 			ClaimNote claimNote = null;
 			logger.debug("claimDO.getComments() "+claimDO.getComments());
@@ -711,6 +958,48 @@ public class ClaimsServiceImpl implements ClaimsService {
 				claimNote.setNoteType(AggConstants.EXTERNAL_CLAIM_NOTE);
 				claimNote.setLastUpdate(new Timestamp(new Date().getTime()));
 				claimNotesDAO.save(claimNote);
+			}
+			
+			if(null != claimDO.getClaimPartDO() && !claimDO.getClaimPartDO().isEmpty()){
+				List<ClaimPart> claimPartList = new ArrayList<>();
+				ClaimPart claimPart = null;
+				for(ClaimPartDO claimPartDO : claimDO.getClaimPartDO()){
+					claimPart = new ClaimPart();
+					claimPart.setId(claimPartDO.getId());
+					claimPart.setClaimId(claim.getId());
+					claimPart.setPartNo(claimPartDO.getPartNo());
+					claimPart.setPartDescr(claimPartDO.getPartDescr());
+					claimPart.setQty(claimPartDO.getQty());
+					claimPart.setUnitPrice(claimPartDO.getUnitPrice());
+					claimPart.setAdjQty(claimPartDO.getAdjQty());
+					claimPart.setAdjUnitPrice(claimPartDO.getAdjUnitPrice());
+					
+					claimPartList.add(claimPart);
+				}
+				int records = claimPartDAO.deleteClaimPartsByClaimId(claim.getId());
+				logger.info("b4 insert ClaimParts, "+records+" records deleted for claim: "+claim.getClaimId());
+				claimPartDAO.save(claimPartList);
+			}
+			
+			if(null != claimDO.getClaimLaborDO() && !claimDO.getClaimLaborDO().isEmpty()){
+				List<ClaimLabor> claimLaborList = new ArrayList<>();
+				ClaimLabor claimLabor = null;
+				for(ClaimLaborDO laborDO : claimDO.getClaimLaborDO()){
+					claimLabor = new ClaimLabor();
+					claimLabor.setId(laborDO.getId());
+					claimLabor.setLaborNo(laborDO.getLaborNo());
+					claimLabor.setLaborDescr(laborDO.getLaborDescr());
+					claimLabor.setLaborHrs(laborDO.getLaborHrs());
+					claimLabor.setRate(laborDO.getRate());
+					claimLabor.setClaimId(claim.getId());
+					claimLabor.setAdjLaborHrs(laborDO.getAdjLaborHrs());
+					claimLabor.setAdjRate(laborDO.getAdjRate());
+					
+					claimLaborList.add(claimLabor);
+				}
+				int records = claimLaborDAO.deleteClaimLaborsByClaimId(claim.getId());
+				logger.info("b4 insert ClaimLabors, "+records+" records deleted for claim: "+claim.getClaimId());
+				claimLaborDAO.save(claimLaborList);
 			}
 			
 			
@@ -747,7 +1036,48 @@ public class ClaimsServiceImpl implements ClaimsService {
 				claimReportDO.setPhone(dealer.getPhone());
 				claimReportDO.setState(dealer.getState());
 				claimReportDO.setZip(dealer.getZip());
+				
+				claimReportDO.setDealersName(dealer.getName());
+				claimReportDO.setDealerAddress(dealer.getAddress());
+				claimReportDO.setDealerCity(dealer.getCity());
+				claimReportDO.setDealerState(dealer.getState());
+				claimReportDO.setDealerZip(dealer.getZip());
+				claimReportDO.setDealerPhone(dealer.getPhone());
+				claimReportDO.setDealerEmail(dealer.getInvoiceEmail());
 			}
+			
+			if (!StringUtils.isEmpty(claim.getDealerName()) && !StringUtils.isEmpty(claim.getDealerAddress()) && 
+										!StringUtils.isEmpty(claim.getDealerCity()) && !StringUtils.isEmpty(claim.getDealerState()) && 
+										!StringUtils.isEmpty(claim.getDealerZip())) {
+				claimReportDO.setDealersName(claim.getDealerName());
+				claimReportDO.setDealerAddress(claim.getDealerAddress());
+				claimReportDO.setDealerCity(claim.getDealerCity());
+				claimReportDO.setDealerState(claim.getDealerState());
+				claimReportDO.setDealerZip(claim.getDealerZip());
+				claimReportDO.setDealerPhone(claim.getDealerPhone());
+				claimReportDO.setDealerEmail(claim.getDealerEmail());
+			}
+			
+			Set<Check> checks = claim.getChecks();
+			CheckDO checkDo = null;
+			double totalChequeAmount = 0;
+			List<CheckDO> checkDos = Lists.newArrayList(); 
+			if (CollectionUtils.isNotEmpty(checks)) {
+				for (Check check : checks) {
+					checkDo = new CheckDO();
+					checkDo.setId(check.getId());
+					checkDo.setCheckNo(check.getCheckNo());
+					checkDo.setAmount(check.getCheckAmount());
+					checkDo.setCheckAmount(currencyFormat.format(check.getCheckAmount()));
+					totalChequeAmount += check.getCheckAmount();
+					checkDo.setReceivedDate(check.getReceivedDate());
+					checkDo.setCheckRecievedDate(check.getReceivedDate() != null ? reportDateFormat.format(check.getReceivedDate()) : "");
+					checkDos.add(checkDo);
+				}
+			}
+			
+			claimReportDO.setCheckDos(checkDos);
+			claimReportDO.setTotalChequeAmount(currencyFormat.format(totalChequeAmount));
 			
 			Account account = accountDAO.findOne(claim.getCrtaedBy());
 			if(account != null){
@@ -826,6 +1156,10 @@ public class ClaimsServiceImpl implements ClaimsService {
 					laborDO.setRate(claimLabor.getRate());
 					laborDO.setLaborTotal(currencyFormat.format(claimLabor.getLaborHrs() * claimLabor.getRate()));
 					totalLaborCost += (claimLabor.getLaborHrs() * claimLabor.getRate());
+					laborDO.setAdjLaborHrs(claimLabor.getAdjLaborHrs());
+					laborDO.setAdjRate(claimLabor.getAdjRate());
+					laborDO.setLaborAdjTotal(currencyFormat.format(claimLabor.getAdjLaborHrs() * claimLabor.getAdjRate()));
+					
 					claimLaborDOList.add(laborDO);
 				}
 				claimReportDO.setClaimLaborDOList(claimLaborDOList);
@@ -846,6 +1180,10 @@ public class ClaimsServiceImpl implements ClaimsService {
 					partDO.setUnitPrice(claimPart.getUnitPrice());
 					partDO.setPartTotal(currencyFormat.format((claimPart.getQty() * claimPart.getUnitPrice())));
 					totalPartCost += (claimPart.getQty() * claimPart.getUnitPrice());
+					partDO.setAdjQty(claimPart.getAdjQty());
+					partDO.setAdjUnitPrice(claimPart.getAdjUnitPrice());
+					partDO.setPartAdjTotal(currencyFormat.format((claimPart.getAdjQty() * claimPart.getAdjUnitPrice())));
+					
 					claimPartDOList.add(partDO);
 				}
 				claimReportDO.setClaimPartDOList(claimPartDOList);
@@ -950,6 +1288,84 @@ public class ClaimsServiceImpl implements ClaimsService {
 		}
 		
 		return claimNoteDOLst;
+	}
+
+	@Override
+	public List<ClaimsDO> getClaimsByStatus(AccountDO accountDO, byte claimStatusApprovedForPayment) {
+		List<ClaimsDO> claimsDOList = null;
+		if(accountDO.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)){
+			claimsDOList = claimsDAO.findApprovedClaims(claimStatusApprovedForPayment);
+		}
+		return claimsDOList;
+	}
+
+	@Override
+	@Transactional
+	public boolean changeClaimStatus(String claimId, byte status, AccountDO accountDO) {
+		boolean cond = false;
+		if(accountDO.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)){
+			Claims claim = claimsDAO.findClaimsByClaimId(claimId);
+			if(claim != null){
+				if(status == AggConstants.CLAIM_STATUS_CLOSED){
+					Set<Check> checks = claim.getChecks();
+					Contracts contract = contractsDAO.findByContractId(claim.getContractId());
+					if(checks != null && !checks.isEmpty()){
+						//adding totalChkAmt to availableLOL.
+						double totalChkAmt = 0.0;
+						for(Check check : checks){
+							totalChkAmt += check.getCheckAmount();
+						}
+						if(contract != null){
+							contract.setAvailabeLol(contract.getAvailabeLol()+totalChkAmt);
+							contract.setLastUpdatedDate(new Date());
+							contractsDAO.save(contract);
+						}
+					}else{
+						//adding TRA amount to availableLOL.
+						double totalAdjClaimCost = (claim.getApprovedOtherCharges1() + claim.getApprovedOtherCharges2()
+								+ claim.getTotalAdjustedPartsCost() + claim.getTotalAdjustedLaborCost());
+						double deductible = 0.0;
+						if(contract != null){
+							deductible = contract.getDeductible();
+						}
+						double contractDeductible = totalAdjClaimCost - deductible;
+						if(contractDeductible < 0){
+							contractDeductible = 0;
+						}
+						double deductibleTRA = contract.getAvailabeLol() - contractDeductible;
+						//total Re-imbursed amount
+						double tra = 0;
+						if(deductibleTRA < 0){
+							tra = contract.getAvailabeLol();
+						}else{
+							tra = contractDeductible;
+						}
+						if(contract != null){
+							contract.setAvailabeLol(contract.getAvailabeLol()+tra);
+							contract.setLastUpdatedDate(new Date());
+							contractsDAO.save(contract);
+						}
+					}
+					claim.setcStatus((byte)AggConstants.CLAIM_STATUS_PENDING);
+					claim.setUpdatedBy(accountDO.getId());
+					claim.setLastUpdate(new Date());
+					claimsDAO.save(claim);
+				}else if(status == AggConstants.CLAIM_STATUS_PRE_AUTHORIZED_APPROVED 
+						|| status == AggConstants.CLAIM_STATUS_PRE_AUTHORIZED_REJECTED 
+						|| status == AggConstants.CLAIM_STATUS_CANCEL
+						|| status == AggConstants.CLAIM_STATUS_APPROVED_FOR_PAYMENT){
+					if(status == AggConstants.CLAIM_STATUS_PRE_AUTHORIZED_APPROVED || status == AggConstants.CLAIM_STATUS_PRE_AUTHORIZED_REJECTED){
+						claim.setcStatus((byte)AggConstants.CLAIM_STATUS_PRE_AUTHORIZED_REQUESTED);
+					}else if(status == AggConstants.CLAIM_STATUS_CANCEL || status == AggConstants.CLAIM_STATUS_APPROVED_FOR_PAYMENT){
+						claim.setcStatus((byte)AggConstants.CLAIM_STATUS_PENDING);
+					}
+					claim.setUpdatedBy(accountDO.getId());
+					claim.setLastUpdate(new Date());
+					claimsDAO.save(claim);
+				}
+			}
+		}
+		return cond;
 	}
 	
 	

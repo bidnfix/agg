@@ -45,12 +45,137 @@
 							<p>{{contractInfoList.machineModel}}</p>
 						</div>
 						<div class="form-group col-xs-12 no-pad">
+							<label>Coverage Type</label>
+							<p>{{(contractInfoList.coverageType === 'PT')?"Powertrain":(contractInfoList.coverageType === 'PH')?"Powertrain + Hydraulic":(contractInfoList.coverageType === 'PL')?"Powertrain + Hydraulic + Platform":""}}</p>
+						</div>
+						<div class="form-group col-xs-12 no-pad">
 							<label>Usage Hours covered</label>
 							<p>{{contractInfoList.usageHoursCovered}}</p>
 						</div>
 						<div class="form-group col-xs-12 no-pad">
 							<label>Available LOL</label>
 							<p>{{contractInfoList.availableLol | currency}}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="col-xs-12 no-pad clearfix">
+ 			<div class="col-md-6 no-pad pad10-right">
+				<span class="ag-tab-title col-xs-12 no-pad marg10-bottom">Servicing Dealer
+					Information</span> <br clear="all"> <br>
+				<div class="form-group no-pad col-xs-12">
+					<label>Dealer Name</label> <input type="text"
+						class="form-control" ng-model="claim.dealerName"
+						required="required" ng-readonly="commentUpdateBtnFlag">
+				</div>
+				<div class="form-group col-xs-12 no-pad">
+					<label>City</label> <input type="text" class="form-control"
+						ng-model="claim.dealerCity" required="required" ng-readonly="commentUpdateBtnFlag">
+				</div>
+				<div class="form-group col-xs-12 no-pad">
+					<label>Zip</label> <input type="text" class="form-control"
+						ng-model="claim.dealerZip" required="required" ng-readonly="commentUpdateBtnFlag">
+				</div>
+				<div class="form-group col-xs-12 no-pad">
+					<label>E-mail</label> <input type="text"
+						class="form-control" ng-model="claim.dealerEmail"
+						required="required" ng-readonly="commentUpdateBtnFlag">
+				</div>		
+			</div>
+
+			<div class="col-md-6 no-pad">
+				<span
+					class="ag-tab-title col-xs-12 no-pad marg10-bottom  pad20-left"
+					style="margin-left: -10px !important;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+				<div class="col-xs-12 no-pad pad10-left border-left">
+					<br clear="all">
+
+					<div class="col-xs-12 no-pad">
+						<div class="form-group col-xs-12 no-pad">
+							<label>Address</label>
+							<textarea class="form-control" rows="2"
+								ng-model="claim.dealerAddress" required="required" ng-readonly="commentUpdateBtnFlag"></textarea>
+						</div>
+						<div class="form-group col-xs-12 no-pad">
+							<label>State/Province</label>
+							<!-- <input type="text"
+						class="form-control" ng-model="claim.dealerState"
+						required="required" ng-readonly="commentUpdateBtnFlag"> -->
+						<select class="form-control" name="state" ng-model="claim.dealerState" id="state" required="required" ng-readonly="commentUpdateBtnFlag">
+							<option value="">Select State/Province</option>
+							<option value="AL">Alabama</option>
+							<option value="AK">Alaska</option>
+							<option value="AZ">Arizona</option>
+							<option value="AR">Arkansas</option>
+							<option value="CA">California</option>
+							<option value="CO">Colorado</option>
+							<option value="CT">Connecticut</option>
+							<option value="DE">Delaware</option>
+							<option value="DC">District Of Columbia</option>
+							<option value="FL">Florida</option>
+							<option value="GA">Georgia</option>
+							<option value="HI">Hawaii</option>
+							<option value="ID">Idaho</option>
+							<option value="IL">Illinois</option>
+							<option value="IN">Indiana</option>
+							<option value="IA">Iowa</option>
+							<option value="KS">Kansas</option>
+							<option value="KY">Kentucky</option>
+							<option value="LA">Louisiana</option>
+							<option value="ME">Maine</option>
+							<option value="MD">Maryland</option>
+							<option value="MA">Massachusetts</option>
+							<option value="MI">Michigan</option>
+							<option value="MN">Minnesota</option>
+							<option value="MS">Mississippi</option>
+							<option value="MO">Missouri</option>
+							<option value="MT">Montana</option>
+							<option value="NE">Nebraska</option>
+							<option value="NV">Nevada</option>
+							<option value="NH">New Hampshire</option>
+							<option value="NJ">New Jersey</option>
+							<option value="NM">New Mexico</option>
+							<option value="NY">New York</option>
+							<option value="NC">North Carolina</option>
+							<option value="ND">North Dakota</option>
+							<option value="OH">Ohio</option>
+							<option value="OK">Oklahoma</option>
+							<option value="OR">Oregon</option>
+							<option value="PA">Pennsylvania</option>
+							<option value="RI">Rhode Island</option>
+							<option value="SC">South Carolina</option>
+							<option value="SD">South Dakota</option>
+							<option value="TN">Tennessee</option>
+							<option value="TX">Texas</option>
+							<option value="UT">Utah</option>
+							<option value="VT">Vermont</option>
+							<option value="VA">Virginia</option>
+							<option value="WA">Washington</option>
+							<option value="WV">West Virginia</option>
+							<option value="WI">Wisconsin</option>
+							<option value="WY">Wyoming</option>
+							<option value="AB">Alberta</option>
+							<option value="BC">British Columbia</option>
+							<option value="MB">Manitoba</option>
+							<option value="NB">New Brunswick</option>
+							<option value="NL">Newfoundland and Labrador</option>
+							<option value="NS">Nova Scotia</option>
+							<option value="ON">Ontario</option>
+							<option value="PE">Prince Edward Island</option>
+							<option value="QC">Quebec</option>
+							<option value="SK">Saskatchewan</option>
+							<option value="NT">Northwest Territories</option>
+							<option value="NU">Nunavut</option>
+							<option value="YT">Yukon</option>
+					</select>
+						</div>
+						<div class="form-group col-xs-12 no-pad">
+							<label>Phone Number</label>
+							<input type="text"
+						class="form-control" ng-model="claim.dealerPhone"
+						required="required" ng-readonly="commentUpdateBtnFlag">
 						</div>
 					</div>
 				</div>
@@ -74,11 +199,10 @@
 					<label>Model Number</label> <input type="text" class="form-control"
 						ng-model="contractInfoList.machineModel" ng-readonly=true>
 				</div>
-				<div class="form-group col-xs-12 no-pad">
-					<label>Coverage Type</label> <input type="text"
-						class="form-control" ng-model="contractInfoList.coverageType"
-						ng-readonly=true>
-				</div>
+				<!-- <div class="form-group col-xs-12 no-pad">
+					<label>Coverage Type</label> 
+					{{(contractInfoList.coverageType === 'PT')?"Powertrain":(contractInfoList.coverageType === 'PH')?"Powertrain + Hydraulic":(contractInfoList.coverageType === 'PL')?"Powertrain + Hydraulic + Platform":""}}
+				</div> -->
 				<div class="form-group col-xs-12 no-pad">
 					<label>Failure Date</label>
 					<div class="input-group">
@@ -363,7 +487,7 @@
 		<button type="submit" class="btn btn-primary" ng-click="reqAuth()"
 			ng-show="isSubmitDisabled">Request Preauthorization</button>
 		<button type="submit" class="btn btn-primary"
-			ng-disabled="isSubmitDisabled" ng-click="reqSubmit()">
+			ng-hide="isSubmitDisabled" ng-click="reqSubmit()">
 			Submit Claim</button>
 	</div>
 	<div class="col-sm-12 no-pad t-c marg10-top marg10-bottom" ng-show="updateBtnFlag">

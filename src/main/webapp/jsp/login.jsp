@@ -95,7 +95,7 @@
                  	 <form class="form-signin" ng-submit="ctrl.submit()">       
 					      <h3 class="form-signin-heading">Please login</h3>
 					      <p class="err-msg" id="errMsg"></p>
-					      <input type="text" class="form-control" name="username" ng-model="ctrl.user.username" placeholder="Email Address" required="" autofocus="" />
+					      <input type="text" class="form-control" name="username" ng-model="ctrl.user.username" placeholder="User Name" required="" autofocus="" />
 					      <input type="password" class="form-control" name="password" ng-model="ctrl.user.password" placeholder="Password" required=""/>      
 					      <label class="checkbox">
 					        <input type="checkbox" value="remember-me" id="rememberMe" name="rememberMe"> Remember me
@@ -188,13 +188,13 @@
 <!-- JavaScript libs are placed at the end of the document so the pages load faster --> 
 <script src="/assets/js/modernizr-latest.js"></script> 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> 
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script> 
 <script src="/assets/js/jquery.cslider.js"></script> 
 <script src="/assets/js/headroom.min.js"></script> 
 <script src="/assets/js/jQuery.headroom.min.js"></script> 
 <script src="/assets/js/custom.js"></script>
 <script src="/assets/js/slider.js"></script>
 <script src="/assets/js/angular.min.js"></script>
+<script src="/assets/js/ui-bootstrap-tpls.min-0.13.0.js"></script> 
 <script src="/assets/js/app.js"></script>
 <script src="/assets/js/service/loginService.js"></script>
 <script src="/assets/js/controller/loginController.js"></script>

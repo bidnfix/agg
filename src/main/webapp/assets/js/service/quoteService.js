@@ -160,6 +160,25 @@ routingApp.factory('quoteService', function($http, $q, $window) {
 						return $q.reject(errResponse);
 					});
 		},
+		unArchiveQuote : function(quote, $scope) {
+			showSpinner();
+			//alert("dfsdkfjsdkfsd");
+			return $http.post('/agg/quote/unArchiveQuote', quote).then(
+					function(response) {
+						//alert(response.data.status);
+						if (response.data.status == 'success') {
+							$window.location.href = '#/agg/quotes';
+						} else {
+							alert('error in archiving Quote: '+response.data.errMessage)
+							//$('#errMsg').html(response.data.errMessage);
+						}
+						hideSpinner();
+						
+					}, function(errResponse) {
+						alert('Error while archiving Quote');
+						return $q.reject(errResponse);
+					});
+		},
 		updateQuote : function(quote, $scope) {
 			showSpinner();
 			return $http.post('/agg/quote/updateQuote', quote).then(

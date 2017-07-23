@@ -36,6 +36,12 @@ public class ClaimLabor {
 	private double laborHrs;
 	
 	private double rate;
+	
+	@Column(name="adj_labor_hrs")
+	private double adjLaborHrs;
+	
+	@Column(name="adj_rate")
+	private double adjRate;
 
 	/**
 	 * 
@@ -130,4 +136,32 @@ public class ClaimLabor {
 		this.rate = rate;
 	}
 
+	/**
+	 * @return the adjLaborHrs
+	 */
+	public double getAdjLaborHrs() {
+		return adjLaborHrs;
+	}
+
+	/**
+	 * @param adjLaborHrs the adjLaborHrs to set
+	 */
+	public void setAdjLaborHrs(double adjLaborHrs) {
+		this.adjLaborHrs = adjLaborHrs;
+	}
+
+	/**
+	 * @return the adjRate
+	 */
+	public double getAdjRate() {
+		return adjRate;
+	}
+
+	/**
+	 * @param adjRate the adjRate to set
+	 */
+	public void setAdjRate(double adjRate) {
+		this.adjRate = adjRate;
+	}
+	
 }

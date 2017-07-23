@@ -1240,3 +1240,34 @@ input[type=checkbox] {
 .worklist-menu-selected {
     background: #5192d4 none repeat scroll 0 0 !important;
 }
+
+/* browser modal changes */
+
+/* .modal-content {
+	width: 450px;
+	height: 250px;
+} */
+
+ @media screen and (min-width: 768px) {
+     .modal-dialog {
+       width: 450px; /* New width for default modal */
+     }
+     .modal-sm {
+       width: 250px; /* New width for small modal */
+     }
+ }
+ @media screen and (min-width: 992px) {
+     .modal-lg {
+       width: 950px; /* New width for large modal */
+     }
+ }
+.modal-dialog, .modal-content {
+    /* 80% of window height */
+    height:68%;
+}
+
+.modal-body {
+    /* 100% = dialog height, 120px = header + footer */
+    max-height: calc(100% - 120px);
+    /*overflow-y: scroll;*/
+}

@@ -103,15 +103,15 @@
 			<div class="col-sm-6">
 				<div class="form-group">
 					<label>*Name/Nickname</label> 
-					<input type="text" id="dealerName" name="dealerName" ng-model="quote.dealerName" placeholder="Dealer Name" class="form-control" required="required">
+					<input type="text" id="dealerName" name="dealerName" ng-model="quote.dealerName" placeholder="Customer Name" class="form-control" required="required">
 				</div>
 				<div class="form-group">
 					<label>Address</label> 
-					<input type="text" id="dealerAddress" name="dealerAddress" ng-model="quote.dealerAddress" placeholder="Dealer Address" class="form-control">
+					<input type="text" id="dealerAddress" name="dealerAddress" ng-model="quote.dealerAddress" placeholder="Customer Address" class="form-control">
 				</div>
 				<div class="form-group">
 					<label>City</label> 
-					<input type="text" id="dealerCity" name="dealerCity" ng-model="quote.dealerCity" placeholder="Dealer City" class="form-control">
+					<input type="text" id="dealerCity" name="dealerCity" ng-model="quote.dealerCity" placeholder="Customer City" class="form-control">
 				</div>
 				<div class="form-group">
 					<label>State/Province</label> 

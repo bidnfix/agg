@@ -59,6 +59,17 @@ public class ClaimsDO {
 	private String createdUser;
 	private String updatedUser;
 	private List<ClaimNoteDO> claimsNoteList;
+	private String condValue;
+	private List<CheckDO> checkDOList;
+	private String dealersName;
+	private String dealerAddress;
+	private String dealerCity;
+	private String dealerState;
+	private String dealerZip;
+	private String dealerPhone;
+	private String dealerEmail;
+	private double cheqAmount;
+
 	
 	public List<ClaimFileDO> getClaimFileDO() {
 		return claimFileDO;
@@ -92,6 +103,22 @@ public class ClaimsDO {
 		this.paidDate = paidDate;
 		this.lastUpdate = lastUpdate;
 	}
+	
+	public ClaimsDO(String claimId, String custName, String dealerName, String serialNo, String manfName,
+			String machineModel, byte status, String cheqNo, Date paidDate, Date lastUpdate, int id) {
+		this.claimId = claimId;
+		this.custName = custName;
+		this.dealerName = dealerName;
+		this.serial = serialNo;
+		this.manufacturer = manfName;
+		this.machineModel = machineModel;
+		this.cStatus = status;
+		this.cheqNo = cheqNo;
+		this.paidDate = paidDate;
+		this.lastUpdate = lastUpdate;
+		this.id = id;
+	}
+	
 	/**
 	 * 
 	 */
@@ -477,6 +504,66 @@ public class ClaimsDO {
 	}
 	public void setClaimsNoteList(List<ClaimNoteDO> claimsNoteList) {
 		this.claimsNoteList = claimsNoteList;
+	}
+	public String getCondValue() {
+		return condValue;
+	}
+	public void setCondValue(String condValue) {
+		this.condValue = condValue;
+	}
+	public List<CheckDO> getCheckDOList() {
+		return checkDOList;
+	}
+	public void setCheckDOList(List<CheckDO> checkDOList) {
+		this.checkDOList = checkDOList;
+	}
+	public String getDealersName() {
+		return dealersName;
+	}
+	public void setDealersName(String dealersName) {
+		this.dealersName = dealersName;
+	}
+	public String getDealerAddress() {
+		return dealerAddress;
+	}
+	public void setDealerAddress(String dealerAddress) {
+		this.dealerAddress = dealerAddress;
+	}
+	public String getDealerCity() {
+		return dealerCity;
+	}
+	public void setDealerCity(String dealerCity) {
+		this.dealerCity = dealerCity;
+	}
+	public String getDealerState() {
+		return dealerState;
+	}
+	public void setDealerState(String dealerState) {
+		this.dealerState = dealerState;
+	}
+	public String getDealerZip() {
+		return dealerZip;
+	}
+	public void setDealerZip(String dealerZip) {
+		this.dealerZip = dealerZip;
+	}
+	public String getDealerPhone() {
+		return dealerPhone;
+	}
+	public void setDealerPhone(String dealerPhone) {
+		this.dealerPhone = dealerPhone;
+	}
+	public String getDealerEmail() {
+		return dealerEmail;
+	}
+	public void setDealerEmail(String dealerEmail) {
+		this.dealerEmail = dealerEmail;
+	}
+	public double getCheqAmount() {
+		return cheqAmount;
+	}
+	public void setCheqAmount(double cheqAmount) {
+		this.cheqAmount = cheqAmount;
 	}
 	
 }

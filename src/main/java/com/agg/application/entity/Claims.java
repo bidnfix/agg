@@ -3,14 +3,18 @@ package com.agg.application.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -115,6 +119,30 @@ public class Claims implements Serializable {
 	
 	@Column(name="updated_by")
 	private long updatedBy;
+	
+	@OneToMany(mappedBy = "claim", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private Set<Check> checks;
+	
+	@Column(name="dealer_name")
+	private String dealerName; 
+	
+	@Column(name="dealer_address")
+	private String dealerAddress;
+	
+	@Column(name="dealer_city")
+	private String dealerCity;
+	
+	@Column(name="dealer_state")
+	private String dealerState;
+	
+	@Column(name="dealer_zip")
+	private String dealerZip;
+	
+	@Column(name="dealer_phone")
+	private String dealerPhone;
+	
+	@Column(name="dealer_email")
+	private String dealerEmail;
 	
 	
 	public Claims() {
@@ -466,6 +494,70 @@ public class Claims implements Serializable {
 
 	public void setUpdatedBy(long updatedBy) {
 		this.updatedBy = updatedBy;
+	}
+
+	public Set<Check> getChecks() {
+		return checks;
+	}
+
+	public void setChecks(Set<Check> checks) {
+		this.checks = checks;
+	}
+
+	public String getDealerName() {
+		return dealerName;
+	}
+
+	public void setDealerName(String dealerName) {
+		this.dealerName = dealerName;
+	}
+
+	public String getDealerAddress() {
+		return dealerAddress;
+	}
+
+	public void setDealerAddress(String dealerAddress) {
+		this.dealerAddress = dealerAddress;
+	}
+
+	public String getDealerCity() {
+		return dealerCity;
+	}
+
+	public void setDealerCity(String dealerCity) {
+		this.dealerCity = dealerCity;
+	}
+
+	public String getDealerState() {
+		return dealerState;
+	}
+
+	public void setDealerState(String dealerState) {
+		this.dealerState = dealerState;
+	}
+
+	public String getDealerZip() {
+		return dealerZip;
+	}
+
+	public void setDealerZip(String dealerZip) {
+		this.dealerZip = dealerZip;
+	}
+
+	public String getDealerPhone() {
+		return dealerPhone;
+	}
+
+	public void setDealerPhone(String dealerPhone) {
+		this.dealerPhone = dealerPhone;
+	}
+
+	public String getDealerEmail() {
+		return dealerEmail;
+	}
+
+	public void setDealerEmail(String dealerEmail) {
+		this.dealerEmail = dealerEmail;
 	}
 	
 }

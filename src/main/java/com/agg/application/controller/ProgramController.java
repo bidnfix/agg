@@ -151,10 +151,14 @@ public class ProgramController extends BaseController {
 			model.put("program", programDO);
 			model.put("manufacturerList", machineService.getManufacturerDetails());
 			model.put("dealerList", dealerService.getActiveDealers(getAccountDetails(request)));
-			if(programDO != null && programDO.getManufacturerDO() != null){
+			
+			model.put("machineInfoList", programDO.getMachineInfoDOList());
+			
+			
+/*			if(programDO != null && programDO.getManufacturerDO() != null){
 				model.put("machineInfoList", machineService.getManfModel(programDO.getManufacturerDO().getId()));
 			}
-			
+*/			
 			opResult = new Result("success", null, model);
 		}
 		return opResult;

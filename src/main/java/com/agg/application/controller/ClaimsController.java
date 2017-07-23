@@ -2,14 +2,17 @@ package com.agg.application.controller;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -102,6 +105,9 @@ public class ClaimsController extends BaseController {
 	
 	@Value("${jrxml.folder.path}")
 	private String jrxmlFolderPath;
+	
+	@Value("${file.banner.image.logo.path}")
+	private String reportImageLogoPath;
 
 	@RequestMapping(value = "/editClaim", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
 	public @ResponseBody Result machineModel(ModelMap model, HttpServletRequest request, HttpServletResponse response/*, @PathVariable String claimId*/) {
@@ -130,6 +136,18 @@ public class ClaimsController extends BaseController {
 			logger.info("quoteInfoList size: "+quoteInfoList.size());
 			model.put("quoteInfoList", quoteInfoList);
 			return new Result("success", null, model);
+		}
+	}
+	
+	@RequestMapping(value = "/changeStatus/{claimId}/{status}", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+	public @ResponseBody Result changeStatus(@PathVariable String claimId, @PathVariable byte status, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		logger.info("Inside changeStatus() with claimId: "+claimId+" and status: "+status);
+		if(!sessionExists(request)){
+			return new Result("failure", "Session Expired", null);
+		}else{
+			boolean updatedStatus = claimsService.changeClaimStatus(claimId, status, getAccountDetails(request));
+			logger.info("updatedStatus: "+updatedStatus);
+			return new Result("success", null, updatedStatus);
 		}
 	}
 
@@ -195,6 +213,15 @@ public class ClaimsController extends BaseController {
 			logger.debug("claimsVO.getExtComments() "+claimsVO.getExtComments());
 			claimsDO.setComments(claimsVO.getExtComments());
 			
+			claimsDO.setDealersName(claimsVO.getDealerName());
+			claimsDO.setDealerAddress(claimsVO.getDealerAddress());
+			claimsDO.setDealerCity(claimsVO.getDealerCity());
+			claimsDO.setDealerState(claimsVO.getDealerState());
+			claimsDO.setDealerZip(claimsVO.getDealerZip());
+			claimsDO.setDealerPhone(claimsVO.getDealerPhone());
+			claimsDO.setDealerEmail(claimsVO.getDealerEmail());
+
+			
 			if(null != claimsVO.getClaimPartVOList() && !claimsVO.getClaimPartVOList().isEmpty()){
 				List<ClaimPartDO> partDO = new ArrayList<>();
 				for(ClaimPartVO partVO : claimsVO.getClaimPartVOList()){
@@ -228,7 +255,7 @@ public class ClaimsController extends BaseController {
 			}
 			List<ClaimFileDO> claimFileDO = new ArrayList<>();
 			for(MultipartFile uploadedFile : fileList) {
-				String fName = String.format("%s_%s", System.currentTimeMillis(), uploadedFile.getOriginalFilename());
+				String fName = String.format("%s_%s", System.currentTimeMillis(), uploadedFile.getOriginalFilename().replaceAll("#", ""));
 				ClaimFileDO fileDO = new ClaimFileDO();
 	            File file = new File(String.format("%s%s%s", uploadingdir, File.separator, fName));
 	            try {
@@ -261,18 +288,20 @@ public class ClaimsController extends BaseController {
 				logger.info("appUrl: "+appUrl);
 				
 				List<ClaimNoteDO> claimNoteDOList = claimsService.getClaimNotes(claim.getId());
+				Locale locale = new Locale("en", "US");
+				NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
 				
 				Context context = new Context();
 				context.setVariable("claimNo", claimsDO.getClaimId());
 				context.setVariable("dealerName", dealerFirstName);
 				context.setVariable("contractNo", claimsDO.getContractId());
-				context.setVariable("totalLaborCost", laborsCost);
-				context.setVariable("totalPartsCost", partsCost);
-				context.setVariable("totalOtherCost", otherCost);
-				context.setVariable("totalClaimCost", (partsCost + laborsCost + otherCost));
-				context.setVariable("deductible", claimsVO.getDeductible());
-				context.setVariable("lol", claimsVO.getLol());
-				context.setVariable("availableLol", claimsVO.getAvailabeLol());
+				context.setVariable("totalLaborCost", currencyFormat.format(laborsCost));
+				context.setVariable("totalPartsCost", currencyFormat.format(partsCost));
+				context.setVariable("totalOtherCost", currencyFormat.format(otherCost));
+				context.setVariable("totalClaimCost", currencyFormat.format((partsCost + laborsCost + otherCost)));
+				context.setVariable("deductible", currencyFormat.format(claimsVO.getDeductible()));
+				context.setVariable("lol", currencyFormat.format(claimsVO.getLol()));
+				context.setVariable("availableLol", currencyFormat.format(claimsVO.getAvailabeLol()));
 				context.setVariable("externalComments", claimNoteDOList);
 				context.setVariable("appUrl", appUrl);
 				mail.setContext(context);
@@ -367,7 +396,7 @@ public class ClaimsController extends BaseController {
 			}
 			List<ClaimFileDO> claimFileDO = new ArrayList<>();
 			for(MultipartFile uploadedFile : fileList) {
-				String fName = String.format("%s_%s", System.currentTimeMillis(), uploadedFile.getOriginalFilename());
+				String fName = String.format("%s_%s", System.currentTimeMillis(), uploadedFile.getOriginalFilename().replaceAll("#", ""));
 				ClaimFileDO fileDO = new ClaimFileDO();
 	            File file = new File(String.format("%s%s%s", uploadingdir, File.separator, fName));
 	            try {
@@ -493,6 +522,21 @@ public class ClaimsController extends BaseController {
 		}
 	}
 	
+	@RequestMapping(value = "/getApprovedForPaymentClaims", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+	public @ResponseBody Result getApprovedForPaymentClaimsInfo(Map<String, Object> model, HttpServletRequest request, HttpServletResponse response) {
+		logger.info("Inside getApprovedForPaymentClaimsInfo()");
+		if(!sessionExists(request)){
+			return new Result("failure", "Session Expired", null);
+		}else{
+			List<ClaimsDO> claimsInfoList = claimsService.getClaimsByStatus(getAccountDetails(request), (byte)AggConstants.CLAIM_STATUS_APPROVED_FOR_PAYMENT);
+			if(claimsInfoList != null){
+				logger.info("claimsInfoList size: "+claimsInfoList.size());
+			}
+			model.put("claimDOList", claimsInfoList);
+			return new Result("success", null, model);
+		}
+	}
+	
 	@RequestMapping(value = "/approvedClaims", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
 	public @ResponseBody Result getApprovedClaims(Map<String, Object> model, HttpServletRequest request, HttpServletResponse response) {
 		logger.info("Inside getApprovedClaims()");
@@ -560,9 +604,25 @@ public class ClaimsController extends BaseController {
 		}
 	}
 	
+	@RequestMapping(value = "/approvedForPaymentClaims", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+	public @ResponseBody Result getApprovedForPaymentClaims(Map<String, Object> model, HttpServletRequest request, HttpServletResponse response) {
+		logger.info("Inside getApprovedForPaymentClaims()");
+		if(!sessionExists(request)){
+			return new Result("failure", "Session Expired", null);
+		}else{
+			Map<String, Object> map = new HashMap<>();
+			List<ClaimsDO> cliamsList = getClaimByStatus(Util.getClaimStatusCode("approved_for_payment"), request, true);
+			
+			logger.info("preAuthClaims size: "+cliamsList.size());
+			map.put("preAuthClaimList", cliamsList);
+			return new Result("success", null, map);
+		}
+	}
+	
 	@RequestMapping(value = "/adjudicateClaim", method = RequestMethod.POST)
-	public @ResponseBody Result adjudicateClaim(@ModelAttribute("data") Object data,  @RequestParam("files") List<MultipartFile> fileList, BindingResult result,
-			HttpServletRequest request, HttpServletResponse response) {
+	public @ResponseBody Result adjudicateClaim(@ModelAttribute("data") Object data,
+			@RequestParam("files") List<MultipartFile> fileList, @RequestParam("condVal") String condVal,
+			BindingResult result, HttpServletRequest request, HttpServletResponse response) {
 		//uploadingdir = request.getServletContext().getRealPath("/uploads/");
 		
 		//uploadingdir = System.getProperty("user.dir")+ UPLOAD_FOLDER_PATH;
@@ -573,6 +633,7 @@ public class ClaimsController extends BaseController {
 		if(!sessionExists(request)){
 			return new Result("failure", "Session Expired", null);
 		}else{
+			logger.debug("condVal: "+condVal);
 			ClaimsDO claimsDO = new ClaimsDO();
 			claimsDO.setId(vo.getId());
 			claimsDO.setTotalAdjustedPartsCost(vo.getTotalAdjustmentPartsCost());
@@ -585,11 +646,16 @@ public class ClaimsController extends BaseController {
 			claimsDO.setCheqNo(vo.getCheqNo());
 			claimsDO.setPaidDate(vo.getPaidDate());
 			claimsDO.setComments(vo.getExtComment());
+			claimsDO.setCondValue(condVal);
+			claimsDO.setCheckDOList(vo.getCheckDOList());
+			claimsDO.setClaimLaborDO(vo.getLabors());
+			claimsDO.setClaimPartDO(vo.getParts());
+			
 			logger.debug("vo.getExtComment() "+vo.getExtComment());
 			
 			List<ClaimFileDO> claimFileDO = new ArrayList<>();
 			for(MultipartFile uploadedFile : fileList) {
-				String fName = String.format("%s_%s", System.currentTimeMillis(), uploadedFile.getOriginalFilename());
+				String fName = String.format("%s_%s", System.currentTimeMillis(), uploadedFile.getOriginalFilename().replaceAll("#", ""));
 				ClaimFileDO fileDO = new ClaimFileDO();
 	            File file = new File(String.format("%s%s%s", uploadingdir, File.separator, fName));
 	            try {
@@ -606,7 +672,7 @@ public class ClaimsController extends BaseController {
 			}
 			id = claimsService.updateClaimAdjudicate(claimsDO, getAccountDetails(request));
 			
-			if(id != -1){
+			if(id != -1 && (condVal == null || (condVal != null && !condVal.trim().equalsIgnoreCase(AggConstants.CLAIM_STATUS_APPROVED_FOR_PAYMENT_DESC)))){
 				StringBuffer url = request.getRequestURL();
 				String uri = request.getRequestURI();
 				String appUrl = url.substring(0, url.length() - uri.length());
@@ -681,7 +747,9 @@ public class ClaimsController extends BaseController {
 		}else{
 			AccountDO account = getAccountDetails(request);
 			ClaimsDO claimDO = claimsService.getClaim(claimId, (int)account.getDealerId());
-			opResult = new Result("success", "", model.addAttribute("claim", claimDO));
+			model.addAttribute("claim", claimDO);
+			model.addAttribute("accType", account.getRoleDO().getAccountType());
+			opResult = new Result("success", "", model);
 		}
 		return opResult;
 	}
@@ -804,6 +872,59 @@ public class ClaimsController extends BaseController {
 			modelMap.put("totalAmtOwnedByCustomer", reportDO.getTotalAmtOwnedByCustomer());
 			
 			modelAndView = new ModelAndView("rpt_claimDetails", modelMap);
+		}
+		
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/claim/printClaim/{claimId}", method = RequestMethod.GET, produces="application/pdf;charset=UTF-8")
+	public ModelAndView printClaimDetailsReport(@PathVariable String claimId, ModelAndView modelAndView, HttpServletRequest request, 
+			HttpServletResponse response, ModelMap modelMap) throws Exception{
+		logger.debug("In printClaimDetailsReport with claimId: "+claimId);
+		if (!sessionExists(request)){
+			modelAndView = new ModelAndView("login");
+		}else{
+			StringBuffer url = request.getRequestURL();
+			String uri = request.getRequestURI();
+			String appUrl = url.substring(0, url.length() - uri.length());
+			logger.info("appUrl: "+appUrl);
+			
+			AccountDO account = getAccountDetails(request);
+			ClaimReportDO reportDO = claimsService.getClaimReportDetails(claimId, account);
+			JRDataSource jrDataSource = null;
+			JRDataSource claimChequeSubReportDataSource = null;
+			if(reportDO != null){
+				List<ClaimReportDO> reportDOList = new ArrayList<ClaimReportDO>();
+				reportDOList.add(reportDO);
+				jrDataSource = new JRBeanCollectionDataSource(reportDOList);
+				
+				if (CollectionUtils.isNotEmpty(reportDO.getCheckDos())) {
+					claimChequeSubReportDataSource = new JRBeanCollectionDataSource(reportDO.getCheckDos());
+				} else {
+					claimChequeSubReportDataSource = new JREmptyDataSource();
+				}
+				
+			}else{
+				jrDataSource = new JREmptyDataSource();
+				claimChequeSubReportDataSource = new JREmptyDataSource();
+			}
+			
+			modelMap.put("datasource", jrDataSource);
+			modelMap.put("claimCheckDos", claimChequeSubReportDataSource);
+			modelMap.put("format", "pdf");
+			modelMap.put("SUBREPORT_DIR", System.getProperty("user.dir")+jrxmlFolderPath);
+			modelMap.put("imagePath", System.getProperty("user.dir")+reportImageLogoPath);
+			modelMap.put("totalReqPartsCost", reportDO.getTotalReqPartsCost());
+			modelMap.put("totalAdjPartsCost", reportDO.getTotalAdjPartsCost());
+			modelMap.put("totalReqLaborCost", reportDO.getTotalReqLaborCost());
+			modelMap.put("totalAdjLaborCost", reportDO.getTotalAdjLaborCost());
+			modelMap.put("totalReqClaimCost", reportDO.getTotalReqClaimCost());
+			modelMap.put("totalAdjClaimCost", reportDO.getTotalAdjClaimCost());
+			modelMap.put("totalReimbursedAmount", reportDO.getTotalReimbursedAmount());
+			modelMap.put("totalAmtOwnedByCustomer", reportDO.getTotalAmtOwnedByCustomer());
+			modelMap.put("totalChequeAmount", reportDO.getTotalChequeAmount());
+			
+			modelAndView = new ModelAndView("rpt_claimCoveringLetter1", modelMap);
 		}
 		
 		return modelAndView;

@@ -18,7 +18,7 @@ routingApp.controller('ClaimsController', ['$scope', 'claimService', '$http', '$
 		}else{
 			claimService.draft($scope, $routeParams.claimId, $rootScope.userType === 'admin' ? true : false);
 		}*/
-		console.log($rootScope.draftClaimsFlag);
+		//console.log($rootScope.draftClaimsFlag);
 		claimService.draft($scope, $routeParams.claimId, $rootScope.draftClaimsFlag);
 		
 	}else{
@@ -149,6 +149,13 @@ routingApp.controller('ClaimsController', ['$scope', 'claimService', '$http', '$
 	$scope.getTheFiles = function ($files) {
     	claimService.collectAttachments($scope, $files);
     };
+    
+    $scope.changeStatus = function(status){
+    	if(status === 4 || status === 5 || status === 6 || status === 10){
+    		claimService.changeStatus($scope, status, $route);
+    	}
+	};
+    
 }]);
 
 routingApp.controller('ClaimsDraftsController', function($scope, $http, claimDraftService, $window){
@@ -220,8 +227,13 @@ routingApp.controller('ClaimsPreAuthController', function($scope, $http, claimPr
 	};
 });
 
-routingApp.controller('ClaimsAdjudicateController', ['$scope', '$http', 'claimsAdjudicateService', 'ModalService', '$window', '$route', '$filter', function($scope, $http, claimsAdjudicateService, ModalService, $window, $route, $filter){
-	claimsAdjudicateService.init($scope);
+routingApp.controller('ClaimsAdjudicateController', ['$scope', '$http', 'claimsAdjudicateService', 'ModalService', '$window', '$route', '$filter', 'claimType', '$routeParams', function($scope, $http, claimsAdjudicateService, ModalService, $window, $route, $filter, claimType, $routeParams){
+	if($routeParams.claimId){
+		claimsAdjudicateService.getClaim($scope, $routeParams.claimId);
+	}else{
+		claimsAdjudicateService.init($scope, claimType);
+	}
+	
 	
 	//datepicker changes
 	$scope.paidDatePickerIsOpen = false;
@@ -238,6 +250,38 @@ routingApp.controller('ClaimsAdjudicateController', ['$scope', '$http', 'claimsA
       }
       $scope.paidDatePickerIsOpen = true;
     };
+    
+    $scope.chkDatePickerOpen = function ($event, checkDO) {
+	  checkDO.chkDatePickerIsOpen = false;
+	    if ($event) {
+	        $event.preventDefault();
+	        $event.stopPropagation(); // This is the magic
+	    }
+	    checkDO.chkDatePickerIsOpen = true;
+	};
+  	
+  	$scope.addCheck = function(){
+  		$scope.calcCheckAmtTotal();
+  		var totalAmount =  parseFloat(parseFloat($scope.adjustments.tra).toFixed(2)) - parseFloat(parseFloat($scope.adjustments.totalCheckAmount).toFixed(2));
+  		if(totalAmount > 0){
+  			totalAmount = parseFloat(parseFloat(totalAmount).toFixed(2));
+  			$scope.adjustments.checkDOList.push({receivedDate:new Date(), amount:totalAmount});
+  		}
+  		$scope.calcCheckAmtTotal();
+  	};
+  	
+  	$scope.removeCheck = function(checkDO){
+  		var index = $scope.adjustments.checkDOList.indexOf(checkDO);
+  		$scope.adjustments.checkDOList.splice(index, 1);
+  		$scope.calcCheckAmtTotal();
+    };
+      
+    $scope.calcCheckAmtTotal = function(){
+		$scope.adjustments.totalCheckAmount = 0;
+		angular.forEach($scope.adjustments.checkDOList, function(checkDO, index){
+			$scope.adjustments.totalCheckAmount += checkDO.amount;
+		});
+  	};
 	
 	$scope.onClickSelectClaim = function(claim){
 		claim.attachments=[];
@@ -266,6 +310,12 @@ routingApp.controller('ClaimsAdjudicateController', ['$scope', '$http', 'claimsA
     	$scope.click = 3;
     };
     
+    $scope.onClickApprovedForPayment = function(){
+    	$scope.commentFlag = false;
+    	$scope.cheqFlag = true;
+    	$scope.click = 5;
+    };
+    
     $scope.onClickReject = function(){
     	$scope.commentFlag = true;
     	$scope.cheqFlag = false;
@@ -284,11 +334,23 @@ routingApp.controller('ClaimsAdjudicateController', ['$scope', '$http', 'claimsA
     
     $scope.onClickSubmitClaim = function(){
     	if($scope.click === 3){
-    		if($window.confirm('You are about to pay the dealer claim '+$scope.adjudicateClaim.claimId+', an amount of '+$filter('currency')($scope.adjustments.tra, "$", 0)+'. This action cannot be reversed. Are you sure you want to continue?')) {
+    		var chkCond = true;
+    		if($scope.adjustments.tra > 0 && $scope.adjustments.checkDOList.length == 0){
+    			chkCond = false;
+    			alert("Please enter check details before approving the claim.");
+    		}
+    		
+    		if(chkCond && $window.confirm('You are about to pay the dealer claim '+$scope.adjudicateClaim.claimId+', an amount of '+$filter('currency')($scope.adjustments.tra, "$")+'. This action cannot be reversed. Are you sure you want to continue?')) {
     			claimsAdjudicateService.submit($scope);
     		}
     	}else{
     		claimsAdjudicateService.submit($scope);
+    	}
+	};
+	
+	$scope.changeStatus = function(status){
+    	if(status === 11){
+    		claimsAdjudicateService.changeStatus($scope, status, $route);
     	}
 	};
     
