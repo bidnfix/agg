@@ -247,6 +247,10 @@ routingApp.config(['$routeProvider',
                     	  templateUrl: '../../jsp/graphsReport.jsp',
                     	  controller: 'TopClaimsReportController'
                       }).
+                      when('/agg/useOfEquipment', {
+                    	  templateUrl: '../../jsp/useOfEquip.jsp',
+                    	  controller: 'UseOfEquipController'
+                      }).
                       otherwise({
                     	  redirectTo: '/agg/home'
                       });

@@ -122,6 +122,7 @@ public class QuoteServiceImpl implements QuoteService {
 			useOfEquipmentDO = new UseOfEquipmentDO();
 			useOfEquipmentDO.setId(useOfEquip.getId());
 			useOfEquipmentDO.setEquipName(useOfEquip.getEquipName());
+			useOfEquipmentDO.setDiscount(useOfEquip.getDiscount());
 			
 			useOfEquipmentDOList.add(useOfEquipmentDO);
 		}
@@ -1803,6 +1804,14 @@ public class QuoteServiceImpl implements QuoteService {
 		}
 		//Collections.sort(quoteDos, (q1, q2) -> q2.getCreateDate().compareTo(q1.getCreateDate()));
 		return quoteDos;
+	}
+	
+	@Override
+	public List<UseOfEquipmentDO> getUseOfEquipInfo() {
+		logger.debug("Inside getUseOfEquipInfo()");
+		List<UseOfEquipmentDO> useOfEquipLst = useOfEquipmentDAO.findAllUseOfEquip();
+	
+		return useOfEquipLst;
 	}
 
 

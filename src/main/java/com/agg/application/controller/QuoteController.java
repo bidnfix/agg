@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.http.MediaType;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
@@ -26,12 +27,14 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.agg.application.model.DealerDO;
+import com.agg.application.model.MachineDO;
 import com.agg.application.model.MachineInfoDO;
 import com.agg.application.model.ManufacturerDO;
 import com.agg.application.model.PricingDO;
 import com.agg.application.model.QuoteDO;
 import com.agg.application.model.ReportDO;
 import com.agg.application.model.Result;
+import com.agg.application.model.UseOfEquipmentDO;
 import com.agg.application.service.DealerService;
 import com.agg.application.service.MachineService;
 import com.agg.application.service.QuoteService;
@@ -672,6 +675,20 @@ public class QuoteController extends BaseController {
 		}
 		
 		return opResult;
+	}
+	
+	@RequestMapping(value = "/useOfEquipInfo", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+	public @ResponseBody Result useOfEquipInfo(ModelMap model, HttpServletRequest request, HttpServletResponse response) {
+		logger.info("Inside useOfEquipInfo()");
+		Result opResult = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			List<UseOfEquipmentDO> useOfEquipLst = quoteService.getUseOfEquipmentDetails();
+			model.put("useOfEquipLst", useOfEquipLst);
+			opResult = new Result("success", null, model);
+		}
+		return opResult;	
 	}
 	
 	
