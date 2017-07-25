@@ -37,3 +37,26 @@ routingApp.controller('UseOfEquipController', function($scope, $http, $timeout) 
     };*/
 	
 });
+
+routingApp.controller('equipmentController', function($scope, useOfEquipService, $location, $http) {
+	$scope.equipment={};
+	$scope.submitEquipment = function() {
+		alert("In submitEquipment");
+		useOfEquipService.saveEquipment($scope.equipment);
+    }
+    
+    $scope.submitEditEquipment = function() {
+		alert("In editEquipment");
+    	useOfEquipService.editEquipment($scope.equipment);
+    }
+    
+    /*$scope.getMachineType = function ()
+	 {
+		 //alert($scope.machine.manufacturerDO.id);
+		 $http.get("/agg/machineType/"+$scope.machine.manufacturerDO.id)
+		    .then(function(response) {
+		        $scope.machineTypeList = response.data.data.machineTypeList;
+		    });
+	 }*/
+
+});

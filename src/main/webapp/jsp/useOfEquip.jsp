@@ -1,6 +1,6 @@
 
 <!-- Article main content -->
-<%@include file="machinePopup.jsp" %>
+<%@include file="useOfEquipPopup.jsp" %>
 <article class="col-md-9 maincontent">
 	<header class="page-header">
              	<div class="col-md-8 col-sm-12">
@@ -9,7 +9,7 @@
 				<h3 class="wow animated bounceInLeft">Use of Equipment</h3>
 			</div>
                      </div>
-                     <div class="col-md-4 col-sm-12"><a class="btn btn-primary pull-right  hvr-pulse" href="#/agg/addMachine">Add New</a></div>
+                     <div class="col-md-4 col-sm-12"><a class="btn btn-primary pull-right  hvr-pulse" href="#/agg/addEquipment">Add New</a></div>
 	</header>
              
              
@@ -43,7 +43,7 @@
                 <td>{{useOfEquip.discount | number : 2}}</td>
                 <td>
                 <div class="manage-sec"><!-- <a href="#"><img src="../assets/images/delete-icon.png" alt="Delete" title="Delete"/></a> -->
-                		<a ng-click="editMachine(machine.machineId)"><img src="../assets/images/edit-pencil.png" alt="Edit" title="Edit"/></a>
+                		<a ng-click="editEquiment(useOfEquip.id)"><img src="../assets/images/edit-pencil.png" alt="Edit" title="Edit"/></a>
                 	</div>
                 </td>
                 <td><div class="manage-sec"><!-- <a href="#"><img src="../assets/images/delete-icon.png" alt="Delete" title="Delete"/></a> -->

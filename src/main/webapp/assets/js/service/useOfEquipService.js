@@ -2,20 +2,19 @@
 
 routingApp.factory('useOfEquipService', function($http, $q, $window) {
 			return {
-				saveMachineInfo : function(machine) {
+				saveEquipment : function(equipment) {
 					showSpinner();
-					return $http.post('/agg/saveMachine', machine).then(
+					return $http.post('/agg/saveEquipment', equipment).then(
 							function(response) {
-								//alert(response.data.status);
+								alert(response.data.status);
 								if (response.data.status == 'success') {
-									//$window.location = '#/agg/machineInfo';
-									$('#machineSuccessMsg').html("Machine '<strong>"+machine.model+"</strong>' successfully added");
+									$('#machineSuccessMsg').html("Equipment '<strong>"+equipment.equipName+"</strong>' successfully added");
 					            	$('#machineSuccessMsg').removeClass('hidden');
 					            	window.setTimeout(function() {
 					        			 $('#machineSuccessMsg').addClass('hidden');
 					        		}, 3000);
 								} else {
-									alert('Error in adding machine: '+response.data.errMessage)
+									alert('Error in adding equipment: '+response.data.errMessage)
 									//$('#errMsg').html(response.data.errMessage);
 								}
 								hideSpinner();
