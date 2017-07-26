@@ -3,6 +3,7 @@
 routingApp.factory('useOfEquipService', function($http, $q, $window) {
 			return {
 				saveEquipment : function(equipment) {
+					alert("--");
 					showSpinner();
 					return $http.post('/agg/saveEquipment', equipment).then(
 							function(response) {

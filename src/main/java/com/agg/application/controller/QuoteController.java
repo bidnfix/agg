@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
@@ -18,6 +19,7 @@ import org.springframework.http.MediaType;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,8 +29,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.agg.application.model.DealerDO;
+import com.agg.application.model.GroupDO;
 import com.agg.application.model.MachineDO;
 import com.agg.application.model.MachineInfoDO;
+import com.agg.application.model.MachineTypeDO;
 import com.agg.application.model.ManufacturerDO;
 import com.agg.application.model.PricingDO;
 import com.agg.application.model.QuoteDO;
@@ -689,6 +693,36 @@ public class QuoteController extends BaseController {
 			opResult = new Result("success", null, model);
 		}
 		return opResult;	
+	}
+	
+	@RequestMapping(value = "/saveEquipment", method = RequestMethod.POST)
+	public @ResponseBody Result saveEquipment(@RequestBody UseOfEquipmentDO useOfEquipmentDO, BindingResult result,
+			HttpServletRequest request, HttpServletResponse response) throws Exception {
+		logger.debug("In saveEquipment "+useOfEquipmentDO);
+		Result opResult = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+	
+		long id = 0;
+			try
+			{
+				id = quoteService.saveEquipment(useOfEquipmentDO);
+			}catch (Exception e) {
+		    	if (e instanceof DataIntegrityViolationException) {
+		    		logger.error("Equipment already exist");
+		    		throw new Exception("Equipment already exists");
+		        } else {
+		        	throw e;
+		        }
+		    }
+			if(id > 0){
+				opResult = new Result("success", "Equipment created successfully", null);
+			}
+			
+		}
+		
+		return opResult;
 	}
 	
 	

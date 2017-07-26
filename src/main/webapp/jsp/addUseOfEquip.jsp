@@ -27,13 +27,13 @@
 			<div class="form-group">
 				<label for="machineType" class="col-sm-3 control-label">Equipment Name</label>
 				<div class="col-sm-9">
-					<input type="text" id="equipName" name="equipName" ng-model="useOfEquip.equipName" placeholder="Equipment Name" class="form-control" required="required" >
+					<input type="text" id="equipName" name="equipName" ng-model="useOfEquipmentDO.equipName" placeholder="Equipment Name" class="form-control" required="required" >
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="machineType" class="col-sm-3 control-label">Discount</label>
 				<div class="col-sm-9">
-					<input type="text" id="discount" name="discount" ng-model="useOfEquip.discount" placeholder="Discount" class="form-control" required="required">
+					<input type="text" id="discount" name="discount" ng-model="useOfEquipmentDO.discount" placeholder="Discount" class="form-control" required="required">
 				</div>
 			</div>
 			

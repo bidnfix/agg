@@ -1,6 +1,7 @@
 package com.agg.application.service.impl;
 
 import java.math.BigInteger;
+import java.sql.Timestamp;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -45,6 +46,7 @@ import com.agg.application.entity.UseOfEquip;
 import com.agg.application.model.AccountDO;
 import com.agg.application.model.CheckDO;
 import com.agg.application.model.DealerDO;
+import com.agg.application.model.MachineDO;
 import com.agg.application.model.MachineInfoDO;
 import com.agg.application.model.ManufacturerDO;
 import com.agg.application.model.PricingDO;
@@ -1812,6 +1814,24 @@ public class QuoteServiceImpl implements QuoteService {
 		List<UseOfEquipmentDO> useOfEquipLst = useOfEquipmentDAO.findAllUseOfEquip();
 	
 		return useOfEquipLst;
+	}
+	
+	@Override
+	@Transactional
+	public long saveEquipment(UseOfEquipmentDO equipmentDO) throws Exception{
+		logger.debug("In saveEquipment");
+		UseOfEquip equipment = new UseOfEquip();
+		//Timestamp date = new Timestamp(new Date().getTime());
+		
+		//macineInfo.setModel((machineDO.getMachineModelDO().getModelId());
+		equipment.setEquipName(equipmentDO.getEquipName());
+		equipment.setDiscount(equipmentDO.getDiscount());
+
+		//equipment.setLastUpdate(date);
+		equipment = useOfEquipmentDAO.save(equipment);
+			
+		
+		return equipment.getId();
 	}
 
 

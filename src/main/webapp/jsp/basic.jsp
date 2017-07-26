@@ -88,5 +88,6 @@
 	<script src="/assets/js/service/contractService.js"></script>
 	<script src="/assets/js/controller/reportsController.js"></script>
 	<script src="/assets/js/controller/useOfEquipController.js"></script>
+	<script src="/assets/js/service/useOfEquipService.js"></script>
 </body>
 </html>

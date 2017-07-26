@@ -67,4 +67,6 @@ public interface QuoteService {
 						int pageLength, String properties, String orderDirection, String statusSearch, Pageable pageable);
 	
 	public List<UseOfEquipmentDO> getUseOfEquipInfo();
+	
+	public long saveEquipment(UseOfEquipmentDO equipmentDO) throws Exception;
 }
