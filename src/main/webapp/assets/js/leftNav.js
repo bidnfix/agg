@@ -397,7 +397,7 @@ routingApp.controller('AddUserController', function($scope, $http) {
     });
 });
 
-routingApp.controller('HomeController', function($scope, $http, $timeout, $window) {
+routingApp.controller('HomeController', function($scope, $http, $timeout, $window, $filter) {
 	$scope.contractsFlag = true;
 	$scope.quotesFlag = true;
 	$scope.claimsFlag = true;
@@ -529,7 +529,7 @@ routingApp.controller('HomeController', function($scope, $http, $timeout, $windo
 	                    );*/
 	                    
 	                    $("#invoiceTotal").html(
-	                        'Total: $'+pageTotal +' ( $'+ total +' total)'
+	                        'Total: '+ $filter('currency')(pageTotal, "$", 2) +' ( '+ $filter('currency')(total, "$", 2) +' total )'
 	                    );
 	                },
 	        		"aaSorting": [[ 7, "desc" ]],
