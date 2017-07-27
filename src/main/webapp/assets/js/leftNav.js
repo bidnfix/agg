@@ -529,7 +529,7 @@ routingApp.controller('HomeController', function($scope, $http, $timeout, $windo
 	                    );*/
 	                    
 	                    $("#invoiceTotal").html(
-	                        'Total: '+ $filter('currency')(pageTotal, "$", 2) +' ( '+ $filter('currency')(total, "$", 2) +' total )'
+	                        'Page total: '+ $filter('currency')(pageTotal, "$", 2) +' ( '+ $filter('currency')(total, "$", 2) +' Grand total )'
 	                    );
 	                },
 	        		"aaSorting": [[ 7, "desc" ]],
