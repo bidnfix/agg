@@ -63,8 +63,8 @@
 		
 		<div class="col-xs-12 no-pad clearfix">
  			<div class="col-md-6 no-pad pad10-right">
-				<span class="ag-tab-title col-xs-12 no-pad marg10-bottom">Servicing Dealer
-					Information</span> <br clear="all"> <br>
+				<span class="ag-tab-title col-xs-12 no-pad marg10-bottom">Servicing Dealer 
+				(<b><font color="red" size="2">Payments will be forwarded to this address</font></b>)</span> <br clear="all"> <br>
 				<div class="form-group no-pad col-xs-12">
 					<label>Dealer Name</label> <input type="text"
 						class="form-control" ng-model="claim.dealerName"
