@@ -33,6 +33,8 @@ public class MachineInfoDO {
 		
 		private String manfName;
 		
+		private double adjFactor;
+		
 		public MachineInfoDO(){
 			
 		}
@@ -176,6 +178,14 @@ public class MachineInfoDO {
 		 */
 		public void setManfName(String manfName) {
 			this.manfName = manfName;
+		}
+
+		public double getAdjFactor() {
+			return adjFactor;
+		}
+
+		public void setAdjFactor(double adjFactor) {
+			this.adjFactor = adjFactor;
 		}
 		
 	}

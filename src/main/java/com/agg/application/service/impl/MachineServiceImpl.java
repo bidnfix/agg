@@ -145,6 +145,7 @@ public class MachineServiceImpl implements MachineService {
 			//machineDO.setMachineType(machine.getMachineType().getMachineType());
 			machineDO.setModel(machine.getModel());
 			machineDO.setEnginePower(machine.getePower());
+			machineDO.setAdjFactor(machine.getAdjFactor());
 			
 			//groupDO = new GroupDO();
 			//groupDO.setGroupId(machine.getGroupConstant().getGroupId());
@@ -179,29 +180,7 @@ public class MachineServiceImpl implements MachineService {
 		//logger.debug(""+manufacturerDOList.size());
 		return manufacturerDOList;
 	}
-	
-	/*@Override
-	public List<ManufacturerDO> getMachineTypeById(int typeId) {
-		logger.debug("Inside getMachineTypeById()");
-		List<MachineType>  machineTypeList =  machineTypeDAO.findByManufacturerManfId(typeId);
-		List<ManufacturerDO> machineTypeDOList = null;
-		if(machineTypeList != null && !machineTypeList.isEmpty()){
-			machineTypeDOList = new ArrayList<ManufacturerDO>();
-			ManufacturerDO machineTypeDO = null;
-			MachineType machineType = null;
-			Iterator<MachineType> it = machineTypeList.iterator();
-			while(it.hasNext()){
-				machineTypeDO = new ManufacturerDO();
-				machineType = it.next();
-				machineTypeDO.setId((int)machineType.getMachineTypeId());
-				machineTypeDO.setName(machineType.getMachineType());
-				machineTypeDOList.add(machineTypeDO);
-			}
-		}
-		logger.debug("Machine Type List size: "+machineTypeDOList.size());
-		return machineTypeDOList;
-	}*/
-	
+		
 	@Override
 	public List<MachineTypeDO> getMachineTypes() {
 		logger.debug("Inside getMachineTypes()");
@@ -280,6 +259,8 @@ public class MachineServiceImpl implements MachineService {
 				machineInfoDO.setLol(machineModel.getGroupConstant().getLol());
 				machineInfoDO.setGroupId(Integer.valueOf(String.valueOf(machineModel.getGroupConstant().getGroupId())));
 				
+				machineInfoDO.setAdjFactor(machineModel.getAdjFactor());
+				
 				machineInfoDOList.add(machineInfoDO);
 			}
 		}
@@ -308,6 +289,7 @@ public class MachineServiceImpl implements MachineService {
 		//macineInfo.setRetailPrice(machineDO.getRetailPrice());
 		//macineInfo.setBasePrice(machineDO.getBasePrice());
 
+		machineInfo.setAdjFactor(machineDO.getAdjFactor());
 		machineInfo.setGroupConstant(groupConstantDAO.findOne(Long.valueOf(machineDO.getGroupId())));
 		
 
@@ -335,6 +317,8 @@ public class MachineServiceImpl implements MachineService {
 		logger.debug(date.toString());
 		machineInfo.setePower(machineDO.getEnginePower());
 		logger.debug("Engne power "+machineDO.getEnginePower());
+		
+		machineInfo.setAdjFactor(machineDO.getAdjFactor());
 		//macineInfo.setePower(machineModelDO.getePower());
 		//macineInfo.setRetailPrice(machineDO.getRetailPrice());
 		//macineInfo.setBasePrice(machineDO.getBasePrice());

@@ -22,6 +22,7 @@
                 <th>Machine Type</th>
                 <th>Model</th>
                 <th>Engine Power</th>
+                 <th>Adjustment Factor</th>
                 <th>Group ID</th>
                 <th></th>
             </tr>
@@ -32,8 +33,8 @@
             	<th>Manufacturer</th>
                 <th>Machine Type</th>
                 <th>Model</th>
-                 <th>Adjustment Factor</th>
                 <th>Engine Power</th>
+                 <th>Adjustment Factor</th>
                 <th>Group ID</th>
                 <th></th>
             </tr>
@@ -44,8 +45,8 @@
             	<td>{{machine.manfName}}</td>
                 <td>{{machine.machineType}}</td>
                 <td>{{machine.model}}</td>
-                 <th>{{machine.adjFactor}}</th>
                 <td>{{machine.enginePower}}</td>
+                <th>{{machine.adjFactor | number : 2}}</th>
                 <td>{{machine.groupId}}</td>
                 <td><div class="manage-sec"><!-- <a href="#"><img src="../assets/images/delete-icon.png" alt="Delete" title="Delete"/></a> -->
                 		<a ng-click="editMachine(machine.machineId)"><img src="../assets/images/edit-pencil.png" alt="Edit" title="Edit"/></a>

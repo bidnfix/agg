@@ -37,6 +37,13 @@
 			</div>
 			
 			<div class="form-group">
+				<label for="model" class="col-sm-3 control-label">Adjustment Factor</label>
+				<div class="col-sm-9">
+					<input type="text" id="adjustmentFact" ng-model="machine.adjFactor" placeholder="Adjustment Factor" class="form-control">
+				</div>
+			</div>
+			
+			<div class="form-group">
 				<label for="groupId" class="col-sm-3 control-label">Group Id</label>
 				<div class="col-sm-9">
 				<!-- <select name="groupId" ng-options="groupDO.groupId for groupDO in groupList track by groupDO.groupId" 
