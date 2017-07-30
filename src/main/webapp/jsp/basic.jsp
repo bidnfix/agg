@@ -89,5 +89,7 @@
 	<script src="/assets/js/controller/reportsController.js"></script>
 	<script src="/assets/js/controller/useOfEquipController.js"></script>
 	<script src="/assets/js/service/useOfEquipService.js"></script>
+	<script src="/assets/js/controller/usageTierController.js"></script>
+	<script src="/assets/js/service/usageTierService.js"></script>
 </body>
 </html>

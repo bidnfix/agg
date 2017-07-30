@@ -255,6 +255,18 @@ routingApp.config(['$routeProvider',
                     	  templateUrl: '../../jsp/addUseOfEquip.jsp',
                     	  controller: 'useOfEquipController'
                       }).
+                      when('/agg/usageTier', {
+                    	  templateUrl: '../../jsp/usageTier.jsp',
+                    	  controller: 'usageTierController'
+                      }).
+                      when('/agg/addUsageTier', {
+                    	  templateUrl: '../../jsp/addUsageTier.jsp',
+                    	  controller: 'usageTierController'
+                      }).
+                      when('/agg/editUsageTier', {
+                    	  templateUrl: '../../jsp/editUsageTier.jsp',
+                    	  controller: 'editUsageTierController'
+                      }).
                       otherwise({
                     	  redirectTo: '/agg/home'
                       });

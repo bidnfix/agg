@@ -48,7 +48,7 @@
                 <td>{{machine.enginePower}}</td>
                 <th>{{machine.adjFactor | number : 2}}</th>
                 <td>{{machine.groupId}}</td>
-                <td><div class="manage-sec"><!-- <a href="#"><img src="../assets/images/delete-icon.png" alt="Delete" title="Delete"/></a> -->
+                <td><div class="manage-sec">
                 		<a ng-click="editMachine(machine.machineId)"><img src="../assets/images/edit-pencil.png" alt="Edit" title="Edit"/></a>
                 	</div>
                 </td>
