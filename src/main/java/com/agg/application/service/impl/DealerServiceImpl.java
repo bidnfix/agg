@@ -237,6 +237,7 @@ public class DealerServiceImpl implements DealerService {
 		dealer.setZip(dealerDO.getZip());
 		dealer.setActiveDate(date);
 		dealer.setLastUpdate(date);
+		dealer.setAdjustmentFactor(dealerDO.getAdjustmentFactor());
 		
 		Account account = new Account();
 		account.setUserName(dealerDO.getUserName());
@@ -252,6 +253,7 @@ public class DealerServiceImpl implements DealerService {
 			account.setStatus(AggConstants.TERMINATED);
 		}else{
 			account.setStatus(AggConstants.ACTIVE);
+			dealer.setActivationDate(date);
 		}
 		if(accountDO != null){
 			account.setCreatedBy(accountDO.getUsername());
@@ -340,6 +342,10 @@ public class DealerServiceImpl implements DealerService {
 				//Added to update role for pending status alone
 				if(dealer.getStatus() == 2)
 				{
+					//updating Dealer Activation Date
+					if(dealerDO.getStatus() == AggConstants.ACTIVE){
+						dealer.setActivationDate(date);
+					}
 					logger.debug("Current status is pending, role is getting updated");
 					Role role = roleDAO.findOne(dealerDO.getRoleDO().getId());
 					account.setRole(role);

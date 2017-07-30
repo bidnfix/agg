@@ -4,7 +4,7 @@
 		<header class="page-header">
 			<div class="col-md-6 col-sm-12">
 				<div class="sec-title">
-					<h3 class="wow animated bounceInLeft">Add Dealer</h3>
+					<h3 class="wow animated bounceInLeft">Edit Dealer</h3>
 				</div>
 			</div>
 
@@ -12,7 +12,7 @@
 
 		<!-- data table section -->
 
-		<div class="inner-main" ng-controller="dealerController">
+		<div class="inner-main">
 			<form class="form-horizontal" name="dealerInfoForm" id="dealerInfoForm" ng-submit="submitDealer(dealerInfoForm)" novalidate angular-validator>
 			<div class="col-xs-12 agf1 main-login pad10-top">
 				<div id="dealerErrorMsg" class="alert alert-danger text-center hidden"></div>
@@ -162,7 +162,7 @@
 				
 				<div class="col-sm-12 no-pad t-c marg10-bottom">
 					<div class="col-md-6 col-centered">
-							<button class="btn btn-primary btn-lg btn-block login-button" type="submit">Add Dealer</button>
+							<button class="btn btn-primary btn-lg btn-block login-button" type="submit">Update Dealer</button>
 					</div>
 				</div>
 			</div>

@@ -3,27 +3,33 @@
 routingApp.controller('dealerController', function($scope, dealerService, $location, $http) {
 	$scope.dealer={};
 	$scope.isUserExists = false;
-	$scope.submitDealer = function() {
+	$scope.dealer.adjustmentFactor = 0.00;
+	$scope.submitDealer = function(dealerInfoForm) {
 		//alert("in submitDealer");
-		if(!$scope.isUserExists){
+		if(dealerInfoForm.$valid && !$scope.isUserExists){
 			dealerService.saveDealer($scope.dealer);
 		}
 		
     };
     
     $scope.isUserNameExists = function(userName){
-    	$http.post("/agg/isUserNameExists", userName)
-        .then(function(response) {
-        	//alert(response.data.data.programList);
-        	$scope.isUserExists = response.data.data;
-            if($scope.isUserExists){
-            	//alert("Dealer with Username '"+userName+"' already exists!");
-            	$('#dealerErrorMsg').html("Dealer with Username '<strong>"+userName+"</strong>' already exists!");
-            	$('#dealerErrorMsg').removeClass('hidden');
-            }else{
-            	$('#dealerErrorMsg').addClass('hidden');
-            }
-        });
+    	if(userName != null && userName != ""){
+    		$http.post("/agg/isUserNameExists", userName)
+            .then(function(response) {
+            	//alert(response.data.data.programList);
+            	$scope.isUserExists = response.data.data;
+                if($scope.isUserExists){
+                	//alert("Dealer with Username '"+userName+"' already exists!");
+                	$('#dealerErrorMsg').html("Dealer with Username '<strong>"+userName+"</strong>' already exists!");
+                	$('#dealerErrorMsg').removeClass('hidden');
+                }else{
+                	$('#dealerErrorMsg').addClass('hidden');
+                }
+            });
+    	}else{
+    		$scope.isUserExists = false;
+    		$('#dealerErrorMsg').addClass('hidden');
+    	}
     }
 });
 

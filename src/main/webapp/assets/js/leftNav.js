@@ -29,16 +29,9 @@ routingApp.config(['$routeProvider',
                   	         }
                   	      }
 	                  }).
-	                  when('/agg/dealers/:dealerId', {
-	                  	  templateUrl: '../../jsp/dealers.jsp',
-	                  	  controller: 'GetDealerController',
-                  		  resolve: {
-                  	         ctrlOptions: function () {
-                  	            return {
-                  	              getAllDealers: true,
-                  	            };
-                  	         }
-                  	      }
+	                  when('/agg/dealer/:dealerId', {
+	                  	  templateUrl: '../../jsp/editDealer.jsp',
+	                  	  controller: 'GetDealerDetailsController'
 	                  }).
                       when('/agg/addDealer', {
                     	  templateUrl: '../../jsp/addDealer.jsp',
@@ -355,8 +348,48 @@ routingApp.controller('GetDealerController', function($scope, dealerService, $ht
 	    $('#dealerEditPopup').show();
     };
     
-    $scope.submitEditDealer = function(){
-    	dealerService.editDealer($scope.dealer, $scope, ctrlOptions.getAllDealers);
+    $scope.submitEditDealer = function(dealerInfoForm){
+    	if(dealerInfoForm.$valid){
+    		dealerService.editDealer($scope.dealer, $scope, ctrlOptions.getAllDealers);
+    	}
+    }
+})
+.directive('convertToNumber', function() {
+    return {
+      require: 'ngModel',
+      link: function(scope, element, attrs, ngModel) {
+        ngModel.$parsers.push(function(val) {
+          return parseInt(val, 10);
+        });
+        ngModel.$formatters.push(function(val) {
+          return '' + val;
+        });
+      }
+    };
+ });
+
+routingApp.controller('GetDealerDetailsController', function($scope, dealerService, $http, $timeout, $routeParams, $route) {
+	$scope.dealer={};
+	$http.get("/agg/dealer/"+$routeParams.dealerId)
+	.then(function(response) {
+		$scope.roleList = response.data.data.roleList;
+		$scope.parentDealerList = response.data.data.parentDealers;
+        $scope.dealer = response.data.data.dealer;
+        if(response.data.data.dealerName != null){
+        	$('#dealerAddInfoMsg').html("Dealer '<strong>"+response.data.data.dealerName+"</strong>' successfully added");
+        	$('#dealerAddInfoMsg').removeClass('hidden');
+        	window.setTimeout(function() {
+    		  $("#dealerAddInfoMsg").fadeTo(500, 0).slideUp(500, function(){
+    		    $(this).remove(); 
+    		  });
+    		}, 3000);
+        }
+    });
+    
+    $scope.submitEditDealer = function(dealerInfoForm){
+    	if(dealerInfoForm.$valid){
+    		dealerService.editDealer($scope.dealer, $scope, ctrlOptions.getAllDealers);
+    	}
     }
 })
 .directive('convertToNumber', function() {
@@ -824,13 +857,6 @@ routingApp.controller('AddDealerController', function($scope, $http) {
 	    });
 });
 
-routingApp.controller('AddDealerController', function($scope, $http) {
-	 $http.get("/agg/dealerRoleInfo")
-	    .then(function(response) {
-	        $scope.roleList = response.data.data;
-	    });
-});
-
 routingApp.controller('GetProgramsController', function($scope, programService, $http, $timeout) {
 	$http.get("/agg/programs")
     .then(function(response) {
@@ -1039,13 +1065,6 @@ routingApp.controller('ProgramAsDealerController', function($scope, programServi
 		   programService.submitProgramAsDealr($scope.program, $scope);
 	   }
    };
-});
-
-routingApp.controller('AddDealerController', function($scope, $http) {
-	 $http.get("/agg/dealerRoleInfo")
-	    .then(function(response) {
-	        $scope.roleList = response.data.data;
-	    });
 });
 
 /*routingApp.controller('GenerateClaimReportController', function($scope, $http) {

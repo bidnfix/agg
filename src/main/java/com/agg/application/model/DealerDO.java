@@ -1,5 +1,7 @@
 package com.agg.application.model;
 
+import java.util.Date;
+
 public class DealerDO {
 	
 	private long id;
@@ -45,6 +47,10 @@ public class DealerDO {
 	private long parentCode;
 	
 	private DealerDO parentDealerDO;
+	
+	private double adjustmentFactor;
+	
+	private Date activationDate;
 	
 	public DealerDO(){
 		
@@ -382,5 +388,23 @@ public class DealerDO {
 	public void setParentDealerDO(DealerDO parentDealerDO) {
 		this.parentDealerDO = parentDealerDO;
 	}
+
+	public double getAdjustmentFactor() {
+		return adjustmentFactor;
+	}
+
+	public void setAdjustmentFactor(double adjustmentFactor) {
+		this.adjustmentFactor = adjustmentFactor;
+	}
+
+	public Date getActivationDate() {
+		return activationDate;
+	}
+
+	public void setActivationDate(Date activationDate) {
+		this.activationDate = activationDate;
+	}
+	
+	
 	
 }

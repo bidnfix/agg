@@ -10,7 +10,7 @@ routingApp.factory('dealerService', function($http, $q, $window) {
 								if (response.data.status == 'success') {
 									//$window.location = '/agg/home';
 									if(response.data.data != null && response.data.data > 0){
-										$window.location.href = '#/agg/dealers/'+response.data.data;
+										$window.location.href = '#/agg/dealer/'+response.data.data;
 									}else{
 										$window.location.href = '#/agg/dealers';
 									}
