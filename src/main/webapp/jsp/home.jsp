@@ -135,6 +135,10 @@
                 <th></th>
                 <th></th>
             </tr>
+            <tr>
+                <th id="invoiceTotal" colspan="8" style="text-align:right"></th>
+                <th></th>
+            </tr>
         </tfoot>
  
         <tbody>
