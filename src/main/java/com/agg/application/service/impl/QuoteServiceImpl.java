@@ -19,6 +19,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,6 +40,7 @@ import com.agg.application.entity.Contracts;
 import com.agg.application.entity.CustomerInfo;
 import com.agg.application.entity.Dealer;
 import com.agg.application.entity.MachineInfo;
+import com.agg.application.entity.MachineType;
 import com.agg.application.entity.Manufacturer;
 import com.agg.application.entity.Quote;
 import com.agg.application.entity.QuotePK;
@@ -48,6 +50,7 @@ import com.agg.application.model.CheckDO;
 import com.agg.application.model.DealerDO;
 import com.agg.application.model.MachineDO;
 import com.agg.application.model.MachineInfoDO;
+import com.agg.application.model.MachineTypeDO;
 import com.agg.application.model.ManufacturerDO;
 import com.agg.application.model.PricingDO;
 import com.agg.application.model.QuoteDO;
@@ -1830,11 +1833,49 @@ public class QuoteServiceImpl implements QuoteService {
 		//equipment.setLastUpdate(date);
 		equipment = useOfEquipmentDAO.save(equipment);
 			
-		
+		logger.debug("equipment.getId()"+equipment.getId());
 		return equipment.getId();
 	}
 
+	@Override
+	public UseOfEquipmentDO getUseOfEquip(long id) {
+		logger.debug("In getUseOfEquip");
+		UseOfEquip useOfEquip = useOfEquipmentDAO.findOne(id);
+		UseOfEquipmentDO useOfEquipmentDO = null;
+		
+		if(useOfEquip != null){
+			useOfEquipmentDO = new UseOfEquipmentDO();
+			
+			useOfEquipmentDO.setId(useOfEquip.getId());
+			useOfEquipmentDO.setDiscount(useOfEquip.getDiscount());
+			useOfEquipmentDO.setEquipName(useOfEquip.getEquipName());
+		}
+		
+		return useOfEquipmentDO;
+	}
+	
+	@Override
+	@Transactional
+	public long editEquipment(UseOfEquipmentDO equipmentDO) throws Exception{
+		logger.debug("In editEquipment : "+equipmentDO.getId());
+		UseOfEquip useOfEquip = useOfEquipmentDAO.findOne(equipmentDO.getId());
+		Timestamp date = new Timestamp(new Date().getTime());
+		
+		
+		
 
+		useOfEquip.setEquipName(equipmentDO.getEquipName());
+		useOfEquip.setDiscount(equipmentDO.getDiscount());
+		
+		try {
+			useOfEquip = useOfEquipmentDAO.save(useOfEquip);
+		}
+	    catch (DataIntegrityViolationException e) {
+	    	logger.error("Equipment already exist");
+	    }	
+		
+		return useOfEquip.getId();
+	}
 	
 }
 

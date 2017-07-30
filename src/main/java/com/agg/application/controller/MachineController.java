@@ -82,7 +82,7 @@ public class MachineController extends BaseController {
 			}
 			opResult = new Result("success", null, model);
 		}
-		return opResult;	
+		return opResult;
 	}
 	
 	@RequestMapping(value = "/manfModel/{manfId}", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)

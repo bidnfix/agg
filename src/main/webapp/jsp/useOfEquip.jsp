@@ -43,7 +43,7 @@
                 <td>{{useOfEquip.discount | number : 2}}</td>
                 <td>
                 <div class="manage-sec"><!-- <a href="#"><img src="../assets/images/delete-icon.png" alt="Delete" title="Delete"/></a> -->
-                		<a ng-click="editEquiment(useOfEquip.id)"><img src="../assets/images/edit-pencil.png" alt="Edit" title="Edit"/></a>
+                		<a ng-click="editUseOfEquip(useOfEquip.id)"><img src="../assets/images/edit-pencil.png" alt="Edit" title="Edit"/></a>
                 	</div>
                 </td>
                 <td><div class="manage-sec"><!-- <a href="#"><img src="../assets/images/delete-icon.png" alt="Delete" title="Delete"/></a> -->

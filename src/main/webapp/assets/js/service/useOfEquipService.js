@@ -3,7 +3,7 @@
 routingApp.factory('useOfEquipService', function($http, $q, $window) {
 			return {
 				saveEquipment : function(equipment) {
-					alert("--");
+					//alert("--");
 					showSpinner();
 					return $http.post('/agg/saveEquipment', equipment).then(
 							function(response) {
@@ -27,29 +27,21 @@ routingApp.factory('useOfEquipService', function($http, $q, $window) {
 				},
 
 			
-				editMachineInfo : function(machine, $scope) {
+				editEquipment : function(equipment, $scope) {
+					alert("In service");
 					showSpinner();
-					return $http.post('/agg/editMachine', machine).then(
+					return $http.post('/agg/editEquipment', equipment).then(
 							function(response) {
 								//alert(response.data.status);
 								if (response.data.status == 'success') {
-									closePopup('machineEditPopup');
+									closePopup('UOEEditPopup');
 									$window.location.reload();
-									//$window.location.href = '#/agg/dealers';
-									/*var objects = $scope.machineInfoList;
-							        for (var i = 0; i < objects.length; i++) {
-							            if (objects[i].id === machine.id) {
-							                objects[i] = machine;
-							                break;
-							            }
-							        }*/
 								} else {
-									alert('Error in updating machine: '+response.data.errMessage)
-									//$('#errMsg').html(response.data.errMessage);
+									alert('Error in updating equipment: '+response.data.errMessage)
 								}
 								hideSpinner();
 							}, function(errResponse) {
-								alert('Error while updating machine');
+								alert('Error while updating equipment');
 								hideSpinner();
 								return $q.reject(errResponse);
 							});

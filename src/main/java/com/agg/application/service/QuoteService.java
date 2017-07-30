@@ -69,4 +69,8 @@ public interface QuoteService {
 	public List<UseOfEquipmentDO> getUseOfEquipInfo();
 	
 	public long saveEquipment(UseOfEquipmentDO equipmentDO) throws Exception;
+	
+	public UseOfEquipmentDO getUseOfEquip(long id);
+	
+	public long editEquipment(UseOfEquipmentDO equipmentDO) throws Exception;
 }

@@ -249,11 +249,11 @@ routingApp.config(['$routeProvider',
                       }).
                       when('/agg/useOfEquipment', {
                     	  templateUrl: '../../jsp/useOfEquip.jsp',
-                    	  controller: 'UseOfEquipController'
+                    	  controller: 'useOfEquipController'
                       }).
                       when('/agg/addEquipment', {
                     	  templateUrl: '../../jsp/addUseOfEquip.jsp',
-                    	  controller: 'UseOfEquipController'
+                    	  controller: 'useOfEquipController'
                       }).
                       otherwise({
                     	  redirectTo: '/agg/home'

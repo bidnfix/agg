@@ -32,6 +32,7 @@ import com.agg.application.model.DealerDO;
 import com.agg.application.model.GroupDO;
 import com.agg.application.model.MachineDO;
 import com.agg.application.model.MachineInfoDO;
+import com.agg.application.model.MachineModelDO;
 import com.agg.application.model.MachineTypeDO;
 import com.agg.application.model.ManufacturerDO;
 import com.agg.application.model.PricingDO;
@@ -716,14 +717,62 @@ public class QuoteController extends BaseController {
 		        	throw e;
 		        }
 		    }
-			if(id > 0){
+			//if(id > 0){
 				opResult = new Result("success", "Equipment created successfully", null);
-			}
+			//}
 			
 		}
 		
 		return opResult;
 	}
 	
+	@RequestMapping(value = "/useOfEquip/{id}", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+	public @ResponseBody Result useOfEquip(ModelMap model, HttpServletRequest request, HttpServletResponse response, @PathVariable String id) {
+		logger.info("Inside machineModel() with Id: "+id);
+		Result opResult = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			if(id != null && !id.isEmpty()){
+				UseOfEquipmentDO useOfEquipmentDO = quoteService.getUseOfEquip(Integer.valueOf(id));
+				model.put("useOfEquip", useOfEquipmentDO);
+			}
+			opResult = new Result("success", null, model);
+		}
+		return opResult;	
+	}
+	
+	@RequestMapping(value = "/editEquipment", method = RequestMethod.POST)
+	public @ResponseBody Result editEquipment(@RequestBody UseOfEquipmentDO useOfEquipmentDO, BindingResult result,
+			HttpServletRequest request, HttpServletResponse response) throws Exception {
+		logger.debug("In editEquipment "+useOfEquipmentDO);
+		Result opResult = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			if (result.hasErrors()){
+				opResult = new Result("failure", "Invalid dealer form field values", null);
+			}
+			long id = 0;
+	
+			try
+			{
+			id = quoteService.editEquipment(useOfEquipmentDO);
+			}catch (Exception e) {
+		    	if (e instanceof DataIntegrityViolationException) {
+		    		logger.error("Equipment already exist");
+		    		throw new Exception("Equipment already exists");
+		        } else {
+		        	throw e;
+		        }
+		    }
+			if(id > 0){
+				opResult = new Result("success", "Invalid Equipment form field values", null);
+			}
+			
+		}
+		
+		return opResult;
+	}
 	
 }
