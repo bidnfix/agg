@@ -27,11 +27,13 @@ routingApp.factory('dealerService', function($http, $q, $window) {
 							});
 					
 				},
-				editDealer : function(dealer, $scope, editDealerCond) {
+				editDealer : function(dealer, $scope) {
+					showSpinner();
 					return $http.post('/agg/editDealer', dealer).then(
 							function(response) {
 								//alert(response.data.status);
 								if (response.data.status == 'success') {
+									/*
 									//$window.location = '/agg/home';
 									closePopup('dealerEditPopup');
 									//$window.location.href = '#/agg/dealers';
@@ -45,15 +47,19 @@ routingApp.factory('dealerService', function($http, $q, $window) {
 							        }
 							        if(!editDealerCond && (objects.length == 1) && (objects[0].status != 2)){
 							        	$window.location.href = '#/agg/dealers';
-							        }
+							        }*/
+									
+									$window.location.href = '#/agg/dealers';
 							        	
 								} else {
 									alert('error in editing dealer: '+response.data.errMessage)
 									//$('#errMsg').html(response.data.errMessage);
 								}
 								
+								hideSpinner();
 							}, function(errResponse) {
 								alert('Error while editing dealer');
+								hideSpinner();
 								return $q.reject(errResponse);
 							});
 				}

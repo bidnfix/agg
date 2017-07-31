@@ -443,7 +443,7 @@ public class DealerServiceImpl implements DealerService {
 		Dealer dealer = dealerDAO.findOne((long)id);
 		DealerDO dealerDO = null;
 		List<Account> accounts = null;
-		Role role =null;
+		Role role = null;
 		RoleDO roleDO = null;
 		if(dealer != null){
 			dealerDO = new DealerDO();
@@ -485,6 +485,8 @@ public class DealerServiceImpl implements DealerService {
 			dealerDO.setName(dealer.getName());
 			dealerDO.setDealerUrl(dealer.getUrl());
 			dealerDO.setNotes(dealer.getNotes());
+			dealerDO.setAdjustmentFactor(dealer.getAdjustmentFactor());
+			dealerDO.setActivationDate(dealer.getActivationDate());
 			
 			Dealer parentDealer = dealerDAO.findByCode(dealer.getParentCode());
 			DealerDO parentDealerDO = new DealerDO();

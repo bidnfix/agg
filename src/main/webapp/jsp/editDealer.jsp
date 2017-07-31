@@ -1,4 +1,3 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!-- Article main content -->
 <article class="col-md-9 maincontent">
 		<header class="page-header">
@@ -13,29 +12,17 @@
 		<!-- data table section -->
 
 		<div class="inner-main">
-			<form class="form-horizontal" name="dealerInfoForm" id="dealerInfoForm" ng-submit="submitDealer(dealerInfoForm)" novalidate angular-validator>
+			<form class="form-horizontal" name="dealerInfoForm" id="dealerInfoForm" ng-submit="submitEditDealer(dealerInfoForm)" novalidate angular-validator>
 			<div class="col-xs-12 agf1 main-login pad10-top">
 				<div id="dealerErrorMsg" class="alert alert-danger text-center hidden"></div>
 				<div class="col-md-6 no-pad pad10-right">
 					<div class="form-group">
-						<label>Username</label>
-						<input type="text" id="userName" name="userName" ng-model="dealer.userName" placeholder="User Name" class="form-control" validate-on="dirty" required="required" ng-blur="isUserNameExists(dealer.userName)">
-					</div>
-					<div class="form-group">
-						<label>Password</label>
-						<input type="password" id="password" name="password" ng-model="dealer.password" placeholder="password" class="form-control" validate-on="dirty" required="required">
+						<label>Code</label>
+						{{dealer.code}}
 					</div>
 					<div class="form-group">
 						<label>Name</label>
 						<input type="text" id="dealerName" name="dealerName" ng-model="dealer.name" class="form-control" required="required" validate-on="dirty">
-					</div>
-					<div class="form-group">
-						<label>First Name</label>
-						<input type="text" id="firstName" name="firstName" ng-model="dealer.firstName" placeholder="First Name" class="form-control" required="required" validate-on="dirty">
-					</div>
-					<div class="form-group">
-						<label>Last Name</label>
-						<input type="text" id="lastName" name="lastName" ng-model="dealer.lastName" placeholder="Last Name" class="form-control" required="required" validate-on="dirty">
 					</div>
 					<div class="form-group">
                       <label>Address1</label>
@@ -46,14 +33,6 @@
                       <input type="text" id="address2" name="address2" ng-model="dealer.address2" class="form-control">
                     </div>
                     <div class="form-group">
-                      <label>Adjustment Factor</label>
-                      <input type="number" step="0.01" id="adjustmentFactor" name="adjustmentFactor" ng-model="dealer.adjustmentFactor" class="form-control">
-                    </div>
-				</div>
-
-				<div class="col-md-6 no-pad pad10-left border-left">
-                    <div class="col-xs-12 no-pad">
-                    	<div class="form-group">
 							<label>City</label> 
 							<input type="text" id="city" name="city" ng-model="dealer.city" class="form-control" required="required" validate-on="dirty">
 						</div>
@@ -131,6 +110,18 @@
 	                         <label>Zip</label>
 	                         <input type="text" id="zip" name="zip" ng-model="dealer.zip" class="form-control" required="required" validate-on="dirty">
 	                    </div>
+                    <div class="form-group">
+                      <label>Adjustment Factor</label>
+                      <input type="number" step="0.01" id="adjustmentFactor" name="adjustmentFactor" ng-model="dealer.adjustmentFactor" class="form-control" required="required" validate-on="dirty">
+                    </div>
+                    <div class="form-group">
+                      <label>Activation Date</label>
+                      {{dealer.activationDate |  date:"MMM dd yyyy"}}
+                    </div>
+				</div>
+
+				<div class="col-md-6 no-pad pad10-left border-left">
+                    <div class="col-xs-12 no-pad">
 	                    <div class="form-group">
 	                         <label>Market Email</label>
 	                         <input type="text" id="marketEmail" name="marketEmail" ng-model="dealer.marketEmail" class="form-control" required="required" validate-on="dirty">
@@ -147,12 +138,31 @@
 	                         <label>Dealer Website</label>
 	                         <input type="text" id="dealerUrl" name="dealerUrl" ng-model="dealer.dealerUrl" class="form-control" required="required" validate-on="dirty">
 	                    </div>
-	                    <div class="form-group">
-	                         <label>Role</label>
-	                         <select class="form-control" name="role" ng-model="dealer.roleDO" id="role" ng-options="role.name for role in roleList" required="required" validate-on="dirty">
+	                    <div ng-if="dealer.status == 2" class="form-group">
+							<label>Role</label>
+							<select class="form-control" name="role" id="role" ng-options="role.name for role in roleList track by role.id" ng-model="dealer.roleDO" required="required" validate-on="dirty">
 								<option value="">Select Role</option>
-							 </select>
-	                    </div>
+							</select>
+						</div>
+						<div ng-if="dealer.status == 0 || dealer.status == 1" class="form-group">
+							<label>Role</label>
+							{{dealer.roleDO.name}}
+						</div>
+						<div class="form-group">
+							<label>Parent Dealer</label>
+							<select class="form-control" name="parentDealer" id="parentDealer" ng-options="parentDealer.name+' - '+parentDealer.city for parentDealer in parentDealerList track by parentDealer.parentCode" ng-model="dealer.parentDealerDO" required="required" validate-on="dirty">
+								<option value="">Select Parent</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label>Status</label>
+							<select class="form-control" name="status" id="status" ng-model="dealer.status" convert-to-number required="required" validate-on="dirty">
+								<option value="">Select Status</option>
+								<option value="1">Active</option>
+								<option value="0">Terminated</option>
+								<option ng-if="dealer.status == 2" value="2">Pending</option>
+							</select>
+						</div>
 	                    <div class="form-group">
 	                         <label>Notes</label>
 	                         <textarea id="notes" name="notes" ng-model="dealer.notes" class="form-control" rows="3" cols="5"></textarea>

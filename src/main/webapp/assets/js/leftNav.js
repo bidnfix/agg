@@ -348,10 +348,8 @@ routingApp.controller('GetDealerController', function($scope, dealerService, $ht
 	    $('#dealerEditPopup').show();
     };
     
-    $scope.submitEditDealer = function(dealerInfoForm){
-    	if(dealerInfoForm.$valid){
-    		dealerService.editDealer($scope.dealer, $scope, ctrlOptions.getAllDealers);
-    	}
+    $scope.submitEditDealer = function(){
+    	dealerService.editDealer($scope.dealer, $scope, ctrlOptions.getAllDealers);
     }
 })
 .directive('convertToNumber', function() {
@@ -388,7 +386,7 @@ routingApp.controller('GetDealerDetailsController', function($scope, dealerServi
     
     $scope.submitEditDealer = function(dealerInfoForm){
     	if(dealerInfoForm.$valid){
-    		dealerService.editDealer($scope.dealer, $scope, ctrlOptions.getAllDealers);
+    		dealerService.editDealer($scope.dealer, $scope);
     	}
     }
 })

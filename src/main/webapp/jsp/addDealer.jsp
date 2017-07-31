@@ -1,4 +1,3 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!-- Article main content -->
 <article class="col-md-9 maincontent">
 		<header class="page-header">
@@ -47,7 +46,7 @@
                     </div>
                     <div class="form-group">
                       <label>Adjustment Factor</label>
-                      <input type="number" step="0.01" id="adjustmentFactor" name="adjustmentFactor" ng-model="dealer.adjustmentFactor" class="form-control">
+                      <input type="number" step="0.01" id="adjustmentFactor" name="adjustmentFactor" ng-model="dealer.adjustmentFactor" class="form-control" required="required" validate-on="dirty">
                     </div>
 				</div>
 

@@ -25,7 +25,6 @@ import com.agg.application.model.Result;
 import com.agg.application.model.RoleDO;
 import com.agg.application.model.UserDO;
 import com.agg.application.service.DealerService;
-import com.agg.application.utils.AggConstants;
 
 @RestController
 @RequestMapping("/agg")
