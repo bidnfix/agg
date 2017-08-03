@@ -22,7 +22,7 @@
                 <th>Use of Equipment Desc</th>
                 <th>Adjustment Factor</th>
                 <th>Edit</th>
-                <th>Delete</th>
+                
             </tr>
         </thead>
  
@@ -32,7 +32,7 @@
                 <th>Use of Equipment Desc</th>
                 <th>Adjustment Factor</th>
                 <th>Edit</th>
-                <th>Delete</th>
+                
             </tr>
         </tfoot>
  
@@ -46,10 +46,7 @@
                 		<a ng-click="editUseOfEquip(useOfEquip.id)"><img src="../assets/images/edit-pencil.png" alt="Edit" title="Edit"/></a>
                 	</div>
                 </td>
-                <td><div class="manage-sec"><!-- <a href="#"><img src="../assets/images/delete-icon.png" alt="Delete" title="Delete"/></a> -->
-                		<a ng-click="editMachine(machine.machineId)"><img src="../assets/images/edit-pencil.png" alt="Delete" title="Delete"/></a>
-                	</div>
-                </td>
+                
             </tr>
         </tbody>
     </table>

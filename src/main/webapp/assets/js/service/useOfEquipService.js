@@ -28,7 +28,7 @@ routingApp.factory('useOfEquipService', function($http, $q, $window) {
 
 			
 				editEquipment : function(equipment, $scope) {
-					alert("In service");
+					//alert("In service");
 					showSpinner();
 					return $http.post('/agg/editEquipment', equipment).then(
 							function(response) {

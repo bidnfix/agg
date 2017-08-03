@@ -29,7 +29,7 @@ routingApp.controller('useOfEquipController', function($scope, $http, $timeout, 
 	};
 	
 	$scope.submitEditEquipment = function() {
-		alert("In editEquipment");
+		//alert("In editEquipment");
     	useOfEquipService.editEquipment($scope.useOfEquip);
     }
 	
@@ -39,7 +39,7 @@ routingApp.controller('useOfEquipController', function($scope, $http, $timeout, 
 routingApp.controller('equipmentController', function($scope, useOfEquipService, $location, $http) {
 	$scope.useOfEquipmentDO={};
 	$scope.submitEquipment = function() {
-		alert("In submitEquipment");
+		//alert("In submitEquipment");
 		useOfEquipService.saveEquipment($scope.useOfEquipmentDO);
     }
     
