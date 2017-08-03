@@ -332,6 +332,7 @@ public class DealerServiceImpl implements DealerService {
 		dealer.setZip(dealerDO.getZip());
 		//dealer.setActiveDate(date);
 		//dealer.setLastUpdate(date);
+		dealer.setAdjustmentFactor(dealerDO.getAdjustmentFactor());
 		
 		//updating pending and termination accounts
 		if(dealerDO.getStatus() == 0 || dealer.getStatus() == 2){
