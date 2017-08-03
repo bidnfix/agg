@@ -7,7 +7,7 @@ routingApp.factory('useOfEquipService', function($http, $q, $window) {
 					showSpinner();
 					return $http.post('/agg/saveEquipment', equipment).then(
 							function(response) {
-								alert(response.data.status);
+								//alert(response.data.status);
 								if (response.data.status == 'success') {
 									$('#machineSuccessMsg').html("Equipment '<strong>"+equipment.equipName+"</strong>' successfully added");
 					            	$('#machineSuccessMsg').removeClass('hidden');
