@@ -26,18 +26,18 @@ routingApp.controller('usageTierController', function($scope, $http, $timeout, u
 	};
 	
 	$scope.submitEditEquipment = function() {
-		alert("In editEquipment");
+		//alert("In editEquipment");
 		usageTierService.editEquipment($scope.useOfEquip);
     }
 	
 	$scope.submitUsageTier = function() {
-		alert("In submitUsageTier"+$scope.usageTierDO);
+		//alert("In submitUsageTier"+$scope.usageTierDO);
 		usageTierService.saveUsageTier($scope.usageTierDO);
     }
 	
 });
 
-routingApp.controller('editUsageTierController', function($scope, usageTierService, $location, $http) {
+/*routingApp.controller('editUsageTierController', function($scope, usageTierService, $location, $http) {
 	$http.get("/agg/dealer/"+dealerId)
     .then(function(response) {
     	$scope.roleList = response.data.data.roleList;
@@ -50,4 +50,20 @@ routingApp.controller('editUsageTierController', function($scope, usageTierServi
 		usageTierService.saveEquipment($scope.useOfEquipmentDO);
     }
     
-});
+});*/
+
+routingApp.controller('editUsageTierController', function($scope, $http, $timeout, $routeParams, $route, usageTierService) {
+	//alert($routeParams.id);
+	
+	$http.get("/agg/getUsageTier/"+$routeParams.id)
+    .then(function(response) {
+    	$scope.usageTierDO = response.data.data.usageTierDO;
+
+    });
+	
+	$scope.submitEditUsageTier = function() {
+		//alert("In submitEditUsageTier"+$scope.usageTierDO.usageFrom);
+		usageTierService.editUsageTier($scope.usageTierDO);
+    }
+
+   });

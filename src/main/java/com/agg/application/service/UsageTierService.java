@@ -6,9 +6,13 @@ import com.agg.application.model.UsageTierDO;
 
 public interface UsageTierService {
 	
-	public List<UsageTierDO> getUsageTier();
+	public List<UsageTierDO> getUsageTiers();
+	
+	public UsageTierDO getUsageTier(long id);
 	
 	public long saveUsageTier(UsageTierDO usageTierDO) throws Exception;
+	
+	public long editUsageTier(UsageTierDO usageTierDO) throws Exception;
 	
 	//public UseOfEquipmentDO getUseOfEquip(long id);
 	

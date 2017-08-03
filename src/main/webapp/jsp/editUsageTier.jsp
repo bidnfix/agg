@@ -14,10 +14,16 @@
 	</header>
 
 	<!-- data table section -->
-	<div class="inner-main" ng-controller="usageTierController">
-		<form class="form-horizontal" role="form" ng-submit="submitEditEquipment()">
+	<div class="inner-main" ng-controller="editUsageTierController">
+		<form class="form-horizontal" role="form" ng-submit="submitEditUsageTier()">
 		 <div id="machineSuccessMsg" class="alert alert-info text-center hidden"></div>
 		<!-- 	<h2>Registration Form</h2> -->
+			<div class="form-group">
+				<label for="machineType" class="col-sm-3 control-label">ID</label>
+				<div class="col-sm-9">
+					<input type="text" id="id" name="discount" ng-model="usageTierDO.id" class="form-control" required="required" readonly="readonly">
+				</div>
+			</div>
 			
 			<div class="form-group">
 				<label for="machineType" class="col-sm-3 control-label">Usage From</label>

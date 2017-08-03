@@ -1,17 +1,19 @@
 package com.agg.application.service.impl;
 
-import java.util.Date;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.agg.application.dao.UsageTierDAO;
 import com.agg.application.entity.UsageTier;
+import com.agg.application.entity.UseOfEquip;
 import com.agg.application.model.UsageTierDO;
 import com.agg.application.service.UsageTierService;
 
@@ -26,11 +28,29 @@ public class UsageTierServiceImpl implements UsageTierService{
 	
 	
 	@Override
-	public List<UsageTierDO> getUsageTier() {
-		logger.debug("Inside getUsageTier()");
+	public List<UsageTierDO> getUsageTiers() {
+		logger.debug("Inside getUsageTiers()");
 		List<UsageTierDO> usageTierLst = usageTierDAO.findAllUsageTier();
 	
 		return usageTierLst;
+	}
+	
+	@Override
+	public UsageTierDO getUsageTier(long id) {
+		logger.debug("Inside getUsageTier()");
+		UsageTierDO usageTierDO = null;
+		
+		UsageTier usageTier = usageTierDAO.findOne(id);
+		if(usageTier != null)
+		{
+			usageTierDO = new UsageTierDO();
+			usageTierDO.setId(usageTier.getId());
+			usageTierDO.setUsageFrom(usageTier.getUsageFrom());
+			usageTierDO.setUsageTo(usageTier.getUsageTo());
+			usageTierDO.setAdjFactor(usageTier.getAdjFactor());
+		}
+	
+		return usageTierDO;
 	}
 	
 	
@@ -52,44 +72,24 @@ public class UsageTierServiceImpl implements UsageTierService{
 		logger.debug("usageTier.getId()"+usageTier.getId());
 		return usageTier.getId();
 	}
-/*
-	@Override
-	public UseOfEquipmentDO getUseOfEquip(long id) {
-		logger.debug("In getUseOfEquip");
-		UseOfEquip useOfEquip = usageTierDAO.findOne(id);
-		UseOfEquipmentDO useOfEquipmentDO = null;
-		
-		if(useOfEquip != null){
-			useOfEquipmentDO = new UseOfEquipmentDO();
-			
-			useOfEquipmentDO.setId(useOfEquip.getId());
-			useOfEquipmentDO.setDiscount(useOfEquip.getDiscount());
-			useOfEquipmentDO.setEquipName(useOfEquip.getEquipName());
-		}
-		
-		return useOfEquipmentDO;
-	}
-	
 	@Override
 	@Transactional
-	public long editEquipment(UseOfEquipmentDO equipmentDO) throws Exception{
-		logger.debug("In editEquipment : "+equipmentDO.getId());
-		UseOfEquip useOfEquip = usageTierDAO.findOne(equipmentDO.getId());
+	public long editUsageTier(UsageTierDO usageTierDO) throws Exception{
+		logger.debug("In editUsageTier : "+usageTierDO.getAdjFactor());
+		UsageTier usageTier = usageTierDAO.findOne(usageTierDO.getId());
 		Timestamp date = new Timestamp(new Date().getTime());
 		
-		
-		
-
-		useOfEquip.setEquipName(equipmentDO.getEquipName());
-		useOfEquip.setDiscount(equipmentDO.getDiscount());
+		usageTier.setUsageFrom(usageTierDO.getUsageFrom());
+		usageTier.setUsageTo(usageTierDO.getUsageTo());
+		usageTier.setAdjFactor(usageTierDO.getAdjFactor());
 		
 		try {
-			useOfEquip = usageTierDAO.save(useOfEquip);
+			usageTier = usageTierDAO.save(usageTier);
 		}
 	    catch (DataIntegrityViolationException e) {
-	    	logger.error("Equipment already exist");
+	    	logger.error("UsageTier already exist");
 	    }	
 		
-		return useOfEquip.getId();
-	}*/
+		return usageTier.getId();
+	}
 }

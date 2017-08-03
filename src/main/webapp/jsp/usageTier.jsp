@@ -42,7 +42,7 @@
                 <td>{{usageTier.adjFactor | number : 2}}</td>
                 <td>
                 <div class="manage-sec"><!-- <a href="#"><img src="../assets/images/delete-icon.png" alt="Delete" title="Delete"/></a> -->
-                		<a href="#/agg/editUsageTier/?{{usageTier.id}}"><img src="../assets/images/edit-pencil.png" alt="Edit" title="Edit"/></a>
+                		<a href="#/agg/editUsageTier/{{usageTier.id}}/"><img src="../assets/images/edit-pencil.png" alt="Edit" title="Edit"/></a>
                 	</div>
                 </td>
                 </tr>

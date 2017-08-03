@@ -256,7 +256,7 @@ routingApp.config(['$routeProvider',
                     	  templateUrl: '../../jsp/addUsageTier.jsp',
                     	  controller: 'usageTierController'
                       }).
-                      when('/agg/editUsageTier', {
+                      when('/agg/editUsageTier/:id', {
                     	  templateUrl: '../../jsp/editUsageTier.jsp',
                     	  controller: 'editUsageTierController'
                       }).
