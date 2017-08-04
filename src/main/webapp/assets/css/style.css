@@ -1261,7 +1261,8 @@ input[type=checkbox] {
        width: 950px; /* New width for large modal */
      }
  }
-.modal-dialog, .modal-content {
+
+.iemodel .modal-dialog, .modal-content {
     /* 80% of window height */
     height:68%;
 }

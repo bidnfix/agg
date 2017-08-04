@@ -18,7 +18,8 @@ App.controller('LoginController', ['$scope', 'LoginService', '$location', '$wind
 			  if(objfullVersion < 10){
 				  var modalInstance = $modal.open({
 					  templateUrl: '../../jsp/popup.jsp',
-					  controller: 'BrowserPopupController'
+					  controller: 'BrowserPopupController',
+					  windowClass: 'iemodel'
 				  });
 			  }
 			  
