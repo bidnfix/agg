@@ -13,6 +13,7 @@ public class OEMWarrantyTierDO {
 	public OEMWarrantyTierDO()
 	{
 		
+		
 	}
 	
 	public OEMWarrantyTierDO(long id, long warrantyFrom, long warrantyTo, double adjFactor)

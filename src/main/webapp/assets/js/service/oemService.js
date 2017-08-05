@@ -25,8 +25,6 @@ routingApp.factory('oemService', function($http, $q, $window) {
 								return $q.reject(errResponse);
 							});
 				},
-
-			
 				editOEM : function(oemDO, $scope) {
 					//alert("In service");
 					showSpinner();

@@ -21,10 +21,8 @@ public class OEMWarrantyTierServiceImpl implements OEMWarrantyTierService{
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	
 	@Autowired
 	private OEMWarrantyTierDAO oemWarrantyTierDAO;
-	
 	
 	@Override
 	public List<OEMWarrantyTierDO> getOEMWarrantyTiers() {

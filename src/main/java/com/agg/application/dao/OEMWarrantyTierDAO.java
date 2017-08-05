@@ -16,4 +16,5 @@ public interface OEMWarrantyTierDAO extends CrudRepository<OEMWarrantyTier, Long
 			+ "oemWarrantyTier.adjFactor) from OEMWarrantyTier oemWarrantyTier")
 	List<OEMWarrantyTierDO> findAllOEMWarrantyTier();
 
+	
 }
