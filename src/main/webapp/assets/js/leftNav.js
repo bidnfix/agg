@@ -260,6 +260,18 @@ routingApp.config(['$routeProvider',
                     	  templateUrl: '../../jsp/editUsageTier.jsp',
                     	  controller: 'editUsageTierController'
                       }).
+                      when('/agg/oemWarrantyTier', {
+                    	  templateUrl: '../../jsp/oemWarranty.jsp',
+                    	  controller: 'oemController'
+                      }).
+                      when('/agg/addOEMWarrantyTier', {
+                    	  templateUrl: '../../jsp/addOEM.jsp',
+                    	  controller: 'oemController'
+                      }).
+                      when('/agg/editOEMWarrantyTier/:id', {
+                    	  templateUrl: '../../jsp/editOEM.jsp',
+                    	  controller: 'editOEMController'
+                      }).
                       otherwise({
                     	  redirectTo: '/agg/home'
                       });
