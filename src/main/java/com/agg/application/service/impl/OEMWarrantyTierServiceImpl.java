@@ -53,21 +53,22 @@ public class OEMWarrantyTierServiceImpl implements OEMWarrantyTierService{
 	
 	@Override
 	@Transactional
-	public long saveOEMWarrantyTier(OEMWarrantyTierDO OEMWarrantyTierDO) throws Exception{
-		logger.debug("In saveOEMWarrantyTier");
-		OEMWarrantyTier OEMWarrantyTier = new OEMWarrantyTier();
+	public long saveOEMWarrantyTier(OEMWarrantyTierDO oemWarrantyTierDO) throws Exception{
+		logger.debug("In saveOEMWarrantyTier "+oemWarrantyTierDO.getAdjFactor());
+		OEMWarrantyTier oemWarrantyTier = new OEMWarrantyTier();
 		Timestamp date = new Timestamp(new Date().getTime());
 		
 		//macineInfo.setModel((machineDO.getMachineModelDO().getModelId());
-		OEMWarrantyTier.setWarrantyFrom(OEMWarrantyTierDO.getWarrantyFrom());
-		OEMWarrantyTier.setWarrantyTo(OEMWarrantyTierDO.getWarrantyTo());
-		OEMWarrantyTier.setAdjFactor(OEMWarrantyTierDO.getAdjFactor());
+		oemWarrantyTier.setWarrantyFrom(oemWarrantyTierDO.getWarrantyFrom());
+		oemWarrantyTier.setWarrantyTo(oemWarrantyTierDO.getWarrantyTo());
+		oemWarrantyTier.setAdjFactor(oemWarrantyTierDO.getAdjFactor());
 		
-		//equipment.setLastUpdate(date);
-		OEMWarrantyTier = oemWarrantyTierDAO.save(OEMWarrantyTier);
+		oemWarrantyTier.setLastUpdate(date);
+		oemWarrantyTier.setCreateDate(date);
+		oemWarrantyTier = oemWarrantyTierDAO.save(oemWarrantyTier);
 			
-		logger.debug("OEMWarrantyTier.getId()"+OEMWarrantyTier.getId());
-		return OEMWarrantyTier.getId();
+		logger.debug("OEMWarrantyTier.getId()"+oemWarrantyTier.getId());
+		return oemWarrantyTier.getId();
 	}
 	@Override
 	@Transactional
@@ -79,6 +80,7 @@ public class OEMWarrantyTierServiceImpl implements OEMWarrantyTierService{
 		oemWarrantyTier.setWarrantyFrom(oemWarrantyTierDO.getWarrantyFrom());
 		oemWarrantyTier.setWarrantyTo(oemWarrantyTierDO.getWarrantyTo());
 		oemWarrantyTier.setAdjFactor(oemWarrantyTierDO.getAdjFactor());
+		oemWarrantyTier.setLastUpdate(date);
 		
 		try {
 			oemWarrantyTier = oemWarrantyTierDAO.save(oemWarrantyTier);

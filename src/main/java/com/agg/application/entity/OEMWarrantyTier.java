@@ -30,6 +30,9 @@ public class OEMWarrantyTier implements Serializable {
 	
 	@Column(name="last_update")
 	private Timestamp lastUpdate;
+	
+	@Column(name="create_date")
+	private Timestamp createDate;
 
 	public OEMWarrantyTier() {
 	}
@@ -73,6 +76,14 @@ public class OEMWarrantyTier implements Serializable {
 
 	public void setLastUpdate(Timestamp lastUpdate) {
 		this.lastUpdate = lastUpdate;
+	}
+
+	public Timestamp getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Timestamp createDate) {
+		this.createDate = createDate;
 	}
 
 }
