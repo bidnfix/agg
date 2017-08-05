@@ -55,5 +55,7 @@ public interface DealerService {
 	public List<DealerDO> findAllDealers();
 	
 	public List<DealerDO> getServiceDealerActiveDealers();
+	
+	public List<UserDO> getDealerUsers(long dealerId);
 
 }

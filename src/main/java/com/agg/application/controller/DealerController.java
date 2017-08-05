@@ -143,6 +143,7 @@ public class DealerController extends BaseController {
 			model.addAttribute("roleList", dealerService.getDealerAdminRoles());
 			model.addAttribute("parentDealers", dealerService.getParentDealers());
 			model.addAttribute("dealer", dealerService.getDealer(id));
+			model.addAttribute("dealerUsers", dealerService.getDealerUsers(id));
 			opResult = new Result("success", "Dealer Info", model);
 		}
 		

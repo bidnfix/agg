@@ -805,5 +805,12 @@ public class DealerServiceImpl implements DealerService {
 		return dealerDAO.findAllDealers();
 	}
 
+	@Override
+	public List<UserDO> getDealerUsers(long dealerId) {
+		logger.info("inside getDealerUsers method with dealerId: "+dealerId);
+		List<UserDO> userDOList = accountDAO.findAllDealerUsers(dealerId);;
+		return userDOList;
+	}
+
 }
 

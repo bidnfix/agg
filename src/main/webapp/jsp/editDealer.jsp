@@ -1,3 +1,4 @@
+<%@include file="userPopup.jsp" %>
 <!-- Article main content -->
 <article class="col-md-9 maincontent">
 		<header class="page-header">
@@ -12,8 +13,8 @@
 		<!-- data table section -->
 
 		<div class="inner-main">
-			<form class="form-horizontal" name="dealerInfoForm" id="dealerInfoForm" ng-submit="submitEditDealer(dealerInfoForm)" novalidate angular-validator>
 			<div class="col-xs-12 agf1 main-login pad10-top">
+				<form class="form-horizontal" name="dealerInfoForm" id="dealerInfoForm" ng-submit="submitEditDealer(dealerInfoForm)" novalidate angular-validator>
 				<div id="dealerErrorMsg" class="alert alert-danger text-center hidden"></div>
 				<div class="col-md-6 no-pad pad10-right">
 					<div class="form-group">
@@ -175,8 +176,54 @@
 							<button class="btn btn-primary btn-lg btn-block login-button" type="submit">Update Dealer</button>
 					</div>
 				</div>
+				</form>
+				<div>
+				<table id="userTbl" class="table table-striped table-bordered" cellspacing="0" width="100%">
+			        <thead>
+			            <tr>
+			            	<th>User Name</th>
+			                <th>First Name</th>
+			                <th>Last Name</th>
+			                <th>User Type</th>
+			                <th>Role</th>
+			                <th>Dealer Name</th>
+			                <th>Status</th>
+			                <th></th>
+			            </tr>
+			        </thead>
+			 
+			        <tfoot>
+			            <tr>
+			            	<th>User Name</th>
+			                <th>First Name</th>
+			                <th>Last Name</th>
+			                <th>User Type</th>
+			                <th>Role</th>
+			                <th>Dealer Name</th>
+			                <th>Status</th>
+			                <th></th>
+			            </tr>
+			        </tfoot>
+			 
+			        <tbody>
+			            <tr ng-repeat="user in userList">
+			            	<td>{{user.userName}}</td>
+			            	<td>{{user.firstName}}</td>
+			                <td>{{user.lastName}}</td>
+			                <td>{{user.userType}}</td>
+			                <td>{{user.roleName}}</td>
+			                <td>{{user.dealerName}}</td>
+			                <td>{{(user.status === 0)?"Terminated":(user.status === 1)?"Active":""}}</td>
+			                <td>
+			                	<div class="manage-sec"><!-- <a href="#"><img src="../assets/images/delete-icon.png" alt="Delete" title="Delete"/></a> -->
+			                		<a ng-click="editUser(user.id)"><img src="../assets/images/edit-pencil.png" alt="Edit" title="Edit"/></a>
+			                	</div>
+			                </td>
+			            </tr>
+			        </tbody>
+			    </table>
 			</div>
-			</form>
+			</div>
 		</div>
 	<!-- end data table section -->
 

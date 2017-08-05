@@ -378,13 +378,17 @@ routingApp.controller('GetDealerController', function($scope, dealerService, $ht
     };
  });
 
-routingApp.controller('GetDealerDetailsController', function($scope, dealerService, $http, $timeout, $routeParams, $route) {
+routingApp.controller('GetDealerDetailsController', function($scope, dealerService, $http, $timeout, $routeParams, $route, userService) {
 	$scope.dealer={};
 	$http.get("/agg/dealer/"+$routeParams.dealerId)
 	.then(function(response) {
 		$scope.roleList = response.data.data.roleList;
 		$scope.parentDealerList = response.data.data.parentDealers;
         $scope.dealer = response.data.data.dealer;
+        $scope.userList = response.data.data.dealerUsers;
+        $timeout(function () {
+        	$('#userTbl').DataTable({"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]]});
+        }, 300);
         if(response.data.data.dealerName != null){
         	$('#dealerAddInfoMsg').html("Dealer '<strong>"+response.data.data.dealerName+"</strong>' successfully added");
         	$('#dealerAddInfoMsg').removeClass('hidden');
@@ -400,6 +404,25 @@ routingApp.controller('GetDealerDetailsController', function($scope, dealerServi
     	if(dealerInfoForm.$valid){
     		dealerService.editDealer($scope.dealer, $scope);
     	}
+    }
+    
+    $scope.editUser = function(userId) {
+		$http.get("/agg/user/"+userId)
+	    .then(function(response) {
+	    	$scope.roleList = response.data.data.roleList;
+	        $scope.user = response.data.data.user;
+	    });
+		
+		var x = screen.width/4;
+	    var y = screen.height/9;
+	    showMask('popup_mask');
+	    $('#userEditPopup').css("left", x+"px");
+	    $('#userEditPopup').css("top", y+"px");
+	    $('#userEditPopup').show();
+    };
+    
+    $scope.submitEditUser = function(){
+    	userService.editUser($scope.user, $scope);
     }
 })
 .directive('convertToNumber', function() {
