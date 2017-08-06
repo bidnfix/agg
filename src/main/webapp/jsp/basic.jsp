@@ -93,5 +93,7 @@
 	<script src="/assets/js/service/usageTierService.js"></script>
 	<script src="/assets/js/controller/oemController.js"></script>
 	<script src="/assets/js/service/oemService.js"></script>
+	<script src="/assets/js/controller/manufacturerController.js"></script>
+	<script src="/assets/js/service/manufacturerService.js"></script>
 </body>
 </html>

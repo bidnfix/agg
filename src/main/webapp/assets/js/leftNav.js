@@ -272,6 +272,18 @@ routingApp.config(['$routeProvider',
                     	  templateUrl: '../../jsp/editOEM.jsp',
                     	  controller: 'editOEMController'
                       }).
+                      when('/agg/manufacturers', {
+                    	  templateUrl: '../../jsp/manufacturerInfo.jsp',
+                    	  controller: 'manufacturerController'
+                      }).
+                      when('/agg/addManufacturer', {
+                    	  templateUrl: '../../jsp/addManufacturer.jsp',
+                    	  controller: 'manufacturerController'
+                      }).
+                      when('/agg/editManufacturer/:id', {
+                    	  templateUrl: '../../jsp/editManufacturer.jsp',
+                    	  controller: 'editManufacturerController'
+                      }).
                       otherwise({
                     	  redirectTo: '/agg/home'
                       });

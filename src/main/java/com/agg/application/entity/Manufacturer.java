@@ -22,6 +22,9 @@ public class Manufacturer implements Serializable {
 
 	@Column(name="manf_name")
 	private String manfName;
+	
+	@Column(name="adjustment_factor")
+	private double adjFactor;
 
 	//bi-directional many-to-one association to MachineInfo
 	@OneToMany(mappedBy="manufacturer")
@@ -76,7 +79,15 @@ public class Manufacturer implements Serializable {
 		return machineInfo;
 	}
 
-/*	public List<MachineType> getMachineTypes() {
+	public double getAdjFactor() {
+		return adjFactor;
+	}
+
+	public void setAdjFactor(double adjFactor) {
+		this.adjFactor = adjFactor;
+	}
+
+	/*	public List<MachineType> getMachineTypes() {
 		return this.machineTypes;
 	}
 
