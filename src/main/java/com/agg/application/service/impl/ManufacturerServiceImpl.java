@@ -13,7 +13,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.agg.application.dao.ManufacturerDAO;
+import com.agg.application.entity.MachineInfo;
 import com.agg.application.entity.Manufacturer;
+import com.agg.application.model.MachineInfoDO;
 import com.agg.application.model.ManufacturerDO;
 import com.agg.application.service.ManufacturerService;
 import com.google.common.collect.Lists;
@@ -52,25 +54,51 @@ public class ManufacturerServiceImpl implements ManufacturerService{
 		
 		return manfDOLst;
 	}
-	/*
+	
 	@Override
-	public OEMWarrantyTierDO getOEMWarrantyTier(long id) {
-		logger.debug("Inside getOEMWarrantyTier()");
-		OEMWarrantyTierDO OEMWarrantyTierDO = null;
+	public ManufacturerDO getManufacturer(long id) {
+		logger.debug("Inside getManufacturer()");
+		ManufacturerDO manufacturerDO = null;
+		//MachineInfoDO machineInfoDO = null;
+		List<MachineInfoDO> machineInfoDOLst = null;
 		
-		OEMWarrantyTier OEMWarrantyTier = oemWarrantyTierDAO.findOne(id);
-		if(OEMWarrantyTier != null)
+		Manufacturer manufacturer = manufacturerDAO.findOne(id);
+		if(manufacturer != null)
 		{
-			OEMWarrantyTierDO = new OEMWarrantyTierDO();
-			OEMWarrantyTierDO.setId(OEMWarrantyTier.getId());
-			OEMWarrantyTierDO.setWarrantyFrom(OEMWarrantyTier.getWarrantyFrom());
-			OEMWarrantyTierDO.setWarrantyTo(OEMWarrantyTier.getWarrantyTo());
-			OEMWarrantyTierDO.setAdjFactor(OEMWarrantyTier.getAdjFactor());
+			machineInfoDOLst = new ArrayList<MachineInfoDO>();
+			manufacturerDO = new ManufacturerDO();
+			manufacturerDO.setId(manufacturer.getManfId());
+			manufacturerDO.setName(manufacturer.getManfName());
+			manufacturerDO.setAdjFactor(manufacturer.getAdjFactor());
+			//manufacturerDO.setMachineInfo(manufacturer.getMachineInfos());
+			
+			if(!manufacturer.getMachineInfos().isEmpty())
+			{
+				List<MachineInfo> machineInfoLst = manufacturer.getMachineInfos();
+				
+				Iterator<MachineInfo> it = machineInfoLst.iterator();
+				MachineInfoDO machineInfoDO = null;
+				MachineInfo machineInfo = null;
+				
+				while(it.hasNext())
+				{
+					machineInfoDO = new MachineInfoDO();
+					machineInfo = it.next();
+					machineInfoDO.setMachineType(machineInfo.getMachineType().getMachineType());
+					machineInfoDO.setModel(machineInfo.getModel());
+					machineInfoDO.setePower(machineInfo.getePower());
+					machineInfoDO.setGroupId((int)machineInfo.getGroupConstant().getGroupId());
+					machineInfoDOLst.add(machineInfoDO);
+				}
+			}
+			manufacturerDO.setMachineInfoDO(machineInfoDOLst);
+			
+			//logger.debug("manufacturer.getMachineInfos() "+manufacturer.getMachineInfos().size());
 		}
 	
-		return OEMWarrantyTierDO;
+		return manufacturerDO;
 	}
-	*/
+	
 	
 	@Override
 	@Transactional

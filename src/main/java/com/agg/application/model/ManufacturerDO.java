@@ -12,7 +12,7 @@ public class ManufacturerDO {
 	
 	private double adjFactor;
 	
-	private List<MachineInfo> machineInfo;
+	private List<MachineInfoDO> machineInfoDO;
 	
 	public long getId() {
 		return id;
@@ -38,12 +38,12 @@ public class ManufacturerDO {
 		this.adjFactor = adjFactor;
 	}
 
-	public List<MachineInfo> getMachineInfo() {
-		return machineInfo;
+	public List<MachineInfoDO> getMachineInfoDO() {
+		return machineInfoDO;
 	}
 
-	public void setMachineInfo(List<MachineInfo> machineInfo) {
-		this.machineInfo = machineInfo;
+	public void setMachineInfoDO(List<MachineInfoDO> machineInfoDO) {
+		this.machineInfoDO = machineInfoDO;
 	}
 	
 }

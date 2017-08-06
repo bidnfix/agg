@@ -40,9 +40,10 @@ routingApp.controller('manufacturerController', function($scope, $http, $timeout
 routingApp.controller('editManufacturerController', function($scope, $http, $timeout, $routeParams, $route, oemService) {
 	//alert($routeParams.id);
 	
-	$http.get("/agg/getOEMWarrantyTier/"+$routeParams.id)
+	$http.get("/agg/getManufacturer/"+$routeParams.id)
     .then(function(response) {
-    	$scope.oemDO = response.data.data.oemWarrantyTierDO;
+    	$scope.manfDO = response.data.data.manfDO;
+    	$scope.machineInfoLst = response.data.data.machineInfoLst;
 
     });
 	

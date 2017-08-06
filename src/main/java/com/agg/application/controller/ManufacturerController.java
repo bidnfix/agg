@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.agg.application.model.MachineInfoDO;
 import com.agg.application.model.ManufacturerDO;
-import com.agg.application.model.OEMWarrantyTierDO;
 import com.agg.application.model.Result;
 import com.agg.application.service.ManufacturerService;
 
@@ -78,23 +78,25 @@ public class ManufacturerController extends BaseController {
 		
 		return opResult;
 	}
-	/*	
-	@RequestMapping(value = "/getOEMWarrantyTier/{id}", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
-	public @ResponseBody Result getOEMWarrantyTierDOTier(ModelMap model, HttpServletRequest request, HttpServletResponse response, @PathVariable String id) {
-		logger.info("Inside getOEMWarrantyTier() with Id: "+id);
+		
+	@RequestMapping(value = "/getManufacturer/{id}", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+	public @ResponseBody Result getManufacturer(ModelMap model, HttpServletRequest request, HttpServletResponse response, @PathVariable String id) {
+		logger.info("Inside getManufacturer() with Id: "+id);
 		Result opResult = null;
 		if (!sessionExists(request)){
 			opResult = new Result("failure", "Invalid Login", null);
 		}else{
 			if(id != null && !id.isEmpty()){
-				OEMWarrantyTierDO oemWarrantyTierDO = oemWarrantyTierService.getOEMWarrantyTier(Long.valueOf(id));
-				model.put("oemWarrantyTierDO", oemWarrantyTierDO);
+				ManufacturerDO manfDO = manufacturerService.getManufacturer(Long.valueOf(id));
+				List<MachineInfoDO> machineInfoDOLst = manfDO.getMachineInfoDO();
+				model.put("manfDO", manfDO);
+				model.put("machineInfoDOLst", machineInfoDOLst);
 			}
 			opResult = new Result("success", null, model);
 		}
 		return opResult;	
 	}
-	
+	/*
 	@RequestMapping(value = "/editOEMWarrantyTier", method = RequestMethod.POST)
 	public @ResponseBody Result editOEMWarrantyTier(@RequestBody OEMWarrantyTierDO oemWarrantyTierDO, BindingResult result,
 			HttpServletRequest request, HttpServletResponse response) throws Exception {

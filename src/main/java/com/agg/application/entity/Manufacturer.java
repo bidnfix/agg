@@ -27,7 +27,7 @@ public class Manufacturer implements Serializable {
 	private double adjFactor;
 
 	//bi-directional many-to-one association to MachineInfo
-	@OneToMany(mappedBy="manufacturer")
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="manufacturer")
 	private List<MachineInfo> machineInfos;
 
 /*	//bi-directional many-to-one association to MachineType

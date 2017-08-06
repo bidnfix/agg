@@ -8,7 +8,7 @@ public interface ManufacturerService {
 	
 	public List<ManufacturerDO> getManufacturers();
 	
-	//public OEMWarrantyTierDO getOEMWarrantyTier(long id);
+	public ManufacturerDO getManufacturer(long id);
 	
 	public long saveManufacturer(ManufacturerDO manufacturerDO) throws Exception;
 	
