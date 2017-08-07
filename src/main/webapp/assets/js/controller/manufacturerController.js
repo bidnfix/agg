@@ -37,19 +37,24 @@ routingApp.controller('manufacturerController', function($scope, $http, $timeout
 	
 });
 
-routingApp.controller('editManufacturerController', function($scope, $http, $timeout, $routeParams, $route, oemService) {
+routingApp.controller('editManufacturerController', function($scope, $http, $timeout, $routeParams, $route, $window, manufacturerService) {
 	//alert($routeParams.id);
 	
 	$http.get("/agg/getManufacturer/"+$routeParams.id)
     .then(function(response) {
     	$scope.manfDO = response.data.data.manfDO;
-    	$scope.machineInfoLst = response.data.data.machineInfoLst;
+    	$scope.machineInfoDOLst = response.data.data.machineInfoLst;
 
     });
 	
-	$scope.submitEditOEM = function() {
-		//alert("In submitEditUsageTier"+$scope.usageTierDO.usageFrom);
-		oemService.editOEM($scope.oemDO);
+	$scope.submitEditManufacturer = function() {
+		//alert("In submitEditUsageTier"+$scope.manfDO);
+		manufacturerService.editManufacturer($scope.manfDO);
+    }
+	
+	$scope.getManfInfo = function() {
+		//alert("In getManfInfo");
+		$window.location = '#/agg/manufacturers';
     }
 
    });

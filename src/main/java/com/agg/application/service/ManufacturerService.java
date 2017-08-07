@@ -12,5 +12,5 @@ public interface ManufacturerService {
 	
 	public long saveManufacturer(ManufacturerDO manufacturerDO) throws Exception;
 	
-	//public long editOEMWarrantyTier(OEMWarrantyTierDO oemWarrantyTierDO) throws Exception;
+	public long editManufacturer(ManufacturerDO manufacturerDO) throws Exception;
 }

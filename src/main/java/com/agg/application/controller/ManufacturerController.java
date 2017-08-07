@@ -88,19 +88,19 @@ public class ManufacturerController extends BaseController {
 		}else{
 			if(id != null && !id.isEmpty()){
 				ManufacturerDO manfDO = manufacturerService.getManufacturer(Long.valueOf(id));
-				List<MachineInfoDO> machineInfoDOLst = manfDO.getMachineInfoDO();
+				//List<MachineInfoDO> machineInfoDOLst = manfDO.getMachineInfoDO();
 				model.put("manfDO", manfDO);
-				model.put("machineInfoDOLst", machineInfoDOLst);
+				//model.put("machineInfoDOLst", machineInfoDOLst);
 			}
 			opResult = new Result("success", null, model);
 		}
 		return opResult;	
 	}
-	/*
-	@RequestMapping(value = "/editOEMWarrantyTier", method = RequestMethod.POST)
-	public @ResponseBody Result editOEMWarrantyTier(@RequestBody OEMWarrantyTierDO oemWarrantyTierDO, BindingResult result,
+	
+	@RequestMapping(value = "/editManufacturer", method = RequestMethod.POST)
+	public @ResponseBody Result editManufacturer(@RequestBody ManufacturerDO manufacturerDO, BindingResult result,
 			HttpServletRequest request, HttpServletResponse response) throws Exception {
-		logger.debug("In editOEMWarrantyTier "+oemWarrantyTierDO.getAdjFactor());
+		logger.debug("In editManufacturer "+manufacturerDO.getAdjFactor());
 		Result opResult = null;
 		if (!sessionExists(request)){
 			opResult = new Result("failure", "Invalid Login", null);
@@ -112,7 +112,7 @@ public class ManufacturerController extends BaseController {
 	
 			try
 			{
-				id = oemWarrantyTierService.editOEMWarrantyTier(oemWarrantyTierDO);
+				id = manufacturerService.editManufacturer(manufacturerDO);
 			}catch (Exception e) {
 		    	if (e instanceof DataIntegrityViolationException) {
 		    		logger.error("UsageTier already exist");
@@ -128,5 +128,5 @@ public class ManufacturerController extends BaseController {
 		}
 		
 		return opResult;
-	}*/
+	}
 }

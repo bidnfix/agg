@@ -9,6 +9,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -119,26 +120,25 @@ public class ManufacturerServiceImpl implements ManufacturerService{
 		return manufacturer.getManfId();
 	}
 	
-	/*
+	
 	@Override
 	@Transactional
-	public long editOEMWarrantyTier(OEMWarrantyTierDO oemWarrantyTierDO) throws Exception{
-		logger.debug("In editOEMWarrantyTier : "+oemWarrantyTierDO.getAdjFactor());
-		OEMWarrantyTier oemWarrantyTier = oemWarrantyTierDAO.findOne(oemWarrantyTierDO.getId());
+	public long editManufacturer(ManufacturerDO manufacturerDO) throws Exception{
+		logger.debug("In editManufacturer : "+manufacturerDO.getAdjFactor());
+		Manufacturer manufacturer = manufacturerDAO.findOne(manufacturerDO.getId());
 		Timestamp date = new Timestamp(new Date().getTime());
 		
-		oemWarrantyTier.setWarrantyFrom(oemWarrantyTierDO.getWarrantyFrom());
-		oemWarrantyTier.setWarrantyTo(oemWarrantyTierDO.getWarrantyTo());
-		oemWarrantyTier.setAdjFactor(oemWarrantyTierDO.getAdjFactor());
-		oemWarrantyTier.setLastUpdate(date);
+		manufacturer.setManfName(manufacturerDO.getName());
+		manufacturer.setAdjFactor(manufacturerDO.getAdjFactor());
+		//manufacturer.setLastUpdate(date);
 		
 		try {
-			oemWarrantyTier = oemWarrantyTierDAO.save(oemWarrantyTier);
+			manufacturer = manufacturerDAO.save(manufacturer);
 		}
 	    catch (DataIntegrityViolationException e) {
 	    	logger.error("OEMWarrantyTier already exist");
 	    }	
 		
-		return oemWarrantyTier.getId();
-	}*/
+		return manufacturer.getManfId();
+	}
 }

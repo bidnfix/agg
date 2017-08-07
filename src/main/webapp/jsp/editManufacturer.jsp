@@ -11,8 +11,8 @@
                     </div>
 			</header>
 			<!-- search serial/vin# form -->
-			<div class="inner-main">
-				<form class="form-horizontal" role="form" ng-submit="onClickSearchSerialNo()">
+			<div class="inner-main" ng-controller="editManufacturerController">
+				<form class="form-horizontal" role="form" ng-submit="submitEditManufacturer()">
 					<div class="form-group">
 						
 							<label for="machineType" class="col-sm-3 control-label">ID</label>
@@ -29,6 +29,17 @@
 							<div class="col-sm-9">
 								<input type="text" id="adjFactor" name="adjFactor" ng-model="manfDO.adjFactor" placeholder="Adjustment Factor" class="form-control" required="required">
 							</div>
+							
+							<div class="col-sm-12">
+								<div class="col-sm-6  col-sm-offset-3">
+									<button type="submit" class="btn btn-primary btn-block">Update Manufacturer</button>
+								</div>
+								<div class="col-sm-3">
+									<button type="button" class="btn btn-primary btn-block" ng-click="getManfInfo()">Cancel</button>
+								</div>
+							</div>
+							
+							
 						
 					</div>
 				</form>
@@ -51,15 +62,17 @@
 			                <th>Group ID</th>
 			            </tr>
 			        </tfoot>
-					
+			        
 			        <tbody>
-			            <tr ng-repeat="machine in machineInfoDOLst">
+			            <tr ng-repeat="machine in manfDO.machineInfoDO">
 			            	<td>{{machine.machineType}}</td>
 			                <td>{{machine.model}}</td>
 			                <td>{{machine.ePower}}</td>
 			                <td>{{machine.groupId}}</td>
-			            </tr>
+			                </tr>
 			        </tbody>
+					
+			        
 				</table>
 			</div>
 		</article>
