@@ -30,7 +30,7 @@ routingApp.factory('manufacturerService', function($http, $q, $window) {
 					showSpinner();
 					return $http.post('/agg/editManufacturer', manfDO).then(
 							function(response) {
-								alert("in save");
+								//alert("in save");
 								if (response.data.status == 'success') {
 									$window.location = '#/agg/manufacturers';
 								} else {
