@@ -85,6 +85,22 @@ public class MachineController extends BaseController {
 		return opResult;
 	}
 	
+	@RequestMapping(value = "/machineModel/{manfId}/{mchineTypeId}", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+	public @ResponseBody Result machineModel(ModelMap model, HttpServletRequest request, HttpServletResponse response, @PathVariable long manfId, @PathVariable long mchineTypeId) {
+		logger.info("Inside machineModel() with manfId: "+manfId+" and mchineTypeId: "+mchineTypeId);
+		Result opResult = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			if(manfId > 0 && mchineTypeId > 0){
+				List<MachineInfoDO> machineModels = machineService.getMachineModels(manfId, mchineTypeId);
+				model.put("machineModelList", machineModels);
+			}
+			opResult = new Result("success", null, model);
+		}
+		return opResult;
+	}
+	
 	@RequestMapping(value = "/manfModel/{manfId}", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
 	public @ResponseBody Result getManfModel(ModelMap model, HttpServletRequest request, HttpServletResponse response, @PathVariable String manfId) {
 		logger.info("Inside manfModel() with manfId: "+manfId);

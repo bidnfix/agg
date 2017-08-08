@@ -13,10 +13,22 @@
 						<label>*Select Manufacturer</label> <select class="form-control"
 							name="manufacturer" ng-model="quote.manufacturerDO"
 							ng-options="manufacturerObj.name for manufacturerObj in manufacturerList track by manufacturerObj.id"
-							ng-change="getMachineModel(quote.manufacturerDO)"
 							required-message="'Please select manufacturer.'"
 							required="required">
 							<option value="">Select Manufacturer</option>
+						</select>
+					</div>
+				</div>
+				
+				<div class="col-sm-6">
+					<div class="form-group">
+						<label>*Select Machine Type</label> <select class="form-control"
+							name="machineType" ng-model="quote.machineTypeDO"
+							ng-options="machineTypeDO.name for machineTypeDO in machineTypeDOList track by machineTypeDO.id"
+							ng-change="getMachineModel(quote.manufacturerDO, quote.machineTypeDO)"
+							required-message="'Please select machine type'"
+							required="required">
+							<option value="">Select Machine Type</option>
 						</select>
 					</div>
 				</div>

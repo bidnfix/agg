@@ -242,6 +242,8 @@ public class QuoteDO {
 	
 	private Date invoiceDate;
 	
+	private MachineTypeDO machineTypeDO;
+	
 	public QuoteDO(){
 		
 	}
@@ -1652,6 +1654,14 @@ public class QuoteDO {
 
 	public void setInvoiceDate(Date invoiceDate) {
 		this.invoiceDate = invoiceDate;
+	}
+
+	public MachineTypeDO getMachineTypeDO() {
+		return machineTypeDO;
+	}
+
+	public void setMachineTypeDO(MachineTypeDO machineTypeDO) {
+		this.machineTypeDO = machineTypeDO;
 	}
 	
 }

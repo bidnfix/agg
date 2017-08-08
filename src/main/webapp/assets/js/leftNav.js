@@ -1249,6 +1249,7 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService, $
 		$scope.dealerList = response.data.data.dealerDOList;
 		$scope.manufacturerList = response.data.data.manufacturerDOList;
 		$scope.useOfEquipmentDOList = response.data.data.useOfEquipmentDOList;
+		$scope.machineTypeDOList = response.data.data.machineTypeDOList;
 		
 		if($scope.dealerList.length == 1){
 			$scope.quote.dealerDO = $scope.dealerList[0];
@@ -1590,7 +1591,7 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService, $
 		}
 	}
 	
-	$scope.getMachineModel = function(manufacturerDO){
+	$scope.getMachineModel = function(manufacturerDO, machineTypeDO){
 		//making coverage term values to empty on manufacturer change.
 		$scope.machineModelChanged = true;
 		$scope.coverageHours = 0;
@@ -1601,7 +1602,7 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService, $
 		$scope.selectedCloumn = null;
 		
 		if(manufacturerDO != null){
-			 $http.get("/agg/manfModel/"+manufacturerDO.id)
+			 $http.get("/agg/machineModel/"+manufacturerDO.id+"/"+machineTypeDO.id)
 			    .then(function(response) {
 			        $scope.machineModelList = response.data.data.machineModelList;
 			    });

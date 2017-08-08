@@ -380,4 +380,16 @@ public class MachineServiceImpl implements MachineService {
 		//logger.debug("Groups size: "+groupDOList.size());
 		return groupDOList;
 	}
+	
+	@Override
+	public List<MachineInfoDO> getMachineModels(long manfId, long machineTypeId) {
+		logger.debug("Inside getManfModels() with manfId: "+manfId+" mchineTypeId: "+machineTypeId);
+		List<MachineInfoDO>  machineInfoDOList =  machineInfoDAO.findMachineModels(manfId, machineTypeId);
+		if(null != machineInfoDOList && !machineInfoDOList.isEmpty()){
+			logger.debug("machineInfoDOList size: "+machineInfoDOList.size());
+		}
+		
+		return machineInfoDOList;
+	}
+	
 }

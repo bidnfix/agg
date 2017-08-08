@@ -29,5 +29,7 @@ public interface MachineService {
 	public MachineDO getMachine(long id);
 	
 	public List<GroupDO> getGroups();
+	
+	public List<MachineInfoDO> getMachineModels(long manfId, long machineTypeId);
 
 }

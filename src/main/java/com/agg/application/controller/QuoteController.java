@@ -29,11 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.agg.application.model.DealerDO;
-import com.agg.application.model.GroupDO;
-import com.agg.application.model.MachineDO;
 import com.agg.application.model.MachineInfoDO;
-import com.agg.application.model.MachineModelDO;
-import com.agg.application.model.MachineTypeDO;
 import com.agg.application.model.ManufacturerDO;
 import com.agg.application.model.PricingDO;
 import com.agg.application.model.QuoteDO;
@@ -79,6 +75,7 @@ public class QuoteController extends BaseController {
 			model.addAttribute("dealerDOList", dealerDOList);
 			model.addAttribute("manufacturerDOList", manufacturerDOList);
 			model.addAttribute("useOfEquipmentDOList", quoteService.getUseOfEquipmentDetails());
+			model.addAttribute("machineTypeDOList", machineService.getMachineTypes());
 			
 			opResult = new Result("success", "Quote Info", model);
 		}
