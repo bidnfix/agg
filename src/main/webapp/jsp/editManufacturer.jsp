@@ -1,6 +1,6 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<div ng-controller="ClaimsController">
+<div>
 	<!-- Article main content -->
 		<article class="col-md-9 maincontent">
 			<header class="page-header">
@@ -11,41 +11,45 @@
                     </div>
 			</header>
 			<!-- search serial/vin# form -->
-			<div class="inner-main" ng-controller="editManufacturerController">
+			<div class="inner-main">
+				<div class="col-xs-12 agf1 main-login pad10-top">
 				<form class="form-horizontal" role="form" ng-submit="submitEditManufacturer()">
-					<div class="form-group">
+					<div class="col-md-10 no-pad pad10-right">
 						
-							<label for="machineType" class="col-sm-3 control-label">ID</label>
-							<div class="col-sm-9">
+							<label for="machineType" class="col-sm-4 control-label">ID</label>
+							<div class="col-sm-8">
 								<input type="text" id="id" name="equipName" ng-model="manfDO.id" class="form-control" readonly="readonly" >
 							</div>
 						
-							<label for="machineType" class="col-sm-3 control-label">Manufacturer</label>
-							<div class="col-sm-9">
+							<label for="machineType" class="col-sm-4 control-label">Manufacturer</label>
+							<div class="col-sm-8">
 								<input type="text" id="manufacturer" name="manufacturerName" ng-model="manfDO.name" placeholder="Manufacturer" class="form-control" required="required" >
 							</div>
 						
-							<label for="machineType" class="col-sm-3 control-label">Adjustment Factor</label>
-							<div class="col-sm-9">
+							<label for="machineType" class="col-sm-4 control-label">Adjustment Factor</label>
+							<div class="col-sm-8">
 								<input type="text" id="adjFactor" name="adjFactor" ng-model="manfDO.adjFactor" placeholder="Adjustment Factor" class="form-control" required="required">
 							</div>
 							
-							<div class="col-sm-12">
-								<div class="col-sm-6  col-sm-offset-3">
+							
+								<div class="col-sm-6 col-sm-offset-3">
 									<button type="submit" class="btn btn-primary btn-block">Update Manufacturer</button>
 								</div>
 								<div class="col-sm-3">
 									<button type="button" class="btn btn-primary btn-block" ng-click="getManfInfo()">Cancel</button>
 								</div>
-							</div>
 							
 							
 						
+						
+						
+				
 					</div>
 				</form>
-			</div>
-			<div class="inner-main">
-				<table id="contractsTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+				</div>
+				
+				<div class="col-xs-12 agf1 main-login pad10-top">
+				<table id="editManfTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
 					<thead>
 			            <tr>
 			            	<th>Machine Type</th>
@@ -75,6 +79,10 @@
 			        
 				</table>
 			</div>
+				
+			</div>
+			
+			
 		</article>
 	<!-- /Article -->
 	<!-- Article main content -->

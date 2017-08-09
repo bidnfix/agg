@@ -44,6 +44,10 @@ routingApp.controller('editManufacturerController', function($scope, $http, $tim
     .then(function(response) {
     	$scope.manfDO = response.data.data.manfDO;
     	$scope.machineInfoDOLst = response.data.data.machineInfoLst;
+    	
+    	$timeout(function () {
+        	$('#editManfTable').DataTable({"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]]});
+        }, 300);
 
     });
 	
