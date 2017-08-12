@@ -26,7 +26,7 @@ public interface MachineInfoDAO extends CrudRepository<MachineInfo, Long> {
 	List<MachineInfo> findMachineInfoById(@Param("machineID") List<Long> machineID);
 	
 	@Query("select new com.agg.application.model.MachineInfoDO(machineInfo.machineId, machineInfo.manufacturer.manfName, machineInfo.machineType.machineType, "
-			+ "machineInfo.model, machineInfo.ePower, machineInfo.groupConstant.groupId) from MachineInfo machineInfo where machineInfo.manufacturer.manfId = :manfId and "
-			+ "machineInfo.machineType.machineTypeId = :machineTypeId")
+			+ "machineInfo.model, machineInfo.ePower, machineInfo.groupConstant.groupId, machineInfo.adjFactor) from MachineInfo machineInfo where "
+			+ "machineInfo.manufacturer.manfId = :manfId and machineInfo.machineType.machineTypeId = :machineTypeId")
 	List<MachineInfoDO> findMachineModels(@Param("manfId")long manfId, @Param("machineTypeId")long machineTypeId);
 }

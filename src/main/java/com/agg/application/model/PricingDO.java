@@ -10,6 +10,8 @@ public class PricingDO {
 	
 	private int plBasePrice;
 	
+	private int coverageExpirationHours;
+	
 	public PricingDO(int coverageLevelHours, int ptBasePrice, int phBasePrice, int plBasePrice){
 		this.coverageLevelHours = coverageLevelHours;
 		this.ptBasePrice = ptBasePrice;
@@ -73,4 +75,18 @@ public class PricingDO {
 		this.plBasePrice = plBasePrice;
 	}
 
+	/**
+	 * @return the coverageExpirationHours
+	 */
+	public int getCoverageExpirationHours() {
+		return coverageExpirationHours;
+	}
+
+	/**
+	 * @param coverageExpirationHours the coverageExpirationHours to set
+	 */
+	public void setCoverageExpirationHours(int coverageExpirationHours) {
+		this.coverageExpirationHours = coverageExpirationHours;
+	}
+	
 }

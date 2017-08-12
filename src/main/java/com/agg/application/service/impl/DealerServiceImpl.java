@@ -166,6 +166,7 @@ public class DealerServiceImpl implements DealerService {
 				dealerDO.setZip(dealer.getZip());
 				dealerDO.setStatus(dealer.getStatus());
 				dealerDO.setParentCode(dealer.getParentCode());
+				dealerDO.setAdjustmentFactor(dealer.getAdjustmentFactor());
 				
 				//fetching parent dealer details
 				if(dealer.getCode() != dealer.getParentCode()){

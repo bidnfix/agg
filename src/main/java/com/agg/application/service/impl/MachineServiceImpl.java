@@ -174,6 +174,7 @@ public class MachineServiceImpl implements MachineService {
 				manufacturer = it.next();
 				manufacturerDO.setId(manufacturer.getManfId());
 				manufacturerDO.setName(manufacturer.getManfName());
+				manufacturerDO.setAdjFactor(manufacturer.getAdjFactor());
 				manufacturerDOList.add(manufacturerDO);
 			}
 		}

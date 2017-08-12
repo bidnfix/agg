@@ -1270,7 +1270,7 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService, $
 			if(index == 3){
 				var rowIndex = $scope.selectedRow;
 				var colIndex = $scope.selectedCloumn;
-				if(rowIndex == null || colIndex == null || colIndex == 0){
+				if(rowIndex == null || colIndex == null || colIndex == 0 || colIndex == 1){
 					alert("Please select at least one coverage level hours");
 				}else{
 					myTabs.goToTab(index);
@@ -1314,6 +1314,27 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService, $
 						
 						$scope.coverageTermSelected = $scope.coverageTermList[0];
 						$scope.deductiblePriceSelected = $scope.deductibleAmtList[0];
+						
+						//updating the coverage Expiration details.
+						$scope.coverageExpirationList = [];
+						if($scope.quote.estSaleDate != null){
+							var covrageStartDate = new Date($scope.quote.estSaleDate);
+							angular.forEach($scope.coverageTermList, function(coverageTerm, key){
+								covrageStartDate = new Date($scope.quote.estSaleDate);
+								$scope.coverageExpirationList.push(new Date(new Date(covrageStartDate).setMonth(covrageStartDate.getMonth()+coverageTerm)));
+						    });
+						}
+						
+						if($scope.pricingDOList != null){
+							angular.forEach($scope.pricingDOList, function(pricingDO, key){
+								if(pricingDO.coverageLevelHours == 0){
+									//Zero Hour Program setting as 2000
+									pricingDO.coverageExpirationHours = 2000;
+								}else{
+									pricingDO.coverageExpirationHours = (parseInt($scope.quote.meterHours) + pricingDO.coverageLevelHours);
+								}
+						    });
+						}
 						
 						/*if(($scope.quote.coverageTerm != null && ($scope.coverageTermSelected != $scope.quote.coverageTerm)) 
 								|| ($scope.quote.deductiblePrice != null && ($scope.deductiblePriceSelected != $scope.quote.deductiblePrice))){
@@ -1364,9 +1385,9 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService, $
 				
 				if(rowIndex >= 0 && colIndex > 0){
 					$scope.coverageHours = $scope.pricingDOList[rowIndex].coverageLevelHours;
-					$scope.quoteBasePrice = (colIndex === 1)?$scope.pricingDOList[rowIndex].ptBasePrice:(colIndex === 2)?$scope.pricingDOList[rowIndex].phBasePrice:$scope.pricingDOList[rowIndex].plBasePrice;
-					$scope.coverageType = (colIndex === 1)?"PT":(colIndex === 2)?"PH":"PL";
-					$scope.coverageTypeDesc = (colIndex === 1)?"Powertrain":(colIndex === 2)?"Powertrain + Hydraulic":"Powertrain + Hydraulic + Platform";
+					$scope.quoteBasePrice = (colIndex === 2)?$scope.pricingDOList[rowIndex].ptBasePrice:(colIndex === 3)?$scope.pricingDOList[rowIndex].phBasePrice:$scope.pricingDOList[rowIndex].plBasePrice;
+					$scope.coverageType = (colIndex === 2)?"PT":(colIndex === 3)?"PH":"PL";
+					$scope.coverageTypeDesc = (colIndex === 2)?"Powertrain":(colIndex === 3)?"Powertrain + Hydraulic":"Powertrain + Hydraulic + Platform";
 				}else{
 					$scope.coverageHours = 0;
 					$scope.quoteBasePrice = 0;
@@ -1439,6 +1460,13 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService, $
 				errorMsg += "Please select a manufacturer \n";
 			}
 		}
+		if(!$scope.machineInfoForm.machineType.$valid){
+			if(errorMsg == ""){
+				errorMsg = "Please select a machine type \n";
+			}else{
+				errorMsg += "Please select a machine type \n";
+			}
+		}
 		if(!$scope.machineInfoForm.machineModel.$valid){
 			if(errorMsg == ""){
 				errorMsg = "Please select a machine model \n";
@@ -1487,7 +1515,7 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService, $
 		}
 		var rowIndex = $scope.selectedRow;
 		var colIndex = $scope.selectedCloumn;
-		if(rowIndex == null || colIndex == null || colIndex == 0){
+		if(rowIndex == null || colIndex == null || colIndex == 0 || colIndex == 1){
 			customerInfoFlag = true;
 			if(errorMsg == ""){
 				errorMsg = "Please select at least one coverage level hours \n";
@@ -1601,7 +1629,7 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService, $
 		$scope.selectedRow = null;
 		$scope.selectedCloumn = null;
 		
-		if(manufacturerDO != null){
+		if(manufacturerDO != null && machineTypeDO != null){
 			 $http.get("/agg/machineModel/"+manufacturerDO.id+"/"+machineTypeDO.id)
 			    .then(function(response) {
 			        $scope.machineModelList = response.data.data.machineModelList;
@@ -1621,7 +1649,7 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService, $
 	}
 	
 	$scope.setClickedCloumn = function(rowIndex, colIndex){
-		var tbCellVal = (colIndex === 1)?$scope.pricingDOList[rowIndex].ptBasePrice:(colIndex === 2)?$scope.pricingDOList[rowIndex].phBasePrice:$scope.pricingDOList[rowIndex].plBasePrice;
+		var tbCellVal = (colIndex === 2)?$scope.pricingDOList[rowIndex].ptBasePrice:(colIndex === 3)?$scope.pricingDOList[rowIndex].phBasePrice:$scope.pricingDOList[rowIndex].plBasePrice;
 		if(tbCellVal != "" && tbCellVal != -1){
 			$scope.selectedRow = rowIndex;
 			$scope.selectedCloumn = colIndex;
@@ -1659,6 +1687,17 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService, $
 		$http.get("/agg/quote/coverageLevelPrice/"+coverageExpired+"/"+machineId+"/"+deductiblePrice+"/"+coverageTerm+"/0")
 		.then(function(response) {
 			$scope.pricingDOList = response.data.data.pricingDOList;
+			
+			if($scope.pricingDOList != null){
+				angular.forEach($scope.pricingDOList, function(pricingDO, key){
+					if(pricingDO.coverageLevelHours == 0){
+						//Zero Hour Program setting as 2000
+						pricingDO.coverageExpirationHours = 2000;
+					}else{
+						pricingDO.coverageExpirationHours = (parseInt($scope.quote.meterHours) + pricingDO.coverageLevelHours);
+					}
+			    });
+			}
 		});  
 	}
 	

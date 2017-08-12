@@ -59,6 +59,16 @@
 							<input type="radio" id="coverageTerm" name="coverageTerm" ng-model="quote.coverageTerm" ng-click="getCoveragePriceLevels(quote.deductiblePrice, quote.coverageTerm)" class="" ng-value="coverageTermVal" ng-init="$index==0?(quote.coverageTerm=coverageTermVal):''">{{coverageTermVal}}&nbsp;mos.
 						</td>
 					</tr>
+					<tr>
+						<td><i class="fa fa-info-circle"
+								data-toggle="tooltip" 
+								tooltip-trigger tooltip-animation="false" 
+					          	tooltip=""
+					          	tooltip-placement="top"></i> Coverage Expires:</td>
+						<td ng-repeat="coverageExpirationDate in coverageExpirationList">
+							{{coverageExpirationDate |  date:"MM/dd/yyyy"}}
+						</td>
+					</tr>
 
 				</tbody>
 			</table>
@@ -69,10 +79,18 @@
 
 	<div class="col-xs-12 pad10">
 		<div class="col-sm-12 no-pad">
+			<div class="col-md-4">
+			 	Current Meter Hours: &nbsp; {{quote.meterHours | number:0}}
+			</div>
+			<div class="col-md-4">
+				Coverage Start Date: &nbsp; {{quote.estSaleDate |  date:"MM/dd/yyyy"}}
+			</div>
 			<table class="table">
 				<thead>
 					<tr>
 						<th>Terms for {{coverageTermSelected}} months<br>(Hours)
+						</th>
+						<th>Coverage Expires<br>(Hours)
 						</th>
 						<th>Powertrain</th>
 						<th>Powertrain<br>+ Hydraulic
@@ -83,10 +101,11 @@
 				</thead>
 				<tbody>
 					<tr ng-repeat="pricingDO in pricingDOList">
-						<td>{{pricingDO.coverageLevelHours}}</td>
-						<td ng-class="{'selectedcol':$index == selectedRow && selectedCloumn == 1, 'mouseovercol':$index == mouseoverRow && mouseoverCloumn == 1}"  ng-click="setClickedCloumn($index, 1)" ng-mouseover="setMouserCloumn($index, 1)" ng-mouseleave="resetMouseoverColumn()"><a>{{(pricingDO.ptBasePrice != -1)?pricingDO.ptBasePrice:""}}</a></td>
-					    <td ng-class="{'selectedcol':$index == selectedRow && selectedCloumn == 2, 'mouseovercol':$index == mouseoverRow && mouseoverCloumn == 2}"  ng-click="setClickedCloumn($index, 2)" ng-mouseover="setMouserCloumn($index, 2)" ng-mouseleave="resetMouseoverColumn()"><a>{{(pricingDO.phBasePrice != -1)?pricingDO.phBasePrice:""}}</a></td>
-					    <td ng-class="{'selectedcol':$index == selectedRow && selectedCloumn == 3, 'mouseovercol':$index == mouseoverRow && mouseoverCloumn == 3}"  ng-click="setClickedCloumn($index, 3)" ng-mouseover="setMouserCloumn($index, 3)" ng-mouseleave="resetMouseoverColumn()"><a>{{(pricingDO.plBasePrice != -1)?pricingDO.plBasePrice:""}}</a></td>
+						<td>{{pricingDO.coverageLevelHours | number:0}}</td>
+						<td>{{pricingDO.coverageExpirationHours | number:0}}</td>
+						<td ng-class="{'selectedcol':$index == selectedRow && selectedCloumn == 2, 'mouseovercol':$index == mouseoverRow && mouseoverCloumn == 2}"  ng-click="setClickedCloumn($index, 2)" ng-mouseover="setMouserCloumn($index, 2)" ng-mouseleave="resetMouseoverColumn()"><a>{{(pricingDO.ptBasePrice != -1)?pricingDO.ptBasePrice:""}}</a></td>
+					    <td ng-class="{'selectedcol':$index == selectedRow && selectedCloumn == 3, 'mouseovercol':$index == mouseoverRow && mouseoverCloumn == 3}"  ng-click="setClickedCloumn($index, 3)" ng-mouseover="setMouserCloumn($index, 3)" ng-mouseleave="resetMouseoverColumn()"><a>{{(pricingDO.phBasePrice != -1)?pricingDO.phBasePrice:""}}</a></td>
+					    <td ng-class="{'selectedcol':$index == selectedRow && selectedCloumn == 4, 'mouseovercol':$index == mouseoverRow && mouseoverCloumn == 4}"  ng-click="setClickedCloumn($index, 4)" ng-mouseover="setMouserCloumn($index, 4)" ng-mouseleave="resetMouseoverColumn()"><a>{{(pricingDO.plBasePrice != -1)?pricingDO.plBasePrice:""}}</a></td>
 					</tr>
 				</tbody>
 			</table>

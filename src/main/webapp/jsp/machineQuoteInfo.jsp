@@ -13,6 +13,7 @@
 						<label>*Select Manufacturer</label> <select class="form-control"
 							name="manufacturer" ng-model="quote.manufacturerDO"
 							ng-options="manufacturerObj.name for manufacturerObj in manufacturerList track by manufacturerObj.id"
+							ng-change="getMachineModel(quote.manufacturerDO, quote.machineTypeDO)"
 							required-message="'Please select manufacturer.'"
 							required="required">
 							<option value="">Select Manufacturer</option>
@@ -134,7 +135,7 @@
 						<label><i class="fa fa-info-circle" data-toggle="tooltip"
 							tooltip-trigger tooltip-animation="false"
 							tooltip="The 'estimated sale date' is your best guess as to when you will complete the sale.  We use this date for follow-up and to make sure coverage is in place when you need it."
-							tooltip-placement="top"></i> *Estimated Sale Date</label>
+							tooltip-placement="top"></i> *Coverage Start Date</label>
 							<!-- <input type="date" id="estSaleDate" name="estSaleDate"
 								ng-model="quote.estSaleDate" class="form-control"
 								min="{{date | date:'yyyy-MM-dd'}}"

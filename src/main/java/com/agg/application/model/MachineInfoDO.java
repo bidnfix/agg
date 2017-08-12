@@ -38,13 +38,14 @@ public class MachineInfoDO {
 			
 		}
 		
-		public MachineInfoDO(long machineId, String manfName, String machineType, String model, double ePower, long groupId){
+		public MachineInfoDO(long machineId, String manfName, String machineType, String model, double ePower, long groupId, double adjFactor){
 			this.machineId = machineId;
 			this.manfName = manfName;
 			this.machineType = machineType;
 			this.model = model;
 			this.ePower = ePower;
 			this.groupId = new Long(groupId).intValue();
+			this.adjFactor = adjFactor;
 		}
 		
 		public String getMachineType() {
