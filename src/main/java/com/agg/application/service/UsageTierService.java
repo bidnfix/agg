@@ -13,6 +13,8 @@ public interface UsageTierService {
 	public long saveUsageTier(UsageTierDO usageTierDO) throws Exception;
 	
 	public long editUsageTier(UsageTierDO usageTierDO) throws Exception;
+
+	public double getUsageTierAdjFactor(long meterHours);
 	
 	//public UseOfEquipmentDO getUseOfEquip(long id);
 	

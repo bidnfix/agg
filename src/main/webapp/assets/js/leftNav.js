@@ -1303,67 +1303,26 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService, $
 						coverageExpired = true;
 					}*/
 					
-					
-					//var coverageExpired = ($scope.quote.coverageExpired != null && $scope.quote.coverageExpired == true)?true:false;
-					var machineId = $scope.quote.machineInfoDO.machineId;
-					$http.get("/agg/quote/coverageDeductInfo/"+coverageExpired+"/"+machineId)
-					.then(function(response) {
-						$scope.deductibleAmtList = response.data.data.deductibleAmtList;
-						$scope.coverageTermList = response.data.data.coverageTermList;
-						$scope.pricingDOList = response.data.data.pricingDOList;
-						
-						$scope.coverageTermSelected = $scope.coverageTermList[0];
-						$scope.deductiblePriceSelected = $scope.deductibleAmtList[0];
-						
-						//updating the coverage Expiration details.
-						$scope.coverageExpirationList = [];
-						if($scope.quote.estSaleDate != null){
-							var covrageStartDate = new Date($scope.quote.estSaleDate);
-							angular.forEach($scope.coverageTermList, function(coverageTerm, key){
-								covrageStartDate = new Date($scope.quote.estSaleDate);
-								$scope.coverageExpirationList.push(new Date(new Date(covrageStartDate).setMonth(covrageStartDate.getMonth()+coverageTerm)));
-						    });
-						}
-						
-						if($scope.pricingDOList != null){
-							angular.forEach($scope.pricingDOList, function(pricingDO, key){
-								if(pricingDO.coverageLevelHours == 0){
-									//Zero Hour Program setting as 2000
-									pricingDO.coverageExpirationHours = 2000;
-								}else{
-									pricingDO.coverageExpirationHours = (parseInt($scope.quote.meterHours) + pricingDO.coverageLevelHours);
-								}
-						    });
-						}
-						
-						/*if(($scope.quote.coverageTerm != null && ($scope.coverageTermSelected != $scope.quote.coverageTerm)) 
-								|| ($scope.quote.deductiblePrice != null && ($scope.deductiblePriceSelected != $scope.quote.deductiblePrice))){
-							$scope.getCoveragePriceLevels($scope.quote.deductiblePrice, $scope.quote.coverageTerm)
-							
-							var colIndex = 0;
-							if($scope.coverageType != null){
-								if($scope.coverageType == 'PT'){
-									colIndex = 1;
-								}else if($scope.coverageType == 'PH'){
-									colIndex = 2;
-								}else if($scope.coverageType == 'PL'){
-									colIndex = 3;
-								} 
-							}
-							var rowIndex = -1;
-							angular.forEach($scope.pricingDOList, function(pricingDO, key){
-								if($scope.coverageHours == pricingDO.coverageLevelHours){
-									rowIndex = key;
-								}
+					var usageTierAdjFactor = 0;
+					var oemWarrantyAdjFactor = 0;
+					if(coverageExpired){
+						if($scope.quote.meterHours != null && $scope.quote.meterHours > 0){
+							$http.get("/agg/usagetier/adjfactor/"+$scope.quote.meterHours)
+							.then(function(response) {
+								usageTierAdjFactor = response.data.data.usageTierAdjFactor;
+								$scope.coverageDetails(coverageExpired, usageTierAdjFactor);
 							});
-							
-							if(rowIndex >= 0 && colIndex > 0){
-								$scope.setClickedCloumn(rowIndex, colIndex);
-							}
-							
-						}*/
-						
-					});
+						}
+					}else{
+						var coverageEndDate = $scope.quote.coverageEndDate;
+						var currDate = new Date();
+						var months = $scope.monthDiff(currDate, coverageEndDate);
+						$http.get("/agg/oemwarrantytier/adjfactor/"+months)
+						.then(function(response) {
+							oemWarrantyAdjFactor = response.data.data.oemWarrantyAdjFactor;
+							$scope.coverageDetails(coverageExpired, oemWarrantyAdjFactor);
+						});
+					}
 				}
 				
 			}else if(index == 3 || index == 4){
@@ -1428,6 +1387,93 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService, $
 			}
 		}
 		
+	}
+	
+	$scope.coverageDetails = function(coverageExpired, adjustmentFactor){
+		//var coverageExpired = ($scope.quote.coverageExpired != null && $scope.quote.coverageExpired == true)?true:false;
+		var machineId = $scope.quote.machineInfoDO.machineId;
+		$http.get("/agg/quote/coverageDeductInfo/"+coverageExpired+"/"+machineId)
+		.then(function(response) {
+			$scope.deductibleAmtList = response.data.data.deductibleAmtList;
+			$scope.coverageTermList = response.data.data.coverageTermList;
+			$scope.pricingDOList = response.data.data.pricingDOList;
+			
+			$scope.coverageTermSelected = $scope.coverageTermList[0];
+			$scope.deductiblePriceSelected = $scope.deductibleAmtList[0];
+			
+			var dealerAdjFactor = $scope.quote.dealerDO.adjustmentFactor;
+			var uoeAdjFactor = $scope.quote.useOfEquipmentDO.discount;
+			var machineModelAdjFactor = $scope.quote.machineInfoDO.adjFactor;
+			
+			var adjFactor = parseFloat(dealerAdjFactor + uoeAdjFactor + machineModelAdjFactor + adjustmentFactor);
+			
+			
+			//updating the coverage Expiration details.
+			$scope.coverageExpirationList = [];
+			if($scope.quote.estSaleDate != null){
+				var covrageStartDate = new Date($scope.quote.estSaleDate);
+				angular.forEach($scope.coverageTermList, function(coverageTerm, key){
+					covrageStartDate = new Date($scope.quote.estSaleDate);
+					$scope.coverageExpirationList.push(new Date(new Date(covrageStartDate).setMonth(covrageStartDate.getMonth()+coverageTerm)));
+			    });
+			}
+			
+			if($scope.pricingDOList != null){
+				angular.forEach($scope.pricingDOList, function(pricingDO, key){
+					if(pricingDO.ptBasePrice > 0){
+						pricingDO.ptBasePrice += (pricingDO.ptBasePrice * adjFactor);
+					}
+					if(pricingDO.phBasePrice > 0){
+						pricingDO.phBasePrice += (pricingDO.phBasePrice * adjFactor);
+					}
+					if(pricingDO.plBasePrice > 0){
+						pricingDO.plBasePrice += (pricingDO.plBasePrice * adjFactor);
+					}
+					if(pricingDO.coverageLevelHours == 0){
+						//Zero Hour Program setting as 2000
+						pricingDO.coverageExpirationHours = 2000;
+					}else{
+						pricingDO.coverageExpirationHours = (parseInt($scope.quote.meterHours) + pricingDO.coverageLevelHours);
+					}
+			    });
+			}
+			
+			/*if(($scope.quote.coverageTerm != null && ($scope.coverageTermSelected != $scope.quote.coverageTerm)) 
+					|| ($scope.quote.deductiblePrice != null && ($scope.deductiblePriceSelected != $scope.quote.deductiblePrice))){
+				$scope.getCoveragePriceLevels($scope.quote.deductiblePrice, $scope.quote.coverageTerm)
+				
+				var colIndex = 0;
+				if($scope.coverageType != null){
+					if($scope.coverageType == 'PT'){
+						colIndex = 1;
+					}else if($scope.coverageType == 'PH'){
+						colIndex = 2;
+					}else if($scope.coverageType == 'PL'){
+						colIndex = 3;
+					} 
+				}
+				var rowIndex = -1;
+				angular.forEach($scope.pricingDOList, function(pricingDO, key){
+					if($scope.coverageHours == pricingDO.coverageLevelHours){
+						rowIndex = key;
+					}
+				});
+				
+				if(rowIndex >= 0 && colIndex > 0){
+					$scope.setClickedCloumn(rowIndex, colIndex);
+				}
+				
+			}*/
+			
+		});
+	}
+	
+	$scope.monthDiff = function(d1, d2) {
+	    var months;
+	    months = (d2.getFullYear() - d1.getFullYear()) * 12;
+	    months -= d1.getMonth() + 1;
+	    months += d2.getMonth() + 1;
+	    return months <= 0 ? 0 : months;
 	}
 	
 	$scope.validateQuoteData = function(){

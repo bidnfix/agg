@@ -19,10 +19,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.agg.application.model.MachineInfoDO;
 import com.agg.application.model.Result;
 import com.agg.application.model.UsageTierDO;
-import com.agg.application.model.UseOfEquipmentDO;
 import com.agg.application.service.UsageTierService;
 
 @RestController
@@ -127,5 +125,20 @@ public class UsageTierController extends BaseController {
 		}
 		
 		return opResult;
+	}
+	
+	@RequestMapping(value = "/usagetier/adjfactor/{meterHours}", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+	public @ResponseBody Result getUsageTierAdjFactor(ModelMap model, HttpServletRequest request, HttpServletResponse response, 
+			@PathVariable long meterHours) {
+		logger.info("Inside getUsageTierAdjFactor() with meterHours: "+meterHours);
+		Result opResult = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			double usageTierAdjFactor = usageTierService.getUsageTierAdjFactor(meterHours);
+			model.put("usageTierAdjFactor", usageTierAdjFactor);
+			opResult = new Result("success", null, model);
+		}
+		return opResult;	
 	}
 }

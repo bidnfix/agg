@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.agg.application.dao.UsageTierDAO;
 import com.agg.application.entity.UsageTier;
-import com.agg.application.entity.UseOfEquip;
 import com.agg.application.model.UsageTierDO;
 import com.agg.application.service.UsageTierService;
 
@@ -91,5 +90,18 @@ public class UsageTierServiceImpl implements UsageTierService{
 	    }	
 		
 		return usageTier.getId();
+	}
+
+	@Override
+	public double getUsageTierAdjFactor(long meterHours) {
+		double adjFactor = 0;
+		List<Double> adjFactorList = usageTierDAO.getUsageTierAdjFactor(meterHours);
+		if(adjFactorList != null && !adjFactorList.isEmpty()){
+			if(adjFactorList.get(0) != null){
+				adjFactor = adjFactorList.get(0);
+			}
+		}
+		
+		return adjFactor;
 	}
 }

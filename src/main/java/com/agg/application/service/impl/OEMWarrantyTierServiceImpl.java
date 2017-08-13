@@ -91,4 +91,17 @@ public class OEMWarrantyTierServiceImpl implements OEMWarrantyTierService{
 		
 		return oemWarrantyTier.getId();
 	}
+
+	@Override
+	public double getOEMWarrantyAdjFactor(long month) {
+		double adjFactor = 0;
+		List<Double> adjFactorList = oemWarrantyTierDAO.getOEMWarrantyAdjFactor(month);
+		if(adjFactorList != null && !adjFactorList.isEmpty()){
+			if(adjFactorList.get(0) != null){
+				adjFactor = adjFactorList.get(0);
+			}
+		}
+		
+		return adjFactor;
+	}
 }

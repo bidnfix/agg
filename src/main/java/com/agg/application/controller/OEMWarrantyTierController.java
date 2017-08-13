@@ -128,4 +128,19 @@ public class OEMWarrantyTierController extends BaseController {
 		
 		return opResult;
 	}
+	
+	@RequestMapping(value = "/oemwarrantytier/adjfactor/{month}", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+	public @ResponseBody Result getOEMWarrantyAdjFactor(ModelMap model, HttpServletRequest request, HttpServletResponse response, @PathVariable long month) {
+		logger.info("Inside getOEMWarrantyAdjFactor() with month: "+month);
+		Result opResult = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+				double oemWarrantyAdjFactor = oemWarrantyTierService.getOEMWarrantyAdjFactor(month);
+				model.put("oemWarrantyAdjFactor", oemWarrantyAdjFactor);
+			opResult = new Result("success", null, model);
+		}
+		return opResult;	
+	}
+	
 }

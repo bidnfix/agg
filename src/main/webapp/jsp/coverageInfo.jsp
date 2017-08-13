@@ -103,9 +103,9 @@
 					<tr ng-repeat="pricingDO in pricingDOList">
 						<td>{{pricingDO.coverageLevelHours | number:0}}</td>
 						<td>{{pricingDO.coverageExpirationHours | number:0}}</td>
-						<td ng-class="{'selectedcol':$index == selectedRow && selectedCloumn == 2, 'mouseovercol':$index == mouseoverRow && mouseoverCloumn == 2}"  ng-click="setClickedCloumn($index, 2)" ng-mouseover="setMouserCloumn($index, 2)" ng-mouseleave="resetMouseoverColumn()"><a>{{(pricingDO.ptBasePrice != -1)?pricingDO.ptBasePrice:""}}</a></td>
-					    <td ng-class="{'selectedcol':$index == selectedRow && selectedCloumn == 3, 'mouseovercol':$index == mouseoverRow && mouseoverCloumn == 3}"  ng-click="setClickedCloumn($index, 3)" ng-mouseover="setMouserCloumn($index, 3)" ng-mouseleave="resetMouseoverColumn()"><a>{{(pricingDO.phBasePrice != -1)?pricingDO.phBasePrice:""}}</a></td>
-					    <td ng-class="{'selectedcol':$index == selectedRow && selectedCloumn == 4, 'mouseovercol':$index == mouseoverRow && mouseoverCloumn == 4}"  ng-click="setClickedCloumn($index, 4)" ng-mouseover="setMouserCloumn($index, 4)" ng-mouseleave="resetMouseoverColumn()"><a>{{(pricingDO.plBasePrice != -1)?pricingDO.plBasePrice:""}}</a></td>
+						<td ng-class="{'selectedcol':$index == selectedRow && selectedCloumn == 2, 'mouseovercol':$index == mouseoverRow && mouseoverCloumn == 2}"  ng-click="setClickedCloumn($index, 2)" ng-mouseover="setMouserCloumn($index, 2)" ng-mouseleave="resetMouseoverColumn()"><a>{{(pricingDO.ptBasePrice != -1)?(pricingDO.ptBasePrice | number:0):""}}</a></td>
+					    <td ng-class="{'selectedcol':$index == selectedRow && selectedCloumn == 3, 'mouseovercol':$index == mouseoverRow && mouseoverCloumn == 3}"  ng-click="setClickedCloumn($index, 3)" ng-mouseover="setMouserCloumn($index, 3)" ng-mouseleave="resetMouseoverColumn()"><a>{{(pricingDO.phBasePrice != -1)?(pricingDO.phBasePrice | number:0):""}}</a></td>
+					    <td ng-class="{'selectedcol':$index == selectedRow && selectedCloumn == 4, 'mouseovercol':$index == mouseoverRow && mouseoverCloumn == 4}"  ng-click="setClickedCloumn($index, 4)" ng-mouseover="setMouserCloumn($index, 4)" ng-mouseleave="resetMouseoverColumn()"><a>{{(pricingDO.plBasePrice != -1)?(pricingDO.plBasePrice | number:0):""}}</a></td>
 					</tr>
 				</tbody>
 			</table>
