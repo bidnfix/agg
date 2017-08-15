@@ -40,7 +40,6 @@ import com.agg.application.entity.Contracts;
 import com.agg.application.entity.CustomerInfo;
 import com.agg.application.entity.Dealer;
 import com.agg.application.entity.MachineInfo;
-import com.agg.application.entity.MachineType;
 import com.agg.application.entity.Manufacturer;
 import com.agg.application.entity.Quote;
 import com.agg.application.entity.QuotePK;
@@ -48,9 +47,7 @@ import com.agg.application.entity.UseOfEquip;
 import com.agg.application.model.AccountDO;
 import com.agg.application.model.CheckDO;
 import com.agg.application.model.DealerDO;
-import com.agg.application.model.MachineDO;
 import com.agg.application.model.MachineInfoDO;
-import com.agg.application.model.MachineTypeDO;
 import com.agg.application.model.ManufacturerDO;
 import com.agg.application.model.PricingDO;
 import com.agg.application.model.QuoteDO;
@@ -58,7 +55,9 @@ import com.agg.application.model.ReportDO;
 import com.agg.application.model.UseOfEquipmentDO;
 import com.agg.application.model.WorklistDO;
 import com.agg.application.service.EmailService;
+import com.agg.application.service.OEMWarrantyTierService;
 import com.agg.application.service.QuoteService;
+import com.agg.application.service.UsageTierService;
 import com.agg.application.utils.AggConstants;
 import com.agg.application.utils.EmailSender;
 import com.agg.application.utils.Util;
@@ -117,6 +116,12 @@ public class QuoteServiceImpl implements QuoteService {
 	private EmailService emailService;
 	
 	private static final SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+	
+	@Autowired
+	private UsageTierService usageTierService;
+	
+	@Autowired
+	private OEMWarrantyTierService oemWarrantyTierService;
 
 	@Override
 	public List<UseOfEquipmentDO> getUseOfEquipmentDetails() {
@@ -171,7 +176,7 @@ public class QuoteServiceImpl implements QuoteService {
 			//if manufacturers coverage date expires then consider as used(2) otherwise new(1);
 			byte condition = coverageExpired ? (byte)2 : (byte)1;
 			
-			if(coverageHours > 0){
+			if(coverageHours > -1){
 				pricingDOList = pricingDAO.findCoverageLevelPricing(condition, groupId, deductibleAmt, coverageTerm, coverageHours);
 			}else{
 				pricingDOList = pricingDAO.findCoverageLevelPricing(condition, groupId, deductibleAmt, coverageTerm);
@@ -382,7 +387,7 @@ public class QuoteServiceImpl implements QuoteService {
 			quote.setCoverageTerm(quoteDO.getCoverageTerm());
 			quote.setCoverageLevelHours(quoteDO.getCoverageHours());
 			quote.setCoverageType(quoteDO.getCoverageType());
-			quote.setCoveragePrice(quoteDO.getQuoteBasePrice());
+			quote.setCoveragePrice(Math.round(quoteDO.getQuoteBasePrice()));
 			
 			quote.setIsArchive((short)0);
 			quote.setCreateDate(new Date());
@@ -491,7 +496,7 @@ public class QuoteServiceImpl implements QuoteService {
 			quote.setCoverageTerm(quoteDO.getCoverageTerm());
 			quote.setCoverageLevelHours(quoteDO.getCoverageHours());
 			quote.setCoverageType(quoteDO.getCoverageType());
-			quote.setCoveragePrice(quoteDO.getQuoteBasePrice());
+			quote.setCoveragePrice(Math.round(quoteDO.getQuoteBasePrice()));
 			
 			quote.setIsArchive((short)0);
 			quote.setCreateDate(new Date());
@@ -1243,6 +1248,27 @@ public class QuoteServiceImpl implements QuoteService {
 	    	}/*else if(quoteDO.getCoverageEndDate() != null && quoteDO.getCoverageEndDate().after(new Date())){
 	    		coverageExpired = false;
 	    	}*/
+			double usageTierAdjFactor = 0;
+			double oemWarrantyAdjFactor = 0;
+			double dealerAdjFactor = quoteDO.getDealerDO().getAdjustmentFactor();
+			double uoeAdjFactor = quoteDO.getUseOfEquipmentDO().getDiscount();
+			double machineAdjFactor = quoteDO.getMachineInfoDO().getAdjFactor();
+			double adjustmentFactor = 0;
+			
+			if(coverageExpired){
+				usageTierAdjFactor = usageTierService.getUsageTierAdjFactor(quoteDO.getMeterHours());
+				adjustmentFactor = usageTierAdjFactor;
+			}else{
+				Calendar startCal = Calendar.getInstance();
+				Calendar endCal = Calendar.getInstance();
+				endCal.setTime(quoteDO.getCoverageEndDate());
+				int month = Util.getMonthDifference(startCal, endCal);
+				logger.debug("months in difference: "+month);
+				oemWarrantyAdjFactor = oemWarrantyTierService.getOEMWarrantyAdjFactor(month);
+				adjustmentFactor = oemWarrantyAdjFactor;
+			}
+			
+			double adjFactor = dealerAdjFactor + uoeAdjFactor + machineAdjFactor + adjustmentFactor;
 			List<PricingDO> pricingDOList = getCoveragePriceDetils(coverageExpired, quoteDO.getMachineInfoDO().getMachineId(), 
 					new Double(quoteDO.getDeductiblePrice()).intValue(), quoteDO.getCoverageTerm(), quote.getCoverageLevelHours());
 			if(pricingDOList != null && !pricingDOList.isEmpty()){
@@ -1252,11 +1278,11 @@ public class QuoteServiceImpl implements QuoteService {
 						quote.setCoveragePrice(quote.getProgram().getPrCost());
 					}else{
 						if(quoteDO.getCoverageType().equals("PT")){
-							quote.setCoveragePrice(pricingDO.getPtBasePrice());
+							quote.setCoveragePrice(Math.round(pricingDO.getPtBasePrice() + (pricingDO.getPtBasePrice() * adjFactor)));
 						}else if(quoteDO.getCoverageType().equals("PH")){
-							quote.setCoveragePrice(pricingDO.getPhBasePrice());
+							quote.setCoveragePrice(Math.round(pricingDO.getPhBasePrice() + (pricingDO.getPhBasePrice() * adjFactor)));
 						}else if(quoteDO.getCoverageType().equals("PL")){
-							quote.setCoveragePrice(pricingDO.getPlBasePrice());
+							quote.setCoveragePrice(Math.round(pricingDO.getPlBasePrice() + (pricingDO.getPlBasePrice() * adjFactor)));
 						}
 					}
 				}
@@ -1300,6 +1326,11 @@ public class QuoteServiceImpl implements QuoteService {
 			adminAdjustment.setSpecialConsideration(quoteDO.getSpecialConsiderations());
 			adminAdjustment.setCConditions(quoteDO.getCondsForCoverage());
 			adminAdjustment.setDealHistory(quoteDO.getDealHistory());
+			adminAdjustment.setDealerAdjFactor(dealerAdjFactor);
+			adminAdjustment.setUoeAdjFactor(uoeAdjFactor);
+			adminAdjustment.setMachineAdjFactor(machineAdjFactor);
+			adminAdjustment.setUsageTierAdjFactor(usageTierAdjFactor);
+			adminAdjustment.setOemWarrantyAdjFactor(oemWarrantyAdjFactor);
 			adminAdjustment.setLastUpdate(new Date());
 			if(accountDO.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)){
 				adminAdjustment.setBasePrice(quoteDO.getAdjustedBasePrice());
@@ -1415,18 +1446,40 @@ public class QuoteServiceImpl implements QuoteService {
 	    		coverageExpired = false;
 	    	}*/
 			
+			double usageTierAdjFactor = 0;
+			double oemWarrantyAdjFactor = 0;
+			double dealerAdjFactor = quoteDO.getDealerDO().getAdjustmentFactor();
+			double uoeAdjFactor = quoteDO.getUseOfEquipmentDO().getDiscount();
+			double machineAdjFactor = quoteDO.getMachineInfoDO().getAdjFactor();
+			double adjustmentFactor = 0;
+			
 			if(quote.getProgram() == null){
+				if(coverageExpired){
+					usageTierAdjFactor = usageTierService.getUsageTierAdjFactor(quoteDO.getMeterHours());
+					adjustmentFactor = usageTierAdjFactor;
+				}else{
+					Calendar startCal = Calendar.getInstance();
+					Calendar endCal = Calendar.getInstance();
+					endCal.setTime(quoteDO.getCoverageEndDate());
+					int month = Util.getMonthDifference(startCal, endCal);
+					logger.debug("months in difference: "+month);
+					oemWarrantyAdjFactor = oemWarrantyTierService.getOEMWarrantyAdjFactor(month);
+					adjustmentFactor = oemWarrantyAdjFactor;
+				}
+				
+				double adjFactor = dealerAdjFactor + uoeAdjFactor + machineAdjFactor + adjustmentFactor;
+				
 				List<PricingDO> pricingDOList = getCoveragePriceDetils(coverageExpired, quoteDO.getMachineInfoDO().getMachineId(), 
 						new Double(quoteDO.getDeductiblePrice()).intValue(), quoteDO.getCoverageTerm(), quote.getCoverageLevelHours());
 				if(pricingDOList != null && !pricingDOList.isEmpty()){
 					PricingDO pricingDO = pricingDOList.get(0);
 					if(quoteDO.getCoverageType() != null){
 						if(quoteDO.getCoverageType().equals("PT")){
-							quote.setCoveragePrice(pricingDO.getPtBasePrice());
+							quote.setCoveragePrice(Math.round(pricingDO.getPtBasePrice() + (pricingDO.getPtBasePrice() * adjFactor)));
 						}else if(quoteDO.getCoverageType().equals("PH")){
-							quote.setCoveragePrice(pricingDO.getPhBasePrice());
+							quote.setCoveragePrice(Math.round(pricingDO.getPhBasePrice() + (pricingDO.getPhBasePrice() * adjFactor)));
 						}else if(quoteDO.getCoverageType().equals("PL")){
-							quote.setCoveragePrice(pricingDO.getPlBasePrice());
+							quote.setCoveragePrice(Math.round(pricingDO.getPlBasePrice() + (pricingDO.getPlBasePrice() * adjFactor)));
 						}
 					}
 				}
@@ -1479,6 +1532,11 @@ public class QuoteServiceImpl implements QuoteService {
 			adminAdjustment.setInceptionDate(quoteDO.getInceptionDate());
 			adminAdjustment.setExpirationDate(quoteDO.getExpirationDate());
 			adminAdjustment.setExpirationHours(quoteDO.getExpirationHours());
+			adminAdjustment.setDealerAdjFactor(dealerAdjFactor);
+			adminAdjustment.setUoeAdjFactor(uoeAdjFactor);
+			adminAdjustment.setMachineAdjFactor(machineAdjFactor);
+			adminAdjustment.setUsageTierAdjFactor(usageTierAdjFactor);
+			adminAdjustment.setOemWarrantyAdjFactor(oemWarrantyAdjFactor);
 			
 			adminAdjustmentDAO.save(adminAdjustment);
 			

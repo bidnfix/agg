@@ -80,6 +80,21 @@ public class AdminAdjustment implements Serializable {
 	
 	@Column(name="coverage_type")
 	private String coverageType;
+	
+	@Column(name="dealer_adj_factor")
+	private double dealerAdjFactor;
+	
+	@Column(name="uoe_adj_factor")
+	private double uoeAdjFactor;
+	
+	@Column(name="machine_adj_factor")
+	private double machineAdjFactor;
+	
+	@Column(name="usage_tier_adj_factor")
+	private double usageTierAdjFactor;
+	
+	@Column(name="oem_warranty_adj_factor")
+	private double oemWarrantyAdjFactor;
 
 	public AdminAdjustment() {
 	}
@@ -224,6 +239,46 @@ public class AdminAdjustment implements Serializable {
 
 	public void setCoverageType(String coverageType) {
 		this.coverageType = coverageType;
+	}
+
+	public double getDealerAdjFactor() {
+		return dealerAdjFactor;
+	}
+
+	public void setDealerAdjFactor(double dealerAdjFactor) {
+		this.dealerAdjFactor = dealerAdjFactor;
+	}
+
+	public double getUoeAdjFactor() {
+		return uoeAdjFactor;
+	}
+
+	public void setUoeAdjFactor(double uoeAdjFactor) {
+		this.uoeAdjFactor = uoeAdjFactor;
+	}
+
+	public double getMachineAdjFactor() {
+		return machineAdjFactor;
+	}
+
+	public void setMachineAdjFactor(double machineAdjFactor) {
+		this.machineAdjFactor = machineAdjFactor;
+	}
+
+	public double getUsageTierAdjFactor() {
+		return usageTierAdjFactor;
+	}
+
+	public void setUsageTierAdjFactor(double usageTierAdjFactor) {
+		this.usageTierAdjFactor = usageTierAdjFactor;
+	}
+
+	public double getOemWarrantyAdjFactor() {
+		return oemWarrantyAdjFactor;
+	}
+
+	public void setOemWarrantyAdjFactor(double oemWarrantyAdjFactor) {
+		this.oemWarrantyAdjFactor = oemWarrantyAdjFactor;
 	}
 
 }

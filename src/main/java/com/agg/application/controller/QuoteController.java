@@ -96,7 +96,7 @@ public class QuoteController extends BaseController {
 			model.addAttribute("deductibleAmtList", deductibleAmtList);
 			model.addAttribute("coverageTermList", coverageTermList);
 			if(deductibleAmtList.size() > 0 && coverageTermList.size() > 0){
-				List<PricingDO> pricingDOList = quoteService.getCoveragePriceDetils(coverageExpired, machineId, deductibleAmtList.get(0).intValue(), coverageTermList.get(0).intValue(), 0);
+				List<PricingDO> pricingDOList = quoteService.getCoveragePriceDetils(coverageExpired, machineId, deductibleAmtList.get(0).intValue(), coverageTermList.get(0).intValue(), -1);
 				List<Integer> coverageLevelHoursList = null;
 				if(pricingDOList != null && !pricingDOList.isEmpty()){
 					coverageLevelHoursList = new ArrayList<Integer>();
@@ -481,7 +481,7 @@ public class QuoteController extends BaseController {
 							quoteDO.getMachineInfoDO().getMachineId());
 					
 					pricingDOList = quoteService.getCoveragePriceDetils(coverageExpired, 
-							quoteDO.getMachineInfoDO().getMachineId(), new Double(quoteDO.getDeductiblePrice()).intValue(), quoteDO.getCoverageTerm(), 0);
+							quoteDO.getMachineInfoDO().getMachineId(), new Double(quoteDO.getDeductiblePrice()).intValue(), quoteDO.getCoverageTerm(), -1);
 				}
 				if(quoteDO.getManufacturerDO() != null){
 					machineModels = machineService.getManfModel(Integer.valueOf(String.valueOf(quoteDO.getManufacturerDO().getId())));

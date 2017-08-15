@@ -88,7 +88,7 @@
 								<input type="text"
 									ng-model="contract.expirationUsageHours" placeholder=""
 									id="expirationUsageHours" name="expirationUsageHours" class="form-control"
-									validate-on="dirty" required="required">
+									validate-on="dirty" ng-blur="validateExpirationUsageHours(contract.expirationUsageHours)" required="required">
 							</div>
 							<!-- <div class="form-group">
 								<label for="cheqNo">Check Number</label>

@@ -1730,12 +1730,54 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService, $
 		var machineId = $scope.quote.machineInfoDO.machineId;
 		$scope.coverageTermSelected = coverageTerm;
 		$scope.deductiblePriceSelected = deductiblePrice;
-		$http.get("/agg/quote/coverageLevelPrice/"+coverageExpired+"/"+machineId+"/"+deductiblePrice+"/"+coverageTerm+"/0")
+		
+		var usageTierAdjFactor = 0;
+		var oemWarrantyAdjFactor = 0;
+		if(coverageExpired){
+			if($scope.quote.meterHours != null && $scope.quote.meterHours > 0){
+				$http.get("/agg/usagetier/adjfactor/"+$scope.quote.meterHours)
+				.then(function(response) {
+					usageTierAdjFactor = response.data.data.usageTierAdjFactor;
+					$scope.coverageLevelPriceDetails(coverageExpired, machineId, deductiblePrice, coverageTerm, usageTierAdjFactor);
+				});
+			}
+		}else{
+			var coverageEndDate = $scope.quote.coverageEndDate;
+			var currDate = new Date();
+			var months = $scope.monthDiff(currDate, coverageEndDate);
+			$http.get("/agg/oemwarrantytier/adjfactor/"+months)
+			.then(function(response) {
+				oemWarrantyAdjFactor = response.data.data.oemWarrantyAdjFactor;
+				$scope.coverageLevelPriceDetails(coverageExpired, machineId, deductiblePrice, coverageTerm, oemWarrantyAdjFactor);
+			});
+		}
+		  
+	}
+	
+	$scope.coverageLevelPriceDetails = function(coverageExpired, machineId, deductiblePrice, coverageTerm, adjustmentFactor){
+		
+		$http.get("/agg/quote/coverageLevelPrice/"+coverageExpired+"/"+machineId+"/"+deductiblePrice+"/"+coverageTerm+"/-1")
 		.then(function(response) {
 			$scope.pricingDOList = response.data.data.pricingDOList;
 			
+			var dealerAdjFactor = $scope.quote.dealerDO.adjustmentFactor;
+			var uoeAdjFactor = $scope.quote.useOfEquipmentDO.discount;
+			var machineModelAdjFactor = $scope.quote.machineInfoDO.adjFactor;
+			
+			var adjFactor = parseFloat(dealerAdjFactor + uoeAdjFactor + machineModelAdjFactor + adjustmentFactor);
+			
 			if($scope.pricingDOList != null){
 				angular.forEach($scope.pricingDOList, function(pricingDO, key){
+					if(pricingDO.ptBasePrice > 0){
+						pricingDO.ptBasePrice += (pricingDO.ptBasePrice * adjFactor);
+					}
+					if(pricingDO.phBasePrice > 0){
+						pricingDO.phBasePrice += (pricingDO.phBasePrice * adjFactor);
+					}
+					if(pricingDO.plBasePrice > 0){
+						pricingDO.plBasePrice += (pricingDO.plBasePrice * adjFactor);
+					}
+					
 					if(pricingDO.coverageLevelHours == 0){
 						//Zero Hour Program setting as 2000
 						pricingDO.coverageExpirationHours = 2000;
@@ -1744,7 +1786,7 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService, $
 					}
 			    });
 			}
-		});  
+		});
 	}
 	
 	$scope.resetMouseoverColumn = function(){
@@ -2242,6 +2284,9 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 	$scope.mandatoryFlag = true;
 	$scope.expirationFlag = true;
 	
+	var zeroHourExpirationHours = 2000;
+	var maxExpirationHours = 5000;
+	
 	//datepicker changes
 
 	$scope.opens = [];
@@ -2406,7 +2451,12 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 				expDate = new Date(new Date(expDate).setMonth(expDate.getMonth()+finalCoverageTerm));
 			}
 			$scope.quote.expirationDate = expDate;
-			$scope.quote.expirationHours = parseInt($scope.quote.adjustedCoverageHours);
+			var expirationHours = parseInt($scope.quote.adjustedCoverageHours);
+			if(expirationHours > maxExpirationHours){
+				$scope.quote.expirationHours = maxExpirationHours;
+			}else{
+				$scope.quote.expirationHours = expirationHours;
+			}
 		}else{
 			var expDate = new Date();
 			if($scope.quote.inceptionDate != null){
@@ -2414,7 +2464,18 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 			}
 			expDate = new Date(new Date(expDate).setMonth(expDate.getMonth()+parseInt($scope.quote.adjustedcoverageTerm)));
 			$scope.quote.expirationDate = expDate;
-			$scope.quote.expirationHours = parseInt($scope.quote.meterHours) + parseInt($scope.quote.adjustedCoverageHours);
+			var coverageHours = parseInt($scope.quote.adjustedCoverageHours);
+			if(coverageHours == 0){
+				$scope.quote.expirationHours = zeroHourExpirationHours;
+			}else{
+				var expirationHours = parseInt($scope.quote.meterHours) + coverageHours;
+				if(expirationHours > maxExpirationHours){
+					$scope.quote.expirationHours = maxExpirationHours;
+				}else{
+					$scope.quote.expirationHours = expirationHours;
+				}
+			}
+			
 		}
 	}
 	
@@ -2509,7 +2570,7 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 				$scope.calExpirationDate();
 			}
 		}
-		var coverageHrs = 0;
+		var coverageHrs = -1;
 		if(type == 'coverageHours' && $scope.quote.coverageHours != null && $scope.quote.coverageHours != ""){
 			coverageHrs = $scope.quote.coverageHours;
 			$scope.quote.adjustedCoverageHours = $scope.quote.coverageHours;
@@ -2519,15 +2580,54 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 		}
 		$scope.quote.coverageTypeSet = [];
 		$scope.quote.coverageType = "";
-		if(coverageHrs == 0){
+		if(coverageHrs == -1){
 			$scope.quote.coverageHours = "";
 		}
+		
+		var usageTierAdjFactor = 0;
+		var oemWarrantyAdjFactor = 0;
+		if(coverageExpired){
+			if($scope.quote.meterHours != null && $scope.quote.meterHours > 0){
+				$http.get("/agg/usagetier/adjfactor/"+$scope.quote.meterHours)
+				.then(function(response) {
+					usageTierAdjFactor = response.data.data.usageTierAdjFactor;
+					$scope.coverageLevelPriceDetails(coverageExpired, machineId, deductiblePrice, coverageTerm, coverageHrs, usageTierAdjFactor);
+				});
+			}
+		}else{
+			var coverageEndDate = $scope.quote.coverageEndDate;
+			var currDate = new Date();
+			var months = $scope.monthDiff(currDate, coverageEndDate);
+			$http.get("/agg/oemwarrantytier/adjfactor/"+months)
+			.then(function(response) {
+				oemWarrantyAdjFactor = response.data.data.oemWarrantyAdjFactor;
+				$scope.coverageLevelPriceDetails(coverageExpired, machineId, deductiblePrice, coverageTerm, coverageHrs, oemWarrantyAdjFactor);
+			});
+		}
+		
+	}
+	
+	$scope.monthDiff = function(d1, d2) {
+	    var months;
+	    months = (d2.getFullYear() - d1.getFullYear()) * 12;
+	    months -= d1.getMonth() + 1;
+	    months += d2.getMonth() + 1;
+	    return months <= 0 ? 0 : months;
+	}
+	
+	$scope.coverageLevelPriceDetails = function(coverageExpired, machineId, deductiblePrice, coverageTerm, coverageHrs, adjustmentFactor){
 		$http.get("/agg/quote/coverageLevelPrice/"+coverageExpired+"/"+machineId+"/"+deductiblePrice+"/"+coverageTerm+"/"+coverageHrs)
 		.then(function(response) {
 			$scope.pricingDOList = response.data.data.pricingDOList;
-			if(coverageHrs == 0){
+			if(coverageHrs == -1){
 				$scope.coverageLevelHoursList = response.data.data.coverageLevelHoursList;
 			}
+			
+			var dealerAdjFactor = $scope.quote.dealerDO.adjustmentFactor;
+			var uoeAdjFactor = $scope.quote.useOfEquipmentDO.discount;
+			var machineModelAdjFactor = $scope.quote.machineInfoDO.adjFactor;
+			
+			var adjFactor = parseFloat(dealerAdjFactor + uoeAdjFactor + machineModelAdjFactor + adjustmentFactor);
 			
 			var phBasePriceCond = true;
 			var plBasePriceCond = true;
@@ -2535,14 +2635,17 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 			angular.forEach($scope.pricingDOList, function(pricingDO, key){
 				if(pricingDO.phBasePrice > 0 && phBasePriceCond){
 					$scope.quote.coverageTypeSet.push("PH");
+					pricingDO.phBasePrice += (pricingDO.phBasePrice * adjFactor);
 					phBasePriceCond = false;
 				}
 				if(pricingDO.plBasePrice > 0 && plBasePriceCond){
 					$scope.quote.coverageTypeSet.push("PL");
+					pricingDO.plBasePrice += (pricingDO.plBasePrice * adjFactor);
 					plBasePriceCond = false;
 				}
 				if(pricingDO.ptBasePrice > 0 && ptBasePriceCond){
 					$scope.quote.coverageTypeSet.push("PT");
+					pricingDO.ptBasePrice += (pricingDO.ptBasePrice * adjFactor);
 					ptBasePriceCond = false;
 				}
 		    });
@@ -2707,7 +2810,12 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 			}
 			
 			$scope.quote.contractExpirationDate = expDate;
-			$scope.quote.contractExpirationHours = parseInt($scope.quote.adjustedCoverageHours);
+			var expirationHours = parseInt($scope.quote.adjustedCoverageHours);
+			if(expirationHours > maxExpirationHours){
+				$scope.quote.contractExpirationHours = maxExpirationHours;
+			}else{
+				$scope.quote.contractExpirationHours = expirationHours;
+			}
 		}else{
 			var expDate = new Date();
 			if($scope.quote.contractInceptionDate != null){
@@ -2715,7 +2823,17 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 			}
 			expDate = new Date(new Date(expDate).setMonth(expDate.getMonth()+parseInt($scope.quote.adjustedcoverageTerm)));
 			$scope.quote.contractExpirationDate = expDate;
-			$scope.quote.contractExpirationHours = parseInt($scope.quote.meterHours) + parseInt($scope.quote.adjustedCoverageHours);
+			var coverageHours = parseInt($scope.quote.adjustedCoverageHours);
+			if(coverageHours == 0){
+				$scope.quote.contractExpirationHours = zeroHourExpirationHours;
+			}else{
+				var expirationHours = parseInt($scope.quote.meterHours) + coverageHours;
+				if(expirationHours > maxExpirationHours){
+					$scope.quote.contractExpirationHours = maxExpirationHours;
+				}else{
+					$scope.quote.contractExpirationHours = expirationHours;
+				}
+			}
 		}
 	}
 	
@@ -2790,6 +2908,9 @@ routingApp.controller('ContractDetailController', function($scope, $http, $timeo
 	    showWeeks: false
 	};
     
+    var maxExpirationHours = 5000;
+    var zeroHourExpirationHours = 2000;
+    
     $scope.inceptionDatePickerIsOpen = false;
     $scope.inceptionDatePickerOpen = function ($event) {
         if ($event) {
@@ -2832,6 +2953,12 @@ routingApp.controller('ContractDetailController', function($scope, $http, $timeo
 	$scope.updateContract = function(contractInfoForm){
 		if(contractInfoForm.$valid){
 			contractService.updateContract($scope.contract);
+		}
+	}
+	
+	$scope.validateExpirationUsageHours = function(expUsageHrs){
+		if(expUsageHrs > maxExpirationHours){
+			$scope.contract.expirationUsageHours = maxExpirationHours;
 		}
 	}
 	
@@ -2896,7 +3023,13 @@ routingApp.controller('ContractDetailController', function($scope, $http, $timeo
 				expDate = new Date(new Date(expDate).setMonth(expDate.getMonth()+finalCoverageTerm));
 			}
 			$scope.contract.expirationDate = expDate;
-			$scope.contract.expirationUsageHours = parseInt($scope.contract.coverageLevelHours);
+			var expirationHours = parseInt($scope.contract.coverageLevelHours);
+			if(expirationHours > maxExpirationHours){
+				$scope.contract.expirationUsageHours = maxExpirationHours;
+			}else{
+				$scope.contract.expirationUsageHours = expirationHours;
+			}
+			
 		}else{
 			var expDate = new Date();
 			if($scope.contract.inceptionDate != null){
@@ -2904,7 +3037,17 @@ routingApp.controller('ContractDetailController', function($scope, $http, $timeo
 			}
 			expDate = new Date(new Date(expDate).setMonth(expDate.getMonth()+parseInt($scope.contract.coverageTermMonths)));
 			$scope.contract.expirationDate = expDate;
-			$scope.contract.expirationUsageHours = parseInt($scope.contract.quoteDO.meterHours) + parseInt($scope.contract.coverageLevelHours);
+			var coverageHours = parseInt($scope.contract.coverageLevelHours);
+			if(coverageHours == 0){
+				$scope.contract.expirationUsageHours = zeroHourExpirationHours;
+			}else{
+				var expirationHours = parseInt($scope.contract.quoteDO.meterHours) + coverageHours;
+				if(expirationHours > maxExpirationHours){
+					$scope.contract.expirationUsageHours = maxExpirationHours;
+				}else{
+					$scope.contract.expirationUsageHours = expirationHours;
+				}
+			}
 		}
 	}
     
