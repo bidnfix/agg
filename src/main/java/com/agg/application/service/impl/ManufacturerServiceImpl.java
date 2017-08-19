@@ -85,10 +85,12 @@ public class ManufacturerServiceImpl implements ManufacturerService{
 				{
 					machineInfoDO = new MachineInfoDO();
 					machineInfo = it.next();
+					machineInfoDO.setMachineId(machineInfo.getMachineId());
 					machineInfoDO.setMachineType(machineInfo.getMachineType().getMachineType());
 					machineInfoDO.setModel(machineInfo.getModel());
 					machineInfoDO.setePower(machineInfo.getePower());
 					machineInfoDO.setGroupId((int)machineInfo.getGroupConstant().getGroupId());
+					machineInfoDO.setAdjFactor(machineInfo.getAdjFactor());
 					machineInfoDOLst.add(machineInfoDO);
 				}
 			}

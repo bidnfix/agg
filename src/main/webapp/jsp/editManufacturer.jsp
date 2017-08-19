@@ -1,3 +1,4 @@
+<%@include file="machinePopup.jsp" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div>
@@ -54,16 +55,18 @@
 			            <tr>
 			            	<th>Machine Type</th>
 			                <th>Model</th>
-			                <th>Engine Power</th>
+			                <th>Adjustment Factor</th>
 			                <th>Group ID</th>
+			                <th></th>
 			            </tr>
 			        </thead>
 			        <tfoot>
 			           <tr>
 			            	<th>Machine Type</th>
 			                <th>Model</th>
-			                <th>Engine Power</th>
+			                <th>Adjustment Factor</th>
 			                <th>Group ID</th>
+			                <th></th>
 			            </tr>
 			        </tfoot>
 			        
@@ -71,8 +74,12 @@
 			            <tr ng-repeat="machine in manfDO.machineInfoDO">
 			            	<td>{{machine.machineType}}</td>
 			                <td>{{machine.model}}</td>
-			                <td>{{machine.ePower}}</td>
+			                <td>{{machine.adjFactor | number : 2}}</td>
 			                <td>{{machine.groupId}}</td>
+			                <td><div class="manage-sec">
+                					<a ng-click="editMachine(machine.machineId)"><img src="../assets/images/edit-pencil.png" alt="Edit" title="Edit"/></a>
+                				</div>
+                			</td>
 			                </tr>
 			        </tbody>
 					

@@ -60,5 +60,31 @@ routingApp.controller('editManufacturerController', function($scope, $http, $tim
 		//alert("In getManfInfo");
 		$window.location = '#/agg/manufacturers';
     }
+	
+	
+	$scope.editMachine = function(machineId) {
+		alert(machineId);
+		$http.get("/agg/machine/"+machineId)
+	    .then(function(response) {
+	    	$scope.groupList = response.data.data.groupList;
+	        $scope.machine = response.data.data.machine;
+	       /* $scope.dealer = {
+	        	userName: $scope.dealerr.userName,	
+	        	state: $scope.dealerr.state
+	        };*/
+	    });
+		
+		var x = screen.width/4;
+	    var y = screen.height/9;
+	    showMask('popup_mask');
+	    $('#machineEditPopup').css("left", x+"px");
+	    $('#machineEditPopup').css("top", y+"px");
+	    $('#machineEditPopup').show();
+	};
+	
+	$scope.editSubmitMachine = function() {
+		//alert("In submitMachine");
+		manufacturerService.editMachineInfo($scope.machine);
+    }
 
    });
