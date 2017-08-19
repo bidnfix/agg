@@ -62,6 +62,9 @@ routingApp.controller('editManufacturerController', function($scope, $http, $tim
     }
 	
 	
+	
+	
+	
 	$scope.editMachine = function(machineId) {
 		alert(machineId);
 		$http.get("/agg/machine/"+machineId)

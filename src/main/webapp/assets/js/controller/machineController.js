@@ -20,5 +20,10 @@ routingApp.controller('machineController', function($scope, machineService, $loc
 		        $scope.machineTypeList = response.data.data.machineTypeList;
 		    });
 	 }
+    
+    $scope.setAdjFactor = function(adjFactor){
+		alert(adjFactor);
+		$scope.machine.adjFactor = adjFactor;
+	}
 
 });

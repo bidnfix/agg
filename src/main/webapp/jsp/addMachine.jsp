@@ -19,7 +19,7 @@
 			<div class="form-group">
 				<label for="manufacturer" class="col-sm-3 control-label">Manufacturer</label>
 				<div class="col-sm-9">
-					<select name="machine" ng-model="machine.manufacturerDO" ng-options="machine.name for machine in manufacturerList | orderBy:'name'" class="form-control">
+					<select name="machine" ng-model="machine.manufacturerDO" ng-options="machine.name for machine in manufacturerList | orderBy:'name'" class="form-control" ng-change="setAdjFactor(machine.manufacturerDO.adjFactor)">
          				<!--  <option ng:repeat="machine in manufacturerList" value="{{machine.id}}">{{machine.name}}</option>-->
      				</select> 
 				</div>
@@ -46,7 +46,7 @@
 			<div class="form-group">
 				<label for="model" class="col-sm-3 control-label">Adjustment Factor</label>
 				<div class="col-sm-9">
-					<input type="text" id="adjustmentFact" ng-model="machine.adjFactor" placeholder="Adjustment Factor" class="form-control">
+					<input type="text" id="adjustmentFact" ng-model="machine.adjFactor" placeholder="Adjustment Factor" class="form-control" readonly="readonly">
 				</div>
 			</div>
 			<div class="form-group">
