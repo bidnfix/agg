@@ -9,7 +9,7 @@ routingApp.factory('oemService', function($http, $q, $window) {
 							function(response) {
 								//alert(response.data.status);
 								if (response.data.status == 'success') {
-									$('#machineSuccessMsg').html("OEM successfully added");
+									$('#machineSuccessMsg').html("OEM Warranty Period Tier successfully added");
 					            	$('#machineSuccessMsg').removeClass('hidden');
 					            	window.setTimeout(function() {
 					        			 $('#machineSuccessMsg').addClass('hidden');
@@ -34,11 +34,30 @@ routingApp.factory('oemService', function($http, $q, $window) {
 								if (response.data.status == 'success') {
 									$window.location = '#/agg/oemWarrantyTier';
 								} else {
-									alert('Error in updating usageTier: '+response.data.errMessage)
+									alert('Error in updating OEM: '+response.data.errMessage)
 								}
 								hideSpinner();
 							}, function(errResponse) {
-								alert('Error while updating usageTier');
+								alert('Error while updating OEM');
+								hideSpinner();
+								return $q.reject(errResponse);
+							});
+				},
+				
+				deleteOEM : function(id, $scope) {
+					//alert("In service");
+					showSpinner();
+					return $http.post('/agg/delOEMWarrantyTier', id).then(
+							function(response) {
+								//alert("in save"+usageTierDO.usageFrom);
+								if (response.data.status == 'success') {
+									$window.location = '#/agg/oemWarrantyTier';
+								} else {
+									alert('Error in updating OEM: '+response.data.errMessage)
+								}
+								hideSpinner();
+							}, function(errResponse) {
+								alert('Error while updating OEM');
 								hideSpinner();
 								return $q.reject(errResponse);
 							});

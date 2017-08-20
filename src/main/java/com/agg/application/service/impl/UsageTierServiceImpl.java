@@ -91,6 +91,22 @@ public class UsageTierServiceImpl implements UsageTierService{
 		
 		return usageTier.getId();
 	}
+	
+	@Override
+	@Transactional
+	public long deleteUsageTier(Long id) throws Exception{
+		logger.debug("In deleteUsageTier : "+id);
+		//UsageTier usageTier = usageTierDAO.findOne(id);
+		
+		try {
+			 usageTierDAO.delete(id);
+		}
+	    catch (DataIntegrityViolationException e) {
+	    	logger.error("UsageTier already exist");
+	    }	
+		
+		return 1;
+	}
 
 	@Override
 	public double getUsageTierAdjFactor(long meterHours) {

@@ -13,6 +13,8 @@ public interface OEMWarrantyTierService {
 	public long saveOEMWarrantyTier(OEMWarrantyTierDO oemWarrantyTierDO) throws Exception;
 	
 	public long editOEMWarrantyTier(OEMWarrantyTierDO oemWarrantyTierDO) throws Exception;
+	
+	public long delOEMWarrantyTier(Long id) throws Exception;
 
 	public double getOEMWarrantyAdjFactor(long month);
 }

@@ -46,9 +46,20 @@
 			</div>
 			
 			<div class="form-group">
-				<div class="col-sm-9 col-sm-offset-3">
+<!-- 				<div class="col-sm-9 col-sm-offset-3">
+					<button type="submit" class="btn btn-primary btn-block">Save</button>
+				
+					<button type="submit" class="btn btn-primary btn-block">Delete</button>
+				</div> -->
+				
+				<div class="col-sm-4 col-sm-offset-3">
 					<button type="submit" class="btn btn-primary btn-block">Save</button>
 				</div>
+				<div class="col-sm-5">
+					<button type="button" class="btn btn-primary btn-block" ng-click="deleteUsageTier(usageTierDO.id)">Delete</button>
+				</div>
+				
+				
 			</div>
 		</form>
 		<!-- /form -->

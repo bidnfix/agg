@@ -91,6 +91,23 @@ public class OEMWarrantyTierServiceImpl implements OEMWarrantyTierService{
 		
 		return oemWarrantyTier.getId();
 	}
+	
+	@Override
+	@Transactional
+	public long delOEMWarrantyTier(Long id) throws Exception{
+		logger.debug("In delOEMWarrantyTier : "+id);
+		//OEMWarrantyTier oemWarrantyTier = oemWarrantyTierDAO.findOne(oemWarrantyTierDO.getId());
+		//Timestamp date = new Timestamp(new Date().getTime());
+		
+		try {
+			oemWarrantyTierDAO.delete(id);
+		}
+	    catch (DataIntegrityViolationException e) {
+	    	logger.error("Exception occured while deleting OEM");
+	    }	
+		
+		return 1;
+	}
 
 	@Override
 	public double getOEMWarrantyAdjFactor(long month) {

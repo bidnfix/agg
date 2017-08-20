@@ -44,6 +44,25 @@ routingApp.factory('usageTierService', function($http, $q, $window) {
 								hideSpinner();
 								return $q.reject(errResponse);
 							});
+				},
+				
+				deleteUsageTier : function(id, $scope) {
+					//alert("In service");
+					showSpinner();
+					return $http.post('/agg/deleteUsageTier', id).then(
+							function(response) {
+								//alert("in save"+usageTierDO.usageFrom);
+								if (response.data.status == 'success') {
+									$window.location = '#/agg/usageTier';
+								} else {
+									alert('Error in updating usageTier: '+response.data.errMessage)
+								}
+								hideSpinner();
+							}, function(errResponse) {
+								alert('Error while updating usageTier');
+								hideSpinner();
+								return $q.reject(errResponse);
+							});
 				}
 			
 			};

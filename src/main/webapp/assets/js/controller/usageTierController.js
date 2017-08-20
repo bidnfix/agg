@@ -65,5 +65,10 @@ routingApp.controller('editUsageTierController', function($scope, $http, $timeou
 		//alert("In submitEditUsageTier"+$scope.usageTierDO.usageFrom);
 		usageTierService.editUsageTier($scope.usageTierDO);
     }
+	
+	$scope.deleteUsageTier = function() {
+		//alert($scope.usageTierDO.id);
+		usageTierService.deleteUsageTier($scope.usageTierDO.id);
+    }
 
    });

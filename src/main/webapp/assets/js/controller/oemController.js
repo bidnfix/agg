@@ -50,5 +50,10 @@ routingApp.controller('editOEMController', function($scope, $http, $timeout, $ro
 		//alert("In submitEditUsageTier"+$scope.usageTierDO.usageFrom);
 		oemService.editOEM($scope.oemDO);
     }
+	
+	$scope.deleteOEM = function() {
+		//alert($scope.oemDO.id);
+		oemService.deleteOEM($scope.oemDO.id);
+    }
 
    });

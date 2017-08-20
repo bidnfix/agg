@@ -32,18 +32,12 @@
 								<input type="text" id="adjFactor" name="adjFactor" ng-model="manfDO.adjFactor" placeholder="Adjustment Factor" class="form-control" required="required">
 							</div>
 							
-							
 								<div class="col-sm-6 col-sm-offset-3">
 									<button type="submit" class="btn btn-primary btn-block">Update Manufacturer</button>
 								</div>
 								<div class="col-sm-3">
 									<button type="button" class="btn btn-primary btn-block" ng-click="getManfInfo()">Cancel</button>
 								</div>
-							
-							
-						
-						
-						
 				
 					</div>
 				</form>

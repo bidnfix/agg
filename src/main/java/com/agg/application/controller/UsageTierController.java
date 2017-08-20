@@ -127,6 +127,39 @@ public class UsageTierController extends BaseController {
 		return opResult;
 	}
 	
+	@RequestMapping(value = "/deleteUsageTier", method = RequestMethod.POST)
+	public @ResponseBody Result deleteUsageTier(@RequestBody Long id, BindingResult result,
+			HttpServletRequest request, HttpServletResponse response) throws Exception {
+		logger.debug("In deleteUsageTier "+id);
+		Result opResult = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			if (result.hasErrors()){
+				opResult = new Result("failure", "Invalid UsageTier form field values", null);
+			}
+			//long id = 0;
+	
+			try
+			{
+				id = usageTierService.deleteUsageTier(id);
+			}catch (Exception e) {
+		    	if (e instanceof DataIntegrityViolationException) {
+		    		logger.error("Exception occured, contact system admin");
+		    		throw new Exception("Exception occured, contact system admin");
+		        } else {
+		        	throw e;
+		        }
+		    }
+			if(id > 0){
+				opResult = new Result("success", "Invalid UsageTier form field values", null);
+			}
+			
+		}
+		
+		return opResult;
+	}
+	
 	@RequestMapping(value = "/usagetier/adjfactor/{meterHours}", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
 	public @ResponseBody Result getUsageTierAdjFactor(ModelMap model, HttpServletRequest request, HttpServletResponse response, 
 			@PathVariable long meterHours) {

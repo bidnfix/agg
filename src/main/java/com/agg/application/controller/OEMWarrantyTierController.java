@@ -129,6 +129,39 @@ public class OEMWarrantyTierController extends BaseController {
 		return opResult;
 	}
 	
+	@RequestMapping(value = "/delOEMWarrantyTier", method = RequestMethod.POST)
+	public @ResponseBody Result delOEMWarrantyTier(@RequestBody Long id, BindingResult result,
+			HttpServletRequest request, HttpServletResponse response) throws Exception {
+		logger.debug("In delOEMWarrantyTier "+id);
+		Result opResult = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			if (result.hasErrors()){
+				opResult = new Result("failure", "Invalid UsageTier form field values", null);
+			}
+			//long id = 0;
+	
+			try
+			{
+				id = oemWarrantyTierService.delOEMWarrantyTier(id);
+			}catch (Exception e) {
+		    	if (e instanceof DataIntegrityViolationException) {
+		    		logger.error("Exception occured, please contact system admin");
+		    		throw new Exception("Exception occured, please contact system admin");
+		        } else {
+		        	throw e;
+		        }
+		    }
+			if(id > 0){
+				opResult = new Result("success", "OEM Deleted successfully", null);
+			}
+			
+		}
+		
+		return opResult;
+	}
+	
 	@RequestMapping(value = "/oemwarrantytier/adjfactor/{month}", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
 	public @ResponseBody Result getOEMWarrantyAdjFactor(ModelMap model, HttpServletRequest request, HttpServletResponse response, @PathVariable long month) {
 		logger.info("Inside getOEMWarrantyAdjFactor() with month: "+month);
