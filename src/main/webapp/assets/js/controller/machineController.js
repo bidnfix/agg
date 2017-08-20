@@ -22,7 +22,7 @@ routingApp.controller('machineController', function($scope, machineService, $loc
 	 }
     
     $scope.setAdjFactor = function(adjFactor){
-		alert(adjFactor);
+		//alert(adjFactor);
 		$scope.machine.adjFactor = adjFactor;
 	}
 

@@ -6,6 +6,15 @@ public class MachineTypeDO {
 	
 	private String name;
 	
+	public MachineTypeDO(){
+		
+	}
+	
+	public MachineTypeDO(long id, String name){
+		this.id = Integer.valueOf(String.valueOf(id));
+		this.name = name;
+	}
+	
 	public int getId() {
 		return id;
 	}

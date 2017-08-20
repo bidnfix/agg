@@ -13,7 +13,7 @@
 						<label>*Select Manufacturer</label> <select class="form-control"
 							name="manufacturer" ng-model="quote.manufacturerDO"
 							ng-options="manufacturerObj.name for manufacturerObj in manufacturerList track by manufacturerObj.id"
-							ng-change="getMachineModel(quote.manufacturerDO, quote.machineTypeDO)"
+							ng-change="getMachineType(quote.manufacturerDO)"
 							required-message="'Please select manufacturer.'"
 							required="required">
 							<option value="">Select Manufacturer</option>

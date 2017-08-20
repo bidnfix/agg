@@ -6,7 +6,7 @@
 		<span class="ag-tab-title col-xs-12 no-pad">Start here to
 			purchase extended coverage, get a quote, or adjust a previous quote.</span>
 		<div class="col-xs-12 pad10">
-			<div class="col-sm-5">What would you like to do?</div>
+			<div class="col-sm-5"></div>
 			<div class="col-sm-7 no-pad">
 				<div class="col-xs-12 no-pad">
 					<!-- <div class="col-sm-5 no-pad">
@@ -77,10 +77,10 @@
 					              </button>
 					            </span>
 						</div>
-						<input type="checkbox" id="coverageEndDateUnknown"
+						<!-- <input type="checkbox" id="coverageEndDateUnknown"
 							name="coverageEndDateUnknown"
 							ng-model="quote.coverageEndDateUnknown" value="true">
-						Check if unknown
+						Check if unknown -->
 					</div>
 				</div>
 				<div class="col-sm-12 no-pad">

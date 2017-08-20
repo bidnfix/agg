@@ -392,5 +392,11 @@ public class MachineServiceImpl implements MachineService {
 		
 		return machineInfoDOList;
 	}
+
+	@Override
+	public List<MachineTypeDO> getManfMachineType(long manfId) {
+		logger.debug("Inside getManfMachineType() with manfId: "+manfId);
+		return machineInfoDAO.findMachineType(manfId);
+	}
 	
 }

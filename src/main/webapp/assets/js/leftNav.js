@@ -1249,7 +1249,7 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService, $
 		$scope.dealerList = response.data.data.dealerDOList;
 		$scope.manufacturerList = response.data.data.manufacturerDOList;
 		$scope.useOfEquipmentDOList = response.data.data.useOfEquipmentDOList;
-		$scope.machineTypeDOList = response.data.data.machineTypeDOList;
+		//$scope.machineTypeDOList = response.data.data.machineTypeDOList;
 		
 		if($scope.dealerList.length == 1){
 			$scope.quote.dealerDO = $scope.dealerList[0];
@@ -1662,6 +1662,27 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService, $
 		}else{
 			$scope.dealerText = "";
 			$scope.disableSelected = true;
+		}
+	}
+	
+	$scope.getMachineType = function(manufacturerDO, machineTypeDO){
+		//making coverage term values to empty on manufacturer change.
+		//TODO need check whether need to use machineTypefield used in case of machineType changes
+		$scope.machineModelChanged = true;
+		$scope.coverageHours = 0;
+		$scope.quoteBasePrice = 0;
+		$scope.coverageType = null;
+		$scope.coverageTypeDesc = null;
+		$scope.selectedRow = null;
+		$scope.selectedCloumn = null;
+		$scope.machineTypeDOList = null;
+		$scope.machineModelList = null;
+		
+		if(manufacturerDO != null){
+			 $http.get("/agg/machineType/"+manufacturerDO.id)
+			    .then(function(response) {
+			    	$scope.machineTypeDOList = response.data.data.machineTypeDOList;
+			    });
 		}
 	}
 	

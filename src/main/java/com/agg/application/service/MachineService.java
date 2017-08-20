@@ -32,4 +32,6 @@ public interface MachineService {
 	
 	public List<MachineInfoDO> getMachineModels(long manfId, long machineTypeId);
 
+	List<MachineTypeDO> getManfMachineType(long manfId);
+
 }
