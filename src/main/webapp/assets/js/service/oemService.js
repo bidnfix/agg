@@ -30,7 +30,7 @@ routingApp.factory('oemService', function($http, $q, $window) {
 					showSpinner();
 					return $http.post('/agg/editOEMWarrantyTier', oemDO).then(
 							function(response) {
-								alert("in save");
+								//alert("in save");
 								if (response.data.status == 'success') {
 									$window.location = '#/agg/oemWarrantyTier';
 								} else {
