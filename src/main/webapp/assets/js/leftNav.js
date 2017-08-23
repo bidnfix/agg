@@ -1411,10 +1411,11 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService, $
 			//updating the coverage Expiration details.
 			$scope.coverageExpirationList = [];
 			if($scope.quote.estSaleDate != null){
-				var covrageStartDate = new Date($scope.quote.estSaleDate);
+				//var covrageStartDate = new Date($scope.quote.estSaleDate);
 				angular.forEach($scope.coverageTermList, function(coverageTerm, key){
-					covrageStartDate = new Date($scope.quote.estSaleDate);
-					$scope.coverageExpirationList.push(new Date(new Date(covrageStartDate).setMonth(covrageStartDate.getMonth()+coverageTerm)));
+					//covrageStartDate = new Date($scope.quote.estSaleDate);
+					//$scope.coverageExpirationList.push(new Date(new Date(covrageStartDate).setMonth(covrageStartDate.getMonth()+coverageTerm)));
+					$scope.coverageExpirationList.push($scope.calExpirationDate(coverageExpired, coverageTerm));
 			    });
 			}
 			
@@ -1466,6 +1467,27 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService, $
 			}*/
 			
 		});
+	}
+	
+	$scope.calExpirationDate = function(coverageExpired, coverageTerm){
+		var expDate = null;
+		if(!coverageExpired){//New machine
+			var manfCoverageTerm = 24;
+			var finalCoverageTerm = (coverageTerm - manfCoverageTerm);
+			expDate = $scope.quote.coverageEndDate;
+			if(expDate != null){
+				expDate = new Date($scope.quote.coverageEndDate);
+				expDate = new Date(new Date(expDate).setMonth(expDate.getMonth()+finalCoverageTerm));
+			}
+		}else{//Old machine
+			expDate = $scope.quote.estSaleDate;
+			if(expDate != null){
+				expDate = new Date($scope.quote.estSaleDate);
+				expDate = new Date(new Date(expDate).setMonth(expDate.getMonth()+coverageTerm));
+			}
+		}
+		
+		return expDate;
 	}
 	
 	$scope.monthDiff = function(d1, d2) {
