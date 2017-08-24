@@ -1433,13 +1433,18 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService, $
 					if(pricingDO.plBasePrice > 0){
 						pricingDO.plBasePrice += (pricingDO.plBasePrice * adjFactor);
 					}
-					if(pricingDO.coverageLevelHours == 0){
-						//Zero Hour Program setting as 2000
-						pricingDO.coverageExpirationHours = zeroHourExpirationHours;
+					if(coverageExpired){
+						if(pricingDO.coverageLevelHours == 0){
+							//Zero Hour Program setting as 2000
+							pricingDO.coverageExpirationHours = zeroHourExpirationHours;
+						}else{
+							var totalExpHours = (parseInt($scope.quote.meterHours) + pricingDO.coverageLevelHours);
+							pricingDO.coverageExpirationHours = (totalExpHours > maxExpirationHours)?maxExpirationHours:totalExpHours;
+						}
 					}else{
-						var totalExpHours = (parseInt($scope.quote.meterHours) + pricingDO.coverageLevelHours);
-						pricingDO.coverageExpirationHours = (totalExpHours > maxExpirationHours)?maxExpirationHours:totalExpHours;
+						pricingDO.coverageExpirationHours = (pricingDO.coverageLevelHours > maxExpirationHours)?maxExpirationHours:pricingDO.coverageLevelHours;
 					}
+					
 			    });
 			}
 			
@@ -1825,12 +1830,18 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService, $
 						pricingDO.plBasePrice += (pricingDO.plBasePrice * adjFactor);
 					}
 					
-					if(pricingDO.coverageLevelHours == 0){
-						//Zero Hour Program setting as 2000
-						pricingDO.coverageExpirationHours = 2000;
+					if(coverageExpired){
+						if(pricingDO.coverageLevelHours == 0){
+							//Zero Hour Program setting as 2000
+							pricingDO.coverageExpirationHours = zeroHourExpirationHours;
+						}else{
+							var totalExpHours = (parseInt($scope.quote.meterHours) + pricingDO.coverageLevelHours);
+							pricingDO.coverageExpirationHours = (totalExpHours > maxExpirationHours)?maxExpirationHours:totalExpHours;
+						}
 					}else{
-						pricingDO.coverageExpirationHours = (parseInt($scope.quote.meterHours) + pricingDO.coverageLevelHours);
+						pricingDO.coverageExpirationHours = (pricingDO.coverageLevelHours > maxExpirationHours)?maxExpirationHours:pricingDO.coverageLevelHours;
 					}
+					
 			    });
 			}
 		});
