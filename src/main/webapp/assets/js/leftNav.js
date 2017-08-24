@@ -1224,6 +1224,9 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService, $
 	$scope.machineSerialFlag = true;
 	$scope.machineModelChanged = true;
 	
+	var zeroHourExpirationHours = 2000;
+	var maxExpirationHours = 5000;
+	
 	$scope.date = new Date();
 	
 	//datepicker changes
@@ -1432,9 +1435,10 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService, $
 					}
 					if(pricingDO.coverageLevelHours == 0){
 						//Zero Hour Program setting as 2000
-						pricingDO.coverageExpirationHours = 2000;
+						pricingDO.coverageExpirationHours = zeroHourExpirationHours;
 					}else{
-						pricingDO.coverageExpirationHours = (parseInt($scope.quote.meterHours) + pricingDO.coverageLevelHours);
+						var totalExpHours = (parseInt($scope.quote.meterHours) + pricingDO.coverageLevelHours);
+						pricingDO.coverageExpirationHours = (totalExpHours > maxExpirationHours)?maxExpirationHours:totalExpHours;
 					}
 			    });
 			}

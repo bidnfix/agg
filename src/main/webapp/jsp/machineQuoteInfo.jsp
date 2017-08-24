@@ -96,7 +96,7 @@
 							tooltip-trigger tooltip-animation="false"
 							tooltip="This should be the exact hours shown on the Machine's tachometer or hours gauge. It is important that this information is recorded accurately to prevent lapses or denial of coverage."
 							tooltip-placement="top"></i> *Meter Hours</label> <input type="number"
-							id="meterHours" name="meterHours" ng-model="quote.meterHours"
+							id="meterHours" name="meterHours" ng-model="quote.meterHours" ng-blur="changeMachineModelStatus()"
 							placeholder="Meter Hours" class="form-control"
 							required-message="'Please enter meter hours of machine.'"
 							required="required">

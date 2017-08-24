@@ -17,14 +17,14 @@ public interface PricingDAO extends CrudRepository<Pricing, Long>{
 	@Query("SELECT distinct p.id.deductibleAmount FROM Pricing p "
 			+ "WHERE p.id.condition = :condition "
 			+ "and p.id.groupId = :groupId "
-			+ "and p.id.cLevelHours > 0 "
+			+ "and p.id.cLevelHours >= 0 "
 			+ "and (p.ptBasePrice > 0 or p.phBasePrice > 0 or p.plBasePrice > 0)")
 	List<Integer> findDeductibleAmount(@Param("condition") byte condition, @Param("groupId") int groupId);
 	
 	@Query("SELECT distinct p.id.coverageTerm FROM Pricing p "
 			+ "WHERE p.id.condition = :condition "
 			+ "and p.id.groupId = :groupId "
-			+ "and p.id.cLevelHours > 0 "
+			+ "and p.id.cLevelHours >= 0 "
 			+ "and (p.ptBasePrice > 0 or p.phBasePrice > 0 or p.plBasePrice > 0) "
 			+ "and p.id.deductibleAmount in (:decutibleAmount)")
 	List<Integer> findCoverageTerm(@Param("condition") byte condition, @Param("groupId") int groupId, @Param("decutibleAmount") List<Integer> decutibleAmounts);
@@ -33,7 +33,7 @@ public interface PricingDAO extends CrudRepository<Pricing, Long>{
 			+ "FROM Pricing p "
 			+ "WHERE p.id.condition = :condition "
 			+ "and p.id.groupId = :groupId "
-			+ "and p.id.cLevelHours > 0 "
+			+ "and p.id.cLevelHours >= 0 "
 			+ "and (p.ptBasePrice > 0 or p.phBasePrice > 0 or p.plBasePrice > 0) "
 			+ "and p.id.coverageTerm = :coverageTerm "
 			+ "and p.id.deductibleAmount = :deductibleAmt")
@@ -44,7 +44,7 @@ public interface PricingDAO extends CrudRepository<Pricing, Long>{
 			+ "FROM Pricing p "
 			+ "WHERE p.id.condition = :condition "
 			+ "and p.id.groupId = :groupId "
-			+ "and p.id.cLevelHours > 0 "
+			+ "and p.id.cLevelHours >= 0 "
 			+ "and (p.ptBasePrice > 0 or p.phBasePrice > 0 or p.plBasePrice > 0) "
 			+ "and p.id.coverageTerm = :coverageTerm "
 			+ "and p.id.deductibleAmount = :deductibleAmt "
