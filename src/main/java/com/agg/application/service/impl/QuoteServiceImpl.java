@@ -1,5 +1,8 @@
 package com.agg.application.service.impl;
 
+import static com.agg.application.utils.AggConstants.MAX_EXPIRATION_HOURS;
+import static com.agg.application.utils.AggConstants.ZERO_HOUR_EXPIRATION_HOURS;
+
 import java.math.BigInteger;
 import java.sql.Timestamp;
 import java.text.NumberFormat;
@@ -709,9 +712,14 @@ public class QuoteServiceImpl implements QuoteService {
 					reportDO.setExpirationHours(adminAdjustment.getExpirationHours());
 				}else{
 					if(quote.getManfExpired() == 1){
-						reportDO.setExpirationHours(coverageHours+quote.getMachineMeterHours());
+						if(coverageHours == 0){
+							reportDO.setExpirationHours(ZERO_HOUR_EXPIRATION_HOURS);
+						}else{
+							int totalExpHours = coverageHours+quote.getMachineMeterHours();
+							reportDO.setExpirationHours((totalExpHours > MAX_EXPIRATION_HOURS)?MAX_EXPIRATION_HOURS:totalExpHours);
+						}
 					}else{
-						reportDO.setExpirationHours(coverageHours);
+						reportDO.setExpirationHours((coverageHours > MAX_EXPIRATION_HOURS)?MAX_EXPIRATION_HOURS:coverageHours);
 					}
 				}
 				reportDO.setSpecialConsiderationDesc((adminAdjustment.getSpecialConsideration() != null
@@ -966,9 +974,14 @@ public class QuoteServiceImpl implements QuoteService {
 				}
 				
 				if(quote.getManfExpired() == 1){
-					quoteDO.setExpirationHours(coverageHours+quote.getMachineMeterHours());
+					if(coverageHours == 0){
+						quoteDO.setExpirationHours(ZERO_HOUR_EXPIRATION_HOURS);
+					}else{
+						int totalExpHours = coverageHours+quote.getMachineMeterHours();
+						quoteDO.setExpirationHours((totalExpHours > MAX_EXPIRATION_HOURS)?MAX_EXPIRATION_HOURS:totalExpHours);
+					}
 				}else{
-					quoteDO.setExpirationHours(coverageHours);
+					quoteDO.setExpirationHours((coverageHours > MAX_EXPIRATION_HOURS)?MAX_EXPIRATION_HOURS:coverageHours);
 				}
 			}
 			quoteDO.setStatus(quote.getStatus());
@@ -1086,9 +1099,15 @@ public class QuoteServiceImpl implements QuoteService {
 					quoteDO.setExpirationHours(adminAdjustment.getExpirationHours());
 				}else{
 					if(quote.getManfExpired() == 1){
-						quoteDO.setExpirationHours(coverageHours+quote.getMachineMeterHours());
+						if(coverageHours == 0){
+							quoteDO.setExpirationHours(ZERO_HOUR_EXPIRATION_HOURS);
+						}else{
+							int totalExpHours = coverageHours+quote.getMachineMeterHours();
+							quoteDO.setExpirationHours((totalExpHours > MAX_EXPIRATION_HOURS)?MAX_EXPIRATION_HOURS:totalExpHours);
+						}
+						
 					}else{
-						quoteDO.setExpirationHours(coverageHours);
+						quoteDO.setExpirationHours((coverageHours > MAX_EXPIRATION_HOURS)?MAX_EXPIRATION_HOURS:coverageHours);
 					}
 				}
 				
