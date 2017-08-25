@@ -42,7 +42,7 @@ routingApp.controller('locationController', function($scope, locationService, $l
         
 });
 
-routingApp.controller('userController', function($scope, userService, $location, $http) {
+routingApp.controller('userController', function($scope, userService, $location, $http, $routeParams) {
 	$scope.user={};
 	$scope.isUserExists = false;
 	$scope.submitUser = function() {
@@ -51,6 +51,21 @@ routingApp.controller('userController', function($scope, userService, $location,
 			userService.saveUser($scope.user);
 		}
     };
+    
+    $http.get("/agg/dealerAndRoleInfo")
+    .then(function(response) {
+    	$routeParams.dealerId
+        $scope.dealerList = response.data.data.dealerList;
+        $scope.roleList = response.data.data.roleList;
+        var dealerId = $routeParams.dealerId;
+        if(dealerId != null && dealerId > 0){
+        	angular.forEach($scope.dealerList, function(dealer, key){
+        		if(dealerId == dealer.id){
+        			$scope.user.dealerDO = dealer;
+        		}
+    	    });
+        }
+    });
     
     $scope.isUserNameExists = function(userName){
     	$http.post("/agg/isUserNameExists", userName)

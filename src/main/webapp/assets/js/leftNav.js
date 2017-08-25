@@ -51,7 +51,11 @@ routingApp.config(['$routeProvider',
                       }).
                       when('/agg/addUser', {
                     	  templateUrl: '../../jsp/addUser.jsp',
-                    	  controller: 'AddUserController'
+                    	  controller: 'userController'
+                      }).
+                      when('/agg/addUser/:dealerId', {
+                    	  templateUrl: '../../jsp/addUser.jsp',
+                    	  controller: 'userController'
                       }).
                       when('/agg/home', {
                     	  templateUrl: '../../jsp/home.jsp',
@@ -487,11 +491,22 @@ routingApp.controller('GetMachineInfoController', function($scope, machineServic
 	
 });
 
-routingApp.controller('AddUserController', function($scope, $http) {
+routingApp.controller('AddUserController', function($scope, $http, $routeParams) {
 	$http.get("/agg/dealerAndRoleInfo")
     .then(function(response) {
+    	$routeParams.dealerId
         $scope.dealerList = response.data.data.dealerList;
         $scope.roleList = response.data.data.roleList;
+        var dealerId = $routeParams.dealerId;
+        if(dealerId != null && dealerId > 0){
+        	$scope.user = {};
+        	$scope.user.dealerDO = {};
+        	angular.forEach($scope.dealerList, function(dealer, key){
+        		if(dealerId == dealer.id){
+        			$scope.user.dealerDO = dealer;
+        		}
+    	    });
+        }
     });
 });
 

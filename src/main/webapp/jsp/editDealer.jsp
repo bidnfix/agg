@@ -7,6 +7,10 @@
 					<h3 class="wow animated bounceInLeft">Edit Dealer</h3>
 				</div>
 			</div>
+			<div class="col-md-6 col-sm-12">
+				<a class="btn btn-primary pull-right mar-right" href="#/agg/addUser/{{dealer.id}}">Add User</a>
+				<a class="btn btn-primary pull-right mar-right" href="#/agg/addDealer">Add Dealer</a>
+			</div>
 
 		</header>
 

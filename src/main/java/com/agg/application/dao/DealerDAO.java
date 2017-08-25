@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import com.agg.application.entity.Dealer;
 import com.agg.application.model.DealerDO;
+import com.agg.application.model.DealerDropDownDO;
 
 @Component
 public interface DealerDAO extends CrudRepository<Dealer, Long>{
@@ -17,8 +18,9 @@ public interface DealerDAO extends CrudRepository<Dealer, Long>{
 	
 	public List<Dealer> findByStatusOrderByNameAsc(int status);
 	
-	@Query("select dealer from Dealer dealer where dealer.code = dealer.parentCode order by dealer.name asc")
-	public List<Dealer> findParentDealers();
+	@Query("select new com.agg.application.model.DealerDropDownDO(dealer.id, dealer.name, dealer.code, dealer.city, dealer.parentCode) from Dealer dealer "
+			+ "where dealer.code = dealer.parentCode order by dealer.name asc")
+	public List<DealerDropDownDO> findParentDealers();
 	
 	public Dealer findByCode(long parentCode);
 	

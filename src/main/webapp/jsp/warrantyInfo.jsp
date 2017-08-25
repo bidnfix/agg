@@ -8,18 +8,18 @@
 		<div class="col-xs-12 pad10">
 			<div class="col-sm-5"></div>
 			<div class="col-sm-7 no-pad">
-				<div class="col-xs-12 no-pad">
-					<!-- <div class="col-sm-5 no-pad">
+				<!-- <div class="col-xs-12 no-pad">
+					<div class="col-sm-5 no-pad">
 						<a class="btn btn-primary pull-left" href="#">New Quote</a>
-					</div> -->
+					</div>
 					<div class="col-sm-7 no-pad">
 						<div class="input-group">
 							<input type="text" class="form-control" aria-label="Find Quote">
 							<span class="input-group-addon"><i class="fa fa-search"></i></span>
 						</div>
 					</div>
-				</div>
-				<br> <br clear="all">
+				</div> -->
+				<!-- <br> <br clear="all"> -->
 				<div class="col-xs-12 no-pad marg10-top marg10-bottom clearfix">
 					<select class="form-control col-sm-6" name="dealer"
 						ng-model="quote.dealerDO" id="dealer"

@@ -25,6 +25,7 @@ import com.agg.application.entity.Role;
 import com.agg.application.entity.Sequence;
 import com.agg.application.model.AccountDO;
 import com.agg.application.model.DealerDO;
+import com.agg.application.model.DealerDropDownDO;
 import com.agg.application.model.LocationDO;
 import com.agg.application.model.RoleDO;
 import com.agg.application.model.UserDO;
@@ -111,11 +112,12 @@ public class DealerServiceImpl implements DealerService {
 	}
 	
 	@Override
-	public List<DealerDO> getParentDealers() {
+	public List<DealerDropDownDO> getParentDealers() {
 		logger.debug("In getParentDealers");
-		List<Dealer> dealerList = Util.toList(dealerDAO.findParentDealers());
+		/*List<Dealer> dealerList = Util.toList(dealerDAO.findParentDealers());
 		
-		return getDealerDOList(dealerList);
+		return getDealerDOList(dealerList);*/
+		return dealerDAO.findParentDealers();
 	}
 	
 	/**
