@@ -2509,14 +2509,15 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 	
 	$scope.calExpirationDate = function(){
 		if($scope.machineCondition == "New"){
-			var manfCoverageTerm = 0;
+			var manfCoverageTerm = 24;
+			/*var manfCoverageTerm = 0;
 			if($scope.quote.coverageType == 'PT'){
 				manfCoverageTerm = parseInt($scope.quote.powerTrainMonths);
 			}else if($scope.quote.coverageType == 'PH'){
 				manfCoverageTerm = parseInt($scope.quote.hydraulicsMonths);
 			}else if($scope.quote.coverageType == 'PL'){
 				manfCoverageTerm = parseInt($scope.quote.fullMachineMonths);
-			}
+			}*/
 			var finalCoverageTerm = (parseInt($scope.quote.adjustedcoverageTerm) - manfCoverageTerm);
 			var expDate = $scope.quote.coverageEndDate;
 			if(expDate != null){
@@ -2867,14 +2868,15 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 	
 	$scope.updateContractExpirationDate = function(){
 		if($scope.machineCondition == "New"){
-			var manfCoverageTerm = 0;
+			var manfCoverageTerm = 24;
+			/*var manfCoverageTerm = 0;
 			if($scope.quote.coverageType == 'PT'){
 				manfCoverageTerm = parseInt($scope.quote.powerTrainMonths);
 			}else if($scope.quote.coverageType == 'PH'){
 				manfCoverageTerm = parseInt($scope.quote.hydraulicsMonths);
 			}else if($scope.quote.coverageType == 'PL'){
 				manfCoverageTerm = parseInt($scope.quote.fullMachineMonths);
-			}
+			}*/
 			var finalCoverageTerm = (parseInt($scope.quote.adjustedcoverageTerm) - manfCoverageTerm);
 			var expDate = $scope.quote.coverageEndDate;
 			if(expDate != null){
@@ -3081,14 +3083,15 @@ routingApp.controller('ContractDetailController', function($scope, $http, $timeo
     
     $scope.calExpirationDate = function(){
 		if($scope.contract.quoteDO.coverageExpired === false){
-			var manfCoverageTerm = 0;
+			var manfCoverageTerm = 24;
+			/*var manfCoverageTerm = 0;
 			if($scope.contract.coverageType == 'PT'){
 				manfCoverageTerm = parseInt($scope.contract.quoteDO.powerTrainMonths);
 			}else if($scope.contract.coverageType == 'PH'){
 				manfCoverageTerm = parseInt($scope.contract.quoteDO.hydraulicsMonths);
 			}else if($scope.contract.coverageType == 'PL'){
 				manfCoverageTerm = parseInt($scope.contract.quoteDO.fullMachineMonths);
-			}
+			}*/
 			var finalCoverageTerm = (parseInt($scope.contract.coverageTermMonths) - manfCoverageTerm);
 			var expDate = $scope.quote.coverageEndDate;
 			if(expDate != null){
