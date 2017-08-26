@@ -8,7 +8,7 @@
 				</div>
 			</div>
 			<div class="col-md-6 col-sm-12">
-				<a class="btn btn-primary pull-right mar-right" href="#/agg/addUser/{{dealer.id}}">Add User</a>
+				<a  ng-if="dealer.status == 1" class="btn btn-primary pull-right mar-right" href="#/agg/addUser/{{dealer.id}}">Add User</a>
 				<a class="btn btn-primary pull-right mar-right" href="#/agg/addDealer">Add Dealer</a>
 			</div>
 
