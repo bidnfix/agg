@@ -9,18 +9,18 @@ routingApp.factory('manufacturerService', function($http, $q, $window) {
 							function(response) {
 								//alert(response.data.status);
 								if (response.data.status == 'success') {
-									$('#machineSuccessMsg').html("OEM successfully added");
+									$('#machineSuccessMsg').html("Manufacturer successfully added");
 					            	$('#machineSuccessMsg').removeClass('hidden');
 					            	window.setTimeout(function() {
 					        			 $('#machineSuccessMsg').addClass('hidden');
 					        		}, 3000);
 								} else {
-									alert('Error in adding OEM: '+response.data.errMessage)
+									alert('Error in adding Manufacturer: '+response.data.errMessage)
 									//$('#errMsg').html(response.data.errMessage);
 								}
 								hideSpinner();
 							}, function(errResponse) {
-								alert('Error while creating OEM');
+								alert('Error while creating Manufacturer');
 								hideSpinner();
 								return $q.reject(errResponse);
 							});
@@ -34,11 +34,11 @@ routingApp.factory('manufacturerService', function($http, $q, $window) {
 								if (response.data.status == 'success') {
 									$window.location = '#/agg/manufacturers';
 								} else {
-									alert('Error in updating usageTier: '+response.data.errMessage)
+									alert('Error in updating Manufacturer: '+response.data.errMessage)
 								}
 								hideSpinner();
 							}, function(errResponse) {
-								alert('Error while updating usageTier');
+								alert('Error while updating Manufacturer');
 								hideSpinner();
 								return $q.reject(errResponse);
 							});
@@ -61,12 +61,12 @@ routingApp.factory('manufacturerService', function($http, $q, $window) {
 							            }
 							        }*/
 								} else {
-									alert('Error in updating machine: '+response.data.errMessage)
+									alert('Error in updating Manufacturer: '+response.data.errMessage)
 									//$('#errMsg').html(response.data.errMessage);
 								}
 								hideSpinner();
 							}, function(errResponse) {
-								alert('Error while updating machine');
+								alert('Error while updating Manufacturer');
 								hideSpinner();
 								return $q.reject(errResponse);
 							});
