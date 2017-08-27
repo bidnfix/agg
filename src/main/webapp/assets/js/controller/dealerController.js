@@ -48,13 +48,16 @@ routingApp.controller('userController', function($scope, userService, $location,
 	$scope.submitUser = function() {
 		//alert("in submitUser");
 		if(!$scope.isUserExists){
-			userService.saveUser($scope.user);
+			var cond = false;
+			if($routeParams.dealerId != null && $routeParams.dealerId > 0){
+				 cond = true;
+			}
+			userService.saveUser($scope.user, cond);
 		}
     };
     
     $http.get("/agg/dealerAndRoleInfo")
     .then(function(response) {
-    	$routeParams.dealerId
         $scope.dealerList = response.data.data.dealerList;
         $scope.roleList = response.data.data.roleList;
         var dealerId = $routeParams.dealerId;

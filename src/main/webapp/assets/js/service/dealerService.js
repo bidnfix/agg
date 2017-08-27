@@ -94,13 +94,17 @@ routingApp.factory('locationService', function($http, $q, $window) {
 
 routingApp.factory('userService', function($http, $q, $window) {
 	return {
-		saveUser : function(user) {
+		saveUser : function(user, cond) {
 			return $http.post('/agg/addUser', user).then(
 					function(response) {
 						//alert(response.data.status);
 						if (response.data.status == 'success') {
 							//$window.location = '/agg/home';
-							$window.location.href = '#/agg/users';
+							if(cond){
+								$window.location.href = '#/agg/dealers';
+							}else{
+								$window.location.href = '#/agg/users';
+							}
 						} else {
 							alert('Error in adding user: '+response.data.errMessage)
 							//$('#errMsg').html(response.data.errMessage);
@@ -121,6 +125,7 @@ routingApp.factory('userService', function($http, $q, $window) {
 							var objects = $scope.userList;
 					        for (var i = 0; i < objects.length; i++) {
 					            if (objects[i].id === user.id) {
+					            	user.roleName = user.roleDO.name;
 					                objects[i] = user;
 					                break;
 					            }
