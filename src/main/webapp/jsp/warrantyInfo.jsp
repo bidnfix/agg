@@ -69,6 +69,7 @@
 				                   datepicker-options="dateOptions" 
 				                   is-open="valuationDatePickerIsOpen" 
 				                   ng-click="valuationDatePickerOpen()"
+				                   ng-change="updateCoverageStartDate()" 
 				                   ng-model="quote.coverageEndDate"/>
 								<span class="input-group-btn">
 					              <button type="button" class="btn btn-default" 

@@ -212,7 +212,7 @@
                          <p>{{quote.machineInfoDO.lolToDisplay | currency:"$":0}}</p>
                        </div>
                        <div class="form-group">
-                         <label>Estimated Sale Date</label>
+                         <label>Coverage Start Date<!-- Estimated Sale Date --></label>
                            <!-- <input type="date" id="estSaleDate" name="estSaleDate" ng-model="quote.estSaleDate" class="form-control"  validate-on="dirty" required="required" ng-disabled="disabled"> -->
                            <!-- <input type="text" class="form-control" aria-describedby="basic-addon2"> -->
                            <!-- <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span> -->
@@ -363,7 +363,7 @@
                             <p>{{quote.machineInfoDO.lolToDisplay | currency:"$":0}}</p>
                           </div>
                           <div class="form-group">
-                            <label>Estimated Sale Date</label>
+                            <label>Coverage Start Date<!-- Estimated Sale Date --></label>
                             <p>{{quote.estSaleDate |  date:"MM/dd/yyyy"}}</p>
                           </div>
                           <div class="form-group">

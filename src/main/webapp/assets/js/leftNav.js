@@ -1759,6 +1759,13 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService, $
 		$scope.coverageTypeDesc = null;
 		$scope.selectedRow = null;
 		$scope.selectedCloumn = null;
+		
+		if($scope.quote.coverageExpired != null && $scope.quote.coverageExpired == true){
+			$scope.quote.estSaleDate = new Date();
+		}else {
+			$scope.updateCoverageStartDate();
+		}
+		
 	}
 	
 	$scope.setClickedCloumn = function(rowIndex, colIndex){
@@ -1860,6 +1867,16 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService, $
 			    });
 			}
 		});
+	}
+	
+	$scope.updateCoverageStartDate = function(){
+		if($scope.quote.coverageEndDate != null){
+			var endDate = new Date($scope.quote.coverageEndDate);
+			endDate.setDate(endDate.getDate()+1); // adding 1 day
+			$scope.quote.estSaleDate = endDate;
+		}else{
+			$scope.quote.estSaleDate = new Date();
+		}
 	}
 	
 	$scope.resetMouseoverColumn = function(){
@@ -2588,12 +2605,14 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 			coverageExpired = true;
 			$scope.machineCondition = 'Used';
 			$scope.expirationFlag = false;
+			$scope.quote.estSaleDate = new Date();
 		}else{
 			if($scope.quote.status == 1){
 				$scope.expirationFlag = false;
 			}else{
 				$scope.expirationFlag = true;
 			}
+			$scope.updateCoverageStartDate();
 		}
 		
 		/*else if($scope.quote.coverageEndDate != null && ($scope.quote.coverageEndDate > $scope.date)){
@@ -2729,6 +2748,17 @@ routingApp.controller('QuoteDetailController', function($scope, $http, $timeout,
 	$scope.changeExpirationDate = function(){
 		if($scope.quote.status > 1 && $scope.quote.admin){
 			$scope.calExpirationDate();
+		}
+		$scope.updateCoverageStartDate();
+	}
+	
+	$scope.updateCoverageStartDate = function(){
+		if($scope.quote.coverageEndDate != null){
+			var endDate = new Date($scope.quote.coverageEndDate);
+			endDate.setDate(endDate.getDate()+1); // adding 1 day
+			$scope.quote.estSaleDate = endDate;
+		}else{
+			$scope.quote.estSaleDate = new Date();
 		}
 	}
 	
