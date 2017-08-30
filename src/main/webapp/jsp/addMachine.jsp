@@ -46,7 +46,7 @@
 			<div class="form-group">
 				<label for="model" class="col-sm-3 control-label">Adjustment Factor</label>
 				<div class="col-sm-9">
-					<input type="text" id="adjustmentFact" ng-model="machine.adjFactor" placeholder="Adjustment Factor" class="form-control" readonly="readonly">
+					<input type="text" id="adjustmentFact" ng-model="machine.adjFactor" placeholder="Adjustment Factor" class="form-control" >
 				</div>
 			</div>
 			<div class="form-group">
