@@ -1740,7 +1740,7 @@ public class QuoteServiceImpl implements QuoteService {
 		Contracts contracts = new Contracts();
 		contracts.setAvailabeLol(quoteDO.getMachineInfoDO().getLol());
 		contracts.setComments(quoteDO.getComments());
-		contracts.setContractId("CR-"+quoteDO.getQuoteId());
+		contracts.setContractId(/*"CR-"+*/quoteDO.getQuoteId());
 		contracts.setCoverageLevelHours(quoteDO.getCoverageHours());
 		contracts.setCoverageTermMonths(quoteDO.getCoverageTerm());
 		contracts.setCoverageType(quoteDO.getCoverageType());

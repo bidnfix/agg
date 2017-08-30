@@ -395,11 +395,11 @@ public class EmailServiceImpl implements EmailService {
 		pdfAttachment =  new ByteArrayDataSource(baos.toByteArray(), "application/pdf");
 		pdfAttachments[1] = pdfAttachment;
 		
-		String[] fileNames = {"ContractDetails-"+"CR-"+quoteDO.getQuoteId(),"CoverageDetails-"+"CR-"+quoteDO.getQuoteId()};
+		String[] fileNames = {"ContractDetails-"/*+"CR-"*/+quoteDO.getQuoteId(),"CoverageDetails-"/*+"CR-"*/+quoteDO.getQuoteId()};
 		
 		
-		String subject = "Contract Details: "+"CR-"+quoteDO.getQuoteId()+" pdf files";
-		String emailBody = "PFA Contract Details: "+"CR-"+quoteDO.getQuoteId()+" details.";
+		String subject = "Contract Details: "/*+"CR-"*/+quoteDO.getQuoteId()+" pdf files";
+		String emailBody = "PFA Contract Details: "/*+"CR-"*/+quoteDO.getQuoteId()+" details.";
 		String emails = "";
 		/*if(quoteDO.getDealerEmail() != null && !quoteDO.getDealerEmail().isEmpty()){
 			emails = quoteDO.getDealerEmail()+","+quoteDO.getDealerDO().getInvoiceEmail();
@@ -427,7 +427,7 @@ public class EmailServiceImpl implements EmailService {
 		Locale locale = new Locale("en", "US");
 		NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
 		
-		reportDO.setContractId("CR-"+quoteDO.getQuoteId());
+		reportDO.setContractId(/*"CR-"+*/quoteDO.getQuoteId());
 		reportDO.setInceptionDate((quoteDO.getInceptionDate() != null)?dateFormat.format(quoteDO.getInceptionDate()):"");
 		reportDO.setCoverageTerm(quoteDO.getCoverageTerm());
 		reportDO.setCoverageHours(quoteDO.getCoverageHours());
