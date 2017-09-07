@@ -1741,6 +1741,7 @@ routingApp.controller('QuoteController', function($scope, $http, quoteService, $
 		$scope.coverageTypeDesc = null;
 		$scope.selectedRow = null;
 		$scope.selectedCloumn = null;
+		$scope.machineModelList = null;
 		
 		if(manufacturerDO != null && machineTypeDO != null){
 			 $http.get("/agg/machineModel/"+manufacturerDO.id+"/"+machineTypeDO.id)

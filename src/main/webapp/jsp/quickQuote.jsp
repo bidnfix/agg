@@ -265,10 +265,12 @@
 						<label>Conditions for Coverage</label>
 						<textarea class="form-control" placeholder="" ng-model="quote.condsForCoverage" ng-disabled="disabled"></textarea>
 					  </div>
-					  <div class="form-group">
-						<label>Deal History</label>
-						<textarea class="form-control" placeholder="" ng-model="quote.dealHistory" ng-disabled="disabled"></textarea>
-					  </div>
+					  <c:if test="${user.roleDO.accountType eq 'admin'}">
+						  <div class="form-group">
+							<label>Deal History</label>
+							<textarea class="form-control" placeholder="" ng-model="quote.dealHistory" ng-disabled="disabled"></textarea>
+						  </div>
+					  </c:if>
 
                      </div>
                      
@@ -397,10 +399,12 @@
 							<label>Conditions for Coverage</label>
 							<p>{{quote.condsForCoverage}}</p>
 						  </div>
-						  <div class="form-group">
-							<label>Deal History</label>
-							<p>{{quote.dealHistory}}</p>
-						  </div>
+						  <c:if test="${user.roleDO.accountType eq 'admin'}">
+							  <div class="form-group">
+								<label>Deal History</label>
+								<p>{{quote.dealHistory}}</p>
+							  </div>
+						  </c:if>
                         </div>
 
                      <div class="col-md-6 no-pad pad10-left border-left">

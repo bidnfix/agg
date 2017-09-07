@@ -23,6 +23,18 @@
 				
 				<div class="col-sm-6">
 					<div class="form-group">
+						<label><i class="fa fa-info-circle" data-toggle="tooltip"
+							tooltip-trigger tooltip-animation="false"
+							tooltip="Please use the engine-rated horsepower.  This is not the PTO power or peak power."
+							tooltip-placement="top"></i> Horsepower (Engine)</label> <input
+							type="number" id="horsePower" name="horsePower"
+							ng-model="quote.horsePower" placeholder="Horse Power"
+							class="form-control">
+					</div>
+				</div>
+				
+				<div class="col-sm-6">
+					<div class="form-group">
 						<label>*Select Machine Type</label> <select class="form-control"
 							name="machineType" ng-model="quote.machineTypeDO"
 							ng-options="machineTypeDO.name for machineTypeDO in machineTypeDOList track by machineTypeDO.id"
@@ -31,6 +43,18 @@
 							required="required">
 							<option value="">Select Machine Type</option>
 						</select>
+					</div>
+				</div>
+				
+				<div class="col-sm-6">
+					<div class="form-group">
+						<label><i class="fa fa-info-circle" data-toggle="tooltip"
+							tooltip-trigger tooltip-animation="false"
+							tooltip="For our purposes, the 'Retail Price' is the advertised price of the machine not including any special deals or terms.  This is not necessarily the sales price.   We do not use the 'Retail Price'  to determine the price of coverage; however, we do use this information to compare coverage on certain machines and within certain price bands when we analyze our risk-so, it is important to report this accurately in order to help us keep our prices as low as possible."
+							tooltip-placement="top"></i> Retail Price (Aprox)</label> <input
+							type="number" id="retailPrice" name="retailPrice"
+							ng-model="quote.retailPrice" class="form-control"
+							placeholder="Retail Price">
 					</div>
 				</div>
 
@@ -47,17 +71,6 @@
 					</div>
 				</div>
 
-				<div class="col-sm-6">
-					<div class="form-group">
-						<label><i class="fa fa-info-circle" data-toggle="tooltip"
-							tooltip-trigger tooltip-animation="false"
-							tooltip="Please use the engine-rated horsepower.  This is not the PTO power or peak power."
-							tooltip-placement="top"></i> Horsepower (Engine)</label> <input
-							type="number" id="horsePower" name="horsePower"
-							ng-model="quote.horsePower" placeholder="Horse Power"
-							class="form-control">
-					</div>
-				</div>
 
 				<div class="col-sm-6">
 					<div class="form-group">
@@ -75,18 +88,6 @@
 								name="serialNumberUnknown" ng-model="quote.serialNumberUnknown"
 								value="serialNumberUnknown" ng-change="changeMachineSerialFlag(quote.serialNumberUnknown)"> Check if unknown
 						</div>
-					</div>
-				</div>
-
-				<div class="col-sm-6">
-					<div class="form-group">
-						<label><i class="fa fa-info-circle" data-toggle="tooltip"
-							tooltip-trigger tooltip-animation="false"
-							tooltip="For our purposes, the 'Retail Price' is the advertised price of the machine not including any special deals or terms.  This is not necessarily the sales price.   We do not use the 'Retail Price'  to determine the price of coverage; however, we do use this information to compare coverage on certain machines and within certain price bands when we analyze our risk-so, it is important to report this accurately in order to help us keep our prices as low as possible."
-							tooltip-placement="top"></i> Retail Price (Aprox)</label> <input
-							type="number" id="retailPrice" name="retailPrice"
-							ng-model="quote.retailPrice" class="form-control"
-							placeholder="Retail Price">
 					</div>
 				</div>
 

@@ -100,7 +100,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="pricingDO in pricingDOList">
+					<tr ng-repeat="pricingDO in pricingDOList" ng-if="(pricingDO.coverageLevelHours > 0 && quote.meterHours >= 2000) || (pricingDO.coverageLevelHours >= 0 && quote.meterHours < 2000)">
 						<td>{{pricingDO.coverageLevelHours | number:0}}</td>
 						<td>{{pricingDO.coverageExpirationHours | number:0}}</td>
 						<td ng-class="{'selectedcol':$index == selectedRow && selectedCloumn == 2, 'mouseovercol':$index == mouseoverRow && mouseoverCloumn == 2}"  ng-click="setClickedCloumn($index, 2)" ng-mouseover="setMouserCloumn($index, 2)" ng-mouseleave="resetMouseoverColumn()"><a>{{(pricingDO.ptBasePrice != -1)?(pricingDO.ptBasePrice | number:0):""}}</a></td>

@@ -11,13 +11,15 @@
 					Tool</p>
 			</div>
 		</div>
-		<div class="col-md-6 col-sm-12">
+		-->
+		<div class="col-md-12 col-sm-12">
 			<a
-				class="btn btn-primary pull-right mar-right animated fadeInRightBig hvr-pulse"
-				href="add-new.html">Add New</a><a
-				class="btn btn-primary pull-right animated fadeInLeftBig  hvr-pulse mar-right"
-				href="#">Back</a>
-		</div> -->
+				class="btn btn-primary pull-right mar-right"
+				href="#/agg/fileClaim">Create New Claim</a>
+				<a
+				class="btn btn-primary pull-right mar-right"
+				href="#/agg/addQuote">Create New Quote</a>
+		</div> 
 	</header>
 	<nav class="navbar navbar-findcond marg10-bottom">
     <!--<div class="container">-->
