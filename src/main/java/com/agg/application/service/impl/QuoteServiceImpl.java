@@ -1,6 +1,10 @@
 package com.agg.application.service.impl;
 
+import static com.agg.application.utils.AggConstants.MAX_EXPIRATION_HOURS;
+import static com.agg.application.utils.AggConstants.ZERO_HOUR_EXPIRATION_HOURS;
+
 import java.math.BigInteger;
+import java.sql.Timestamp;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -18,6 +22,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -53,7 +58,9 @@ import com.agg.application.model.ReportDO;
 import com.agg.application.model.UseOfEquipmentDO;
 import com.agg.application.model.WorklistDO;
 import com.agg.application.service.EmailService;
+import com.agg.application.service.OEMWarrantyTierService;
 import com.agg.application.service.QuoteService;
+import com.agg.application.service.UsageTierService;
 import com.agg.application.utils.AggConstants;
 import com.agg.application.utils.EmailSender;
 import com.agg.application.utils.Util;
@@ -112,6 +119,12 @@ public class QuoteServiceImpl implements QuoteService {
 	private EmailService emailService;
 	
 	private static final SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+	
+	@Autowired
+	private UsageTierService usageTierService;
+	
+	@Autowired
+	private OEMWarrantyTierService oemWarrantyTierService;
 
 	@Override
 	public List<UseOfEquipmentDO> getUseOfEquipmentDetails() {
@@ -122,6 +135,7 @@ public class QuoteServiceImpl implements QuoteService {
 			useOfEquipmentDO = new UseOfEquipmentDO();
 			useOfEquipmentDO.setId(useOfEquip.getId());
 			useOfEquipmentDO.setEquipName(useOfEquip.getEquipName());
+			useOfEquipmentDO.setDiscount(useOfEquip.getDiscount());
 			
 			useOfEquipmentDOList.add(useOfEquipmentDO);
 		}
@@ -165,7 +179,7 @@ public class QuoteServiceImpl implements QuoteService {
 			//if manufacturers coverage date expires then consider as used(2) otherwise new(1);
 			byte condition = coverageExpired ? (byte)2 : (byte)1;
 			
-			if(coverageHours > 0){
+			if(coverageHours > -1){
 				pricingDOList = pricingDAO.findCoverageLevelPricing(condition, groupId, deductibleAmt, coverageTerm, coverageHours);
 			}else{
 				pricingDOList = pricingDAO.findCoverageLevelPricing(condition, groupId, deductibleAmt, coverageTerm);
@@ -376,7 +390,7 @@ public class QuoteServiceImpl implements QuoteService {
 			quote.setCoverageTerm(quoteDO.getCoverageTerm());
 			quote.setCoverageLevelHours(quoteDO.getCoverageHours());
 			quote.setCoverageType(quoteDO.getCoverageType());
-			quote.setCoveragePrice(quoteDO.getQuoteBasePrice());
+			quote.setCoveragePrice(Math.round(quoteDO.getQuoteBasePrice()));
 			
 			quote.setIsArchive((short)0);
 			quote.setCreateDate(new Date());
@@ -485,7 +499,7 @@ public class QuoteServiceImpl implements QuoteService {
 			quote.setCoverageTerm(quoteDO.getCoverageTerm());
 			quote.setCoverageLevelHours(quoteDO.getCoverageHours());
 			quote.setCoverageType(quoteDO.getCoverageType());
-			quote.setCoveragePrice(quoteDO.getQuoteBasePrice());
+			quote.setCoveragePrice(Math.round(quoteDO.getQuoteBasePrice()));
 			
 			quote.setIsArchive((short)0);
 			quote.setCreateDate(new Date());
@@ -698,9 +712,14 @@ public class QuoteServiceImpl implements QuoteService {
 					reportDO.setExpirationHours(adminAdjustment.getExpirationHours());
 				}else{
 					if(quote.getManfExpired() == 1){
-						reportDO.setExpirationHours(coverageHours+quote.getMachineMeterHours());
+						if(coverageHours == 0){
+							reportDO.setExpirationHours(ZERO_HOUR_EXPIRATION_HOURS);
+						}else{
+							int totalExpHours = coverageHours+quote.getMachineMeterHours();
+							reportDO.setExpirationHours((totalExpHours > MAX_EXPIRATION_HOURS)?MAX_EXPIRATION_HOURS:totalExpHours);
+						}
 					}else{
-						reportDO.setExpirationHours(coverageHours);
+						reportDO.setExpirationHours((coverageHours > MAX_EXPIRATION_HOURS)?MAX_EXPIRATION_HOURS:coverageHours);
 					}
 				}
 				reportDO.setSpecialConsiderationDesc((adminAdjustment.getSpecialConsideration() != null
@@ -955,9 +974,14 @@ public class QuoteServiceImpl implements QuoteService {
 				}
 				
 				if(quote.getManfExpired() == 1){
-					quoteDO.setExpirationHours(coverageHours+quote.getMachineMeterHours());
+					if(coverageHours == 0){
+						quoteDO.setExpirationHours(ZERO_HOUR_EXPIRATION_HOURS);
+					}else{
+						int totalExpHours = coverageHours+quote.getMachineMeterHours();
+						quoteDO.setExpirationHours((totalExpHours > MAX_EXPIRATION_HOURS)?MAX_EXPIRATION_HOURS:totalExpHours);
+					}
 				}else{
-					quoteDO.setExpirationHours(coverageHours);
+					quoteDO.setExpirationHours((coverageHours > MAX_EXPIRATION_HOURS)?MAX_EXPIRATION_HOURS:coverageHours);
 				}
 			}
 			quoteDO.setStatus(quote.getStatus());
@@ -1075,9 +1099,15 @@ public class QuoteServiceImpl implements QuoteService {
 					quoteDO.setExpirationHours(adminAdjustment.getExpirationHours());
 				}else{
 					if(quote.getManfExpired() == 1){
-						quoteDO.setExpirationHours(coverageHours+quote.getMachineMeterHours());
+						if(coverageHours == 0){
+							quoteDO.setExpirationHours(ZERO_HOUR_EXPIRATION_HOURS);
+						}else{
+							int totalExpHours = coverageHours+quote.getMachineMeterHours();
+							quoteDO.setExpirationHours((totalExpHours > MAX_EXPIRATION_HOURS)?MAX_EXPIRATION_HOURS:totalExpHours);
+						}
+						
 					}else{
-						quoteDO.setExpirationHours(coverageHours);
+						quoteDO.setExpirationHours((coverageHours > MAX_EXPIRATION_HOURS)?MAX_EXPIRATION_HOURS:coverageHours);
 					}
 				}
 				
@@ -1237,6 +1267,27 @@ public class QuoteServiceImpl implements QuoteService {
 	    	}/*else if(quoteDO.getCoverageEndDate() != null && quoteDO.getCoverageEndDate().after(new Date())){
 	    		coverageExpired = false;
 	    	}*/
+			double usageTierAdjFactor = 0;
+			double oemWarrantyAdjFactor = 0;
+			double dealerAdjFactor = quoteDO.getDealerDO().getAdjustmentFactor();
+			double uoeAdjFactor = quoteDO.getUseOfEquipmentDO().getDiscount();
+			double machineAdjFactor = quoteDO.getMachineInfoDO().getAdjFactor();
+			double adjustmentFactor = 0;
+			
+			if(coverageExpired){
+				usageTierAdjFactor = usageTierService.getUsageTierAdjFactor(quoteDO.getMeterHours());
+				adjustmentFactor = usageTierAdjFactor;
+			}else{
+				Calendar startCal = Calendar.getInstance();
+				Calendar endCal = Calendar.getInstance();
+				endCal.setTime(quoteDO.getCoverageEndDate());
+				int month = Util.getMonthDifference(startCal, endCal);
+				logger.debug("months in difference: "+month);
+				oemWarrantyAdjFactor = oemWarrantyTierService.getOEMWarrantyAdjFactor(month);
+				adjustmentFactor = oemWarrantyAdjFactor;
+			}
+			
+			double adjFactor = dealerAdjFactor + uoeAdjFactor + machineAdjFactor + adjustmentFactor;
 			List<PricingDO> pricingDOList = getCoveragePriceDetils(coverageExpired, quoteDO.getMachineInfoDO().getMachineId(), 
 					new Double(quoteDO.getDeductiblePrice()).intValue(), quoteDO.getCoverageTerm(), quote.getCoverageLevelHours());
 			if(pricingDOList != null && !pricingDOList.isEmpty()){
@@ -1246,11 +1297,11 @@ public class QuoteServiceImpl implements QuoteService {
 						quote.setCoveragePrice(quote.getProgram().getPrCost());
 					}else{
 						if(quoteDO.getCoverageType().equals("PT")){
-							quote.setCoveragePrice(pricingDO.getPtBasePrice());
+							quote.setCoveragePrice(Math.round(pricingDO.getPtBasePrice() + (pricingDO.getPtBasePrice() * adjFactor)));
 						}else if(quoteDO.getCoverageType().equals("PH")){
-							quote.setCoveragePrice(pricingDO.getPhBasePrice());
+							quote.setCoveragePrice(Math.round(pricingDO.getPhBasePrice() + (pricingDO.getPhBasePrice() * adjFactor)));
 						}else if(quoteDO.getCoverageType().equals("PL")){
-							quote.setCoveragePrice(pricingDO.getPlBasePrice());
+							quote.setCoveragePrice(Math.round(pricingDO.getPlBasePrice() + (pricingDO.getPlBasePrice() * adjFactor)));
 						}
 					}
 				}
@@ -1294,6 +1345,11 @@ public class QuoteServiceImpl implements QuoteService {
 			adminAdjustment.setSpecialConsideration(quoteDO.getSpecialConsiderations());
 			adminAdjustment.setCConditions(quoteDO.getCondsForCoverage());
 			adminAdjustment.setDealHistory(quoteDO.getDealHistory());
+			adminAdjustment.setDealerAdjFactor(dealerAdjFactor);
+			adminAdjustment.setUoeAdjFactor(uoeAdjFactor);
+			adminAdjustment.setMachineAdjFactor(machineAdjFactor);
+			adminAdjustment.setUsageTierAdjFactor(usageTierAdjFactor);
+			adminAdjustment.setOemWarrantyAdjFactor(oemWarrantyAdjFactor);
 			adminAdjustment.setLastUpdate(new Date());
 			if(accountDO.getRoleDO().getAccountType().equalsIgnoreCase(AggConstants.ACCOUNT_TYPE_ADMIN)){
 				adminAdjustment.setBasePrice(quoteDO.getAdjustedBasePrice());
@@ -1409,18 +1465,40 @@ public class QuoteServiceImpl implements QuoteService {
 	    		coverageExpired = false;
 	    	}*/
 			
+			double usageTierAdjFactor = 0;
+			double oemWarrantyAdjFactor = 0;
+			double dealerAdjFactor = quoteDO.getDealerDO().getAdjustmentFactor();
+			double uoeAdjFactor = quoteDO.getUseOfEquipmentDO().getDiscount();
+			double machineAdjFactor = quoteDO.getMachineInfoDO().getAdjFactor();
+			double adjustmentFactor = 0;
+			
 			if(quote.getProgram() == null){
+				if(coverageExpired){
+					usageTierAdjFactor = usageTierService.getUsageTierAdjFactor(quoteDO.getMeterHours());
+					adjustmentFactor = usageTierAdjFactor;
+				}else{
+					Calendar startCal = Calendar.getInstance();
+					Calendar endCal = Calendar.getInstance();
+					endCal.setTime(quoteDO.getCoverageEndDate());
+					int month = Util.getMonthDifference(startCal, endCal);
+					logger.debug("months in difference: "+month);
+					oemWarrantyAdjFactor = oemWarrantyTierService.getOEMWarrantyAdjFactor(month);
+					adjustmentFactor = oemWarrantyAdjFactor;
+				}
+				
+				double adjFactor = dealerAdjFactor + uoeAdjFactor + machineAdjFactor + adjustmentFactor;
+				
 				List<PricingDO> pricingDOList = getCoveragePriceDetils(coverageExpired, quoteDO.getMachineInfoDO().getMachineId(), 
 						new Double(quoteDO.getDeductiblePrice()).intValue(), quoteDO.getCoverageTerm(), quote.getCoverageLevelHours());
 				if(pricingDOList != null && !pricingDOList.isEmpty()){
 					PricingDO pricingDO = pricingDOList.get(0);
 					if(quoteDO.getCoverageType() != null){
 						if(quoteDO.getCoverageType().equals("PT")){
-							quote.setCoveragePrice(pricingDO.getPtBasePrice());
+							quote.setCoveragePrice(Math.round(pricingDO.getPtBasePrice() + (pricingDO.getPtBasePrice() * adjFactor)));
 						}else if(quoteDO.getCoverageType().equals("PH")){
-							quote.setCoveragePrice(pricingDO.getPhBasePrice());
+							quote.setCoveragePrice(Math.round(pricingDO.getPhBasePrice() + (pricingDO.getPhBasePrice() * adjFactor)));
 						}else if(quoteDO.getCoverageType().equals("PL")){
-							quote.setCoveragePrice(pricingDO.getPlBasePrice());
+							quote.setCoveragePrice(Math.round(pricingDO.getPlBasePrice() + (pricingDO.getPlBasePrice() * adjFactor)));
 						}
 					}
 				}
@@ -1473,6 +1551,11 @@ public class QuoteServiceImpl implements QuoteService {
 			adminAdjustment.setInceptionDate(quoteDO.getInceptionDate());
 			adminAdjustment.setExpirationDate(quoteDO.getExpirationDate());
 			adminAdjustment.setExpirationHours(quoteDO.getExpirationHours());
+			adminAdjustment.setDealerAdjFactor(dealerAdjFactor);
+			adminAdjustment.setUoeAdjFactor(uoeAdjFactor);
+			adminAdjustment.setMachineAdjFactor(machineAdjFactor);
+			adminAdjustment.setUsageTierAdjFactor(usageTierAdjFactor);
+			adminAdjustment.setOemWarrantyAdjFactor(oemWarrantyAdjFactor);
 			
 			adminAdjustmentDAO.save(adminAdjustment);
 			
@@ -1657,7 +1740,7 @@ public class QuoteServiceImpl implements QuoteService {
 		Contracts contracts = new Contracts();
 		contracts.setAvailabeLol(quoteDO.getMachineInfoDO().getLol());
 		contracts.setComments(quoteDO.getComments());
-		contracts.setContractId("CR-"+quoteDO.getQuoteId());
+		contracts.setContractId(/*"CR-"+*/quoteDO.getQuoteId());
 		contracts.setCoverageLevelHours(quoteDO.getCoverageHours());
 		contracts.setCoverageTermMonths(quoteDO.getCoverageTerm());
 		contracts.setCoverageType(quoteDO.getCoverageType());
@@ -1804,8 +1887,72 @@ public class QuoteServiceImpl implements QuoteService {
 		//Collections.sort(quoteDos, (q1, q2) -> q2.getCreateDate().compareTo(q1.getCreateDate()));
 		return quoteDos;
 	}
+	
+	@Override
+	public List<UseOfEquipmentDO> getUseOfEquipInfo() {
+		logger.debug("Inside getUseOfEquipInfo()");
+		List<UseOfEquipmentDO> useOfEquipLst = useOfEquipmentDAO.findAllUseOfEquip();
+	
+		return useOfEquipLst;
+	}
+	
+	@Override
+	@Transactional
+	public long saveEquipment(UseOfEquipmentDO equipmentDO) throws Exception{
+		logger.debug("In saveEquipment");
+		UseOfEquip equipment = new UseOfEquip();
+		//Timestamp date = new Timestamp(new Date().getTime());
+		
+		//macineInfo.setModel((machineDO.getMachineModelDO().getModelId());
+		equipment.setEquipName(equipmentDO.getEquipName());
+		equipment.setDiscount(equipmentDO.getDiscount());
 
+		//equipment.setLastUpdate(date);
+		equipment = useOfEquipmentDAO.save(equipment);
+			
+		logger.debug("equipment.getId()"+equipment.getId());
+		return equipment.getId();
+	}
 
+	@Override
+	public UseOfEquipmentDO getUseOfEquip(long id) {
+		logger.debug("In getUseOfEquip");
+		UseOfEquip useOfEquip = useOfEquipmentDAO.findOne(id);
+		UseOfEquipmentDO useOfEquipmentDO = null;
+		
+		if(useOfEquip != null){
+			useOfEquipmentDO = new UseOfEquipmentDO();
+			
+			useOfEquipmentDO.setId(useOfEquip.getId());
+			useOfEquipmentDO.setDiscount(useOfEquip.getDiscount());
+			useOfEquipmentDO.setEquipName(useOfEquip.getEquipName());
+		}
+		
+		return useOfEquipmentDO;
+	}
+	
+	@Override
+	@Transactional
+	public long editEquipment(UseOfEquipmentDO equipmentDO) throws Exception{
+		logger.debug("In editEquipment : "+equipmentDO.getId());
+		UseOfEquip useOfEquip = useOfEquipmentDAO.findOne(equipmentDO.getId());
+		Timestamp date = new Timestamp(new Date().getTime());
+		
+		
+		
+
+		useOfEquip.setEquipName(equipmentDO.getEquipName());
+		useOfEquip.setDiscount(equipmentDO.getDiscount());
+		
+		try {
+			useOfEquip = useOfEquipmentDAO.save(useOfEquip);
+		}
+	    catch (DataIntegrityViolationException e) {
+	    	logger.error("Equipment already exist");
+	    }	
+		
+		return useOfEquip.getId();
+	}
 	
 }
 

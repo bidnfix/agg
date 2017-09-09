@@ -11,8 +11,8 @@ import com.agg.application.entity.Manufacturer;
 @Component
 public interface ManufacturerDAO extends CrudRepository<Manufacturer, Long> {
 
-		//Optional<Manufacturer> findAllManufacturer();
-	
 	public List<Manufacturer> findAll(Sort sort);
+	
+	//public List<Manufacturer> findAll();
 
 }

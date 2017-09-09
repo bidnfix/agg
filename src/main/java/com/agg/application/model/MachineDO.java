@@ -22,16 +22,19 @@ public class MachineDO {
 	
 	private String machineType;
 	
+	private double adjFactor;
+	
 	public MachineDO(){
 		
 	}
 	
-	public MachineDO(long machineId, String manfName, String machineType, String model, double ePower, long groupId){
+	public MachineDO(long machineId, String manfName, String machineType, String model, double ePower, double adjFactor, long groupId){
 		this.machineId = machineId;
 		this.manfName = manfName;
 		this.machineType = machineType;
 		this.model = model;
 		this.enginePower = ePower;
+		this.adjFactor = adjFactor;
 		this.groupId = new Long(groupId).intValue();
 	}
 	
@@ -127,5 +130,14 @@ public class MachineDO {
 	public void setMachineType(String machineType) {
 		this.machineType = machineType;
 	}
+
+	public double getAdjFactor() {
+		return adjFactor;
+	}
+
+	public void setAdjFactor(double adjFactor) {
+		this.adjFactor = adjFactor;
+	}
+	
 	
 }

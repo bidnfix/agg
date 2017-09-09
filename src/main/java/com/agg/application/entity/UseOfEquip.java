@@ -19,6 +19,9 @@ public class UseOfEquip implements Serializable {
 
 	@Column(name="equip_name")
 	private String equipName;
+	
+	@Column(name="discount")
+	private double discount;
 
 	public UseOfEquip() {
 	}
@@ -37,6 +40,14 @@ public class UseOfEquip implements Serializable {
 
 	public void setEquipName(String equipName) {
 		this.equipName = equipName;
+	}
+
+	public double getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(double discount) {
+		this.discount = discount;
 	}
 
 }

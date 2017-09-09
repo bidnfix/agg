@@ -182,8 +182,12 @@
                        <div class="form-group">
                          <label>Covered Hours</label>
                          <div ng-if="quote.program == null">
-						     <select name="coverageHours" ng-model="quote.coverageHours" class="form-control" ng-options="coverageLevelHour for coverageLevelHour in coverageLevelHoursList track by coverageLevelHour"  validate-on="dirty" required="required" ng-disabled="disabled" ng-change="getCoveragePriceLevels('coverageHours'); changeExpirationDate()">
+						     <!-- <select name="coverageHours" ng-model="quote.coverageHours" class="form-control" ng-options="coverageLevelHour for coverageLevelHour in coverageLevelHoursList track by coverageLevelHour"   validate-on="dirty" required="required" ng-disabled="disabled" ng-change="getCoveragePriceLevels('coverageHours'); changeExpirationDate()">
 	                         	<option value="">Select Covered Hours</option>
+							 </select> -->
+							 <select name="coverageHours" ng-model="quote.coverageHours" convert-to-number class="form-control" validate-on="dirty" required="required" ng-disabled="disabled" ng-change="getCoveragePriceLevels('coverageHours'); changeExpirationDate()">
+	                         	<option value="">Select Covered Hours</option>
+	                         	<option ng-repeat="coverageLevelHour in coverageLevelHoursList" ng-selected="{{coverageLevelHour === quote.coverageHours}}" ng-if="(coverageLevelHour > 0 && quote.meterHours >= 2000) || (coverageLevelHour >= 0 && quote.meterHours < 2000)">{{coverageLevelHour}}</option>
 							 </select>
 						</div>
 						<div ng-if="quote.program != null">
@@ -212,7 +216,7 @@
                          <p>{{quote.machineInfoDO.lolToDisplay | currency:"$":0}}</p>
                        </div>
                        <div class="form-group">
-                         <label>Estimated Sale Date</label>
+                         <label>Coverage Start Date<!-- Estimated Sale Date --></label>
                            <!-- <input type="date" id="estSaleDate" name="estSaleDate" ng-model="quote.estSaleDate" class="form-control"  validate-on="dirty" required="required" ng-disabled="disabled"> -->
                            <!-- <input type="text" class="form-control" aria-describedby="basic-addon2"> -->
                            <!-- <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span> -->
@@ -265,10 +269,12 @@
 						<label>Conditions for Coverage</label>
 						<textarea class="form-control" placeholder="" ng-model="quote.condsForCoverage" ng-disabled="disabled"></textarea>
 					  </div>
-					  <div class="form-group">
-						<label>Deal History</label>
-						<textarea class="form-control" placeholder="" ng-model="quote.dealHistory" ng-disabled="disabled"></textarea>
-					  </div>
+					  <c:if test="${user.roleDO.accountType eq 'admin'}">
+						  <div class="form-group">
+							<label>Deal History</label>
+							<textarea class="form-control" placeholder="" ng-model="quote.dealHistory" ng-disabled="disabled"></textarea>
+						  </div>
+					  </c:if>
 
                      </div>
                      
@@ -363,7 +369,7 @@
                             <p>{{quote.machineInfoDO.lolToDisplay | currency:"$":0}}</p>
                           </div>
                           <div class="form-group">
-                            <label>Estimated Sale Date</label>
+                            <label>Coverage Start Date<!-- Estimated Sale Date --></label>
                             <p>{{quote.estSaleDate |  date:"MM/dd/yyyy"}}</p>
                           </div>
                           <div class="form-group">
@@ -397,10 +403,12 @@
 							<label>Conditions for Coverage</label>
 							<p>{{quote.condsForCoverage}}</p>
 						  </div>
-						  <div class="form-group">
-							<label>Deal History</label>
-							<p>{{quote.dealHistory}}</p>
-						  </div>
+						  <c:if test="${user.roleDO.accountType eq 'admin'}">
+							  <div class="form-group">
+								<label>Deal History</label>
+								<p>{{quote.dealHistory}}</p>
+							  </div>
+						  </c:if>
                         </div>
 
                      <div class="col-md-6 no-pad pad10-left border-left">

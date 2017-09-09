@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.agg.application.model.AccountDO;
 import com.agg.application.model.DealerDO;
+import com.agg.application.model.DealerDropDownDO;
 import com.agg.application.model.LocationDO;
 import com.agg.application.model.RoleDO;
 import com.agg.application.model.UserDO;
@@ -16,7 +17,7 @@ public interface DealerService {
 	
 	public List<DealerDO> getActiveDealers(AccountDO accountDO);
 	
-	public List<DealerDO> getParentDealers();
+	public List<DealerDropDownDO> getParentDealers();
 
 	public long saveDealer(DealerDO dealerDO, AccountDO accountDO, boolean dealerRegistration, String appUrl) throws Exception;
 
@@ -55,5 +56,7 @@ public interface DealerService {
 	public List<DealerDO> findAllDealers();
 	
 	public List<DealerDO> getServiceDealerActiveDealers();
+	
+	public List<UserDO> getDealerUsers(long dealerId);
 
 }

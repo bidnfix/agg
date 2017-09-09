@@ -61,6 +61,12 @@ public class Dealer implements Serializable {
 	
 	@Column(name="parent_code")
 	private long parentCode;
+	
+	@Column(name="activation_date")
+	private Date activationDate;
+	
+	@Column(name="adjustment_factor")
+	private double adjustmentFactor;
 
 	//bi-directional many-to-one association to Notification
 	@OneToMany(mappedBy="dealer")
@@ -312,6 +318,22 @@ public class Dealer implements Serializable {
 
 	public void setParentCode(long parentCode) {
 		this.parentCode = parentCode;
+	}
+
+	public Date getActivationDate() {
+		return activationDate;
+	}
+
+	public void setActivationDate(Date activationDate) {
+		this.activationDate = activationDate;
+	}
+
+	public double getAdjustmentFactor() {
+		return adjustmentFactor;
+	}
+
+	public void setAdjustmentFactor(double adjustmentFactor) {
+		this.adjustmentFactor = adjustmentFactor;
 	}
 	
 }

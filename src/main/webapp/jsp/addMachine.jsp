@@ -9,13 +9,6 @@
 					Tool</p> -->
 			</div>
 		</div>
-		<div class="col-md-6 col-sm-12">
-			<a
-				class="btn btn-primary pull-right mar-right animated fadeInRightBig hvr-pulse"
-				href="add-new.html">Add New</a>
-		<!--<a	class="btn btn-primary pull-right animated fadeInLeftBig  hvr-pulse mar-right"
-				href="#">Back</a> -->
-		</div>
 	</header>
 
 	<!-- data table section -->
@@ -26,7 +19,7 @@
 			<div class="form-group">
 				<label for="manufacturer" class="col-sm-3 control-label">Manufacturer</label>
 				<div class="col-sm-9">
-					<select name="machine" ng-model="machine.manufacturerDO" ng-options="machine.name for machine in manufacturerList | orderBy:'name'" class="form-control">
+					<select name="machine" ng-model="machine.manufacturerDO" ng-options="machine.name for machine in manufacturerList | orderBy:'name'" class="form-control" ng-change="setAdjFactor(machine.manufacturerDO.adjFactor)">
          				<!--  <option ng:repeat="machine in manufacturerList" value="{{machine.id}}">{{machine.name}}</option>-->
      				</select> 
 				</div>
@@ -43,10 +36,17 @@
 					<input type="text" id="model" ng-model="machine.model" placeholder="Model Name" class="form-control">
 				</div>
 			</div>
+			
 			<div class="form-group">
 				<label for="engne power" class="col-sm-3 control-label">Engine Power</label>
 				<div class="col-sm-9">
 					<input type="text" id="enginePower" ng-model="machine.enginePower" placeholder="Engine Power" class="form-control">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="model" class="col-sm-3 control-label">Adjustment Factor</label>
+				<div class="col-sm-9">
+					<input type="text" id="adjustmentFact" ng-model="machine.adjFactor" placeholder="Adjustment Factor" class="form-control" >
 				</div>
 			</div>
 			<div class="form-group">

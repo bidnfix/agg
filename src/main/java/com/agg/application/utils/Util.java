@@ -4,6 +4,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.SecureRandom;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
 
@@ -170,5 +171,17 @@ public class Util {
 			e.printStackTrace();
 		}
 		return url;
+	}
+	
+	/**
+	 * @param startCal
+	 * @param endCal
+	 * @return int
+	 */
+	public static int getMonthDifference(Calendar startCal, Calendar endCal){
+		int diffYear = endCal.get(Calendar.YEAR) - startCal.get(Calendar.YEAR);
+		int diffMonth = (diffYear * 12) + (endCal.get(Calendar.MONTH) - startCal.get(Calendar.MONTH));
+		
+		return diffMonth;
 	}
 }

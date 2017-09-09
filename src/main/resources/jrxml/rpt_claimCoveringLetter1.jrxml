@@ -28,6 +28,8 @@
 	<field name="reqOtherCharges2" class="java.lang.String"/>
 	<field name="adjOtherCharges1" class="java.lang.String"/>
 	<field name="adjOtherCharges2" class="java.lang.String"/>
+	<field name="workOrderNumber" class="java.lang.String"/>
+	<field name="serialNumber" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -75,9 +77,9 @@
 		</band>
 	</title>
 	<pageHeader>
-		<band height="176" splitType="Stretch">
+		<band height="232" splitType="Stretch">
 			<rectangle>
-				<reportElement x="271" y="26" width="255" height="127" forecolor="#FFFFFF" uuid="65f27dca-77c6-4a74-9e13-05d10539371b"/>
+				<reportElement x="302" y="82" width="255" height="113" forecolor="#FFFFFF" uuid="65f27dca-77c6-4a74-9e13-05d10539371b"/>
 			</rectangle>
 			<staticText>
 				<reportElement x="10" y="17" width="234" height="18" uuid="fd90edde-e694-49b0-9f70-10631ac914f5"/>
@@ -108,35 +110,35 @@
 				<text><![CDATA[If you have any questions about this claim, please contact Claims Administration at adrian@agguard.com]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="305" y="61" width="220" height="20" uuid="dc2f7547-dbac-4fc1-bf44-f8b2c2a4b12d"/>
+				<reportElement x="336" y="117" width="220" height="20" uuid="dc2f7547-dbac-4fc1-bf44-f8b2c2a4b12d"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{dealerAddress}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="305" y="81" width="139" height="20" isRemoveLineWhenBlank="true" uuid="c36b9236-7ff1-4007-949e-8ac3a61bcae5"/>
+				<reportElement x="336" y="137" width="139" height="20" isRemoveLineWhenBlank="true" uuid="c36b9236-7ff1-4007-949e-8ac3a61bcae5"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[($F{dealerCity} != null && !($F{dealerCity}.isEmpty()))?$F{dealerCity}+",":""]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="305" y="101" width="31" height="20" uuid="00a6dc2f-c1de-45b9-8672-9f3adbc48212"/>
+				<reportElement x="336" y="157" width="31" height="20" uuid="00a6dc2f-c1de-45b9-8672-9f3adbc48212"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{dealerState}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="336" y="101" width="108" height="20" uuid="898f32ea-8ee0-4091-bcab-c89c1693e001"/>
+				<reportElement x="367" y="157" width="108" height="20" uuid="898f32ea-8ee0-4091-bcab-c89c1693e001"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{dealerZip}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="305" y="41" width="157" height="20" uuid="07ea12ab-4c5b-4981-af78-793b9ae00fb7"/>
+				<reportElement x="336" y="97" width="157" height="20" uuid="07ea12ab-4c5b-4981-af78-793b9ae00fb7"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
@@ -145,14 +147,14 @@
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="7" splitType="Stretch">
+		<band height="6" splitType="Stretch">
 			<line>
 				<reportElement x="10" y="3" width="516" height="1" forecolor="#0066FF" backcolor="#FFFFFF" uuid="7e3b81c1-3870-47aa-b25b-a2bff59cb381"/>
 			</line>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="165" splitType="Stretch">
+		<band height="192" splitType="Stretch">
 			<staticText>
 				<reportElement x="10" y="0" width="148" height="20" uuid="8b33c343-d42a-4938-858e-4054b6112129"/>
 				<textElement>
@@ -161,132 +163,160 @@
 				<text><![CDATA[Summary Of Claim Payment]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="10" y="27" width="210" height="21" uuid="00293f50-3fff-4263-b8d9-2cae9615ea45"/>
+				<reportElement x="10" y="54" width="210" height="21" uuid="00293f50-3fff-4263-b8d9-2cae9615ea45"/>
 				<textElement>
 					<font size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Enclosed please find the cheque Details:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" x="30" y="122" width="135" height="21" uuid="47ab77c4-8d8b-40e6-a7a7-2d05bf302ca0"/>
+				<reportElement positionType="Float" x="30" y="149" width="135" height="21" uuid="47ab77c4-8d8b-40e6-a7a7-2d05bf302ca0"/>
 				<textElement>
 					<font size="10" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Requested Other Charges1:]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement positionType="Float" x="165" y="122" width="128" height="21" uuid="8ba9ca63-92c2-48b5-9e83-ca74cfd012e2"/>
+				<reportElement positionType="Float" x="165" y="149" width="128" height="21" uuid="8ba9ca63-92c2-48b5-9e83-ca74cfd012e2"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{reqOtherCharges1}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="Float" x="30" y="100" width="135" height="21" uuid="6898e8dc-b3c7-4733-9a50-01c4e5bba2d9"/>
+				<reportElement positionType="Float" x="30" y="127" width="135" height="21" uuid="6898e8dc-b3c7-4733-9a50-01c4e5bba2d9"/>
 				<textElement>
 					<font size="10" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Requested Labor Total:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" x="297" y="122" width="125" height="21" uuid="4720fbc3-9e0f-408c-9fad-884cc26735b4"/>
+				<reportElement positionType="Float" x="297" y="149" width="125" height="21" uuid="4720fbc3-9e0f-408c-9fad-884cc26735b4"/>
 				<textElement>
 					<font size="10" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Adjusted Other Charges1:]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement positionType="Float" x="165" y="144" width="128" height="21" uuid="8cd28f80-89d3-4011-b7da-e2422a6e1f66"/>
+				<reportElement positionType="Float" x="165" y="171" width="128" height="21" uuid="8cd28f80-89d3-4011-b7da-e2422a6e1f66"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{reqOtherCharges2}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="Float" x="30" y="144" width="135" height="21" uuid="13d2cb0c-7632-46ad-8e5d-9af2cad713ef"/>
+				<reportElement positionType="Float" x="30" y="171" width="135" height="21" uuid="13d2cb0c-7632-46ad-8e5d-9af2cad713ef"/>
 				<textElement>
 					<font size="10" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Requested Other Charges2:]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement positionType="Float" x="424" y="78" width="148" height="21" uuid="4db8decb-63ef-4f1d-ac8b-581d05988bd1"/>
+				<reportElement positionType="Float" x="424" y="105" width="148" height="21" uuid="4db8decb-63ef-4f1d-ac8b-581d05988bd1"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{totalAdjPartsCost}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="Float" x="30" y="78" width="135" height="21" uuid="e7e310aa-f8e2-4bb2-a31b-e0619483aca9"/>
+				<reportElement positionType="Float" x="30" y="105" width="135" height="21" uuid="e7e310aa-f8e2-4bb2-a31b-e0619483aca9"/>
 				<textElement textAlignment="Left">
 					<font size="10" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Requested Parts Total:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" x="297" y="144" width="125" height="21" uuid="383adf22-35dc-4f5d-8adc-c5d01633bcac"/>
+				<reportElement positionType="Float" x="297" y="171" width="125" height="21" uuid="383adf22-35dc-4f5d-8adc-c5d01633bcac"/>
 				<textElement>
 					<font size="10" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Adjusted Other Charges1:]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement positionType="Float" x="165" y="100" width="128" height="21" uuid="720074db-bdd1-4e5b-87fa-b9f46f63c4a4"/>
+				<reportElement positionType="Float" x="165" y="127" width="128" height="21" uuid="720074db-bdd1-4e5b-87fa-b9f46f63c4a4"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{totalReqLaborCost}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement positionType="Float" x="165" y="78" width="128" height="21" uuid="3e0b09ac-4bc0-493c-824b-ed688c1a75d2"/>
+				<reportElement positionType="Float" x="165" y="105" width="128" height="21" uuid="3e0b09ac-4bc0-493c-824b-ed688c1a75d2"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{totalReqPartsCost}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement positionType="Float" x="424" y="144" width="148" height="21" uuid="9f67fd71-c8e0-4175-9752-08ca0aab6d40"/>
+				<reportElement positionType="Float" x="424" y="171" width="148" height="21" uuid="9f67fd71-c8e0-4175-9752-08ca0aab6d40"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{adjOtherCharges2}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement positionType="Float" x="424" y="100" width="148" height="21" uuid="c3d5d711-06b7-4438-9d80-c167265507f0"/>
+				<reportElement positionType="Float" x="424" y="127" width="148" height="21" uuid="c3d5d711-06b7-4438-9d80-c167265507f0"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{totalAdjLaborCost}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="Float" x="297" y="78" width="125" height="21" uuid="4c7a831d-1bbb-4952-b75a-c78348aa690d"/>
+				<reportElement positionType="Float" x="297" y="105" width="125" height="21" uuid="4c7a831d-1bbb-4952-b75a-c78348aa690d"/>
 				<textElement>
 					<font size="10" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Adjusted Parts Total:]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement positionType="Float" x="424" y="122" width="148" height="21" uuid="fcc8059f-89d6-4646-86f2-252e785fd544"/>
+				<reportElement positionType="Float" x="424" y="149" width="148" height="21" uuid="fcc8059f-89d6-4646-86f2-252e785fd544"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{adjOtherCharges1}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="Float" x="297" y="100" width="125" height="21" uuid="33cb5365-03d3-455b-a9f3-495c420d5884"/>
+				<reportElement positionType="Float" x="297" y="127" width="125" height="21" uuid="33cb5365-03d3-455b-a9f3-495c420d5884"/>
 				<textElement>
 					<font size="10" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Adjusted Labor Total:]]></text>
 			</staticText>
 			<subreport>
-				<reportElement x="30" y="51" width="400" height="18" uuid="cf9ae029-10bd-44b5-8ba4-f0e9273e70d2"/>
+				<reportElement x="30" y="78" width="400" height="18" uuid="cf9ae029-10bd-44b5-8ba4-f0e9273e70d2"/>
 				<subreportParameter name="totalChequeAmount">
 					<subreportParameterExpression><![CDATA[$P{totalChequeAmount}]]></subreportParameterExpression>
 				</subreportParameter>
 				<dataSourceExpression><![CDATA[$P{claimCheckDos}]]></dataSourceExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "claimCheckDetails.jasper"]]></subreportExpression>
 			</subreport>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="374" y="26" width="157" height="21" uuid="92b851f5-e294-47af-9a25-66b4b381cb62"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{workOrderNumber}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="287" y="26" width="87" height="21" uuid="7b2aa547-e148-433f-9886-7ab6671393ae"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Work Order#:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="103" y="26" width="173" height="21" uuid="2de40fae-b35b-4b74-88c0-14f9ed45cffc"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{serialNumber}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="10" y="26" width="93" height="21" uuid="a80551ba-c642-4e79-b585-7c900f2b1d36"/>
+				<textElement textAlignment="Left">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Serial Number:]]></text>
+			</staticText>
 		</band>
 	</detail>
 	<columnFooter>

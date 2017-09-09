@@ -56,7 +56,7 @@
                 <td>{{(dealer.status === 0)?"Terminated":(dealer.status === 1)?"Active":"Pending"}}</td>
                 <td>
                 	<div class="manage-sec"><!-- <a href="#"><img src="../assets/images/delete-icon.png" alt="Delete" title="Delete"/></a> -->
-                		<a ng-click="editDealer(dealer.id)"><img src="../assets/images/edit-pencil.png" alt="Edit" title="Edit"/></a>
+                		<a href="#/agg/dealer/{{dealer.id}}"><img src="../assets/images/edit-pencil.png" alt="Edit" title="Edit"/></a>
                 	</div>
                 </td>
             </tr>

@@ -87,5 +87,13 @@
 	<script src="/assets/js/service/quoteService.js"></script>
 	<script src="/assets/js/service/contractService.js"></script>
 	<script src="/assets/js/controller/reportsController.js"></script>
+	<script src="/assets/js/controller/useOfEquipController.js"></script>
+	<script src="/assets/js/service/useOfEquipService.js"></script>
+	<script src="/assets/js/controller/usageTierController.js"></script>
+	<script src="/assets/js/service/usageTierService.js"></script>
+	<script src="/assets/js/controller/oemController.js"></script>
+	<script src="/assets/js/service/oemService.js"></script>
+	<script src="/assets/js/controller/manufacturerController.js"></script>
+	<script src="/assets/js/service/manufacturerService.js"></script>
 </body>
 </html>

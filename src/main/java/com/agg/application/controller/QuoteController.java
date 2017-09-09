@@ -11,12 +11,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.http.MediaType;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,6 +35,7 @@ import com.agg.application.model.PricingDO;
 import com.agg.application.model.QuoteDO;
 import com.agg.application.model.ReportDO;
 import com.agg.application.model.Result;
+import com.agg.application.model.UseOfEquipmentDO;
 import com.agg.application.service.DealerService;
 import com.agg.application.service.MachineService;
 import com.agg.application.service.QuoteService;
@@ -71,6 +75,7 @@ public class QuoteController extends BaseController {
 			model.addAttribute("dealerDOList", dealerDOList);
 			model.addAttribute("manufacturerDOList", manufacturerDOList);
 			model.addAttribute("useOfEquipmentDOList", quoteService.getUseOfEquipmentDetails());
+			model.addAttribute("machineTypeDOList", machineService.getMachineTypes());
 			
 			opResult = new Result("success", "Quote Info", model);
 		}
@@ -91,7 +96,7 @@ public class QuoteController extends BaseController {
 			model.addAttribute("deductibleAmtList", deductibleAmtList);
 			model.addAttribute("coverageTermList", coverageTermList);
 			if(deductibleAmtList.size() > 0 && coverageTermList.size() > 0){
-				List<PricingDO> pricingDOList = quoteService.getCoveragePriceDetils(coverageExpired, machineId, deductibleAmtList.get(0).intValue(), coverageTermList.get(0).intValue(), 0);
+				List<PricingDO> pricingDOList = quoteService.getCoveragePriceDetils(coverageExpired, machineId, deductibleAmtList.get(0).intValue(), coverageTermList.get(0).intValue(), -1);
 				List<Integer> coverageLevelHoursList = null;
 				if(pricingDOList != null && !pricingDOList.isEmpty()){
 					coverageLevelHoursList = new ArrayList<Integer>();
@@ -476,7 +481,7 @@ public class QuoteController extends BaseController {
 							quoteDO.getMachineInfoDO().getMachineId());
 					
 					pricingDOList = quoteService.getCoveragePriceDetils(coverageExpired, 
-							quoteDO.getMachineInfoDO().getMachineId(), new Double(quoteDO.getDeductiblePrice()).intValue(), quoteDO.getCoverageTerm(), 0);
+							quoteDO.getMachineInfoDO().getMachineId(), new Double(quoteDO.getDeductiblePrice()).intValue(), quoteDO.getCoverageTerm(), -1);
 				}
 				if(quoteDO.getManufacturerDO() != null){
 					machineModels = machineService.getManfModel(Integer.valueOf(String.valueOf(quoteDO.getManufacturerDO().getId())));
@@ -674,5 +679,97 @@ public class QuoteController extends BaseController {
 		return opResult;
 	}
 	
+	@RequestMapping(value = "/useOfEquipInfo", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+	public @ResponseBody Result useOfEquipInfo(ModelMap model, HttpServletRequest request, HttpServletResponse response) {
+		logger.info("Inside useOfEquipInfo()");
+		Result opResult = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			List<UseOfEquipmentDO> useOfEquipLst = quoteService.getUseOfEquipmentDetails();
+			model.put("useOfEquipLst", useOfEquipLst);
+			opResult = new Result("success", null, model);
+		}
+		return opResult;	
+	}
+	
+	@RequestMapping(value = "/saveEquipment", method = RequestMethod.POST)
+	public @ResponseBody Result saveEquipment(@RequestBody UseOfEquipmentDO useOfEquipmentDO, BindingResult result,
+			HttpServletRequest request, HttpServletResponse response) throws Exception {
+		logger.debug("In saveEquipment "+useOfEquipmentDO);
+		Result opResult = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+	
+		long id = 0;
+			try
+			{
+				id = quoteService.saveEquipment(useOfEquipmentDO);
+			}catch (Exception e) {
+		    	if (e instanceof DataIntegrityViolationException) {
+		    		logger.error("Equipment already exist");
+		    		throw new Exception("Equipment already exists");
+		        } else {
+		        	throw e;
+		        }
+		    }
+			//if(id > 0){
+				opResult = new Result("success", "Equipment created successfully", null);
+			//}
+			
+		}
+		
+		return opResult;
+	}
+	
+	@RequestMapping(value = "/useOfEquip/{id}", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+	public @ResponseBody Result useOfEquip(ModelMap model, HttpServletRequest request, HttpServletResponse response, @PathVariable String id) {
+		logger.info("Inside machineModel() with Id: "+id);
+		Result opResult = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			if(id != null && !id.isEmpty()){
+				UseOfEquipmentDO useOfEquipmentDO = quoteService.getUseOfEquip(Integer.valueOf(id));
+				model.put("useOfEquip", useOfEquipmentDO);
+			}
+			opResult = new Result("success", null, model);
+		}
+		return opResult;	
+	}
+	
+	@RequestMapping(value = "/editEquipment", method = RequestMethod.POST)
+	public @ResponseBody Result editEquipment(@RequestBody UseOfEquipmentDO useOfEquipmentDO, BindingResult result,
+			HttpServletRequest request, HttpServletResponse response) throws Exception {
+		logger.debug("In editEquipment "+useOfEquipmentDO);
+		Result opResult = null;
+		if (!sessionExists(request)){
+			opResult = new Result("failure", "Invalid Login", null);
+		}else{
+			if (result.hasErrors()){
+				opResult = new Result("failure", "Invalid dealer form field values", null);
+			}
+			long id = 0;
+	
+			try
+			{
+			id = quoteService.editEquipment(useOfEquipmentDO);
+			}catch (Exception e) {
+		    	if (e instanceof DataIntegrityViolationException) {
+		    		logger.error("Equipment already exist");
+		    		throw new Exception("Equipment already exists");
+		        } else {
+		        	throw e;
+		        }
+		    }
+			if(id > 0){
+				opResult = new Result("success", "Invalid Equipment form field values", null);
+			}
+			
+		}
+		
+		return opResult;
+	}
 	
 }

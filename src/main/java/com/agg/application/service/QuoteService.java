@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.data.domain.Pageable;
 
 import com.agg.application.model.AccountDO;
+import com.agg.application.model.MachineDO;
 import com.agg.application.model.PricingDO;
 import com.agg.application.model.QuoteDO;
 import com.agg.application.model.ReportDO;
@@ -64,4 +65,12 @@ public interface QuoteService {
 	
 	public List<QuoteDO> getAllQuotesForSearch(AccountDO accountDetails, String searchText, int parseInt,
 						int pageLength, String properties, String orderDirection, String statusSearch, Pageable pageable);
+	
+	public List<UseOfEquipmentDO> getUseOfEquipInfo();
+	
+	public long saveEquipment(UseOfEquipmentDO equipmentDO) throws Exception;
+	
+	public UseOfEquipmentDO getUseOfEquip(long id);
+	
+	public long editEquipment(UseOfEquipmentDO equipmentDO) throws Exception;
 }

@@ -1,7 +1,6 @@
 package com.agg.application.model;
 
 import java.sql.Timestamp;
-import java.util.Date;
 
 public class MachineInfoDO {
 	
@@ -33,17 +32,20 @@ public class MachineInfoDO {
 		
 		private String manfName;
 		
+		private double adjFactor;
+		
 		public MachineInfoDO(){
 			
 		}
 		
-		public MachineInfoDO(long machineId, String manfName, String machineType, String model, double ePower, long groupId){
+		public MachineInfoDO(long machineId, String manfName, String machineType, String model, double ePower, long groupId, double adjFactor){
 			this.machineId = machineId;
 			this.manfName = manfName;
 			this.machineType = machineType;
 			this.model = model;
 			this.ePower = ePower;
 			this.groupId = new Long(groupId).intValue();
+			this.adjFactor = adjFactor;
 		}
 		
 		public String getMachineType() {
@@ -176,6 +178,14 @@ public class MachineInfoDO {
 		 */
 		public void setManfName(String manfName) {
 			this.manfName = manfName;
+		}
+
+		public double getAdjFactor() {
+			return adjFactor;
+		}
+
+		public void setAdjFactor(double adjFactor) {
+			this.adjFactor = adjFactor;
 		}
 		
 	}

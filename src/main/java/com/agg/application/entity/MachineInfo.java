@@ -53,6 +53,9 @@ public class MachineInfo implements Serializable {
 	@Column(name="retail_price")
 	private double retailPrice;
 	
+	@Column(name="adjustment_factor")
+	private double adjFactor;
+	
 	//bi-directional many-to-one association to Manufacturer
 	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	@JoinColumn(name="group_id")
@@ -219,4 +222,12 @@ public class MachineInfo implements Serializable {
 		this.groupConstant = groupConstant;
 	}
 
+	public double getAdjFactor() {
+		return adjFactor;
+	}
+
+	public void setAdjFactor(double adjFactor) {
+		this.adjFactor = adjFactor;
+	}
+	
 }

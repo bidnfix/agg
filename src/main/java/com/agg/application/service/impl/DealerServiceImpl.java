@@ -25,6 +25,7 @@ import com.agg.application.entity.Role;
 import com.agg.application.entity.Sequence;
 import com.agg.application.model.AccountDO;
 import com.agg.application.model.DealerDO;
+import com.agg.application.model.DealerDropDownDO;
 import com.agg.application.model.LocationDO;
 import com.agg.application.model.RoleDO;
 import com.agg.application.model.UserDO;
@@ -111,11 +112,12 @@ public class DealerServiceImpl implements DealerService {
 	}
 	
 	@Override
-	public List<DealerDO> getParentDealers() {
+	public List<DealerDropDownDO> getParentDealers() {
 		logger.debug("In getParentDealers");
-		List<Dealer> dealerList = Util.toList(dealerDAO.findParentDealers());
+		/*List<Dealer> dealerList = Util.toList(dealerDAO.findParentDealers());
 		
-		return getDealerDOList(dealerList);
+		return getDealerDOList(dealerList);*/
+		return dealerDAO.findParentDealers();
 	}
 	
 	/**
@@ -166,6 +168,7 @@ public class DealerServiceImpl implements DealerService {
 				dealerDO.setZip(dealer.getZip());
 				dealerDO.setStatus(dealer.getStatus());
 				dealerDO.setParentCode(dealer.getParentCode());
+				dealerDO.setAdjustmentFactor(dealer.getAdjustmentFactor());
 				
 				//fetching parent dealer details
 				if(dealer.getCode() != dealer.getParentCode()){
@@ -237,6 +240,7 @@ public class DealerServiceImpl implements DealerService {
 		dealer.setZip(dealerDO.getZip());
 		dealer.setActiveDate(date);
 		dealer.setLastUpdate(date);
+		dealer.setAdjustmentFactor(dealerDO.getAdjustmentFactor());
 		
 		Account account = new Account();
 		account.setUserName(dealerDO.getUserName());
@@ -252,6 +256,7 @@ public class DealerServiceImpl implements DealerService {
 			account.setStatus(AggConstants.TERMINATED);
 		}else{
 			account.setStatus(AggConstants.ACTIVE);
+			dealer.setActivationDate(date);
 		}
 		if(accountDO != null){
 			account.setCreatedBy(accountDO.getUsername());
@@ -330,6 +335,7 @@ public class DealerServiceImpl implements DealerService {
 		dealer.setZip(dealerDO.getZip());
 		//dealer.setActiveDate(date);
 		//dealer.setLastUpdate(date);
+		dealer.setAdjustmentFactor(dealerDO.getAdjustmentFactor());
 		
 		//updating pending and termination accounts
 		if(dealerDO.getStatus() == 0 || dealer.getStatus() == 2){
@@ -340,6 +346,10 @@ public class DealerServiceImpl implements DealerService {
 				//Added to update role for pending status alone
 				if(dealer.getStatus() == 2)
 				{
+					//updating Dealer Activation Date
+					if(dealerDO.getStatus() == AggConstants.ACTIVE){
+						dealer.setActivationDate(date);
+					}
 					logger.debug("Current status is pending, role is getting updated");
 					Role role = roleDAO.findOne(dealerDO.getRoleDO().getId());
 					account.setRole(role);
@@ -437,7 +447,7 @@ public class DealerServiceImpl implements DealerService {
 		Dealer dealer = dealerDAO.findOne((long)id);
 		DealerDO dealerDO = null;
 		List<Account> accounts = null;
-		Role role =null;
+		Role role = null;
 		RoleDO roleDO = null;
 		if(dealer != null){
 			dealerDO = new DealerDO();
@@ -479,6 +489,8 @@ public class DealerServiceImpl implements DealerService {
 			dealerDO.setName(dealer.getName());
 			dealerDO.setDealerUrl(dealer.getUrl());
 			dealerDO.setNotes(dealer.getNotes());
+			dealerDO.setAdjustmentFactor(dealer.getAdjustmentFactor());
+			dealerDO.setActivationDate(dealer.getActivationDate());
 			
 			Dealer parentDealer = dealerDAO.findByCode(dealer.getParentCode());
 			DealerDO parentDealerDO = new DealerDO();
@@ -794,6 +806,13 @@ public class DealerServiceImpl implements DealerService {
 	public List<DealerDO> findAllDealers() {
 		logger.info("inside findAllDealers method");
 		return dealerDAO.findAllDealers();
+	}
+
+	@Override
+	public List<UserDO> getDealerUsers(long dealerId) {
+		logger.info("inside getDealerUsers method with dealerId: "+dealerId);
+		List<UserDO> userDOList = accountDAO.findAllDealerUsers(dealerId);;
+		return userDOList;
 	}
 
 }

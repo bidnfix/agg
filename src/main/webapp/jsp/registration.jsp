@@ -390,6 +390,7 @@
 	<script src="/assets/js/jQuery.headroom.min.js"></script>
 	<script src="/assets/js/custom.js"></script>
 	<script src="/assets/js/angular.min.js"></script>
+	<script src="/assets/js/ui-bootstrap-tpls.min-0.13.0.js"></script> 
 	<script src="/assets/js/app.js"></script>
 	<script src="/assets/js/service/registrationService.js"></script>
 	<script src="/assets/js/controller/registrationController.js"></script>

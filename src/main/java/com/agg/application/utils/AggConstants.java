@@ -134,6 +134,10 @@ public class AggConstants {
 	
 	public static final int REPORT_PREVIOUS_YEARS_COUNT = 3;
 	
+	public static final int ZERO_HOUR_EXPIRATION_HOURS = 2000;
+	
+	public static final int MAX_EXPIRATION_HOURS = 5000;
+	
 	
 	public static final String QUOTE_REPORT_OUT_STANDING_DESC = "Thank you for considering AgGuard coverage, we appreciate the opportunity to earn your trust. "
 			+ "This quote reflects the information provided in your request for an extended service Contract based on the current terms and "

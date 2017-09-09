@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!-- Article main content -->
 <article class="col-md-9 maincontent">
 		<header class="page-header">
@@ -208,10 +209,12 @@
 						<label>Special Considerations</label>
 				        <p>{{contract.quoteDO.specialConsiderations}}</p>
 					</div>
+					<c:if test="${user.roleDO.accountType eq 'admin'}">
 					<div class="form-group col-xs-12 no-pad">
 						<label>Deal History</label>
 				        <p>{{contract.quoteDO.dealHistory}}</p>
 					</div>
+					</c:if>
 					<div class="form-group col-xs-12 no-pad">
 						<label>Customer Name</label>
 				        <p>{{contract.quoteDO.dealerName}}</p>

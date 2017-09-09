@@ -10,7 +10,7 @@ routingApp.factory('dealerService', function($http, $q, $window) {
 								if (response.data.status == 'success') {
 									//$window.location = '/agg/home';
 									if(response.data.data != null && response.data.data > 0){
-										$window.location.href = '#/agg/dealers/'+response.data.data;
+										$window.location.href = '#/agg/dealer/'+response.data.data;
 									}else{
 										$window.location.href = '#/agg/dealers';
 									}
@@ -27,11 +27,13 @@ routingApp.factory('dealerService', function($http, $q, $window) {
 							});
 					
 				},
-				editDealer : function(dealer, $scope, editDealerCond) {
+				editDealer : function(dealer, $scope) {
+					showSpinner();
 					return $http.post('/agg/editDealer', dealer).then(
 							function(response) {
 								//alert(response.data.status);
 								if (response.data.status == 'success') {
+									/*
 									//$window.location = '/agg/home';
 									closePopup('dealerEditPopup');
 									//$window.location.href = '#/agg/dealers';
@@ -45,15 +47,19 @@ routingApp.factory('dealerService', function($http, $q, $window) {
 							        }
 							        if(!editDealerCond && (objects.length == 1) && (objects[0].status != 2)){
 							        	$window.location.href = '#/agg/dealers';
-							        }
+							        }*/
+									
+									$window.location.href = '#/agg/dealers';
 							        	
 								} else {
 									alert('error in editing dealer: '+response.data.errMessage)
 									//$('#errMsg').html(response.data.errMessage);
 								}
 								
+								hideSpinner();
 							}, function(errResponse) {
 								alert('Error while editing dealer');
+								hideSpinner();
 								return $q.reject(errResponse);
 							});
 				}
@@ -88,13 +94,17 @@ routingApp.factory('locationService', function($http, $q, $window) {
 
 routingApp.factory('userService', function($http, $q, $window) {
 	return {
-		saveUser : function(user) {
+		saveUser : function(user, cond) {
 			return $http.post('/agg/addUser', user).then(
 					function(response) {
 						//alert(response.data.status);
 						if (response.data.status == 'success') {
 							//$window.location = '/agg/home';
-							$window.location.href = '#/agg/users';
+							if(cond){
+								$window.location.href = '#/agg/dealers';
+							}else{
+								$window.location.href = '#/agg/users';
+							}
 						} else {
 							alert('Error in adding user: '+response.data.errMessage)
 							//$('#errMsg').html(response.data.errMessage);
@@ -115,6 +125,7 @@ routingApp.factory('userService', function($http, $q, $window) {
 							var objects = $scope.userList;
 					        for (var i = 0; i < objects.length; i++) {
 					            if (objects[i].id === user.id) {
+					            	user.roleName = user.roleDO.name;
 					                objects[i] = user;
 					                break;
 					            }
