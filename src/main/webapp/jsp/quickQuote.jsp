@@ -182,8 +182,12 @@
                        <div class="form-group">
                          <label>Covered Hours</label>
                          <div ng-if="quote.program == null">
-						     <select name="coverageHours" ng-model="quote.coverageHours" class="form-control" ng-options="coverageLevelHour for coverageLevelHour in coverageLevelHoursList track by coverageLevelHour"  validate-on="dirty" required="required" ng-disabled="disabled" ng-change="getCoveragePriceLevels('coverageHours'); changeExpirationDate()">
+						     <!-- <select name="coverageHours" ng-model="quote.coverageHours" class="form-control" ng-options="coverageLevelHour for coverageLevelHour in coverageLevelHoursList track by coverageLevelHour"   validate-on="dirty" required="required" ng-disabled="disabled" ng-change="getCoveragePriceLevels('coverageHours'); changeExpirationDate()">
 	                         	<option value="">Select Covered Hours</option>
+							 </select> -->
+							 <select name="coverageHours" ng-model="quote.coverageHours" convert-to-number class="form-control" validate-on="dirty" required="required" ng-disabled="disabled" ng-change="getCoveragePriceLevels('coverageHours'); changeExpirationDate()">
+	                         	<option value="">Select Covered Hours</option>
+	                         	<option ng-repeat="coverageLevelHour in coverageLevelHoursList" ng-selected="{{coverageLevelHour === quote.coverageHours}}" ng-if="(coverageLevelHour > 0 && quote.meterHours >= 2000) || (coverageLevelHour >= 0 && quote.meterHours < 2000)">{{coverageLevelHour}}</option>
 							 </select>
 						</div>
 						<div ng-if="quote.program != null">
